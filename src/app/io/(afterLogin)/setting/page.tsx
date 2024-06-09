@@ -12,9 +12,18 @@ const Setting = () => {
       <Content>
         <Section>
           <Title>account</Title>
-          <Value>email : pixel@kakao.com</Value>
-          <Value>id : k_pixel@kakao.com</Value>
-          <Value>type : kakao</Value>
+          <Value>
+            <span className="key">email</span>
+            <span className="value">pixel@kakao.com</span>
+          </Value>
+          <Value>
+            <span className="key">id</span>
+            <span className="value">k_pixel@kakao.com</span>
+          </Value>
+          <Value>
+            <span className="key">type</span>
+            <span className="value">kakao</span>
+          </Value>
           <Buttons>
             <Button>logout</Button>
             <Button>delete account</Button>
@@ -129,11 +138,19 @@ const SubTitle = styled.span`
 const Value = styled.span`
   font-size: 20px;
   font-weight: 500;
-  color: rgb(var(--grey_Title));
-  color: grey;
+  width: 100%;
+  padding: 4px 0;
 
-  padding: 2px 0;
-  /* text-transform: capitalize; */
+  display: flex;
+  justify-content: space-between;
+  .key{
+    font-weight: 600;
+    text-transform: capitalize;
+    color: rgb(var(--grey_Title));
+  }
+  .value{
+    color: grey;
+  }
 `
 
 const Buttons = styled.div`
