@@ -1,0 +1,20 @@
+'use client';
+
+import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
+
+const IsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  const mode = useMediaQuery({
+    query: "(max-width: 720px)"
+  });
+
+  useEffect(() => {
+    setIsMobile(mode);
+  }, [mode])
+
+  return isMobile
+};
+
+export default IsMobile;

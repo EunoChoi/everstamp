@@ -3,28 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --point: 255, 100, 78;
+  --point2: 255, 167, 155;
+  --grey_Title: 66, 66, 66;
+  --grey_Title_Darker: 55, 55, 55;
+  --grey_Sub_Title: 169, 169, 169;
+  --lightGrey_BG: 246, 246, 246;
+  --lightGrey_CP: 235, 235, 235;
+
+  --mobileHeader: 96px;
+  --mobileNav: 48px;
 }
 
+
+/* for darkmode */
 @media (prefers-color-scheme: dark) {
   :root {
+    --point: 0, 0, 0;
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+body {}
 
 @layer utilities {
   .text-balance {
