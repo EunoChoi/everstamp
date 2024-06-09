@@ -11,7 +11,7 @@ import ListNote from "@/component/ListNote";
 const List = () => {
   return (
     <Wrapper>
-      <Header subTitle="24.04.12" />
+      <Header subTitle="-" />
       <ScrollContent>
         <ListNote></ListNote>
         <ListNote></ListNote>

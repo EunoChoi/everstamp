@@ -9,7 +9,7 @@ import HabitBox from "@/component/habitBox";
 const Habit = () => {
   return (
     <Wrapper>
-      <Header subTitle="complete 100%" />
+      <Header subTitle="9 habits done!" />
       <Content>
         <HabitGrid>
           <HabitBox />

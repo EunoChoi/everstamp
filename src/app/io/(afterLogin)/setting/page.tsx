@@ -11,9 +11,9 @@ const Setting = () => {
       <Header subTitle="" />
       <Content>
         <Section>
-          <Title>user</Title>
-          <Text>id : k_pixel@kakao.com</Text>
-          <Text>social : kakao</Text>
+          <Title>account</Title>
+          <SubTitle>id : k_pixel@kakao.com</SubTitle>
+          <SubTitle>type : kakao</SubTitle>
           <FlexRow>
             <Button>logout</Button>
             <Button>delete account</Button>
@@ -22,23 +22,23 @@ const Setting = () => {
 
         <Section>
           <Title>theme</Title>
-          <Text>point color</Text>
+          <SubTitle>point color</SubTitle>
           <FlexRow>
-            <input type="checkbox"></input>
-            <input type="checkbox"></input>
-            <input type="checkbox"></input>
+            <Check></Check>
+            <Check></Check>
+            <Check></Check>
           </FlexRow>
 
-          <Text>dark theme</Text>
+          <SubTitle>dark theme</SubTitle>
           <FlexRow>
-            <input type="checkbox"></input>
-            <input type="checkbox"></input>
+            <Check></Check>
+            <Check></Check>
           </FlexRow>
-          <Text>font size</Text>
+          <SubTitle>font size</SubTitle>
           <FlexRow>
-            <input type="checkbox"></input>
-            <input type="checkbox"></input>
-            <input type="checkbox"></input>
+            <Check></Check>
+            <Check></Check>
+            <Check></Check>
           </FlexRow>
         </Section>
 
@@ -101,8 +101,9 @@ const Title = styled.span`
   color: rgb(var(--grey_Title));
 
   text-transform: capitalize;
+  /* text-transform: uppercase; */
 `
-const Text = styled.span`
+const SubTitle = styled.span`
   font-size: 20px;
   font-weight: 500;
   color: rgb(var(--grey_Title));
@@ -118,7 +119,9 @@ const Button = styled.button`
   cursor: pointer;
   transition: all ease-in-out 0.3s;
 
-  padding: 2px 14px;
+  padding: 0 14px;
+  height: 36px;
+
   border-radius: 50px;
   border: solid 4px grey;
   margin-right: 8px;
@@ -126,6 +129,19 @@ const Button = styled.button`
   font-weight: 500;
   text-transform: capitalize;
   color: grey;
+  &:hover{
+    border: solid 4px rgb(var(--point));
+    color: rgb(var(--point));
+  }
+`
+const Check = styled.div`
+  width: 36px;
+  height: 36px;
+  border: solid 4px grey;
+  margin-right: 8px;
+  transition: all ease-in-out 0.3s;
+
+  border-radius: 8px;
   &:hover{
     border: solid 4px rgb(var(--point));
     color: rgb(var(--point));

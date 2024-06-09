@@ -63,5 +63,8 @@ const SubTitle = styled.span`
   font-weight: 500;
   white-space: nowrap;
 
+  overflow-x: scroll;
+  padding-left: 12px;
+  scrollbar-width: none;
   text-transform: capitalize;
 `
