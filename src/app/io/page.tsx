@@ -33,9 +33,9 @@ const Io = () => {
                 <span>하루 하루 발전하는 삶</span>
                 <span>습관과 일기를 함께 기록해요 :)</span>
               </Mobile_TitleText>
-              <Mobile_Button onClick={() => {
-                router.push('/io/calendar');
-              }}>
+              <Mobile_Button
+              // popoverTarget="popup"
+              >
                 start
               </Mobile_Button>
             </div>
@@ -58,30 +58,59 @@ const Io = () => {
               {/* <Desktop_Button onClick={() => {
                 router.push('/io/calendar');
               }}> */}
-              <Desktop_Button popoverTarget="popup">
+              <Desktop_Button
+              // popoverTarget="popup"
+              >
                 start
               </Desktop_Button>
             </div>
           </div>
         </Desktop >}
-      <Login popover="" id="popup">popover test</Login >
+      {/* <Login
+        //  popover="" 
+        id="popup">
+        <Mobile_TitleLogo>
+          <span>ever</span>
+          <span>stamp</span>
+        </Mobile_TitleLogo>
+        <span>SNS 로그인</span>
+        <span>SNS 로그인 및 가입이 가능합니다.</span>
+        <span>설명 설명 설명 설명.</span>
+      </Login > */}
     </>
   );
 }
 
 export default Io;
 
+
 const Login = styled.div`
-  /* background-color: white;
-  border-radius: 16px;
-  box-shadow: 0px 16px 32px grey; */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   &:popover-open{
-    width: 500px;
-    height: 400px;
+    animation:  fadeIn 0.2s ease-in;
+    background-color: #fff;
+    box-shadow: 0px 0px 256px rgba(0,0,0,0.3);
+    width: 50dvw;
+    height: 70dvh;
+    border-radius: 16px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
+    @media screen and (max-width: 720px) {
+      width: 100dvw;
+      height: 100dvh;
+      border-radius: 0px;
+    }
   }
 `
 
@@ -150,12 +179,12 @@ const Desktop = styled.div`
   display: flex;
   >div:first-child{
     width: 65vw;
-    height: 100vh;
+    height: 100dvh;
   };
   >div:nth-child(2){
     /* width: 35vw; */
     min-width: 35vw;
-    height: 100vh;
+    height: 100dvh;
     padding: 20px;
     >div{ //infoArea
       width: 100%;

@@ -15,16 +15,16 @@ const Header = ({ subTitle }: Props) => {
   const router = useRouter()
 
   return (
-    <HeaderArea>
+    <Wrapper>
       <Title>{pathname.split('/io/')[1]}</Title>
       {subTitle.length > 0 && <SubTitle>{subTitle}</SubTitle>}
-    </HeaderArea>
+    </Wrapper>
   );
 }
 //48+96 
 export default Header;
 
-const HeaderArea = styled.div`
+const Wrapper = styled.div`
   position: sticky;
   top: 0;
 
@@ -39,8 +39,9 @@ const HeaderArea = styled.div`
 
   @media screen and (max-width: 720px) {
     height: var(--mobileHeader);
-    align-items: center;
-    padding : 0 5vw;
+    /* align-items: center; */
+    padding : 0 4vw;
+    span{line-height: 1.2;}
   }
 `
 const Title = styled.span`
@@ -49,10 +50,12 @@ const Title = styled.span`
   font-weight: 700;
 
   text-transform: uppercase;
+  text-transform: capitalize;
   line-height: 110%;
 
   &:first-letter{
     color: rgb(var(--point));
+    /* font-size: 48px; */
   }
   @media screen and (max-width: 720px) {
     border-bottom: 6px rgb(var(--point)) solid;
@@ -68,4 +71,5 @@ const SubTitle = styled.span`
   padding-left: 12px;
   scrollbar-width: none;
   text-transform: capitalize;
+  text-transform: lowercase;
 `

@@ -10,9 +10,7 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 
 const HabitBox = () => {
-  const boxRef = useRef<null | HTMLDivElement>(null);
-  console.log(boxRef.current);
-  return (<Wrapper ref={boxRef}>
+  return (<Wrapper>
     <Name>habit name</Name>
     <Days>
       {[1, 2, 3, 4].map(e => {
@@ -57,6 +55,10 @@ const Name = styled.span`
   display: flex;
   align-items: end;
   justify-content: center;
+
+  @media screen and (max-width: 720px) {
+    font-size: 20px;
+  }
 `
 const Days = styled.div`
   width: 100%;

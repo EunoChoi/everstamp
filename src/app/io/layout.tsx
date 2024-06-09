@@ -1,7 +1,7 @@
 'use client'
 
 import styled from "styled-components";
-import { usePathname } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useEffect } from "react";
 
@@ -28,21 +28,21 @@ const Layout = ({
   let mobile = IsMobile();
   const router = useRouter()
 
-  let current = pathname.split('/io/')[1];
-  const path = ['calendar', 'list', 'habit', 'setting'];
-  const current_num = path.indexOf(current) + 1
+  // let current = pathname.split('/io/')[1];
+  const current = useSelectedLayoutSegments().pop();
+  const menus = ['calendar', 'list', 'habit', 'setting'];
 
-  if (pathname === '/io') return <>{children}</>
+  if (current === undefined) return <>{children}</>
 
   return (<>
     {mobile ?
       <Mobile_Layout>
         {children}
-        <Mobile_Nav $current_num={current_num}>
-          <span onClick={() => { router.push('/io/calendar', { scroll: false }) }}><CalendarMonthIcon /></span>
-          <span onClick={() => { router.push('/io/list', { scroll: false }) }}><FormatListBulletedIcon /></span>
-          <span onClick={() => { router.push('/io/habit', { scroll: false }) }}><CheckBoxIcon /></span>
-          <span onClick={() => { router.push('/io/setting', { scroll: false }) }}><SettingsIcon /></span>
+        <Mobile_Nav>
+          <span className={current === 'calendar' ? 'current' : ''} onClick={() => { router.push('/io/calendar', { scroll: false }) }}><CalendarMonthIcon /></span>
+          <span className={current === 'list' ? 'current' : ''} onClick={() => { router.push('/io/list', { scroll: false }) }}><FormatListBulletedIcon /></span>
+          <span className={current === 'habit' ? 'current' : ''} onClick={() => { router.push('/io/habit', { scroll: false }) }}><CheckBoxIcon /></span>
+          <span className={current === 'setting' ? 'current' : ''} onClick={() => { router.push('/io/setting', { scroll: false }) }}><SettingsIcon /></span>
         </Mobile_Nav>
       </Mobile_Layout>
       :
@@ -52,12 +52,17 @@ const Layout = ({
             <span>ever</span>
             <span>stamp</span>
           </SideBarLogo>
-          <Menus $current_num={current_num}>
-            <MonthWrapper $current_num={current_num}></MonthWrapper>
-            <span onClick={() => { router.push(`/io/calendar`) }}>◼︎ calendar</span>
-            <span onClick={() => { router.push(`/io/list`) }}>◼︎ list</span>
-            <span onClick={() => { router.push(`/io/habit`) }}>◼︎ habit</span>
-            <span onClick={() => { router.push(`/io/setting`) }}>◼︎ setting</span>
+          <Menus>
+            <MonthWrapper
+              className={current === 'calendar' ? 'open' : ''}
+            ></MonthWrapper>
+            {menus.map(e =>
+              <span
+                key={e}
+                className={current === e ? "current" : ""}
+                onClick={() => { router.push(`/io/${e}`) }}>
+                ◼︎ {e}
+              </span>)}
           </Menus>
           <Links>
             <span><GitHubIcon /></span>
@@ -103,7 +108,7 @@ const Mobile_Layout = styled.div`
   align-items: center;
   /* height: 100vh; */
 `;
-const Mobile_Nav = styled.div<{ $current_num?: number }>`
+const Mobile_Nav = styled.nav`
   position: fixed;
     bottom: 0;
 
@@ -120,8 +125,8 @@ const Mobile_Nav = styled.div<{ $current_num?: number }>`
       font-size: 20px;
       text-align: center;
     }
-    span:nth-child(${props => props.$current_num}){
-      color: rgba(0,0,0,0.65);
+    .current{
+      color: rgba(55, 55, 55, 0.75);
     }
 `
 
@@ -136,7 +141,7 @@ const Desktop_Sidebar = styled.div`
   position: fixed;
   top: 0;
   width: 300px;
-  height: 100vh;
+  height: 100dvh;
   padding: 24px;
 
   border-right : 1px solid rgba(0,0,0,0.03);
@@ -168,26 +173,26 @@ const SideBarLogo = styled.div`
     color: rgb(var(--point));
   }
 `
-const Menus = styled.div<{ $current_num?: number }>`
+const Menus = styled.div`
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: start;
-
   height: auto;
 
   >span{
+    cursor: pointer;
     font-size: 24px;
     font-weight: 500;
 
     text-transform: uppercase;
+    text-transform: capitalize;
 
     margin: 8px 0%;
     color: grey;
     transition: all ease-in-out 0.1s;
   }
-  >span:nth-child(${props => props.$current_num && props.$current_num + 1}){
+  .current{
     color: rgb(var(--grey_Title));
     font-weight: 600;
   }
@@ -203,13 +208,15 @@ const Desktop_Content = styled.div`
   align-items: center;
 `
 
-const MonthWrapper = styled.div<{ $current_num: number }>`
+const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 200px;
   width: 100%;
-  height: 0px;
-  height: ${props => props.$current_num === 1 ? '200px' : '0px'};
+  height: 0;
   background-color: #fff;
 
   border-radius: 8px;
+  &.open {
+      height:200px;
+  }
 `

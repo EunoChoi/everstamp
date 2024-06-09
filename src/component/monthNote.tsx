@@ -40,13 +40,18 @@ export default MonthNote;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: end;
   align-items: start;
 
-  width: 100%;
-  height: auto;
-`
+  /* padding-bottom: 12px; */
 
+  width: 100%;
+  height: calc((100dvh - var(--desktopHeader))/3*2);
+
+  @media screen and (max-width: 720px) {
+    height: calc((100dvh - var(--mobileHeader) - var(--mobileNav))/3*2);
+  }
+`
 const Date = styled.div`
   .week{
     font-size: 44px;
@@ -83,7 +88,7 @@ const Habits = styled.div`
 const Habit = styled.span`
   flex-shrink: 0;
   
-  padding : 2px 16px;
+  padding : 0px 16px;
   background-color: rgb(var(--point2));
   border-radius: 24px;
   margin-right: 12px;
@@ -101,9 +106,12 @@ const Habit = styled.span`
   &:first-child{
     background-color: rgba(0,0,0,0);
   }
+  &:last-child{
+    margin-right: 0px;
+  }
   @media screen and (max-width: 720px) {
     &{
-      padding : 2px 12px;
+      padding : 0px 12px;
       font-size: 14px;
       margin-right: 8px;
     }
@@ -112,13 +120,12 @@ const Habit = styled.span`
 const Note = styled.div`
   display: flex;
   width: 100%;
-  height: 400px;
-
+  height: 100%;
   background-color: rgb(var(--lightGrey_CP));
   border-radius: 8px;
 
   @media screen and (max-width: 720px) {
-      height: 250px;
+    height: 50%;
   }
 `
 const Text = styled.div`

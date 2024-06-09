@@ -15,12 +15,14 @@ import SortIcon from '@mui/icons-material/Sort';
 const List = () => {
   return (
     <Wrapper>
-      <Header subTitle="-" />
+      <Header subTitle="a total of 35 diaries" />
 
       <Options>
-        <button className="search"><SearchIcon /></button>
+        <button className="search">
+          <SearchIcon fontSize="small" />
+        </button>
         <button className="sort">
-          <SortIcon />
+          <SortIcon fontSize="small" />
           <span>New</span>
         </button>
       </Options>
@@ -48,7 +50,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   min-width: 400px;
-  height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -74,7 +76,7 @@ const ScrollContent = styled.div`
 
   //mobile
   @media screen and (max-width: 720px) {
-    height: calc(100vh - var(--mobileHeader) - var(--mobileNav));
+    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
     padding: 0 5vw;
   }
 `

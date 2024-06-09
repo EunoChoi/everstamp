@@ -12,12 +12,13 @@ const Setting = () => {
       <Content>
         <Section>
           <Title>account</Title>
-          <SubTitle>id : k_pixel@kakao.com</SubTitle>
-          <SubTitle>type : kakao</SubTitle>
-          <FlexRow>
+          <Value>email : pixel@kakao.com</Value>
+          <Value>id : k_pixel@kakao.com</Value>
+          <Value>type : kakao</Value>
+          <Buttons>
             <Button>logout</Button>
             <Button>delete account</Button>
-          </FlexRow>
+          </Buttons>
         </Section>
 
         <Section>
@@ -25,27 +26,35 @@ const Setting = () => {
           <SubTitle>point color</SubTitle>
           <FlexRow>
             <Check></Check>
-            <Check></Check>
-            <Check></Check>
-            <Check></Check>
-            <Check></Check>
-            <Check></Check>
-            <Check></Check>
+            <FlexRow className="end">
+              <Check></Check>
+              <Check></Check>
+              <Check></Check>
+              <Check></Check>
+              <Check></Check>
+            </FlexRow>
           </FlexRow>
 
-          <SubTitle>dark theme</SubTitle>
+          <SubTitle>background color</SubTitle>
           <FlexRow>
             <Check></Check>
-            <Check></Check>
+            <FlexRow className="end">
+              <Check></Check>
+              <Check></Check>
+            </FlexRow>
           </FlexRow>
           <SubTitle>font size</SubTitle>
           <FlexRow>
             <Check></Check>
-            <Check></Check>
-            <Check></Check>
-            <Check></Check>
-            <Check></Check>
+            <FlexRow className="end">
+              <Check></Check>
+              <Check></Check>
+              <Check></Check>
+              <Check></Check>
+              <Check></Check>
+            </FlexRow>
           </FlexRow>
+
         </Section>
 
       </Content>
@@ -60,7 +69,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   min-width: 400px;
-  height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -74,7 +83,7 @@ const Wrapper = styled.div`
 `
 const Content = styled.div`
   width: 100%;
-  height: calc(100vh - var(--desktopHeader));
+  height: calc(100dvh - var(--desktopHeader));
   
   display: flex;
   flex-direction: column;
@@ -83,7 +92,7 @@ const Content = styled.div`
 
   //mobile
   @media screen and (max-width: 720px) {
-    height: calc(100vh - var(--mobileHeader) - var(--mobileNav));
+    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
     padding: 0 5vw;
   }
 `
@@ -96,10 +105,6 @@ const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: start;
-
-  *{
-    padding: 6px 0;
-  }
 `
 const Title = styled.span`
   font-size: 32px;
@@ -108,6 +113,8 @@ const Title = styled.span`
 
   text-transform: capitalize;
   /* text-transform: uppercase; */
+
+  padding: 4px 0;
 `
 const SubTitle = styled.span`
   font-size: 20px;
@@ -116,20 +123,46 @@ const SubTitle = styled.span`
   color: grey;
 
   text-transform: capitalize;
+
+  padding: 4px 0;
+`
+const Value = styled.span`
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(var(--grey_Title));
+  color: grey;
+
+  padding: 2px 0;
+  /* text-transform: capitalize; */
+`
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
 `
 
 const FlexRow = styled.div`
   display: flex;
+  align-items: center;
   overflow-x: scroll;
   scrollbar-width: none;
   width: 100%;
+  padding: 4px 0;
+  
+  &.end{
+    justify-content: end;
+    *:last-child{
+      margin-right: 0;
+    }
+  }
 `
 const Button = styled.button`
   cursor: pointer;
   transition: all ease-in-out 0.3s;
 
   padding: 0 14px;
-  height: 36px;
+  /* height: 36px; */
 
   border-radius: 50px;
   border: solid 4px grey;

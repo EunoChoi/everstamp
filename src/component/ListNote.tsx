@@ -40,10 +40,10 @@ const Wrapper = styled.div`
   width: 100%;
   margin: 16px 0;
   &:first-child{
-    margin-top: 48px;
+    margin-top: 32px;
   }
   &:last-child{
-    margin-bottom: 92px;
+    margin-bottom: 64px;
   }
 `
 const Date = styled.div`
@@ -77,9 +77,10 @@ const Habits = styled.div`
   overflow-x : scroll;
 `
 const Habit = styled.span`
+  cursor: pointer;
   flex-shrink: 0;
   
-  padding : 2px 16px;
+  padding : 0px 16px;
   background-color: rgb(var(--point2));
   border-radius: 24px;
   margin-right: 12px;
@@ -97,8 +98,11 @@ const Habit = styled.span`
   &:first-child{
     background-color: rgba(0,0,0,0);
   }
+  &:last-child{
+    margin-right: 0px;
+  }
   @media screen and (max-width: 720px) {
-    padding : 2px 12px;
+    padding : 0px 12px;
     font-size: 14px;
     margin-right: 8px;
   }

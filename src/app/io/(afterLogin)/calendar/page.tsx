@@ -13,10 +13,10 @@ const Calendar = () => {
   const isMobile = IsMobile();
   return (
     <Wrapper>
-      <Header subTitle="-" />
+      <Header subTitle="" />
       <Content>
         <MonthNote />
-        {/* {isMobile && } */}
+        {isMobile && <MonthWrapper></MonthWrapper>}
       </Content>
     </Wrapper>
   );
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   min-width: 400px;
-  height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -43,6 +43,17 @@ const Wrapper = styled.div`
   }
 `
 
+const MonthWrapper = styled.div`
+  margin-top: 12px;
+  width: 100%;
+  height: calc((100dvh - var(--mobileHeader) - var(--mobileNav))/3);
+
+  border-radius: 8px;
+  background-color: rgb(var(--lightGrey_CP));
+  margin-bottom: 12px;
+  @media screen and (max-width: 720px) {
+  }
+`
 const Content = styled.div`
   width: 100%;
   height: calc(100vh - var(--desktopHeader));
@@ -54,7 +65,7 @@ const Content = styled.div`
 
   //mobile
   @media screen and (max-width: 720px) {
-    height: calc(100vh - var(--mobileHeader) - var(--mobileNav));
+    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
     padding: 0 5vw;
   }
 `

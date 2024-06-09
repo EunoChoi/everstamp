@@ -9,7 +9,7 @@ import HabitBox from "@/component/habitBox";
 const Habit = () => {
   return (
     <Wrapper>
-      <Header subTitle="9 habits done!" />
+      <Header subTitle="100% complete :)" />
       <Content>
         <HabitGrid>
           <HabitBox />
@@ -46,7 +46,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 800px;
   min-width: 400px;
-  height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: calc(100vh - var(--desktopHeader));
+  height: calc(100dvh - var(--desktopHeader));
   
   display: flex;
   flex-direction: column;
@@ -70,7 +70,7 @@ const Content = styled.div`
 
   //mobile
   @media screen and (max-width: 720px) {
-    height: calc(100vh - var(--mobileHeader) - var(--mobileNav));
+    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
     padding: 0 5vw;
   }
 `
