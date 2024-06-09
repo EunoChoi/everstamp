@@ -27,6 +27,10 @@ const Setting = () => {
             <Check></Check>
             <Check></Check>
             <Check></Check>
+            <Check></Check>
+            <Check></Check>
+            <Check></Check>
+            <Check></Check>
           </FlexRow>
 
           <SubTitle>dark theme</SubTitle>
@@ -36,6 +40,8 @@ const Setting = () => {
           </FlexRow>
           <SubTitle>font size</SubTitle>
           <FlexRow>
+            <Check></Check>
+            <Check></Check>
             <Check></Check>
             <Check></Check>
             <Check></Check>
@@ -68,7 +74,7 @@ const Wrapper = styled.div`
 `
 const Content = styled.div`
   width: 100%;
-  height: calc(100vh - var(--mobileHeader));
+  height: calc(100vh - var(--desktopHeader));
   
   display: flex;
   flex-direction: column;
@@ -114,6 +120,9 @@ const SubTitle = styled.span`
 
 const FlexRow = styled.div`
   display: flex;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  width: 100%;
 `
 const Button = styled.button`
   cursor: pointer;
@@ -140,6 +149,8 @@ const Check = styled.div`
   border: solid 4px grey;
   margin-right: 8px;
   transition: all ease-in-out 0.3s;
+
+  flex-shrink: 0;
 
   border-radius: 8px;
   &:hover{

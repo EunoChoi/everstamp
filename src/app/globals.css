@@ -11,7 +11,8 @@
   --lightGrey_BG: 246, 246, 246;
   --lightGrey_CP: 235, 235, 235;
 
-  --mobileHeader: 96px;
+  --desktopHeader: 96px;
+  --mobileHeader: 72px;
   --mobileNav: 48px;
 }
 

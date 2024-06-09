@@ -45,7 +45,7 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   width: 100%;
-  height: calc(100vh - var(--mobileHeader));
+  height: calc(100vh - var(--desktopHeader));
   
   display: flex;
   flex-direction: column;

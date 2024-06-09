@@ -24,7 +24,7 @@ const MonthNote = () => {
       </Habits>
 
       <Note>
-        <Text><span>일기 내용 들어가는 공간 ^^</span></Text>
+        <Text><span>일기 없는 경우에만 플러스모양으로 작성 가능하도록 처리일기 내용 들어가는 공간 ^^</span></Text>
         <ImgWrapper>
           <Img src={Test} alt='image'></Img>
         </ImgWrapper>

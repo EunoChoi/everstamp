@@ -40,10 +40,10 @@ const Wrapper = styled.div`
   width: 100%;
   margin: 16px 0;
   &:first-child{
-    margin-top: 64px;
+    margin-top: 48px;
   }
   &:last-child{
-    margin-bottom: 128px;
+    margin-bottom: 92px;
   }
 `
 const Date = styled.div`

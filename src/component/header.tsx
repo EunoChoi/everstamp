@@ -29,7 +29,7 @@ const HeaderArea = styled.div`
   top: 0;
 
   width: inherit;
-  height: var(--mobileHeader);
+  height: var(--desktopHeader);
   background-color: white;
 
   display: flex;
@@ -38,6 +38,7 @@ const HeaderArea = styled.div`
   align-items: end;
 
   @media screen and (max-width: 720px) {
+    height: var(--mobileHeader);
     align-items: center;
     padding : 0 5vw;
   }
