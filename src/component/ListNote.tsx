@@ -16,7 +16,7 @@ const ListNote = () => {
     </Date>
 
     <Habits>
-      <Habit>{habits.length}개 완료</Habit>
+      <Habit>{habits.length} habit done</Habit>
       {habits.map((e, i) => <Habit key={e + i}>{e}</Habit>)}
     </Habits>
 
@@ -79,14 +79,15 @@ const Habits = styled.div`
 const Habit = styled.span`
   flex-shrink: 0;
   
-  padding : 2px 8px;
+  padding : 2px 16px;
   background-color: rgb(var(--point2));
   border-radius: 24px;
   margin-right: 12px;
 
   white-space: nowrap;
+  text-transform: capitalize;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: rgb(var(--grey_Title_Darker));
 
@@ -97,8 +98,8 @@ const Habit = styled.span`
     background-color: rgba(0,0,0,0);
   }
   @media screen and (max-width: 720px) {
-    padding : 2px 6px;
-    font-size: 12px;
+    padding : 2px 12px;
+    font-size: 14px;
     margin-right: 8px;
   }
 `

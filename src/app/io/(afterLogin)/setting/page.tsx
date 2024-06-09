@@ -4,42 +4,31 @@ import styled from "styled-components";
 
 //component
 import Header from "@/component/header";
-import HabitBox from "@/component/habitBox";
 
-const Habit = () => {
+const Setting = () => {
   return (
     <Wrapper>
-      <Header subTitle="complete 100%" />
+      <Header subTitle="" />
       <Content>
-        <HabitGrid>
-          <HabitBox />
-          <HabitBox />
-          <HabitBox />
+        <b>user info</b>
+        <span>nick : euno</span>
+        <span>social : kakao</span>
+        <span>logout</span>
+        <span>탈퇴</span>
 
-          <HabitBox />
-          <HabitBox />
-          <HabitBox />
-        </HabitGrid>
+        <b>theme</b>
+        <span>point color</span>
+        <span>dark theme</span>
+        <span>font size</span>
       </Content>
     </Wrapper>
   );
 }
 
-export default Habit;
-const HabitGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 20px;
-
-  @media screen and (max-width: 720px) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 8px;
-  }
-`
+export default Setting;
 
 const Wrapper = styled.div`
+  padding: 0 20px;
   width: 100%;
   max-width: 600px;
   min-width: 400px;
@@ -52,6 +41,7 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 720px) {
     min-width: 90%;
+    padding: 0;
   }
 `
 
@@ -70,5 +60,3 @@ const Content = styled.div`
     padding: 0 5vw;
   }
 `
-
-

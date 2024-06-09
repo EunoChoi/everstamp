@@ -1,15 +1,20 @@
-import styled from "styled-components";
+'use client';
 
+import styled from "styled-components";
+import { useRef } from "react";
 
 //icon
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 
+
 const HabitBox = () => {
-  return (<Wrapper>
+  const boxRef = useRef<null | HTMLDivElement>(null);
+  console.log(boxRef.current);
+  return (<Wrapper ref={boxRef}>
     <Name>habit name</Name>
-    <Box>
+    <Days>
       {[1, 2, 3, 4].map(e => {
         return <Check key={e}>
           <span>T</span>
@@ -17,17 +22,51 @@ const HabitBox = () => {
           <RadioButtonCheckedIcon />
         </Check>
       })}
-    </Box>
+    </Days>
   </Wrapper>);
 }
 
 export default HabitBox;
-const Box = styled.div`
+const Wrapper = styled.div`
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+
+  position: relative;
+
+  /* aspect-ratio: 1/1; */
+
+  border-radius: 16px;
+  background-color: rgb(var(--lightGrey_CP));
+
+  display: flex;
+  flex-direction: column;
+`
+const Name = styled.span`
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  top: 0;
+
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(var(--grey_Title));
+
+  text-transform: capitalize;
+  text-align: center;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+`
+const Days = styled.div`
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  bottom: 0;
+
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  
-  height: 100%;
 `
 const Check = styled.div`
     display: flex;
@@ -40,24 +79,4 @@ const Check = styled.div`
       margin-top: 16px;
       color: rgb(var(--point));
     }
-`
-const Name = styled.span`
-  font-size: 24px;
-  font-weight: 600;
-  color: rgb(var(--grey_Title));
-
-  text-transform: capitalize;
-  text-align: center;
-  padding: 16px;
-  padding-bottom: 4px;
-`
-const Wrapper = styled.div`  
-  width: 100%;
-  /* aspect-ratio: 1; */
-
-  border-radius: 16px;
-  background-color: rgb(var(--lightGrey_CP));
-
-  display: flex;
-  flex-direction: column;
 `

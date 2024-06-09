@@ -19,7 +19,7 @@ const MonthNote = () => {
       </Date>
 
       <Habits>
-        <Habit>{habits.length}개 완료</Habit>
+        <Habit>{habits.length} habits done</Habit>
         {habits.map((e, i) => <Habit key={e + i}>{e}</Habit>)}
       </Habits>
 
@@ -90,8 +90,9 @@ const Habit = styled.span`
 
   white-space: nowrap;
 
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
+  text-transform: capitalize;
   color: rgb(var(--grey_Title_Darker));
 
   box-sizing: border-box;
@@ -103,7 +104,7 @@ const Habit = styled.span`
   @media screen and (max-width: 720px) {
     &{
       padding : 2px 12px;
-      font-size: 12px;
+      font-size: 14px;
       margin-right: 8px;
     }
   }
@@ -111,7 +112,7 @@ const Habit = styled.span`
 const Note = styled.div`
   display: flex;
   width: 100%;
-  height: calc(60vh - 96px);
+  height: 400px;
 
   background-color: rgb(var(--lightGrey_CP));
   border-radius: 8px;

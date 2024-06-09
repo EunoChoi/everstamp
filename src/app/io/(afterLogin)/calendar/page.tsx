@@ -2,33 +2,31 @@
 
 import styled from "styled-components";
 
+//hooks
+import IsMobile from "@/hooks/IsMobile";
 
 //component
 import Header from "@/component/header";
-import ListNote from "@/component/ListNote";
+import MonthNote from "@/component/monthNote";
 
-
-const List = () => {
+const Calendar = () => {
+  const isMobile = IsMobile();
   return (
     <Wrapper>
-      <Header subTitle="24.04.12" />
-      <ScrollContent>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-        <ListNote></ListNote>
-      </ScrollContent>
+      <Header subTitle="-" />
+      <Content>
+        <MonthNote />
+        {/* {isMobile && } */}
+      </Content>
     </Wrapper>
   );
 }
 
-export default List;
+export default Calendar;
 
 const Wrapper = styled.div`
+  padding: 0 20px;  
+
   width: 100%;
   max-width: 600px;
   min-width: 400px;
@@ -41,19 +39,18 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 720px) {
     min-width: 90%;
+    padding: 0;
   }
 `
 
-const ScrollContent = styled.div`
+const Content = styled.div`
   width: 100%;
   height: calc(100vh - var(--mobileHeader));
-  scrollbar-width: none;
   
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  overflow-y: scroll;
 
   //mobile
   @media screen and (max-width: 720px) {
