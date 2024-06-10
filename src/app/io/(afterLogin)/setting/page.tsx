@@ -108,7 +108,7 @@ const Content = styled.div`
 const Section = styled.div`
   width: 100%;
   height: auto;
-  padding: 24px 0;
+  padding: 24px 0px;
 
   display: flex;
   flex-direction: column;
@@ -133,23 +133,26 @@ const SubTitle = styled.span`
 
   text-transform: capitalize;
 
-  padding: 4px 0;
+  padding: 4px 12px;
 `
 const Value = styled.span`
   font-size: 20px;
   font-weight: 500;
   width: 100%;
-  padding: 4px 0;
+  width: inherit;
+  padding: 4px 12px;
+  box-sizing: border-box;
 
   display: flex;
   justify-content: space-between;
   .key{
     font-weight: 600;
     text-transform: capitalize;
-    color: rgb(var(--grey_Title));
+    color :grey;
   }
   .value{
     color: grey;
+    color: darkgrey
   }
 `
 
@@ -157,6 +160,7 @@ const Buttons = styled.div`
   display: flex;
   align-items: center;
   margin-top: 24px;
+  padding-left: 12px;
 `
 
 const FlexRow = styled.div`
@@ -165,10 +169,11 @@ const FlexRow = styled.div`
   overflow-x: scroll;
   scrollbar-width: none;
   width: 100%;
-  padding: 4px 0;
+  padding: 4px 12px;
   
   &.end{
     justify-content: end;
+    padding: 4px 0px;
     *:last-child{
       margin-right: 0;
     }
@@ -178,19 +183,21 @@ const Button = styled.button`
   cursor: pointer;
   transition: all ease-in-out 0.3s;
 
-  padding: 0 14px;
+  padding: 2px 14px;
   /* height: 36px; */
 
   border-radius: 50px;
-  border: solid 4px grey;
+  /* border: solid 4px grey; */
+  background-color: rgb(var(--lightGrey_CP));
+  color: rgb(var(--grey_Title));
   margin-right: 8px;
-
   font-weight: 500;
   text-transform: capitalize;
-  color: grey;
+  
   &:hover{
-    border: solid 4px rgb(var(--point));
-    color: rgb(var(--point));
+    /* border: solid 4px rgb(var(--point)); */
+    background-color: rgb(var(--point));
+    /* color: rgb(var(--point)); */
   }
 `
 const Check = styled.div`
