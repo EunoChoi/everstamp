@@ -1,21 +1,24 @@
 'use client'
 
 import styled from "styled-components";
-import { usePathname, useSelectedLayoutSegment, useSelectedLayoutSegments } from 'next/navigation'
-import { useRouter } from 'next/navigation'
-import { useEffect } from "react";
+import Link from "next/link";
+import { useSelectedLayoutSegments } from 'next/navigation'
+
+//component
+import CalendarSelector from "@/component/calendarSelector";
+import Loading from "@/component/loading";
 
 //hooks
 import IsMobile from "@/hooks/IsMobile";
 
 //icons
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
-
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
+
 
 
 const Layout = ({
@@ -24,25 +27,21 @@ const Layout = ({
   children: React.ReactNode;
 }>) => {
 
-  let pathname = usePathname()
   let mobile = IsMobile();
-  const router = useRouter()
-
-  // let current = pathname.split('/io/')[1];
   const current = useSelectedLayoutSegments().pop();
-  const menus = ['calendar', 'list', 'habit', 'setting'];
 
-  if (current === undefined) return <>{children}</>
+  if (mobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
+  if (current === undefined) return <>{children}</> //not layout, page
 
   return (<>
     {mobile ?
       <Mobile_Layout>
         {children}
         <Mobile_Nav>
-          <span className={current === 'calendar' ? 'current' : ''} onClick={() => { router.push('/io/calendar', { scroll: false }) }}><CalendarMonthIcon /></span>
-          <span className={current === 'list' ? 'current' : ''} onClick={() => { router.push('/io/list', { scroll: false }) }}><FormatListBulletedIcon /></span>
-          <span className={current === 'habit' ? 'current' : ''} onClick={() => { router.push('/io/habit', { scroll: false }) }}><CheckBoxIcon /></span>
-          <span className={current === 'setting' ? 'current' : ''} onClick={() => { router.push('/io/setting', { scroll: false }) }}><SettingsIcon /></span>
+          <Link href={`/io/calendar`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /></Link>
+          <Link href='/io/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /></Link>
+          <Link href='/io/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /></Link>
+          <Link href='/io/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /></Link>
         </Mobile_Nav>
       </Mobile_Layout>
       :
@@ -53,16 +52,13 @@ const Layout = ({
             <span>stamp</span>
           </SideBarLogo>
           <Menus>
-            <MonthWrapper
-              className={current === 'calendar' ? 'open' : ''}
-            ></MonthWrapper>
-            {menus.map(e =>
-              <span
-                key={e}
-                className={current === e ? "current" : ""}
-                onClick={() => { router.push(`/io/${e}`) }}>
-                ◼︎ {e}
-              </span>)}
+            <Link href={`/io/calendar?date=${new Date().getTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+            <MonthWrapper className={current === 'calendar' ? 'open' : ''}>
+              <CalendarSelector />
+            </MonthWrapper>
+            <Link href='/io/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
+            <Link href='/io/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
+            <Link href='/io/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
           </Menus>
           <Links>
             <span><GitHubIcon /></span>
@@ -110,24 +106,28 @@ const Mobile_Layout = styled.div`
 `;
 const Mobile_Nav = styled.nav`
   position: fixed;
-    bottom: 0;
+  bottom: 0;
 
-    width: 100vw;
-    height: var(--mobileNav);
-    background-color: rgb(var(--point));
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: rgba(255,255,255,0.75);
-    span{
-      width: 20%;
-      font-size: 20px;
-      text-align: center;
-    }
-    .current{
-      color: rgba(55, 55, 55, 0.75);
-    }
+  width: 100vw;
+  height: var(--mobileNav);
+  background-color: whitesmoke;
+  color: rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(0,0,0,0.05); 
+  > *{
+    padding : 0 12px;
+    padding-bottom: 2px;
+    font-size: 22px;
+    text-align: center;
+    vertical-align: center;
+  }
+  .current{
+    color: rgba(55, 55, 55, 0.75);
+    color: rgb(var(--point));
+  }
 `
 
 
@@ -179,20 +179,26 @@ const Menus = styled.div`
   justify-content: center;
   align-items: start;
   height: auto;
+`
+const Menu = styled.span`
+  transition: all ease-in-out 0.2s;
 
-  >span{
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: 500;
+  display: flex;
+  align-items: center;
 
-    text-transform: uppercase;
-    text-transform: capitalize;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 500;
 
-    margin: 8px 0%;
-    color: grey;
-    transition: all ease-in-out 0.1s;
+  text-transform: uppercase;
+  text-transform: capitalize;
+
+  margin: 8px 0%;
+  color: grey;
+  > *:first-child{
+    margin-right: 8px;
   }
-  .current{
+  &.current{
     color: rgb(var(--grey_Title));
     font-weight: 600;
   }
@@ -210,13 +216,10 @@ const Desktop_Content = styled.div`
 
 const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
-  width: 200px;
   width: 100%;
   height: 0;
-  background-color: #fff;
-
-  border-radius: 8px;
   &.open {
-      height:200px;
+      height:240px;
+      padding-bottom: 16px;
   }
 `

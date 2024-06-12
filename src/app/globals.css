@@ -3,28 +3,38 @@
 @tailwind utilities;
 
 :root {
-  --point: 255, 100, 78;
-  --point2: 255, 167, 155;
-  --grey_Title: 66, 66, 66;
+  /* --point: 255, 100, 78; */
+  /* --point2: 255, 167, 155; */
+
+  --point: 142, 188, 219;
+  --point2: 181, 211, 231;
+  --point3: 223, 168, 176;
+
+
+  --grey_Title: 77, 77, 77;
   --grey_Title_Darker: 55, 55, 55;
   --grey_Sub_Title: 169, 169, 169;
   --lightGrey_BG: 246, 246, 246;
   --lightGrey_CP: 235, 235, 235;
 
   --desktopHeader: 96px;
-  --mobileHeader: 76px;
-  --mobileNav: 48px;
+  --optionHeight: 45px;
+  --mobileHeader: 72px;
+  --mobileNav: 42px;
 }
 
 
 /* for darkmode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --point: 0, 0, 0;
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+}
+
+input {
+  outline: none;
 }
 
 body {}

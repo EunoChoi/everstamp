@@ -4,12 +4,14 @@ import Image from "next/image";
 import styled from "styled-components";
 import { useRouter } from 'next/navigation'
 
+//component
+// import Loading from "@/component/loading";
+
 //hooks
 import IsMobile from "@/hooks/IsMobile";
 
 //image
 import loginPageImg from '/public/img/loginPageImg.jpg';
-
 
 
 const Io = () => {
@@ -21,7 +23,7 @@ const Io = () => {
       {mobile ?
         <Mobile>
           <div>
-            <Img src={loginPageImg} alt='loginPageImg'></Img>
+            <Img src={loginPageImg} priority placeholder="blur" width={500} height={500} alt='loginPageImg'></Img>
           </div>
           <div>
             <div>
@@ -43,7 +45,7 @@ const Io = () => {
         </Mobile> :
         <Desktop>
           <div>
-            <Img src={loginPageImg} alt='loginPageImg'></Img>
+            <Img src={loginPageImg} alt='loginPageImg' placeholder="blur" priority></Img>
           </div>
           <div>
             <div>
@@ -66,17 +68,6 @@ const Io = () => {
             </div>
           </div>
         </Desktop >}
-      {/* <Login
-        //  popover="" 
-        id="popup">
-        <Mobile_TitleLogo>
-          <span>ever</span>
-          <span>stamp</span>
-        </Mobile_TitleLogo>
-        <span>SNS 로그인</span>
-        <span>SNS 로그인 및 가입이 가능합니다.</span>
-        <span>설명 설명 설명 설명.</span>
-      </Login > */}
     </>
   );
 }
@@ -116,10 +107,10 @@ const Login = styled.div`
 
 const Mobile = styled.div`
   >div:first-child{ //imageArea
-    height: 65vh;
+    height: 65dvh;
   };
   >div:nth-child(2){
-    height: 35vh;
+    height: 35dvh;
     background-color: white;
     padding: 10px;
     >div{ //infoArea
@@ -133,6 +124,7 @@ const Mobile = styled.div`
       align-items: start;
 
       border: rgb(var(--lightGrey_CP)) solid 6px;
+      border: rgb(var(--point2)) solid 6px;
     }
   };
 `
@@ -155,7 +147,7 @@ const Mobile_TitleText = styled.div`
   display: flex;
   flex-direction: column;
   span{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     text-transform: uppercase;
     line-height: 130%;
@@ -167,7 +159,7 @@ const Mobile_Button = styled.button`
   cursor: pointer;
 
   background-color : rgb(var(--lightGrey_CP));
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
 
@@ -198,6 +190,7 @@ const Desktop = styled.div`
       align-items: end;
 
       border: rgb(var(--lightGrey_CP)) solid 10px;
+      border: rgb(var(--point2)) solid 10px;
     }
   };
 `

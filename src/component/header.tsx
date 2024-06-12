@@ -9,7 +9,7 @@ interface Props {
   subTitle: string;
 }
 
-const Header = ({ subTitle }: Props) => {
+const Header = () => {
   const mobile = IsMobile();
   const pathname = usePathname()
   const router = useRouter()
@@ -17,7 +17,6 @@ const Header = ({ subTitle }: Props) => {
   return (
     <Wrapper>
       <Title>{pathname.split('/io/')[1]}</Title>
-      {subTitle.length > 0 && <SubTitle>{subTitle}</SubTitle>}
     </Wrapper>
   );
 }
@@ -39,9 +38,8 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 720px) {
     height: var(--mobileHeader);
-    /* align-items: center; */
-    padding : 0 4vw;
-    span{line-height: 1.2;}
+    align-items: center;
+    padding : 0 5%;
   }
 `
 const Title = styled.span`
@@ -50,26 +48,14 @@ const Title = styled.span`
   font-weight: 700;
 
   text-transform: uppercase;
-  text-transform: capitalize;
-  line-height: 110%;
+  /* text-transform: capitalize; */
 
   &:first-letter{
     color: rgb(var(--point));
-    /* font-size: 48px; */
   }
   @media screen and (max-width: 720px) {
-    border-bottom: 6px rgb(var(--point)) solid;
+    line-height: 1.1;
+    font-size: 36px;
+    border-bottom: 4px rgb(var(--point)) solid;
   }
-`
-const SubTitle = styled.span`
-  color: rgb(var(--grey_Sub_Title));
-  font-size: 24px;
-  font-weight: 500;
-  white-space: nowrap;
-
-  overflow-x: scroll;
-  padding-left: 12px;
-  scrollbar-width: none;
-  text-transform: capitalize;
-  text-transform: lowercase;
 `

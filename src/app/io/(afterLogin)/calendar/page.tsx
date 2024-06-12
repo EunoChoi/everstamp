@@ -2,70 +2,61 @@
 
 import styled from "styled-components";
 
+
+
 //hooks
 import IsMobile from "@/hooks/IsMobile";
 
+//styledComponent
+import SC_Common from "@/styleComponent/common";
+
 //component
 import Header from "@/component/header";
-import MonthNote from "@/component/monthNote";
+import Diary from "@/component/diary";
+import CalendarSelector from "@/component/calendarSelector";
+
+//icon
+import TodayIcon from '@mui/icons-material/Today';
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Calendar = () => {
   const isMobile = IsMobile();
+  const router = useRouter();
+  const params = useSearchParams();
+  const date = params.get('date');
+
+
   return (
-    <Wrapper>
-      <Header subTitle="" />
-      <Content>
-        <MonthNote />
-        {isMobile && <MonthWrapper></MonthWrapper>}
-      </Content>
-    </Wrapper>
+    <SC_Common.Wrapper>
+      <Header />
+      <SC_Common.Options>
+        <button
+          onClick={() => {
+            router.push(`/io/calendar?date=${new Date().getTime()}`);
+          }}>
+          <TodayIcon fontSize="small" />
+          <span>today</span>
+        </button>
+      </SC_Common.Options>
+      <SC_Common.Content>
+
+        {isMobile &&
+          <CalendarWrapper>
+            <CalendarSelector></CalendarSelector>
+          </CalendarWrapper>}
+
+        <Diary isCalendar={true} dateInfo={Number(date)} />
+      </SC_Common.Content>
+    </SC_Common.Wrapper>
   );
 }
 
 export default Calendar;
 
-const Wrapper = styled.div`
-  padding: 0 20px;  
-
+const CalendarWrapper = styled.div`
   width: 100%;
-  max-width: 600px;
-  min-width: 400px;
-  height: 100dvh;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-
-  @media screen and (max-width: 720px) {
-    min-width: 90%;
-    padding: 0;
-  }
-`
-
-const MonthWrapper = styled.div`
-  margin-top: 12px;
-  width: 100%;
-  height: calc((100dvh - var(--mobileHeader) - var(--mobileNav))/3);
-
+  height: 100%;
+  /* border: solid rgba(0,0,0,0.05) 4px; */
   border-radius: 8px;
-  background-color: rgb(var(--lightGrey_CP));
-  margin-bottom: 12px;
-  @media screen and (max-width: 720px) {
-  }
-`
-const Content = styled.div`
-  width: 100%;
-  height: calc(100vh - var(--desktopHeader));
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  //mobile
-  @media screen and (max-width: 720px) {
-    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
-    padding: 0 5vw;
-  }
+  padding: 12px 0;
 `

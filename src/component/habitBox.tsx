@@ -1,7 +1,6 @@
 'use client';
 
 import styled from "styled-components";
-import { useRef } from "react";
 
 //icon
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
@@ -10,12 +9,13 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 
 const HabitBox = () => {
+
   return (<Wrapper>
     <Name>habit name</Name>
     <Days>
       {[1, 2, 3, 4].map(e => {
         return <Check key={e}>
-          <span>T</span>
+          <span>Thu</span>
           <span>26</span>
           <RadioButtonCheckedIcon />
         </Check>
@@ -29,13 +29,11 @@ const Wrapper = styled.div`
   width: 100%;
   height: 0;
   padding-bottom: 100%;
-
   position: relative;
-
-  /* aspect-ratio: 1/1; */
-
+  
   border-radius: 16px;
-  background-color: rgb(var(--lightGrey_CP));
+  background-color: whitesmoke;
+  border: 1px solid rgba(0,0,0,0.05);
 
   display: flex;
   flex-direction: column;
@@ -46,7 +44,7 @@ const Name = styled.span`
   position: absolute;
   top: 0;
 
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   color: rgb(var(--grey_Title));
 
@@ -57,7 +55,7 @@ const Name = styled.span`
   justify-content: center;
 
   @media screen and (max-width: 720px) {
-    font-size: 20px;
+    font-size: 18px;
   }
 `
 const Days = styled.div`
@@ -65,10 +63,16 @@ const Days = styled.div`
   height: 70%;
   position: absolute;
   bottom: 0;
+  font-size: 16px;
+  
 
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  @media screen and (max-width: 720px) {
+    font-size: 12px;
+  }
 `
 const Check = styled.div`
     display: flex;
@@ -76,9 +80,14 @@ const Check = styled.div`
     justify-content: center;
     align-items: center;
 
-    font-weight: 600;
+    font-weight: 500;
+    color: grey;
+    &:first-child{
+      font-weight: 600;
+      color: rgb(var(--grey_Title));
+    }
     *:last-child{
-      margin-top: 16px;
+      margin-top: 8px;
       color: rgb(var(--point));
     }
 `

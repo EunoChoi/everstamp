@@ -1,78 +1,139 @@
 'use client';
 
 import styled from "styled-components";
+import { useEffect, useRef, useState } from "react";
+
+//styledComponent
+import SC_Common from "@/styleComponent/common";
 
 //component
 import Header from "@/component/header";
 import HabitBox from "@/component/habitBox";
 
-const Habit = () => {
-  return (
-    <Wrapper>
-      <Header subTitle="100% complete :)" />
-      <Content>
-        <HabitGrid>
-          <HabitBox />
-          <HabitBox />
-          <HabitBox />
+//icon
+import SortIcon from '@mui/icons-material/Sort';
+import AddIcon from '@mui/icons-material/Add';
 
-          <HabitBox />
-          <HabitBox />
-          <HabitBox />
-        </HabitGrid>
-      </Content>
-    </Wrapper>
+const Habit = () => {
+  const gridListRef = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState<number>(0);
+  const pageLength = 3;
+  const indicatorArr = new Array(pageLength).fill(0);
+
+  return (
+    <SC_Common.Wrapper className="habit">
+      <Header />
+      <SC_Common.Options>
+        <button>
+          <SortIcon fontSize="small" />
+          <span>A - Z</span>
+        </button>
+        <button>
+          <AddIcon fontSize="small" />
+        </button>
+      </SC_Common.Options>
+      <SC_Common.Content>
+        <HabitGridList
+          ref={gridListRef}
+          onScroll={(e) => {
+            setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+          }}
+        >
+          <HabitGrid>
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+          </HabitGrid>
+          <HabitGrid>
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+          </HabitGrid>
+          <HabitGrid>
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+            <HabitBox />
+          </HabitGrid>
+        </HabitGridList>
+        <IndicatoWrapper>
+          {indicatorArr.map((_, i: number) =>
+            <div
+              key={'indicator' + i}
+              className={page === i ? 'current' : ''}
+              onClick={() => {
+                gridListRef.current?.scrollTo({
+                  left: gridListRef.current.clientWidth * i,
+                  behavior: "smooth"
+                })
+              }} />)}
+        </IndicatoWrapper>
+      </SC_Common.Content>
+    </SC_Common.Wrapper>
   );
 }
 
 export default Habit;
+
+
+const HabitGridList = styled.div`
+  transition: all ease-in-out 0.1s;
+
+  position: relative;
+  width: 100%;
+  height: auto;
+  display:  flex;
+
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+`
 const HabitGrid = styled.div`
+  flex-shrink: 0;
   width: 100%;
   display: grid;
+  padding: 0 10px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-gap: 20px;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always !important;
 
   @media screen and (max-width: 720px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 8px;
+    padding: 0 4px;
   }
 `
-
-const Wrapper = styled.div`
-  padding: 0 20px;  
-
-  width: 100%;
-  max-width: 800px;
-  min-width: 400px;
-  height: 100dvh;
-
+const IndicatoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
+  margin-top: 8px;
+  div {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    background-color: rgb(var(--lightGrey_CP));
+    border: 1px solid rgba(0,0,0,0.05);
 
-  @media screen and (max-width: 720px) {
-    min-width: 90%;
-    padding : 0;
+    margin: 4px;
+    @media screen and (max-width: 720px) {
+      width: 12px;
+      height: 12px;
+      margin: 2px;
+    }
+  }
+  .current {
+    background-color: rgb(var(--point));
   }
 `
-
-const Content = styled.div`
-  width: 100%;
-  height: calc(100dvh - var(--desktopHeader));
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  //mobile
-  @media screen and (max-width: 720px) {
-    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
-    padding: 0 5vw;
-  }
-`
-
 

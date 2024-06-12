@@ -2,14 +2,16 @@
 
 import styled from "styled-components";
 
+//styledComponent
+import SC_Common from "@/styleComponent/common";
 //component
 import Header from "@/component/header";
 
 const Setting = () => {
   return (
-    <Wrapper>
-      <Header subTitle="" />
-      <Content>
+    <SC_Common.Wrapper>
+      <Header />
+      <SC_Common.Content className="scroll">
         <Section>
           <Title>account</Title>
           <Value>
@@ -32,7 +34,7 @@ const Setting = () => {
 
         <Section>
           <Title>theme</Title>
-          <SubTitle>point color</SubTitle>
+          <SubTitle>foreground color</SubTitle>
           <FlexRow>
             <Check></Check>
             <FlexRow className="end">
@@ -59,52 +61,18 @@ const Setting = () => {
               <Check></Check>
               <Check></Check>
               <Check></Check>
-              <Check></Check>
-              <Check></Check>
             </FlexRow>
           </FlexRow>
 
         </Section>
 
-      </Content>
-    </Wrapper>
+      </SC_Common.Content>
+    </SC_Common.Wrapper>
   );
 }
 
 export default Setting;
 
-const Wrapper = styled.div`
-  padding: 0 20px;
-  width: 100%;
-  max-width: 600px;
-  min-width: 400px;
-  height: 100dvh;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-
-  @media screen and (max-width: 720px) {
-    min-width: 90%;
-    padding: 0;
-  }
-`
-const Content = styled.div`
-  width: 100%;
-  height: calc(100dvh - var(--desktopHeader));
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  //mobile
-  @media screen and (max-width: 720px) {
-    height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
-    padding: 0 5vw;
-  }
-`
 const Section = styled.div`
   width: 100%;
   height: auto;
@@ -114,29 +82,29 @@ const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: start;
+
 `
 const Title = styled.span`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   color: rgb(var(--grey_Title));
 
   text-transform: capitalize;
   /* text-transform: uppercase; */
 
-  padding: 4px 0;
+  padding-bottom: 16px;
 `
 const SubTitle = styled.span`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  color: rgb(var(--grey_Title));
-  color: grey;
-
   text-transform: capitalize;
+  margin: 12px;
+  margin-bottom: 0px;
 
-  padding: 4px 12px;
+  color: grey;
 `
 const Value = styled.span`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   width: 100%;
   width: inherit;
@@ -182,13 +150,13 @@ const FlexRow = styled.div`
 const Button = styled.button`
   cursor: pointer;
   transition: all ease-in-out 0.3s;
+  padding: 4px 14px;
 
-  padding: 2px 14px;
-  /* height: 36px; */
 
   border-radius: 50px;
-  /* border: solid 4px grey; */
-  background-color: rgb(var(--lightGrey_CP));
+  background-color: whitesmoke;
+  border: 1px solid rgba(0,0,0,0.05);
+
   color: rgb(var(--grey_Title));
   margin-right: 8px;
   font-weight: 500;
