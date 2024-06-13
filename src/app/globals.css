@@ -10,19 +10,27 @@
   --point2: 181, 211, 231;
   --point3: 223, 168, 176;
 
+  --greyTitle: 88, 88, 88;
 
-  --grey_Title: 77, 77, 77;
-  --grey_Title_Darker: 55, 55, 55;
-  --grey_Sub_Title: 169, 169, 169;
-  --lightGrey_BG: 246, 246, 246;
-  --lightGrey_CP: 235, 235, 235;
+  --lightGrey1: 246, 246, 246;
+  --lightGrey2: 235, 235, 235;
 
   --desktopHeader: 96px;
-  --optionHeight: 45px;
+  --optionHeight: 55px;
   --mobileHeader: 72px;
   --mobileNav: 42px;
 }
 
+
+/* @media (orientation: landscape) {
+  body {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+} */
 
 /* for darkmode */
 @media (prefers-color-scheme: dark) {
@@ -37,7 +45,14 @@ input {
   outline: none;
 }
 
-body {}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
 
 @layer utilities {
   .text-balance {

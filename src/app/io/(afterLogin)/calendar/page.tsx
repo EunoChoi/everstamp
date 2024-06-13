@@ -18,34 +18,37 @@ import CalendarSelector from "@/component/calendarSelector";
 //icon
 import TodayIcon from '@mui/icons-material/Today';
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const Calendar = () => {
+
   const isMobile = IsMobile();
   const router = useRouter();
   const params = useSearchParams();
-  const date = params.get('date');
+  const date = Number(params.get('date'));
+
+  const getCleanTodayTime = () => {
+    const tempDate = new Date();
+    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
+  }
+
+  //url '/calendar' 강제 접근 시 쿼리스트링 처리
+  useEffect(() => {
+    if (date === 0) router.push(`/io/calendar?date=${getCleanTodayTime()}`);
+  }, [date])
+
 
 
   return (
     <SC_Common.Wrapper>
       <Header />
-      <SC_Common.Options>
-        <button
-          onClick={() => {
-            router.push(`/io/calendar?date=${new Date().getTime()}`);
-          }}>
-          <TodayIcon fontSize="small" />
-          <span>today</span>
-        </button>
-      </SC_Common.Options>
-      <SC_Common.Content>
-
+      <SC_Common.Content className="noOption">
         {isMobile &&
           <CalendarWrapper>
-            <CalendarSelector></CalendarSelector>
+            <CalendarSelector />
           </CalendarWrapper>}
 
-        <Diary isCalendar={true} dateInfo={Number(date)} />
+        <Diary isCalendar={true} dateInfo={date} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
@@ -58,5 +61,5 @@ const CalendarWrapper = styled.div`
   height: 100%;
   /* border: solid rgba(0,0,0,0.05) 4px; */
   border-radius: 8px;
-  padding: 12px 0;
+  padding: 12px 4px;
 `

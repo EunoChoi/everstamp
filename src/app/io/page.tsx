@@ -18,6 +18,8 @@ const Io = () => {
   const router = useRouter()
   const mobile = IsMobile();
 
+  if (mobile === null) return <></>;
+
   return (
     <>
       {mobile ?
@@ -57,9 +59,6 @@ const Io = () => {
                 <span>하루 하루 발전하는 삶</span>
                 <span>습관과 일기를 함께 기록해요</span>
               </Desktop_TitleText>
-              {/* <Desktop_Button onClick={() => {
-                router.push('/io/calendar');
-              }}> */}
               <Desktop_Button
               // popoverTarget="popup"
               >
@@ -123,7 +122,7 @@ const Mobile = styled.div`
       justify-content: space-around;
       align-items: start;
 
-      border: rgb(var(--lightGrey_CP)) solid 6px;
+      border: rgb(var(--lightGrey2)) solid 6px;
       border: rgb(var(--point2)) solid 6px;
     }
   };
@@ -137,7 +136,7 @@ const Mobile_TitleLogo = styled.div`
     text-transform: uppercase;
     line-height: 100%;
 
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
   }
   span::first-letter{
     color: rgb(var(--point));
@@ -152,13 +151,13 @@ const Mobile_TitleText = styled.div`
     text-transform: uppercase;
     line-height: 130%;
 
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
   }
 `
 const Mobile_Button = styled.button`
   cursor: pointer;
 
-  background-color : rgb(var(--lightGrey_CP));
+  background-color : rgb(var(--lightGrey2));
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
@@ -189,7 +188,7 @@ const Desktop = styled.div`
 
       align-items: end;
 
-      border: rgb(var(--lightGrey_CP)) solid 10px;
+      border: rgb(var(--lightGrey2)) solid 10px;
       border: rgb(var(--point2)) solid 10px;
     }
   };
@@ -204,7 +203,7 @@ const Desktop_TitleLogo = styled.div`
     text-transform: uppercase;
     line-height: 100%;
 
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
   }
   span::first-letter{
     color: rgb(var(--point));
@@ -223,13 +222,13 @@ const Desktop_TitleText = styled.div`
     text-transform: uppercase;
     line-height: 150%;
 
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
   }
 `
 const Desktop_Button = styled.button`
   cursor: pointer;
 
-  background-color : rgb(var(--lightGrey_CP));
+  background-color : rgb(var(--lightGrey2));
   font-size: 22px;
   font-weight: 600;
   text-transform: uppercase;

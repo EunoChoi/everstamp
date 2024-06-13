@@ -18,12 +18,17 @@ import { useRef } from "react";
 
 
 const List = () => {
+
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
+
+  const [sortToggle, setSortToggle] = useState<boolean>(true);
+
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchInputOpen(c => !c);
   }
+  const dummy = [1, 2, 3, 4, 5, 6, 7];
 
   return (
     <SC_Common.Wrapper>
@@ -31,7 +36,7 @@ const List = () => {
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />
-          <span>new</span>
+          <span onClick={() => setSortToggle(c => !c)}>{sortToggle ? 'new' : 'old'}</span>
         </button>
         <Search
           open={searchInputOpen}
@@ -51,15 +56,7 @@ const List = () => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
-        <Diary dateInfo={new Date().getDate()} />
+        {dummy.map(e => <Diary key={'listNote' + e} dateInfo={new Date().getTime()} />)}
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );

@@ -9,6 +9,7 @@ import { useState, useRef } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 //img
 import Test from '/public/img/loginPageImg.jpg';
@@ -32,6 +33,7 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
   const year = format(dateinfo, 'yyyy');
 
 
+  // const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
   const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
 
   const isDesktop = IsMobile() === false ? true : false;
@@ -44,6 +46,9 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
 
   const indicatorLength = images.length + 2;
   const indicatorArr = new Array(indicatorLength).fill(0);
+
+  // const isDiaryExit = true;
+  const isDiaryExit = true;
 
 
 
@@ -63,42 +68,92 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
         {habits.map((e, i) => <Habit key={e + i}>{e}</Habit>)}
       </Habits>
 
-      <SlideWrapper
-        ref={slideWrapperRef}
-        className={isDesktopCalendar ? 'isDesktopCalendar' : ''}
-        onScroll={(e) => {
-          setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-        }}>
-        <Text className="slideChild">
-          <div className={isDesktopCalendar ? 'isDesktopCalendar' : ''}>일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
-        </Text>
-        {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
 
-        <EditBox className="slideChild">
-          <button><ContentCopyIcon />copy text</button>
-          <button><EditIcon />edit diary</button>
-          <button><DeleteIcon />delete Diary</button>
-        </EditBox>
-      </SlideWrapper>
+      {isDiaryExit ?
+        <>
+          <SlideWrapper
+            ref={slideWrapperRef}
+            className={isDesktopCalendar ? 'isDesktopCalendar' : ''}
+            onScroll={(e) => {
+              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+            }}>
+            <Text className="slideChild">
+              <div className={isDesktopCalendar ? 'isDesktopCalendar' : ''}>일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
+            </Text>
+            {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
 
-      <IndicatoWrapper>
-        {indicatorArr.map((_, i: number) =>
-          <div
-            key={'indicator' + i}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
+            <EditBox className="slideChild">
+              <button><ContentCopyIcon />copy text</button>
+              <button><EditIcon />edit diary</button>
+              <button><DeleteIcon />delete Diary</button>
+            </EditBox>
+          </SlideWrapper>
+          <IndicatoWrapper>
+            {indicatorArr.map((_, i: number) =>
+              <div
+                key={'indicator' + i}
+                className={page === i ? 'current' : ''}
+                onClick={() => {
+                  slideWrapperRef.current?.scrollTo({
+                    left: slideWrapperRef.current.clientWidth * i,
+                    behavior: "smooth"
+                  })
+                }}
+              />)}
 
-      </IndicatoWrapper>
+          </IndicatoWrapper>
+        </>
+        :
+        <NoDiaryWrapper>
+          <button>
+            <PostAddIcon fontSize="inherit"></PostAddIcon>
+          </button>
+          <span>There is no post :(</span>
+        </NoDiaryWrapper>}
+
+
+
     </Wrapper >);
 }
 
 export default Diary;
+
+const NoDiaryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 300px;
+  overflow-x: scroll;
+
+  background-color: whitesmoke;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 8px;
+
+  margin-bottom: 12px;
+  
+  button{
+    font-size: 48px;
+    color: rgb(var(--greyTitle));
+    padding: 12px;
+    padding-top: 0;
+  }
+  span{
+    font-weight: 500;
+    font-size: 20px;
+    color: rgb(var(--greyTitle));
+  }
+
+  @media screen and (max-width: 720px) {
+    height: 180px;
+    span{
+      font-size: 16px;
+    }
+  }
+`
 
 const EditBox = styled.div`
   box-sizing: border-box;
@@ -121,10 +176,10 @@ const EditBox = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
 
     margin: 8px 0;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     text-transform: capitalize;
   }
@@ -139,7 +194,7 @@ const IndicatoWrapper = styled.div`
     width: 12px;
     height: 12px;
     border-radius: 12px;
-    background-color: rgb(var(--lightGrey_CP));
+    background-color: rgb(var(--lightGrey2));
     border: 1px solid rgba(0,0,0,0.05);
 
     margin: 4px;
@@ -151,7 +206,7 @@ const IndicatoWrapper = styled.div`
   }
   div:last-child{
     border-radius: 2px;
-    background-color: rgba(var(--point3),0.6);
+    background-color: rgba(var(--point2), 0.5);
   }
 
   .current {
@@ -184,7 +239,7 @@ const DateWrapper = styled.div`
   .week{
     font-size: 48px;
     font-weight: 700;
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
   }
   &.isDesktopCalendar{
     flex-direction: column;
@@ -229,7 +284,7 @@ const Habit = styled.span`
 
   font-size: 16px;
   font-weight: 500;
-  color: rgb(var(--grey_Title_Darker));
+  color: rgb(var(--greyTitle_Darker));
 
   box-sizing: border-box;
   border : solid 4px rgb(var(--point2));
@@ -257,7 +312,7 @@ const SlideWrapper = styled.div`
   height: 170px;
   overflow-x: scroll;
   &.isDesktopCalendar{
-    height: 65%;
+    height: 60%;
   }
 
   .slideChild{
@@ -299,7 +354,7 @@ const Text = styled.div`
 
   font-size: 18px;
   font-weight: 500;
-  color: rgb(var(--grey_Title));
+  color: rgb(var(--greyTitle));
 
   @media screen and (max-width: 720px) {
       font-size: 16px;

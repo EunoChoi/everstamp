@@ -87,7 +87,7 @@ const Section = styled.div`
 const Title = styled.span`
   font-size: 28px;
   font-weight: 600;
-  color: rgb(var(--grey_Title));
+  color: rgb(var(--greyTitle));
 
   text-transform: capitalize;
   /* text-transform: uppercase; */
@@ -157,7 +157,7 @@ const Button = styled.button`
   background-color: whitesmoke;
   border: 1px solid rgba(0,0,0,0.05);
 
-  color: rgb(var(--grey_Title));
+  color: rgb(var(--greyTitle));
   margin-right: 8px;
   font-weight: 500;
   text-transform: capitalize;

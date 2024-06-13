@@ -2,22 +2,31 @@
 
 import styled from "styled-components";
 
+
 //icon
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
-
+import { subDays, format } from "date-fns";
 
 const HabitBox = () => {
+
+  const currentDate = new Date();
+  let fourDate = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
+  fourDate = fourDate.map((e, i) => subDays(e, i));
 
   return (<Wrapper>
     <Name>habit name</Name>
     <Days>
-      {[1, 2, 3, 4].map(e => {
+      {fourDate.map(e => {
         return <Check key={e}>
-          <span>Thu</span>
-          <span>26</span>
-          <RadioButtonCheckedIcon />
+          <span>{format(e, 'EEE')}</span>
+          <span>{format(e, 'd')}</span>
+
+          <button>
+            {/* <RadioButtonCheckedIcon /> */}
+            <RadioButtonUncheckedIcon />
+          </button>
         </Check>
       })}
     </Days>
@@ -46,7 +55,7 @@ const Name = styled.span`
 
   font-size: 22px;
   font-weight: 600;
-  color: rgb(var(--grey_Title));
+  color: rgb(var(--greyTitle));
 
   text-transform: capitalize;
   text-align: center;
@@ -84,7 +93,7 @@ const Check = styled.div`
     color: grey;
     &:first-child{
       font-weight: 600;
-      color: rgb(var(--grey_Title));
+      color: rgb(var(--greyTitle));
     }
     *:last-child{
       margin-top: 8px;

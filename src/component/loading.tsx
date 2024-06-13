@@ -35,7 +35,7 @@ const Img = styled(Image)`
 const Text = styled.span`
   margin-top: 24px;
   font-weight: 600;
-  color: rgb(var(--grey_Title));
+  color: rgb(var(--greyTitle));
   font-size: 28px;
   text-transform: capitalize;
 

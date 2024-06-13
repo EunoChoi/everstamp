@@ -43,7 +43,7 @@ const Wrapper = styled.div`
   }
 `
 const Title = styled.span`
-  color: rgb(var(--grey_Title));
+  color: rgb(var(--greyTitle));
   font-size: 42px;
   font-weight: 700;
 

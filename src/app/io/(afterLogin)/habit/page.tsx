@@ -16,7 +16,10 @@ import AddIcon from '@mui/icons-material/Add';
 
 const Habit = () => {
   const gridListRef = useRef<HTMLDivElement>(null);
+
+  const [sortToggle, setSortToggle] = useState<boolean>(true);
   const [page, setPage] = useState<number>(0);
+
   const pageLength = 3;
   const indicatorArr = new Array(pageLength).fill(0);
 
@@ -26,7 +29,7 @@ const Habit = () => {
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />
-          <span>A - Z</span>
+          <span onClick={() => setSortToggle(c => !c)}>{sortToggle ? 'A - Z' : 'Z - A'}</span>
         </button>
         <button>
           <AddIcon fontSize="small" />
@@ -108,7 +111,7 @@ const HabitGrid = styled.div`
   scroll-snap-align: start;
   scroll-snap-stop: always !important;
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 870px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 8px;
@@ -119,16 +122,16 @@ const IndicatoWrapper = styled.div`
   display: flex;
   margin-top: 8px;
   div {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 16px;
-    background-color: rgb(var(--lightGrey_CP));
+    background-color: rgb(var(--lightGrey2));
     border: 1px solid rgba(0,0,0,0.05);
 
     margin: 4px;
     @media screen and (max-width: 720px) {
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
       margin: 2px;
     }
   }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
@@ -10,6 +11,13 @@ export const metadata: Metadata = {
   title: "EverStamp",
   description: "Grow Every Day",
 };
+
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  userScalable: false,
+}
+
 const pretendard = localFont({
   src: "../fonts/PretendardVariable.woff2",
   display: "swap",
@@ -21,6 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <StyledComponentsRegistry>

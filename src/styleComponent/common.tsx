@@ -41,7 +41,7 @@ const SC_Common = {
       display: flex;
       align-items: center;
       border-radius : 48px;
-      color: rgb(var(--grey_Title));
+      color: rgb(var(--greyTitle));
       background-color: whitesmoke;
       border: 1px solid rgba(0,0,0,0.05);
 
@@ -67,7 +67,7 @@ const SC_Common = {
     height: calc(100dvh - var(--desktopHeader));
     justify-content: center;
     
-
+    
     &.scroll{
       height: auto;
       justify-content: start;
@@ -82,6 +82,9 @@ const SC_Common = {
       padding: 0 5vw;
       &.scroll{
         height: auto;
+      }
+      &.noOption{
+        height: calc(100dvh - var(--mobileHeader) - var(--mobileNav));
       }
     }
   `,

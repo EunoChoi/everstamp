@@ -2,6 +2,7 @@
 
 import styled from "styled-components";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useSelectedLayoutSegments } from 'next/navigation'
 
 //component
@@ -20,12 +21,17 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 
 
-
 const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+
+
+  const getCleanTodayTime = () => {
+    const tempDate = new Date();
+    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
+  }
 
   let mobile = IsMobile();
   const current = useSelectedLayoutSegments().pop();
@@ -38,7 +44,7 @@ const Layout = ({
       <Mobile_Layout>
         {children}
         <Mobile_Nav>
-          <Link href={`/io/calendar`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /></Link>
+          <Link href={`/io/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /></Link>
           <Link href='/io/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /></Link>
           <Link href='/io/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /></Link>
           <Link href='/io/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /></Link>
@@ -52,8 +58,10 @@ const Layout = ({
             <span>stamp</span>
           </SideBarLogo>
           <Menus>
-            <Link href={`/io/calendar?date=${new Date().getTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
-            <MonthWrapper className={current === 'calendar' ? 'open' : ''}>
+            <Link href={`/io/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+            <MonthWrapper
+              className={current === 'calendar' ? '' : 'inActive'}
+            >
               <CalendarSelector />
             </MonthWrapper>
             <Link href='/io/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
@@ -61,8 +69,8 @@ const Layout = ({
             <Link href='/io/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
           </Menus>
           <Links>
-            <span><GitHubIcon /></span>
-            <span><BookIcon /></span>
+            <span><GitHubIcon fontSize="inherit" /></span>
+            <span><BookIcon fontSize="inherit" /></span>
           </Links>
         </Desktop_Sidebar>
 
@@ -77,7 +85,7 @@ const Layout = ({
 export default Layout;
 
 const Links = styled.div`
-  width: 300px;
+  width: 350px;
   height: auto;
 
   position: fixed;
@@ -89,9 +97,9 @@ const Links = styled.div`
   align-items: center;
 
   span{
+    font-size: 20px;
     cursor: pointer;
-    color: rgb(var(--grey_Title));
-    color: grey;
+    color: darkgray;
     padding: 8px 12px;
   }
 `
@@ -125,7 +133,6 @@ const Mobile_Nav = styled.nav`
     vertical-align: center;
   }
   .current{
-    color: rgba(55, 55, 55, 0.75);
     color: rgb(var(--point));
   }
 `
@@ -141,11 +148,12 @@ const Desktop_Sidebar = styled.div`
   position: fixed;
   top: 0;
   width: 300px;
+  width: 350px;
   height: 100dvh;
   padding: 24px;
 
   border-right : 1px solid rgba(0,0,0,0.03);
-  background-color: rgb(var(--lightGrey_BG));
+  background-color: rgb(var(--lightGrey1));
 
   display: flex;
   flex-direction: column;
@@ -163,7 +171,7 @@ const SideBarLogo = styled.div`
     text-transform: uppercase;
     line-height: 100%;
 
-    color: rgb(var(--grey_Title));
+    color: rgb(var(--greyTitle));
   }
   span:last-child{
     border-bottom: 8px solid rgb(var(--point));
@@ -181,7 +189,7 @@ const Menus = styled.div`
   height: auto;
 `
 const Menu = styled.span`
-  transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.3s;
 
   display: flex;
   align-items: center;
@@ -194,19 +202,18 @@ const Menu = styled.span`
   text-transform: capitalize;
 
   margin: 8px 0%;
-  color: grey;
+  color: #939393;
   > *:first-child{
     margin-right: 8px;
   }
   &.current{
-    color: rgb(var(--grey_Title));
-    font-weight: 600;
+    color: rgb(var(--greyTitle));
   }
 `
 
 const Desktop_Content = styled.div`
-  margin-left: 300px;
-  width: calc(100vw - 300px);
+  margin-left: 350px;
+  width: calc(100vw - 350px);
 
   display: flex;
   flex-direction: column;
@@ -217,9 +224,16 @@ const Desktop_Content = styled.div`
 const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 100%;
-  height: 0;
-  &.open {
-      height:240px;
-      padding-bottom: 16px;
+  margin-bottom: 24px;
+  height:280px;
+  *{
+    transition: color ease-in-out 0.3s !important;
+  }
+  &.inActive {
+    opacity: 0.7;
+    .selected, .today{
+      border: none;
+      background-color: rgba(0,0,0,0);
+    }
   }
 `
