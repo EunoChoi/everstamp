@@ -14,32 +14,43 @@ const Header = () => {
   const pathname = usePathname()
   const router = useRouter()
 
+
+
   return (
     <Wrapper>
       <Title>{pathname.split('/io/')[1]}</Title>
     </Wrapper>
   );
 }
-//48+96 
+
 export default Header;
 
 const Wrapper = styled.div`
-  position: sticky;
+  position: fixed;
   top: 0;
-
-  width: inherit;
-  height: var(--desktopHeader);
-  background-color: white;
 
   display: flex;
   flex-shrink: 0;
-  justify-content: space-between;
   align-items: end;
+  align-items: center;
 
-  @media screen and (max-width: 720px) {
+  z-index: 999;
+
+  @media (max-width: 479px) { //mobile port
+    width: 100%;
     height: var(--mobileHeader);
-    align-items: center;
+
     padding : 0 5%;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    display: none;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    width: calc(100dvw - 350px);
+    height: var(--desktopHeader);
+
+    padding: 0 20px;
+    max-width: 800px;
   }
 `
 const Title = styled.span`
@@ -48,14 +59,16 @@ const Title = styled.span`
   font-weight: 700;
 
   text-transform: uppercase;
-  /* text-transform: capitalize; */
 
   &:first-letter{
     color: rgb(var(--point));
   }
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     line-height: 1.1;
     font-size: 36px;
     border-bottom: 4px rgb(var(--point)) solid;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 5vh;
   }
 `

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from "next/navigation"
 
@@ -35,20 +35,20 @@ const CalendarSelector = () => {
   const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
 
 
-  const getCleanTodayTime = () => {
+  const getCleanTodayTime = useCallback(() => {
     const tempDate = new Date();
     return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
-  }
-  const addCurrentMonth = () => {
+  }, []);
+  const addCurrentMonth = useCallback(() => {
     setCurrentMonth(addMonths(currentMonth, 1));
-  };
-  const subCurrentMonth = () => {
+  }, [currentMonth]);
+  const subCurrentMonth = useCallback(() => {
     setCurrentMonth(subMonths(currentMonth, 1));
-  };
-  const dateValue = (day: Date) => {
-    // <SentimentVeryDissatisfiedTwoToneIcon></SentimentVeryDissatisfiedTwoToneIcon>
-    //  <SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon> 
+  }, [currentMonth]);
 
+  const dateValue = (day: Date) => {
+    //<SentimentVeryDissatisfiedTwoToneIcon></SentimentVeryDissatisfiedTwoToneIcon>
+    //<SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon> 
     return format(day, 'd');
   };
 
@@ -169,6 +169,7 @@ const CalWeekTitle = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
+  text-transform: capitalize;
   padding: 6px 0;
   font-size: 15px;
   font-weight: 500;
@@ -193,6 +194,7 @@ const CalDate = styled.button`
   font-size: 14px;
   color: #666565;
   text-align: center;
+  border : 3px solid rgba(0,0,0,0);
   &.today{
     font-weight: 500;
     color: rgb(var(--greyTitle));

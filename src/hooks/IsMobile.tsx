@@ -7,7 +7,7 @@ const IsMobile = () => {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   const mode = useMediaQuery({
-    query: "(max-width: 720px)"
+    query: "(max-width: 1023px)"
   });
 
   useEffect(() => {

@@ -28,7 +28,7 @@ const Img = styled(Image)`
   max-width: 15dvw;
   height: auto;
 
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     max-width: 30dvw;
   }
 `
@@ -39,7 +39,7 @@ const Text = styled.span`
   font-size: 28px;
   text-transform: capitalize;
 
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     font-size: 22px;
   }
 `

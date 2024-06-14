@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import styled from "styled-components";
+import Link from "next/link";
 import { useRouter } from 'next/navigation'
 
 //component
@@ -35,12 +36,11 @@ const Io = () => {
               </Mobile_TitleLogo>
               <Mobile_TitleText>
                 <span>하루 하루 발전하는 삶</span>
-                <span>습관과 일기를 함께 기록해요 :)</span>
+                <span>습관과 일기를 함께 기록해요</span>
               </Mobile_TitleText>
               <Mobile_Button
-              // popoverTarget="popup"
               >
-                start
+                <Link href='/inter/login' scroll={false}>start</Link>
               </Mobile_Button>
             </div>
           </div>
@@ -60,9 +60,8 @@ const Io = () => {
                 <span>습관과 일기를 함께 기록해요</span>
               </Desktop_TitleText>
               <Desktop_Button
-              // popoverTarget="popup"
               >
-                start
+                <Link href='/inter/login' scroll={false}>start</Link>
               </Desktop_Button>
             </div>
           </div>
@@ -74,37 +73,8 @@ const Io = () => {
 export default Io;
 
 
-const Login = styled.div`
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  &:popover-open{
-    animation:  fadeIn 0.2s ease-in;
-    background-color: #fff;
-    box-shadow: 0px 0px 256px rgba(0,0,0,0.3);
-    width: 50dvw;
-    height: 70dvh;
-    border-radius: 16px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    @media screen and (max-width: 720px) {
-      width: 100dvw;
-      height: 100dvh;
-      border-radius: 0px;
-    }
-  }
-`
-
 const Mobile = styled.div`
+  width: 100dvw; 
   >div:first-child{ //imageArea
     height: 65dvh;
   };
@@ -122,10 +92,26 @@ const Mobile = styled.div`
       justify-content: space-around;
       align-items: start;
 
-      border: rgb(var(--lightGrey2)) solid 6px;
       border: rgb(var(--point2)) solid 6px;
     }
   };
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    display:flex;
+    >div:first-child{ //imageArea
+        height: 100dvh;
+        width: 100%;
+      };
+    >div:nth-child(2){
+        height: 100dvh;
+        width: 100%;
+        max-width: 350px;
+        >div{
+          align-items: end;
+          justify-content: center;
+          border: rgb(var(--point2)) solid 9px;
+        }
+    }
+  }
 `
 const Mobile_TitleLogo = styled.div`
   display: flex;
@@ -141,10 +127,18 @@ const Mobile_TitleLogo = styled.div`
   span::first-letter{
     color: rgb(var(--point));
   }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    align-items: end;
+
+    span{
+    font-size: 48px;
+    }
+  }  
 `
 const Mobile_TitleText = styled.div`
   display: flex;
   flex-direction: column;
+  
   span{
     font-size: 16px;
     font-weight: 500;
@@ -152,6 +146,13 @@ const Mobile_TitleText = styled.div`
     line-height: 130%;
 
     color: rgb(var(--greyTitle));
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    margin: 8dvh 0;
+    align-items: end;
+    span{
+      font-size: 20px;
+    }
   }
 `
 const Mobile_Button = styled.button`
@@ -169,18 +170,17 @@ const Mobile_Button = styled.button`
 const Desktop = styled.div`
   display: flex;
   >div:first-child{
-    width: 65vw;
+    width: 100%;
     height: 100dvh;
   };
   >div:nth-child(2){
-    /* width: 35vw; */
-    min-width: 35vw;
+    min-width: 450px;
     height: 100dvh;
     padding: 20px;
     >div{ //infoArea
       width: 100%;
       height: 100%;
-      padding: 0px 4vw;
+      padding: 0px 24px;
 
       display: flex;
       flex-direction:column;
@@ -242,6 +242,8 @@ const Desktop_Button = styled.button`
 `
 
 const Img = styled(Image)`
+  width: 100%;
   height: 100%;
+  
   object-fit: cover;
 `;

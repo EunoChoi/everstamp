@@ -18,7 +18,7 @@ import CalendarSelector from "@/component/calendarSelector";
 //icon
 import TodayIcon from '@mui/icons-material/Today';
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const Calendar = () => {
 
@@ -27,10 +27,10 @@ const Calendar = () => {
   const params = useSearchParams();
   const date = Number(params.get('date'));
 
-  const getCleanTodayTime = () => {
+  const getCleanTodayTime = useCallback(() => {
     const tempDate = new Date();
     return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
-  }
+  }, []);
 
   //url '/calendar' 강제 접근 시 쿼리스트링 처리
   useEffect(() => {
@@ -41,14 +41,13 @@ const Calendar = () => {
 
   return (
     <SC_Common.Wrapper>
-      <Header />
       <SC_Common.Content className="noOption">
         {isMobile &&
           <CalendarWrapper>
             <CalendarSelector />
           </CalendarWrapper>}
 
-        <Diary isCalendar={true} dateInfo={date} />
+        <Diary isCalendar={true} dateInfo={date !== 0 ? date : getCleanTodayTime()} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
@@ -62,4 +61,8 @@ const CalendarWrapper = styled.div`
   /* border: solid rgba(0,0,0,0.05) 4px; */
   border-radius: 8px;
   padding: 12px 4px;
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    margin-bottom: 12px;
+  }
 `

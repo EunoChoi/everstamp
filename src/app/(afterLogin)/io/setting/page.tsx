@@ -10,8 +10,8 @@ import Header from "@/component/header";
 const Setting = () => {
   return (
     <SC_Common.Wrapper>
-      <Header />
-      <SC_Common.Content className="scroll">
+      <SC_Common.Content className="scroll noOption">
+        <SC_Common.Options className="setting" />
         <Section>
           <Title>account</Title>
           <Value>
@@ -76,7 +76,7 @@ export default Setting;
 const Section = styled.div`
   width: 100%;
   height: auto;
-  padding: 24px 0px;
+  padding: 36px 0px;
 
   display: flex;
   flex-direction: column;
@@ -135,10 +135,15 @@ const FlexRow = styled.div`
   display: flex;
   align-items: center;
   overflow-x: scroll;
-  scrollbar-width: none;
   width: 100%;
   padding: 4px 12px;
   
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+
   &.end{
     justify-content: end;
     padding: 4px 0px;

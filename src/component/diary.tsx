@@ -26,18 +26,16 @@ interface props {
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
 const Diary = ({ isCalendar, dateInfo }: props) => {
 
+  const isMobile = IsMobile();
   const dateinfo = new Date(dateInfo);
   const month = format(dateinfo, 'MMM');
   const date = format(dateinfo, 'dd');
-  const day = format(dateinfo, 'eee');
+  const day = format(dateinfo, `${!isMobile && isCalendar ? 'EEEE' : 'eee'}`);
   const year = format(dateinfo, 'yyyy');
 
 
   // const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
   const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
-
-  const isDesktop = IsMobile() === false ? true : false;
-  const isDesktopCalendar = (isCalendar === true) && isDesktop;
 
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
@@ -47,14 +45,9 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
   const indicatorLength = images.length + 2;
   const indicatorArr = new Array(indicatorLength).fill(0);
 
-  // const isDiaryExit = true;
-  const isDiaryExit = true;
-
-
-
   return (
-    <Wrapper>
-      <DateWrapper className={isDesktopCalendar ? 'isDesktopCalendar' : ''}>
+    <Wrapper className={isCalendar ? 'isCalendar' : ''}>
+      <DateWrapper className="dateinfo">
         <span className="week">{day}</span>
         <div>
           <span className="date">{month}</span>
@@ -63,98 +56,83 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
         </div>
       </DateWrapper>
 
-      <Habits className={isDesktopCalendar ? 'isDesktopCalendar' : ''}>
+      <Habits className="habits">
         <Habit>{habits.length} habits</Habit>
         {habits.map((e, i) => <Habit key={e + i}>{e}</Habit>)}
       </Habits>
 
+      <SlideWrapper
+        ref={slideWrapperRef}
+        onScroll={(e) => {
+          setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+        }}>
+        <Text className="slideChild">
+          <div className="text">일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
+        </Text>
+        {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
 
-      {isDiaryExit ?
-        <>
-          <SlideWrapper
-            ref={slideWrapperRef}
-            className={isDesktopCalendar ? 'isDesktopCalendar' : ''}
-            onScroll={(e) => {
-              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-            }}>
-            <Text className="slideChild">
-              <div className={isDesktopCalendar ? 'isDesktopCalendar' : ''}>일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
-            </Text>
-            {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
+        <EditBox className="slideChild">
+          <button><ContentCopyIcon />copy text</button>
+          <button><EditIcon />edit diary</button>
+          <button><DeleteIcon />delete Diary</button>
+        </EditBox>
+      </SlideWrapper>
+      <IndicatoWrapper>
+        {indicatorArr.map((_, i: number) =>
+          <div
+            key={'indicator' + i}
+            className={page === i ? 'current' : ''}
+            onClick={() => {
+              slideWrapperRef.current?.scrollTo({
+                left: slideWrapperRef.current.clientWidth * i,
+                behavior: "smooth"
+              })
+            }}
+          />)}
 
-            <EditBox className="slideChild">
-              <button><ContentCopyIcon />copy text</button>
-              <button><EditIcon />edit diary</button>
-              <button><DeleteIcon />delete Diary</button>
-            </EditBox>
-          </SlideWrapper>
-          <IndicatoWrapper>
-            {indicatorArr.map((_, i: number) =>
-              <div
-                key={'indicator' + i}
-                className={page === i ? 'current' : ''}
-                onClick={() => {
-                  slideWrapperRef.current?.scrollTo({
-                    left: slideWrapperRef.current.clientWidth * i,
-                    behavior: "smooth"
-                  })
-                }}
-              />)}
-
-          </IndicatoWrapper>
-        </>
-        :
-        <NoDiaryWrapper>
-          <button>
-            <PostAddIcon fontSize="inherit"></PostAddIcon>
-          </button>
-          <span>There is no post :(</span>
-        </NoDiaryWrapper>}
-
-
-
+      </IndicatoWrapper>
     </Wrapper >);
 }
 
 export default Diary;
 
-const NoDiaryWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 
   width: 100%;
+  max-width: 600px;
   height: 300px;
-  overflow-x: scroll;
+  margin: 20px 0;
 
-  background-color: whitesmoke;
-  box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 8px;
-
-  margin-bottom: 12px;
-  
-  button{
-    font-size: 48px;
-    color: rgb(var(--greyTitle));
-    padding: 12px;
-    padding-top: 0;
-  }
-  span{
-    font-weight: 500;
-    font-size: 20px;
-    color: rgb(var(--greyTitle));
-  }
-
-  @media screen and (max-width: 720px) {
-    height: 180px;
-    span{
-      font-size: 16px;
+  @media (min-width: 1024px) {//desktop
+    &.isCalendar{
+      height: 550px;
+      .dateinfo{
+        flex-direction: column;
+        align-items: start;
+        .week{
+          font-size: 56px;
+          margin-bottom: 12px;
+        }
+        span{
+          font-size: 36px;
+        }
+      }
+      .text{
+        -webkit-line-clamp: 9;
+        line-height: 1.9 !important;
+      }
+      .habits{
+        padding : 12px 0;
+        margin: 12px 0;
+      }
     }
   }
 `
-
 const EditBox = styled.div`
   box-sizing: border-box;
   flex-shrink: 0;
@@ -184,12 +162,12 @@ const EditBox = styled.div`
     text-transform: capitalize;
   }
 `
-
 const IndicatoWrapper = styled.div`
   width: 100%;
   justify-content: center;
   display: flex;
   margin-top: 8px;
+  height: auto;
   div {
     width: 12px;
     height: 12px;
@@ -198,7 +176,7 @@ const IndicatoWrapper = styled.div`
     border: 1px solid rgba(0,0,0,0.05);
 
     margin: 4px;
-    @media screen and (max-width: 720px) {
+    @media (max-width: 479px) { //mobile port
       width: 8px;
       height: 8px;
       margin: 2px;
@@ -208,26 +186,14 @@ const IndicatoWrapper = styled.div`
     border-radius: 2px;
     background-color: rgba(var(--point2), 0.5);
   }
-
   .current {
     background-color: rgb(var(--point)) !important;
   }
 `
-
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-
-  width: 100%;
-  max-width: 600px;
-  margin: 20px 0;
-`
 const DateWrapper = styled.div`
   display: flex;
   align-items: end;
+  height: auto;
   span{
     text-transform: capitalize;
     margin-right: 8px;
@@ -241,17 +207,6 @@ const DateWrapper = styled.div`
     font-weight: 700;
     color: rgb(var(--greyTitle));
   }
-  &.isDesktopCalendar{
-    flex-direction: column;
-    align-items: start;
-    .week{
-      font-size: 56px;
-      margin-bottom: 12px;
-    }
-    span{
-      font-size: 36px;
-    }
-  }
 `
 const Habits = styled.div`
   width: 100%;
@@ -260,14 +215,14 @@ const Habits = styled.div`
   margin: 8px 0;
   
   display: flex;
-  flex-shrink: 0;
-  scrollbar-width: none;
   justify-content: start;
   overflow-x : scroll;
+  flex-shrink: 0;
 
-  &.isDesktopCalendar{
-    padding : 12px 0;
-    margin: 12px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
   }
 `
 const Habit = styled.span`
@@ -295,25 +250,27 @@ const Habit = styled.span`
   &:last-child{
     margin-right: 0px;
   }
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     padding : 0px 12px;
     font-size: 13px;
     margin-right: 8px;
   }
 `
-
 const SlideWrapper = styled.div`
   scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+
   scroll-snap-type: x mandatory;
 
   display: flex;
   justify-content: start;
   width: 100%;
-  height: 170px;
+  height: 100px;
+  flex-grow: 1;
   overflow-x: scroll;
-  &.isDesktopCalendar{
-    height: 60%;
-  }
 
   .slideChild{
     scroll-snap-align: start;
@@ -324,25 +281,11 @@ const SlideWrapper = styled.div`
     }
   }
 `
-
 const Text = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-
-  >div{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-    line-height: 1.6 !important;
-    overflow: hidden;
-    &.isDesktopCalendar{
-      -webkit-line-clamp: 9;
-      line-height: 1.8 !important;
-    }
-  }
-  
 
   background-color: whitesmoke;
   box-sizing: border-box;
@@ -350,13 +293,21 @@ const Text = styled.div`
   border-radius: 8px;
 
   flex-shrink: 0;
-  padding: 20px;
+  padding: 24px;
 
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   color: rgb(var(--greyTitle));
 
-  @media screen and (max-width: 720px) {
+  .text{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-height: 1.6 !important;
+    overflow: hidden;
+  }
+
+  @media (max-width: 479px) { //mobile port
       font-size: 16px;
   }
 `

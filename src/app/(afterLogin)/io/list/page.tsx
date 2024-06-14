@@ -32,7 +32,6 @@ const List = () => {
 
   return (
     <SC_Common.Wrapper>
-      <Header />
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />

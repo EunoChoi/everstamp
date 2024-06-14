@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   initialScale: 1,
   width: 'device-width',
-  userScalable: false,
+  // interactiveWidget: 'overlays-content'
 }
 
 const pretendard = localFont({
@@ -33,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <StyledComponentsRegistry>
-        <body className={pretendard.className}>{children}</body>
+        <body className={pretendard.className}>
+          {children}
+        </body>
       </StyledComponentsRegistry>
     </html>
   );

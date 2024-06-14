@@ -25,7 +25,6 @@ const Habit = () => {
 
   return (
     <SC_Common.Wrapper className="habit">
-      <Header />
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />
@@ -35,7 +34,7 @@ const Habit = () => {
           <AddIcon fontSize="small" />
         </button>
       </SC_Common.Options>
-      <SC_Common.Content>
+      <SC_Common.Content className="habit">
         <HabitGridList
           ref={gridListRef}
           onScroll={(e) => {
@@ -98,24 +97,40 @@ const HabitGridList = styled.div`
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 60%;
+  }
 `
 const HabitGrid = styled.div`
   flex-shrink: 0;
   width: 100%;
   display: grid;
-  padding: 0 10px;
+
+  padding: 0 8px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  grid-gap: 20px;
+  grid-gap: 16px;
 
   scroll-snap-align: start;
   scroll-snap-stop: always !important;
 
-  @media screen and (max-width: 870px) {
+  @media (max-width: 479px) { //mobile port
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 8px;
+    grid-gap: 12px;
     padding: 0 4px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    grid-gap: 6px;
+  }
+  @media (orientation: portrait) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
   }
 `
 const IndicatoWrapper = styled.div`
@@ -129,7 +144,7 @@ const IndicatoWrapper = styled.div`
     border: 1px solid rgba(0,0,0,0.05);
 
     margin: 4px;
-    @media screen and (max-width: 720px) {
+    @media (max-width: 479px) { //mobile port
       width: 8px;
       height: 8px;
       margin: 2px;

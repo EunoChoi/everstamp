@@ -25,7 +25,7 @@ const HabitBox = () => {
 
           <button>
             {/* <RadioButtonCheckedIcon /> */}
-            <RadioButtonUncheckedIcon />
+            <RadioButtonUncheckedIcon fontSize="inherit" />
           </button>
         </Check>
       })}
@@ -35,9 +35,8 @@ const HabitBox = () => {
 
 export default HabitBox;
 const Wrapper = styled.div`
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
+  aspect-ratio: 1;
+
   position: relative;
   
   border-radius: 16px;
@@ -63,8 +62,11 @@ const Name = styled.span`
   align-items: end;
   justify-content: center;
 
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     font-size: 18px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 14px;
   }
 `
 const Days = styled.div`
@@ -79,8 +81,11 @@ const Days = styled.div`
   justify-content: space-evenly;
   align-items: center;
 
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     font-size: 12px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 10px;
   }
 `
 const Check = styled.div`
@@ -88,7 +93,7 @@ const Check = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    font-size: 14px;
     font-weight: 500;
     color: grey;
     &:first-child{
@@ -97,6 +102,14 @@ const Check = styled.div`
     }
     *:last-child{
       margin-top: 8px;
+      font-size: 18px;
       color: rgb(var(--point));
+    }
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      font-size: 10px;
+      *:last-child{
+        font-size: 10px;
+        margin-top: 4px
+      }
     }
 `

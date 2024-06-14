@@ -10,8 +10,6 @@ import IsMobile from "@/hooks/IsMobile";
 
 //image
 
-
-
 const App = () => {
   const router = useRouter()
   const isMobile = IsMobile();
@@ -60,9 +58,12 @@ const Wrapper = styled.div`
 
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  /* scroll-padding-top: 10dvh; */
-  /* scroll-padding-bottom: 5vh; */
+
   scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 `
 const Section = styled.div`
   width: 100dvw;
@@ -72,8 +73,10 @@ const Section = styled.div`
   scroll-snap-align: start;
   scroll-snap-stop: always !important;
 
+  background-color: whitesmoke;
+
   
-  &.first{
+  /* &.first{
     background-color: rgba(var(--point2),0.5);
   }
   &.second{
@@ -83,7 +86,7 @@ const Section = styled.div`
   &.third{
     background-color: rgb(var(--point3));
     background-color: rgba(0,0,0,0.07);
-  }
+  } */
 `
 const IndicatoWrapper = styled.div`
   position: fixed;
@@ -109,12 +112,12 @@ const IndicatoWrapper = styled.div`
     margin: 12px;
   }
 
-  .current {
+  /* .current {
     background-color: rgb(var(--point3)) !important;
     background-color: darkgrey !important;
-  }
+  } */
 
-  @media screen and (max-width: 720px) {
+  @media (max-width: 479px) { //mobile port
     width: 15dvw;
     div{
       width: 14px;

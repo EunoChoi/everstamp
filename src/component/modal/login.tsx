@@ -1,0 +1,178 @@
+'use client';
+
+import Image from "next/image";
+import styled from "styled-components";
+
+//image
+import google from '/public/img/google.png';
+import kakao from '/public/img/kakao.png';
+import naver from '/public/img/naver.png';
+import { useCallback } from "react";
+
+const Login = () => {
+  const historyBack = useCallback(() => {
+    history.back();
+  }, []);
+  return (
+    <Wrapper onClick={historyBack}>
+      <Modal onClick={(e) => e.stopPropagation()}>
+        <Logo>
+          <span>ever</span>
+          <span>stamp</span>
+        </Logo>
+        <Title>sns 로그인</Title>
+        <Text>간편 로그인 및 가입이 가능합니다.</Text>
+        <Buttons>
+          <Button className="google">
+            <Images src={google} alt='google' width={50} height={50}></Images>
+          </Button>
+          <Button className="kakao">
+            <Images src={kakao} alt='kakao' width={50} height={50}></Images>
+          </Button>
+          <Button className="naver">
+            <Images src={naver} alt='naver' width={50} height={50}></Images>
+          </Button>
+        </Buttons>
+      </Modal>
+    </Wrapper>
+  );
+}
+
+export default Login;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+
+  width: 100dvw;
+  height: 100dvh;
+
+  background-color: rgba(0,0,0,0.2);
+  backdrop-filter: blur(4px);
+
+  * {
+    text-transform: uppercase;
+    color: rgb(var(--greyTitle));
+  }
+`
+const Modal = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
+
+  @media (max-width: 479px) { //mobile port
+    width: 90%;
+    height: 60%;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 50%;
+    height: 80%;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    width: 50%;
+    height: 60%;
+  }
+`
+const Logo = styled.div`
+  font-weight: 700;
+  color: rgb(var(--greyTitle));
+  span{
+    display: inline-block;
+    padding: 0 4px;
+    &::first-letter{
+      color: rgb(var(--point));
+    }
+  }  
+  @media (max-width: 479px) { //mobile port
+    font-size: 32px;
+    margin-bottom: 56px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    font-size: 48px;
+    margin-bottom: 42px;
+  }
+`
+const Title = styled.span`
+  font-weight: 600;
+  @media (max-width: 479px) { //mobile port
+    font-size: 24px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 24px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    font-size: 32px;
+  }
+`
+const Text = styled.span`
+  font-weight: 500;
+  @media (max-width: 479px) { //mobile port
+      font-size: 18px;
+      margin-top: 8px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      font-size: 16px;
+      margin-top: 4px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+      font-size: 20px;
+      margin-top: 8px;
+  }
+`
+const Buttons = styled.div`
+  display: flex;
+  @media (max-width: 479px) { //mobile port
+    margin-top: 56px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    margin-top: 24px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    margin-top: 42px;
+  }
+`
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width : 42px;
+  height: 42px;
+  border-radius: 42px;
+  border : 3px solid rgba(0,0,0,0.1);
+  margin: 4px;
+
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    width : 56px;
+    height: 56px;
+    margin: 6px;
+  }
+
+  &.kakao{
+    background-color: rgb(250, 225, 0);
+  }
+  &.naver{
+    background-color: rgb(2, 199, 60);
+  }
+  &.google{
+    background-color: white;
+  }
+`
+const Images = styled(Image)`
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+`

@@ -2,12 +2,12 @@
 
 import styled from "styled-components";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useSelectedLayoutSegments } from 'next/navigation'
+import { useSelectedLayoutSegment } from 'next/navigation'
 
 //component
 import CalendarSelector from "@/component/calendarSelector";
 import Loading from "@/component/loading";
+import Header from "@/component/header";
 
 //hooks
 import IsMobile from "@/hooks/IsMobile";
@@ -19,13 +19,15 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
+import { ReactNode } from "react";
 
+interface Props {
+  children: ReactNode;
+}
 
 const Layout = ({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+}: Props) => {
 
 
   const getCleanTodayTime = () => {
@@ -33,21 +35,22 @@ const Layout = ({
     return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
   }
 
-  let mobile = IsMobile();
-  const current = useSelectedLayoutSegments().pop();
+  let isMobile = IsMobile();
+  const current = useSelectedLayoutSegment();
 
-  if (mobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
-  if (current === undefined) return <>{children}</> //not layout, page
+  if (isMobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
 
   return (<>
-    {mobile ?
+    {isMobile ?
       <Mobile_Layout>
+        <Header />
         {children}
         <Mobile_Nav>
-          <Link href={`/io/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /></Link>
-          <Link href='/io/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /></Link>
-          <Link href='/io/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /></Link>
-          <Link href='/io/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /></Link>
+          <Logo><span>ever</span><span>stamp</span></Logo>
+          <NavMenu href={`/io/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
+          <NavMenu href='/io/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
+          <NavMenu href='/io/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
+          <NavMenu href='/io/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
         </Mobile_Nav>
       </Mobile_Layout>
       :
@@ -75,6 +78,7 @@ const Layout = ({
         </Desktop_Sidebar>
 
         <Desktop_Content>
+          <Header />
           {children}
         </Desktop_Content>
       </Desktop_Layout>
@@ -83,14 +87,46 @@ const Layout = ({
 }
 
 export default Layout;
+const Logo = styled.span`
+  display: none;
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    display: inline-block;
+    margin-bottom: 32px;
+    color: rgb(var(--greyTitle));
+    font-size: 32px;
+    font-weight: 700;
+    text-transform: uppercase;
+    span {
+      display: inline-block;
+      &::first-letter{
+        color: rgb(var(--point)) !important;  
+      }
+      padding: 0 3px;
+    }
+  }
+`
+const NavMenu = styled(Link)`
+  padding: 0;
+  span{
+      display: none;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
 
+    span{
+      font-weight: 500;
+      font-size: 20px;
+      text-transform: capitalize;
+      display: flex;
+      margin: 8px 0;
+    }
+  }
+`
 const Links = styled.div`
-  width: 350px;
-  height: auto;
-
-  position: fixed;
-  left: 0;
-  bottom : 0;
+  width: 100%;
 
   display: flex;
   justify-content: center;
@@ -100,17 +136,22 @@ const Links = styled.div`
     font-size: 20px;
     cursor: pointer;
     color: darkgray;
-    padding: 8px 12px;
+    padding: 0 12px;
   }
 `
 
 const Mobile_Layout = styled.div`
-  width: 100vw;
+  width: 100dvw;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   /* height: 100vh; */
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 75dvw;
+    margin-left: 25dvw;
+  }
 `;
 const Mobile_Nav = styled.nav`
   position: fixed;
@@ -122,8 +163,11 @@ const Mobile_Nav = styled.nav`
 
   width: 100vw;
   height: var(--mobileNav);
-  background-color: whitesmoke;
-  color: rgba(0,0,0,0.2);
+
+  background-color: rgba(var(--whitesmoke), 0.7);
+  backdrop-filter: blur(12px);
+
+  color: rgba(0,0,0,0.3);
   border-top: 1px solid rgba(0,0,0,0.05); 
   > *{
     padding : 0 12px;
@@ -135,6 +179,16 @@ const Mobile_Nav = styled.nav`
   .current{
     color: rgb(var(--point));
   }
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    left: 0;
+    width: 25dvw;
+    height: 100dvh;
+
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-content: center;
+  }
 `
 
 
@@ -142,15 +196,14 @@ const Desktop_Layout = styled.div`
   width: 100vw;
   /* height: 100vh; */
   display: flex;
+  justify-content: center;
 `;
 
 const Desktop_Sidebar = styled.div`
-  position: fixed;
-  top: 0;
-  width: 300px;
   width: 350px;
   height: 100dvh;
-  padding: 24px;
+  padding: 32px 24px;
+  padding-bottom: 12px;
 
   border-right : 1px solid rgba(0,0,0,0.03);
   background-color: rgb(var(--lightGrey1));
@@ -158,6 +211,7 @@ const Desktop_Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  justify-content: space-between;
 `
 const SideBarLogo = styled.div`
   display: flex;
@@ -212,13 +266,12 @@ const Menu = styled.span`
 `
 
 const Desktop_Content = styled.div`
-  margin-left: 350px;
-  width: calc(100vw - 350px);
-
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
+
+  width: calc(100vw - 350px);
 `
 
 const MonthWrapper = styled.div`

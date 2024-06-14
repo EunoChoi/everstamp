@@ -6,9 +6,10 @@
   /* --point: 255, 100, 78; */
   /* --point2: 255, 167, 155; */
 
+  --whitesmoke: 245, 245, 245;
+  --test: rgb(142, 188, 219);
   --point: 142, 188, 219;
   --point2: 181, 211, 231;
-  --point3: 223, 168, 176;
 
   --greyTitle: 88, 88, 88;
 
@@ -16,21 +17,11 @@
   --lightGrey2: 235, 235, 235;
 
   --desktopHeader: 96px;
-  --optionHeight: 55px;
-  --mobileHeader: 72px;
-  --mobileNav: 42px;
+  --optionHeight: 47px;
+  --mobileHeader: 56px;
+  --mobileNav: 48px;
 }
 
-
-/* @media (orientation: landscape) {
-  body {
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-  }
-} */
 
 /* for darkmode */
 @media (prefers-color-scheme: dark) {
@@ -52,6 +43,8 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+
+  background-color: white;
 }
 
 @layer utilities {
