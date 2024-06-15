@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from 'next/navigation'
 
+
 //component
 // import Loading from "@/component/loading";
 
@@ -18,6 +19,8 @@ import loginPageImg from '/public/img/loginPageImg.jpg';
 const Io = () => {
   const router = useRouter()
   const mobile = IsMobile();
+
+
 
   if (mobile === null) return <></>;
 
