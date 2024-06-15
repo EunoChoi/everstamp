@@ -129,8 +129,11 @@ const SC_Common = {
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       //mobild land + tablet have to scroll
       height: 100dvh;
-      justify-content: center;
+      justify-content: start;
       overflow-y: scroll;
+      &.habit{
+        justify-content: center;
+      }
 
       padding-top : var(--optionHeight);
       &.noOption{
