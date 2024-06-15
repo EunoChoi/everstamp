@@ -7,8 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import SC_Common from "@/styleComponent/common";
 
 //component
-import Header from "@/component/header";
-import HabitBox from "@/component/habitBox";
+import HabitBox from "@/component/HabitBox";
 
 //icon
 import SortIcon from '@mui/icons-material/Sort';

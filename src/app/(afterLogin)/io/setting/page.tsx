@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 //styledComponent
 import SC_Common from "@/styleComponent/common";
-//component
-import Header from "@/component/header";
+
 
 const Setting = () => {
   return (

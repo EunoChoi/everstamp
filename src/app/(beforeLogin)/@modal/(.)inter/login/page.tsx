@@ -1,4 +1,4 @@
-import Login from "@/component/modal/login";
+import Login from "@/component/modal/Login";
 
 //intercepted route
 const InterLogin = () => {

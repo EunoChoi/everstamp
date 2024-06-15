@@ -8,8 +8,7 @@ import { useState } from "react";
 import SC_Common from "@/styleComponent/common";
 
 //component
-import Header from "@/component/header";
-import Diary from "@/component/diary";
+import Diary from "@/component/Diary";
 
 //icon
 import SearchIcon from '@mui/icons-material/Search';

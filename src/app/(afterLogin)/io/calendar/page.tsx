@@ -11,12 +11,10 @@ import IsMobile from "@/hooks/IsMobile";
 import SC_Common from "@/styleComponent/common";
 
 //component
-import Header from "@/component/header";
-import Diary from "@/component/diary";
-import CalendarSelector from "@/component/calendarSelector";
+import Diary from "@/component/Diary";
+import CalendarSelector from "@/component/CalendarSelector";
 
 //icon
-import TodayIcon from '@mui/icons-material/Today';
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 

@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useSelectedLayoutSegment } from 'next/navigation'
 
 //component
-import CalendarSelector from "@/component/calendarSelector";
-import Loading from "@/component/loading";
-import Header from "@/component/header";
+import CalendarSelector from "@/component/CalendarSelector";
+import Loading from "@/component/Loading";
+import Header from "@/component/Header";
 
 //hooks
 import IsMobile from "@/hooks/IsMobile";
