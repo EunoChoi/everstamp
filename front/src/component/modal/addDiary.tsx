@@ -8,9 +8,12 @@ import { useRef } from "react";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import HighlightOffOutlinedIcon from '@mui/icons-material/HighlightOffOutlined';
+import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 
 //test image
 import testImg from "../../../public/img/everStamp_logo_blue.png";
+import IsMobile from "@/hooks/IsMobile";
+
 
 const AddDiary = () => {
   //to writh need info
@@ -19,6 +22,7 @@ const AddDiary = () => {
   //text info,  by form
   //image info,  by form
 
+  const isMobile = IsMobile();
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const historyBack = useCallback(() => {
@@ -44,31 +48,14 @@ const AddDiary = () => {
           />
         </InputWrapper>
         <UploadedImages>
-          <ImageBox>
-            <UploadedImage src={testImg} alt='test' />
-            <ImageDeleteButton></ImageDeleteButton>
-          </ImageBox>
-          <ImageBox>
-            <UploadedImage src={testImg} alt='test' />
-            <ImageDeleteButton></ImageDeleteButton>
-          </ImageBox>
-          <ImageBox>
-            <UploadedImage src={testImg} alt='test' />
-            <ImageDeleteButton></ImageDeleteButton>
-          </ImageBox>
-          <ImageBox>
-            <UploadedImage src={testImg} alt='test' />
-            <ImageDeleteButton></ImageDeleteButton>
-          </ImageBox>
-          <ImageBox>
-            <UploadedImage src={testImg} alt='test' />
-            <ImageDeleteButton></ImageDeleteButton>
-          </ImageBox>
+          {[1, 2, 3, 4, 5, 6, 7].map(e => <ImageBox key={e}>
+            <UploadedImage src={testImg} alt='test' width={200} height={200} />
+            <ImageDeleteButton><RemoveCircleOutlinedIcon fontSize="inherit" /></ImageDeleteButton>
+          </ImageBox>)}
+
+
         </UploadedImages>
         <Buttons>
-          <Button onClick={historyBack}>
-            <HighlightOffOutlinedIcon className="icon" />
-          </Button>
           <Button>
             <ImageOutlinedIcon className="icon" />
           </Button>
@@ -83,7 +70,7 @@ const AddDiary = () => {
 export default AddDiary;
 
 const Wrapper = styled.div`
-  transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,14 +102,16 @@ const Modal = styled.div`
   @media (max-width: 479px) { //mobile port
     width: 100%;
     height: 100%;
+    border-radius: 0px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 100%;
     height: 100%;
+    border-radius: 0px;
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
     width: 50%;
-    height: 60%;
+    height: 70%;
   }
 `
 
@@ -148,9 +137,7 @@ const Logo = styled.div`
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    span{
-      font-size: 20px;
-    }
+    display: none;
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
     span{
@@ -168,8 +155,8 @@ const InputWrapper = styled.div`
     height: 100%;
     resize: none;
     &::placeholder{
-      color: darkgrey;
-      padding-top: 10dvh;
+      color: rgba(0,0,0,0.25);
+      padding-top: 100px;
       text-align: center;
       font-weight: 500;
       text-transform: uppercase;
@@ -192,37 +179,72 @@ const UploadedImages = styled.div`
   background-color: rgba(var(--whitesmoke), 0.3);
   border-top: solid 1px rgba(0,0,0,0.05);
 
+  /* flex-shrink: 0; */
+  min-height: 56px;
+
 
   @media (max-width: 479px) { //mobile port
-    height: 96px;
+    height: 112px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    height: 72px;
+    height: 96px;
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
-    height: 132px;
+    height: 172px;
   }
 `
 const ImageBox = styled.div`
   height: 100%;
   width: auto;
-  aspect-ratio: 1;
+  aspect-ratio: 1.3;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 479px) { //mobile port
+    aspect-ratio: 1.3;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    aspect-ratio: 2;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    aspect-ratio: 1.5;
+  }
 `
 const UploadedImage = styled(Image)`
-  width: 80%;
-  height: 80%;
+  width: 90%;
+  height: 70%;
+
   border-radius: 8px;
   object-fit: cover;
 `
 const ImageDeleteButton = styled.button`
+  transition: color ease-in-out 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 20%;
+
+  color: rgb(var(--greyTitle));
+  &:hover{
+    color: #d84141;
+  }
   
+  @media (max-width: 479px) { //mobile port
+    font-size: 20px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 12px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    font-size: 22px;
+  }
 `
 const Buttons = styled.div`
   height: var(--mobileNav);
+  /* flex-shrink: 0; */
   background-color: whitesmoke;
   border-top: solid 1px rgba(0,0,0,0.1);
 
@@ -232,6 +254,13 @@ const Buttons = styled.div`
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  @media (max-width: 479px) { //mobile port
+    border-radius: 0px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    border-radius: 0px;
+  }
 `
 const Button = styled.button`
   .icon{

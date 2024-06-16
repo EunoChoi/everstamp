@@ -8,7 +8,7 @@ const Loading = () => {
   return (
     <Wrapper>
       <Img src={logo} alt="logo" priority width={200} height={200}></Img>
-      <Text>grow every day</Text>
+      <Text>we can do better</Text>
     </Wrapper>
   );
 }
@@ -37,10 +37,11 @@ const Text = styled.span`
   font-weight: 600;
   color: rgb(var(--greyTitle));
   font-size: 28px;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   text-transform: uppercase;
 
+
   @media (max-width: 479px) { //mobile port
-    font-size: 22px;
+    font-size: 18px;
   }
 `
