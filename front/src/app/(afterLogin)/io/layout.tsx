@@ -21,12 +21,13 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 import { ReactNode } from "react";
 
+
 interface Props {
   children: ReactNode;
 }
 
 const Layout = ({
-  children,
+  children
 }: Props) => {
 
 

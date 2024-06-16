@@ -2,17 +2,43 @@
 
 import Image from "next/image";
 import styled from "styled-components";
+import { signIn } from "next-auth/react";
+
+
 
 //image
 import google from '/public/img/google.png';
 import kakao from '/public/img/kakao.png';
 import naver from '/public/img/naver.png';
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 const Login = () => {
   const historyBack = useCallback(() => {
     history.back();
   }, []);
+
+  const loginGoogle = async () => {
+    try {
+      await signIn("google");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const loginKakao = async () => {
+    try {
+      await signIn("kakao");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const loginNaver = async () => {
+    try {
+      await signIn("naver");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
@@ -23,13 +49,13 @@ const Login = () => {
         <Title>sns 로그인</Title>
         <Text>간편 로그인 및 가입이 가능합니다.</Text>
         <Buttons>
-          <Button className="google">
+          <Button className="google" onClick={loginGoogle}>
             <Images src={google} alt='google' width={50} height={50}></Images>
           </Button>
-          <Button className="kakao">
+          <Button className="kakao" onClick={loginKakao}>
             <Images src={kakao} alt='kakao' width={50} height={50}></Images>
           </Button>
-          <Button className="naver">
+          <Button className="naver" onClick={loginNaver}>
             <Images src={naver} alt='naver' width={50} height={50}></Images>
           </Button>
         </Buttons>
