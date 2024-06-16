@@ -5,6 +5,8 @@ import "./globals.css";
 import localFont from "next/font/local";
 import StyledComponentsRegistry from "../../lib/registry";
 
+import { SessionProvider } from "next-auth/react";
+
 // const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,11 +34,14 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <StyledComponentsRegistry>
-        <body className={pretendard.className}>
-          {children}
-        </body>
-      </StyledComponentsRegistry>
+      <SessionProvider
+      >
+        <StyledComponentsRegistry>
+          <body className={pretendard.className}>
+            {children}
+          </body>
+        </StyledComponentsRegistry>
+      </SessionProvider>
     </html>
   );
 }

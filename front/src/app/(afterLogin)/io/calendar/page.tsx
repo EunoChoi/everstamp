@@ -1,9 +1,6 @@
 'use client';
 
 import styled from "styled-components";
-
-
-
 //hooks
 import IsMobile from "@/hooks/IsMobile";
 
