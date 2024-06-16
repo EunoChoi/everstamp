@@ -6,13 +6,16 @@ import styled from "styled-components";
 import Header from "@/component/Header";
 
 //styledComponent
-import SC_Common from "@/styleComponent/common";
+import SC_Common from "@/style/common";
 
 
 const Setting = () => {
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className="scroll noOption">
+      <SC_Common.Content
+        // className="scroll noOption"
+        className="noOption"
+      >
         <Header title='setting' />
         <SC_Common.Options className="setting" />
         <Section>
@@ -22,12 +25,16 @@ const Setting = () => {
             <span className="value">pixel@kakao.com</span>
           </Value>
           <Value>
-            <span className="key">id</span>
+            <span className="key">user id</span>
             <span className="value">k_pixel@kakao.com</span>
           </Value>
           <Value>
             <span className="key">type</span>
             <span className="value">kakao</span>
+          </Value>
+          <Value>
+            <span className="key">creation date</span>
+            <span className="value">00.00.00</span>
           </Value>
           <Buttons>
             <Button>logout</Button>
@@ -44,28 +51,17 @@ const Setting = () => {
               <Check></Check>
               <Check></Check>
               <Check></Check>
-              <Check></Check>
-              <Check></Check>
             </FlexRow>
           </FlexRow>
 
-          <SubTitle>background color</SubTitle>
+          {/* <SubTitle>background color</SubTitle>
           <FlexRow>
             <Check></Check>
             <FlexRow className="end">
               <Check></Check>
               <Check></Check>
             </FlexRow>
-          </FlexRow>
-          <SubTitle>font size</SubTitle>
-          <FlexRow>
-            <Check></Check>
-            <FlexRow className="end">
-              <Check></Check>
-              <Check></Check>
-              <Check></Check>
-            </FlexRow>
-          </FlexRow>
+          </FlexRow> */}
 
         </Section>
 
@@ -102,7 +98,7 @@ const SubTitle = styled.span`
   font-weight: 500;
   text-transform: capitalize;
   margin: 12px;
-  margin-bottom: 0px;
+  /* margin-bottom: 0px; */
 
   color: grey;
 `
@@ -162,24 +158,23 @@ const Button = styled.button`
 
 
   border-radius: 50px;
-  background-color: whitesmoke;
   border: 1px solid rgba(0,0,0,0.05);
-
+  background-color: whitesmoke;
   color: rgb(var(--greyTitle));
+ 
+
   margin-right: 8px;
   font-weight: 500;
   text-transform: capitalize;
   
   &:hover{
-    /* border: solid 4px rgb(var(--point)); */
-    background-color: rgb(var(--point));
-    /* color: rgb(var(--point)); */
+    background-color: rgb(var(--point2));
   }
 `
 const Check = styled.div`
   width: 36px;
   height: 36px;
-  border: solid 4px grey;
+  border: solid 3px darkgrey;
   margin-right: 8px;
   transition: all ease-in-out 0.3s;
 
@@ -187,7 +182,6 @@ const Check = styled.div`
 
   border-radius: 8px;
   &:hover{
-    border: solid 4px rgb(var(--point));
-    color: rgb(var(--point));
+    border-color: rgb(var(--point));
   }
 `

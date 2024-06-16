@@ -239,6 +239,7 @@ const Habit = styled.span`
   flex-shrink: 0;
   
   padding : 0px 16px;
+  color: rgb(var(--greyTitle));
   background-color: rgb(var(--point2));
   border-radius: 24px;
   margin-right: 12px;
@@ -248,7 +249,6 @@ const Habit = styled.span`
 
   font-size: 16px;
   font-weight: 500;
-  color: rgb(var(--greyTitle_Darker));
 
   box-sizing: border-box;
   border : solid 4px rgb(var(--point2));

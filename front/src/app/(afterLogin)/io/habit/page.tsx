@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 
 //styledComponent
-import SC_Common from "@/styleComponent/common";
+import SC_Common from "@/style/common";
 
 //component
 import HabitBox from "@/component/HabitBox";
@@ -105,6 +105,7 @@ const HabitGridList = styled.div`
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 60%;
+    width: 90%;
   }
 `
 const HabitGrid = styled.div`

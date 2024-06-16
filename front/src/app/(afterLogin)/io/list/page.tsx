@@ -5,7 +5,7 @@ import { useState } from "react";
 
 
 //styledComponent
-import SC_Common from "@/styleComponent/common";
+import SC_Common from "@/style/common";
 
 //component
 import Diary from "@/component/Diary";

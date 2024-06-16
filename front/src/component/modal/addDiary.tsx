@@ -83,6 +83,7 @@ const AddDiary = () => {
 export default AddDiary;
 
 const Wrapper = styled.div`
+  transition: all ease-in-out 0.3s;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,19 +108,17 @@ const Modal = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  transition: all ease-in-out 0.3s !important;
-
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
 
   @media (max-width: 479px) { //mobile port
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
     width: 50%;

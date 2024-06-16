@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   initialScale: 1,
   width: 'device-width',
-  interactiveWidget: 'resizes-content'
+  // interactiveWidget: 'resizes-content'
+  interactiveWidget: 'overlays-content'
 }
 
 const pretendard = localFont({

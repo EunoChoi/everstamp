@@ -5,7 +5,7 @@ import styled from "styled-components";
 import IsMobile from "@/hooks/IsMobile";
 
 //styledComponent
-import SC_Common from "@/styleComponent/common";
+import SC_Common from "@/style/common";
 
 //component
 import Diary from "@/component/Diary";
