@@ -43,7 +43,7 @@ const Io = () => {
               </Mobile_TitleText>
               <Mobile_Button
               >
-                <Link href='/inter/login' scroll={false}>start</Link>
+                <Link href='/io/inter/login' scroll={false}>start</Link>
               </Mobile_Button>
             </div>
           </div>
@@ -64,7 +64,7 @@ const Io = () => {
               </Desktop_TitleText>
               <Desktop_Button
               >
-                <Link href='/inter/login' scroll={false}>start</Link>
+                <Link href='/io/inter/login' scroll={false}>start</Link>
               </Desktop_Button>
             </div>
           </div>

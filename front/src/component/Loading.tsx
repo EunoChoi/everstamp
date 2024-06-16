@@ -38,6 +38,7 @@ const Text = styled.span`
   color: rgb(var(--greyTitle));
   font-size: 28px;
   text-transform: capitalize;
+  text-transform: uppercase;
 
   @media (max-width: 479px) { //mobile port
     font-size: 22px;

@@ -3,6 +3,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { format } from 'date-fns';
+
+
 
 
 //icon
@@ -15,7 +19,6 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import Test from '/public/img/loginPageImg.jpg';
 import IsMobile from "@/hooks/IsMobile";
 
-import { format } from 'date-fns';
 
 
 interface props {
@@ -25,6 +28,8 @@ interface props {
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
 const Diary = ({ isCalendar, dateInfo }: props) => {
+
+  const router = useRouter();
 
   const isMobile = IsMobile();
   const dateinfo = new Date(dateInfo);
@@ -62,6 +67,10 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
       </Habits>
 
       <SlideWrapper
+        onClick={() => {
+          router.push('/io/inter/input/diary');
+          // router.push('/io/inter/login');
+        }}
         ref={slideWrapperRef}
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));

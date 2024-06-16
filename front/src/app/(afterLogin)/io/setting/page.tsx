@@ -2,6 +2,9 @@
 
 import styled from "styled-components";
 
+//component
+import Header from "@/component/Header";
+
 //styledComponent
 import SC_Common from "@/styleComponent/common";
 
@@ -10,6 +13,7 @@ const Setting = () => {
   return (
     <SC_Common.Wrapper>
       <SC_Common.Content className="scroll noOption">
+        <Header title='setting' />
         <SC_Common.Options className="setting" />
         <Section>
           <Title>account</Title>

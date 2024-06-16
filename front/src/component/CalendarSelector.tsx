@@ -164,6 +164,8 @@ const CalTitleText = styled.span`
   font-weight: 600;
   text-align: center;
   text-transform: capitalize;
+
+  font-size: 1.4em;
 `
 const CalWeekTitle = styled.div`
   width: 100%;

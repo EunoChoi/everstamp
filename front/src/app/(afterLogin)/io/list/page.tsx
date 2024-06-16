@@ -9,6 +9,7 @@ import SC_Common from "@/styleComponent/common";
 
 //component
 import Diary from "@/component/Diary";
+import Header from "@/component/Header";
 
 //icon
 import SearchIcon from '@mui/icons-material/Search';
@@ -31,6 +32,7 @@ const List = () => {
 
   return (
     <SC_Common.Wrapper>
+      <Header title='list' />
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />

@@ -8,6 +8,7 @@ import SC_Common from "@/styleComponent/common";
 
 //component
 import HabitBox from "@/component/HabitBox";
+import Header from "@/component/Header";
 
 //icon
 import SortIcon from '@mui/icons-material/Sort';
@@ -24,6 +25,7 @@ const Habit = () => {
 
   return (
     <SC_Common.Wrapper className="habit">
+      <Header title='habit' />
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />

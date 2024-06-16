@@ -14,6 +14,7 @@ import CalendarSelector from "@/component/CalendarSelector";
 //icon
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import Header from "@/component/Header";
 
 const Calendar = () => {
 
@@ -27,16 +28,11 @@ const Calendar = () => {
     return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
   }, []);
 
-  //url '/calendar' 강제 접근 시 쿼리스트링 처리
-  useEffect(() => {
-    if (date === 0) router.push(`/io/calendar?date=${getCleanTodayTime()}`);
-  }, [date])
-
-
 
   return (
     <SC_Common.Wrapper>
       <SC_Common.Content className="noOption">
+        <Header title='calendar' />
         {isMobile &&
           <CalendarWrapper>
             <CalendarSelector />

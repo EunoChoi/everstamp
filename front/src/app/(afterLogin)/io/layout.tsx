@@ -44,7 +44,6 @@ const Layout = ({
   return (<>
     {isMobile ?
       <Mobile_Layout>
-        <Header />
         {children}
         <Mobile_Nav>
           <Logo><span>ever</span><span>stamp</span></Logo>
@@ -79,7 +78,6 @@ const Layout = ({
         </Desktop_Sidebar>
 
         <Desktop_Content>
-          <Header />
           {children}
         </Desktop_Content>
       </Desktop_Layout>

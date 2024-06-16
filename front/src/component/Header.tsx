@@ -2,23 +2,18 @@
 
 import styled from "styled-components";
 import IsMobile from "@/hooks/IsMobile";
-import { usePathname } from 'next/navigation'
+import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 interface Props {
-  subTitle: string;
+  title: string
 }
 
-const Header = () => {
-  const mobile = IsMobile();
-  const pathname = usePathname()
-  const router = useRouter()
-
-
+const Header = ({ title }: Props) => {
 
   return (
     <Wrapper>
-      <Title>{pathname.split('/io/')[1]}</Title>
+      <Title>{title}</Title>
     </Wrapper>
   );
 }
@@ -28,13 +23,12 @@ export default Header;
 const Wrapper = styled.div`
   position: fixed;
   top: 0;
+  z-index: 99;
 
   display: flex;
   flex-shrink: 0;
   align-items: end;
-  align-items: center;
 
-  z-index: 999;
 
   @media (max-width: 479px) { //mobile port
     width: 100%;
