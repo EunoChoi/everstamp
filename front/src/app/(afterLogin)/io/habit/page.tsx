@@ -53,28 +53,35 @@ const Habit = () => {
         </button>
       </SC_Common.Options>
       <SC_Common.Content className="habit">
+
         <HabitGridList
           ref={gridListRef}
           onScroll={(e) => {
             setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
           }}
         >
-          {habits.length > 0 && habits.map((set: any[], i: number) => <HabitGrid key={'set' + i}>
-            {set.map(e => <HabitBox key={e}></HabitBox>)}
-          </HabitGrid>)}
+          {habits.length > 0 ?
+            habits.map((set: any[], i: number) =>
+              <HabitGrid key={'set' + i}>
+                {set.map(e => <HabitBox key={e}></HabitBox>)}
+              </HabitGrid>)
+            :
+            <NoHabit>Shall we make a list of habits? 😊</NoHabit>}
         </HabitGridList>
-        {habits.length > 0 ? <IndicatoWrapper>
-          {indicatorArr.map((_, i: number) =>
-            <div
-              key={'indicator' + i}
-              className={page === i ? 'current' : ''}
-              onClick={() => {
-                gridListRef.current?.scrollTo({
-                  left: gridListRef.current.clientWidth * i,
-                  behavior: "smooth"
-                })
-              }} />)}
-        </IndicatoWrapper> : <span>no habit :(</span>}
+
+        {habits.length > 0 &&
+          <IndicatoWrapper>
+            {indicatorArr.map((_, i: number) =>
+              <div
+                key={'indicator' + i}
+                className={page === i ? 'current' : ''}
+                onClick={() => {
+                  gridListRef.current?.scrollTo({
+                    left: gridListRef.current.clientWidth * i,
+                    behavior: "smooth"
+                  })
+                }} />)}
+          </IndicatoWrapper>}
 
       </SC_Common.Content>
     </SC_Common.Wrapper>
@@ -83,6 +90,21 @@ const Habit = () => {
 
 export default Habit;
 
+const NoHabit = styled.span`
+  width: 100%;
+  text-align: center;
+  color: grey;
+  font-weight: 500;
+  @media (max-width: 479px) { //mobile port
+    font-size: 20px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 22px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    font-size: 24px;
+  }
+`
 
 const HabitGridList = styled.div`
   transition: all ease-in-out 0.1s;
