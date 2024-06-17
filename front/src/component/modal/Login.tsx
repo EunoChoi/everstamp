@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 
 
@@ -22,7 +22,7 @@ const Login = () => {
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Logo onClick={() => signOut()}>
+        <Logo>
           <span>ever</span>
           <span>stamp</span>
         </Logo>

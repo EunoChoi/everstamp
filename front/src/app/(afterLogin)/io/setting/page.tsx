@@ -1,6 +1,7 @@
 'use client';
 
 import styled from "styled-components";
+import { signOut } from "next-auth/react";
 
 //component
 import Header from "@/component/Header";
@@ -33,7 +34,7 @@ const Setting = () => {
             <span className="value">00.00.00</span>
           </Value>
           <Buttons>
-            <Button>logout</Button>
+            <Button onClick={() => signOut()}>logout</Button>
             <Button>delete account</Button>
           </Buttons>
         </Section>
