@@ -4,18 +4,38 @@ import Google from "next-auth/providers/google"
 import Naver from "next-auth/providers/naver"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: {
-    // signIn: '/inter/login',
-  },
-  providers: [Kakao, Google, Naver],
+  providers: [Kakao({
+    authorization: {
+      params: {
+        prompt: "consent"
+      },
+    },
+  }), Google({
+    authorization: {
+      params: {
+        prompt: "consent"
+      },
+    },
+  }), Naver(
+    {
+      authorization: {
+        params: {
+          prompt: "consent"
+        },
+      },
+    }
+  )],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      console.log(user);
-
+      console.log('user :', user);
+      console.log('account :', account);
+      console.log('profile :', profile)
+      console.log('credentials :', credentials);
 
 
 
       const result = true;
+      // if (result) return `${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar`;
       if (result) return true;
       else return false;
 

@@ -25,10 +25,6 @@ const Setting = () => {
             <span className="value">pixel@kakao.com</span>
           </Value>
           <Value>
-            <span className="key">user id</span>
-            <span className="value">k_pixel@kakao.com</span>
-          </Value>
-          <Value>
             <span className="key">type</span>
             <span className="value">kakao</span>
           </Value>
