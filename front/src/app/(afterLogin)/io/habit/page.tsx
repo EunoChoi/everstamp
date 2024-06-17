@@ -23,6 +23,23 @@ const Habit = () => {
   const pageLength = 3;
   const indicatorArr = new Array(pageLength).fill(0);
 
+  const [habitDummy, setHabitDummy] = useState(new Array(9).fill(0).map((e, i) => i));
+  const [habits, setHabits] = useState<any>([]);
+
+  useEffect(() => {
+    const _habits = [];
+    const _habitDummy = [...habitDummy];
+
+    while (_habitDummy.length > 0) {
+      _habits.push(_habitDummy.splice(0, 6));
+    }
+
+    setHabits(_habits);
+    console.log(_habits);
+  }, [habitDummy]);
+
+
+
   return (
     <SC_Common.Wrapper className="habit">
       <Header title='habit' />
@@ -42,32 +59,11 @@ const Habit = () => {
             setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
           }}
         >
-          <HabitGrid>
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-          </HabitGrid>
-          <HabitGrid>
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-          </HabitGrid>
-          <HabitGrid>
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-            <HabitBox />
-          </HabitGrid>
+          {habits.length > 0 && habits.map((set: any[], i: number) => <HabitGrid key={'set' + i}>
+            {set.map(e => <HabitBox key={e}></HabitBox>)}
+          </HabitGrid>)}
         </HabitGridList>
-        <IndicatoWrapper>
+        {habits.length > 0 ? <IndicatoWrapper>
           {indicatorArr.map((_, i: number) =>
             <div
               key={'indicator' + i}
@@ -78,7 +74,8 @@ const Habit = () => {
                   behavior: "smooth"
                 })
               }} />)}
-        </IndicatoWrapper>
+        </IndicatoWrapper> : <span>no habit :(</span>}
+
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
