@@ -113,7 +113,7 @@ const NavMenu = styled(Link)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 70%;
+    width: 90%;
 
     span{
       font-weight: 500;
@@ -182,6 +182,7 @@ const Mobile_Nav = styled.nav`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     left: 0;
     width: 25dvw;
+    min-width: 150px;
     height: 100dvh;
 
     flex-direction: column;
