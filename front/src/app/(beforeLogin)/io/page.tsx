@@ -14,113 +14,113 @@ import IsMobile from "@/hooks/IsMobile";
 
 //image
 import loginPageImg from '/public/img/loginPageImg.jpg';
+import tree from '/public/img/tree.png';
 
 
 const Io = () => {
   const router = useRouter()
-  const mobile = IsMobile();
-
-
-
-  if (mobile === null) return <></>;
 
   return (
-    <>
-      {mobile ?
-        <Mobile>
-          <div>
-            <Img src={loginPageImg} priority placeholder="blur" width={500} height={500} alt='loginPageImg'></Img>
-          </div>
-          <div>
-            <div>
-              <Mobile_TitleLogo>
-                <span>ever</span>
-                <span>stamp</span>
-              </Mobile_TitleLogo>
-              <Mobile_TitleText>
-                <span>하루 하루 발전하는 삶</span>
-                <span>습관과 일기를 함께 기록해요</span>
-              </Mobile_TitleText>
-              <Mobile_Button
-              >
-                <Link href='/io/inter/login' scroll={false}>start</Link>
-              </Mobile_Button>
-            </div>
-          </div>
-        </Mobile> :
-        <Desktop>
-          <div>
-            <Img src={loginPageImg} alt='loginPageImg' placeholder="blur" priority></Img>
-          </div>
-          <div>
-            <div>
-              <Desktop_TitleLogo>
-                <span>ever</span>
-                <span>stamp</span>
-              </Desktop_TitleLogo>
-              <Desktop_TitleText>
-                <span>하루 하루 발전하는 삶</span>
-                <span>습관과 일기를 함께 기록해요</span>
-              </Desktop_TitleText>
-              <Desktop_Button
-              >
-                <Link href='/io/inter/login' scroll={false}>start</Link>
-              </Desktop_Button>
-            </div>
-          </div>
-        </Desktop >}
-    </>
+    <Wrapper>
+      <ImageWrapper>
+        <span>Grow everyday</span>
+        <Img src={tree} priority width={500} height={500} alt='tree'></Img>
+      </ImageWrapper>
+      <TextWrapper>
+
+        <Logo>
+          <span>ever</span>
+          <span>stamp</span>
+        </Logo>
+
+        <TextContent>
+          <span>Stamp daily habits in diary</span>
+          <span>for lifelong your growth</span>
+        </TextContent>
+
+        <Link href='/io/inter/login' scroll={false}><Button>start</Button></Link>
+
+      </TextWrapper>
+    </Wrapper>
   );
 }
 
 export default Io;
 
+const Wrapper = styled.div`
+  width: 100dvw;
+  height: 100dvh;
+  display:flex;
+  @media (max-width: 479px) { //mobile port
+    flex-direction: column;
+  }
+`
+const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  
+  background-color: rgb(var(--point));
+  span{
+      color: rgb(var(--greyTitle2));
+      font-size: 24px;
+      font-weight: 600;
+      text-transform: capitalize;
+  }
 
-const Mobile = styled.div`
-  width: 100dvw; 
-  >div:first-child{ //imageArea
-    height: 65dvh;
-  };
-  >div:nth-child(2){
-    height: 35dvh;
-    background-color: white;
-    padding: 10px;
-    >div{ //infoArea
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-
-      display: flex;
-      flex-direction:column;
-      justify-content: space-around;
-      align-items: start;
-
-      border: rgb(var(--point2)) solid 6px;
-    }
-  };
+  @media (max-width: 479px) { //mobile port
+    height: 70dvh;
+    
+  }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    display:flex;
-    >div:first-child{ //imageArea
-        height: 100dvh;
-        width: 100%;
-      };
-    >div:nth-child(2){
-        height: 100dvh;
-        width: 100%;
-        max-width: 350px;
-        >div{
-          align-items: end;
-          justify-content: center;
-          border: rgb(var(--point2)) solid 9px;
-        }
+    width: 100%;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    width: 100%;
+    span{
+      font-size: 30px;
+  }
+  }
+`
+const Img = styled(Image)`
+  width: 80%;
+  height: 50%;
+  
+  object-fit: contain;
+`;
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  @media (max-width: 479px) { //mobile port
+    height: 30dvh;
+    padding: 0 32px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 450px;
+    padding: 0 32px;
+    align-items: end;
+    span{
+      text-align: end;
+    }
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    width: 550px;
+    padding: 0 48px;
+    align-items: end;
+    span{
+      text-align: end;
     }
   }
 `
-const Mobile_TitleLogo = styled.div`
+const Logo = styled.div`
   display: flex;
   flex-direction: column;
   span{
-    font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 100%;
@@ -130,35 +130,47 @@ const Mobile_TitleLogo = styled.div`
   span::first-letter{
     color: rgb(var(--point));
   }
+  @media (max-width: 479px) { //mobile port
+    font-size: 36px;
+  }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    align-items: end;
-
-    span{
-    font-size: 48px;
-    }
-  }  
+    font-size: 42px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    font-size: 56px;
+  }
 `
-const Mobile_TitleText = styled.div`
+const TextContent = styled.div`
   display: flex;
   flex-direction: column;
-  
-  span{
-    font-size: 16px;
-    font-weight: 500;
-    text-transform: uppercase;
-    line-height: 130%;
 
+  span{
     color: rgb(var(--greyTitle));
+    font-weight: 500;
+    line-height: 130%;    
+  }
+
+  @media (max-width: 479px) { //mobile port
+    padding: 24px 0;
+    span{
+      font-size: 18px;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    margin: 8dvh 0;
-    align-items: end;
+    padding: 32px 0;
     span{
-      font-size: 20px;
+      font-size: 18px;
+    }
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    padding: 72px 0;
+    span{
+      line-height: 150%;    
+      font-size: 24px;
     }
   }
 `
-const Mobile_Button = styled.button`
+const Button = styled.button`
   cursor: pointer;
 
   background-color : rgb(var(--lightGrey2));
@@ -168,85 +180,9 @@ const Mobile_Button = styled.button`
 
   padding: 4px 20px;
   border-radius: 48px;
-`
 
-const Desktop = styled.div`
-  display: flex;
-  >div:first-child{
-    width: 100%;
-    height: 100dvh;
-  };
-  >div:nth-child(2){
-    min-width: 450px;
-    height: 100dvh;
-    padding: 20px;
-    >div{ //infoArea
-      width: 100%;
-      height: 100%;
-      padding: 0px 24px;
-
-      display: flex;
-      flex-direction:column;
-      justify-content: center;
-
-      align-items: end;
-
-      border: rgb(var(--lightGrey2)) solid 10px;
-      border: rgb(var(--point2)) solid 10px;
-    }
-  };
-`
-const Desktop_TitleLogo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  span{
-    font-size: 64px;
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 100%;
-
-    color: rgb(var(--greyTitle));
-  }
-  span::first-letter{
-    color: rgb(var(--point));
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    padding: 6px 24px;
+    font-size: 20px;
   }
 `
-const Desktop_TitleText = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  margin: 64px 0;
-  span{
-    /* white-space: nowrap; */
-    /* text-wrap: balance; */
-    font-size: 22px;
-    font-weight: 500;
-    text-transform: uppercase;
-    line-height: 150%;
-
-    color: rgb(var(--greyTitle));
-  }
-`
-const Desktop_Button = styled.button`
-  cursor: pointer;
-
-  background-color : rgb(var(--lightGrey2));
-  font-size: 22px;
-  font-weight: 600;
-  text-transform: uppercase;
-
-  padding: 6px 24px;
-  border-radius: 48px;
-  transition: all ease-in-out 0.3s;
-  &:hover{
-    background-color: rgb(var(--point));
-  }
-`
-
-const Img = styled(Image)`
-  width: 100%;
-  height: 100%;
-  
-  object-fit: cover;
-`;
