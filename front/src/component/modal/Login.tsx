@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 
 
@@ -17,46 +17,32 @@ const Login = () => {
     history.back();
   }, []);
 
-  const loginGoogle = async () => {
-    try {
-      await signIn("google");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const loginKakao = async () => {
-    try {
-      await signIn("kakao");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const loginNaver = async () => {
-    try {
-      await signIn("naver");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const options = { callbackUrl: `http://${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar` };
 
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Logo>
+        <Logo onClick={() => signOut()}>
           <span>ever</span>
           <span>stamp</span>
         </Logo>
         <Title>sns 로그인</Title>
         <Text>간편 로그인 및 가입이 가능합니다.</Text>
         <Buttons>
-          <Button className="google" onClick={loginGoogle}>
-            <Images src={google} alt='google' width={50} height={50}></Images>
+          <Button
+            className="google"
+            onClick={() => signIn('google', options)}>
+            <Images src={google} alt='google' width={50} height={50} />
           </Button>
-          <Button className="kakao" onClick={loginKakao}>
-            <Images src={kakao} alt='kakao' width={50} height={50}></Images>
+          <Button
+            className="kakao"
+            onClick={() => signIn('kakao', options)}>
+            <Images src={kakao} alt='kakao' width={50} height={50} />
           </Button>
-          <Button className="naver" onClick={loginNaver}>
-            <Images src={naver} alt='naver' width={50} height={50}></Images>
+          <Button
+            className="naver"
+            onClick={() => signIn('naver', options)}>
+            <Images src={naver} alt='naver' width={50} height={50} />
           </Button>
         </Buttons>
       </Modal>
