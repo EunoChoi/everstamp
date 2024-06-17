@@ -71,7 +71,7 @@ const ImageWrapper = styled.div`
   }
 
   @media (max-width: 479px) { //mobile port
-    height: 70dvh;
+    height: 100%;
     
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
@@ -97,8 +97,9 @@ const TextWrapper = styled.div`
   align-items: start;
 
   @media (max-width: 479px) { //mobile port
-    height: 30dvh;
+    height: 400px;
     padding: 0 32px;
+    justify-content: space-evenly;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 450px;
@@ -151,7 +152,7 @@ const TextContent = styled.div`
   }
 
   @media (max-width: 479px) { //mobile port
-    padding: 24px 0;
+    /* padding: 24px 0; */
     span{
       font-size: 18px;
     }
