@@ -20,11 +20,11 @@ const Habit = () => {
   const [sortToggle, setSortToggle] = useState<boolean>(true);
   const [page, setPage] = useState<number>(0);
 
-  const pageLength = 3;
-  const indicatorArr = new Array(pageLength).fill(0);
 
   const [habitDummy, setHabitDummy] = useState(new Array(9).fill(0).map((e, i) => i));
-  const [habits, setHabits] = useState<any>([]);
+  const [habits, setHabits] = useState<Array<any>>([]);
+  const [indicator, setIndicator] = useState<Array<number>>([]);
+
 
   useEffect(() => {
     const _habits = [];
@@ -35,7 +35,8 @@ const Habit = () => {
     }
 
     setHabits(_habits);
-    console.log(_habits);
+    setIndicator(new Array(_habits.length).fill(0));
+    console.log('habit list changed');
   }, [habitDummy]);
 
 
@@ -71,7 +72,7 @@ const Habit = () => {
 
         {habits.length > 0 &&
           <IndicatoWrapper>
-            {indicatorArr.map((_, i: number) =>
+            {indicator.map((_, i: number) =>
               <div
                 key={'indicator' + i}
                 className={page === i ? 'current' : ''}
