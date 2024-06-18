@@ -4,7 +4,7 @@ import RQProvider from "@/component/RQProvider";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 
-import { getCurrentUser } from "./_lib/geCurrentUser";
+import { getCurrentUser } from "./_lib/getCurrentUser";
 
 type Props = {
   children: ReactNode;
@@ -13,6 +13,7 @@ type Props = {
 
 const Layout = async ({ children, modal }: Props) => {
 
+  //server
   //prefetch datas in (afterLogin) layout
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({

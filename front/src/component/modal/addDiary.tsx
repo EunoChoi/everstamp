@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import styled from "styled-components";
 import Image from "next/image";
@@ -13,17 +13,23 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 //test image
 import testImg from "../../../public/img/everStamp_logo_blue.png";
 import IsMobile from "@/hooks/IsMobile";
+import { getCurrentUserEmail } from "@/app/(afterLogin)/_lib/getCurrentUserEmail";
 
 
 const AddDiary = () => {
   //to writh need info
-  //user id,  by query string
-  //date info,  by query string
-  //text info,  by form
-  //image info,  by form
+  //need info user email, date info to upload
 
-  const isMobile = IsMobile();
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const [text, setText] = useState<string>('');
+
+  const email = getCurrentUserEmail();
+
+
+  const addDiary = () => useCallback(() => {
+    //
+  }, []);
 
   const historyBack = useCallback(() => {
     history.back();
@@ -33,33 +39,35 @@ const AddDiary = () => {
     inputRef.current?.focus();
   }, [])
 
-
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Logo>
           <span>ever</span>
           <span>stamp</span>
+          {text}
         </Logo>
         <InputWrapper>
           <textarea
+            onChange={e => setText(e.target.value)}
             ref={inputRef}
+            value={text}
             placeholder="we can do better"
           />
         </InputWrapper>
+
         <UploadedImages>
           {[1, 2, 3, 4, 5, 6, 7].map(e => <ImageBox key={e}>
             <UploadedImage src={testImg} alt='test' width={200} height={200} />
             <ImageDeleteButton><RemoveCircleOutlinedIcon fontSize="inherit" /></ImageDeleteButton>
           </ImageBox>)}
-
-
         </UploadedImages>
+
         <Buttons>
           <Button>
             <ImageOutlinedIcon className="icon" />
           </Button>
-          <Button>
+          <Button onClick={addDiary}>
             <PostAddOutlinedIcon className="icon" />
           </Button>
         </Buttons>
@@ -203,13 +211,13 @@ const ImageBox = styled.div`
   justify-content: center;
   align-items: center;
   @media (max-width: 479px) { //mobile port
-    aspect-ratio: 1.3;
+    aspect-ratio: 1.2;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    aspect-ratio: 2;
+    aspect-ratio: 1.8;
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
-    aspect-ratio: 1.5;
+    aspect-ratio: 1.3;
   }
 `
 const UploadedImage = styled(Image)`

@@ -14,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 //img
 import Test from '/public/img/loginPageImg.jpg';
@@ -24,10 +25,11 @@ import IsMobile from "@/hooks/IsMobile";
 interface props {
   isCalendar?: boolean;
   dateInfo: number;
+  diaryData?: any;
 }
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
-const Diary = ({ isCalendar, dateInfo }: props) => {
+const Diary = ({ isCalendar, dateInfo, diaryData }: props) => {
 
   const router = useRouter();
 
@@ -37,7 +39,6 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
   const date = format(dateinfo, 'dd');
   const day = format(dateinfo, `${!isMobile && isCalendar ? 'EEEE' : 'eee'}`);
   const year = format(dateinfo, 'yyyy');
-
 
   // const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
   const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
@@ -66,40 +67,53 @@ const Diary = ({ isCalendar, dateInfo }: props) => {
         {habits.map((e, i) => <Habit key={e + i}>{e}</Habit>)}
       </Habits>
 
-      <SlideWrapper
-        onClick={() => {
-          router.push('/io/inter/input/diary');
-          // router.push('/io/inter/login');
-        }}
-        ref={slideWrapperRef}
-        onScroll={(e) => {
-          setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-        }}>
-        <Text className="slideChild">
-          <div className="text">일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
-        </Text>
-        {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
-
-        <EditBox className="slideChild">
-          <button><ContentCopyIcon />copy text</button>
-          <button><EditIcon />edit diary</button>
-          <button><DeleteIcon />delete Diary</button>
-        </EditBox>
-      </SlideWrapper>
-      <IndicatoWrapper>
-        {indicatorArr.map((_, i: number) =>
-          <div
-            key={'indicator' + i}
-            className={page === i ? 'current' : ''}
+      {diaryData ?
+        <>
+          <SlideWrapper
             onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
+              router.push('/io/inter/input/diary');
+              // router.push('/io/inter/login');
             }}
-          />)}
+            ref={slideWrapperRef}
+            onScroll={(e) => {
+              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+            }}>
+            <Text className="slideChild">
+              <div className="text">일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
+            </Text>
+            {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
 
-      </IndicatoWrapper>
+            <EditBox className="slideChild">
+              <button><ContentCopyIcon />copy text</button>
+              <button><EditIcon />edit diary</button>
+              <button><DeleteIcon />delete Diary</button>
+            </EditBox>
+          </SlideWrapper>
+          <IndicatoWrapper>
+            {indicatorArr.map((_, i: number) =>
+              <div
+                key={'indicator' + i}
+                className={page === i ? 'current' : ''}
+                onClick={() => {
+                  slideWrapperRef.current?.scrollTo({
+                    left: slideWrapperRef.current.clientWidth * i,
+                    behavior: "smooth"
+                  })
+                }}
+              />)}
+          </IndicatoWrapper>
+        </> :
+        <EmptyDiaryWrapper>
+          <span>There are no diary yet.</span>
+          <span>Create a new one :)</span>
+          <button onClick={() => {
+            router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/io/inter/input/addDiary?date=1234`)
+          }}>
+            <AddCircleOutlinedIcon fontSize="inherit" />
+          </button>
+        </EmptyDiaryWrapper>}
+
+
     </Wrapper >);
 }
 
@@ -287,6 +301,45 @@ const SlideWrapper = styled.div`
     margin-right: 8px;
     &:last-child{
       margin-right: 0;
+    }
+  }
+`
+const EmptyDiaryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  flex-grow: 1;
+
+  background-color: whitesmoke;
+  color: rgb(var(--greyTitle));
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 8px;
+
+  font-weight:500;
+  span{
+    line-height: 120%;
+    @media (min-width:480px) and (min-width:1024px) { //desktop
+      font-size: 20px;
+    }
+  }
+
+  button{
+    transition: color ease-in-out 0.2s;
+    line-height: 50%;
+    font-size: 48px;
+    color: rgb(var(--greyTitle));
+    padding: 8px;
+    padding-top: 16px;
+
+    @media (min-width:480px) and (min-width:1024px) { //desktop
+      font-size: 56px;
+    }
+    &:hover{
+      color: rgb(var(--point));
     }
   }
 `

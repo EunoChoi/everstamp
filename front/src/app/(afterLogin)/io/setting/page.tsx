@@ -1,10 +1,14 @@
 'use client';
 
 import styled from "styled-components";
-import { signOut, useSession } from "next-auth/react";
-import { getCurrentUser } from "../../_lib/geCurrentUser";
+import { signOut } from "next-auth/react";
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
+
+
+//function
+import { getCurrentUser } from "../../_lib/getCurrentUser";
+import { getCurrentUserEmail } from "../../_lib/getCurrentUserEmail";
 
 //component
 import Header from "@/component/Header";
@@ -14,8 +18,7 @@ import SC_Common from "@/style/common";
 
 
 const Setting = () => {
-  const { data: session } = useSession();
-  const email = session?.user?.email;
+  const email = getCurrentUserEmail();
 
   const { data } = useQuery({
     queryKey: ['user', email ? email : ''],
