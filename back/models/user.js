@@ -3,22 +3,18 @@ module.exports = (sequelize, DataTypes) => { //sequelize는 시퀄라이즈 라�
     email: {
       type: DataTypes.STRING(30),//최대 30자인 문자(STRING, TEXT, BOOLEAN, INTEGER, FLOAT, DATETIME)
       allowNull: false, //빈값 허용 X, 입력 필수
-      unique: true //고유값
+      unique: true //
     },
-    type: {
+    provider: {
       type: DataTypes.STRING(30),
       allowNull: false
     },
     themeColor: {
       type: DataTypes.STRING(30),
-      allowNull: false
+      allowNull: true
     },
     profilePic: {
       type: DataTypes.STRING(500),
-      allowNull: true
-    },
-    refreshToken: {
-      type: DataTypes.STRING(300),
       allowNull: true
     }
   }, {

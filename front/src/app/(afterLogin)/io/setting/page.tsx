@@ -1,7 +1,10 @@
 'use client';
 
 import styled from "styled-components";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { getCurrentUser } from "../../_lib/geCurrentUser";
+import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
 
 //component
 import Header from "@/component/Header";
@@ -11,6 +14,14 @@ import SC_Common from "@/style/common";
 
 
 const Setting = () => {
+  const { data: session } = useSession();
+  const email = session?.user?.email;
+
+  const { data } = useQuery({
+    queryKey: ['user', email ? email : ''],
+    queryFn: getCurrentUser
+  })
+
   return (
     <SC_Common.Wrapper>
       <SC_Common.Content
@@ -23,15 +34,15 @@ const Setting = () => {
           <Title>account</Title>
           <Value>
             <span className="key">email</span>
-            <span className="value">pixel@kakao.com</span>
+            <span className="value">{data?.email}</span>
           </Value>
           <Value>
-            <span className="key">type</span>
-            <span className="value">kakao</span>
+            <span className="key">provider</span>
+            <span className="value">{data?.provider}</span>
           </Value>
           <Value>
             <span className="key">creation date</span>
-            <span className="value">00.00.00</span>
+            <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.mm.dd')}</span>
           </Value>
           <Buttons>
             <Button onClick={() => signOut()}>logout</Button>

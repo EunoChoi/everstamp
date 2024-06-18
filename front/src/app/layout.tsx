@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import StyledComponentsRegistry from "../../lib/registry";
-
 import { SessionProvider } from "next-auth/react";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -33,10 +32,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+
   return (
     <html lang="en">
-      <SessionProvider
-      >
+      <SessionProvider>
         <StyledComponentsRegistry>
           <body className={pretendard.className}>
             {children}

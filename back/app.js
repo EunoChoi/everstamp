@@ -5,7 +5,7 @@ const cors = require("cors");
 const cookies = require("cookie-parser"); //요청시 보내지는 쿠키 사용하기 위함 req.cookies
 
 
-// const userRouter = require('./routes/user');
+const userRouter = require('./routes/user');
 // const postRouter = require('./routes/post');
 // const authRouter = require('./routes/auth');
 // const imageRouter = require('./routes/image');
@@ -42,7 +42,7 @@ app.use(cookies());
 
 
 //라우터 연결
-// app.use("/user", userRouter);
+app.use("/user", userRouter);
 // app.use("/post", postRouter);
 // app.use("/auth", authRouter);
 // app.use("/image", imageRouter);

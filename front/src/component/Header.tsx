@@ -1,9 +1,6 @@
 'use client';
 
 import styled from "styled-components";
-import IsMobile from "@/hooks/IsMobile";
-import { usePathname, useSelectedLayoutSegments } from 'next/navigation'
-import { useRouter } from 'next/navigation'
 
 interface Props {
   title: string

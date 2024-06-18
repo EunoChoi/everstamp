@@ -167,7 +167,7 @@ const TextContent = styled.div`
     padding: 72px 0;
     span{
       line-height: 150%;    
-      font-size: 24px;
+      font-size: 22px;
     }
   }
 `

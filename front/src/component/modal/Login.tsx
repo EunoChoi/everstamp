@@ -17,7 +17,7 @@ const Login = () => {
     history.back();
   }, []);
 
-  const options = { callbackUrl: `http://${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar` };
+  const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar` };
 
   return (
     <Wrapper onClick={historyBack}>
@@ -95,11 +95,14 @@ const Modal = styled.div`
 
   @media (max-width: 479px) { //mobile port
     width: 90%;
-    height: 40%;
+    height: 60%;
+    max-height: 500px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 50%;
+    min-width: 450px;
     height: 80%;
+    max-height: 500px;
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
     width: 50%;

@@ -3,11 +3,11 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from 'next/navigation'
+import { ReactNode } from "react";
 
 //component
 import CalendarSelector from "@/component/CalendarSelector";
 import Loading from "@/component/Loading";
-import Header from "@/component/Header";
 
 //hooks
 import IsMobile from "@/hooks/IsMobile";
@@ -19,18 +19,12 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
-import { ReactNode } from "react";
-
 
 interface Props {
   children: ReactNode;
 }
 
-const Layout = ({
-  children
-}: Props) => {
-
-
+const IoLayout = ({ children }: Props) => {
   const getCleanTodayTime = () => {
     const tempDate = new Date();
     return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
@@ -85,7 +79,9 @@ const Layout = ({
   </>);
 }
 
-export default Layout;
+export default IoLayout;
+
+
 const Logo = styled.span`
   display: none;
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
