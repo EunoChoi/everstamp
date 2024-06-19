@@ -4,31 +4,37 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
-//hooks
-import IsMobile from "@/hooks/IsMobile";
+//function
+import IsMobile from "@/funcstion/IsMobile";
+import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
+import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
 
 //styledComponent
 import SC_Common from "@/style/common";
 
 //component
-import Diary from "@/component/Diary";
+import DiaryCalendar from "@/component/DiaryCalendar";
+import DiaryEmpty from "@/component/DiaryEmpty";
 import CalendarSelector from "@/component/CalendarSelector";
 
 //icon
 import Header from "@/component/Header";
+import { useQuery } from "@tanstack/react-query";
+
+
 
 const Calendar = () => {
-
   const isMobile = IsMobile();
   const router = useRouter();
+
+  const email = getCurrentUserEmail();
   const params = useSearchParams();
   const date = Number(params.get('date'));
 
-  const getCleanTodayTime = useCallback(() => {
-    const tempDate = new Date();
-    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
-  }, []);
-
+  const { data: diaryData } = useQuery({
+    queryKey: ['diary', 'calendar', date],
+    queryFn: () => getDiaryCalendar({ email: 'pixel@kakao.com', date }),
+  });
 
   return (
     <SC_Common.Wrapper>
@@ -38,8 +44,8 @@ const Calendar = () => {
           <CalendarWrapper>
             <CalendarSelector />
           </CalendarWrapper>}
+        {diaryData ? <DiaryCalendar diaryData={diaryData} /> : <DiaryEmpty />}
 
-        <Diary isCalendar={true} dateInfo={date !== 0 ? date : getCleanTodayTime()} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );

@@ -1,34 +1,55 @@
 'use client';
 
 import styled from "styled-components";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 
 //styledComponent
 import SC_Common from "@/style/common";
 
+
+//_lib
+import { getCurrentUserEmail } from "../../../../funcstion/getCurrentUserEmail";
+import { getDiaryList } from "../../_lib/getDiaryList";
+
 //component
-import Diary from "@/component/Diary";
+import DiaryList from "@/component/DiaryList";
 import Header from "@/component/Header";
 
 //icon
 import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
 import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 
+interface diaryData {
+
+}
 
 const List = () => {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
+  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
 
-  const [sortToggle, setSortToggle] = useState<boolean>(true);
+  const email = getCurrentUserEmail();
+
+  const { data: diaries } = useQuery({
+    queryKey: ['diary', 'list', sortToggle],
+    queryFn: () => getDiaryList(email, sortToggle),
+    enabled: email !== ''
+  });
+
 
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearchInputOpen(c => !c);
   }
-  const dummy = [1, 2, 3, 4, 5, 6, 7];
+  const sortChage = useCallback(() => {
+    if (sortToggle === 'DESC') setSortToggle('ASC');
+    else setSortToggle('DESC');
+  }, [sortToggle])
+
 
   return (
     <SC_Common.Wrapper>
@@ -36,7 +57,7 @@ const List = () => {
       <SC_Common.Options>
         <button>
           <SortIcon fontSize="small" />
-          <span onClick={() => setSortToggle(c => !c)}>{sortToggle ? 'new' : 'old'}</span>
+          <span onClick={sortChage}>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
         </button>
         <Search
           open={searchInputOpen}
@@ -56,7 +77,10 @@ const List = () => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
-        {dummy.map(e => <Diary key={'listNote' + e} dateInfo={new Date().getTime()} />)}
+        {diaries?.map((e: any, i: number) => <DiaryList
+          diaryData={e}
+          key={'listNote' + i}
+        />)}
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );

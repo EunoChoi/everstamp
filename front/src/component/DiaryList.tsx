@@ -18,35 +18,39 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 //img
 import Test from '/public/img/loginPageImg.jpg';
-import IsMobile from "@/hooks/IsMobile";
+import IsMobile from "@/funcstion/IsMobile";
 
 
 
 interface props {
   isCalendar?: boolean;
-  dateInfo: number;
-  diaryData?: any;
+  diaryData: {
+    date: Date;
+    text: string;
+    habits: Array<any>;
+  };
 }
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
-const Diary = ({ isCalendar, dateInfo, diaryData }: props) => {
+const DiaryList = ({ isCalendar, diaryData }: props) => {
 
   const router = useRouter();
 
   const isMobile = IsMobile();
-  const dateinfo = new Date(dateInfo);
-  const month = format(dateinfo, 'MMM');
-  const date = format(dateinfo, 'dd');
-  const day = format(dateinfo, `${!isMobile && isCalendar ? 'EEEE' : 'eee'}`);
-  const year = format(dateinfo, 'yyyy');
 
-  // const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
-  const habits = ['운동하기', '잠자리 정리', '방 청소', '운동하기'];
+  const dateInfo = diaryData?.date;
+
+  const month = format(dateInfo, 'MMM');
+  const date = format(dateInfo, 'dd');
+  const day = format(dateInfo, `${!isMobile && isCalendar ? 'EEEE' : 'eee'}`);
+  const year = format(dateInfo, 'yyyy');
+
+  const habits = diaryData?.habits;
 
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-  const images = [1, 2];
+  const images: Array<any> = [];
 
   const indicatorLength = images.length + 2;
   const indicatorArr = new Array(indicatorLength).fill(0);
@@ -63,61 +67,44 @@ const Diary = ({ isCalendar, dateInfo, diaryData }: props) => {
       </DateWrapper>
 
       <Habits className="habits">
-        <Habit>{habits.length} habits</Habit>
-        {habits.map((e, i) => <Habit key={e + i}>{e}</Habit>)}
+        <Habit>{habits?.length ? habits?.length : 0} habits</Habit>
+        {habits?.map((e: any, i: number) => <Habit key={e + i}>{e}</Habit>)}
       </Habits>
 
-      {diaryData ?
-        <>
-          <SlideWrapper
+      <SlideWrapper
+        ref={slideWrapperRef}
+        onScroll={(e) => {
+          setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+        }}>
+        <Text className="slideChild">
+          <div className="text">{diaryData.text}</div>
+        </Text>
+
+        {images.map(e => <Img key={e} className="slideChild" src={e} alt='image' width={300} height={300} placeholder="blur"></Img>)}
+
+        <EditBox className="slideChild">
+          <button><ContentCopyIcon />copy text</button>
+          <button><EditIcon />edit diary</button>
+          <button><DeleteIcon />delete Diary</button>
+        </EditBox>
+      </SlideWrapper>
+      <IndicatoWrapper>
+        {indicatorArr.map((_, i: number) =>
+          <div
+            key={'indicator' + i}
+            className={page === i ? 'current' : ''}
             onClick={() => {
-              router.push('/io/inter/input/diary');
-              // router.push('/io/inter/login');
+              slideWrapperRef.current?.scrollTo({
+                left: slideWrapperRef.current.clientWidth * i,
+                behavior: "smooth"
+              })
             }}
-            ref={slideWrapperRef}
-            onScroll={(e) => {
-              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-            }}>
-            <Text className="slideChild">
-              <div className="text">일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작 일기 없는 경우에만 플러스모양으로 작 일기 우에만 플러스모양으로 로 작 일기 우에만 플러스모양으로 작</div>
-            </Text>
-            {images.map(e => <Img key={e} className="slideChild" src={Test} alt='image' width={300} height={300} placeholder="blur"></Img>)}
-
-            <EditBox className="slideChild">
-              <button><ContentCopyIcon />copy text</button>
-              <button><EditIcon />edit diary</button>
-              <button><DeleteIcon />delete Diary</button>
-            </EditBox>
-          </SlideWrapper>
-          <IndicatoWrapper>
-            {indicatorArr.map((_, i: number) =>
-              <div
-                key={'indicator' + i}
-                className={page === i ? 'current' : ''}
-                onClick={() => {
-                  slideWrapperRef.current?.scrollTo({
-                    left: slideWrapperRef.current.clientWidth * i,
-                    behavior: "smooth"
-                  })
-                }}
-              />)}
-          </IndicatoWrapper>
-        </> :
-        <EmptyDiaryWrapper>
-          <span>There are no diary yet.</span>
-          <span>Create a new one :)</span>
-          <button onClick={() => {
-            router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/io/inter/input/addDiary?date=1234`)
-          }}>
-            <AddCircleOutlinedIcon fontSize="inherit" />
-          </button>
-        </EmptyDiaryWrapper>}
-
-
+          />)}
+      </IndicatoWrapper>
     </Wrapper >);
 }
 
-export default Diary;
+export default DiaryList;
 
 const Wrapper = styled.div`
   display: flex;
@@ -298,7 +285,7 @@ const SlideWrapper = styled.div`
   .slideChild{
     scroll-snap-align: start;
     scroll-snap-stop: always !important;
-    margin-right: 8px;
+    margin-right: 16px;
     &:last-child{
       margin-right: 0;
     }

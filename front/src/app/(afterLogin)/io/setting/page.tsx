@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 
 //function
 import { getCurrentUser } from "../../_lib/getCurrentUser";
-import { getCurrentUserEmail } from "../../_lib/getCurrentUserEmail";
+import { getCurrentUserEmail } from "../../../../funcstion/getCurrentUserEmail";
 
 //component
 import Header from "@/component/Header";
@@ -21,8 +21,9 @@ const Setting = () => {
   const email = getCurrentUserEmail();
 
   const { data } = useQuery({
-    queryKey: ['user', email ? email : ''],
-    queryFn: getCurrentUser
+    queryKey: ['user', email],
+    queryFn: () => getCurrentUser(email),
+    enabled: email !== ''
   })
 
   return (
@@ -45,7 +46,7 @@ const Setting = () => {
           </Value>
           <Value>
             <span className="key">creation date</span>
-            <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.mm.dd')}</span>
+            <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
           </Value>
           <Buttons>
             <Button onClick={() => signOut()}>logout</Button>

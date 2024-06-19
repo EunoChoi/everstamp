@@ -10,7 +10,7 @@ import CalendarSelector from "@/component/CalendarSelector";
 import Loading from "@/component/Loading";
 
 //hooks
-import IsMobile from "@/hooks/IsMobile";
+import IsMobile from "@/funcstion/IsMobile";
 
 //icons
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';

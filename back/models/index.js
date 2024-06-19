@@ -9,7 +9,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 //생성한 모델 연결
 db.User = require('./user')(sequelize, Sequelize);
-// db.Post = require('./post')(sequelize, Sequelize);
+db.Diary = require('./diary')(sequelize, Sequelize);
 // db.Comment = require('./comment')(sequelize, Sequelize);
 // db.Hashtag = require('./hashtag')(sequelize, Sequelize);
 // db.Image = require('./image').default(sequelize, Sequelize);

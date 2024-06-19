@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-
+import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Image from "next/image";
 import { useRef } from "react";
+import { ChangeEvent } from "react";
+import Axios from "@/Aixos/aixos";
+import { format } from 'date-fns';
+//function
+import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
+
 
 //icon
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
@@ -12,24 +18,35 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 
 //test image
 import testImg from "../../../public/img/everStamp_logo_blue.png";
-import IsMobile from "@/hooks/IsMobile";
-import { getCurrentUserEmail } from "@/app/(afterLogin)/_lib/getCurrentUserEmail";
+import axios from "axios";
+
 
 
 const AddDiary = () => {
   //to writh need info
   //need info user email, date info to upload
-
+  const param = useSearchParams();
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [text, setText] = useState<string>('');
-
   const email = getCurrentUserEmail();
 
+  const date = new Date(Number(param.get('date')));
 
-  const addDiary = () => useCallback(() => {
-    //
-  }, []);
+  // const date = new Date(dateNumber);
+  const [images, setImages] = useState<string>('');
+
+
+  const addDiary = () => {
+    Axios.post(
+      '/diary', {
+      email, date, text, images
+    })
+  };
+
+  const onChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  }, [])
 
   const historyBack = useCallback(() => {
     history.back();
@@ -42,14 +59,14 @@ const AddDiary = () => {
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Logo>
-          <span>ever</span>
-          <span>stamp</span>
-          {text}
-        </Logo>
+        <DiaryDate>
+          <span>{format(date, 'MMMM dd, yyy')}</span>
+          <span className="week">{format(date, '(eee)')}</span>
+        </DiaryDate>
+
         <InputWrapper>
           <textarea
-            onChange={e => setText(e.target.value)}
+            onChange={onChange}
             ref={inputRef}
             value={text}
             placeholder="we can do better"
@@ -123,34 +140,25 @@ const Modal = styled.div`
   }
 `
 
-const Logo = styled.div`
+const DiaryDate = styled.div`
   color: rgb(var(--greyTitle));
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 20px;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: end;
   span{
-    display: inline-block;
     padding: 4px;
-    &::first-letter{
-        color: rgb(var(--point));
-    }
   }
-
-  @media (max-width: 479px) { //mobile port
-    span{
-      font-size: 24px;
-    }
+  .week{
+    color: rgb(var(--point));
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    display: none;
+    /* display: none; */
   }
   @media (min-width:480px) and (min-width:1024px) { //desktop
-    span{
-      font-size: 38px;
-    }
+    font-size: 26px;
   }
 `
 const InputWrapper = styled.div`

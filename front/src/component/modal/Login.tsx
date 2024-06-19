@@ -17,7 +17,7 @@ const Login = () => {
     history.back();
   }, []);
 
-  const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar` };
+  const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar?date=${new Date().getTime()}` };
 
   return (
     <Wrapper onClick={historyBack}>

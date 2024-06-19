@@ -12,5 +12,5 @@ export async function middleware(request: NextRequest) {
 
 //미들웨어가 동작할 페이지들
 export const config = {
-  matcher: ['/io/calendar', '/io/list', '/io/habit', '/io/setting'],
+  matcher: ['/io/calendar', '/io/list', '/io/habit', '/io/setting', '/io/inter/input/:path*'],
 }
