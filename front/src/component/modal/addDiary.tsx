@@ -23,8 +23,7 @@ import axios from "axios";
 
 
 const AddDiary = () => {
-  //to writh need info
-  //need info user email, date info to upload
+
   const param = useSearchParams();
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -33,7 +32,6 @@ const AddDiary = () => {
 
   const date = new Date(Number(param.get('date')));
 
-  // const date = new Date(dateNumber);
   const [images, setImages] = useState<string>('');
 
 
@@ -60,7 +58,7 @@ const AddDiary = () => {
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryDate>
-          <span>{format(date, 'MMMM dd, yyy')}</span>
+          <span>{format(date, 'yyyy. M. dd')}</span>
           <span className="week">{format(date, '(eee)')}</span>
         </DiaryDate>
 

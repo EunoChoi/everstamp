@@ -33,7 +33,7 @@ const IoLayout = ({ children }: Props) => {
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
 
-  if (isMobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
+  // if (isMobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
 
   return (<>
     {isMobile ?
@@ -41,10 +41,10 @@ const IoLayout = ({ children }: Props) => {
         {children}
         <Mobile_Nav>
           <Logo><span>ever</span><span>stamp</span></Logo>
-          <NavMenu href={`/io/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
-          <NavMenu href='/io/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
-          <NavMenu href='/io/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
-          <NavMenu href='/io/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
+          <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
+          <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
+          <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
+          <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
         </Mobile_Nav>
       </Mobile_Layout>
       :
@@ -55,15 +55,15 @@ const IoLayout = ({ children }: Props) => {
             <span>stamp</span>
           </SideBarLogo>
           <Menus>
-            <Link href={`/io/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+            <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
             <MonthWrapper
               className={current === 'calendar' ? '' : 'inActive'}
             >
               <CalendarSelector />
             </MonthWrapper>
-            <Link href='/io/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
-            <Link href='/io/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
-            <Link href='/io/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
+            <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
+            <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
+            <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
           </Menus>
           <Links>
             <span><GitHubIcon fontSize="inherit" /></span>

@@ -72,7 +72,7 @@ const CalendarSelector = () => {
         onClick={() => {
           if (format(tempDay, 'M') < format(currentMonth, 'M')) subCurrentMonth();
           else if (format(tempDay, 'M') > format(currentMonth, 'M')) addCurrentMonth();
-          else router.push(`/io/calendar?date=${tempDay.getTime()}`);
+          else router.push(`/app/calendar?date=${tempDay.getTime()}`);
         }}
         className={`
           ${isSameDay(day, today) ? 'today' : ''}
@@ -101,7 +101,7 @@ const CalendarSelector = () => {
           <CalHeaderButtons>
             <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon /></button>
             <button onClick={() => {
-              router.push(`/io/calendar?date=${getCleanTodayTime()}`);
+              router.push(`/app/calendar?date=${getCleanTodayTime()}`);
               setCurrentMonth(new Date());
             }}><TodayIcon /></button>
             <button onClick={addCurrentMonth}><KeyboardArrowRightIcon /></button>

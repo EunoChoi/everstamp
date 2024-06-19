@@ -18,7 +18,7 @@ const Page = () => {
       <Text>
         {type === 1 ? '이미 등록된 이메일입니다. 가입된 SNS 계정으로 로그인해 주세요.”' : '회원가입 중 오류가 발생하였습니다.'}
       </Text>
-      <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/io`)}>돌아가기</Button>
+      <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/app`)}>돌아가기</Button>
     </Wrapper>
   );
 }

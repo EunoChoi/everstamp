@@ -7,8 +7,8 @@ import { format } from 'date-fns';
 
 
 //function
-import { getCurrentUser } from "../../_lib/getCurrentUser";
-import { getCurrentUserEmail } from "../../../../funcstion/getCurrentUserEmail";
+import { getCurrentUser } from "@/app/(afterLogin)/_lib/getCurrentUser";
+import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
 
 //component
 import Header from "@/component/Header";
@@ -16,9 +16,11 @@ import Header from "@/component/Header";
 //styledComponent
 import SC_Common from "@/style/common";
 
+interface Props {
+  email: string;
+}
 
-const Setting = () => {
-  const email = getCurrentUserEmail();
+const SettingPageClient = ({ email }: Props) => {
 
   const { data } = useQuery({
     queryKey: ['user', email],
@@ -28,10 +30,7 @@ const Setting = () => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content
-        // className="scroll noOption"
-        className="noOption"
-      >
+      <SC_Common.Content className="noOption" >
         <Header title='setting' />
         <SC_Common.Options className="setting" />
         <Section>
@@ -65,16 +64,6 @@ const Setting = () => {
               <Check></Check>
             </FlexRow>
           </FlexRow>
-
-          {/* <SubTitle>background color</SubTitle>
-          <FlexRow>
-            <Check></Check>
-            <FlexRow className="end">
-              <Check></Check>
-              <Check></Check>
-            </FlexRow>
-          </FlexRow> */}
-
         </Section>
 
       </SC_Common.Content>
@@ -82,7 +71,7 @@ const Setting = () => {
   );
 }
 
-export default Setting;
+export default SettingPageClient;
 
 const Section = styled.div`
   width: 100%;

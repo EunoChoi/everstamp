@@ -38,7 +38,7 @@ const Io = () => {
           <span>for lifelong your growth</span>
         </TextContent>
 
-        <Link href='/io/inter/login' scroll={false}><Button>start</Button></Link>
+        <Link href='/app/inter/login' scroll={false}><Button>start</Button></Link>
 
       </TextWrapper>
     </Wrapper>

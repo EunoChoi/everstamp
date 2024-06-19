@@ -42,7 +42,7 @@ const DiaryEmpty = () => {
         <span>There are no diary yet.</span>
         <span>Create a new one :)</span>
         <button onClick={() => {
-          router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/io/inter/input/addDiary?date=${dateInfo.getTime()}`, { scroll: false })
+          router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/app/inter/input/addDiary?date=${dateInfo.getTime()}`, { scroll: false })
         }}>
           <AddCircleOutlinedIcon fontSize="inherit" />
         </button>

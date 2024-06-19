@@ -19,12 +19,15 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 //img
 import Test from '/public/img/loginPageImg.jpg';
 import IsMobile from "@/funcstion/IsMobile";
+import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
 
 
 
 interface props {
   isCalendar?: boolean;
   diaryData: {
+    id: number;
+    email: string;
     date: Date;
     text: string;
     habits: Array<any>;
@@ -32,15 +35,17 @@ interface props {
 }
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
-const DiaryCalendar = ({ isCalendar, diaryData }: props) => {
+const DiaryInList = ({ isCalendar, diaryData }: props) => {
 
   const router = useRouter();
+
   const isMobile = IsMobile();
+
   const dateInfo = diaryData?.date;
 
   const month = format(dateInfo, 'MMM');
   const date = format(dateInfo, 'dd');
-  const day = format(dateInfo, `${isMobile ? 'eee' : 'eeee'}`);
+  const day = format(dateInfo, `${!isMobile && isCalendar ? 'EEEE' : 'eee'}`);
   const year = format(dateInfo, 'yyyy');
 
   const habits = diaryData?.habits;
@@ -54,7 +59,7 @@ const DiaryCalendar = ({ isCalendar, diaryData }: props) => {
   const indicatorArr = new Array(indicatorLength).fill(0);
 
   return (
-    <Wrapper>
+    <Wrapper className={isCalendar ? 'isCalendar' : ''}>
       <DateWrapper className="dateinfo">
         <span className="week">{day}</span>
         <div>
@@ -82,8 +87,16 @@ const DiaryCalendar = ({ isCalendar, diaryData }: props) => {
 
         <EditBox className="slideChild">
           <button><ContentCopyIcon />copy text</button>
-          <button><EditIcon />edit diary</button>
-          <button><DeleteIcon />delete Diary</button>
+          <button
+            onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })}
+          >
+            <EditIcon />edit diary
+          </button>
+          <button
+            onClick={() => deleteDiary({ email: diaryData.email, diaryId: diaryData.id })}
+          >
+            <DeleteIcon />delete Diary
+          </button>
         </EditBox>
       </SlideWrapper>
       <IndicatoWrapper>
@@ -102,7 +115,7 @@ const DiaryCalendar = ({ isCalendar, diaryData }: props) => {
     </Wrapper >);
 }
 
-export default DiaryCalendar;
+export default DiaryInList;
 
 const Wrapper = styled.div`
   display: flex;
@@ -117,6 +130,7 @@ const Wrapper = styled.div`
   margin: 20px 0;
 
   @media (min-width: 1024px) {//desktop
+    &.isCalendar{
       height: 550px;
       .dateinfo{
         flex-direction: column;
@@ -138,6 +152,7 @@ const Wrapper = styled.div`
         margin: 12px 0;
       }
     }
+  }
 `
 const EditBox = styled.div`
   box-sizing: border-box;

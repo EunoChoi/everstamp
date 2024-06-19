@@ -1,11 +1,7 @@
 import Axios from "@/Aixos/aixos";
 
-interface Props {
-  email: string;
-  date: number;
-}
 
-export async function getDiaryCalendar({ email, date }: Props) {
+export async function getDiaryCalendar(email: string, date: number) {
   const { data } = await Axios.get(`/diary/calendar?email=${email}&date=${date}`);
   // const { data } = await Axios.get(`/diary/list?email=${email}`);
 

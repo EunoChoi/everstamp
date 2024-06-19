@@ -6,14 +6,14 @@ import styled from "styled-components";
 
 //function
 import IsMobile from "@/funcstion/IsMobile";
-import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
+import { getDiaryCalendar } from "@/app/(afterLogin)/_lib/getDiaryCalendar";
 import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
 
 //styledComponent
 import SC_Common from "@/style/common";
 
 //component
-import DiaryCalendar from "@/component/DiaryCalendar";
+import DiaryInCalendar from "@/component/DiaryInCalendar";
 import DiaryEmpty from "@/component/DiaryEmpty";
 import CalendarSelector from "@/component/CalendarSelector";
 
@@ -21,19 +21,21 @@ import CalendarSelector from "@/component/CalendarSelector";
 import Header from "@/component/Header";
 import { useQuery } from "@tanstack/react-query";
 
+interface Props {
+  email: string;
+  date: number;
+}
 
+const CalendarPageClient = ({ email, date }: Props) => {
+  // console.log(email, date);
 
-const Calendar = () => {
   const isMobile = IsMobile();
   const router = useRouter();
 
-  const email = getCurrentUserEmail();
-  const params = useSearchParams();
-  const date = Number(params.get('date'));
-
   const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'calendar', date],
-    queryFn: () => getDiaryCalendar({ email: 'pixel@kakao.com', date }),
+    queryKey: ['diary', 'calendar', email, date],
+    queryFn: () => getDiaryCalendar(email, date),
+    enabled: email !== null
   });
 
   return (
@@ -44,14 +46,14 @@ const Calendar = () => {
           <CalendarWrapper>
             <CalendarSelector />
           </CalendarWrapper>}
-        {diaryData ? <DiaryCalendar diaryData={diaryData} /> : <DiaryEmpty />}
+        {diaryData ? <DiaryInCalendar diaryData={diaryData} /> : <DiaryEmpty />}
 
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
 }
 
-export default Calendar;
+export default CalendarPageClient;
 
 const CalendarWrapper = styled.div`
   width: 100%;

@@ -1,17 +1,10 @@
-import { ReactNode } from "react";
-import RQProvider from "@/component/RQProvider";
+import SettingPageClient from "./_component/SettingPageClient";
 
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getCurrentUser } from "./_lib/getCurrentUser";
+import { getCurrentUser } from "../../_lib/getCurrentUser";
 import { auth } from "@/auth";
 
-
-type Props = {
-  children: ReactNode;
-  modal: ReactNode;
-}
-
-const Layout = async ({ children, modal }: Props) => {
+const Page = async () => {
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';
 
@@ -26,13 +19,10 @@ const Layout = async ({ children, modal }: Props) => {
   const dehydratedState = dehydrate(queryClient)
 
   return (
-    <RQProvider>
-      <HydrationBoundary state={dehydratedState}>
-        {modal}
-        {children}
-      </HydrationBoundary>
-    </RQProvider>
+    <HydrationBoundary state={dehydratedState}>
+      <SettingPageClient email={email} />
+    </HydrationBoundary>
   );
 }
 
-export default Layout;
+export default Page;

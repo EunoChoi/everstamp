@@ -19,37 +19,43 @@ const router = express.Router();
 const User = db.User;
 const Diary = db.Diary;
 
-//image upload
-// try {
-//   //upload폴더가 존재하는지 확인
-//   fs.accessSync('uploads');
-// } catch (err) {
-//   console.log('upload folder do not exist')
-//   fs.mkdirSync('uploads');
-// }
+/*image upload
+try {
+  //upload폴더가 존재하는지 확인
+  fs.accessSync('uploads');
+} catch (err) {
+  console.log('upload folder do not exist')
+  fs.mkdirSync('uploads');
+}
 
-// //AWS 권한 획득
-// AWS.config.update({
-//   accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-//   region: 'ap-northeast-2'
-// })
+//AWS 권한 획득
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: 'ap-northeast-2'
+})
 
-// console.log(process.env.S3_ACCESS_KEY_ID);
+console.log(process.env.S3_ACCESS_KEY_ID);
 
-// //AWS S3 multer
-// let s3 = new S3Client({
-//   region: 'ap-northeast-2',
-//   credentials: {
-//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
-//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-//   },
-//   sslEnabled: false,
-//   s3ForcePathStyle: true,
-//   signatureVersion: 'v4',
-// });
+//AWS S3 multer
+let s3 = new S3Client({
+  region: 'ap-northeast-2',
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  },
+  sslEnabled: false,
+  s3ForcePathStyle: true,
+  signatureVersion: 'v4',
+});*/
+
+
+
+
+
 
 //add, edit, delete diary
+//add diary
 router.post("/", async (req, res) => {
   try {
     const { email, date, text } = req.body;
@@ -57,10 +63,17 @@ router.post("/", async (req, res) => {
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) {
-      return res.status(400).json("로그인 상태가 아닙니다.");
-    }
+    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
 
+
+    //혹시 모르니 backend에서도 차단
+    const isDiaryExistAready = await Diary.findOne({
+      where: {
+        email,
+        date
+      }
+    })
+    if (isDiaryExistAready) return res.status(400).json('해당 날짜에 이미 일기가 존재합니다.');
 
     const diary = await Diary.create({
       visible: true,
@@ -91,115 +104,127 @@ router.post("/", async (req, res) => {
   }
 
 })
-// router.patch("/:postId", tokenCheck, async (req, res) => {
-//   try {
-//     const postId = req.params.postId;
+//edit diary
+router.patch("/", async (req, res) => {
+  try {
+    //query strig userId, diaryId
+    const userEmail = req.query.userEmail;
+    const diaryId = req.query.diaryId;
 
-//     //current user
-//     const currentUser = await User.findOne({
-//       where: { id: req.currentUserId },
-//     });
+    //body text, 
+    const text = req.body.text;
 
-//     const post = await Post.findOne({
-//       where: { id: postId },
-//       include: [
-//         {
-//           model: Hashtag,
-//           attributes: ['id'],
-//         }
-//       ]
-//     });
-
-//     if (!post) return res.status(403).json("게시글이 올바르지 않습니다.");
-//     if (post && post.UserId !== req.currentUserId && currentUser.level !== 10) {
-//       return res.status(403).json("다른 사람의 게시글 입니다.");
-//     }
+    //current user
+    const currentUser = await User.findOne({
+      where: { email: userEmail },
+    });
+    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
 
-//     // 현재 로그인된 유저의 id와 포스트 text로 post 모델의 요소 생성
-//     await Post.update({
-//       content: req.body.content,
-//       start: req.body.start,
-//       end: req.body.end,
-//       link: req.body.link
-//     }, {
-//       where: { id: postId }
-//     }
-//     );
-
-//     if (post.type !== 0) {
-//       const beforeTags = post.Hashtags.map(v => v.id);
-//       post.removeHashtag(beforeTags);
-
-//       const hashtags = req.body.content.match(/#[^\s#]{1,15}/g);
-//       if (hashtags) {
-//         const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({
-//           where: { name: tag.slice(1).toLowerCase() }
-//         })))
-//         await post.addHashtag(result.map(v => v[0]));
-//       }
-//     }
+    const isEiaryExist = await Diary.findOne({
+      where: { id: diaryId },
+    });
+    if (!isEiaryExist) return res.status(403).json("게시글이 올바르지 않습니다.");
 
 
-//     //기존에 등록되어 있는 이미지 모델 삭제
-//     await Image.destroy({
-//       where: {
-//         PostId: postId
-//       }
-//     })
+    // 현재 로그인된 유저의 id와 포스트 text로 post 모델의 요소 생성
+    const diary = await Diary.update({
+      text,
+    }, {
+      where: { id: diaryId }
+    }
+    );
+    res.status(200).json(diary);
+    // if (post.type !== 0) {
+    //   const beforeTags = post.Hashtags.map(v => v.id);
+    //   post.removeHashtag(beforeTags);
 
-//     //수정된 이미지들을 image 모델 요소 생성 후 Post 모델과 연결
-//     const postImages = req.body.images;
-//     if (postImages.length >= 1) {
-//       const images = [];
-//       for (i = 0; i < postImages.length; i++) {
-//         const temp = await Image.create({ src: postImages[i] });
-//         images.push(temp);
-//       }
-//       post.addImages(images);
-
-//       return setTimeout(() => {
-//         res.status(200).json({ postImages, images, post });
-//       }, 1000);
-//     }
-//     return setTimeout(() => {
-//       res.status(200).json(post);
-//     }, 1000);
-//   } catch (e) {
-//     console.error(e);
-//   }
-// })
-// router.delete("/:postId", tokenCheck, async (req, res) => {
-//   try {
-//     const postId = req.params.postId;
-
-//     //current user
-//     const currentUser = await User.findOne({
-//       where: { id: req.currentUserId },
-//     });
-//     //selected post
-//     const post = await Post.findOne({
-//       where: { id: postId }
-//     });
-
-//     if (!post) return res.status(403).json("게시글이 올바르지 않습니다.");
-//     if (post && post.UserId !== req.currentUserId && currentUser.level !== 10) {
-//       return res.status(403).json("다른 사람의 게시글 입니다.");
-//     }
-//     console.log(post);
-
-//     await Post.destroy({
-//       where: { id: postId }
-//     });
-//   } catch (e) {
-//     console.error(e);
-//   }
-//   res.status(200).json("post delete success");
-// })
+    //   const hashtags = req.body.content.match(/#[^\s#]{1,15}/g);
+    //   if (hashtags) {
+    //     const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({
+    //       where: { name: tag.slice(1).toLowerCase() }
+    //     })))
+    //     await post.addHashtag(result.map(v => v[0]));
+    //   }
+    // }
 
 
-//load diary - in list
+    // //기존에 등록되어 있는 이미지 모델 삭제
+    // await Image.destroy({
+    //   where: {
+    //     PostId: postId
+    //   }
+    // })
 
+    // //수정된 이미지들을 image 모델 요소 생성 후 Post 모델과 연결
+    // const postImages = req.body.images;
+    // if (postImages.length >= 1) {
+    //   const images = [];
+    //   for (i = 0; i < postImages.length; i++) {
+    //     const temp = await Image.create({ src: postImages[i] });
+    //     images.push(temp);
+    //   }
+    //   post.addImages(images);
+
+    //   return setTimeout(() => {
+    //     res.status(200).json({ postImages, images, post });
+    //   }, 1000);
+    // }
+    // return setTimeout(() => {
+    //   res.status(200).json(post);
+    // }, 1000);
+  } catch (e) {
+    console.error(e);
+  }
+})
+router.delete("/", async (req, res) => {
+  try {
+    const email = req.query.email;
+    const diaryId = req.query.diaryId;
+    console.log(email, diaryId);
+
+    //유저 확인
+    const currentUser = await User.findOne({
+      where: { email },
+    });
+    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
+
+    //일기 확인
+    const isDiaryExist = await Diary.findOne({
+      where: { id: diaryId }
+    });
+    if (!isDiaryExist) return res.status(400).json('일기가 존재하지 않습니다.');
+
+    await Diary.destroy({
+      where: { id: diaryId }
+    });
+  } catch (e) {
+    console.error(e);
+  }
+  return res.status(200).json("일기 삭제 완료");
+})
+
+
+
+
+//load diary 
+//load diary - by diary id
+router.get("/id/:diaryId", async (req, res) => {
+  const diaryId = req.params.diaryId;
+
+  try {
+    const diary = await Diary.findOne({
+      where: [{
+        id: diaryId,
+      }],
+    });
+    if (diary) return res.status(201).json(diary);
+    return res.status(400).json('no diary by id');
+  } catch (e) {
+    console.error(e);
+  }
+})
+//load diary - list
 router.get("/list", async (req, res) => {
   const { email, sort } = req.query;
   try {
@@ -252,7 +277,7 @@ router.get("/list", async (req, res) => {
     console.error(e);
   }
 })
-//load diary - in calendar
+//load diary - calendar date
 router.get("/calendar", async (req, res) => {
   const { email, date } = req.query;
 
@@ -263,6 +288,7 @@ router.get("/calendar", async (req, res) => {
         date: new Date(Number(date))
       }],
     });
+    console.log(diary);
     if (diary) return res.status(201).json(diary);
     return res.status(400).json('no diary calendar');
   } catch (e) {

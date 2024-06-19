@@ -13,11 +13,15 @@ import naver from '/public/img/naver.png';
 import { useCallback, useEffect } from "react";
 
 const Login = () => {
+  const getCleanTodayTime = () => {
+    const tempDate = new Date();
+    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
+  }
   const historyBack = useCallback(() => {
     history.back();
   }, []);
 
-  const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/io/calendar?date=${new Date().getTime()}` };
+  const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app/calendar?date=${getCleanTodayTime()}` };
 
   return (
     <Wrapper onClick={historyBack}>

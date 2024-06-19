@@ -9,11 +9,11 @@ import SC_Common from "@/style/common";
 
 
 //_lib
-import { getCurrentUserEmail } from "../../../../funcstion/getCurrentUserEmail";
-import { getDiaryList } from "../../_lib/getDiaryList";
+import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
+import { getDiaryList } from "@/app/(afterLogin)/_lib/getDiaryList";
 
 //component
-import DiaryList from "@/component/DiaryList";
+import DiaryInList from "@/component/DiaryInList";
 import Header from "@/component/Header";
 
 //icon
@@ -22,17 +22,15 @@ import SortIcon from '@mui/icons-material/Sort';
 import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-interface diaryData {
-
+interface Props {
+  email: string;
 }
 
-const List = () => {
+const ListPageClient = ({ email }: Props) => {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
-
-  const email = getCurrentUserEmail();
 
   const { data: diaries } = useQuery({
     queryKey: ['diary', 'list', sortToggle],
@@ -55,9 +53,9 @@ const List = () => {
     <SC_Common.Wrapper>
       <Header title='list' />
       <SC_Common.Options>
-        <button>
+        <button onClick={sortChage}>
           <SortIcon fontSize="small" />
-          <span onClick={sortChage}>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
+          <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
         </button>
         <Search
           open={searchInputOpen}
@@ -77,7 +75,8 @@ const List = () => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
-        {diaries?.map((e: any, i: number) => <DiaryList
+        {diaries?.length === 0 && <NoDiaries>You have no diaries :(</NoDiaries>}
+        {diaries?.map((e: any, i: number) => <DiaryInList
           diaryData={e}
           key={'listNote' + i}
         />)}
@@ -86,8 +85,21 @@ const List = () => {
   );
 }
 
-export default List;
+export default ListPageClient;
 
+const NoDiaries = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  font-size: 18px;  
+  font-weight: 500;
+  color: rgb(var(--greyTitle));
+
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    font-size: 22px;
+  }
+`
 const Search = styled.button<{ open?: Boolean }>`
   transition: all ease-in-out 0.3s;
   width : ${props => props.open === true ? '200px' : '46px'};
