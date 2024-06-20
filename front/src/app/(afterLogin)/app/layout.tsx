@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { ReactNode } from "react";
+import { GetServerSideProps } from "next";
 
 //component
 import CalendarSelector from "@/component/CalendarSelector";
@@ -22,9 +23,13 @@ import BookIcon from '@mui/icons-material/Book';
 
 interface Props {
   children: ReactNode;
+  isMobile: boolean;
 }
 
-const IoLayout = ({ children }: Props) => {
+
+const AppLayout = ({ children }: Props) => {
+
+
   const getCleanTodayTime = () => {
     const tempDate = new Date();
     return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
@@ -33,7 +38,7 @@ const IoLayout = ({ children }: Props) => {
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
 
-  // if (isMobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
+  if (isMobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
 
   return (<>
     {isMobile ?
@@ -79,7 +84,7 @@ const IoLayout = ({ children }: Props) => {
   </>);
 }
 
-export default IoLayout;
+export default AppLayout;
 
 
 const Logo = styled.span`

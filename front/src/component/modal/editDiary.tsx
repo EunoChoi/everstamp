@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
@@ -6,6 +8,9 @@ import { useRef } from "react";
 import { ChangeEvent } from "react";
 import Axios from "@/Aixos/aixos";
 import { format } from 'date-fns';
+import { useQuery } from "@tanstack/react-query";
+
+
 //function
 import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
 
@@ -14,19 +19,26 @@ import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
+import DiaryInputDate from "./diary/DiaryInput_Date";
+import DiaryInputTextArea from "./diary/DiaryInput_TextArea";
+import DiaryInputUploadedImage from "./diary/\bDiaryInput_UploadedImage";
+import DiaryInputButtons from "./diary/DiaryInput_Buttons";
 
-//test image
-import testImg from "../../../public/img/everStamp_logo_blue.png";
-import { useQuery } from "@tanstack/react-query";
 
+
+interface ServerImageProps {
+  id: string;
+  src: string;
+}
 
 
 const EditDiary = () => {
 
-
-  const inputRef = useRef<HTMLTextAreaElement>(null);
   const params = useSearchParams();
   const diaryId = params.get('id');
+
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const imageUploadRef = useRef<HTMLInputElement>(null);
 
 
   const { data: diaryData } = useQuery({
@@ -36,66 +48,38 @@ const EditDiary = () => {
   });
 
 
-  const userEmail = diaryData && diaryData.email;
   const [text, setText] = useState<string>(diaryData?.text);
-  const date = diaryData && diaryData.date;
-  const [images, setImages] = useState<string>('');
-
-
-
+  const [images, setImages] = useState<Array<string>>([]);
 
 
   const editDiary = () => {
-    Axios.patch(`/diary?userEmail=${userEmail}&diaryId=${diaryId}`, { text })
+    //이미지 포함해서 수정 요청
+    Axios.patch(`/diary?userEmail=${diaryData?.email}&diaryId=${diaryId}`, { text, images })
   };
-
-  const onChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-  }, [])
-
   const historyBack = useCallback(() => {
     history.back();
   }, []);
 
+
+
+  useEffect(() => {
+    if (diaryData) {
+      const tempImages = diaryData.Images?.map((e: ServerImageProps) => e.src);
+      setImages(tempImages);
+      setText(diaryData.text);
+    }
+  }, [diaryData])
   useEffect(() => {
     inputRef.current?.focus();
   }, [])
-  useEffect(() => {
-    diaryData && setText(diaryData.text);
-  }, [diaryData])
 
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <DiaryDate>
-          <span>{date && format(date, 'yyyy. M. dd')}</span>
-          <span className="week">{date && format(date, '(eee)')}</span>
-        </DiaryDate>
-
-        <InputWrapper>
-          <textarea
-            onChange={onChange}
-            ref={inputRef}
-            value={text}
-            placeholder="we can do better"
-          />
-        </InputWrapper>
-
-        <UploadedImages>
-          {[1, 2, 3, 4, 5, 6, 7].map(e => <ImageBox key={e}>
-            <UploadedImage src={testImg} alt='test' width={200} height={200} />
-            <ImageDeleteButton><RemoveCircleOutlinedIcon fontSize="inherit" /></ImageDeleteButton>
-          </ImageBox>)}
-        </UploadedImages>
-
-        <Buttons>
-          <Button>
-            <ImageOutlinedIcon className="icon" />
-          </Button>
-          <Button onClick={editDiary}>
-            <PostAddOutlinedIcon className="icon" />
-          </Button>
-        </Buttons>
+        <DiaryInputDate date={diaryData?.date} />
+        <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
+        <DiaryInputUploadedImage images={images} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={editDiary} images={images} setImages={setImages} />
       </Modal>
     </Wrapper>);
 }

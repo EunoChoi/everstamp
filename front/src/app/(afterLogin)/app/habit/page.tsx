@@ -46,11 +46,11 @@ const Habit = () => {
       <Header title='habit' />
       <SC_Common.Options>
         <button>
-          <SortIcon fontSize="small" />
-          <span onClick={() => setSortToggle(c => !c)}>{sortToggle ? 'A - Z' : 'Z - A'}</span>
+          <AddIcon fontSize="small" />
         </button>
         <button>
-          <AddIcon fontSize="small" />
+          <SortIcon fontSize="small" />
+          <span onClick={() => setSortToggle(c => !c)}>{sortToggle ? 'A - Z' : 'Z - A'}</span>
         </button>
       </SC_Common.Options>
       <SC_Common.Content className="habit">

@@ -1,14 +1,5 @@
+
 const express = require("express");
-
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-// const { S3Client } = require('@aws-sdk/client-s3');
-// const AWS = require('aws-sdk');
-
-// const path = require('path'); //path는 노드에서 기능하는 기능
-// const fs = require('fs');//파일 시스템 조작 가능한 모듈
-
-
 const db = require("../models/index.js");
 const Op = db.Sequelize.Op;
 const sequelize = db.Sequelize;
@@ -18,37 +9,7 @@ const router = express.Router();
 //model load
 const User = db.User;
 const Diary = db.Diary;
-
-/*image upload
-try {
-  //upload폴더가 존재하는지 확인
-  fs.accessSync('uploads');
-} catch (err) {
-  console.log('upload folder do not exist')
-  fs.mkdirSync('uploads');
-}
-
-//AWS 권한 획득
-AWS.config.update({
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  region: 'ap-northeast-2'
-})
-
-console.log(process.env.S3_ACCESS_KEY_ID);
-
-//AWS S3 multer
-let s3 = new S3Client({
-  region: 'ap-northeast-2',
-  credentials: {
-    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  },
-  sslEnabled: false,
-  s3ForcePathStyle: true,
-  signatureVersion: 'v4',
-});*/
-
+const Image = db.Image;
 
 
 
@@ -58,7 +19,7 @@ let s3 = new S3Client({
 //add diary
 router.post("/", async (req, res) => {
   try {
-    const { email, date, text } = req.body;
+    const { email, date, text, images } = req.body;
 
     const user = await User.findOne({
       where: { email }
@@ -83,22 +44,22 @@ router.post("/", async (req, res) => {
       text,
     });
 
-    //image 모델 요소 생성 후 Post 모델과 연결
-    // const postImages = req.body.images;
 
-    // if (postImages.length >= 1) {
-    //   const images = [];
-    //   for (i = 0; i < postImages.length; i++) {
-    //     const temp = await Image.create({ src: postImages[i] });
-    //     images.push(temp);
-    //   }
-    //   post.addImages(images);
-    //   return setTimeout(() => {
-    //     res.status(200).json({ postImages, images, post });
-    //   }, 1000);
-    // }
+    //image 모델 요소 생성 후 Post 모델과 연결
+    if (images.length >= 1) {
+      const ImagesData = [];
+      for (i = 0; i < images.length; i++) {
+        const img = await Image.create({ src: images[i] });
+        ImagesData.push(img);
+      }
+      diary.addImages(ImagesData);
+    }
 
     return res.status(200).json(diary);
+
+    // return setTimeout(() => {
+    //   res.status(200).json({ postImages, images, post });
+    // }, 1000);
   } catch (e) {
     console.error(e);
   }
@@ -108,23 +69,24 @@ router.post("/", async (req, res) => {
 router.patch("/", async (req, res) => {
   try {
     //query strig userId, diaryId
-    const userEmail = req.query.userEmail;
+    const email = req.query.userEmail;
     const diaryId = req.query.diaryId;
+    const images = req.body.images;
 
     //body text, 
     const text = req.body.text;
 
     //current user
     const currentUser = await User.findOne({
-      where: { email: userEmail },
+      where: { email },
     });
     if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
 
-    const isEiaryExist = await Diary.findOne({
+    const isDiaryExist = await Diary.findOne({
       where: { id: diaryId },
     });
-    if (!isEiaryExist) return res.status(403).json("게시글이 올바르지 않습니다.");
+    if (!isDiaryExist) return res.status(403).json("게시글이 올바르지 않습니다.");
 
 
     // 현재 로그인된 유저의 id와 포스트 text로 post 모델의 요소 생성
@@ -134,45 +96,25 @@ router.patch("/", async (req, res) => {
       where: { id: diaryId }
     }
     );
-    res.status(200).json(diary);
-    // if (post.type !== 0) {
-    //   const beforeTags = post.Hashtags.map(v => v.id);
-    //   post.removeHashtag(beforeTags);
-
-    //   const hashtags = req.body.content.match(/#[^\s#]{1,15}/g);
-    //   if (hashtags) {
-    //     const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({
-    //       where: { name: tag.slice(1).toLowerCase() }
-    //     })))
-    //     await post.addHashtag(result.map(v => v[0]));
-    //   }
-    // }
+    // res.status(200).json(diary);
 
 
-    // //기존에 등록되어 있는 이미지 모델 삭제
-    // await Image.destroy({
-    //   where: {
-    //     PostId: postId
-    //   }
-    // })
+
+    //기존에 등록되어 있는 이미지 모델 삭제
+    await Image.destroy({
+      where: { diaryId }
+    })
 
     // //수정된 이미지들을 image 모델 요소 생성 후 Post 모델과 연결
-    // const postImages = req.body.images;
-    // if (postImages.length >= 1) {
-    //   const images = [];
-    //   for (i = 0; i < postImages.length; i++) {
-    //     const temp = await Image.create({ src: postImages[i] });
-    //     images.push(temp);
-    //   }
-    //   post.addImages(images);
-
-    //   return setTimeout(() => {
-    //     res.status(200).json({ postImages, images, post });
-    //   }, 1000);
-    // }
-    // return setTimeout(() => {
-    //   res.status(200).json(post);
-    // }, 1000);
+    if (images.length >= 1) {
+      const ImagesData = [];
+      for (i = 0; i < images.length; i++) {
+        const img = await Image.create({ src: images[i] });
+        ImagesData.push(img);
+      }
+      diary.addImages(ImagesData);
+    }
+    return res.status(200).json(diary);
   } catch (e) {
     console.error(e);
   }
@@ -217,6 +159,9 @@ router.get("/id/:diaryId", async (req, res) => {
       where: [{
         id: diaryId,
       }],
+      include: [{
+        model: Image,//이미지
+      }],
     });
     if (diary) return res.status(201).json(diary);
     return res.status(400).json('no diary by id');
@@ -233,39 +178,9 @@ router.get("/list", async (req, res) => {
       where: [{
         email,
       }],
-      // include: [
-      //   {
-      //     model: User,//게시글 작성자
-      //     attributes: ['id', 'nickname', 'profilePic', 'email'],
-      //   },
-      //   {
-      //     model: User, //좋아요 누른 사람
-      //     as: 'Likers', //모델에서 가져온대로 설정
-      //     attributes: ['id', 'nickname'],
-      //   },
-      //   {
-      //     model: Image, //게시글의 이미지
-      //   },
-      //   {
-      //     model: Comment, //게시글에 달린 댓글
-      //     include: [
-      //       {
-      //         model: User, //댓글의 작성자
-      //         attributes: ['id', 'nickname', 'profilePic'],
-      //       },
-      //       {
-      //         model: Comment, //대댓글
-      //         as: 'ReplyChild',
-      //         include: [
-      //           {
-      //             model: User, //대댓글의 작성자
-      //             attributes: ['id', 'nickname', 'profilePic'],
-      //           }
-      //         ],
-      //       }
-      //     ],
-      //   }
-      // ],
+      include: [{
+        model: Image,//이미지
+      }],
       order: [
         ['date', sort], //ASC DESC
       ],
@@ -286,6 +201,9 @@ router.get("/calendar", async (req, res) => {
       where: [{
         email,
         date: new Date(Number(date))
+      }],
+      include: [{
+        model: Image,//이미지
       }],
     });
     console.log(diary);

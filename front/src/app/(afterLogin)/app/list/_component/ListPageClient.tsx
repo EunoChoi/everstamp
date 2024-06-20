@@ -53,10 +53,6 @@ const ListPageClient = ({ email }: Props) => {
     <SC_Common.Wrapper>
       <Header title='list' />
       <SC_Common.Options>
-        <button onClick={sortChage}>
-          <SortIcon fontSize="small" />
-          <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
-        </button>
         <Search
           open={searchInputOpen}
           onClick={(e) => {
@@ -67,11 +63,18 @@ const ListPageClient = ({ email }: Props) => {
           }}>
           <SearchIcon fontSize="small" />
           <form onSubmit={onSearch}>
-            {searchInputOpen && <input
-              ref={searchInputRef}
-              onClick={e => e.stopPropagation()}></input>}
+            {searchInputOpen &&
+              <input
+                ref={searchInputRef}
+                placeholder="검색어를 입력하세요."
+                onClick={e => e.stopPropagation()}>
+              </input>}
           </form>
         </Search>
+        <button onClick={sortChage}>
+          <SortIcon fontSize="small" />
+          <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
+        </button>
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
@@ -102,10 +105,13 @@ const NoDiaries = styled.div`
 `
 const Search = styled.button<{ open?: Boolean }>`
   transition: all ease-in-out 0.3s;
-  width : ${props => props.open === true ? '200px' : '46px'};
+  width : ${props => props.open === true ? '220px' : '46px'};
   input{
     width: 100%;
     border-radius: 48px;
     padding : 0 10px;
+    &::placeholder{
+      font-size: 14px;
+    }
   }
 `

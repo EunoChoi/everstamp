@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Diary.associate = (db) => {
-    //post가 모델 하나를 가짐
+
     db.Diary.belongsTo(db.User); //Diary.addUser, Diary.setUser, Diary.getUser
+    db.Diary.hasMany(db.Image); //Diary.addImages
 
     // //post가 모델 다수를 가짐
     // db.Post.hasMany(db.Comment); //post.addComments
-    // db.Post.hasMany(db.Image); //post.addImages
 
     // //post가 복수의 모델에 속함
     // db.Post.belongsToMany(db.Hashtag, {

@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { format } from 'date-fns';
 
@@ -18,21 +18,25 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IsMobile from "@/funcstion/IsMobile";
 import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
 
+interface ImageProps {
+  id: string;
+  src: string;
+}
 
-
-interface props {
+interface Props {
   isCalendar?: boolean;
   diaryData: {
     email: string;
     id: number;
     date: Date;
     text: string;
+    Images: Array<ImageProps>;
     habits: Array<any>;
   };
 }
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
-const DiaryInCalendar = ({ isCalendar, diaryData }: props) => {
+const DiaryInCalendar = ({ isCalendar, diaryData }: Props) => {
 
   const router = useRouter();
   const isMobile = IsMobile();
@@ -48,10 +52,14 @@ const DiaryInCalendar = ({ isCalendar, diaryData }: props) => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-  const images: Array<any> = [];
+  const images = diaryData?.Images;
 
   const indicatorLength = images.length + 2;
   const indicatorArr = new Array(indicatorLength).fill(0);
+
+  useEffect(() => {
+    slideWrapperRef.current?.scrollTo({ left: 0 });
+  }, [date])
 
   return (
     <Wrapper>
@@ -78,7 +86,17 @@ const DiaryInCalendar = ({ isCalendar, diaryData }: props) => {
           <div className="text">{diaryData.text}</div>
         </Text>
 
-        {images.map(e => <Img key={e} className="slideChild" src={e} alt='image' width={300} height={300} placeholder="blur"></Img>)}
+        {images.map(e =>
+          <Img
+            key={e.id}
+            className="slideChild"
+            src={e.src}
+            alt='image'
+            width={300}
+            height={300}
+            blurDataURL={e.src}
+          // placeholder="blur"
+          ></Img>)}
 
         <EditBox className="slideChild">
           <button><ContentCopyIcon />copy text</button>

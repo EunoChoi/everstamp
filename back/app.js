@@ -7,8 +7,10 @@ const cookies = require("cookie-parser"); //요청시 보내지는 쿠키 사용
 
 const userRouter = require('./routes/user');
 const diaryRouter = require('./routes/diary');
+const imageRouter = require('./routes/image');
+
 // const authRouter = require('./routes/auth');
-// const imageRouter = require('./routes/image');
+
 // const botRouter = require('./routes/bot');
 // const hashtagRouter = require('./routes/hashtag');
 // const commentRouter = require('./routes/comment');
@@ -44,8 +46,10 @@ app.use(cookies());
 //라우터 연결
 app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
+app.use("/image", imageRouter);
+
 // app.use("/auth", authRouter);
-// app.use("/image", imageRouter);
+
 // app.use("/bot", botRouter);
 // app.use("/hashtag", hashtagRouter);
 // app.use("/comment", commentRouter);

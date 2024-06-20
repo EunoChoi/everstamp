@@ -8,7 +8,7 @@ const Axios = axios.create({
   baseURL: `${baseURL}:${backPort}`,
   responseType: "json",
 
-  headers: { accept: "application/json", "Content-Type": "application/json" },
+  // headers: { accept: "application/json", "Content-Type": "application/json" },
 
   withCredentials: true, //쿠키를 첨부해서 요청
   timeout: 30000 //30s

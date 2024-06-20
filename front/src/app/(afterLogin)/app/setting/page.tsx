@@ -4,7 +4,9 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 import { getCurrentUser } from "../../_lib/getCurrentUser";
 import { auth } from "@/auth";
 
-const Page = async () => {
+const Page = async ({ isMobile }: any) => {
+  console.log(isMobile);
+
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';
 

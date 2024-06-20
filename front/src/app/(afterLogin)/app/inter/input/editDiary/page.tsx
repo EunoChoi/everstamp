@@ -1,4 +1,3 @@
-'use client';
 import EditDiary from "@/component/modal/EditDiary";
 
 const Page = () => {
