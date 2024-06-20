@@ -56,10 +56,6 @@ router.post("/", async (req, res) => {
     }
 
     return res.status(200).json(diary);
-
-    // return setTimeout(() => {
-    //   res.status(200).json({ postImages, images, post });
-    // }, 1000);
   } catch (e) {
     console.error(e);
   }
@@ -83,20 +79,18 @@ router.patch("/", async (req, res) => {
     if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
 
-    const isDiaryExist = await Diary.findOne({
+    const diary = await Diary.findOne({
       where: { id: diaryId },
     });
-    if (!isDiaryExist) return res.status(403).json("게시글이 올바르지 않습니다.");
+    if (!diary) return res.status(403).json("게시글이 올바르지 않습니다.");
 
 
-    // 현재 로그인된 유저의 id와 포스트 text로 post 모델의 요소 생성
-    const diary = await Diary.update({
+
+    await Diary.update({
       text,
     }, {
       where: { id: diaryId }
-    }
-    );
-    // res.status(200).json(diary);
+    });
 
 
 
