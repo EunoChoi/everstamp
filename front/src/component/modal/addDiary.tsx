@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
 //function
-import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 
 //icon
@@ -18,10 +18,11 @@ import DiaryInputButtons from "./diary/DiaryInput_Buttons";
 const AddDiary = () => {
 
   const param = useSearchParams();
+  const date = new Date(Number(param.get('date')));
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
-  const date = new Date(Number(param.get('date')));
   const email = getCurrentUserEmail();
   const [text, setText] = useState<string>('');
   const [images, setImages] = useState<Array<string>>([]);

@@ -35,10 +35,6 @@ const CalendarSelector = () => {
   const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
 
 
-  const getCleanTodayTime = useCallback(() => {
-    const tempDate = new Date();
-    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
-  }, []);
   const addCurrentMonth = useCallback(() => {
     setCurrentMonth(addMonths(currentMonth, 1));
   }, [currentMonth]);

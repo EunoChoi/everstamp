@@ -6,7 +6,7 @@ import { useState, useRef } from "react";
 import { useRouter } from 'next/navigation'
 
 //hooks
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 
 //image
 

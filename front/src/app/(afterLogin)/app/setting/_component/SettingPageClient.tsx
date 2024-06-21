@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 
 //function
 import { getCurrentUser } from "@/app/(afterLogin)/_lib/getCurrentUser";
-import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 //component
 import Header from "@/component/Header";

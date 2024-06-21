@@ -18,7 +18,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 //img
 import Test from '/public/img/loginPageImg.jpg';
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
 
 

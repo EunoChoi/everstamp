@@ -5,9 +5,9 @@ import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 //function
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 import { getDiaryCalendar } from "@/app/(afterLogin)/_lib/getDiaryCalendar";
-import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 //styledComponent
 import SC_Common from "@/style/common";

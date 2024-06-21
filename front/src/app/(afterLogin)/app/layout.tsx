@@ -11,7 +11,7 @@ import CalendarSelector from "@/component/CalendarSelector";
 import Loading from "@/component/Loading";
 
 //hooks
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 
 //icons
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -20,6 +20,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 interface Props {
   children: ReactNode;
@@ -28,13 +29,6 @@ interface Props {
 
 
 const AppLayout = ({ children }: Props) => {
-
-
-  const getCleanTodayTime = () => {
-    const tempDate = new Date();
-    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
-  }
-
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
 

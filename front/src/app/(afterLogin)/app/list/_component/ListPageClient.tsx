@@ -9,7 +9,7 @@ import SC_Common from "@/style/common";
 
 
 //_lib
-import { getCurrentUserEmail } from "@/funcstion/getCurrentUserEmail";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import { getDiaryList } from "@/app/(afterLogin)/_lib/getDiaryList";
 
 //component

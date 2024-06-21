@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { format } from 'date-fns';
 
 
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 
 
 //icon

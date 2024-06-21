@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 //img
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
 
 interface ImageProps {
@@ -36,7 +36,7 @@ interface Props {
 }
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
-const DiaryInCalendar = ({ isCalendar, diaryData }: Props) => {
+const DiaryInCalendar = ({ diaryData }: Props) => {
 
   const router = useRouter();
   const isMobile = IsMobile();

@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 // import Loading from "@/component/loading";
 
 //hooks
-import IsMobile from "@/funcstion/IsMobile";
+import IsMobile from "@/function/IsMobile";
 
 //image
 import loginPageImg from '/public/img/loginPageImg.jpg';

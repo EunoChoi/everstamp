@@ -11,12 +11,10 @@ import google from '/public/img/google.png';
 import kakao from '/public/img/kakao.png';
 import naver from '/public/img/naver.png';
 import { useCallback, useEffect } from "react";
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 const Login = () => {
-  const getCleanTodayTime = () => {
-    const tempDate = new Date();
-    return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
-  }
+
   const historyBack = useCallback(() => {
     history.back();
   }, []);
