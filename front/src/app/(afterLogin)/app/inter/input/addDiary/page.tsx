@@ -1,4 +1,3 @@
-'use client';
 import AddDiary from "@/component/modal/AddDiary";
 
 const Page = () => {

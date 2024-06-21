@@ -5,8 +5,7 @@ import { useCallback, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
 
-
-const AddHabit = () => {
+const EditHabit = () => {
 
   const [habitName, setHabitName] = useState<string>('');
   const [habitColor, setHabitColor] = useState<string>('');
@@ -14,20 +13,20 @@ const AddHabit = () => {
   const historyBack = useCallback(() => {
     history.back();
   }, []);
-  const addHabit = () => {
+  const editHabit = () => {
 
   };
 
   return (
     <Wrapper onClick={() => historyBack()}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Title>Add Habit</Title>
+        <Title>Edit Habit</Title>
         <HabitInputValues></HabitInputValues>
         <HabitInputButtons></HabitInputButtons>
       </Modal>
     </Wrapper>);
 }
-export default AddHabit;
+export default EditHabit;
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

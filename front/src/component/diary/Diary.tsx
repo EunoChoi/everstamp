@@ -39,7 +39,6 @@ interface Props {
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
 const Diary = ({ diaryData, position }: Props) => {
-
   const router = useRouter();
   const dateInfo = diaryData?.date;
 
@@ -63,7 +62,7 @@ const Diary = ({ diaryData, position }: Props) => {
       </DateWrapper>
 
       <DiaryHabits habits={habits} />
-      <DiarySlide diaryData={diaryData}></DiarySlide>
+      <DiarySlide diaryData={diaryData} position={position}></DiarySlide>
     </Wrapper >);
 }
 

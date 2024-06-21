@@ -13,8 +13,12 @@ import Header from "@/component/Header";
 //icon
 import SortIcon from '@mui/icons-material/Sort';
 import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from "next/navigation";
 
 const Habit = () => {
+
+  const router = useRouter();
+
   const gridListRef = useRef<HTMLDivElement>(null);
 
   const [sortToggle, setSortToggle] = useState<boolean>(true);
@@ -45,7 +49,7 @@ const Habit = () => {
     <SC_Common.Wrapper className="habit">
       <Header title='habit' />
       <SC_Common.Options>
-        <button>
+        <button onClick={() => router.push('/app/inter/input/addHabit', { scroll: false })}>
           <AddIcon fontSize="small" />
         </button>
         <button>

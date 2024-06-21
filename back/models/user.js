@@ -18,13 +18,8 @@ module.exports = (sequelize, DataTypes) => { //sequelize는 시퀄라이즈 라�
       allowNull: true
     }
   }, {
-    //한글 포함
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
-
-    //한글, 이모티콘 포함
-    //charset: 'utf8mb4', 
-    //collate: 'utf8mb4_general_ci',
   });
 
   //관계 설정

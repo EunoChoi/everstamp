@@ -15,6 +15,7 @@ interface ImageProps {
 }
 
 interface Props {
+  position: 'calendar' | 'list';
   diaryData: {
     email: string;
     id: number;
@@ -25,7 +26,7 @@ interface Props {
   };
 }
 
-const DiarySlide = ({ diaryData }: Props) => {
+const DiarySlide = ({ diaryData, position }: Props) => {
 
   const router = useRouter();
   const images = diaryData?.Images;
@@ -47,9 +48,9 @@ const DiarySlide = ({ diaryData }: Props) => {
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
-        <Text className="slideChild">
-          <div className="text">{diaryData.text}</div>
-        </Text>
+        <TextWrapper className={`slideChild`}>
+          <Test className={`${position}`}>{diaryData.text}</Test>
+        </TextWrapper>
 
         {images.map(e =>
           <Img
@@ -121,7 +122,7 @@ const SlideWrapper = styled.div`
     }
   }
 `
-const Text = styled.div`
+const TextWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -134,21 +135,29 @@ const Text = styled.div`
 
   flex-shrink: 0;
   padding: 24px;
+`
+const Test = styled.div`
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-height: 1.7;
+  overflow: hidden;
 
   font-size: 16px;
   font-weight: 500;
   color: rgb(var(--greyTitle));
 
-  .text{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
-    line-height: 1.6 !important;
-    overflow: hidden;
-  }
+
 
   @media (max-width: 479px) { //mobile port
-      font-size: 16px;
+    font-size: 16px;
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    &.calendar{
+      font-size: 18px;
+      line-height: 1.8;
+      -webkit-line-clamp: 8;
+    }
   }
 `
 const Img = styled(Image)`
