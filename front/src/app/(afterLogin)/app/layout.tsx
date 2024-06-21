@@ -32,7 +32,7 @@ const AppLayout = ({ children }: Props) => {
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
 
-  if (isMobile === null) return <Loading />; //loading page, to solve problem delay by useMediaQuery
+  if (isMobile === null) return <Loading />; //loading page, to solve useMediaQuery delay problem
 
   return (<>
     {isMobile ?

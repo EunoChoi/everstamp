@@ -13,8 +13,8 @@ import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import SC_Common from "@/style/common";
 
 //component
-import DiaryInCalendar from "@/component/DiaryInCalendar";
-import DiaryEmpty from "@/component/DiaryEmpty";
+import Diary from "@/component/diary/Diary";
+import DiaryEmpty from "@/component/diary/DiaryEmpty";
 import CalendarSelector from "@/component/CalendarSelector";
 
 //icon
@@ -29,8 +29,8 @@ interface Props {
 const CalendarPageClient = ({ email, date }: Props) => {
   // console.log(email, date);
 
-  const isMobile = IsMobile();
   const router = useRouter();
+  const isMobile = IsMobile();
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', email, date],
@@ -42,12 +42,8 @@ const CalendarPageClient = ({ email, date }: Props) => {
     <SC_Common.Wrapper>
       <SC_Common.Content className="noOption">
         <Header title='calendar' />
-        {isMobile &&
-          <CalendarWrapper>
-            <CalendarSelector />
-          </CalendarWrapper>}
-        {diaryData ? <DiaryInCalendar diaryData={diaryData} /> : <DiaryEmpty />}
-
+        {isMobile && <CalendarWrapper><CalendarSelector /></CalendarWrapper>}
+        {diaryData ? <Diary diaryData={diaryData} position="calendar" /> : <DiaryEmpty />}
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );

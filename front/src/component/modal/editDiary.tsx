@@ -19,10 +19,10 @@ import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
-import DiaryInputDate from "./diary/DiaryInput_Date";
-import DiaryInputTextArea from "./diary/DiaryInput_TextArea";
-import DiaryInputUploadedImage from "./diary/\bDiaryInput_UploadedImage";
-import DiaryInputButtons from "./diary/DiaryInput_Buttons";
+import DiaryInputDate from "../diaryInput/Input_Date";
+import DiaryInputTextArea from "../diaryInput/Input_TextArea";
+import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
+import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
 
 
@@ -78,7 +78,7 @@ const EditDiary = () => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={diaryData?.date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
-        <DiaryInputUploadedImage images={images} />
+        <DiaryInputUploadedImage images={images} setImages={setImages} />
         <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={editDiary} images={images} setImages={setImages} />
       </Modal>
     </Wrapper>);

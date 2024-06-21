@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
         date
       }
     })
-    if (isDiaryExistAready) return res.status(400).json('해당 날짜에 이미 일기가 존재합니다.');
+    if (isDiaryExistAready) return res.status(400).json('해당 날짜에 일기가 이미 존재합니다.');
 
     const diary = await Diary.create({
       visible: true,
@@ -83,7 +83,6 @@ router.patch("/", async (req, res) => {
       where: { id: diaryId },
     });
     if (!diary) return res.status(403).json("게시글이 올바르지 않습니다.");
-
 
 
     await Diary.update({

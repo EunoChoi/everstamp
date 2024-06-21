@@ -6,11 +6,11 @@ export async function middleware(request: NextRequest) {
   console.log('middleware', request.nextUrl.pathname);
   const session = await auth(); //로그인 되어있다면 세션에 정보가 담김, 로그인 안된 경우 로그인 페이지로 리다이렉트
   if (!session) {
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/io`);
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/app`);
   }
 }
 
 //미들웨어가 동작할 페이지들
 export const config = {
-  matcher: ['/io/calendar', '/io/list', '/io/habit', '/io/setting', '/io/inter/input/:path*'],
+  matcher: ['/app/calendar', '/app/list', '/app/habit', '/app/setting', '/app/inter/input/:path*'],
 }

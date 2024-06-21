@@ -4,15 +4,22 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 
 interface Props {
   images: Array<string>;
+  setImages: (images: string[]) => void;
 }
 
-const DiaryInputUploadedImage = ({ images }: Props) => {
+const DiaryInputUploadedImage = ({ images, setImages }: Props) => {
   return (<>
     {images?.length > 0 &&
       <UploadedImages>
-        {images.map(e => <ImageBox key={`image-${e}`}>
+        {images.map((e, i: number) => <ImageBox key={`image-${e}`}>
           <UploadedImage src={e} alt='diary image' width={200} height={200} />
-          <ImageDeleteButton><RemoveCircleOutlinedIcon fontSize="inherit" /></ImageDeleteButton>
+          <ImageDeleteButton onClick={() => {
+            const deletedImageArray = [...images];
+            deletedImageArray.splice(i, 1);
+            setImages(deletedImageArray);
+          }}>
+            <RemoveCircleOutlinedIcon fontSize="inherit" />
+          </ImageDeleteButton>
         </ImageBox>)}
       </UploadedImages>
     }
@@ -26,10 +33,8 @@ const UploadedImages = styled.div`
   overflow-x: scroll;
   background-color: rgba(var(--whitesmoke), 0.3);
   border-top: solid 1px rgba(0,0,0,0.05);
-
   /* flex-shrink: 0; */
   min-height: 56px;
-
 
   @media (max-width: 479px) { //mobile port
     height: 112px;

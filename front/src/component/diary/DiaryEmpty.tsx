@@ -15,14 +15,13 @@ const DiaryEmpty = () => {
 
   const router = useRouter();
   const params = useSearchParams();
-  const isMobile = IsMobile();
 
   const paramDate = params.get('date');
   const dateInfo = paramDate ? new Date(Number(paramDate)) : new Date();
 
   const month = format(dateInfo, 'MMM');
   const date = format(dateInfo, 'dd');
-  const day = format(dateInfo, `${isMobile ? 'EEE' : 'EEEE'}`);
+  const day = format(dateInfo, `eeee`);
   const year = format(dateInfo, 'yyyy');
 
   const habits = [];
@@ -61,36 +60,19 @@ const Wrapper = styled.div`
 
   width: 100%;
   max-width: 600px;
-  height: 300px;
+  height: 350px;
   margin: 20px 0;
 
   @media (min-width: 1024px) {//desktop
-     height: 550px;
-      .dateinfo{
-        flex-direction: column;
-        align-items: start;
-        .week{
-          font-size: 56px;
-          margin-bottom: 12px;
-        }
-        span{
-          font-size: 36px;
-        }
-      }
-      .text{
-        -webkit-line-clamp: 9;
-        line-height: 1.9 !important;
-      }
-      .habits{
-        padding : 12px 0;
-        margin: 12px 0;
-      }
-    }
+    height: 550px;
+  }
 `
 const DateWrapper = styled.div`
-  display: flex;
-  align-items: end;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
   span{
     text-transform: capitalize;
     margin-right: 8px;
@@ -100,9 +82,21 @@ const DateWrapper = styled.div`
     line-height: 1;
   }
   .week{
-    font-size: 48px;
+    font-size: 42px;
     font-weight: 700;
+    margin-bottom: 12px;
     color: rgb(var(--greyTitle));
+  }
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    flex-direction: column;
+    align-items: start;
+    .week{
+      font-size: 56px;
+      margin-bottom: 12px;
+    }
+    span{
+      font-size: 36px;
+    }
   }
 `
 const EmptyWrapper = styled.div`

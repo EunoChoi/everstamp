@@ -4,7 +4,6 @@ import { auth } from "@/auth";
 import CalendarPageClient from "./_component/CalendarPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
-
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';

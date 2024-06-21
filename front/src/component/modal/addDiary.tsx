@@ -8,10 +8,10 @@ import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 
 //icon
-import DiaryInputDate from "./diary/DiaryInput_Date";
-import DiaryInputTextArea from "./diary/DiaryInput_TextArea";
-import DiaryInputUploadedImage from "./diary/\bDiaryInput_UploadedImage";
-import DiaryInputButtons from "./diary/DiaryInput_Buttons";
+import DiaryInputDate from "../diaryInput/Input_Date";
+import DiaryInputTextArea from "../diaryInput/Input_TextArea";
+import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
+import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
 
 
@@ -45,7 +45,7 @@ const AddDiary = () => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
-        <DiaryInputUploadedImage images={images} />
+        <DiaryInputUploadedImage images={images} setImages={setImages} />
         <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={addDiary} images={images} setImages={setImages} />
       </Modal>
     </Wrapper>);

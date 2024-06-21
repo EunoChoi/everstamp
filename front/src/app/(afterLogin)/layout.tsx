@@ -18,7 +18,7 @@ const Layout = async ({ children, modal }: Props) => {
   //server prefetch
   const queryClient = new QueryClient();
 
-  const user = await queryClient.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey: ['user', email],
     queryFn: () => getCurrentUser(email),
   })

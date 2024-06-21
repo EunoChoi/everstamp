@@ -13,7 +13,7 @@ import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import { getDiaryList } from "@/app/(afterLogin)/_lib/getDiaryList";
 
 //component
-import DiaryInList from "@/component/DiaryInList";
+import Diary from "@/component/diary/Diary";
 import Header from "@/component/Header";
 
 //icon
@@ -21,6 +21,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
 import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
+import IsMobile from "@/function/IsMobile";
 
 interface Props {
   email: string;
@@ -28,6 +29,7 @@ interface Props {
 
 const ListPageClient = ({ email }: Props) => {
 
+  const isMobile = IsMobile();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
@@ -79,10 +81,12 @@ const ListPageClient = ({ email }: Props) => {
 
       <SC_Common.Content className="scroll">
         {diaries?.length === 0 && <NoDiaries>You have no diaries :(</NoDiaries>}
-        {diaries?.map((e: any, i: number) => <DiaryInList
-          diaryData={e}
-          key={'listNote' + i}
-        />)}
+        {diaries?.map((e: any, i: number) =>
+          <Diary
+            position="list"
+            diaryData={e}
+            key={'listNote' + i}
+          />)}
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
