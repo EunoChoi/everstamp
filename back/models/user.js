@@ -25,7 +25,9 @@ module.exports = (sequelize, DataTypes) => { //sequelize는 시퀄라이즈 라�
   //관계 설정
   User.associate = (db) => {
     //일대다 관계 [게시글, 댓글]
-    // db.User.hasMany(db.Post);
+    db.User.hasMany(db.Diary);
+    db.User.hasMany(db.Habit);
+
     // db.User.hasMany(db.Comment);
 
     //다른 모델간 다대다 관계 [좋아요]

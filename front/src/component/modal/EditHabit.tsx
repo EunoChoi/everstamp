@@ -22,11 +22,21 @@ const EditHabit = () => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
         <HabitInputValues></HabitInputValues>
-        <HabitInputButtons></HabitInputButtons>
+        <Delete><button>delete</button></Delete>
+        <HabitInputButtons type='edit' />
       </Modal>
     </Wrapper>);
 }
 export default EditHabit;
+
+const Delete = styled.div`
+  display: flex;
+  justify-content: center;
+  button{
+    font-size: 18px;
+    color: salmon;
+  }
+`
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

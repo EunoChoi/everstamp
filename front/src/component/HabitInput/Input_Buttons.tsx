@@ -2,20 +2,21 @@ import styled from "styled-components";
 
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import { RefObject } from "react";
 import Axios from "@/Aixos/aixos";
 
 interface Props {
-
+  type?: string;
 }
 
-const HabitInputButtons = ({ }: Props) => {
+const HabitInputButtons = ({ type }: Props) => {
 
 
   return (
     <Buttons>
       <Button>
-        <AddTaskOutlinedIcon className="icon" />
+        {type === 'edit' ? <ModeEditOutlineOutlinedIcon /> : <AddTaskOutlinedIcon className="icon" />}
       </Button>
     </Buttons>
   );

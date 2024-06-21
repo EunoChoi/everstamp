@@ -16,8 +16,8 @@ const imageRouter = require('./routes/image');
 // const commentRouter = require('./routes/comment');
 
 
-// db.sequelize.sync({ force: true }).then(() => {
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: true }).then(() => {
+  // db.sequelize.sync().then(() => {
   console.log("db 연결 성공")
 }).catch(console.error);
 

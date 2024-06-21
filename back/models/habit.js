@@ -9,16 +9,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
   }, {
-    charset: 'utf8',
-    collate: 'utf8_general_ci',
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_unicode_ci',
   });
 
   //habit relationship
   //user-habit 1:N
   //post-habit N:N
-
-  Image.associate = (db) => {
-    db.Image.belongsTo(db.Diary);
+  Habit.associate = (db) => {
+    db.Habit.belongsTo(db.User);
+    db.Habit.belongsToMany(db.Diary, { //diary.addHabit
+      through: 'DiaryHabit'
+    });
   };
 
   return Habit;
