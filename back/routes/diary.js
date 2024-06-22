@@ -10,6 +10,7 @@ const router = express.Router();
 const User = db.User;
 const Diary = db.Diary;
 const Image = db.Image;
+const Habit = db.Habit;
 
 
 
@@ -98,7 +99,7 @@ router.patch("/", async (req, res) => {
       where: { diaryId }
     })
 
-    // //수정된 이미지들을 image 모델 요소 생성 후 Post 모델과 연결
+    //수정된 이미지들을 image 모델 요소 생성 후 Diary 모델과 연결
     if (images.length >= 1) {
       const ImagesData = [];
       for (i = 0; i < images.length; i++) {
@@ -154,6 +155,9 @@ router.get("/id/:diaryId", async (req, res) => {
       }],
       include: [{
         model: Image,//이미지
+      },
+      {
+        model: Habit,//습관
       }],
     });
     if (diary) return res.status(201).json(diary);
@@ -166,13 +170,14 @@ router.get("/id/:diaryId", async (req, res) => {
 router.get("/list", async (req, res) => {
   const { email, sort } = req.query;
   try {
-    const where = {};
     const diaries = await Diary.findAll({
       where: [{
         email,
       }],
       include: [{
         model: Image,//이미지
+      }, {
+        model: Habit,//습관
       }],
       order: [
         ['date', sort], //ASC DESC
@@ -197,6 +202,8 @@ router.get("/calendar", async (req, res) => {
       }],
       include: [{
         model: Image,//이미지
+      }, {
+        model: Habit,//습관
       }],
     });
     console.log(diary);

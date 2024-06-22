@@ -8,6 +8,7 @@ const cookies = require("cookie-parser"); //요청시 보내지는 쿠키 사용
 const userRouter = require('./routes/user');
 const diaryRouter = require('./routes/diary');
 const imageRouter = require('./routes/image');
+const habitRouter = require('./routes/habit');
 
 // const authRouter = require('./routes/auth');
 
@@ -16,8 +17,8 @@ const imageRouter = require('./routes/image');
 // const commentRouter = require('./routes/comment');
 
 
-db.sequelize.sync({ force: true }).then(() => {
-  // db.sequelize.sync().then(() => {
+// db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   console.log("db 연결 성공")
 }).catch(console.error);
 
@@ -47,6 +48,7 @@ app.use(cookies());
 app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/image", imageRouter);
+app.use("/habit", habitRouter);
 
 // app.use("/auth", authRouter);
 

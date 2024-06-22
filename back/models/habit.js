@@ -1,5 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Habit = sequelize.define('Habit', {
+    email: {
+      type: DataTypes.STRING(30),//최대 30자인 문자(STRING, TEXT, BOOLEAN, INTEGER, FLOAT, DATETIME)
+      allowNull: false, //빈값 허용 X, 입력 필수
+    },
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,

@@ -1,183 +1,36 @@
-'use client';
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
+import { auth } from "@/auth";
+import HabitPageClient from "./_component/HabitPageClient";
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { getAllHabits } from "../../_lib/getAllHabits";
+import { getRecentHabitBoolean } from "../../_lib/getRecentHabitBoolean";
 
-import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+const Page = async ({ searchParams }: any) => {
+  const session = await auth()
+  const email = session?.user?.email ? session?.user?.email : '';
+  const params = searchParams;
+  console.log(email, 'dddd');
 
-//styledComponent
-import SC_Common from "@/style/common";
+  //server prefetch
+  const queryClient = new QueryClient();
 
-//component
-import HabitBox from "@/component/HabitBox";
-import Header from "@/component/Header";
+  const test = await queryClient.prefetchQuery({
+    queryKey: ['habits', 'all', ''],
+    queryFn: () => getAllHabits(email, 'ASC'),
+  })
+  await queryClient.prefetchQuery({
+    queryKey: ['habits', 'all', ''],
+    queryFn: () => getAllHabits(email, 'DESC'),
+  })
 
-//icon
-import SortIcon from '@mui/icons-material/Sort';
-import AddIcon from '@mui/icons-material/Add';
-import { useRouter } from "next/navigation";
-
-const Habit = () => {
-
-  const router = useRouter();
-
-  const gridListRef = useRef<HTMLDivElement>(null);
-
-  const [sortToggle, setSortToggle] = useState<boolean>(true);
-  const [page, setPage] = useState<number>(0);
-
-
-  const [habitDummy, setHabitDummy] = useState(new Array(9).fill(0).map((e, i) => i));
-  const [habits, setHabits] = useState<Array<any>>([]);
-  const [indicator, setIndicator] = useState<Array<number>>([]);
-
-
-  useEffect(() => {
-    const _habits = [];
-    const _habitDummy = [...habitDummy];
-
-    while (_habitDummy.length > 0) {
-      _habits.push(_habitDummy.splice(0, 6));
-    }
-
-    setHabits(_habits);
-    setIndicator(new Array(_habits.length).fill(0));
-    console.log('habit list changed');
-  }, [habitDummy]);
-
-
+  const dehydratedState = dehydrate(queryClient)
 
   return (
-    <SC_Common.Wrapper className="habit">
-      <Header title='habit' />
-      <SC_Common.Options>
-        <button onClick={() => router.push('/app/inter/input/addHabit', { scroll: false })}>
-          <AddIcon fontSize="small" />
-        </button>
-        <button>
-          <SortIcon fontSize="small" />
-          <span onClick={() => setSortToggle(c => !c)}>{sortToggle ? 'A - Z' : 'Z - A'}</span>
-        </button>
-      </SC_Common.Options>
-      <SC_Common.Content className="habit">
-
-        <HabitGridList
-          ref={gridListRef}
-          onScroll={(e) => {
-            setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-          }}
-        >
-          {habits.length > 0 ?
-            habits.map((set: any[], i: number) =>
-              <HabitGrid key={'set' + i}>
-                {set.map(e => <HabitBox key={e}></HabitBox>)}
-              </HabitGrid>)
-            :
-            <NoHabit>Shall we make a list of habits? 😊</NoHabit>}
-        </HabitGridList>
-
-        {habits.length > 0 &&
-          <IndicatoWrapper>
-            {indicator.map((_, i: number) =>
-              <div
-                key={'indicator' + i}
-                className={page === i ? 'current' : ''}
-                onClick={() => {
-                  gridListRef.current?.scrollTo({
-                    left: gridListRef.current.clientWidth * i,
-                    behavior: "smooth"
-                  })
-                }} />)}
-          </IndicatoWrapper>}
-
-      </SC_Common.Content>
-    </SC_Common.Wrapper>
+    <HydrationBoundary state={dehydratedState}>
+      <HabitPageClient email={email} />
+    </HydrationBoundary>
   );
 }
 
-export default Habit;
-
-const NoHabit = styled.span`
-  width: 100%;
-  text-align: center;
-  color: grey;
-  font-weight: 500;
-  @media (max-width: 479px) { //mobile port
-    font-size: 20px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 22px;
-  }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
-    font-size: 24px;
-  }
-`
-
-const HabitGridList = styled.div`
-  transition: all ease-in-out 0.1s;
-
-  position: relative;
-  width: 100%;
-  height: auto;
-  display:  flex;
-
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar{
-    display: none;
-  }
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 60%;
-    width: 90%;
-  }
-`
-const HabitGrid = styled.div`
-  flex-shrink: 0;
-  width: 100%;
-  display: grid;
-
-  padding: 0 8px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 16px;
-
-  scroll-snap-align: start;
-  scroll-snap-stop: always !important;
-
-  @media (max-width: 479px) { //mobile port
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 12px;
-    padding: 0 4px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    grid-gap: 6px;
-  }
-  @media (orientation: portrait) {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
-`
-const IndicatoWrapper = styled.div`
-  display: flex;
-  margin-top: 8px;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 16px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  .current {
-    background-color: rgb(var(--point));
-  }
-`
-
+export default Page;

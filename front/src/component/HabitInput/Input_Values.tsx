@@ -6,15 +6,18 @@ import { RefObject } from "react";
 import Axios from "@/Aixos/aixos";
 
 interface Props {
-
+  habitName: string;
+  setHabitName: (name: string) => void;
 }
 
-const HabitInputValues = ({ }: Props) => {
+const HabitInputValues = ({ habitName, setHabitName }: Props) => {
   return (
     <>
       <Value>
         <span>name</span>
-        <input></input>
+        <input
+          onChange={(e) => setHabitName(e.currentTarget.value)}
+          value={habitName} />
       </Value>
       <Value>
         <span>color</span>

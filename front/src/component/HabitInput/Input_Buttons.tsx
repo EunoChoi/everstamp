@@ -8,14 +8,15 @@ import Axios from "@/Aixos/aixos";
 
 interface Props {
   type?: string;
+  onSubmit: () => void;
 }
 
-const HabitInputButtons = ({ type }: Props) => {
+const HabitInputButtons = ({ type, onSubmit }: Props) => {
 
 
   return (
     <Buttons>
-      <Button>
+      <Button onClick={() => onSubmit()}>
         {type === 'edit' ? <ModeEditOutlineOutlinedIcon /> : <AddTaskOutlinedIcon className="icon" />}
       </Button>
     </Buttons>

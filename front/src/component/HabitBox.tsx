@@ -10,23 +10,69 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 
 import { subDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
+import { ChangeEvent } from "react";
+import Axios from "@/Aixos/aixos";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
+import { useQuery } from "@tanstack/react-query";
+import { getRecentHabitBoolean } from "@/app/(afterLogin)/_lib/getRecentHabitBoolean";
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
-const HabitBox = () => {
+interface Props {
+  name: string;
+  id: number;
+  email: string;
+}
+
+const HabitBox = ({ name, id, email }: Props) => {
 
   const router = useRouter();
+
+  const currentCleanDateTime = getCleanTodayTime()
   const currentDate = new Date();
-  let fourDate = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
-  fourDate = fourDate.map((e, i) => subDays(e, i));
+  let recentDateArray = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
+  recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
+
+
+
+  const { data: recentDateBoolean } = useQuery({
+    queryKey: ['habit', name, 'recent'],
+    queryFn: () => getRecentHabitBoolean(email, id, currentCleanDateTime),
+    enabled: email !== null
+  });
+
+
+  //check, uncheck 처리
+  //habit id, date, email
+  const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
+    if (e.currentTarget.checked === true) {
+      //habit diary model add relation 
+      Axios.post('/habit/check', { id, date, email });
+      console.log('check')
+    }
+    else {
+      //habit diary model delete relation 
+      Axios.delete('/habit/check', {
+        data: { id, date, email }
+      });
+      console.log('unchecked');
+    }
+  }
 
   return (<Wrapper>
-    <Name>habit name</Name>
+    <Name>{name}</Name>
     <Days>
-      {fourDate.map((e, i) => {
-        return <Check key={`${e}-${i}`}>
-          <label htmlFor={`${e}-${i}`}>
-            <span>{format(e, 'eee')}</span>
-            <span>{format(e, 'e')}</span>
-            <input id={`${e}-${i}`} type="checkbox" />
+      {recentDateArray.map((date, i: number) => {
+        return <Check key={`${date}-${name}`}>
+          <label htmlFor={`${date}-${name}`}>
+            <span>{format(date, 'eee')}</span>
+            <span>{format(date, 'd')}</span>
+            <input
+              id={`${date}-${name}`}
+              type="checkbox"
+              checked={(recentDateBoolean && recentDateBoolean[i]) || ""}
+              onChange={(e) => {
+                habitToggle(e, date.getTime());
+              }} />
             <div className="checkmark"><div></div></div>
           </label>
         </Check>
@@ -121,53 +167,29 @@ const Check = styled.div`
       width: 0;
     }
     .checkmark{
-      height: 18px;
-      width: 18px;
+      height: 20px;
+      width: 20px;
       border-radius: 25px;
       border : solid darkgrey 2px;
-      
-    }
-    input:checked ~ .checkmark{
-      /* border : solid white 3px; */
+
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+    input:checked ~ .checkmark{
       div{
-        width: 10px;
-        height: 10px;
-        border-radius: 100%;
+        flex-shrink: 0;
+
+        width: 12px;
+        height: 12px; 
+        border-radius: 20px;
         background-color: rgb(var(--point));
-      }
+      }    
+      
     }
     span:first-child{
       font-weight: 600;
       color: rgb(var(--greyTitle));
-    }
-
-    @media (min-width:480px) and (min-width:1024px) { //desktop
-      font-size: 18px;
-      .checkmark{
-        border : solid darkgrey 3px;
-        height: 22px;
-        width: 22px;
-      }
-      input:checked ~ .checkmark{
-        div{
-          width: 12px;
-          height: 12px;
-        }
-      }
-    }
-  }
-
-  
-  
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 12px;
-    *:last-child{
-      font-size: 12px;
-      margin-top: 4px
     }
   }
 `

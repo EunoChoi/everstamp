@@ -100,6 +100,11 @@ const SC_Common = {
       height: 100dvh;
     }
     
+    &.setting{
+      @media (min-height: 479px) { //tablet land no scroll
+        justify-content: center;
+      }
+    }
 
     //mobile portrait
     @media (max-width: 479px) { //mobile port

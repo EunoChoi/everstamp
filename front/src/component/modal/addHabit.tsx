@@ -4,26 +4,29 @@ import styled from "styled-components";
 import { useCallback, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
+import Axios from "@/Aixos/aixos";
 
 
 const AddHabit = () => {
 
+  const email = getCurrentUserEmail();
   const [habitName, setHabitName] = useState<string>('');
-  const [habitColor, setHabitColor] = useState<string>('');
+  const [themeColor, setThemeColor] = useState<string>('default');
 
   const historyBack = useCallback(() => {
     history.back();
   }, []);
   const addHabit = () => {
-
+    Axios.post('/habit', { email, habitName, themeColor })
   };
 
   return (
     <Wrapper onClick={() => historyBack()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Add Habit</Title>
-        <HabitInputValues></HabitInputValues>
-        <HabitInputButtons></HabitInputButtons>
+        <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
+        <HabitInputButtons onSubmit={addHabit} />
       </Modal>
     </Wrapper>);
 }

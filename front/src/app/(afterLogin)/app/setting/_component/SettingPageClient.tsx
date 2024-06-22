@@ -30,7 +30,7 @@ const SettingPageClient = ({ email }: Props) => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className="noOption" >
+      <SC_Common.Content className="noOption setting" >
         <Header title='setting' />
         <SC_Common.Options className="setting" />
         <Section>
@@ -72,6 +72,7 @@ const SettingPageClient = ({ email }: Props) => {
 }
 
 export default SettingPageClient;
+
 
 const Section = styled.div`
   width: 100%;

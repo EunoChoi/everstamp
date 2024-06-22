@@ -4,11 +4,17 @@ import styled from "styled-components";
 import { useCallback, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 const EditHabit = () => {
 
+  const email = getCurrentUserEmail();
   const [habitName, setHabitName] = useState<string>('');
-  const [habitColor, setHabitColor] = useState<string>('');
+  const [themeColor, setThemeColor] = useState<string>('default');
+
+  //habitId로 불러와서 값 넣기
+
+
 
   const historyBack = useCallback(() => {
     history.back();
@@ -21,9 +27,9 @@ const EditHabit = () => {
     <Wrapper onClick={() => historyBack()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
-        <HabitInputValues></HabitInputValues>
+        <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
         <Delete><button>delete</button></Delete>
-        <HabitInputButtons type='edit' />
+        <HabitInputButtons onSubmit={editHabit} />
       </Modal>
     </Wrapper>);
 }

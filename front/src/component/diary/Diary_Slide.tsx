@@ -13,7 +13,13 @@ interface ImageProps {
   id: string;
   src: string;
 }
-
+interface Habit {
+  UserId: number;
+  id: number;
+  email: string;
+  name: string;
+  themeColor: string;
+}
 interface Props {
   position: 'calendar' | 'list';
   diaryData: {
@@ -22,7 +28,7 @@ interface Props {
     date: Date;
     text: string;
     Images: Array<ImageProps>;
-    habits: Array<any>;
+    Habits: Array<Habit>;
   };
 }
 

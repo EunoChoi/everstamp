@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
 interface Props {
-  habits: any;
+  habits: Array<Habit>;
+}
+interface Habit {
+  UserId: number;
+  id: number;
+  email: string;
+  name: string;
+  themeColor: string;
 }
 
 const DiaryHabits = ({ habits }: Props) => {
   return (
     <Habits className="habits">
       <Habit>{habits?.length ? habits?.length : 0} habits</Habit>
-      {habits?.map((e: any, i: number) => <Habit key={e + i}>{e}</Habit>)}
+      {habits?.map((habit: Habit, i: number) => <Habit key={habit.name + i}>{habit.name}</Habit>)}
     </Habits>
   );
 }
