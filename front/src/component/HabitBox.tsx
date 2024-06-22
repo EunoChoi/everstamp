@@ -36,7 +36,7 @@ const HabitBox = ({ name, id, email }: Props) => {
 
 
 
-  const { data: recentDateBoolean } = useQuery({
+  const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
     queryFn: () => getRecentHabitStatus(email, id, currentCleanDateTime),
     enabled: email !== null
@@ -44,7 +44,6 @@ const HabitBox = ({ name, id, email }: Props) => {
 
 
   //check, uncheck 처리
-  //habit id, date, email
   const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
     if (e.currentTarget.checked === true) {
       //habit diary model add relation 
@@ -71,7 +70,7 @@ const HabitBox = ({ name, id, email }: Props) => {
             <input
               id={`${date}-${name}`}
               type="checkbox"
-              checked={(recentDateBoolean && recentDateBoolean[i]) || ""}
+              checked={(recentDateStatus && recentDateStatus[i]) || ""}
               onChange={(e) => {
                 habitToggle(e, date.getTime());
               }} />

@@ -273,7 +273,7 @@ const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 100%;
   margin-bottom: 24px;
-  height:280px;
+  height:320px;
   *{
     transition: color ease-in-out 0.3s !important;
   }

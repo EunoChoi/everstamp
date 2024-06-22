@@ -58,12 +58,9 @@ const HabitPageClient = ({ email }: Props) => {
       }
 
       setIndicator(new Array(temp.length).fill(0));
-      console.log(temp);
       setOrganizedHabits(temp);
     }
   }, [habits]);
-
-  console.log(habits)
 
   return (
     <SC_Common.Wrapper className="habit">
@@ -82,10 +79,7 @@ const HabitPageClient = ({ email }: Props) => {
 
 
       <SC_Common.Content className="habit">
-
         {(habits === undefined || habits?.length === 0) && <NoHabit>You have no habits list 🥲</NoHabit>}
-
-
         <HabitGridList
           ref={gridListRef}
           onScroll={(e) => {

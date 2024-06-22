@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from "next/navigation"
 
-import { format, addMonths, subMonths, sub } from 'date-fns';
+import { format, addMonths, subMonths } from 'date-fns';
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { addDays, isSameMonth, isSameDay } from 'date-fns';
 
@@ -14,11 +14,10 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TodayIcon from '@mui/icons-material/Today';
 
-
-import SentimentVeryDissatisfiedTwoToneIcon from '@mui/icons-material/SentimentVeryDissatisfiedTwoTone';
-import EmojiEmotionsTwoToneIcon from '@mui/icons-material/EmojiEmotionsTwoTone';
-import SentimentVerySatisfiedTwoToneIcon from '@mui/icons-material/SentimentVerySatisfiedTwoTone';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { useQuery } from "@tanstack/react-query";
+import { getMonthHabitStatus } from "@/app/(afterLogin)/_lib/getMonthHabitStatus";
+import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 const CalendarSelector = () => {
   const router = useRouter();
@@ -35,6 +34,20 @@ const CalendarSelector = () => {
   const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
   const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
 
+  const email = getCurrentUserEmail();
+  const { data } = useQuery({
+    queryKey: ['habit', 'month', format(currentMonth, 'MM')],
+    queryFn: () => getMonthHabitStatus(email),
+    enabled: email !== ''
+  });
+
+
+  const monthHabitResult: { [key: string]: [number, boolean] } = {};
+  data?.forEach((e: any) => {
+    monthHabitResult[format(e.date, 'yyMMdd')] = [e?.Habits?.length, e?.visible];
+  });
+
+
 
   const addCurrentMonth = useCallback(() => {
     setCurrentMonth(addMonths(currentMonth, 1));
@@ -43,10 +56,23 @@ const CalendarSelector = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
   }, [currentMonth]);
 
+
   const dateValue = (day: Date) => {
     //<SentimentVeryDissatisfiedTwoToneIcon></SentimentVeryDissatisfiedTwoToneIcon>
-    //<SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon> 
-    return format(day, 'd');
+    //<SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon>
+
+    const result = monthHabitResult[format(day, 'yyMMdd')];
+    const habitCount = result && result[0];
+    const isDiaryExist = result && result[1];
+    const formattedDate = format(day, 'd');
+
+    return <DateValue>
+      <span className={habitCount || isDiaryExist ? "small" : ""}>{formattedDate}</span>
+      <div>
+        {habitCount > 0 && <span>{habitCount}</span>}
+        {isDiaryExist && <span className="isDiaryExist">D</span>}
+      </div>
+    </DateValue>;
   };
 
   useEffect(() => {
@@ -62,21 +88,24 @@ const CalendarSelector = () => {
   let day = startDate;
 
   while (day <= endDate) {
-    const tempDay = day;
+    const key = day.getTime();
+    const cellDay = day;
+    const realCurrentMonth = format(currentMonth, 'M');
+    const cellMonth = format(cellDay, 'M');
     week.push(
       <CalDate
-        key={day.getTime()}
+        key={key}
         onClick={() => {
-          if (format(tempDay, 'M') < format(currentMonth, 'M')) subCurrentMonth();
-          else if (format(tempDay, 'M') > format(currentMonth, 'M')) addCurrentMonth();
-          else router.push(`/app/calendar?date=${tempDay.getTime()}`);
+          if (cellMonth < realCurrentMonth) subCurrentMonth();
+          else if (cellMonth > realCurrentMonth) addCurrentMonth();
+          else router.push(`/app/calendar?date=${cellDay.getTime()}`);
         }}
         className={`
-          ${isSameDay(day, today) ? 'today' : ''}
-          ${isSameMonth(day, currentMonth) ? 'currentMonth' : 'notCurrentMonth'}
-          ${isSameDay(day, selectedDate) ? 'selected' : ''}
+          ${isSameDay(cellDay, today) ? 'today' : ''}
+          ${isSameMonth(cellDay, currentMonth) ? 'currentMonth' : 'notCurrentMonth'}
+          ${isSameDay(cellDay, selectedDate) ? 'selected' : ''}
         `}>
-        {dateValue(day)}
+        {dateValue(cellDay)}
       </CalDate>);
     if (week.length === 7) {
       sumOfWeek.push(<CalRow key={sumOfWeek.length} className="cal_week_row">{week}</CalRow>);
@@ -84,8 +113,6 @@ const CalendarSelector = () => {
     }
     day = addDays(day, 1);
   }
-
-
 
   return (
     <Wrapper>
@@ -127,6 +154,39 @@ const CalendarSelector = () => {
 }
 
 export default CalendarSelector;
+
+const DateValue = styled.div`
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  div{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    span{
+      font-size: 12px;
+      font-weight: 400;
+      display: flex;
+      flex-shrink: 0;
+      justify-content: center;
+      align-items: center;
+
+      width: 15px;
+      height: 15px;
+      border-radius: 20px;
+      background-color: rgb(var(--point));
+      background-color: #f89d92;
+      color: whitesmoke;
+      margin: 0 1px;
+    }
+    .isDiaryExist{
+      background-color: #9cdeaa;
+    }
+  }
+`
 
 const Wrapper = styled.div`
   width: 100%;
@@ -198,13 +258,13 @@ const CalDate = styled.button`
   text-align: center;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    font-weight: 500;
-    color: rgb(var(--greyTitle));
+    /* font-weight: 500; */
+    /* color: rgb(var(--greyTitle)); */
     background-color: rgba(var(--point2), 0.5);
     border-radius: 8px;
   }
   &.selected{
-    font-weight: 500;
+    /* font-weight: 500; */
     border : 3px solid rgba(var(--point2), 0.6);
     border-radius: 8px;
   }

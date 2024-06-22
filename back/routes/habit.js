@@ -86,6 +86,36 @@ router.get("/recent", async (req, res) => {
     console.error(e);
   }
 })
+router.get("/month", async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    //유저 존재 확인
+    const user = await User.findOne({
+      where: { email }
+    })
+    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+
+
+    let diary = await Diary.findAll({
+      where: { email },
+      // where: { email, visible: true },
+      attributes: ['date', 'visible'],
+      // where: { date:  },
+      include: [{
+        model: Habit,
+        attributes: ['name'],
+      },],
+    });
+
+    console.log(diary.dadataValues);
+
+
+    return res.status(200).json(diary);
+  } catch (e) {
+    console.error(e);
+  }
+})
 
 //add habit
 router.post("/", async (req, res) => {

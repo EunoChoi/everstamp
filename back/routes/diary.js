@@ -213,7 +213,7 @@ router.get("/calendar", async (req, res) => {
     });
     console.log(diary);
     if (diary) return res.status(201).json(diary);
-    return res.status(400).json('no diary calendar');
+    return res.status(200).json(null);
   } catch (e) {
     console.error(e);
   }
