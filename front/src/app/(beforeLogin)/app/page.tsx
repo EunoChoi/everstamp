@@ -77,7 +77,7 @@ const ImageWrapper = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 100%;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width: 100%;
     span{
       font-size: 30px;
@@ -109,7 +109,7 @@ const TextWrapper = styled.div`
       text-align: end;
     }
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width: 550px;
     padding: 0 48px;
     align-items: end;
@@ -137,7 +137,7 @@ const Logo = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 42px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 56px;
   }
 `
@@ -163,7 +163,7 @@ const TextContent = styled.div`
       font-size: 18px;
     }
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     padding: 72px 0;
     span{
       line-height: 150%;    
@@ -182,7 +182,7 @@ const Button = styled.button`
   padding: 4px 20px;
   border-radius: 48px;
 
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     padding: 6px 24px;
     font-size: 20px;
   }

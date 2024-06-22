@@ -41,7 +41,7 @@ const Value = styled.div`
   justify-content: center;
   align-items: start;
   margin : 0 10%;
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     margin : 0 20%;
   }
 

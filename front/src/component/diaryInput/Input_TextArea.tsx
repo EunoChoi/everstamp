@@ -51,7 +51,7 @@ const InputWrapper = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     padding: 12px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     padding: 20px;
   }
 `

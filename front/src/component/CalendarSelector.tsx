@@ -96,12 +96,15 @@ const CalendarSelector = () => {
             <span className="year">{format(currentMonth, 'yyyy')}</span>
           </CalTitleText>
           <CalHeaderButtons>
-            <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon /></button>
-            <button onClick={() => {
-              router.push(`/app/calendar?date=${getCleanTodayTime()}`);
-              setCurrentMonth(new Date());
-            }}><TodayIcon /></button>
-            <button onClick={addCurrentMonth}><KeyboardArrowRightIcon /></button>
+            <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
+            <button
+              onClick={() => {
+                router.push(`/app/calendar?date=${getCleanTodayTime()}`);
+                setCurrentMonth(new Date());
+              }}>
+              <TodayIcon fontSize="small" />
+            </button>
+            <button onClick={addCurrentMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
           </CalHeaderButtons>
         </CalTitle>
         <CalWeekTitle>
@@ -139,7 +142,7 @@ const CalTitle = styled.div`
     justify-content: space-between;
     align-items: center;
     color: rgb(var(--greyTitle));
-    padding: 6px 0;
+    padding: 4px 0;
     >div{
       /* display: flex; */
       font-size: 22px;

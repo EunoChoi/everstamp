@@ -93,7 +93,7 @@ const Modal = styled.div`
     height: 100%;
     border-radius: 0px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width: 50%;
     height: 70%;
   }

@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     display: none;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width: calc(100dvw - 350px);
     height: var(--desktopHeader);
 
@@ -55,8 +55,8 @@ const Title = styled.span`
     color: rgb(var(--point));
   }
   @media (max-width: 479px) { //mobile port
-    line-height: 1.1;
-    font-size: 36px;
+    line-height: 0.9;
+    font-size: 28px;
     border-bottom: 4px rgb(var(--point)) solid;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet

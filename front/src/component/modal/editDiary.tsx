@@ -121,7 +121,7 @@ const Modal = styled.div`
     height: 100%;
     border-radius: 0px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width: 50%;
     height: 70%;
   }
@@ -144,7 +144,7 @@ const DiaryDate = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 26px;
   }
 `
@@ -172,7 +172,7 @@ const InputWrapper = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     padding: 12px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     padding: 20px;
   }
 `
@@ -192,7 +192,7 @@ const UploadedImages = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     height: 96px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     height: 172px;
   }
 `
@@ -211,7 +211,7 @@ const ImageBox = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     aspect-ratio: 1.8;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     aspect-ratio: 1.3;
   }
 `
@@ -241,7 +241,7 @@ const ImageDeleteButton = styled.button`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 12px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `

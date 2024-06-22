@@ -144,7 +144,7 @@ router.delete("/", async (req, res) => {
 
 
 //load diary 
-//load diary - by diary id
+//load diary - by diary id, for diary
 router.get("/id/:diaryId", async (req, res) => {
   const diaryId = req.params.diaryId;
 
@@ -156,9 +156,10 @@ router.get("/id/:diaryId", async (req, res) => {
       include: [{
         model: Image,//이미지
       },
-      {
-        model: Habit,//습관
-      }],
+        // {
+        //   model: Habit,//습관
+        // }
+      ],
     });
     if (diary) return res.status(201).json(diary);
     return res.status(400).json('no diary by id');
@@ -181,6 +182,7 @@ router.get("/list", async (req, res) => {
       }],
       order: [
         ['date', sort], //ASC DESC
+        [Habit, 'name', 'ASC']
       ],
     });
 
@@ -205,6 +207,9 @@ router.get("/calendar", async (req, res) => {
       }, {
         model: Habit,//습관
       }],
+      order: [
+        [Habit, 'name', 'ASC']
+      ],
     });
     console.log(diary);
     if (diary) return res.status(201).json(diary);

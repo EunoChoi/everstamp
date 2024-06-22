@@ -18,7 +18,7 @@ const Page = () => {
       <Text>
         {type === 1 ? '이미 등록된 이메일입니다. 가입된 SNS 계정으로 로그인해 주세요.”' : '회원가입 중 오류가 발생하였습니다.'}
       </Text>
-      <Button onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/app`)}>돌아가기</Button>
+      <Button onClick={() => router.push(`/app`)}>돌아가기</Button>
     </Wrapper>
   );
 }
@@ -43,7 +43,7 @@ const Icon = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 84px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 124px;
   }
 `
@@ -61,7 +61,7 @@ const Text = styled.span`
     font-size: 18px;
     margin: 32px 0;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 22px;
     margin: 48px 0;
   }
@@ -77,7 +77,7 @@ const Button = styled.button`
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `

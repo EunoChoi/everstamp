@@ -73,7 +73,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         <EditBox className="slideChild">
           <button><ContentCopyIcon />copy text</button>
           <button
-            onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })}
+            onClick={() => router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })}
           >
             <EditIcon />edit diary
           </button>
@@ -158,7 +158,7 @@ const Test = styled.div`
   @media (max-width: 479px) { //mobile port
     font-size: 16px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     &.calendar{
       font-size: 18px;
       line-height: 1.8;

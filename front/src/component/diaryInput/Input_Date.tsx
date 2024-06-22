@@ -35,7 +35,7 @@ const DiaryDate = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 26px;
   }
 `

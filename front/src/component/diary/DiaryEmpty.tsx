@@ -28,7 +28,7 @@ const DiaryEmpty = () => {
 
   return (
     <Wrapper>
-      <DateWrapper className="dateinfo">
+      <DateWrapper className="dateinfo calendar">
         <span className="week">{day}</span>
         <div>
           <span className="date">{month}</span>
@@ -41,7 +41,7 @@ const DiaryEmpty = () => {
         <span>There are no diary yet.</span>
         <span>Create a new one :)</span>
         <button onClick={() => {
-          router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/app/inter/input/addDiary?date=${dateInfo.getTime()}`, { scroll: false })
+          router.push(`/app/inter/input/addDiary?date=${dateInfo.getTime()}`, { scroll: false })
         }}>
           <AddCircleOutlinedIcon fontSize="inherit" />
         </button>
@@ -60,7 +60,7 @@ const Wrapper = styled.div`
 
   width: 100%;
   max-width: 600px;
-  height: 350px;
+  height: 300px;
   margin: 20px 0;
 
   @media (min-width: 1024px) {//desktop
@@ -70,32 +70,36 @@ const Wrapper = styled.div`
 const DateWrapper = styled.div`
   height: auto;
   display: flex;
-  flex-direction: column;
-  align-items: start;
+  flex-direction: row;
+  align-items: flex-end;
 
-  span{
-    text-transform: capitalize;
-    margin-right: 8px;
-    color: grey;
-    font-weight: 600;
-    font-size: 24px;
+  .date, .year, .week{
     line-height: 1;
+    margin-right: 8px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: grey;
+    font-size: 24px;
+
   }
+
   .week{
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 700;
-    margin-bottom: 12px;
     color: rgb(var(--greyTitle));
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
-    flex-direction: column;
-    align-items: start;
-    .week{
-      font-size: 56px;
-      margin-bottom: 12px;
-    }
-    span{
-      font-size: 36px;
+
+  &.calendar{
+    @media (min-width:480px) and (min-width:1024px) { //desktop
+      flex-direction: column;
+      align-items: start;
+      .week{
+        font-size: 56px;
+        margin-bottom: 12px;
+      }
+      span{
+        font-size: 36px;
+      }
     }
   }
 `

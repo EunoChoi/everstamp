@@ -8,7 +8,7 @@ import { RefObject } from "react";
 import Axios from "@/Aixos/aixos";
 
 interface Props {
-  type: string;
+  type?: string;
   imageUploadRef: RefObject<HTMLInputElement>;
   submitDiary: () => void;
   images: Array<string>;

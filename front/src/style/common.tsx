@@ -23,10 +23,21 @@ const SC_Common = {
     }
   `,
   Options: styled.div`
+    display: flex;
+    align-items: end;
+    justify-content: end;
+
+    position: fixed;
+    top: 0;
+
+    background-color: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);    
+
     button{
       transition: all ease-in-out 200ms;
       text-transform: capitalize;
       display: flex;
+      justify-content: center;
       align-items: center;
       border-radius : 48px;
       color: rgb(var(--greyTitle));
@@ -39,19 +50,13 @@ const SC_Common = {
       font-size: 14px;
       margin-left: 6px;
       font-weight: 500;
+
       *:nth-child(2){
-        margin-left: 6px;
+        margin-left: 3px;
       }
     }
-    display: flex;
-    align-items: end;
-    justify-content: end;
 
-    position: fixed;
-    top: 0;
 
-    background-color: rgba(255,255,255,0.7);
-    backdrop-filter: blur(12px);    
     @media (max-width: 479px) { //mobile port
       width: 100%;
       height: calc(var(--mobileHeader) + var(--optionHeight));
@@ -70,7 +75,7 @@ const SC_Common = {
         display: none;
       }
     }
-    @media (min-width:480px) and (min-width:1024px) { //desktop
+    @media (min-height:480px) and (min-width:1024px) { //desktop
       width: calc(100dvw - 350px);
       max-width: 800px;
       height: calc(var(--desktopHeader) + var(--optionHeight));
@@ -153,7 +158,7 @@ const SC_Common = {
         }
       }
     }
-    @media (min-width:480px) and (min-width:1024px) { //desktop
+    @media (min-height:480px) and (min-width:1024px) { //desktop
       height: 100dvh;
       padding-top : calc(var(--desktopHeader) + var(--optionHeight));
       &.noOption{

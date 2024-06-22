@@ -67,14 +67,17 @@ const ListPageClient = ({ email }: Props) => {
             }, 50);
           }}>
           <SearchIcon fontSize="small" />
-          <form onSubmit={onSearch}>
-            {searchInputOpen &&
+
+          {searchInputOpen &&
+            <form onSubmit={onSearch}>
               <input
                 ref={searchInputRef}
                 placeholder="검색어를 입력하세요."
                 onClick={e => e.stopPropagation()}>
-              </input>}
-          </form>
+
+              </input>
+            </form>}
+
         </Search>
         <button onClick={sortChage}>
           <span>{sortToggle === 'DESC' ? <ArrowDownwardOutlinedIcon fontSize="small" /> : <ArrowUpwardOutlinedIcon fontSize="small" />}</span>
@@ -83,7 +86,8 @@ const ListPageClient = ({ email }: Props) => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
-        {diaries?.length === 0 && <NoDiaries>You have no diaries :(</NoDiaries>}
+        {diaries?.length === 0 && <NoDiaries>You have no diaries list 🥲</NoDiaries>}
+
         {diaries?.map((e: any, i: number) =>
           <Diary
             position="list"
@@ -98,25 +102,25 @@ const ListPageClient = ({ email }: Props) => {
 export default ListPageClient;
 
 const NoDiaries = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
 
+  padding-top: 30dvh;
   font-size: 18px;  
   font-weight: 500;
   color: rgb(var(--greyTitle));
 
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `
 const Search = styled.button<{ open?: Boolean }>`
   transition: all ease-in-out 0.3s;
-  width : ${props => props.open === true ? '220px' : '46px'};
+  width : ${props => props.open === true ? '200px' : '46px'};
   input{
     width: 100%;
     border-radius: 48px;
-    padding : 0 10px;
+    padding : 0 14px;
     &::placeholder{
       font-size: 14px;
     }

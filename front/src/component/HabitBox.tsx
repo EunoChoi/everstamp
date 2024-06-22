@@ -17,6 +17,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getRecentHabitStatus } from "@/app/(afterLogin)/_lib/getRecentHabitStatus";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+
 interface Props {
   name: string;
   id: number;
@@ -80,7 +82,7 @@ const HabitBox = ({ name, id, email }: Props) => {
     </Days>
     <ButtonWrapper>
       <button onClick={() => router.push('/app/inter/input/editHabit', { scroll: false })}>
-        <ModeEditOutlineOutlinedIcon fontSize="small" />
+        <SettingsOutlinedIcon fontSize="small" />
       </button>
     </ButtonWrapper>
   </Wrapper >);

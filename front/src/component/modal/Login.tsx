@@ -106,7 +106,7 @@ const Modal = styled.div`
     height: 80%;
     max-height: 500px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width: 50%;
     height: 60%;
   }
@@ -127,7 +127,7 @@ const Logo = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 32px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 48px;
   }
 `
@@ -139,7 +139,7 @@ const Title = styled.span`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 24px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 32px;
   }
 `
@@ -153,7 +153,7 @@ const Text = styled.span`
       font-size: 16px;
       margin-top: 4px;
   }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
       font-size: 20px;
       margin-top: 8px;
   }
@@ -172,7 +172,7 @@ const Button = styled.button`
   border : 3px solid rgba(0,0,0,0.1);
   margin: 4px;
 
-  @media (min-width:480px) and (min-width:1024px) { //desktop
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     width : 56px;
     height: 56px;
     margin: 6px;

@@ -30,12 +30,13 @@ const HabitPageClient = ({ email }: Props) => {
   const router = useRouter();
 
   const gridListRef = useRef<HTMLDivElement>(null);
+
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
   const [page, setPage] = useState<number>(0);
 
   const [indicator, setIndicator] = useState<Array<number>>([]);
-  const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
 
+  const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
     queryKey: ['habits', 'all', sortToggle],
     queryFn: () => getAllHabits(email, sortToggle),
@@ -62,7 +63,7 @@ const HabitPageClient = ({ email }: Props) => {
     }
   }, [habits]);
 
-
+  console.log(habits)
 
   return (
     <SC_Common.Wrapper className="habit">
@@ -77,35 +78,39 @@ const HabitPageClient = ({ email }: Props) => {
           <span>ㄱㄴㄷ</span>
         </button>
       </SC_Common.Options>
+
+
+
       <SC_Common.Content className="habit">
+
+        {(habits === undefined || habits?.length === 0) && <NoHabit>You have no habits list 🥲</NoHabit>}
+
+
         <HabitGridList
           ref={gridListRef}
           onScroll={(e) => {
             setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
           }}
         >
-          {organizedHabits?.length > 0 ?
-            organizedHabits?.map((grid: any[], i: number) =>
-              <HabitGrid key={'set' + i}>
-                {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id} email={email}></HabitBox>)}
-              </HabitGrid>)
-            :
-            <NoHabit>Shall we make a list of habits? 😊</NoHabit>}
+          {organizedHabits?.map((grid: any[], i: number) =>
+            <HabitGrid key={'set' + i}>
+              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id} email={email}></HabitBox>)}
+            </HabitGrid>)}
         </HabitGridList>
 
-        {habits?.length > 0 &&
-          <IndicatoWrapper>
-            {indicator.map((_, i: number) =>
-              <div
-                key={'indicator' + i}
-                className={page === i ? 'current' : ''}
-                onClick={() => {
-                  gridListRef.current?.scrollTo({
-                    left: gridListRef.current.clientWidth * i,
-                    behavior: "smooth"
-                  })
-                }} />)}
-          </IndicatoWrapper>}
+
+        <IndicatoWrapper>
+          {indicator.map((_, i: number) =>
+            <div
+              key={'indicator' + i}
+              className={page === i ? 'current' : ''}
+              onClick={() => {
+                gridListRef.current?.scrollTo({
+                  left: gridListRef.current.clientWidth * i,
+                  behavior: "smooth"
+                })
+              }} />)}
+        </IndicatoWrapper>
 
       </SC_Common.Content>
     </SC_Common.Wrapper>
@@ -116,17 +121,17 @@ export default HabitPageClient;
 
 const NoHabit = styled.span`
   width: 100%;
-  text-align: center;
-  color: grey;
+  height: 100%;
+
+  padding-top: 30dvh;
+
+  font-size: 18px;  
   font-weight: 500;
-  @media (max-width: 479px) { //mobile port
-    font-size: 20px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  text-align: center;
+  color: rgb(var(--greyTitle));
+
+  @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 22px;
-  }
-  @media (min-width:480px) and (min-width:1024px) { //desktop
-    font-size: 24px;
   }
 `
 

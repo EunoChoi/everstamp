@@ -54,11 +54,7 @@ export default CalendarPageClient;
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;
-  /* border: solid rgba(0,0,0,0.05) 4px; */
   border-radius: 8px;
-  padding: 12px 4px;
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    margin-bottom: 12px;
-  }
+  padding: 0 4px;
+  margin-top: 12px;
 `

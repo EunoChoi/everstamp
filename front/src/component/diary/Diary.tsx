@@ -55,6 +55,7 @@ const Diary = ({ diaryData, position }: Props) => {
   const day = format(dateInfo, `${position === 'calendar' ? 'eeee' : 'eee'}`);
   const year = format(dateInfo, 'yyyy');
 
+
   const habits = diaryData?.Habits;
 
 
@@ -88,10 +89,6 @@ const Wrapper = styled.div`
   height: 300px;
   margin: 20px 0;
 
-  &.calendar{
-    height: 350px;
-  }
-
   @media (min-width: 1024px) {//desktop
     &.calendar{
       height: 550px;
@@ -99,37 +96,34 @@ const Wrapper = styled.div`
   }
 `
 const DateWrapper = styled.div`
-  display: flex;
-  align-items: end;
   height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 
-  span{
-    text-transform: capitalize;
-    margin-right: 8px;
-    color: grey;
-    font-weight: 600;
-    font-size: 24px;
+  .date, .year, .week{
     line-height: 1;
+    margin-right: 8px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: grey;
+    font-size: 24px;
+
   }
+
   .week{
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 700;
     color: rgb(var(--greyTitle));
   }
 
   &.calendar{
-    flex-direction: column;
-    align-items: start;
-    .week{
-      font-size: 42px;
-      margin-bottom: 12px;
-    }
-  }
-
-  @media (min-width:480px) and (min-width:1024px) { //desktop
-    &.calendar{
+    @media (min-width:480px) and (min-width:1024px) { //desktop
+      flex-direction: column;
+      align-items: start;
       .week{
         font-size: 56px;
+        margin-bottom: 12px;
       }
       span{
         font-size: 36px;
