@@ -21,15 +21,14 @@ const HabitBox = () => {
   return (<Wrapper>
     <Name>habit name</Name>
     <Days>
-      {fourDate.map(e => {
-        return <Check key={e}>
-          <span>{format(e, 'EEE')}</span>
-          <span>{format(e, 'd')}</span>
-
-          <button>
-            {/* <RadioButtonCheckedIcon fontSize="inherit" /> */}
-            <RadioButtonUncheckedIcon fontSize="inherit" />
-          </button>
+      {fourDate.map((e, i) => {
+        return <Check key={`${e}-${i}`}>
+          <label htmlFor={`${e}-${i}`}>
+            <span>{format(e, 'eee')}</span>
+            <span>{format(e, 'e')}</span>
+            <input id={`${e}-${i}`} type="checkbox" />
+            <div className="checkmark"><div></div></div>
+          </label>
         </Check>
       })}
     </Days>
@@ -50,13 +49,11 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  color: rgba(var(--greyTitle),0.6);
+  color: #b9b9b9;
 `
 const Wrapper = styled.div`
   width: 100%;
   aspect-ratio: 1;
-
-  /* position: relative; */
   
   border-radius: 16px;
   background-color: whitesmoke;
@@ -68,8 +65,6 @@ const Wrapper = styled.div`
 const Name = styled.span`
   width: 100%;
   height: 30%;
-  /* position: absolute;
-  top: 0; */
 
   font-size: 22px;
   font-weight: 600;
@@ -92,8 +87,6 @@ const Name = styled.span`
 const Days = styled.div`
   width: 100%;
   height: 40%;
-  /* position: absolute;
-  bottom: 0; */
   font-size: 16px;
   
 
@@ -103,30 +96,77 @@ const Days = styled.div`
 `
 const Check = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 
   height: 100%;
 
-  font-size: 14px;
-  font-weight: 500;
-  color: grey;
+  label{
+    height: 100%;
 
-  &:first-child{
-    font-weight: 600;
-    color: rgb(var(--greyTitle));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: grey;
+
+    input{
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    .checkmark{
+      height: 18px;
+      width: 18px;
+      border-radius: 25px;
+      border : solid darkgrey 2px;
+      
+    }
+    input:checked ~ .checkmark{
+      /* border : solid white 3px; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      div{
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        background-color: rgb(var(--point));
+      }
+    }
+    span:first-child{
+      font-weight: 600;
+      color: rgb(var(--greyTitle));
+    }
+
+    @media (min-width:480px) and (min-width:1024px) { //desktop
+      font-size: 18px;
+      .checkmark{
+        border : solid darkgrey 3px;
+        height: 22px;
+        width: 22px;
+      }
+      input:checked ~ .checkmark{
+        div{
+          width: 12px;
+          height: 12px;
+        }
+      }
+    }
   }
-  *:last-child{
-    margin-top: 8px;
-    font-size: 18px;
-    color: rgb(var(--point));
-  }
+
+  
+  
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 10px;
+    font-size: 12px;
     *:last-child{
-      font-size: 10px;
+      font-size: 12px;
       margin-top: 4px
     }
   }
