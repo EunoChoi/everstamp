@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import HabitPageClient from "./_component/HabitPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { getAllHabits } from "../../_lib/getAllHabits";
-import { getRecentHabitBoolean } from "../../_lib/getRecentHabitBoolean";
+import { getRecentHabitStatus } from "../../_lib/getRecentHabitStatus";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
