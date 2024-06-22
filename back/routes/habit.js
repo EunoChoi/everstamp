@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
         email,
       }],
       order: [
-        ['createdAt', sort], //ASC DESC
+        ['name', sort], //ASC DESC
       ],
     });
 

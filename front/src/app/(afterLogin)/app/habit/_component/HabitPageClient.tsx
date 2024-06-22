@@ -17,6 +17,9 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getAllHabits } from "../../../_lib/getAllHabits";
 
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+
 interface Props {
   email: string;
 }
@@ -27,7 +30,7 @@ const HabitPageClient = ({ email }: Props) => {
   const router = useRouter();
 
   const gridListRef = useRef<HTMLDivElement>(null);
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
+  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
   const [page, setPage] = useState<number>(0);
 
   const [indicator, setIndicator] = useState<Array<number>>([]);
@@ -69,8 +72,9 @@ const HabitPageClient = ({ email }: Props) => {
           <AddIcon fontSize="small" />
         </button>
         <button onClick={sortChage}>
-          <SortIcon fontSize="small" />
-          <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
+
+          <span>{sortToggle === 'DESC' ? <ArrowUpwardOutlinedIcon fontSize="small" /> : <ArrowDownwardOutlinedIcon fontSize="small" />}</span>
+          <span>ㄱㄴㄷ</span>
         </button>
       </SC_Common.Options>
       <SC_Common.Content className="habit">

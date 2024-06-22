@@ -23,6 +23,9 @@ import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import IsMobile from "@/function/IsMobile";
 
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+
 interface Props {
   email: string;
 }
@@ -74,8 +77,8 @@ const ListPageClient = ({ email }: Props) => {
           </form>
         </Search>
         <button onClick={sortChage}>
-          <SortIcon fontSize="small" />
-          <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
+          <span>{sortToggle === 'DESC' ? <ArrowDownwardOutlinedIcon fontSize="small" /> : <ArrowUpwardOutlinedIcon fontSize="small" />}</span>
+          <span>Time</span>
         </button>
       </SC_Common.Options>
 

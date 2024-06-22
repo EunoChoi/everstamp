@@ -35,6 +35,7 @@ const SC_Common = {
       border: 1px solid rgba(0,0,0,0.05);
 
       padding: 4px 12px;
+      height: 32px;
       font-size: 14px;
       margin-left: 6px;
       font-weight: 500;
