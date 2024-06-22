@@ -5,9 +5,7 @@ import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import Image from "next/image";
 import { useRef } from "react";
-import { ChangeEvent } from "react";
 import Axios from "@/Aixos/aixos";
-import { format } from 'date-fns';
 import { useQuery } from "@tanstack/react-query";
 
 
@@ -16,9 +14,6 @@ import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
 
 
 //icon
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
-import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import DiaryInputDate from "../diaryInput/Input_Date";
 import DiaryInputTextArea from "../diaryInput/Input_TextArea";
 import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
@@ -79,7 +74,7 @@ const EditDiary = () => {
         <DiaryInputDate date={diaryData?.date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
         <DiaryInputUploadedImage images={images} setImages={setImages} />
-        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={editDiary} images={images} setImages={setImages} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={editDiary} images={images} setImages={setImages} type={'edit'} />
       </Modal>
     </Wrapper>);
 }

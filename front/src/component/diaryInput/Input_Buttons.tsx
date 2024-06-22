@@ -2,17 +2,20 @@ import styled from "styled-components";
 
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+
 import { RefObject } from "react";
 import Axios from "@/Aixos/aixos";
 
 interface Props {
+  type: string;
   imageUploadRef: RefObject<HTMLInputElement>;
   submitDiary: () => void;
   images: Array<string>;
   setImages: (images: string[]) => void;
 }
 
-const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages }: Props) => {
+const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
 
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -63,7 +66,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages }: P
         <ImageOutlinedIcon className="icon" />
       </Button>
       <Button onClick={submitDiary}>
-        <PostAddOutlinedIcon className="icon" />
+        {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <PostAddOutlinedIcon className="icon" />}
       </Button>
     </Buttons>
   );
