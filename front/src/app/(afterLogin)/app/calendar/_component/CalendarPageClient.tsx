@@ -43,7 +43,6 @@ const CalendarPageClient = ({ email, date }: Props) => {
         <Header title='calendar' />
         {isMobile && <CalendarWrapper><CalendarSelector /></CalendarWrapper>}
         <Diary diaryData={diaryData} position="calendar" />
-        {/* {diaryData ? <Diary diaryData={diaryData} position="calendar" /> : <DiaryEmpty />} */}
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
