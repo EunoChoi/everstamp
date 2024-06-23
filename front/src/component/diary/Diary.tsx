@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { format } from 'date-fns';
 
 
@@ -13,6 +13,8 @@ import { format } from 'date-fns';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+
 
 //img
 import IsMobile from "@/function/IsMobile";
@@ -42,21 +44,36 @@ interface Props {
     text: string;
     Images: Array<ImageProps>;
     Habits: Array<Habit>;
+    visible: boolean;
   };
 }
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
 const Diary = ({ diaryData, position }: Props) => {
   const router = useRouter();
-  const dateInfo = diaryData?.date;
+  const params = useSearchParams();
+  const paramDate = params.get('date');
 
-  const month = format(dateInfo, 'MMM');
-  const date = format(dateInfo, 'dd');
-  const day = format(dateInfo, `${position === 'calendar' ? 'eeee' : 'eee'}`);
-  const year = format(dateInfo, 'yyyy');
+  const [diaryDate, setDiaryDate] = useState<Date>(new Date());
+
+  useEffect(() => {
+    if (position === 'calendar' && paramDate) {
+      setDiaryDate(new Date(Number(paramDate)));
+    }
+    else if (position === 'list') {
+      setDiaryDate(diaryData.date);
+    }
+  }, [paramDate, diaryData])
 
 
-  const habits = diaryData?.Habits;
+  const month = format(diaryDate, 'MMM');
+  const date = format(diaryDate, 'dd');
+  const day = format(diaryDate, `${position === 'calendar' ? 'eeee' : 'eee'}`);
+  const year = format(diaryDate, 'yyyy');
+
+
+  const habits = diaryData?.Habits ? diaryData?.Habits : [];
+  console.log(habits);
 
 
   return (
@@ -71,11 +88,59 @@ const Diary = ({ diaryData, position }: Props) => {
       </DateWrapper>
 
       <DiaryHabits habits={habits} />
-      <DiarySlide diaryData={diaryData} position={position}></DiarySlide>
+
+      {diaryData?.visible ? <DiarySlide diaryData={diaryData} position={position} /> :
+        <EmptyWrapper>
+          <span>There are no diary yet.</span>
+          <span>Create a new one :)</span>
+          <button onClick={() => {
+            router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
+          }}>
+            <AddCircleOutlinedIcon fontSize="inherit" />
+          </button>
+        </EmptyWrapper>}
     </Wrapper >);
 }
 
 export default Diary;
+
+const EmptyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  flex-grow: 1;
+
+  background-color: whitesmoke;
+  color: rgb(var(--greyTitle));
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight:500;
+
+  button{
+    transition: color ease-in-out 0.2s;
+    line-height: 50%;
+    font-size: 48px;
+    color: rgb(var(--greyTitle));
+    padding: 8px;
+    padding-top: 16px;
+    &:hover{
+      color: rgb(var(--point));
+    }
+  }
+
+  @media (min-width:480px) and (min-width:1024px) { //desktop
+    height: 500px;
+    font-size: 56px;
+    span{ 
+      font-size: 20px;
+    }
+  }
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -87,7 +152,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   height: 300px;
-  margin: 20px 0;
+  margin: 12px 0;
 
   @media (min-width: 1024px) {//desktop
     &.calendar{
@@ -107,10 +172,9 @@ const DateWrapper = styled.div`
     font-weight: 600;
     text-transform: capitalize;
     color: grey;
-    font-size: 24px;
+    font-size: 22px;
 
   }
-
   .week{
     font-size: 32px;
     font-weight: 700;

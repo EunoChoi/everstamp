@@ -212,7 +212,7 @@ const SideBarLogo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
 
   span{
     font-size: 56px;
@@ -273,7 +273,7 @@ const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 100%;
   margin-bottom: 24px;
-  height:320px;
+  height:350px;
   *{
     transition: color ease-in-out 0.3s !important;
   }

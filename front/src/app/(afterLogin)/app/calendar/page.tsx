@@ -3,6 +3,8 @@ import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
 import { auth } from "@/auth";
 import CalendarPageClient from "./_component/CalendarPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { getMonthStatus } from "../../_lib/getMontStatus";
+import { format, addMonths, subMonths } from "date-fns";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
@@ -15,9 +17,14 @@ const Page = async ({ searchParams }: any) => {
   if (!date) date = getCleanTodayTime();
 
   await queryClient.prefetchQuery({
-    queryKey: ['diary', 'calendar', email, date],
+    queryKey: ['diary', 'calendar', email, format(date, 'yyMMdd')],
     queryFn: () => getDiaryCalendar(email, date),
   })
+  await queryClient.prefetchQuery({
+    queryKey: ['habit', 'month', format(date, 'MM')],
+    queryFn: () => getMonthStatus(email, new Date(date)),
+  })
+
 
   const dehydratedState = dehydrate(queryClient)
 

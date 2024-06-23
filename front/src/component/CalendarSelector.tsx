@@ -16,7 +16,7 @@ import TodayIcon from '@mui/icons-material/Today';
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
-import { getMonthHabitStatus } from "@/app/(afterLogin)/_lib/getMonthHabitStatus";
+import { getMonthStatus } from "@/app/(afterLogin)/_lib/getMontStatus";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 const CalendarSelector = () => {
@@ -37,7 +37,7 @@ const CalendarSelector = () => {
   const email = getCurrentUserEmail();
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(currentMonth, 'MM')],
-    queryFn: () => getMonthHabitStatus(email),
+    queryFn: () => getMonthStatus(email, currentMonth),
     enabled: email !== ''
   });
 
@@ -58,9 +58,6 @@ const CalendarSelector = () => {
 
 
   const dateValue = (day: Date) => {
-    //<SentimentVeryDissatisfiedTwoToneIcon></SentimentVeryDissatisfiedTwoToneIcon>
-    //<SentimentSatisfiedAltIcon></SentimentSatisfiedAltIcon>
-
     const result = monthHabitResult[format(day, 'yyMMdd')];
     const habitCount = result && result[0];
     const isDiaryExist = result && result[1];
@@ -69,8 +66,8 @@ const CalendarSelector = () => {
     return <DateValue>
       <span className={habitCount || isDiaryExist ? "small" : ""}>{formattedDate}</span>
       <div>
-        {habitCount > 0 && <span>{habitCount}</span>}
         {isDiaryExist && <span className="isDiaryExist">D</span>}
+        {habitCount > 0 && <span>{habitCount}</span>}
       </div>
     </DateValue>;
   };
@@ -167,23 +164,23 @@ const DateValue = styled.div`
     justify-content:center;
     align-items: center;
     span{
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 400;
       display: flex;
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
 
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       border-radius: 20px;
       background-color: rgb(var(--point));
-      background-color: #f89d92;
+      background-color: #9997cb;
       color: whitesmoke;
       margin: 0 1px;
     }
     .isDiaryExist{
-      background-color: #9cdeaa;
+      background-color: #83c6b6;
     }
   }
 `

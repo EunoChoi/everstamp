@@ -16,11 +16,11 @@ const Page = async ({ searchParams }: any) => {
   const queryClient = new QueryClient();
 
   const test = await queryClient.prefetchQuery({
-    queryKey: ['habits', 'all', ''],
+    queryKey: ['habits', 'all', 'ASC'],
     queryFn: () => getAllHabits(email, 'ASC'),
   })
   await queryClient.prefetchQuery({
-    queryKey: ['habits', 'all', ''],
+    queryKey: ['habits', 'all', 'DESC'],
     queryFn: () => getAllHabits(email, 'DESC'),
   })
 

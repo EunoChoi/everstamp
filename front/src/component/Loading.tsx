@@ -3,11 +3,12 @@ import Image from "next/image";
 
 //img
 import logo from '/public/img/everStamp_logo_blue.png';
+import logo2 from '/public/img/everStamp_logo_purple.png';
 
 const Loading = () => {
   return (
     <Wrapper>
-      <Img src={logo} alt="logo" priority width={200} height={200}></Img>
+      <Img src={logo2} alt="logo" priority width={200} height={200}></Img>
       <Text>we can do better</Text>
     </Wrapper>
   );

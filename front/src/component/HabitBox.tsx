@@ -45,13 +45,11 @@ const HabitBox = ({ name, id, email }: Props) => {
 
   //check, uncheck 처리
   const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
-    if (e.currentTarget.checked === true) {
-      //habit diary model add relation 
+    if (e.currentTarget.checked === true) {//habit diary model add relation 
       Axios.post('/habit/check', { id, date, email });
       console.log('check')
     }
-    else {
-      //habit diary model delete relation 
+    else {//habit diary model delete relation 
       Axios.delete('/habit/check', {
         data: { id, date, email }
       });
@@ -174,6 +172,7 @@ const Check = styled.div`
       border : solid darkgrey 2px;
 
       display: flex;
+      flex-shrink: 0;
       justify-content: center;
       align-items: center;
     }

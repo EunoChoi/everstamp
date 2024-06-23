@@ -34,19 +34,21 @@ const ListPageClient = ({ email }: Props) => {
 
   const isMobile = IsMobile();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [searchText, setSearchText] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
 
   const { data: diaries } = useQuery({
-    queryKey: ['diary', 'list', sortToggle],
-    queryFn: () => getDiaryList(email, sortToggle),
+    queryKey: ['diary', 'list', 'search', search, sortToggle],
+    queryFn: () => getDiaryList(email, sortToggle, search),
     enabled: email !== ''
   });
 
 
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearchInputOpen(c => !c);
+    setSearch(searchText);
   }
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
@@ -57,6 +59,7 @@ const ListPageClient = ({ email }: Props) => {
   return (
     <SC_Common.Wrapper>
       <Header title='list' />
+
       <SC_Common.Options>
         <Search
           open={searchInputOpen}
@@ -73,8 +76,9 @@ const ListPageClient = ({ email }: Props) => {
               <input
                 ref={searchInputRef}
                 placeholder="검색어를 입력하세요."
+                value={searchText}
+                onChange={e => setSearchText(e.currentTarget.value)}
                 onClick={e => e.stopPropagation()}>
-
               </input>
             </form>}
 
@@ -86,7 +90,7 @@ const ListPageClient = ({ email }: Props) => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
-        {diaries?.length === 0 && <NoDiaries>You have no diaries list 🥲</NoDiaries>}
+        {diaries?.length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
 
         {diaries?.map((e: any, i: number) =>
           <Diary

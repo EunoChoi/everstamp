@@ -14,12 +14,12 @@ import SC_Common from "@/style/common";
 
 //component
 import Diary from "@/component/diary/Diary";
-import DiaryEmpty from "@/component/diary/DiaryEmpty";
 import CalendarSelector from "@/component/CalendarSelector";
 
 //icon
 import Header from "@/component/Header";
 import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 
 interface Props {
   email: string;
@@ -33,7 +33,7 @@ const CalendarPageClient = ({ email, date }: Props) => {
   const isMobile = IsMobile();
 
   const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'calendar', email, date],
+    queryKey: ['diary', 'calendar', email, format(date, 'yyMMdd')],
     queryFn: () => getDiaryCalendar(email, date),
     enabled: email !== null
   });
@@ -43,7 +43,8 @@ const CalendarPageClient = ({ email, date }: Props) => {
       <SC_Common.Content className="noOption">
         <Header title='calendar' />
         {isMobile && <CalendarWrapper><CalendarSelector /></CalendarWrapper>}
-        {diaryData ? <Diary diaryData={diaryData} position="calendar" /> : <DiaryEmpty />}
+        <Diary diaryData={diaryData} position="calendar" />
+        {/* {diaryData ? <Diary diaryData={diaryData} position="calendar" /> : <DiaryEmpty />} */}
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );

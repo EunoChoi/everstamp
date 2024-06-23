@@ -7,8 +7,11 @@
   /* --point2: 255, 167, 155; */
 
   --whitesmoke: 245, 245, 245;
-  --point: 142, 188, 219;
-  --point2: 181, 211, 231;
+  /* --point: 142, 188, 219;
+  --point2: 181, 211, 231; */
+
+  --point: 153, 151, 203;
+  --point2: 187, 185, 220;
 
   --greyTitle: 88, 88, 88;
   --greyTitle2: 66, 66, 66;
@@ -19,7 +22,7 @@
   --desktopHeader: 96px;
   --optionHeight: 47px;
   --mobileHeader: 48px;
-  --mobileNav: 48px;
+  --mobileNav: 42px;
 }
 
 

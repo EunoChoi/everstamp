@@ -28,6 +28,8 @@ const Wrapper = styled.div`
 
 
   @media (max-width: 479px) { //mobile port
+    justify-content: start;
+    align-items: center;
     width: 100%;
     height: var(--mobileHeader);
 
@@ -50,14 +52,18 @@ const Title = styled.span`
   font-weight: 700;
 
   text-transform: uppercase;
+  text-transform: capitalize;
 
   &:first-letter{
     color: rgb(var(--point));
   }
   @media (max-width: 479px) { //mobile port
     line-height: 0.9;
-    font-size: 28px;
+    font-size: 24px;
     border-bottom: 4px rgb(var(--point)) solid;
+    &:first-letter{
+      font-size: 28px;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 5vh;

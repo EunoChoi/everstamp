@@ -13,12 +13,12 @@ const Page = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['diary', 'list', 'ASC'],
-    queryFn: () => getDiaryList(email, 'ASC')
+    queryKey: ['diary', 'list', 'search', '', 'ASC'],
+    queryFn: () => getDiaryList(email, 'ASC', ''),
   })
   await queryClient.prefetchQuery({
-    queryKey: ['diary', 'list', 'DESC'],
-    queryFn: () => getDiaryList(email, 'DESC')
+    queryKey: ['diary', 'list', 'search', '', 'DESC'],
+    queryFn: () => getDiaryList(email, 'DESC', ''),
   })
 
   const dehydratedState = dehydrate(queryClient)

@@ -18,7 +18,8 @@ const AddHabit = () => {
     history.back();
   }, []);
   const addHabit = () => {
-    Axios.post('/habit', { email, habitName, themeColor })
+    if (habitName.length <= 10) Axios.post('/habit', { email, habitName, themeColor })
+    else alert('최대 10글자까지만 가능합니다.')
   };
 
   return (

@@ -79,7 +79,7 @@ const HabitPageClient = ({ email }: Props) => {
 
 
       <SC_Common.Content className="habit">
-        {(habits === undefined || habits?.length === 0) && <NoHabit>You have no habits list 🥲</NoHabit>}
+        {(habits === undefined || habits?.length === 0) && <NoHabit>Shall we create a list of habits? 😎</NoHabit>}
         <HabitGridList
           ref={gridListRef}
           onScroll={(e) => {

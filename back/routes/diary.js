@@ -169,11 +169,15 @@ router.get("/id/:diaryId", async (req, res) => {
 })
 //load diary - list
 router.get("/list", async (req, res) => {
-  const { email, sort } = req.query;
+  const { email, sort, search } = req.query;
   try {
     const diaries = await Diary.findAll({
       where: [{
         email,
+        visible: true,
+        text: {
+          [Op.like]: "%" + `${search}` + "%"
+        }
       }],
       include: [{
         model: Image,//이미지
@@ -200,6 +204,7 @@ router.get("/calendar", async (req, res) => {
     const diary = await Diary.findOne({
       where: [{
         email,
+        // visible: true,
         date: new Date(Number(date))
       }],
       include: [{

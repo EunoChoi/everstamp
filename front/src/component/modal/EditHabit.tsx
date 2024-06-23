@@ -19,8 +19,10 @@ const EditHabit = () => {
   const historyBack = useCallback(() => {
     history.back();
   }, []);
-  const editHabit = () => {
 
+  const editHabit = () => {
+    // if (habitName.length <= 10) Axios.patch('/habit', { email, habitName, themeColor })
+    // else alert('최대 10글자까지만 가능합니다.')
   };
 
   return (

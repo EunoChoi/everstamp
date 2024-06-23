@@ -1,6 +1,6 @@
 
 const express = require("express");
-const { format, subDays } = require("date-fns");
+const { subDays, startOfMonth, endOfMonth } = require("date-fns");
 const db = require("../models/index.js");
 const { promise } = require("bcrypt/promises.js");
 const Op = db.Sequelize.Op;
@@ -88,7 +88,7 @@ router.get("/recent", async (req, res) => {
 })
 router.get("/month", async (req, res) => {
   try {
-    const { email } = req.query;
+    const { email, date } = req.query;
 
     //유저 존재 확인
     const user = await User.findOne({
@@ -96,12 +96,20 @@ router.get("/month", async (req, res) => {
     })
     if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
 
+    const current = new Date(Number(date));
+    const monthStart = startOfMonth(current);
+    const monthEnd = endOfMonth(current);
+    // console.log(monthStart, monthEnd);
 
     let diary = await Diary.findAll({
-      where: { email },
-      // where: { email, visible: true },
+      where: {
+        email,
+        [Op.and]: [
+          { date: { [Op.gte]: monthStart } },
+          { date: { [Op.lte]: monthEnd } }
+        ],
+      },
       attributes: ['date', 'visible'],
-      // where: { date:  },
       include: [{
         model: Habit,
         attributes: ['name'],
