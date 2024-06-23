@@ -1,12 +1,14 @@
-const express = require("express");
-const db = require("./models");
+import express from "express";
+import db from "./models";
+
+
 const app = express();
 const cors = require("cors");
 const cookies = require("cookie-parser"); //요청시 보내지는 쿠키 사용하기 위함 req.cookies
 
 
 const userRouter = require('./routes/user');
-const diaryRouter = require('./routes/diary');
+const diaryRouter = require('./routes/diary.js');
 const imageRouter = require('./routes/image');
 const habitRouter = require('./routes/habit');
 

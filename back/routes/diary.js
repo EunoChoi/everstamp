@@ -1,10 +1,15 @@
 
 const express = require("express");
+const jwt = require("jsonwebtoken");
+
 const db = require("../models/index.js");
 const Op = db.Sequelize.Op;
 const sequelize = db.Sequelize;
 
 const router = express.Router();
+
+
+const NextAuth = require('next-auth').default;
 
 //model load
 const User = db.User;
@@ -171,6 +176,19 @@ router.get("/id/:diaryId", async (req, res) => {
 router.get("/list", async (req, res) => {
   const { email, sort, search } = req.query;
   try {
+    console.log('----- method : get, url :  /diary/list -----');
+    console.log(req.cookies);
+    const token = req.cookies['authjs.session-token'];
+    // console.log(typeof token);
+    // console.log(token);
+    if (token) {
+      console.log(token);
+      console.log(process.env.AUTH_SECRET);
+      console.log('----- token exist -----')
+      const user = jwt.verify(token, process.env.AUTH_SECRET);
+      console.log(user);
+    }
+
     const diaries = await Diary.findAll({
       where: [{
         email,

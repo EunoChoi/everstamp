@@ -47,7 +47,7 @@ const Value = styled.div`
 
   span{
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     color: rgba(var(--greyTitle), 0.8);
   }
@@ -55,7 +55,7 @@ const Value = styled.div`
     font-size: 16px;
     width: 100%;
     margin: 8px 0;
-    padding: 4px 16px;
+    padding: 2px 16px;
     flex-grow: 1;
     font-weight: 500;
 
@@ -63,7 +63,7 @@ const Value = styled.div`
     border : 2px solid rgba(0,0,0,0.1);
     /* background-color: whitesmoke; */
 
-    border-radius: 50px;
+    border-radius: 8px;
   }
   .colors{
     display: flex;

@@ -5,7 +5,6 @@ import { getDiaryList } from "../../_lib/getDiaryList";
 import { auth } from "@/auth";
 
 const Page = async () => {
-
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';
 

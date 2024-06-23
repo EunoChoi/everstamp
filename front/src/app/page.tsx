@@ -26,7 +26,7 @@ const App = () => {
       }}
       ref={slideWrapperRef}
     >
-      <IndicatoWrapper>
+      <IndicatorWrapper>
         {indicatorArr.map((_, i: number) =>
           <div
             key={'indicator' + i}
@@ -38,7 +38,7 @@ const App = () => {
               })
             }}
           />)}
-      </IndicatoWrapper>
+      </IndicatorWrapper>
       <Section className="first"></Section>
       <Section className="second"></Section>
       <Section className="third"></Section>
@@ -88,7 +88,7 @@ const Section = styled.div`
     background-color: rgba(0,0,0,0.07);
   } */
 `
-const IndicatoWrapper = styled.div`
+const IndicatorWrapper = styled.div`
   position: fixed;
   right: 0;
   height: 100dvh;

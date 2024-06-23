@@ -12,7 +12,7 @@ interface Habit {
 }
 
 const DiaryHabits = ({ habits }: Props) => {
-  console.log(habits);
+  // console.log(habits);
   return (
     <Habits className="habits">
       <Habit>{habits?.length ? habits?.length : 0} habits</Habit>

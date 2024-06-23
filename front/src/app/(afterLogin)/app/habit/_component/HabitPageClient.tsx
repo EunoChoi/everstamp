@@ -93,7 +93,7 @@ const HabitPageClient = ({ email }: Props) => {
         </HabitGridList>
 
 
-        <IndicatoWrapper>
+        <IndicatorWrapper>
           {indicator.map((_, i: number) =>
             <div
               key={'indicator' + i}
@@ -104,7 +104,7 @@ const HabitPageClient = ({ email }: Props) => {
                   behavior: "smooth"
                 })
               }} />)}
-        </IndicatoWrapper>
+        </IndicatorWrapper>
 
       </SC_Common.Content>
     </SC_Common.Wrapper>
@@ -177,7 +177,7 @@ const HabitGrid = styled.div`
     grid-template-rows: 1fr 1fr 1fr;
   }
 `
-const IndicatoWrapper = styled.div`
+const IndicatorWrapper = styled.div`
   display: flex;
   margin-top: 8px;
   div {

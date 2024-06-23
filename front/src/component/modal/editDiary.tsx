@@ -32,6 +32,7 @@ const EditDiary = () => {
   const params = useSearchParams();
   const diaryId = params.get('id');
 
+
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 

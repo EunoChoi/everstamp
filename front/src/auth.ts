@@ -10,7 +10,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Kakao, Google, Naver],
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 //1 hours 
+    // maxAge: 60 * 60 
+    //1 hours 
     // maxAge: 4 * 60 * 60 // 4 hours
   },
   callbacks: {
@@ -18,10 +19,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const provider = account?.provider;
       const email = user.email
       const profilePic = user.image;
-
-      // console.log(user);
-      // console.log(profile);
-      // console.log(account);
 
       try {
         const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_BACK_SERVER_PORT}/user/register`,
@@ -36,7 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           //result = 1, 이미 같은 이메일로 가입
           //result = 2, 회원가입 도중 에러 발생
           const result = res.data.result;
-          console.log(result);
+          // console.log(result);
 
           if (result === 0) {
             return true;
@@ -50,6 +47,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return `/unauthorized`;
     },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      // console.log('token : ', token);
+      // console.log('user.id : ', user?.id);
+      if (user) {
+        token.email = user.email;
+      }
+      console.log(token);
+      return token;
+    }
     // async redirect({ url, baseUrl }) {
     //   console.log(url)
     //   console.log(baseUrl)
@@ -58,8 +64,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // async session({ session, user, token }) {
     //   return session
     // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token
-    // }
   },
 })

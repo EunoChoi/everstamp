@@ -36,9 +36,9 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
   const router = useRouter();
   const images = diaryData?.Images;
+
+
   const slideWrapperRef = useRef<HTMLDivElement>(null);
-
-
   const [page, setPage] = useState<number>(0);
   const indicatorLength = images.length + 2;
   const indicatorArr = new Array(indicatorLength).fill(0);
@@ -54,12 +54,15 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
-        <TextWrapper className={`slideChild`}>
+        <TextWrapper
+          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+          className={`slideChild`}>
           <Test className={`${position}`}>{diaryData.text}</Test>
         </TextWrapper>
 
         {images.map(e =>
           <Img
+            onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
             key={e.id}
             className="slideChild"
             src={e.src}
@@ -84,7 +87,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
           </button>
         </EditBox>
       </SlideWrapper>
-      <IndicatoWrapper>
+      <IndicatorWrapper>
         {indicatorArr.map((_, i: number) =>
           <div
             key={'indicator' + i}
@@ -96,7 +99,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
               })
             }}
           />)}
-      </IndicatoWrapper>
+      </IndicatorWrapper>
     </>
   );
 }
@@ -207,7 +210,7 @@ const EditBox = styled.div`
     text-transform: capitalize;
   }
 `
-const IndicatoWrapper = styled.div`
+const IndicatorWrapper = styled.div`
   width: 100%;
   justify-content: center;
   display: flex;

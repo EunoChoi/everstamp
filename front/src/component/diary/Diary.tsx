@@ -73,7 +73,7 @@ const Diary = ({ diaryData, position }: Props) => {
 
 
   const habits = diaryData?.Habits ? diaryData?.Habits : [];
-  console.log(habits);
+  // console.log(habits);
 
 
   return (
@@ -89,7 +89,8 @@ const Diary = ({ diaryData, position }: Props) => {
 
       <DiaryHabits habits={habits} />
 
-      {diaryData?.visible ? <DiarySlide diaryData={diaryData} position={position} /> :
+      {diaryData?.visible ?
+        <DiarySlide diaryData={diaryData} position={position} /> :
         <EmptyWrapper>
           <span>There are no diary yet.</span>
           <span>Create a new one :)</span>

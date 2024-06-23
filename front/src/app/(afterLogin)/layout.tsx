@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Layout = async ({ children, modal }: Props) => {
-  const session = await auth()
+  const session = await auth();
   const email = session?.user?.email ? session?.user?.email : '';
 
   //server prefetch

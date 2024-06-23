@@ -89,7 +89,7 @@ const Title = styled.span`
   width: 100%;
   text-align: center;
   text-transform: uppercase;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   color: rgb(var(--greyTitle));
 `
