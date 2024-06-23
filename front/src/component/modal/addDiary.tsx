@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import styled from "styled-components";

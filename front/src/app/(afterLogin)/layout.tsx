@@ -20,7 +20,7 @@ const Layout = async ({ children, modal }: Props) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['user', email],
-    queryFn: () => getCurrentUser(email),
+    queryFn: getCurrentUser,
   })
 
   const dehydratedState = dehydrate(queryClient)

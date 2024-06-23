@@ -15,7 +15,7 @@ const Page = async ({ isMobile }: any) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['user', email],
-    queryFn: () => getCurrentUser(email),
+    queryFn: getCurrentUser,
   })
 
   const dehydratedState = dehydrate(queryClient)

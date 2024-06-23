@@ -1,14 +1,12 @@
-import express from "express";
-import db from "./models";
-
-
-const app = express();
+const express = require("express");
 const cors = require("cors");
 const cookies = require("cookie-parser"); //요청시 보내지는 쿠키 사용하기 위함 req.cookies
 
+const app = express();
+const db = require("./models");
 
 const userRouter = require('./routes/user');
-const diaryRouter = require('./routes/diary.js');
+const diaryRouter = require('./routes/diary');
 const imageRouter = require('./routes/image');
 const habitRouter = require('./routes/habit');
 
@@ -59,7 +57,7 @@ app.use("/habit", habitRouter);
 // app.use("/comment", commentRouter);
 
 app.get("/", (req, res) => {
-  res.send("server 실행중");
+  res.status(200).json("server 실행중");
 });
 
 app.listen(4000, () => {

@@ -24,7 +24,7 @@ const SettingPageClient = ({ email }: Props) => {
 
   const { data } = useQuery({
     queryKey: ['user', email],
-    queryFn: () => getCurrentUser(email),
+    queryFn: getCurrentUser,
     enabled: email !== ''
   })
 

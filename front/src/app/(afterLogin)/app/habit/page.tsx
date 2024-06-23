@@ -17,11 +17,11 @@ const Page = async ({ searchParams }: any) => {
 
   const test = await queryClient.prefetchQuery({
     queryKey: ['habits', 'all', 'ASC'],
-    queryFn: () => getAllHabits(email, 'ASC'),
+    queryFn: () => getAllHabits('ASC'),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'all', 'DESC'],
-    queryFn: () => getAllHabits(email, 'DESC'),
+    queryFn: () => getAllHabits('DESC'),
   })
 
   const dehydratedState = dehydrate(queryClient)

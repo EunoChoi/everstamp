@@ -37,8 +37,7 @@ const CalendarSelector = () => {
   const email = getCurrentUserEmail();
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(currentMonth, 'MM')],
-    queryFn: () => getMonthStatus(email, currentMonth),
-    enabled: email !== ''
+    queryFn: () => getMonthStatus(currentMonth),
   });
 
 

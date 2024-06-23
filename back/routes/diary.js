@@ -1,15 +1,15 @@
 
 const express = require("express");
-const jwt = require("jsonwebtoken");
 
 const db = require("../models/index.js");
 const Op = db.Sequelize.Op;
 const sequelize = db.Sequelize;
 
 const router = express.Router();
+const tokenCheck = require("../middleware/tokenCheck.js");
 
 
-const NextAuth = require('next-auth').default;
+// const NextAuth = require('next-auth');
 
 //model load
 const User = db.User;
@@ -22,33 +22,44 @@ const Habit = db.Habit;
 
 
 //add, edit, delete diary
-//add diary
-router.post("/", async (req, res) => {
-  try {
-    const { email, date, text, images } = req.body;
+router.post("/", tokenCheck, async (req, res) => {
+  console.log('----- method : post, url :  /diary -----');
+  const { date, text, images } = req.body;
+  const email = req.currentUserEmail;
 
+  try {
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+    if (!user) return res.status(400).json("유저가 존재하지 않습니다.");
 
-
-    //혹시 모르니 backend에서도 차단
-    const isDiaryExistAready = await Diary.findOne({
-      where: {
-        email,
-        date
-      }
+    const isVisibleDiaryExistAready = await Diary.findOne({
+      where: { email, visible: true, date }
     })
-    if (isDiaryExistAready) return res.status(400).json('해당 날짜에 일기가 이미 존재합니다.');
+    if (isVisibleDiaryExistAready) return res.status(400).json('해당 날짜에 일기가 이미 존재합니다.');
 
-    const diary = await Diary.create({
-      visible: true,
-      UserId: user.id,
-      email,
-      date,
-      text,
-    });
+    const isEmptyDiaryExistAready = await Diary.findOne({
+      where: { email, visible: false, date }
+    })
+
+    let diary;
+    if (isEmptyDiaryExistAready) {
+      diary = await Diary.update({
+        visible: true,
+        text,
+      }, {
+        where: { email, date }
+      });
+    }
+    else {
+      diary = await Diary.create({
+        visible: true,
+        UserId: user.id,
+        email,
+        date,
+        text,
+      });
+    }
 
 
     //image 모델 요소 생성 후 Post 모델과 연결
@@ -65,19 +76,16 @@ router.post("/", async (req, res) => {
   } catch (e) {
     console.error(e);
   }
-
 })
-//edit diary
-router.patch("/", async (req, res) => {
+
+router.patch("/", tokenCheck, async (req, res) => {
+  console.log('----- method : patch, url :  /diary -----');
+  const diaryId = req.query.diaryId;
+  const images = req.body.images;
+  const text = req.body.text;
+  const email = req.currentUserEmail;
+
   try {
-    //query strig userId, diaryId
-    const email = req.query.userEmail;
-    const diaryId = req.query.diaryId;
-    const images = req.body.images;
-
-    //body text, 
-    const text = req.body.text;
-
     //current user
     const currentUser = await User.findOne({
       where: { email },
@@ -98,13 +106,10 @@ router.patch("/", async (req, res) => {
     });
 
 
-
-    //기존에 등록되어 있는 이미지 모델 삭제
+    //기존에 등록되어 있는 이미지 삭제 및 재 추가
     await Image.destroy({
       where: { diaryId }
     })
-
-    //수정된 이미지들을 image 모델 요소 생성 후 Diary 모델과 연결
     if (images.length >= 1) {
       const ImagesData = [];
       for (i = 0; i < images.length; i++) {
@@ -118,12 +123,12 @@ router.patch("/", async (req, res) => {
     console.error(e);
   }
 })
-router.delete("/", async (req, res) => {
-  try {
-    const email = req.query.email;
-    const diaryId = req.query.diaryId;
-    console.log(email, diaryId);
+router.delete("/", tokenCheck, async (req, res) => {
+  console.log('----- method : delete, url :  /diary -----');
+  const diaryId = req.query.diaryId;
+  const email = req.currentUserEmail;
 
+  try {
     //유저 확인
     const currentUser = await User.findOne({
       where: { email },
@@ -147,10 +152,10 @@ router.delete("/", async (req, res) => {
 
 
 
-
-//load diary 
 //load diary - by diary id, for diary
-router.get("/id/:diaryId", async (req, res) => {
+router.get("/id/:diaryId", tokenCheck, async (req, res) => {
+
+  console.log('----- method : get, url : /diary/:id -----');
   const diaryId = req.params.diaryId;
 
   try {
@@ -160,35 +165,22 @@ router.get("/id/:diaryId", async (req, res) => {
       }],
       include: [{
         model: Image,//이미지
-      },
-        // {
-        //   model: Habit,//습관
-        // }
-      ],
+      }],
     });
     if (diary) return res.status(201).json(diary);
-    return res.status(400).json('no diary by id');
+    else return res.status(400).json('no diary found by id');
   } catch (e) {
     console.error(e);
   }
 })
 //load diary - list
-router.get("/list", async (req, res) => {
-  const { email, sort, search } = req.query;
-  try {
-    console.log('----- method : get, url :  /diary/list -----');
-    console.log(req.cookies);
-    const token = req.cookies['authjs.session-token'];
-    // console.log(typeof token);
-    // console.log(token);
-    if (token) {
-      console.log(token);
-      console.log(process.env.AUTH_SECRET);
-      console.log('----- token exist -----')
-      const user = jwt.verify(token, process.env.AUTH_SECRET);
-      console.log(user);
-    }
+router.get("/list", tokenCheck, async (req, res) => {
 
+  console.log('----- method : get, url :  /diary/list -----');
+  const { sort, search } = req.query;
+  const email = req.currentUserEmail;
+
+  try {
     const diaries = await Diary.findAll({
       where: [{
         email,
@@ -209,14 +201,17 @@ router.get("/list", async (req, res) => {
     });
 
     if (diaries) return res.status(201).json(diaries);
-    return res.status(400).json('no diary list');
+    else return res.status(400).json('no diary list');
   } catch (e) {
     console.error(e);
   }
 })
 //load diary - calendar date
-router.get("/calendar", async (req, res) => {
-  const { email, date } = req.query;
+router.get("/calendar", tokenCheck, async (req, res) => {
+
+  console.log('----- method : get, url :  /diary/calendar -----');
+  const { date } = req.query;
+  const email = req.currentUserEmail;
 
   try {
     const diary = await Diary.findOne({
@@ -234,9 +229,8 @@ router.get("/calendar", async (req, res) => {
         [Habit, 'name', 'ASC']
       ],
     });
-    console.log(diary);
     if (diary) return res.status(201).json(diary);
-    return res.status(200).json(null);
+    else return res.status(200).json('다이어리가 존재하지 않습니다.');
   } catch (e) {
     console.error(e);
   }

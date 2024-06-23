@@ -12,6 +12,7 @@ const express = require("express");
 const router = express.Router();
 
 const db = require("../models/index.js");
+const tokenCheck = require('../middleware/tokenCheck.js');
 const Op = db.Sequelize.Op;
 
 const Image = db.Image;
@@ -62,7 +63,7 @@ const upload = multer({
 // }
 
 //image upload
-router.post('/', upload.array('image'), async (req, res, next) => {
+router.post('/', tokenCheck, upload.array('image'), async (req, res, next) => {
   // s3 multer
   res.json(req.files?.map((v) => decodeURIComponent(v.location)));
 

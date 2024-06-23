@@ -81,7 +81,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
             <EditIcon />edit diary
           </button>
           <button
-            onClick={() => deleteDiary({ email: diaryData.email, diaryId: diaryData.id })}
+            onClick={() => deleteDiary({ diaryId: diaryData.id })}
           >
             <DeleteIcon />delete Diary
           </button>

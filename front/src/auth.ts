@@ -4,13 +4,15 @@ import axios from "axios"
 import Kakao from "next-auth/providers/kakao"
 import Google from "next-auth/providers/google"
 import Naver from "next-auth/providers/naver"
+import Axios from "./Aixos/aixos"
+import { cookies } from "next/headers"
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Kakao, Google, Naver],
   session: {
     strategy: 'jwt',
-    // maxAge: 60 * 60 
+    maxAge: 60 * 60,
     //1 hours 
     // maxAge: 4 * 60 * 60 // 4 hours
   },
@@ -21,7 +23,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const profilePic = user.image;
 
       try {
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_BACK_SERVER_PORT}/user/register`,
+        // const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_BACK_SERVER_PORT}/user/register`,
+        const res = await Axios.post(`/user/register`,
           {
             email, //primary key
             provider,
@@ -29,33 +32,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
         );
         if (res) {
-          //result = 0, 로그인 성공
-          //result = 1, 이미 같은 이메일로 가입
-          //result = 2, 회원가입 도중 에러 발생
           const result = res.data.result;
-          // console.log(result);
-
-          if (result === 0) {
+          const message = res.data.message;
+          if (result === true) {
+            const accessToken = res.data.accessToken;
+            const refreshToken = res.data.refreshToken;
+            cookies().set('accessToken', accessToken);
+            cookies().set('refreshToken', refreshToken);
             return true;
           }
-          else {
-            return `/unauthorized?type=${result}`;
-          }
+          else return `/unauthorized?message=${encodeURI(message)}`;
         }
       } catch (e) {
         console.log(e);
       }
       return `/unauthorized`;
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      // console.log('token : ', token);
-      // console.log('user.id : ', user?.id);
-      if (user) {
-        token.email = user.email;
-      }
-      console.log(token);
-      return token;
-    }
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token;
+    // }
     // async redirect({ url, baseUrl }) {
     //   console.log(url)
     //   console.log(baseUrl)

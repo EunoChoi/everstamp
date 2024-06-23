@@ -1,9 +1,5 @@
 import Axios from "@/Aixos/aixos";
 
-interface Props {
-  email: string;
-  date: number;
-}
 
 export async function getDiaryById(id: string | null) {
 

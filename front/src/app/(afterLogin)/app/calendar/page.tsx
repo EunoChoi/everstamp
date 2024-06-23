@@ -17,12 +17,12 @@ const Page = async ({ searchParams }: any) => {
   if (!date) date = getCleanTodayTime();
 
   await queryClient.prefetchQuery({
-    queryKey: ['diary', 'calendar', email, format(date, 'yyMMdd')],
-    queryFn: () => getDiaryCalendar(email, date),
+    queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
+    queryFn: () => getDiaryCalendar(date),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habit', 'month', format(date, 'MM')],
-    queryFn: () => getMonthStatus(email, new Date(date)),
+    queryFn: () => getMonthStatus(new Date(date)),
   })
 
 

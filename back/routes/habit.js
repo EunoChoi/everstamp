@@ -3,6 +3,7 @@ const express = require("express");
 const { subDays, startOfMonth, endOfMonth } = require("date-fns");
 const db = require("../models/index.js");
 const { promise } = require("bcrypt/promises.js");
+const tokenCheck = require("../middleware/tokenCheck.js");
 const Op = db.Sequelize.Op;
 const sequelize = db.Sequelize;
 const router = express.Router();
@@ -13,27 +14,12 @@ const Diary = db.Diary;
 const Image = db.Image;
 const Habit = db.Habit;
 
-//1. 해당 날짜의 다이어리를 포함하는 해빗 검색
-//2. 없으면 다이어리 생성 visible false
-//3. 검색 or 생성한 다이어리에 습관 관계 부여
-//습관 생성
-//습관이 없는 경우에 생성하고 관계 설정
-//이미 존재한다면 그냥 관계 설정 여부만 관여
-
-//load, add, edit, delete habit
-//add habit
-
-
-router.get("/", async (req, res) => {
+//load habit list
+router.get("/", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit -----');
+  const { sort } = req.query;
+  const email = req.currentUserEmail;
   try {
-    const { email, sort } = req.query;
-
-    //유저 존재 확인
-    const user = await User.findOne({
-      where: { email }
-    })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
-
     const habits = await Habit.findAll({
       where: [{
         email,
@@ -42,29 +28,27 @@ router.get("/", async (req, res) => {
         ['name', sort], //ASC DESC
       ],
     });
-
-    return res.status(200).json(habits);
+    if (habits) return res.status(200).json(habits);
+    else return res.status(400).json('습관 목록을 불러오지 못하였습니다.');
   } catch (e) {
     console.error(e);
   }
 })
-router.get("/recent", async (req, res) => {
+
+//load recent habit status
+router.get("/recent", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/recent -----');
+  const { id, date } = req.query;
+  const email = req.currentUserEmail;
   try {
-    const { email, id, date } = req.query;
+
     const result = [];
     const d = new Date(Number(date))
-    recentDate = [d,
+    const recentDate = [d,
       subDays(d, 1),
       subDays(d, 2),
       subDays(d, 3)];
 
-
-
-    //유저 존재 확인
-    const user = await User.findOne({
-      where: { email }
-    })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
 
     for (let i = 0; i < 4; i++) {
       let diary = await Diary.findOne({
@@ -86,20 +70,16 @@ router.get("/recent", async (req, res) => {
     console.error(e);
   }
 })
-router.get("/month", async (req, res) => {
+
+//load month habit status
+router.get("/month", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/month -----');
+  const { date } = req.query;
+  const email = req.currentUserEmail;
   try {
-    const { email, date } = req.query;
-
-    //유저 존재 확인
-    const user = await User.findOne({
-      where: { email }
-    })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
-
     const current = new Date(Number(date));
     const monthStart = startOfMonth(current);
     const monthEnd = endOfMonth(current);
-    // console.log(monthStart, monthEnd);
 
     let diary = await Diary.findAll({
       where: {
@@ -116,27 +96,27 @@ router.get("/month", async (req, res) => {
       },],
     });
 
-    console.log(diary.dadataValues);
-
-
-    return res.status(200).json(diary);
+    if (diary) return res.status(200).json(diary);
+    else return res.status(400).json('한달 습관 정보를 불러오지 못하였습니다.');
   } catch (e) {
     console.error(e);
   }
 })
 
-//add habit
-router.post("/", async (req, res) => {
-  try {
-    const email = req.body.email;
-    const habitName = req.body.habitName;
-    const themeColor = req.body.themeColor;
 
+//add habit
+router.post("/", tokenCheck, async (req, res) => {
+  console.log('----- method : post, url :  /habit -----');
+
+  const habitName = req.body.habitName;
+  const themeColor = req.body.themeColor;
+  const email = req.currentUserEmail;
+  try {
     //유저 존재 확인
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+    if (!user) return res.status(400).json("유저가 존재하지 않습니다.");
 
     //동일한 이름의 습관이 이미 존재하는지 확인
     const isHabitExistAready = await Habit.findOne({
@@ -145,7 +125,7 @@ router.post("/", async (req, res) => {
         name: habitName,
       }
     })
-    if (isHabitExistAready) return res.status(400).json('동일한 이름의 습관이 이미 존재합니다.');
+    if (isHabitExistAready) return res.status(400).json('같은 이름을 가진 습관이 이미 존재합니다.');
 
     const habit = await Habit.create({
       UserId: user.id,
@@ -153,7 +133,8 @@ router.post("/", async (req, res) => {
       name: habitName,
       themeColor,
     });
-    return res.status(200).json(habit);
+    if (habit) return res.status(200).json(habit);
+    else return res.status(400).json('습관 생성 중 오류가 발생하였습니다.');
   } catch (e) {
     console.error(e);
   }
@@ -176,6 +157,9 @@ router.delete("/", async (req, res) => {
   }
   return res.status(200).json("");
 })
+
+
+
 
 
 //check, uncheck habit
