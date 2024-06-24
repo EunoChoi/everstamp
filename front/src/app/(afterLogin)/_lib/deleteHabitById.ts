@@ -1,12 +1,12 @@
 import Axios from "@/Aixos/aixos";
 
 interface Props {
-  diaryId: string | number;
+  id: string | null;
 }
 
-export async function deleteDiary({ diaryId }: Props) {
+export async function deleteHabitById({ id }: Props) {
 
-  const { data } = await Axios.delete(`diary?diaryId=${diaryId}`);
+  const { data } = await Axios.delete(`habit?id=${id}`);
   if (!data) {
     console.log('Failed to delete data!!');
     throw new Error('Failed to delte data')

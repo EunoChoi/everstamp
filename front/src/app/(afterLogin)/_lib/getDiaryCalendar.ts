@@ -5,7 +5,7 @@ interface Props {
 }
 
 export async function getDiaryCalendar({ date }: Props) {
-  const { data, status } = await Axios.get(`/diary/calendar?date=${date}`);
+  const { data } = await Axios.get(`/diary/calendar?date=${date}`);
   // const { data } = await Axios.get(`/diary/list?email=${email}`);
   // console.log(status);
   if (!data) {

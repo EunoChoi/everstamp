@@ -77,7 +77,7 @@ const HabitBox = ({ name, id, email }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
-      <button onClick={() => router.push('/app/inter/input/editHabit', { scroll: false })}>
+      <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
         <SettingsOutlinedIcon fontSize="small" />
       </button>
     </ButtonWrapper>

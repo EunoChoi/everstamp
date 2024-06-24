@@ -15,7 +15,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getAllHabits } from "../../../_lib/getAllHabits";
+import { getHabitList } from "../../../_lib/getHabitList";
 
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
@@ -39,7 +39,7 @@ const HabitPageClient = ({ email }: Props) => {
   const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
     queryKey: ['habits', 'all', sortToggle],
-    queryFn: () => getAllHabits({ sort: sortToggle }),
+    queryFn: () => getHabitList({ sort: sortToggle }),
   });
 
   const sortChage = useCallback(() => {

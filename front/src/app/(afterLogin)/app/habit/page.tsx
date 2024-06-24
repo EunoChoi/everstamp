@@ -3,9 +3,9 @@ import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
 import { auth } from "@/auth";
 import HabitPageClient from "./_component/HabitPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { getAllHabits } from "../../_lib/getAllHabits";
+import { getHabitList } from "../../_lib/getHabitList";
 import { getRecentHabitStatus } from "../../_lib/getRecentHabitStatus";
-import { getAllHabits_prefetch } from "../../_lib/getAllHabits_prefetch";
+import { getHabitList_prefetch } from "../../_lib/getHabitList_prefetch";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
@@ -17,11 +17,11 @@ const Page = async ({ searchParams }: any) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'all', 'ASC'],
-    queryFn: () => getAllHabits_prefetch({ sort: 'ASC' }),
+    queryFn: () => getHabitList_prefetch({ sort: 'ASC' }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'all', 'DESC'],
-    queryFn: () => getAllHabits_prefetch({ sort: 'DESC' }),
+    queryFn: () => getHabitList_prefetch({ sort: 'DESC' }),
   })
 
   const dehydratedState = dehydrate(queryClient)

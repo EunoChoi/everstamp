@@ -17,7 +17,7 @@ const HabitInputValues = ({ habitName, setHabitName }: Props) => {
         <span>name</span>
         <input
           onChange={(e) => setHabitName(e.currentTarget.value)}
-          value={habitName} />
+          value={habitName || ""} />
       </Value>
       <Value>
         <span>color</span>
@@ -55,7 +55,7 @@ const Value = styled.div`
     font-size: 16px;
     width: 100%;
     margin: 8px 0;
-    padding: 2px 16px;
+    padding: 2px 8px;
     flex-grow: 1;
     font-weight: 500;
 

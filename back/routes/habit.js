@@ -14,9 +14,27 @@ const Diary = db.Diary;
 const Image = db.Image;
 const Habit = db.Habit;
 
-//load habit list
+//load habit info by id
 router.get("/", tokenCheck, async (req, res) => {
-  console.log('----- method : get, url :  /habit -----');
+  console.log('----- method : get, url :  /habit?id -----');
+  const id = req.query.id;
+  const email = req.currentUserEmail;
+  try {
+    const habits = await Habit.findOne({
+      where: [{
+        id,
+        email,
+      }],
+    });
+    if (habits) return res.status(200).json(habits);
+    else return res.status(400).json('습관 정보를 불러오지 못하였습니다.');
+  } catch (e) {
+    console.error(e);
+  }
+})
+//load habit list
+router.get("/list", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/list -----');
   const { sort } = req.query;
   const email = req.currentUserEmail;
   try {
@@ -140,18 +158,60 @@ router.post("/", tokenCheck, async (req, res) => {
   }
 })
 //edit habit
-router.patch("/", async (req, res) => {
+router.patch("/", tokenCheck, async (req, res) => {
+  console.log('----- method : patch, url :  /habit -----');
+  const email = req.currentUserEmail;
+  const { id, name, themeColor } = req.body;
   try {
+    const currentUser = await User.findOne({
+      where: { email },
+    });
+    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
+
+    let habit = await Habit.findOne({
+      where: { id },
+    });
+    if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
+
+
+    habit = await Habit.update({
+      name,
+      themeColor
+    }, {
+      where: { id }
+    });
+
+    if (habit) return res.status(200).json(habit);
+    else return res.status(400).json('수정 중 오류가 발생하였습니다.');
   } catch (e) {
     console.error(e);
   }
-  return res.status(200).json("");
 })
 //delete habit
-router.delete("/", async (req, res) => {
-  try {
+router.delete("/", tokenCheck, async (req, res) => {
+  console.log('----- method : delete, url :  /habit?id -----');
+  const email = req.currentUserEmail;
+  const { id } = req.query;
 
+  try {
+    const currentUser = await User.findOne({
+      where: { email },
+    });
+    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
+
+
+    let habit = await Habit.findOne({
+      where: { id },
+    });
+    if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
+
+
+    await Habit.destroy({
+      where: { id }
+    });
+
+    return res.status(200).json('habit deleted');
   } catch (e) {
     console.error(e);
   }
@@ -164,15 +224,16 @@ router.delete("/", async (req, res) => {
 
 //check, uncheck habit
 //post - habit/check
-router.post("/check", async (req, res) => {
+router.post("/check", tokenCheck, async (req, res) => {
   try {
-    const { email, id, date } = req.body;
+    const { id, date } = req.body;
+    const email = req.currentUserEmail;
 
     //유저 존재 확인
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+    if (!user) return res.status(400).json("유저 정보가 존재하지 않습니다.");
 
     const habit = await Habit.findOne({
       where: {
@@ -203,15 +264,16 @@ router.post("/check", async (req, res) => {
   }
 })
 //delete - babit/check
-router.delete("/check", async (req, res) => {
+router.delete("/check", tokenCheck, async (req, res) => {
   try {
-    const { email, id, date } = req.body;
+    const { id, date } = req.body;
+    const email = req.currentUserEmail;
 
     //유저 존재 확인
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+    if (!user) return res.status(400).json("유저 정보가 존재하지 않습니다.");
 
     const habit = await Habit.findOne({
       where: {

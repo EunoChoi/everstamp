@@ -1,19 +1,39 @@
 'use client';
 
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
+import { useSearchParams } from "next/navigation";
+import { getHabitById } from "@/app/(afterLogin)/_lib/getHabitById";
+import { useQuery } from "@tanstack/react-query";
+import Axios from "@/Aixos/aixos";
+import { deleteHabitById } from "@/app/(afterLogin)/_lib/deleteHabitById";
 
 const EditHabit = () => {
 
-  const email = getCurrentUserEmail();
+  const params = useSearchParams();
+  const habitId = params.get('id');
+
+  const { data: habitData } = useQuery({
+    queryKey: ['habits', 'id', habitId],
+    queryFn: () => getHabitById({ id: habitId }),
+    enabled: habitId !== null
+  });
+
+  // console.log('habitId : ', habitId);
+  // console.log(habitData);
+
+
+
   const [habitName, setHabitName] = useState<string>('');
   const [themeColor, setThemeColor] = useState<string>('default');
 
-  //habitId로 불러와서 값 넣기
-
+  useEffect(() => {
+    setHabitName(habitData?.name);
+    setThemeColor(habitData?.themeColor);
+  }, [habitData]);
 
 
   const historyBack = useCallback(() => {
@@ -21,17 +41,22 @@ const EditHabit = () => {
   }, []);
 
   const editHabit = () => {
-    // if (habitName.length <= 10) Axios.patch('/habit', { email, habitName, themeColor })
-    // else alert('최대 10글자까지만 가능합니다.')
+    if (habitName.length <= 10) Axios.patch('/habit', { id: habitId, name: habitName, themeColor })
+    else alert('최대 10글자까지만 가능합니다.')
   };
+
+  const deleteHabit = () => {
+    deleteHabitById({ id: habitId });
+  }
 
   return (
     <Wrapper onClick={() => historyBack()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
-        <Delete><button>delete</button></Delete>
-        <HabitInputButtons onSubmit={editHabit} type="edit" />
+        <Delete onClick={deleteHabit}><button>delete</button></Delete>
+        <HabitInputButtons
+          onSubmit={editHabit} type="edit" />
       </Modal>
     </Wrapper>);
 }

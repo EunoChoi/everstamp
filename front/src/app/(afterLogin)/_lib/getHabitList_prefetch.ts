@@ -5,8 +5,8 @@ interface Props {
   sort: string;
 }
 
-export async function getAllHabits_prefetch({ sort }: Props) {
-  const { data } = await Axios.get(`/habit?sort=${sort}`, {
+export async function getHabitList_prefetch({ sort }: Props) {
+  const { data } = await Axios.get(`/habit/list?sort=${sort}`, {
     headers: {
       cookie: cookies().toString(),
     },
