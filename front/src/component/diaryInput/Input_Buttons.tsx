@@ -3,8 +3,9 @@ import styled from "styled-components";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-
-import { RefObject } from "react";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { RefObject, useCallback } from "react";
 import Axios from "@/Aixos/aixos";
 
 interface Props {
@@ -16,6 +17,10 @@ interface Props {
 }
 
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
+
+  const historyBack = useCallback(() => {
+    history.back();
+  }, []);
 
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -61,6 +66,9 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
 
   return (
     <Buttons>
+      <Button onClick={historyBack}>
+        <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
+      </Button>
       <Button onClick={() => imageUploadRef.current?.click()}>
         <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
         <ImageOutlinedIcon className="icon" />

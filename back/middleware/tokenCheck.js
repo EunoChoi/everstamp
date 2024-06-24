@@ -7,7 +7,7 @@ const parseJwt = (token) => {
 const tokenCheck = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
-    console.log('accessToken : ', accessToken);
+    // console.log('accessToken : ', accessToken);
 
 
     const user = jwt.verify(accessToken, process.env.ACCESS_KEY);
@@ -55,8 +55,8 @@ const tokenCheck = async (req, res, next) => {
 
       return next();
     } catch (error) {
-      console.log(req);
-      console.log(req.cookies);
+      // console.log(req);
+      // console.log(req.cookies);
       console.log(error.name);
       res.status(400).send('로그인이 필요합니다.'); //refresh token 검증도 실패한 경우
     }

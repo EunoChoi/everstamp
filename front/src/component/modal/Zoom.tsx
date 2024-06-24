@@ -8,6 +8,8 @@ import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
 
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+
 interface ImageProps {
   id: number;
   src: string;
@@ -54,7 +56,7 @@ const Zoom = () => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}
       >
-        <TextWrapper className="slideChild">{text}</TextWrapper>
+        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
             <Img src={e.src} alt="zoomImage" width={500} height={500} blurDataURL={e.src} />
@@ -73,17 +75,73 @@ const Zoom = () => {
             }}
           />)}
       </IndicatorWrapper>}
-
+      <Buttons>
+        <Button onClick={historyBack} >
+          <CancelOutlinedIcon className="icon" />
+        </Button>
+      </Buttons>
     </Modal>
   </Wrapper>);
 }
 
 export default Zoom;
 
+
+const Buttons = styled.div`
+  width: 100%;
+  height: var(--mobileNav);
+  /* flex-shrink: 0; */
+  background-color: whitesmoke;
+  border-top: solid 1px rgba(0,0,0,0.1);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  @media (max-width: 479px) { //mobile port
+    border-radius: 0px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    border-radius: 0px;
+  }
+`
+const Button = styled.button`
+  .icon{
+    color: rgba(0,0,0,0.3) !important;
+  }
+  .icon:hover{
+    color: rgb(var(--point)) !important;
+  }
+`
+
 const TextWrapper = styled.div`
   width: 100%;
   height: 100%;
   flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  padding: 16px;
+
+  .text{
+    color: rgb(var(--greyTitle));
+    font-size: 18px;
+  }
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    padding: 56px;
+    .text{
+      font-size: 20px;
+    }
+  }
 `
 const ImageWrapper = styled.div`
   width: 100%;
@@ -113,9 +171,9 @@ const Wrapper = styled.div`
   background-color: rgba(0,0,0,0.2);
   backdrop-filter: blur(4px);
 
-  * {
+  /* * {
     color: rgb(var(--greyTitle));
-  }
+  } */
 `
 const Modal = styled.div`
   display: flex;
@@ -143,7 +201,7 @@ const Modal = styled.div`
     max-height: 500px;
   } */
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    width: 90%;
+    width: 80%;
     height: 90%;
   }
 `

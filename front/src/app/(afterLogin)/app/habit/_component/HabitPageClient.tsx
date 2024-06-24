@@ -49,15 +49,15 @@ const HabitPageClient = ({ email }: Props) => {
 
   useEffect(() => {
     if (habits) {
-      const temp = [];
-      const _habits = [...habits];
+      const organized = [];
+      const tempHabits = [...habits];
 
-      while (_habits.length > 0) {
-        temp.push(_habits.splice(0, 6));
+      while (tempHabits.length > 0) {
+        organized.push(tempHabits.splice(0, 6));
       }
 
-      setIndicator(new Array(temp.length).fill(0));
-      setOrganizedHabits(temp);
+      setIndicator(new Array(organized.length).fill(0));
+      setOrganizedHabits(organized);
     }
   }, [habits]);
 
