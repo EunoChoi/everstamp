@@ -56,11 +56,14 @@ const Zoom = () => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}
       >
-        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
+
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
             <Img src={e.src} alt="zoomImage" width={500} height={500} blurDataURL={e.src} />
           </ImageWrapper>)}
+
+        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
+
       </SlideWrapper>
       {indicatorLength > 1 && <IndicatorWrapper>
         {indicatorArr && indicatorArr.map((_: any, i: number) =>
@@ -124,10 +127,14 @@ const TextWrapper = styled.div`
 
   display: flex;
   align-items: center;
+  align-items: start;
 
   padding: 16px;
 
   .text{
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+
     color: rgb(var(--greyTitle));
     font-size: 18px;
   }

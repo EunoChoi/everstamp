@@ -112,7 +112,7 @@ const NavMenu = styled(Link)`
 
     span{
       font-weight: 500;
-      font-size: 20px;
+      font-size: 18px;
       text-transform: capitalize;
       display: flex;
       margin: 8px 0;
@@ -177,7 +177,7 @@ const Mobile_Nav = styled.nav`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     left: 0;
     width: 25dvw;
-    min-width: 150px;
+    /* min-width: 130px; */
     height: 100dvh;
 
     flex-direction: column;

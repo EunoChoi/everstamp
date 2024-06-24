@@ -54,11 +54,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
-        <TextWrapper
-          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
-          className={`slideChild`}>
-          <Test className={`${position}`}>{diaryData.text}</Test>
-        </TextWrapper>
+
 
         {images.map(e =>
           <Img
@@ -72,6 +68,12 @@ const DiarySlide = ({ diaryData, position }: Props) => {
             blurDataURL={e.src}
           // placeholder="blur"
           ></Img>)}
+
+        <TextWrapper
+          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+          className={`slideChild`}>
+          <Text className={`${position}`}>{diaryData.text}</Text>
+        </TextWrapper>
 
         <EditBox className="slideChild">
           <button><ContentCopyIcon />copy text</button>
@@ -145,12 +147,15 @@ const TextWrapper = styled.div`
   flex-shrink: 0;
   padding: 24px;
 `
-const Test = styled.div`
+const Text = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;
   line-height: 1.7;
   overflow: hidden;
+
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 
   font-size: 16px;
   font-weight: 500;

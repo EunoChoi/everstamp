@@ -38,7 +38,7 @@ const HabitPageClient = ({ email }: Props) => {
 
   const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'all', sortToggle],
+    queryKey: ['habits', 'list', sortToggle],
     queryFn: () => getHabitList({ sort: sortToggle }),
   });
 
