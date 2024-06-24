@@ -188,11 +188,11 @@ router.get("/list", tokenCheck, async (req, res) => {
   try {
     const diaries = await Diary.findAll({
       where: [{
-        // email,
-        // visible: true,
-        // text: {
-        //   [Op.like]: "%" + `${search}` + "%"
-        // }
+        email,
+        visible: true,
+        text: {
+          [Op.like]: "%" + `${search}` + "%"
+        }
       }],
       include: [{
         model: Image,//이미지
