@@ -2,8 +2,13 @@ import Axios from "@/Aixos/aixos";
 
 // const { email, id, date } = req.query;
 
-export async function getRecentHabitStatus(id: number, currentCleanDateTime: number) {
-  const { data } = await Axios.get(`/habit/recent?id=${id}&date=${currentCleanDateTime}`);
+interface Props {
+  id: number;
+  date: number;
+}
+
+export async function getRecentHabitStatus({ id, date }: Props) {
+  const { data } = await Axios.get(`/habit/recent?id=${id}&date=${date}`);
 
   if (!data) {
     console.log('Failed to fetch data!!');

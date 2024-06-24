@@ -1,6 +1,10 @@
 import Axios from "@/Aixos/aixos";
 
-export async function getMonthStatus(date: Date) {
+interface Props {
+  date: Date;
+}
+
+export async function getMonthStatus({ date }: Props) {
   const { data } = await Axios.get(`/habit/month?date=${date.getTime()}`);
 
   if (!data) {

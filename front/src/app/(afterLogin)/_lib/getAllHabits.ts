@@ -1,6 +1,10 @@
 import Axios from "@/Aixos/aixos";
 
-export async function getAllHabits(sort: string) {
+interface Props {
+  sort: string;
+}
+
+export async function getAllHabits({ sort }: Props) {
   const { data } = await Axios.get(`/habit?sort=${sort}`);
 
   if (!data) {

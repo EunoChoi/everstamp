@@ -12,25 +12,25 @@ type Props = {
 }
 
 const Layout = async ({ children, modal }: Props) => {
-  const session = await auth();
-  const email = session?.user?.email ? session?.user?.email : '';
+  // const session = await auth();
+  // const email = session?.user?.email ? session?.user?.email : '';
 
   //server prefetch
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ['user', email],
-    queryFn: getCurrentUser,
-  })
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['user', email],
+  //   queryFn: getCurrentUser,
+  // })
 
-  const dehydratedState = dehydrate(queryClient)
+  // const dehydratedState = dehydrate(queryClient)
 
   return (
     <RQProvider>
-      <HydrationBoundary state={dehydratedState}>
-        {modal}
-        {children}
-      </HydrationBoundary>
+      {/* <HydrationBoundary state={dehydratedState}> */}
+      {modal}
+      {children}
+      {/* </HydrationBoundary> */}
     </RQProvider>
   );
 }

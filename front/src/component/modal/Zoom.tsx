@@ -22,7 +22,7 @@ const Zoom = () => {
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById(diaryId),
+    queryFn: () => getDiaryById({ id: diaryId }),
     enabled: diaryId !== null
   });
 

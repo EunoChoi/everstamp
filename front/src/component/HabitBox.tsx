@@ -38,7 +38,7 @@ const HabitBox = ({ name, id, email }: Props) => {
 
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
-    queryFn: () => getRecentHabitStatus(id, currentCleanDateTime),
+    queryFn: () => getRecentHabitStatus({ id, date: currentCleanDateTime }),
   });
 
 

@@ -5,6 +5,8 @@ import CalendarPageClient from "./_component/CalendarPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { getMonthStatus } from "../../_lib/getMontStatus";
 import { format, addMonths, subMonths } from "date-fns";
+import { getDiaryCalendar_prefetch } from "../../_lib/getDiaryCalendar_prefetch";
+import { getMonthStatus_prefetch } from "../../_lib/getMontStatus_prefetch";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
@@ -18,11 +20,11 @@ const Page = async ({ searchParams }: any) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiaryCalendar(date),
+    queryFn: () => getDiaryCalendar_prefetch({ date }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habit', 'month', format(date, 'MM')],
-    queryFn: () => getMonthStatus(new Date(date)),
+    queryFn: () => getMonthStatus_prefetch({ date: new Date(date) }),
   })
 
 

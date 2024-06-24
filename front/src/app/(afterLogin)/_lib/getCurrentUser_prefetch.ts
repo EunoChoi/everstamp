@@ -1,15 +1,12 @@
-
-
 import Axios from "@/Aixos/aixos";
 import { cookies } from "next/headers";
 
-interface Props {
-  sort: string;
-  search: string;
-}
-
-export async function getDiaryList({ sort, search }: Props) {
-  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}`)
+export async function getCurrentUser_prefetch() {
+  const { data } = await Axios.get(`/user/current`, {
+    headers: {
+      cookie: cookies().toString(),
+    },
+  });
 
   if (!data) {
     console.log('Failed to fetch data!!');

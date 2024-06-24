@@ -41,7 +41,7 @@ const ListPageClient = ({ email }: Props) => {
 
   const { data: diaries } = useQuery({
     queryKey: ['diary', 'list', 'search', search, sortToggle],
-    queryFn: () => getDiaryList(sortToggle, search),
+    queryFn: () => getDiaryList({ sort: sortToggle, search }),
   });
 
 

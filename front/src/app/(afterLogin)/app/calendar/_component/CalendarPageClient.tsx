@@ -34,7 +34,7 @@ const CalendarPageClient = ({ email, date }: Props) => {
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiaryCalendar(date),
+    queryFn: () => getDiaryCalendar({ date }),
   });
 
   return (

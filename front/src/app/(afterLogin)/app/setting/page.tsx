@@ -3,6 +3,7 @@ import SettingPageClient from "./_component/SettingPageClient";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getCurrentUser } from "../../_lib/getCurrentUser";
 import { auth } from "@/auth";
+import { getCurrentUser_prefetch } from "../../_lib/getCurrentUser_prefetch";
 
 const Page = async ({ isMobile }: any) => {
   console.log(isMobile);
@@ -15,7 +16,7 @@ const Page = async ({ isMobile }: any) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['user', email],
-    queryFn: getCurrentUser,
+    queryFn: getCurrentUser_prefetch,
   })
 
   const dehydratedState = dehydrate(queryClient)

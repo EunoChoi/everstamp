@@ -1,5 +1,7 @@
 
 const express = require("express");
+const jwt = require("jsonwebtoken");
+
 
 const db = require("../models/index.js");
 const Op = db.Sequelize.Op;
@@ -173,6 +175,9 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
+
+
+
 //load diary - list
 router.get("/list", tokenCheck, async (req, res) => {
 
@@ -183,11 +188,11 @@ router.get("/list", tokenCheck, async (req, res) => {
   try {
     const diaries = await Diary.findAll({
       where: [{
-        email,
-        visible: true,
-        text: {
-          [Op.like]: "%" + `${search}` + "%"
-        }
+        // email,
+        // visible: true,
+        // text: {
+        //   [Op.like]: "%" + `${search}` + "%"
+        // }
       }],
       include: [{
         model: Image,//이미지
