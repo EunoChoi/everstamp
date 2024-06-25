@@ -42,7 +42,7 @@ const SC_Common = {
       border-radius : 48px;
       color: rgb(var(--greyTitle));
       background-color: whitesmoke;
-      background-color: rgba(var(--point2), 0.35);
+      background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'};
       border: 1px solid rgba(0,0,0,0.05);
 
       padding: 4px 12px;

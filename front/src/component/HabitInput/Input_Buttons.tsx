@@ -48,6 +48,6 @@ const Button = styled.button`
     color: rgba(0,0,0,0.3) !important;
   }
   .icon:hover{
-    color: rgb(var(--point)) !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
   }
 `

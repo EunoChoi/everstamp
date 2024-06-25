@@ -118,7 +118,7 @@ const Logo = styled.div`
     display: inline-block;
     padding: 0 4px;
     &::first-letter{
-      color: rgb(var(--point));
+      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
     }
   }  
   @media (max-width: 479px) { //mobile port

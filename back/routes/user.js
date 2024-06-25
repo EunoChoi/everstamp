@@ -92,33 +92,60 @@ router.get("/current", tokenCheck, async (req, res) => {
     console.log(error);
   }
 })
-//회원탈퇴
-router.delete("/", async (req, res) => {
-  console.log('----- method : delete, url :  /user -----');
+
+//유저 테마 색상 변경
+router.patch("/theme", tokenCheck, async (req, res) => {
+  console.log('----- method : patch, url :  /user/theme -----');
   const email = req.currentUserEmail;
+  const { themeColor } = req.body;
+
   try {
-    const isUserExist = await User.findOne({
+    let user = await User.findOne({
+      where: {
+        email
+      }
+    })
+    if (!user) return res.status(404).json('유저 정보가 없습니다.');
+
+    user = await User.update({
+      themeColor,
+    }, {
       where: { email }
     });
-    if (isUserExist) {
-      //유저가 작성한 게시글도 모두 삭제
-      await Post.destroy({
-        where: { email }
-      });
-      console.log("탈퇴 유저가 작성한 게시글 모두 삭제 완료");
-
-      //유저 삭제 처리
-      await User.destroy({
-        where: { email }
-      });
-      console.log("탈퇴 처리 완료");
-
-      return res.status(200).json("탈퇴가 완료되었습니다.");
-    }
-    else return res.status(401).json("존재하지 않은 유저입니다.");
+    if (user) return res.status(200).json('theme color changed')
+    else return res.status(400).json('theme color update error');
   } catch (err) {
     console.error(err);
   }
+})
+
+//회원탈퇴
+router.delete("/", async (req, res) => {
+  // console.log('----- method : delete, url :  /user -----');
+  // const email = req.currentUserEmail;
+  // try {
+  //   const isUserExist = await User.findOne({
+  //     where: { email }
+  //   });
+  //   if (isUserExist) {
+  //     //유저가 작성한 게시글도 모두 삭제
+  //     await Post.destroy({
+  //       where: { email }
+  //     });
+  //     console.log("탈퇴 유저가 작성한 게시글 모두 삭제 완료");
+
+  //     //유저 삭제 처리
+  //     await User.destroy({
+  //       where: { email }
+  //     });
+  //     console.log("탈퇴 처리 완료");
+
+  //     return res.status(200).json("탈퇴가 완료되었습니다.");
+  //   }
+  //   else return res.status(401).json("존재하지 않은 유저입니다.");
+  // } catch (err) {
+  //   console.error(err);
+  // }
 });
 
 module.exports = router;

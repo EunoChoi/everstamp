@@ -95,7 +95,7 @@ const HabitPageClient = ({ email }: Props) => {
         >
           {organizedHabits?.map((grid: any[], i: number) =>
             <HabitGrid key={'set' + i}>
-              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id} email={email}></HabitBox>)}
+              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id}></HabitBox>)}
             </HabitGrid>)}
         </HabitGridList>
 
@@ -202,7 +202,7 @@ const IndicatorWrapper = styled.div`
     }
   }
   .current {
-    background-color: rgb(var(--point));
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
 `
 

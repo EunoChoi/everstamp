@@ -92,7 +92,7 @@ const HabitBox = ({ name, id }: Props) => {
   }
 
   return (<Wrapper>
-    <Name>{name}</Name>
+    <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {
         return <Check key={`${date}-${name}`}>
@@ -144,8 +144,7 @@ const Wrapper = styled.div`
 const Name = styled.span`
   width: 100%;
   height: 30%;
-
-  font-size: 22px;
+  
   font-weight: 600;
   color: rgb(var(--greyTitle));
 
@@ -156,11 +155,28 @@ const Name = styled.span`
   align-items: center;
   justify-content: center;
 
+  span{
+      white-space: nowrap;
+      overflow: scroll;
+    }
+
   @media (max-width: 479px) { //mobile port
     font-size: 18px;
+    span{
+      max-width: 120px;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 14px;
+    span{
+      max-width: 120px;
+    }
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    font-size: 20px;
+    span{
+      max-width: 180px;
+    }
   }
 `
 const Days = styled.div`
@@ -217,7 +233,7 @@ const Check = styled.div`
         width: 12px;
         height: 12px; 
         border-radius: 20px;
-        background-color: rgb(var(--point));
+        background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
       }    
       
     }

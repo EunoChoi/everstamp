@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import { signOut } from "next-auth/react";
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
 
@@ -14,17 +14,36 @@ import Header from "@/component/Header";
 
 //styledComponent
 import SC_Common from "@/style/common";
+import { useState } from "react";
+import Axios from "@/Aixos/aixos";
 
 interface Props {
   email: string;
 }
 
 const SettingPageClient = () => {
+  const queryClient = useQueryClient();
+
 
   const { data } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
+
+  const themeColorUpdateMutation = useMutation({
+    mutationFn: (themeColor: string) => Axios.patch('/user/theme', { themeColor }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      console.log('theme update success');
+    },
+    onError: () => {
+      console.log('theme update error')
+    },
+  })
+
+  const themeColorUpdate = (themeColor: string) => {
+    themeColorUpdateMutation.mutate(themeColor);
+  }
 
   return (
     <SC_Common.Wrapper>
@@ -55,11 +74,13 @@ const SettingPageClient = () => {
           <Title>theme</Title>
           <SubTitle>foreground color</SubTitle>
           <FlexRow>
-            <Check></Check>
+            <Color className="selected" />
             <FlexRow className="end">
-              <Check></Check>
-              <Check></Check>
-              <Check></Check>
+              <Color className="purple" onClick={() => themeColorUpdate("#9797CB")} />
+              <Color className="blue" onClick={() => themeColorUpdate("#8EBCDB")} />
+              <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
+              <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
+              <Color className="grey" onClick={() => themeColorUpdate("#6b6b6b")} />
             </FlexRow>
           </FlexRow>
         </Section>
@@ -168,20 +189,43 @@ const Button = styled.button`
   text-transform: capitalize;
   
   &:hover{
-    background-color: rgb(var(--point2));
+    background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#9797CB'};
   }
 `
-const Check = styled.div`
+const Color = styled.div`
   width: 36px;
   height: 36px;
-  border: solid 3px darkgrey;
+  border: solid 3px rgba(0,0,0,0.2);
   margin-right: 8px;
   transition: all ease-in-out 0.3s;
 
   flex-shrink: 0;
 
   border-radius: 8px;
+
+
+  &.selected{
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+  }
+
+  &.purple{
+    background-color: #9797CB;
+  }
+  &.blue{
+    background-color: rgb(142, 188, 219);
+  }
+  &.pink{
+    background-color: #eda5b1;
+  }
+  &.green{
+    background-color: #83c6b6;
+  }
+  &.grey{
+    background-color: #6b6b6b;
+  }
+
+
   &:hover{
-    border-color: rgb(var(--point));
+    border-color: rgba(0,0,0,0.4);
   }
 `

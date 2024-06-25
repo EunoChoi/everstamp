@@ -57,6 +57,7 @@ const AddHabitModal = () => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Add Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
+        <div></div>
         <HabitInputButtons onSubmit={addHabit} />
       </Modal>
     </Wrapper>);
@@ -89,7 +90,7 @@ const Modal = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-around;
 
   background-color: white;
   border-radius: 8px;
@@ -100,19 +101,16 @@ const Modal = styled.div`
 
   @media (max-width: 479px) { //mobile port
     width: 90%;
-    height: 40%;
-    min-height: 400px;
+    height: 300px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     min-width: 400px;
     width: 50%;
-    height: 90%;
-    max-height: 400px;
+    height: 300px;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    min-width: 500px;
-    width: 40%;
-    height: 50%;
+    height: 300px;
+    width: 450px;
   }
 `
 const Title = styled.span`

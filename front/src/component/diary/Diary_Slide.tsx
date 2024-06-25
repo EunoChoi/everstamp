@@ -281,9 +281,9 @@ const IndicatorWrapper = styled.div`
   }
   div:last-child{
     border-radius: 2px;
-    background-color: rgba(var(--point2), 0.5);
+    background-color: ${(props) => props.theme.point ? props.theme.point + 'b0' : '#9797CB'};
   }
   .current {
-    background-color: rgb(var(--point)) !important;
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
   }
 `

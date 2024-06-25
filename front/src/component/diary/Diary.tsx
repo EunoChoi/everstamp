@@ -126,7 +126,7 @@ const EmptyWrapper = styled.div`
     padding: 8px;
     padding-top: 16px;
     &:hover{
-      color: rgb(var(--point));
+      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
     }
   }
 

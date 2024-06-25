@@ -74,19 +74,6 @@ const Section = styled.div`
   scroll-snap-stop: always !important;
 
   background-color: whitesmoke;
-
-  
-  /* &.first{
-    background-color: rgba(var(--point2),0.5);
-  }
-  &.second{
-    scroll-snap-align: center;
-    background-color: white;
-  }
-  &.third{
-    background-color: rgb(var(--point3));
-    background-color: rgba(0,0,0,0.07);
-  } */
 `
 const IndicatorWrapper = styled.div`
   position: fixed;

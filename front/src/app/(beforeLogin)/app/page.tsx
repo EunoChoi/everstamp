@@ -62,7 +62,7 @@ const ImageWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   
-  background-color: rgb(var(--point));
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   span{
       color: rgb(var(--greyTitle2));
       font-size: 24px;
@@ -129,7 +129,7 @@ const Logo = styled.div`
     color: rgb(var(--greyTitle));
   }
   span::first-letter{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
   @media (max-width: 479px) { //mobile port
     font-size: 36px;

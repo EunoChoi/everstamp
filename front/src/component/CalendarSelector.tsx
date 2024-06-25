@@ -63,7 +63,7 @@ const CalendarSelector = () => {
     const formattedDate = format(day, 'd');
 
     return <DateValue>
-      <span className={habitCount || isDiaryExist ? "small" : ""}>{formattedDate}</span>
+      <span>{formattedDate}</span>
       <div>
         {isDiaryExist && <span className="isDiaryExist">D</span>}
         {habitCount > 0 && <span>{habitCount}</span>}
@@ -173,13 +173,13 @@ const DateValue = styled.div`
       width: 16px;
       height: 16px;
       border-radius: 20px;
-      background-color: rgb(var(--point));
-      background-color: #9997cb;
+      background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      /* background-color: #9997cb; */
       color: whitesmoke;
       margin: 0 1px;
     }
     .isDiaryExist{
-      background-color: #83c6b6;
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#9797CB'};
     }
   }
 `
@@ -256,12 +256,12 @@ const CalDate = styled.button`
   &.today{
     /* font-weight: 500; */
     /* color: rgb(var(--greyTitle)); */
-    background-color: rgba(var(--point2), 0.5);
+    background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{
     /* font-weight: 500; */
-    border : 3px solid rgba(var(--point2), 0.6);
+    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
     border-radius: 8px;
   }
   &.notCurrentMonth{

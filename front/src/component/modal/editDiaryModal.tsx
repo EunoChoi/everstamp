@@ -164,7 +164,7 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
@@ -295,6 +295,6 @@ const Button = styled.button`
     color: rgba(0,0,0,0.3) !important;
   }
   .icon:hover{
-    color: rgb(var(--point)) !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
   }
 `
