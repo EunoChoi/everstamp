@@ -133,27 +133,31 @@ const TextWrapper = styled.div`
   align-items: center;
   align-items: start;
 
-  padding: 16px;
-
   .text{
     overflow-y: scroll;
     width: 100%;
     height: 100%;
-    background-color: red;
 
     white-space: pre-wrap;
     overflow-wrap: break-word;
 
     color: rgb(var(--greyTitle));
-    font-size: 18px;
   }
 
   @media (max-width: 479px) { //mobile port
+    padding: 24px;
+    .text{
+      font-size: 18px;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 24px;
+    .text{
+      font-size: 18px;
+    }
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    padding: 56px;
+    padding: 48px;
     .text{
       font-size: 20px;
     }

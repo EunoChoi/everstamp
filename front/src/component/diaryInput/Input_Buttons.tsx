@@ -56,11 +56,6 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       //이미지 업로드 요청
       //method : post, url : /image/
       Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });
-      // uploadImages.mutate(imageFormData, {
-      //   onSuccess: (res) => {
-      //     setImages([...images, ...res.data]);
-      //   }
-      // });
     }
   };
 
