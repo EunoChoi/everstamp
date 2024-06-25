@@ -233,7 +233,7 @@ router.delete("/", tokenCheck, async (req, res) => {
 //post - habit/check
 router.post("/check", tokenCheck, async (req, res) => {
   try {
-    const { id, date } = req.body;
+    const { habitId, date } = req.body;
     const email = req.currentUserEmail;
 
     //유저 존재 확인
@@ -245,7 +245,7 @@ router.post("/check", tokenCheck, async (req, res) => {
     const habit = await Habit.findOne({
       where: {
         email,
-        id,
+        id: habitId,
       }
     })
     if (!habit) return res.status(400).json("습관이 존재하지 않습니다.");
@@ -260,7 +260,7 @@ router.post("/check", tokenCheck, async (req, res) => {
         UserId: user.id,
         email,
         date,
-        text: '',
+        text: '-',
       }
     });
 
@@ -273,7 +273,7 @@ router.post("/check", tokenCheck, async (req, res) => {
 //delete - babit/check
 router.delete("/check", tokenCheck, async (req, res) => {
   try {
-    const { id, date } = req.body;
+    const { habitId, date } = req.body;
     const email = req.currentUserEmail;
 
     //유저 존재 확인
@@ -285,7 +285,7 @@ router.delete("/check", tokenCheck, async (req, res) => {
     const habit = await Habit.findOne({
       where: {
         email,
-        id,
+        id: habitId,
       }
     })
     if (!habit) return res.status(400).json("습관이 존재하지 않습니다.");
@@ -297,7 +297,7 @@ router.delete("/check", tokenCheck, async (req, res) => {
       }],
     });
     diary.removeHabit(habit);
-    return res.status(200).json('checked');
+    return res.status(200).json('unchecked');
   } catch (e) {
     console.error(e);
   }

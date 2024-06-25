@@ -1,4 +1,4 @@
-import AddHabitModal from "@/component/modal/addHabitModal";
+import AddHabitModal from "@/component/modal/AddHabitModal";
 
 const Page = () => {
   return (

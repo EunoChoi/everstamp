@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
 import Axios from "@/Aixos/aixos";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
@@ -22,10 +22,19 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 interface Props {
   name: string;
   id: number;
-  email: string;
+}
+interface Err {
+  response: {
+    data: string;
+  }
+}
+interface CheckHabitProps {
+  habitId: number;
+  date: number;
 }
 
-const HabitBox = ({ name, id, email }: Props) => {
+const HabitBox = ({ name, id }: Props) => {
+  const queryClient = useQueryClient();
 
   const router = useRouter();
 
@@ -34,25 +43,51 @@ const HabitBox = ({ name, id, email }: Props) => {
   let recentDateArray = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
   recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
 
-
-
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
     queryFn: () => getHabit_status_4day({ id, date: currentCleanDateTime }),
   });
 
 
-  //check, uncheck 처리
-  const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
-    if (e.currentTarget.checked === true) {//habit diary model add relation 
-      Axios.post('/habit/check', { id, date, email });
-      console.log('check')
-    }
-    else {//habit diary model delete relation 
-      Axios.delete('/habit/check', {
-        data: { id, date, email }
+
+  const checkHabitMutation = useMutation({
+    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.post('/habit/check', { habitId, date }),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
-      console.log('unchecked');
+
+      console.log('chack habit success');
+    },
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('uncheck habit error');
+    },
+  });
+  const uncheckHabitMutation = useMutation({
+    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.delete('/habit/check', { data: { habitId, date } }), //delete method data
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('unchack habit success');
+    },
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('uncheck habit error');
+    },
+  });
+
+
+  const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
+    if (e.currentTarget.checked === true) {
+      checkHabitMutation.mutate({ habitId: id, date });
+    }
+    else {
+      uncheckHabitMutation.mutate({ habitId: id, date });
     }
   }
 

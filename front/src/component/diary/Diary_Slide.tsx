@@ -10,6 +10,12 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 
+interface Err {
+  response: {
+    data: string;
+  }
+}
+
 interface ImageProps {
   id: string;
   src: string;
@@ -66,8 +72,9 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
       console.log('success delete diary');
     },
-    onError: (e) => {
-      console.log(e)
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('delete diary error');
     },
   });
 

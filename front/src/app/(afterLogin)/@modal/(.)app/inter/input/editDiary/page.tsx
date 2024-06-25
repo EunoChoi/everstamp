@@ -1,4 +1,4 @@
-import EditDiaryModal from "@/component/modal/editDiaryModal";
+import EditDiaryModal from "@/component/modal/EditDiaryModal";
 
 const Page = () => {
   return (

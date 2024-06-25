@@ -1,4 +1,4 @@
-import AddDiaryModal from "@/component/modal/addDiaryModal";
+import AddDiaryModal from "@/component/modal/AddDiaryModal";
 
 const Page = () => {
   return (

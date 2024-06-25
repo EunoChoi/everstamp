@@ -19,7 +19,11 @@ import DiaryInputTextArea from "../diaryInput/Input_TextArea";
 import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
-
+interface Err {
+  response: {
+    data: string;
+  }
+}
 
 interface ServerImageProps {
   id: string;
@@ -71,9 +75,9 @@ const EditDiaryModal = () => {
       console.log('success edit diary');
       historyBack();
     },
-    onError: () => {
-      alert('error add diary');
-      console.log('error add diary');
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('edit diary error');
     },
   });
 

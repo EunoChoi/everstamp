@@ -18,6 +18,13 @@ import DiaryInputButtons from "../diaryInput/Input_Buttons";
 // import { addDiary } from "@/app/(afterLogin)/_lib/diary";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+
+interface Err {
+  response: {
+    data: string;
+  }
+}
+
 const AddDiaryModal = () => {
   const queryClient = useQueryClient();
   const param = useSearchParams();
@@ -44,13 +51,13 @@ const AddDiaryModal = () => {
         queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
 
-      console.log('success add diary');
+      console.log('add diary success');
       historyBack();
     },
-    onError: () => {
-      alert('error add diary');
-      console.log('error add diary');
-    },
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('add diary error');
+    }
   });
 
   const onAddDiary = () => {
