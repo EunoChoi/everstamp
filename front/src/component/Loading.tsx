@@ -1,14 +1,16 @@
 import styled from "styled-components";
-import Image from "next/image";
 
-//img
-import logo from '/public/img/everStamp_logo_blue.png';
-import logo2 from '/public/img/everStamp_logo_purple.png';
 
 const Loading = () => {
   return (
     <Wrapper>
-      <Img src={logo2} alt="logo" priority width={200} height={200}></Img>
+      <Logo>
+        <div>
+          <span>ever</span>
+          <span>stamp</span>
+        </div>
+        <div></div>
+      </Logo>
       <Text>we can do better</Text>
     </Wrapper>
   );
@@ -16,6 +18,45 @@ const Loading = () => {
 
 export default Loading;
 
+const Logo = styled.div`
+  width: 140px;
+  height: 140px;
+  background-color: whitesmoke;
+  border : 2px solid rgba(0,0,0,0.1);
+  border-radius: 16px;
+
+  div:first-child{
+    width: 100%;
+    height: 77%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: start;
+
+    padding-left: 12px;
+    padding-bottom: 8px;
+
+    span{
+      text-transform: uppercase;
+      line-height: 1.05;
+      font-size: 28px;
+      font-weight: 700;
+      color: rgb(var(--greyTitle));
+    }
+    span::first-letter{
+      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    }
+  }
+  div:last-child{
+    width: 100%;
+    height: 23%;
+    border-top: solid 1px rgba(0,0,0,0.05);
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+`
 const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
@@ -25,20 +66,11 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 `
-const Img = styled(Image)`
-  max-width: 15dvw;
-  height: auto;
-
-  @media (max-width: 479px) { //mobile port
-    max-width: 30dvw;
-  }
-`
 const Text = styled.span`
   margin-top: 24px;
   font-weight: 600;
-  color: rgb(var(--greyTitle));
+  color: rgba(var(--greyTitle),0.8);
   font-size: 28px;
-  /* text-transform: capitalize; */
   text-transform: uppercase;
 
 

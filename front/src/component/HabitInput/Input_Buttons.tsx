@@ -17,7 +17,7 @@ const HabitInputButtons = ({ type, onSubmit }: Props) => {
   return (
     <Buttons>
       <Button onClick={() => onSubmit()}>
-        {type === 'edit' ? <ModeEditOutlineOutlinedIcon /> : <AddTaskOutlinedIcon className="icon" />}
+        {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <AddTaskOutlinedIcon className="icon" />}
       </Button>
     </Buttons>
   );
@@ -45,9 +45,10 @@ const Buttons = styled.div`
 `
 const Button = styled.button`
   .icon{
-    color: rgba(0,0,0,0.3) !important;
+    color: rgba(0,0,0,0.4) !important;
   }
   .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    /* color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important; */
+    color: grey;
   }
 `

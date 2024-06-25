@@ -49,8 +49,10 @@ const AppLayout = ({ children }: Props) => {
   }
 
 
-
-  if (isMobile === null) return <Loading />; //loading page, to solve useMediaQuery delay problem
+  //loading page, to solve useMediaQuery delay problem
+  if (isMobile === null) {
+    return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
+  }
 
   return (<ThemeProvider theme={theme}>
     {

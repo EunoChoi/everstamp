@@ -164,22 +164,22 @@ const DateValue = styled.div`
     align-items: center;
     span{
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 500;
       display: flex;
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
+      line-height: 0%;
 
       width: 16px;
       height: 16px;
       border-radius: 20px;
       background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
-      /* background-color: #9997cb; */
       color: whitesmoke;
       margin: 0 1px;
     }
     .isDiaryExist{
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#9797CB'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#9797CB'};
     }
   }
 `
@@ -256,12 +256,12 @@ const CalDate = styled.button`
   &.today{
     /* font-weight: 500; */
     /* color: rgb(var(--greyTitle)); */
-    background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{
     /* font-weight: 500; */
-    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
+    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#9797CB'};
     border-radius: 8px;
   }
   &.notCurrentMonth{

@@ -72,7 +72,8 @@ const EditHabitModal = () => {
 
 
   const onEditHabit = () => {
-    if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, themeColor });
+    if (habitData.name === habitName) { historyBack(); } //이름 변화 없이 수정한 경우
+    else if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, themeColor });
     else alert('최대 10글자까지만 가능합니다.')
   };
   const onDeleteHabit = () => {
@@ -96,8 +97,7 @@ const EditHabitModal = () => {
         <Title>Edit Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
         <Delete onClick={onDeleteHabit}><button>delete</button></Delete>
-        <HabitInputButtons
-          onSubmit={onEditHabit} type="edit" />
+        <HabitInputButtons onSubmit={onEditHabit} type="edit" />
       </Modal>
     </Wrapper>);
 }
@@ -108,7 +108,7 @@ const Delete = styled.div`
   justify-content: center;
   button{
     font-size: 18px;
-    color: salmon;
+    color:  grey;
   }
 `
 

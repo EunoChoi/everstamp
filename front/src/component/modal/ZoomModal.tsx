@@ -238,7 +238,8 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    /* color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'}; */
+    color: grey;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
@@ -292,6 +293,7 @@ const IndicatorWrapper = styled.div`
     background-color: rgba(var(--point2), 0.5);
   } */
   .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    /* background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'}; */
+    background-color: grey;
   }
 `
