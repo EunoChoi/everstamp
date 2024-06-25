@@ -4,12 +4,11 @@ import styled from "styled-components";
 import { useCallback, useEffect, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import { useSearchParams } from "next/navigation";
-import { getHabitById } from "@/app/(afterLogin)/_lib/getHabitById";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
-import { deleteHabitById } from "@/app/(afterLogin)/_lib/deleteHabitById";
+
+import { deleteHabit, getHabit } from "@/app/(afterLogin)/_lib/habit";
 
 const EditHabit = () => {
 
@@ -18,7 +17,7 @@ const EditHabit = () => {
 
   const { data: habitData } = useQuery({
     queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabitById({ id: habitId }),
+    queryFn: () => getHabit({ id: habitId }),
     enabled: habitId !== null
   });
 
@@ -40,13 +39,13 @@ const EditHabit = () => {
     history.back();
   }, []);
 
-  const editHabit = () => {
+  const onEditHabit = () => {
     if (habitName.length <= 10) Axios.patch('/habit', { id: habitId, name: habitName, themeColor })
     else alert('최대 10글자까지만 가능합니다.')
   };
 
-  const deleteHabit = () => {
-    deleteHabitById({ id: habitId });
+  const onDeleteHabit = () => {
+    deleteHabit({ id: habitId });
   }
 
   return (
@@ -54,9 +53,9 @@ const EditHabit = () => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
-        <Delete onClick={deleteHabit}><button>delete</button></Delete>
+        <Delete onClick={onDeleteHabit}><button>delete</button></Delete>
         <HabitInputButtons
-          onSubmit={editHabit} type="edit" />
+          onSubmit={onEditHabit} type="edit" />
       </Modal>
     </Wrapper>);
 }

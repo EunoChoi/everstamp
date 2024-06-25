@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 //function
 import IsMobile from "@/function/IsMobile";
-import { getDiaryCalendar } from "@/app/(afterLogin)/_lib/getDiaryCalendar";
+import { getDiary_date } from "@/app/(afterLogin)/_lib/diary";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 //styledComponent
@@ -22,11 +22,10 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 
 interface Props {
-  email: string;
   date: number;
 }
 
-const CalendarPageClient = ({ email, date }: Props) => {
+const CalendarPageClient = ({ date }: Props) => {
   // console.log(email, date);
 
   const router = useRouter();
@@ -34,7 +33,7 @@ const CalendarPageClient = ({ email, date }: Props) => {
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiaryCalendar({ date }),
+    queryFn: () => getDiary_date({ date }),
   });
 
   return (

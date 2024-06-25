@@ -18,7 +18,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 //img
 import IsMobile from "@/function/IsMobile";
-import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
+import { deleteDiary } from "@/app/(afterLogin)/_lib/diary";
 import DiaryHabits from "./Diary_Habits";
 import DiarySlide from "./Diary_Slide";
 
@@ -56,6 +56,16 @@ const Diary = ({ diaryData, position }: Props) => {
 
   const [diaryDate, setDiaryDate] = useState<Date>(new Date());
 
+  const month = format(diaryDate, 'MMM');
+  const date = format(diaryDate, 'dd');
+  const day = format(diaryDate, `${position === 'calendar' ? 'eeee' : 'eee'}`);
+  const year = format(diaryDate, 'yyyy');
+
+  const onAddDiary = () => {
+    router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
+  }
+
+
   useEffect(() => {
     if (position === 'calendar' && paramDate) {
       setDiaryDate(new Date(Number(paramDate)));
@@ -64,17 +74,6 @@ const Diary = ({ diaryData, position }: Props) => {
       setDiaryDate(diaryData.date);
     }
   }, [paramDate, diaryData])
-
-
-  const month = format(diaryDate, 'MMM');
-  const date = format(diaryDate, 'dd');
-  const day = format(diaryDate, `${position === 'calendar' ? 'eeee' : 'eee'}`);
-  const year = format(diaryDate, 'yyyy');
-
-
-  const habits = diaryData?.Habits ? diaryData?.Habits : [];
-  // console.log(habits);
-
 
   return (
     <Wrapper className={position}>
@@ -87,16 +86,14 @@ const Diary = ({ diaryData, position }: Props) => {
         </div>
       </DateWrapper>
 
-      <DiaryHabits habits={habits} />
+      <DiaryHabits habits={diaryData?.Habits} />
 
       {diaryData?.visible ?
         <DiarySlide diaryData={diaryData} position={position} /> :
         <EmptyWrapper>
           <span>There are no diary yet.</span>
           <span>Create a new one :)</span>
-          <button onClick={() => {
-            router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
-          }}>
+          <button onClick={onAddDiary}>
             <AddCircleOutlinedIcon fontSize="inherit" />
           </button>
         </EmptyWrapper>}
@@ -156,6 +153,7 @@ const Wrapper = styled.div`
   margin: 12px 0;
 
   @media (min-width: 1024px) {//desktop
+    height: 350px;
     &.calendar{
       height: 550px;
     }

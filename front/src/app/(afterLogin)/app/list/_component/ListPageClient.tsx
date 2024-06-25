@@ -7,10 +7,7 @@ import { useCallback, useState } from "react";
 //styledComponent
 import SC_Common from "@/style/common";
 
-
-//_lib
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
-import { getDiaryList } from "@/app/(afterLogin)/_lib/getDiaryList";
+import { getDiaries } from "@/app/(afterLogin)/_lib/diary";
 
 //component
 import Diary from "@/component/diary/Diary";
@@ -30,9 +27,8 @@ interface Props {
   email: string;
 }
 
-const ListPageClient = ({ email }: Props) => {
+const ListPageClient = () => {
 
-  const isMobile = IsMobile();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState<string>('');
   const [search, setSearch] = useState<string>('');
@@ -41,7 +37,7 @@ const ListPageClient = ({ email }: Props) => {
 
   const { data: diaries } = useQuery({
     queryKey: ['diary', 'list', 'search', search, sortToggle],
-    queryFn: () => getDiaryList({ sort: sortToggle, search }),
+    queryFn: () => getDiaries({ sort: sortToggle, search }),
   });
 
 

@@ -57,6 +57,7 @@ const tokenCheck = async (req, res, next) => {
     } catch (error) {
       // console.log(req);
       // console.log(req.cookies);
+      console.log('refreshToken 검증 실패');
       console.log(error.name);
       res.status(400).send('로그인이 필요합니다.'); //refresh token 검증도 실패한 경우
     }

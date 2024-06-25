@@ -15,7 +15,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getHabitList } from "../../../_lib/getHabitList";
+import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
@@ -39,9 +39,14 @@ const HabitPageClient = ({ email }: Props) => {
   const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', sortToggle],
-    queryFn: () => getHabitList({ sort: sortToggle }),
+    queryFn: () => getHabits({ sort: sortToggle }),
   });
 
+
+
+  const onAddHabit = () => {
+    router.push('/app/inter/input/addHabit', { scroll: false })
+  }
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
@@ -65,12 +70,15 @@ const HabitPageClient = ({ email }: Props) => {
     <SC_Common.Wrapper className="habit">
       <Header title='habit' />
       <SC_Common.Options>
-        <button onClick={() => router.push('/app/inter/input/addHabit', { scroll: false })}>
+        <button onClick={onAddHabit}>
           <AddIcon fontSize="small" />
         </button>
         <button onClick={sortChage}>
 
-          <span>{sortToggle === 'DESC' ? <ArrowUpwardOutlinedIcon fontSize="small" /> : <ArrowDownwardOutlinedIcon fontSize="small" />}</span>
+          <span>{sortToggle === 'DESC' ?
+            <ArrowUpwardOutlinedIcon fontSize="small" /> :
+            <ArrowDownwardOutlinedIcon fontSize="small" />}
+          </span>
           <span>ㄱㄴㄷ</span>
         </button>
       </SC_Common.Options>

@@ -1,11 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
 import { auth } from "@/auth";
 import HabitPageClient from "./_component/HabitPageClient";
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { getHabitList } from "../../_lib/getHabitList";
-import { getRecentHabitStatus } from "../../_lib/getRecentHabitStatus";
-import { getHabitList_prefetch } from "../../_lib/getHabitList_prefetch";
+import { getHabits_fetch } from "../../_lib/habit_ssr";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
@@ -17,11 +13,11 @@ const Page = async ({ searchParams }: any) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'list', 'ASC'],
-    queryFn: () => getHabitList_prefetch({ sort: 'ASC' }),
+    queryFn: () => getHabits_fetch({ sort: 'ASC' }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'list', 'DESC'],
-    queryFn: () => getHabitList_prefetch({ sort: 'DESC' }),
+    queryFn: () => getHabits_fetch({ sort: 'DESC' }),
   })
 
   const dehydratedState = dehydrate(queryClient)

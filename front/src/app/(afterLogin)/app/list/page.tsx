@@ -1,9 +1,8 @@
 import ListPageClient from "./_component/ListPageClient";
 
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaryList } from "../../_lib/getDiaryList";
 import { auth } from "@/auth";
-import { getDiaryList_prefetch } from "../../_lib/getDiaryList_prefetch";
+import { getDiaries_fetch } from "../../_lib/diary_ssr";
 
 const Page = async () => {
   const session = await auth()
@@ -14,11 +13,11 @@ const Page = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'list', 'search', '', 'ASC'],
-    queryFn: () => getDiaryList_prefetch({ sort: 'ASC', search: '' }),
+    queryFn: () => getDiaries_fetch({ sort: 'ASC', search: '' }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'list', 'search', '', 'DESC'],
-    queryFn: () => getDiaryList_prefetch({ sort: 'DESC', search: '' }),
+    queryFn: () => getDiaries_fetch({ sort: 'DESC', search: '' }),
   })
 
 
@@ -26,7 +25,7 @@ const Page = async () => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ListPageClient email={email} />
+      <ListPageClient />
     </HydrationBoundary>
   );
 }

@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
+import { deleteDiary } from "@/app/(afterLogin)/_lib/diary";
 
 interface ImageProps {
   id: string;
@@ -43,6 +43,14 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const indicatorLength = images.length + 2;
   const indicatorArr = new Array(indicatorLength).fill(0);
 
+
+  const onEditDiary = () => {
+    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+  };
+  const onDeleteDiary = () => {
+    deleteDiary({ id: diaryData.id });
+  }
+
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [diaryData])
@@ -55,6 +63,12 @@ const DiarySlide = ({ diaryData, position }: Props) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
 
+
+        <TextWrapper
+          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+          className={`slideChild`}>
+          <Text className={`${position}`}>{diaryData.text}</Text>
+        </TextWrapper>
 
         {images.map(e =>
           <Img
@@ -69,21 +83,17 @@ const DiarySlide = ({ diaryData, position }: Props) => {
           // placeholder="blur"
           ></Img>)}
 
-        <TextWrapper
-          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
-          className={`slideChild`}>
-          <Text className={`${position}`}>{diaryData.text}</Text>
-        </TextWrapper>
+
 
         <EditBox className="slideChild">
           <button><ContentCopyIcon />copy text</button>
           <button
-            onClick={() => router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })}
+            onClick={onEditDiary}
           >
             <EditIcon />edit diary
           </button>
           <button
-            onClick={() => deleteDiary({ diaryId: diaryData.id })}
+            onClick={onDeleteDiary}
           >
             <DeleteIcon />delete Diary
           </button>
@@ -167,6 +177,7 @@ const Text = styled.div`
     font-size: 16px;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
+    -webkit-line-clamp: 7;
     &.calendar{
       font-size: 18px;
       line-height: 1.8;

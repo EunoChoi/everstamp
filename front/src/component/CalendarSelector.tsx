@@ -16,7 +16,7 @@ import TodayIcon from '@mui/icons-material/Today';
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
-import { getMonthStatus } from "@/app/(afterLogin)/_lib/getMontStatus";
+import { getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 const CalendarSelector = () => {
@@ -37,7 +37,7 @@ const CalendarSelector = () => {
   const email = getCurrentUserEmail();
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(currentMonth, 'MM')],
-    queryFn: () => getMonthStatus({ date: currentMonth }),
+    queryFn: () => getHabit_status_month({ date: currentMonth }),
   });
 
 

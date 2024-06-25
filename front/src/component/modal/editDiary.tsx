@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 
 
 //function
-import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
+import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
 
 //icon
@@ -39,7 +39,7 @@ const EditDiary = () => {
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById({ id: diaryId }),
+    queryFn: () => getDiary({ id: diaryId }),
     enabled: diaryId !== null
   });
 

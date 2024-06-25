@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
+import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
@@ -24,7 +24,7 @@ const Zoom = () => {
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById({ id: diaryId }),
+    queryFn: () => getDiary({ id: diaryId }),
     enabled: diaryId !== null
   });
 
@@ -43,6 +43,10 @@ const Zoom = () => {
     history.back();
   }, []);
 
+  useEffect(() => {
+    slideWrapperRef.current?.scrollTo({ left: 0 });
+  }, [diaryData])
+
   return (<Wrapper onClick={historyBack}>
     <Modal onClick={(e) => e.stopPropagation()}>
       <DiaryDate>
@@ -57,12 +61,12 @@ const Zoom = () => {
         }}
       >
 
+        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
+
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
             <Img src={e.src} alt="zoomImage" width={500} height={500} blurDataURL={e.src} />
           </ImageWrapper>)}
-
-        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
 
       </SlideWrapper>
       {indicatorLength > 1 && <IndicatorWrapper>
@@ -132,6 +136,11 @@ const TextWrapper = styled.div`
   padding: 16px;
 
   .text{
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    background-color: red;
+
     white-space: pre-wrap;
     overflow-wrap: break-word;
 
@@ -208,8 +217,8 @@ const Modal = styled.div`
     max-height: 500px;
   } */
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    width: 80%;
-    height: 90%;
+    width: 70%;
+    height: 80%;
   }
 `
 

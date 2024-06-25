@@ -21,6 +21,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { useRouter } from "next/navigation";
 
 interface Props {
   children: ReactNode;
@@ -30,9 +31,10 @@ interface Props {
 
 const AppLayout = ({ children }: Props) => {
   let isMobile = IsMobile();
+  const router = useRouter();
   const current = useSelectedLayoutSegment();
 
-  // if (isMobile === null) return <Loading />; //loading page, to solve useMediaQuery delay problem
+  if (isMobile === null) return <Loading />; //loading page, to solve useMediaQuery delay problem
 
   return (<>
     {isMobile ?
@@ -196,6 +198,7 @@ const Desktop_Layout = styled.div`
 
 const Desktop_Sidebar = styled.div`
   width: 350px;
+  /* width: 400px; */
   height: 100dvh;
   padding: 32px 24px;
   padding-bottom: 12px;

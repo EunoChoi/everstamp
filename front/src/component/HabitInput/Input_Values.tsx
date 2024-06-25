@@ -19,7 +19,7 @@ const HabitInputValues = ({ habitName, setHabitName }: Props) => {
           onChange={(e) => setHabitName(e.currentTarget.value)}
           value={habitName || ""} />
       </Value>
-      <Value>
+      <Value onClick={() => alert('업데이트 예정입니다.')}>
         <span>color</span>
         <div className="colors">
           <button className="color selected"></button>

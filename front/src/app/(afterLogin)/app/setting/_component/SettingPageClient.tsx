@@ -7,8 +7,7 @@ import { format } from 'date-fns';
 
 
 //function
-import { getCurrentUser } from "@/app/(afterLogin)/_lib/getCurrentUser";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
+import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 
 //component
 import Header from "@/component/Header";
@@ -20,12 +19,11 @@ interface Props {
   email: string;
 }
 
-const SettingPageClient = ({ email }: Props) => {
+const SettingPageClient = () => {
 
   const { data } = useQuery({
-    queryKey: ['user', email],
+    queryKey: ['user'],
     queryFn: getCurrentUser,
-    enabled: email !== ''
   })
 
   return (

@@ -127,7 +127,7 @@ router.patch("/", tokenCheck, async (req, res) => {
 })
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /diary -----');
-  const diaryId = req.query.diaryId;
+  const id = req.query.id;
   const email = req.currentUserEmail;
 
   try {
@@ -139,12 +139,12 @@ router.delete("/", tokenCheck, async (req, res) => {
 
     //일기 확인
     const isDiaryExist = await Diary.findOne({
-      where: { id: diaryId }
+      where: { id }
     });
     if (!isDiaryExist) return res.status(400).json('일기가 존재하지 않습니다.');
 
     await Diary.destroy({
-      where: { id: diaryId }
+      where: { id }
     });
   } catch (e) {
     console.error(e);

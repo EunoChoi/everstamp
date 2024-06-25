@@ -14,7 +14,7 @@ import { ChangeEvent } from "react";
 import Axios from "@/Aixos/aixos";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import { useQuery } from "@tanstack/react-query";
-import { getRecentHabitStatus } from "@/app/(afterLogin)/_lib/getRecentHabitStatus";
+import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
@@ -38,7 +38,7 @@ const HabitBox = ({ name, id, email }: Props) => {
 
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
-    queryFn: () => getRecentHabitStatus({ id, date: currentCleanDateTime }),
+    queryFn: () => getHabit_status_4day({ id, date: currentCleanDateTime }),
   });
 
 
