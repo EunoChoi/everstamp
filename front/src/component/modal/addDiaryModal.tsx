@@ -16,11 +16,10 @@ import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
 // import { addDiary } from "@/app/(afterLogin)/_lib/diary";
-
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const AddDiaryModal = () => {
-
+  const queryClient = useQueryClient();
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
 
@@ -31,17 +30,39 @@ const AddDiaryModal = () => {
   const [text, setText] = useState<string>('');
   const [images, setImages] = useState<Array<string>>([]);
 
+  //해당 날짜 일기 존재하면 리다이렉트 필요할듯?
+  //url로 입력창에 강제 접근이 가능하긴 함
+  //백엔드에서 글 작성 막아두긴해서 작성은 안되지만
+
+
+
+  const addDiaryMutation = useMutation({
+    mutationFn: ({ date, text, images }: any) => Axios.post('/diary', { date, text, images }),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('success add diary');
+      historyBack();
+    },
+    onError: () => {
+      alert('error add diary');
+      console.log('error add diary');
+    },
+  });
 
   const onAddDiary = () => {
     if (text.length !== 0) {
-      // addDiary({ date, text, images });
+      addDiaryMutation.mutate({ date, text, images });
     }
-    else alert('일기 내용을 입력해주세요');
+    else alert('내용을 입력해주세요');
   };
+
   const historyBack = useCallback(() => {
     history.back();
   }, []);
-
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -50,7 +71,6 @@ const AddDiaryModal = () => {
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        ㆀㆀㆀㅇ
         <DiaryInputDate date={date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
         <DiaryInputUploadedImage images={images} setImages={setImages} />

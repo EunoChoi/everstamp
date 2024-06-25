@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
 //function
@@ -25,16 +25,33 @@ interface ServerImageProps {
   id: string;
   src: string;
 }
+interface EditDiaryProps {
+  diaryId: string | null;
+  text: string;
+  images: string[];
+}
 
 
 const EditDiaryModal = () => {
-
+  const queryClient = useQueryClient();
   const params = useSearchParams();
   const diaryId = params.get('id');
 
-
+  const [text, setText] = useState<string>('');
+  const [images, setImages] = useState<Array<string>>([]);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
+
+
+
+  const onEditDiary = () => {
+    editDiaryMutation.mutate({ text, images, diaryId })
+  };
+  const historyBack = useCallback(() => {
+    history.back();
+  }, []);
+
+
 
 
   const { data: diaryData } = useQuery({
@@ -43,19 +60,22 @@ const EditDiaryModal = () => {
     enabled: diaryId !== null
   });
 
+  const editDiaryMutation = useMutation({
+    mutationFn: ({ text, images, diaryId }: EditDiaryProps) => Axios.patch(`/diary?diaryId=${diaryId}`, { text, images }),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
 
-  const [text, setText] = useState<string>(diaryData?.text);
-  const [images, setImages] = useState<Array<string>>([]);
-
-
-  const editDiary = () => {
-    //이미지 포함해서 수정 요청
-    Axios.patch(`/diary?userEmail=${diaryData?.email}&diaryId=${diaryId}`, { text, images })
-  };
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
-
+      console.log('success edit diary');
+      historyBack();
+    },
+    onError: () => {
+      alert('error add diary');
+      console.log('error add diary');
+    },
+  });
 
 
   useEffect(() => {
@@ -75,7 +95,7 @@ const EditDiaryModal = () => {
         <DiaryInputDate date={diaryData?.date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
         <DiaryInputUploadedImage images={images} setImages={setImages} />
-        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={editDiary} images={images} setImages={setImages} type={'edit'} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onEditDiary} images={images} setImages={setImages} type={'edit'} />
       </Modal>
     </Wrapper>);
 }

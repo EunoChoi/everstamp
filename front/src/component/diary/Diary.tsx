@@ -18,7 +18,6 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 //img
 import IsMobile from "@/function/IsMobile";
-import { deleteDiary } from "@/app/(afterLogin)/_lib/diary";
 import DiaryHabits from "./Diary_Habits";
 import DiarySlide from "./Diary_Slide";
 

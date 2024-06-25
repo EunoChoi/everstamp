@@ -7,8 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteDiary } from "@/app/(afterLogin)/_lib/diary";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 
 interface ImageProps {
@@ -22,6 +21,7 @@ interface Habit {
   name: string;
   themeColor: string;
 }
+
 interface Props {
   position: 'calendar' | 'list';
   diaryData: {
@@ -35,7 +35,7 @@ interface Props {
 }
 
 const DiarySlide = ({ diaryData, position }: Props) => {
-
+  const queryClient = useQueryClient();
   const router = useRouter();
   const images = diaryData?.Images;
 
@@ -52,16 +52,29 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const onEditDiary = () => {
     router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
   };
-  const test = useMutation({
-    mutationFn: async (id: number | string | null) => {
+
+
+  const deleteDiaryMutation = useMutation({
+    mutationFn: async ({ id }: { id: number }) => {
       await Axios.delete(`diary?id=${id}`)
-    }, onSuccess: () => {
-      // historyBack();
-      alert('삭제 완료');
-    }
+    },
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('success delete diary');
+    },
+    onError: (e) => {
+      console.log(e)
+    },
   });
+
+
   const onDeleteDiary = () => {
-    test.mutate(diaryData.id);
+    const res = confirm('일기를 지우시겠습니까?');
+    if (res) deleteDiaryMutation.mutate({ id: diaryData.id });
   };
 
   useEffect(() => {
