@@ -26,17 +26,6 @@ export async function getHabit({ id }: IdProps) {
   return data;
 }
 
-export async function deleteHabit({ id }: IdProps) {
-
-  const { data } = await Axios.delete(`habit?id=${id}`);
-  if (!data) {
-    console.log('Failed to delete data!!');
-    throw new Error('Failed to delte data')
-  }
-
-  return data;
-}
-
 export async function getHabits({ sort }: ListProps) {
   const { data } = await Axios.get(`/habit/list?sort=${sort}`);
 

@@ -161,7 +161,7 @@ router.post("/", tokenCheck, async (req, res) => {
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /habit -----');
   const email = req.currentUserEmail;
-  const { id, name, themeColor } = req.body;
+  const { habitId, habitName, themeColor } = req.body;
   try {
     const currentUser = await User.findOne({
       where: { email },
@@ -170,16 +170,23 @@ router.patch("/", tokenCheck, async (req, res) => {
 
 
     let habit = await Habit.findOne({
-      where: { id },
+      where: { id: habitId },
     });
     if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
 
+    habit = await Habit.findOne({
+      where: { name: habitName },
+    });
+    if (habit) return res.status(403).json("동일한 이름의 습관이 존재합니다.");
+
+    //같은 이름 있는지 확인 후 같은 이름이 있으면 수정 중단
+
 
     habit = await Habit.update({
-      name,
+      name: habitName,
       themeColor
     }, {
-      where: { id }
+      where: { id: habitId }
     });
 
     if (habit) return res.status(200).json(habit);
@@ -192,7 +199,7 @@ router.patch("/", tokenCheck, async (req, res) => {
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /habit?id -----');
   const email = req.currentUserEmail;
-  const { id } = req.query;
+  const { habitId } = req.query;
 
   try {
     const currentUser = await User.findOne({
@@ -202,13 +209,13 @@ router.delete("/", tokenCheck, async (req, res) => {
 
 
     let habit = await Habit.findOne({
-      where: { id },
+      where: { id: habitId },
     });
     if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
 
 
     await Habit.destroy({
-      where: { id }
+      where: { id: habitId }
     });
 
     return res.status(200).json('habit deleted');

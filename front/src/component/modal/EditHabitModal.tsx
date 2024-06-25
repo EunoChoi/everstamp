@@ -5,15 +5,31 @@ import { useCallback, useEffect, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
 import { useSearchParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 
-import { deleteHabit, getHabit } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit } from "@/app/(afterLogin)/_lib/habit";
+
+interface HabitProps {
+  habitId: string | null;
+  habitName?: string;
+  themeColor?: string;
+}
+interface Err {
+  response: {
+    data: string;
+  }
+}
 
 const EditHabitModal = () => {
+  const queryClient = useQueryClient();
 
   const params = useSearchParams();
   const habitId = params.get('id');
+  const [habitName, setHabitName] = useState<string>('');
+  const [themeColor, setThemeColor] = useState<string>('default');
+
+
 
   const { data: habitData } = useQuery({
     queryKey: ['habits', 'id', habitId],
@@ -21,32 +37,58 @@ const EditHabitModal = () => {
     enabled: habitId !== null
   });
 
-  // console.log('habitId : ', habitId);
-  // console.log(habitData);
+  const editHabitMutation = useMutation({
+    mutationFn: ({ habitId, habitName, themeColor }: HabitProps) => Axios.patch('/habit', { habitId, habitName, themeColor }),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('edit habit success');
+      historyBack();
+    },
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('edit habit error');
+    },
+  });
+  const deleteHabitMutation = useMutation({
+    mutationFn: async ({ habitId }: HabitProps) => await Axios.delete(`habit?habitId=${habitId}`),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('delete habit success');
+      historyBack();
+    },
+    onError: (e: Err) => {
+      alert(e?.response?.data);
+      console.log('delete habit error');
+    },
+  });
 
 
+  const onEditHabit = () => {
+    if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, themeColor });
+    else alert('최대 10글자까지만 가능합니다.')
+  };
+  const onDeleteHabit = () => {
+    const res = confirm('일기를 지우시겠습니까?');
+    if (res) deleteHabitMutation.mutate({ habitId });
+  }
+  const historyBack = useCallback(() => {
+    history.back();
+  }, []);
 
-  const [habitName, setHabitName] = useState<string>('');
-  const [themeColor, setThemeColor] = useState<string>('default');
 
   useEffect(() => {
     setHabitName(habitData?.name);
     setThemeColor(habitData?.themeColor);
   }, [habitData]);
 
-
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
-
-  const onEditHabit = () => {
-    if (habitName.length <= 10) Axios.patch('/habit', { id: habitId, name: habitName, themeColor })
-    else alert('최대 10글자까지만 가능합니다.')
-  };
-
-  const onDeleteHabit = () => {
-    deleteHabit({ id: habitId });
-  }
 
   return (
     <Wrapper onClick={() => historyBack()}>
