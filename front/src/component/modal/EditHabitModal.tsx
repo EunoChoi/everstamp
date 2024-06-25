@@ -10,7 +10,7 @@ import Axios from "@/Aixos/aixos";
 
 import { deleteHabit, getHabit } from "@/app/(afterLogin)/_lib/habit";
 
-const EditHabit = () => {
+const EditHabitModal = () => {
 
   const params = useSearchParams();
   const habitId = params.get('id');
@@ -59,7 +59,7 @@ const EditHabit = () => {
       </Modal>
     </Wrapper>);
 }
-export default EditHabit;
+export default EditHabitModal;
 
 const Delete = styled.div`
   display: flex;

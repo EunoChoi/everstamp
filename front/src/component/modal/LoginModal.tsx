@@ -13,7 +13,7 @@ import naver from '/public/img/naver.png';
 import { useCallback, useEffect } from "react";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
-const Login = () => {
+const LoginModal = () => {
 
   const historyBack = useCallback(() => {
     history.back();
@@ -56,7 +56,7 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default LoginModal;
 
 const TextWrapper = styled.div`
   display: flex;

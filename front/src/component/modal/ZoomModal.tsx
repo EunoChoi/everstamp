@@ -15,7 +15,7 @@ interface ImageProps {
   src: string;
 }
 
-const Zoom = () => {
+const ZoomModal = () => {
   //param diary id만 가져옴
   //useQuery로 data 가져옴
   //가져온걸 뿌림
@@ -91,7 +91,7 @@ const Zoom = () => {
   </Wrapper>);
 }
 
-export default Zoom;
+export default ZoomModal;
 
 
 const Buttons = styled.div`

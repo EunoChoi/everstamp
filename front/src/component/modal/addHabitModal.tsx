@@ -8,7 +8,7 @@ import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import Axios from "@/Aixos/aixos";
 
 
-const AddHabit = () => {
+const AddHabitModal = () => {
 
   const email = getCurrentUserEmail();
   const [habitName, setHabitName] = useState<string>('');
@@ -31,7 +31,7 @@ const AddHabit = () => {
       </Modal>
     </Wrapper>);
 }
-export default AddHabit;
+export default AddHabitModal;
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

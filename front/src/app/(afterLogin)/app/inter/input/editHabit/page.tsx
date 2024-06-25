@@ -1,9 +1,9 @@
-import EditHabit from "@/component/modal/EditHabit";
+import EditHabitModal from "@/component/modal/EditHabitModal";
 
 const Page = () => {
   return (
     <>
-      <EditHabit></EditHabit>
+      <EditHabitModal />
     </>
   );
 }

@@ -27,7 +27,7 @@ interface ServerImageProps {
 }
 
 
-const EditDiary = () => {
+const EditDiaryModal = () => {
 
   const params = useSearchParams();
   const diaryId = params.get('id');
@@ -80,7 +80,7 @@ const EditDiary = () => {
     </Wrapper>);
 }
 
-export default EditDiary;
+export default EditDiaryModal;
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

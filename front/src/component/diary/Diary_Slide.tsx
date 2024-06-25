@@ -5,9 +5,11 @@ import Image from "next/image";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteDiary } from "@/app/(afterLogin)/_lib/diary";
+import { useMutation } from "@tanstack/react-query";
+import Axios from "@/Aixos/aixos";
 
 interface ImageProps {
   id: string;
@@ -44,12 +46,23 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const indicatorArr = new Array(indicatorLength).fill(0);
 
 
+  const historyBack = useCallback(() => {
+    history.back();
+  }, []);
   const onEditDiary = () => {
     router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
   };
+  const test = useMutation({
+    mutationFn: async (id: number | string | null) => {
+      await Axios.delete(`diary?id=${id}`)
+    }, onSuccess: () => {
+      // historyBack();
+      alert('삭제 완료');
+    }
+  });
   const onDeleteDiary = () => {
-    deleteDiary({ id: diaryData.id });
-  }
+    test.mutate(diaryData.id);
+  };
 
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });

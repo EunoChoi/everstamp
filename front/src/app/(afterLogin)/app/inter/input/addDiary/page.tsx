@@ -1,9 +1,9 @@
-import AddDiary from "@/component/modal/AddDiary";
+import AddDiaryModal from "@/component/modal/addDiaryModal";
 
 const Page = () => {
   return (
     <>
-      <AddDiary />
+      <AddDiaryModal />
     </>
   );
 }

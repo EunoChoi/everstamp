@@ -1,10 +1,9 @@
-'use client';
-import EditDiary from "@/component/modal/EditDiary";
+import EditDiaryModal from "@/component/modal/editDiaryModal";
 
 const Page = () => {
   return (
     <>
-      <EditDiary />
+      <EditDiaryModal />
     </>
   );
 }

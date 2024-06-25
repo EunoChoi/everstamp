@@ -1,8 +1,8 @@
-import Zoom from "@/component/modal/Zoom";
+import ZoomModal from "@/component/modal/ZoomModal";
 
 const Page = () => {
   return (
-    <Zoom></Zoom>
+    <ZoomModal />
   );
 }
 

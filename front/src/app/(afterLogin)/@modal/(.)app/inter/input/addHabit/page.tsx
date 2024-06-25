@@ -1,8 +1,8 @@
-import AddHabit from "@/component/modal/AddHabit";
+import AddHabitModal from "@/component/modal/addHabitModal";
 
 const Page = () => {
   return (
-    <AddHabit></AddHabit>
+    <AddHabitModal />
   );
 }
 

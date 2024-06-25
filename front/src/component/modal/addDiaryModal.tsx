@@ -15,9 +15,11 @@ import DiaryInputTextArea from "../diaryInput/Input_TextArea";
 import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
+// import { addDiary } from "@/app/(afterLogin)/_lib/diary";
 
 
-const AddDiary = () => {
+
+const AddDiaryModal = () => {
 
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
@@ -30,8 +32,11 @@ const AddDiary = () => {
   const [images, setImages] = useState<Array<string>>([]);
 
 
-  const addDiary = () => {
-    Axios.post('/diary', { email, date, text, images });
+  const onAddDiary = () => {
+    if (text.length !== 0) {
+      // addDiary({ date, text, images });
+    }
+    else alert('일기 내용을 입력해주세요');
   };
   const historyBack = useCallback(() => {
     history.back();
@@ -45,15 +50,16 @@ const AddDiary = () => {
   return (
     <Wrapper onClick={historyBack}>
       <Modal onClick={(e) => e.stopPropagation()}>
+        ㆀㆀㆀㅇ
         <DiaryInputDate date={date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
         <DiaryInputUploadedImage images={images} setImages={setImages} />
-        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={addDiary} images={images} setImages={setImages} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onAddDiary} images={images} setImages={setImages} />
       </Modal>
     </Wrapper>);
 }
 
-export default AddDiary;
+export default AddDiaryModal;
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;
