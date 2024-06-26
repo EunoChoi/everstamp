@@ -145,6 +145,9 @@ const SC_Common = {
       &.habit{
         justify-content: start;
         overflow-y: scroll;
+        @media (min-height:480px){
+          justify-content: center;
+        }
       }
 
       padding-top : var(--optionHeight);

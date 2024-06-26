@@ -111,7 +111,7 @@ const Info = styled.div`
   align-items: center;
   /* text-transform:lowercase; */
 
-  padding: 36px 12px; 
+  padding: 24px 12px; 
 
   width: 100%;
   text-align: start;
@@ -191,12 +191,12 @@ const ChartWrapper = styled.div`
 const Name = styled.div`
   color: rgb(var(--greyTitle));
   font-weight: 600;
-  font-size: 24px;
+  font-size: 28px;
   height: auto;
   display: flex;
   justify-content: center;
   text-transform: uppercase;
-  padding: 4px 0;
+  padding-top: 16px;
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     display: none;
