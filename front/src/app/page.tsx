@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 
 //hooks
 import IsMobile from "@/function/IsMobile";
+import Indicator from "@/component/indicator";
 
 //image
 
@@ -24,22 +25,10 @@ const App = () => {
       }}
       ref={slideWrapperRef}
     >
-      <IndicatorWrapper>
-        {[...Array(3)].map((_, i: number) =>
-          <div
-            key={'indicator' + i}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                top: slideWrapperRef.current.clientHeight * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
-      </IndicatorWrapper>
-      <Section className="first"></Section>
+      <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={3} />
+      {/* <Section className="first"></Section>
       <Section className="second"></Section>
-      <Section className="third"></Section>
+      <Section className="third"></Section> */}
     </Wrapper>
   );
 }

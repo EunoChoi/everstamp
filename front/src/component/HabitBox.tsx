@@ -3,16 +3,10 @@
 import styled from "styled-components";
 
 
-//icon
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-
 import { subDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
 import Axios from "@/Aixos/aixos";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";

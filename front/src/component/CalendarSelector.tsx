@@ -34,7 +34,6 @@ const CalendarSelector = () => {
   const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
   const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
 
-  const email = getCurrentUserEmail();
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(currentMonth, 'MM')],
     queryFn: () => getHabit_status_month({ date: currentMonth }),

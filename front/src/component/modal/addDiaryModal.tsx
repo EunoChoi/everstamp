@@ -33,15 +33,8 @@ const AddDiaryModal = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
-  const email = getCurrentUserEmail();
   const [text, setText] = useState<string>('');
   const [images, setImages] = useState<Array<string>>([]);
-
-  //해당 날짜 일기 존재하면 리다이렉트 필요할듯?
-  //url로 입력창에 강제 접근이 가능하긴 함
-  //백엔드에서 글 작성 막아두긴해서 작성은 안되지만
-
-
 
   const addDiaryMutation = useMutation({
     mutationFn: ({ date, text, images }: any) => Axios.post('/diary', { date, text, images }),

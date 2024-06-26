@@ -10,7 +10,7 @@ import { signIn } from "next-auth/react";
 import google from '/public/img/google.png';
 import kakao from '/public/img/kakao.png';
 import naver from '/public/img/naver.png';
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 const LoginModal = () => {

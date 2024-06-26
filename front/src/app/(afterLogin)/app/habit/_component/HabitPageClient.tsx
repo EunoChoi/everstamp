@@ -11,7 +11,6 @@ import HabitBox from "@/component/HabitBox";
 import Header from "@/component/Header";
 
 //icon
-import SortIcon from '@mui/icons-material/Sort';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -19,6 +18,7 @@ import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+import Indicator from "@/component/indicator";
 
 interface Props {
   email: string;
@@ -34,7 +34,6 @@ const HabitPageClient = ({ email }: Props) => {
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
   const [page, setPage] = useState<number>(0);
 
-  const [indicator, setIndicator] = useState<Array<number>>([]);
 
   const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
@@ -61,8 +60,6 @@ const HabitPageClient = ({ email }: Props) => {
       while (tempHabits.length > 0) {
         organized.push(tempHabits.splice(0, 6));
       }
-
-      setIndicator(new Array(organized.length).fill(0));
       setOrganizedHabits(organized);
     }
   }, [habits]);
@@ -100,20 +97,7 @@ const HabitPageClient = ({ email }: Props) => {
             </HabitGrid>)}
         </HabitGridList>
 
-
-        <IndicatorWrapper>
-          {indicator.map((_, i: number) =>
-            <div
-              key={'indicator' + i}
-              className={page === i ? 'current' : ''}
-              onClick={() => {
-                gridListRef.current?.scrollTo({
-                  left: gridListRef.current.clientWidth * i,
-                  behavior: "smooth"
-                })
-              }} />)}
-        </IndicatorWrapper>
-
+        <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={organizedHabits.length} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
@@ -183,27 +167,6 @@ const HabitGrid = styled.div`
   @media (orientation: portrait) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-  }
-`
-const IndicatorWrapper = styled.div`
-  display: flex;
-  margin-top: 8px;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 16px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
 `
 

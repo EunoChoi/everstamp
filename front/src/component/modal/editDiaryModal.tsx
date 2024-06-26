@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import styled from "styled-components";
-import Image from "next/image";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

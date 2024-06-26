@@ -1,5 +1,4 @@
 import Axios from "@/Aixos/aixos";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface IdProps {
   id: string | number | null;

@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-
   return (
     <Wrapper>
       <Title>{title}</Title>

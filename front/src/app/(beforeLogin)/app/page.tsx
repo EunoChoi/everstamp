@@ -3,23 +3,10 @@
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'
-
-
-//component
-// import Loading from "@/component/loading";
-
-//hooks
-import IsMobile from "@/function/IsMobile";
-
-//image
-import loginPageImg from '/public/img/loginPageImg.jpg';
 import tree from '/public/img/tree.png';
 
 
-const Io = () => {
-  const router = useRouter()
-
+const Page = () => {
   return (
     <Wrapper>
       <ImageWrapper>
@@ -45,7 +32,7 @@ const Io = () => {
   );
 }
 
-export default Io;
+export default Page;
 
 const Wrapper = styled.div`
   width: 100dvw;

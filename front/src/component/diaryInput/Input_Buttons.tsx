@@ -4,7 +4,6 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { RefObject, useCallback } from "react";
 import Axios from "@/Aixos/aixos";
 
@@ -28,8 +27,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
 
       //게시글 최대 이미지 개수 제한
       if (images.length + ArrayImages.length > 6) {
-        console.log('이미지 파일은 최대 5개까지 삽입 가능합니다.')
-        // toast.error("이미지 파일은 최대 10개까지 삽입 가능합니다.");
+        alert('이미지 파일은 최대 5개까지 삽입 가능합니다.')
         return null;
       }
 
@@ -38,8 +36,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
         if (file.size > 8 * 1024 * 1024) return true;
       });
       if (isOverSize) {
-        console.log("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
-        // toast.error("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
+        alert("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
         return null;
       }
 

@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 import { auth } from "@/auth";
 import CalendarPageClient from "./_component/CalendarPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { format, addMonths, subMonths } from "date-fns";
+import { format } from "date-fns";
 import { getDiary_date_fetch } from "../../_lib/diary_ssr";
 import { getHabit_status_month_fetch } from "../../_lib/habit_ssr";
 

@@ -5,10 +5,11 @@ import Image from "next/image";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
+import Indicator from "../indicator";
 
 interface Err {
   response: {
@@ -48,7 +49,6 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
-  const indicatorLength = images.length + 2;
 
 
   const historyBack = useCallback(() => {
@@ -112,9 +112,8 @@ const DiarySlide = ({ diaryData, position }: Props) => {
             width={300}
             height={300}
             blurDataURL={e.src}
-          // placeholder="blur"
+            placeholder="blur"
           ></Img>)}
-
 
 
         <EditBox className="slideChild">
@@ -131,19 +130,8 @@ const DiarySlide = ({ diaryData, position }: Props) => {
           </button>
         </EditBox>
       </SlideWrapper>
-      <IndicatorWrapper>
-        {[...Array(indicatorLength)].map((_, i: number) =>
-          <div
-            key={'indicator' + i}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
-      </IndicatorWrapper>
+
+      <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={images.length + 2} />
     </>
   );
 }
@@ -256,33 +244,5 @@ const EditBox = styled.div`
     font-size: 16px;
     font-weight: 500;
     text-transform: capitalize;
-  }
-`
-const IndicatorWrapper = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  margin-top: 8px;
-  height: auto;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  div:last-child{
-    border-radius: 2px;
-    background-color: ${(props) => props.theme.point ? props.theme.point + 'b0' : '#9797CB'};
-  }
-  .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
   }
 `

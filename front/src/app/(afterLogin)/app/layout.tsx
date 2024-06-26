@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { ReactNode } from "react";
-import { GetServerSideProps } from "next";
 
 //component
 import CalendarSelector from "@/component/CalendarSelector";

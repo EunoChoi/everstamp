@@ -12,14 +12,10 @@ import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 //component
 import Header from "@/component/Header";
 
-//styledComponent
 import SC_Common from "@/style/common";
-import { useState } from "react";
 import Axios from "@/Aixos/aixos";
 
-interface Props {
-  email: string;
-}
+
 
 const SettingPageClient = () => {
   const queryClient = useQueryClient();

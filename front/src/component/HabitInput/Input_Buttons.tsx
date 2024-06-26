@@ -1,10 +1,7 @@
 import styled from "styled-components";
-
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import { RefObject } from "react";
-import Axios from "@/Aixos/aixos";
+
 
 interface Props {
   type?: string;

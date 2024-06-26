@@ -1,10 +1,4 @@
 import styled from "styled-components";
-
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
-import { RefObject } from "react";
-import Axios from "@/Aixos/aixos";
-
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
 
 interface Props {
@@ -36,15 +30,6 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Pr
                 {[...Array(i + 1)].map((_, j: number) => <StarPurple500OutlinedIcon key={i + j} fontSize="inherit" />)}
               </div>
             </RadioButton>)}
-
-          {/* <RadioButton>
-            <input type="radio" name="priority" />
-            <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /></div>
-          </RadioButton>
-          <RadioButton>
-            <input type="radio" name="priority" />
-            <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /></div>
-          </RadioButton> */}
         </RadioWrapper>
       </Value>
     </>

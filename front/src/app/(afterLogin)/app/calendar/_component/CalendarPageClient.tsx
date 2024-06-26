@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 //function
 import IsMobile from "@/function/IsMobile";
 import { getDiary_date } from "@/app/(afterLogin)/_lib/diary";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 //styledComponent
 import SC_Common from "@/style/common";
@@ -26,9 +24,6 @@ interface Props {
 }
 
 const CalendarPageClient = ({ date }: Props) => {
-  // console.log(email, date);
-
-  const router = useRouter();
   const isMobile = IsMobile();
 
   const { data: diaryData } = useQuery({

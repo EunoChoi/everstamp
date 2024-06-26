@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import Indicator from "../indicator";
 
 interface ImageProps {
   id: number;
@@ -64,23 +65,13 @@ const ZoomModal = () => {
 
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
-            <Img src={e.src} alt="zoomImage" width={500} height={500} blurDataURL={e.src} />
+            <Img src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
           </ImageWrapper>)}
 
       </SlideWrapper>
-      {indicatorLength > 1 && <IndicatorWrapper>
-        {[...Array(indicatorLength)].map((_: any, i: number) =>
-          <div
-            key={`indicator${i}`}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
-      </IndicatorWrapper>}
+
+      {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
+
       <Buttons>
         <Button onClick={historyBack} >
           <CancelOutlinedIcon className="icon" />
@@ -249,29 +240,5 @@ const SlideWrapper = styled.div`
     &:last-child{
       margin-right: 0;
     }
-  }
-`
-const IndicatorWrapper = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  margin: 8px 0;
-  height: auto;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
 `

@@ -1,17 +1,16 @@
 'use client';
 
-import { endOfMonth, format, getDate, lastDayOfMonth } from "date-fns";
+import { format, lastDayOfMonth } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import CalendarSelector from "../CalendarSelector";
 import HabitInfoCalendar from "../habitInfo/HabitInfoCalendar";
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
+import HabitInfoChart from "../habitInfo/HabitInfoChart";
+import Indicator from "../indicator";
 
 
 
@@ -67,33 +66,10 @@ const HabitInfoModal = () => {
             </CalendarWrapper>
 
             <ChartWrapper className="slideChild">
-              <Chart>
-                <span className="title">Monthly habit achievement count</span>
-                <div className="chartArea">
-                  {[...Array(12)].map((_, i: number) =>
-                    <BarWrapper className="barWrapper" key={'month' + i + 1} $count={(i + 1) / 18 * 100}>
-                      <div className="barEmpty">{i + 1}</div>
-                      <div className="bar"></div>
-                      <div className="month">{i + 1}</div>
-                    </BarWrapper>)}
-                </div>
-                <span className="bottom">Month</span>
-              </Chart>
+              <HabitInfoChart />
             </ChartWrapper>
           </Slide>
-          {<IndicatorWrapper>
-            {[...Array(2)].map((_: any, i: number) =>
-              <div
-                key={`indicator${i}`}
-                className={page === i ? 'current' : ''}
-                onClick={() => {
-                  slideWrapperRef.current?.scrollTo({
-                    left: slideWrapperRef.current.clientWidth * i,
-                    behavior: "smooth"
-                  })
-                }}
-              />)}
-          </IndicatorWrapper>}
+          <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={2} />
         </SlideWrapper>
       </Content>
 
@@ -181,52 +157,7 @@ const Info = styled.div`
     }
   }
 `
-const BarWrapper = styled.div<{ $count: number }>`
-  width: 100%;
-  height: 100%;
-  margin: 0 4px;
 
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  .barEmpty{
-    flex-grow: 1;
-    display : flex;
-    flex-direction: column;
-    justify-content: end;
-  }
-  .bar{
-    height: ${(props) => props.$count + '%'};
-    border-radius: 8px;
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};  
-  }
-  .month{
-    font-weight: 500;
-  }
-`
-const Chart = styled.div`
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  color: rgb(var(--greyTitle));
-  >span{
-    padding: 8px 0;
-  }
-  .title, .bottom{
-    font-weight: 500;
-    color: grey;
-  }
-  .chartArea{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-`
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;

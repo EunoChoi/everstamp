@@ -6,7 +6,6 @@ import { getHabits_fetch } from "../../_lib/habit_ssr";
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';
-  const params = searchParams;
 
   //server prefetch
   const queryClient = new QueryClient();

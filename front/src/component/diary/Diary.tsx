@@ -1,23 +1,13 @@
 'use client';
 
 import styled from "styled-components";
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { format } from 'date-fns';
 
 
-
-
-//icon
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
-
-//img
-import IsMobile from "@/function/IsMobile";
 import DiaryHabits from "./Diary_Habits";
 import DiarySlide from "./Diary_Slide";
 

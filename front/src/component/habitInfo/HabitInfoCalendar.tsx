@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
 import { useSearchParams } from "next/navigation"
 
 import { format, addMonths, subMonths } from 'date-fns';
@@ -14,10 +13,8 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TodayIcon from '@mui/icons-material/Today';
 
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
 import { getHabit_single_status_month, getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 interface Props {
   setHabitCount: (n: number) => void;
@@ -36,6 +33,10 @@ const HabitInfoCalendar = ({ setHabitCount, currentMonth, setCurrentMonth }: Pro
   const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });//일요일 시작 기준이라 월요일 시작 기준으로 처리 필요
   const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
   const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
+
+  let week = [];
+  let sumOfWeek = [];
+  let day = startDate;
 
   const { data } = useQuery({
     queryKey: ['habit', 'id', habitId, 'month', format(currentMonth, 'MM')],
@@ -59,16 +60,11 @@ const HabitInfoCalendar = ({ setHabitCount, currentMonth, setCurrentMonth }: Pro
   const dateValue = (day: Date) => {
     const result = monthSingleHabitResult[format(day, 'yyMMdd')];
     const formattedDate = format(day, 'd');
-
     return <DateValue>
       <>{formattedDate}</>
       {result && <span className="isHabitExist"></span>}
     </DateValue>;
   };
-
-  let week = [];
-  let sumOfWeek = [];
-  let day = startDate;
 
   useEffect(() => {
     setHabitCount(data?.length);
@@ -236,9 +232,7 @@ const CalDate = styled.button`
   text-align: center;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    /* font-weight: 500; */
-    /* color: rgb(var(--greyTitle)); */
-    background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '35' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{
