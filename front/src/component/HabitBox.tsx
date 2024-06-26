@@ -18,6 +18,7 @@ import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 
 interface Props {
   name: string;
@@ -112,7 +113,11 @@ const HabitBox = ({ name, id }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
+      {/* <button>
+        <InsertChartOutlinedIcon fontSize="small" />
+      </button> */}
       <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
+
         <SettingsOutlinedIcon fontSize="small" />
       </button>
     </ButtonWrapper>
@@ -129,6 +134,9 @@ const ButtonWrapper = styled.div`
   align-items: center;
 
   color: #b9b9b9;
+  button{
+    margin : 0 6px;
+  }
 `
 const Wrapper = styled.div`
   width: 100%;

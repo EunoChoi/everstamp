@@ -45,7 +45,8 @@ const HabitPageClient = ({ email }: Props) => {
 
 
   const onAddHabit = () => {
-    router.push('/app/inter/input/addHabit', { scroll: false })
+    if (habits.length < 18) router.push('/app/inter/input/addHabit', { scroll: false })
+    else alert('습관은 최대 18개까지 생성 가능합니다.');
   }
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
