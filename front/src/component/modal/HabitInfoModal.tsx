@@ -68,16 +68,16 @@ const HabitInfoModal = () => {
 
             <ChartWrapper className="slideChild">
               <Chart>
-                <span>Habit achive count of month</span>
+                <span className="title">Monthly habit achievement count</span>
                 <div className="chartArea">
                   {[...Array(12)].map((_, i: number) =>
-                    <BarWrapper className="barWrapper" key={'month' + i + 1} count={(i + 1) / 18 * 100}>
+                    <BarWrapper className="barWrapper" key={'month' + i + 1} $count={(i + 1) / 18 * 100}>
                       <div className="barEmpty">{i + 1}</div>
                       <div className="bar"></div>
                       <div className="month">{i + 1}</div>
                     </BarWrapper>)}
                 </div>
-                <span>Month</span>
+                <span className="bottom">Month</span>
               </Chart>
             </ChartWrapper>
           </Slide>
@@ -181,7 +181,7 @@ const Info = styled.div`
     }
   }
 `
-const BarWrapper = styled.div<{ count: number }>`
+const BarWrapper = styled.div<{ $count: number }>`
   width: 100%;
   height: 100%;
   margin: 0 4px;
@@ -196,7 +196,7 @@ const BarWrapper = styled.div<{ count: number }>`
     justify-content: end;
   }
   .bar{
-    height: ${(props) => props.count + '%'};
+    height: ${(props) => props.$count + '%'};
     border-radius: 8px;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};  
   }
@@ -215,6 +215,10 @@ const Chart = styled.div`
   color: rgb(var(--greyTitle));
   >span{
     padding: 8px 0;
+  }
+  .title, .bottom{
+    font-weight: 500;
+    color: grey;
   }
   .chartArea{
     width: 100%;
