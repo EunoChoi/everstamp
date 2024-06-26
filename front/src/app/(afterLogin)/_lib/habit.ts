@@ -71,3 +71,14 @@ export async function getHabit_single_status_month({ id, date }: { id: string | 
 
   return data;
 }
+
+export async function getHabit_single_status_year({ id, date }: { id: string | null, date: Date }) {
+  const { data } = await Axios.get(`/habit/year/single?id=${id}&date=${date.getTime()}`);
+
+  if (!data) {
+    console.log('Failed to fetch data!!');
+    throw new Error('Failed to fetch data')
+  }
+
+  return data;
+}

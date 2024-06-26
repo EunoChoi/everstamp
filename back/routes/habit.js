@@ -1,6 +1,6 @@
 
 const express = require("express");
-const { subDays, startOfMonth, endOfMonth } = require("date-fns");
+const { subDays, startOfMonth, endOfMonth, getYear } = require("date-fns");
 const db = require("../models/index.js");
 const { promise } = require("bcrypt/promises.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
@@ -137,7 +137,7 @@ router.get("/month/single", tokenCheck, async (req, res) => {
           { date: { [Op.lte]: monthEnd } }
         ],
       },
-      attributes: ['date', 'visible'],
+      attributes: ['date'],
       include: [{
         model: Habit,
         where: { id },
@@ -147,6 +147,50 @@ router.get("/month/single", tokenCheck, async (req, res) => {
 
     if (diary) return res.status(200).json(diary);
     else return res.status(400).json(`한달 습관(${id}) 정보를 불러오지 못하였습니다.`);
+  } catch (e) {
+    console.error(e);
+  }
+})
+//load year single habit status
+router.get("/year/single", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/year/single -----');
+  const { id, date } = req.query;
+  const email = req.currentUserEmail;
+
+  // console.log(id, date, email);
+
+  try {
+    const result = [];
+    const year = getYear(Number(date));
+    // console.log('year : ', year);
+    const months = [];
+    for (let i = 0; i < 12; i++) months.push(new Date(year, i + 1, 0));
+    // console.log('months : ', months);
+
+    for (let i = 0; i < 12; i++) {
+      let monthStart = startOfMonth(months[i]);
+      let monthEnd = endOfMonth(months[i]);
+      // console.log(monthStart, monthEnd);
+      let diary = await Diary.findAll({
+        where: {
+          email,
+          [Op.and]: [
+            { date: { [Op.gte]: monthStart } },
+            { date: { [Op.lte]: monthEnd } }
+          ],
+        },
+        attributes: ['date'],
+        include: [{
+          model: Habit,
+          where: { id },
+          attributes: ['name'],
+        },],
+      });
+      if (diary) result.push(diary.length);
+    }
+
+    if (result) return res.status(200).json(result);
+    else return res.status(400).json(`1년 습관(${id}) 정보를 불러오지 못하였습니다.`);
   } catch (e) {
     console.error(e);
   }

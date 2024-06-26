@@ -111,7 +111,7 @@ const Info = styled.div`
   align-items: center;
   /* text-transform:lowercase; */
 
-  padding: 24px 12px; 
+  padding: 36px 12px; 
 
   width: 100%;
   text-align: start;
@@ -152,7 +152,7 @@ const Info = styled.div`
     }
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    padding: 24px;
+    padding: 36px 28px; 
     .infoText{
       font-size: 20px;
     }
