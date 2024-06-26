@@ -6,6 +6,7 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { RefObject, useCallback } from "react";
 import Axios from "@/Aixos/aixos";
+import { useMutation } from "@tanstack/react-query";
 
 interface Props {
   type?: string;
@@ -15,7 +16,29 @@ interface Props {
   setImages: (images: string[]) => void;
 }
 
+interface Err {
+  response: {
+    data?: string;
+    statusText?: string;
+  }
+}
+
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
+
+  const ImageUploadMutation = useMutation({
+    // mutationFn: (imageFormData: FoamData) => Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });,
+    mutationFn: (imageFormData: FormData) => Axios.post('/image', imageFormData),
+    onSuccess: (res) => {
+      console.log(res);
+      setImages([...images, ...res.data]);
+    },
+    onError: (e: Err) => {
+      alert(e?.response?.statusText);
+      console.log(e);
+      console.log('image upload error');
+    },
+  });
+
 
   const historyBack = useCallback(() => {
     history.back();
@@ -26,14 +49,14 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       const ArrayImages = Array.from(e.target.files);
 
       //게시글 최대 이미지 개수 제한
-      if (images.length + ArrayImages.length > 6) {
+      if (images.length + ArrayImages.length > 5) {
         alert('이미지 파일은 최대 5개까지 삽입 가능합니다.')
         return null;
       }
 
       //용량 초과 이미지 체크
       const isOverSize = ArrayImages.find((file) => {
-        if (file.size > 8 * 1024 * 1024) return true;
+        if (file.size > 5 * 1024 * 1024) return true;
       });
       if (isOverSize) {
         alert("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
@@ -45,14 +68,11 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       //e.target.files => formData 변환 과정 필요
       const imageFormData = new FormData();
       Array.from(e.target.files).forEach(file => {
-        console.log(file);
+        // console.log(file);
         imageFormData.append("image", file);
       });
 
-
-      //이미지 업로드 요청
-      //method : post, url : /image/
-      Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });
+      ImageUploadMutation.mutate(imageFormData);
     }
   };
 
