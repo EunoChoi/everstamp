@@ -21,16 +21,16 @@ import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 interface Props {
   setHabitCount: (n: number) => void;
-  setLastDay: (n: number) => void;
+  currentMonth: Date;
+  setCurrentMonth: (d: Date) => void;
 }
 
-const HabitInfoCalendar = ({ setHabitCount, setLastDay }: Props) => {
+const HabitInfoCalendar = ({ setHabitCount, currentMonth, setCurrentMonth }: Props) => {
   const params = useSearchParams(); //for habit id
   const habitId = params.get('id');
 
   const weekTitle = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
   const today = new Date();
-  const [currentMonth, setCurrentMonth] = useState(new Date());
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(currentMonth);
   const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });//일요일 시작 기준이라 월요일 시작 기준으로 처리 필요
@@ -70,10 +70,7 @@ const HabitInfoCalendar = ({ setHabitCount, setLastDay }: Props) => {
   let sumOfWeek = [];
   let day = startDate;
 
-  console.log(data);
-
   useEffect(() => {
-    setLastDay(Number(format(monthEnd, 'dd')));
     setHabitCount(data?.length);
   }, [data])
 

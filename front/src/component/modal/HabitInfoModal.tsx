@@ -19,10 +19,12 @@ const HabitInfoModal = () => {
   const params = useSearchParams();
   const habitId = params.get('id');
   const [habitCount, setHabitCount] = useState<number>(0);
-  const [lastDay, setLastDay] = useState<number>(0);
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
+
+  //year data query key ['habit', 'count', 'year', '2024']
 
   const { data: habitData } = useQuery({
     queryKey: ['habits', 'id', habitId],
@@ -44,40 +46,58 @@ const HabitInfoModal = () => {
       <Name>
         {habitData?.name ? habitData?.name : '-'}
       </Name>
-      <SlideWrapper
-        ref={slideWrapperRef}
-        onScroll={(e) => {
-          setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-        }}
-      >
-        <CalendarWrapper className="slideChild">
-          <div className="info">
-            <span className="name"> {habitData?.name ? habitData?.name : '-'}</span>
-            <div className="infoText">
-              <span>Number of habits</span>
-              <span>achieved this month</span>
-            </div>
-            <div className="infoCount">{habitCount} / {lastDay}</div>
+      <Content>
+        <Info>
+          <span className="name"> {habitData?.name ? habitData?.name : '-'}</span>
+          <div className="infoText">
+            <span>Number of habits</span>
+            <span>achieved of {format(currentMonth, 'MMMM')}</span>
           </div>
-          <HabitInfoCalendar setHabitCount={setHabitCount} setLastDay={setLastDay} />
-        </CalendarWrapper>
-        <ChartWrapper className="slideChild">
-          habit chart...
-        </ChartWrapper>
-      </SlideWrapper>
-      {<IndicatorWrapper>
-        {[...Array(2)].map((_: any, i: number) =>
-          <div
-            key={`indicator${i}`}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
+          <div className="infoCount">{habitCount} / {format(lastDayOfMonth(currentMonth), 'dd')}</div>
+        </Info>
+        <SlideWrapper>
+          <Slide
+            ref={slideWrapperRef}
+            onScroll={(e) => {
+              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
             }}
-          />)}
-      </IndicatorWrapper>}
+          >
+            <CalendarWrapper className="slideChild">
+              <HabitInfoCalendar setHabitCount={setHabitCount} currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} />
+            </CalendarWrapper>
+
+            <ChartWrapper className="slideChild">
+              <Chart>
+                <span>Habit achive count of month</span>
+                <div className="chartArea">
+                  {[...Array(12)].map((_, i: number) =>
+                    <BarWrapper className="barWrapper" key={'month' + i + 1} count={(i + 1) / 18 * 100}>
+                      <div className="barEmpty">{i + 1}</div>
+                      <div className="bar"></div>
+                      <div className="month">{i + 1}</div>
+                    </BarWrapper>)}
+                </div>
+                <span>Month</span>
+              </Chart>
+            </ChartWrapper>
+          </Slide>
+          {<IndicatorWrapper>
+            {[...Array(2)].map((_: any, i: number) =>
+              <div
+                key={`indicator${i}`}
+                className={page === i ? 'current' : ''}
+                onClick={() => {
+                  slideWrapperRef.current?.scrollTo({
+                    left: slideWrapperRef.current.clientWidth * i,
+                    behavior: "smooth"
+                  })
+                }}
+              />)}
+          </IndicatorWrapper>}
+        </SlideWrapper>
+      </Content>
+
+
       <Buttons>
         <Button onClick={historyBack} >
           <CancelOutlinedIcon className="icon" />
@@ -89,62 +109,66 @@ const HabitInfoModal = () => {
 
 export default HabitInfoModal;
 
-const CalendarWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 12px;
-  flex-shrink: 0;
-
+const SlideWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
+`
+const Content = styled.div`
+  display : flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    flex-direction: row;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+  }
+`
+const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* text-transform:lowercase; */
+
+  padding: 24px 12px; 
+
+  width: 100%;
+  text-align: start;
+  
+  color: rgb(var(--greyTitle));
+  font-weight: 500;
   .name{
     display: none;
   }
-
-  .info{ 
+  .infoText{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    padding: 24px 4px; 
-
-    width: 100%;
-    text-align: start;
-    
-    color: rgb(var(--greyTitle));
-    font-weight: 500;
-    .infoText{
-      display: flex;
-      flex-direction: column;
-      font-size: 18px;
-      color: #5c5c5c;
-    }
-    .infoCount{
-      line-height: 100%;
-      font-weight: 700;
-      font-size: 52px;
-      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
-
-    }
+    flex-direction: column;
+    font-size: 18px;
+    color: #5c5c5c;
   }
-
+  .infoCount{
+    line-height: 100%;
+    font-weight: 700;
+    font-size: 52px;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+  }
+  
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    flex-direction: row;
+    width: 50%;
+    flex-direction: column;
     .name{
       display: flex;
       margin: 24px 0;
       font-weight: 600;
       font-size: 42px;
-    }
-    .info{
-      width: 60%;
-      flex-direction: column;
-      .infoText{
-        text-align: center;
-      }
+    } 
+    .infoText{
+      text-align: center;
     }
     .infoCount{
       margin: 24px 0;
@@ -157,15 +181,76 @@ const CalendarWrapper = styled.div`
     }
   }
 `
+const BarWrapper = styled.div<{ count: number }>`
+  width: 100%;
+  height: 100%;
+  margin: 0 4px;
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .barEmpty{
+    flex-grow: 1;
+    display : flex;
+    flex-direction: column;
+    justify-content: end;
+  }
+  .bar{
+    height: ${(props) => props.count + '%'};
+    border-radius: 8px;
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};  
+  }
+  .month{
+    font-weight: 500;
+  }
+`
+const Chart = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: rgb(var(--greyTitle));
+  >span{
+    padding: 8px 0;
+  }
+  .chartArea{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+`
+const CalendarWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 12px;
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    padding: 0 24px;
+  }
+`
 const ChartWrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 12px;
   flex-shrink: 0;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 0 12px;
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    padding: 0 24px;
+  }
 `
 const Name = styled.div`
   color: rgb(var(--greyTitle));
@@ -253,7 +338,7 @@ const Button = styled.button`
 `
 
 
-const SlideWrapper = styled.div`
+const Slide = styled.div`
   scroll-snap-type: x mandatory;
 
   display: flex;
@@ -262,6 +347,8 @@ const SlideWrapper = styled.div`
   height: 100px;
   flex-grow: 1;
   overflow-x: scroll;
+
+
 
   .slideChild{
     scroll-snap-align: start;
