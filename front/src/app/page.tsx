@@ -14,8 +14,6 @@ const App = () => {
   const router = useRouter()
   const isMobile = IsMobile();
 
-  const indicatorArr = new Array(3).fill(0);
-
   const [page, setPage] = useState<number>(0);
   const slideWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +25,7 @@ const App = () => {
       ref={slideWrapperRef}
     >
       <IndicatorWrapper>
-        {indicatorArr.map((_, i: number) =>
+        {[...Array(3)].map((_, i: number) =>
           <div
             key={'indicator' + i}
             className={page === i ? 'current' : ''}

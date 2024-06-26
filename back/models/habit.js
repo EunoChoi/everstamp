@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
-    themeColor: {
+    priority: {
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: false
     },
     themeColor: {
       type: DataTypes.STRING(30),

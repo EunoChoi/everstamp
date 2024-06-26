@@ -10,7 +10,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface EditHabitProps {
   habitName: string;
-  themeColor: string;
+  themeColor?: string;
+  priority: number;
 }
 interface Err {
   response: {
@@ -23,11 +24,12 @@ const AddHabitModal = () => {
 
   const email = getCurrentUserEmail();
   const [habitName, setHabitName] = useState<string>('');
-  const [themeColor, setThemeColor] = useState<string>('default');
+  // const [themeColor, setThemeColor] = useState<string>('default');
+  const [priority, setPriority] = useState<number>(0);
 
 
   const addHabitMutation = useMutation({
-    mutationFn: ({ habitName, themeColor }: EditHabitProps) => Axios.post('/habit', { habitName, themeColor }),
+    mutationFn: ({ habitName, priority }: EditHabitProps) => Axios.post('/habit', { habitName, priority }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {
@@ -48,7 +50,7 @@ const AddHabitModal = () => {
     history.back();
   }, []);
   const addHabit = () => {
-    if (habitName.length <= 10) addHabitMutation.mutate({ habitName, themeColor });
+    if (habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
     else alert('최대 10글자까지만 가능합니다.')
   };
 
@@ -56,7 +58,7 @@ const AddHabitModal = () => {
     <Wrapper onClick={() => historyBack()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Add Habit</Title>
-        <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
+        <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />
         <div></div>
         <HabitInputButtons onSubmit={addHabit} />
       </Modal>

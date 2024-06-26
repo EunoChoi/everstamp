@@ -10,9 +10,12 @@ import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined
 interface Props {
   habitName: string;
   setHabitName: (name: string) => void;
+  priority: number;
+  setPriority: (n: number) => void;
 }
 
-const HabitInputValues = ({ habitName, setHabitName }: Props) => {
+
+const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Props) => {
   return (
     <>
       <Value>
@@ -24,31 +27,26 @@ const HabitInputValues = ({ habitName, setHabitName }: Props) => {
       <Value>
         <span>priority</span>
         <RadioWrapper>
-          <RadioButton>
-            <input type="radio" name="priority" />
-            <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /></div>
-          </RadioButton>
-          <RadioButton>
+          {[...Array(3)].map((_, i: number) =>
+            <RadioButton key={'radio' + i}>
+              <input type="radio" checked={i === priority} name="priority" value={i} onChange={(e) => {
+                if (e.currentTarget.checked) setPriority(Number(e.currentTarget.value));
+              }} />
+              <div className="checkmark">
+                {[...Array(i + 1)].map((_, j: number) => <StarPurple500OutlinedIcon key={i + j} fontSize="inherit" />)}
+              </div>
+            </RadioButton>)}
+
+          {/* <RadioButton>
             <input type="radio" name="priority" />
             <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /></div>
           </RadioButton>
           <RadioButton>
             <input type="radio" name="priority" />
             <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /></div>
-          </RadioButton>
+          </RadioButton> */}
         </RadioWrapper>
       </Value>
-
-      {/* <Value onClick={() => alert('업데이트 예정입니다.')}>
-        <span>color</span>
-        <div className="colors">
-          <button className="color selected"></button>
-          <button className="color"></button>
-          <button className="color"></button>
-          <button className="color"></button>
-          <button className="color"></button>
-        </div>
-      </Value> */}
     </>
   );
 }
@@ -64,6 +62,7 @@ const RadioWrapper = styled.div`
   overflow: hidden;
 `
 const RadioButton = styled.label`
+  position: relative;
   width: 100%;
   height: 100%;
   border-right : 2px solid rgba(0,0,0,0.1);
@@ -73,12 +72,12 @@ const RadioButton = styled.label`
   input{
     position: absolute;
     opacity: 0;
-    cursor: pointer;
     height: 0;
     width: 0;
   }
   .checkmark{
     box-sizing: border-box;
+    cursor: pointer;
 
     width: 100%;
     height: 100%;

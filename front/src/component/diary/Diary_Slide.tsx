@@ -49,7 +49,6 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
   const indicatorLength = images.length + 2;
-  const indicatorArr = new Array(indicatorLength).fill(0);
 
 
   const historyBack = useCallback(() => {
@@ -133,7 +132,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         </EditBox>
       </SlideWrapper>
       <IndicatorWrapper>
-        {indicatorArr.map((_, i: number) =>
+        {[...Array(indicatorLength)].map((_, i: number) =>
           <div
             key={'indicator' + i}
             className={page === i ? 'current' : ''}

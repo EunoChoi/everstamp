@@ -14,6 +14,7 @@ interface HabitProps {
   habitId: string | null;
   habitName?: string;
   themeColor?: string;
+  priority: number;
 }
 interface Err {
   response: {
@@ -27,7 +28,8 @@ const EditHabitModal = () => {
   const params = useSearchParams();
   const habitId = params.get('id');
   const [habitName, setHabitName] = useState<string>('');
-  const [themeColor, setThemeColor] = useState<string>('default');
+  // const [themeColor, setThemeColor] = useState<string>('default');
+  const [priority, setPriority] = useState<number>(0);
 
 
 
@@ -38,7 +40,7 @@ const EditHabitModal = () => {
   });
 
   const editHabitMutation = useMutation({
-    mutationFn: ({ habitId, habitName, themeColor }: HabitProps) => Axios.patch('/habit', { habitId, habitName, themeColor }),
+    mutationFn: ({ habitId, habitName, themeColor, priority }: HabitProps) => Axios.patch('/habit', { habitId, habitName, themeColor, priority }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {
@@ -73,12 +75,12 @@ const EditHabitModal = () => {
 
   const onEditHabit = () => {
     if (habitData.name === habitName) { historyBack(); } //이름 변화 없이 수정한 경우
-    else if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, themeColor });
+    else if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
     else alert('최대 10글자까지만 가능합니다.')
   };
   const onDeleteHabit = () => {
     const res = confirm('일기를 지우시겠습니까?');
-    if (res) deleteHabitMutation.mutate({ habitId });
+    if (res) deleteHabitMutation.mutate({ habitId, priority });
   }
   const historyBack = useCallback(() => {
     history.back();
@@ -87,7 +89,8 @@ const EditHabitModal = () => {
 
   useEffect(() => {
     setHabitName(habitData?.name);
-    setThemeColor(habitData?.themeColor);
+    setPriority(habitData?.priority);
+    // setThemeColor(habitData?.themeColor);
   }, [habitData]);
 
 
@@ -95,7 +98,7 @@ const EditHabitModal = () => {
     <Wrapper onClick={() => historyBack()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
-        <HabitInputValues habitName={habitName} setHabitName={setHabitName} />
+        <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />
         <Delete onClick={onDeleteHabit}><button>delete</button></Delete>
         <HabitInputButtons onSubmit={onEditHabit} type="edit" />
       </Modal>

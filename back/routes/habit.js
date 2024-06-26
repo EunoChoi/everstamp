@@ -43,6 +43,7 @@ router.get("/list", tokenCheck, async (req, res) => {
         email,
       }],
       order: [
+        ['priority', 'DESC'],
         ['createdAt', sort], //ASC DESC
       ],
     });
@@ -52,7 +53,6 @@ router.get("/list", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-
 //load recent habit status
 router.get("/recent", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/recent -----');
@@ -88,7 +88,6 @@ router.get("/recent", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-
 //load month habit status
 router.get("/month", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/month -----');
@@ -128,6 +127,7 @@ router.post("/", tokenCheck, async (req, res) => {
 
   const habitName = req.body.habitName;
   const themeColor = req.body.themeColor;
+  const priority = req.body.priority;
   const email = req.currentUserEmail;
   try {
     //유저 존재 확인
@@ -145,17 +145,18 @@ router.post("/", tokenCheck, async (req, res) => {
     })
     if (isHabitExistAready) return res.status(400).json('같은 이름을 가진 습관이 이미 존재합니다.');
 
-    let habits = await Habit.findAll({
+    let habit = await Habit.findAll({
       where: {
         email
       }
     })
-    if (habits.length >= 18) return res.status(400).json("습관은 최대 18개까지 생성 가능합니다.");
+    if (habit.length >= 18) return res.status(400).json("습관은 최대 18개까지 생성 가능합니다.");
 
-    habits = await Habit.create({
+    habit = await Habit.create({
       UserId: user.id,
       email,
       name: habitName,
+      priority,
       themeColor,
     });
     if (habit) return res.status(200).json(habit);
@@ -168,7 +169,7 @@ router.post("/", tokenCheck, async (req, res) => {
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /habit -----');
   const email = req.currentUserEmail;
-  const { habitId, habitName, themeColor } = req.body;
+  const { habitId, habitName, themeColor, priority } = req.body;
   try {
     const currentUser = await User.findOne({
       where: { email },
@@ -191,7 +192,8 @@ router.patch("/", tokenCheck, async (req, res) => {
 
     habit = await Habit.update({
       name: habitName,
-      themeColor
+      themeColor,
+      priority
     }, {
       where: { id: habitId }
     });

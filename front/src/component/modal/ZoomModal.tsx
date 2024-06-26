@@ -36,7 +36,6 @@ const ZoomModal = () => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
   const indicatorLength = images?.length + 1;
-  const indicatorArr = indicatorLength ? new Array(indicatorLength).fill(0) : [0];
 
 
   const historyBack = useCallback(() => {
@@ -70,7 +69,7 @@ const ZoomModal = () => {
 
       </SlideWrapper>
       {indicatorLength > 1 && <IndicatorWrapper>
-        {indicatorArr && indicatorArr.map((_: any, i: number) =>
+        {[...Array(indicatorLength)].map((_: any, i: number) =>
           <div
             key={`indicator${i}`}
             className={page === i ? 'current' : ''}
@@ -190,10 +189,6 @@ const Wrapper = styled.div`
 
   background-color: rgba(0,0,0,0.2);
   backdrop-filter: blur(4px);
-
-  /* * {
-    color: rgb(var(--greyTitle));
-  } */
 `
 const Modal = styled.div`
   display: flex;
@@ -209,17 +204,6 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
 
-  /* @media (max-width: 479px) { //mobile port
-    width: 90%;
-    height: 90%;
-    max-height: 500px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 50%;
-    min-width: 450px;
-    height: 80%;
-    max-height: 500px;
-  } */
   @media (min-height:480px) and (min-width:1024px) { //desktop
     width: 70%;
     height: 80%;
@@ -238,8 +222,7 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    /* color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'}; */
-    color: grey;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
@@ -288,12 +271,7 @@ const IndicatorWrapper = styled.div`
       margin: 2px;
     }
   }
-  /* div:last-child{
-    border-radius: 2px;
-    background-color: rgba(var(--point2), 0.5);
-  } */
   .current {
-    /* background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'}; */
-    background-color: grey;
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
 `
