@@ -113,11 +113,10 @@ const HabitBox = ({ name, id }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
-      {/* 
-      //to go habit Info route
-      <button>
+
+      <button onClick={() => router.push(`/app/inter/habitInfo?id=${id}`, { scroll: false })}>
         <InsertChartOutlinedIcon fontSize="small" />
-      </button> */}
+      </button>
       <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
 
         <SettingsOutlinedIcon fontSize="small" />

@@ -40,7 +40,7 @@ const EditHabitModal = () => {
   });
 
   const editHabitMutation = useMutation({
-    mutationFn: ({ habitId, habitName, themeColor, priority }: HabitProps) => Axios.patch('/habit', { habitId, habitName, themeColor, priority }),
+    mutationFn: ({ habitId, habitName, priority }: HabitProps) => Axios.patch('/habit', { habitId, habitName, priority }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {
@@ -74,8 +74,8 @@ const EditHabitModal = () => {
 
 
   const onEditHabit = () => {
-    if (habitData.name === habitName) { historyBack(); } //이름 변화 없이 수정한 경우
-    else if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
+    // if (habitData.name === habitName) { historyBack(); } //이름 변화 없이 수정한 경우
+    if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
     else alert('최대 10글자까지만 가능합니다.')
   };
   const onDeleteHabit = () => {

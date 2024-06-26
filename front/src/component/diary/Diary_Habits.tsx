@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 interface Props {
@@ -12,11 +13,15 @@ interface HabitProps {
 }
 
 const DiaryHabits = ({ habits }: Props) => {
-  // console.log(habits);
+  const router = useRouter();
+
   return (
     <Habits className="habits">
-      <Habit>{habits?.length ? habits?.length : 0} habits</Habit>
-      {habits?.map((habit: HabitProps, i: number) => <Habit key={habit.name + i}>{habit.name}</Habit>)}
+      <Habit
+      >{habits?.length ? habits?.length : 0} habits</Habit>
+      {habits?.map((habit: HabitProps, i: number) => <Habit
+        onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
+        key={habit.name + i}>{habit.name}</Habit>)}
     </Habits>
   );
 }

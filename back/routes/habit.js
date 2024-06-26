@@ -119,6 +119,38 @@ router.get("/month", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
+//load month single habit status
+router.get("/month/single", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/month/single -----');
+  const { id, date } = req.query;
+  const email = req.currentUserEmail;
+  try {
+    const current = new Date(Number(date));
+    const monthStart = startOfMonth(current);
+    const monthEnd = endOfMonth(current);
+
+    let diary = await Diary.findAll({
+      where: {
+        email,
+        [Op.and]: [
+          { date: { [Op.gte]: monthStart } },
+          { date: { [Op.lte]: monthEnd } }
+        ],
+      },
+      attributes: ['date', 'visible'],
+      include: [{
+        model: Habit,
+        where: { id },
+        attributes: ['name'],
+      },],
+    });
+
+    if (diary) return res.status(200).json(diary);
+    else return res.status(400).json(`한달 습관(${id}) 정보를 불러오지 못하였습니다.`);
+  } catch (e) {
+    console.error(e);
+  }
+})
 
 
 //add habit
@@ -183,7 +215,10 @@ router.patch("/", tokenCheck, async (req, res) => {
     if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
 
     habit = await Habit.findOne({
-      where: { name: habitName },
+      where: {
+        name: habitName,
+        id: { [Op.ne]: habitId }
+      },
     });
     if (habit) return res.status(403).json("동일한 이름의 습관이 존재합니다.");
 
