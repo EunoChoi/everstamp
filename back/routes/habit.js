@@ -43,7 +43,7 @@ router.get("/list", tokenCheck, async (req, res) => {
         email,
       }],
       order: [
-        ['name', sort], //ASC DESC
+        ['createdAt', sort], //ASC DESC
       ],
     });
     if (habits) return res.status(200).json(habits);
@@ -136,13 +136,6 @@ router.post("/", tokenCheck, async (req, res) => {
     })
     if (!user) return res.status(400).json("유저가 존재하지 않습니다.");
 
-    let habits = await Habit.findAll({
-      where: {
-        email
-      }
-    })
-    if (habits.length >= 18) return res.status(400).json("습관은 최대 18개까지 생성 가능합니다.");
-
     //동일한 이름의 습관이 이미 존재하는지 확인
     const isHabitExistAready = await Habit.findOne({
       where: {
@@ -151,6 +144,13 @@ router.post("/", tokenCheck, async (req, res) => {
       }
     })
     if (isHabitExistAready) return res.status(400).json('같은 이름을 가진 습관이 이미 존재합니다.');
+
+    let habits = await Habit.findAll({
+      where: {
+        email
+      }
+    })
+    if (habits.length >= 18) return res.status(400).json("습관은 최대 18개까지 생성 가능합니다.");
 
     habits = await Habit.create({
       UserId: user.id,

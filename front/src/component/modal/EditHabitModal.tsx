@@ -108,7 +108,8 @@ const Delete = styled.div`
   justify-content: center;
   button{
     font-size: 18px;
-    color:  grey;
+    /* color:  grey; */
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
   }
 `
 

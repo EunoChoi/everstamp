@@ -30,8 +30,8 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    /* color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'}; */
-    color: grey;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    /* color: grey; */
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */

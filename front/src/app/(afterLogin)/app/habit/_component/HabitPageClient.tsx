@@ -80,7 +80,7 @@ const HabitPageClient = ({ email }: Props) => {
             <ArrowUpwardOutlinedIcon fontSize="small" /> :
             <ArrowDownwardOutlinedIcon fontSize="small" />}
           </span>
-          <span>ㄱㄴㄷ</span>
+          <span>Time</span>
         </button>
       </SC_Common.Options>
 

@@ -79,7 +79,6 @@ router.post("/", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /diary -----');
   const diaryId = req.query.diaryId;
@@ -154,7 +153,8 @@ router.delete("/", tokenCheck, async (req, res) => {
 
 
 
-//load diary - by diary id, for diary
+//load diary
+//by diary id, for diary
 router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url : /diary/:id -----');
@@ -175,10 +175,7 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-
-
-
-//load diary - list
+//list
 router.get("/list", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url :  /diary/list -----');

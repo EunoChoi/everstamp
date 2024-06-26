@@ -30,10 +30,11 @@ import { getCurrentUser } from "../_lib/user";
 interface Props {
   children: ReactNode;
   isMobile: boolean;
+  modal: ReactNode;
 }
 
 
-const AppLayout = ({ children }: Props) => {
+const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
   const router = useRouter();
   const current = useSelectedLayoutSegment();
@@ -58,6 +59,7 @@ const AppLayout = ({ children }: Props) => {
     {
       isMobile ?
         <Mobile_Layout>
+          {modal}
           {children}
           < Mobile_Nav >
             <Logo><span>ever</span><span>stamp</span></Logo>
@@ -92,6 +94,7 @@ const AppLayout = ({ children }: Props) => {
           </Desktop_Sidebar>
 
           <Desktop_Content>
+            {modal}
             {children}
           </Desktop_Content>
         </Desktop_Layout>

@@ -5,6 +5,8 @@ import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import { RefObject } from "react";
 import Axios from "@/Aixos/aixos";
 
+import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+
 interface Props {
   habitName: string;
   setHabitName: (name: string) => void;
@@ -18,6 +20,23 @@ const HabitInputValues = ({ habitName, setHabitName }: Props) => {
         <input
           onChange={(e) => setHabitName(e.currentTarget.value)}
           value={habitName || ""} />
+      </Value>
+      <Value>
+        <span>priority</span>
+        <RadioWrapper>
+          <RadioButton>
+            <input type="radio" name="priority" />
+            <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /></div>
+          </RadioButton>
+          <RadioButton>
+            <input type="radio" name="priority" />
+            <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /></div>
+          </RadioButton>
+          <RadioButton>
+            <input type="radio" name="priority" />
+            <div className="checkmark"><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /><StarPurple500OutlinedIcon fontSize="inherit" /></div>
+          </RadioButton>
+        </RadioWrapper>
       </Value>
 
       {/* <Value onClick={() => alert('업데이트 예정입니다.')}>
@@ -36,6 +55,45 @@ const HabitInputValues = ({ habitName, setHabitName }: Props) => {
 
 export default HabitInputValues;
 
+const RadioWrapper = styled.div`
+  width: 100%;
+  margin : 8px 0;
+  height: 28px;
+  border : 2px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+`
+const RadioButton = styled.label`
+  width: 100%;
+  height: 100%;
+  border-right : 2px solid rgba(0,0,0,0.1);
+  &:last-child{
+    border: none;
+  }
+  input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .checkmark{
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: rgb(var(--greyTitle));
+    font-size: 14px;
+  }
+  input:checked ~ .checkmark{
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+  }
+`;
+
 const Value = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,7 +103,12 @@ const Value = styled.div`
   @media (min-height:480px) and (min-width:1024px) { //desktop
     margin : 0 20%;
   }
-
+  >div{
+    width: 100%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
   span{
     text-transform: capitalize;
     font-size: 18px;
@@ -62,8 +125,6 @@ const Value = styled.div`
 
 
     border : 2px solid rgba(0,0,0,0.1);
-    /* background-color: whitesmoke; */
-
     border-radius: 8px;
   }
   .colors{

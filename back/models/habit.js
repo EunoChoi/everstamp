@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     themeColor: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    themeColor: {
       type: DataTypes.STRING(30),
       allowNull: true
     },
