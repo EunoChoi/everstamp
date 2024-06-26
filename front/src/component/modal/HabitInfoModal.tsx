@@ -137,6 +137,7 @@ const Info = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 50%;
     flex-direction: column;
+    justify-content: space-evenly;
     .name{
       display: flex;
       margin: 24px 0;

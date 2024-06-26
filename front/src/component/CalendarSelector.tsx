@@ -189,6 +189,16 @@ const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  
+    height: 90dvh !important;
+    margin-bottom: 24px;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+  }
 `
 
 //calendar header

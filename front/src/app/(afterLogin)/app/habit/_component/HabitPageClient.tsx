@@ -96,7 +96,6 @@ const HabitPageClient = ({ email }: Props) => {
               {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id}></HabitBox>)}
             </HabitGrid>)}
         </HabitGridList>
-
         <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={organizedHabits.length} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
@@ -140,6 +139,7 @@ const HabitGridList = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 60%;
     width: 90%;
+    flex-shrink: 0;
   }
 `
 const HabitGrid = styled.div`

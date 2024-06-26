@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation"
 
 import { format, addMonths, subMonths } from 'date-fns';
@@ -14,7 +14,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TodayIcon from '@mui/icons-material/Today';
 
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_single_status_month, getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit_single_status_month } from "@/app/(afterLogin)/_lib/habit";
 
 interface Props {
   setHabitCount: (n: number) => void;
@@ -32,7 +32,6 @@ const HabitInfoCalendar = ({ setHabitCount, currentMonth, setCurrentMonth }: Pro
   const monthEnd = endOfMonth(currentMonth);
   const startDate = startOfWeek(monthStart, { weekStartsOn: 1 });//일요일 시작 기준이라 월요일 시작 기준으로 처리 필요
   const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
-  const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
 
   let week = [];
   let sumOfWeek = [];
@@ -118,15 +117,7 @@ const HabitInfoCalendar = ({ setHabitCount, currentMonth, setCurrentMonth }: Pro
           {weekTitle.map(e => <span key={e}>{e}</span>)}
         </CalWeekTitle>
       </header>
-      <Body
-        onTouchStart={(e) => {
-          setTouchStartX(e.changedTouches[0].clientX);
-        }}
-        onTouchEnd={(e) => {
-          const touchEndX = e.changedTouches[0].clientX;
-          if (touchEndX - touchStartX > 100) subCurrentMonth();
-          else if (touchStartX - touchEndX > 100) addCurrentMonth();
-        }}>
+      <Body>
         {sumOfWeek}
       </Body>
     </Wrapper>

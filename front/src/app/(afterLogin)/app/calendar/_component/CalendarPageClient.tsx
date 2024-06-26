@@ -50,4 +50,12 @@ const CalendarWrapper = styled.div`
   border-radius: 8px;
   padding: 0 4px;
   margin-top: 12px;
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    height: 100vh !important;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+  }
 `

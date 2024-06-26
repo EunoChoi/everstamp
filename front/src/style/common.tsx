@@ -32,6 +32,7 @@ const SC_Common = {
 
     background-color: rgba(255,255,255,0.7);
     backdrop-filter: blur(12px);    
+    
 
     button{
       transition: all ease-in-out 200ms;
@@ -71,6 +72,7 @@ const SC_Common = {
       max-width: 75dvw;
       height: calc(var(--optionHeight));
       padding: 8px 20px;
+      z-index: 99;
       &.setting{
         display: none;
       }
@@ -114,11 +116,9 @@ const SC_Common = {
 
     //mobile portrait
     @media (max-width: 479px) { //mobile port
-      //common 
       height: 100dvh;
       padding: 0 5vw;
       
-      //none scroll
       padding-top : calc(var(--mobileHeader) + var(--optionHeight));
       padding-bottom: var(--mobileNav);
       &.noOption{
@@ -126,7 +126,6 @@ const SC_Common = {
         padding-bottom: var(--mobileNav);
       }
 
-      //scroll
       &.scroll{
         height: 100dvh;
         padding-top : calc(var(--mobileHeader) + var(--optionHeight));
@@ -142,8 +141,10 @@ const SC_Common = {
       height: 100dvh;
       justify-content: start;
       overflow-y: scroll;
+
       &.habit{
-        justify-content: center;
+        justify-content: start;
+        overflow-y: scroll;
       }
 
       padding-top : var(--optionHeight);
@@ -158,6 +159,7 @@ const SC_Common = {
         }
       }
     }
+    
     @media (min-height:480px) and (min-width:1024px) { //desktop
       height: 100dvh;
       padding-top : calc(var(--desktopHeader) + var(--optionHeight));

@@ -12,5 +12,5 @@ export async function middleware(request: NextRequest) {
 
 //미들웨어가 동작할 페이지들
 export const config = {
-  matcher: ['/app/calendar', '/app/list', '/app/habit', '/app/setting', '/app/inter/:path*'],
+  matcher: ['/app/calendar', '/app/list', '/app/habit', '/app/setting', '/app/inter/zoom', '/app/inter/habitInfo', '/app/inter/input/:path*'],
 }
