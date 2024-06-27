@@ -48,14 +48,12 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const images = diaryData?.Images;
-
-
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-  const onEditDiary = () => {
-    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
-  };
+
+
+
 
 
   const deleteDiaryMutation = useMutation({
@@ -79,8 +77,13 @@ const DiarySlide = ({ diaryData, position }: Props) => {
     },
   });
 
-
-
+  const onCopyDiary = () => {
+    navigator.clipboard.writeText(diaryData.text);
+    enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.', { variant: 'success' });
+  }
+  const onEditDiary = () => {
+    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+  };
   const onDeleteDiary = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
@@ -129,7 +132,8 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
 
         <EditBox className="slideChild">
-          <button>
+          <button
+            onClick={onCopyDiary}>
             <ContentCopyIcon />copy text
           </button>
           <button

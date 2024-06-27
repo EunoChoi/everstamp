@@ -18,6 +18,7 @@ import CalendarSelector from "@/component/CalendarSelector";
 import Header from "@/component/Header";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useEffect } from "react";
 
 interface Props {
   date: number;
@@ -25,11 +26,19 @@ interface Props {
 
 const CalendarPageClient = ({ date }: Props) => {
   const isMobile = IsMobile();
+  const router = useRouter();
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
     queryFn: () => getDiary_date({ date }),
   });
+
+  //production mode에서만 동작, 정적 자료만 prefetch
+  useEffect(() => {
+    router.prefetch('/app/list');
+    router.prefetch('/app/habit');
+    router.prefetch('/app/setting');
+  }, [])
 
   return (
     <SC_Common.Wrapper>

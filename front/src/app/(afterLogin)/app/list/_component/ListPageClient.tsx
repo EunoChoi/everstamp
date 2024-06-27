@@ -53,11 +53,13 @@ interface diaryData {
 
 const ListPageClient = () => {
 
+  const contentRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState<string>('');
   const [search, setSearch] = useState<string>('');
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
+
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -76,6 +78,7 @@ const ListPageClient = () => {
     setSearch(searchText);
   }
   const sortChage = useCallback(() => {
+    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
   }, [sortToggle])
@@ -88,9 +91,7 @@ const ListPageClient = () => {
   return (
     <SC_Common.Wrapper>
       <Header title='list' />
-
       <SC_Common.Options>
-        <button onClick={() => fetchNextPage()}>next</button>
         <Search
           open={searchInputOpen}
           onClick={(e) => {
@@ -119,7 +120,7 @@ const ListPageClient = () => {
         </button>
       </SC_Common.Options>
 
-      <SC_Common.Content className="scroll">
+      <SC_Common.Content className="scroll" ref={contentRef}>
         {diaries?.pages.length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
 
         {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => (<Diary

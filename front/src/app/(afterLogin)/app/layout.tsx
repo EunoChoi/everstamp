@@ -56,7 +56,6 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
 
 const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
-  const router = useRouter();
   const current = useSelectedLayoutSegment();
 
 
@@ -69,13 +68,8 @@ const AppLayout = ({ children, modal }: Props) => {
     point: data.themeColor
   }
 
-
-
   //loading page, to solve useMediaQuery delay problem
-  if (isMobile === null) {
-    return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
-  }
-
+  if (isMobile === null) return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
   return (
     <SnackbarProvider
       Components={{
@@ -84,13 +78,12 @@ const AppLayout = ({ children, modal }: Props) => {
         success: StyledMaterialDesignContent,
         error: StyledMaterialDesignContent,
       }}
-
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
       }}
       maxSnack={3}
-      autoHideDuration={3000}
+      autoHideDuration={2500}
       preventDuplicate={true}
     >
       <ThemeProvider theme={theme}>

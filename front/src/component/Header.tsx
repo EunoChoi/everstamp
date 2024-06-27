@@ -61,7 +61,7 @@ const Title = styled.span`
     font-size: 24px;
     border-bottom: 4px ${(props) => props.theme.point ? props.theme.point : '#9797CB'} solid;
     &:first-letter{
-      font-size: 28px;
+    /* font-size: 28px; */
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
