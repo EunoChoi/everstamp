@@ -7,6 +7,7 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { RefObject, useCallback } from "react";
 import Axios from "@/Aixos/aixos";
 import { useMutation } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 
 interface Props {
   type?: string;
@@ -33,7 +34,8 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       setImages([...images, ...res.data]);
     },
     onError: (e: Err) => {
-      alert(e?.response?.statusText);
+      // alert(e?.response?.statusText);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log(e);
       console.log('image upload error');
     },
@@ -50,7 +52,8 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
 
       //게시글 최대 이미지 개수 제한
       if (images.length + ArrayImages.length > 5) {
-        alert('이미지 파일은 최대 5개까지 삽입 가능합니다.')
+        // alert('이미지 파일은 최대 5개까지 삽입 가능합니다.')
+        enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'info' });
         return null;
       }
 
@@ -59,7 +62,8 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
         if (file.size > 5 * 1024 * 1024) return true;
       });
       if (isOverSize) {
-        alert("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
+        // alert("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
+        enqueueSnackbar("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.", { variant: 'info' });
         return null;
       }
 

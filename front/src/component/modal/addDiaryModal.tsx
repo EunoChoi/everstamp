@@ -17,6 +17,7 @@ import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
 // import { addDiary } from "@/app/(afterLogin)/_lib/diary";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 
 
 interface Err {
@@ -46,18 +47,21 @@ const AddDiaryModal = () => {
 
       console.log('add diary success');
       historyBack();
+      setTimeout(() => {
+        enqueueSnackbar('일기 작성 완료', { variant: 'success' });
+      }, 300);
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      //alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log('add diary error');
     }
   });
 
   const onAddDiary = () => {
-    if (text.length !== 0) {
-      addDiaryMutation.mutate({ date, text, images });
-    }
-    else alert('내용을 입력해주세요');
+    if (text.length !== 0) addDiaryMutation.mutate({ date, text, images });
+    //else alert('내용을 입력해주세요');
+    else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
   };
 
   const historyBack = useCallback(() => {

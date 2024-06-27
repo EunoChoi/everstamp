@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 //styledComponent
 import SC_Common from "@/style/common";
+import { enqueueSnackbar } from 'notistack'
 
 //component
 import HabitBox from "@/component/HabitBox";
@@ -18,6 +19,10 @@ import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+
+import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
+import SplitscreenOutlinedIcon from '@mui/icons-material/SplitscreenOutlined';
+
 import Indicator from "@/component/indicator";
 
 interface Props {
@@ -31,6 +36,7 @@ const HabitPageClient = ({ email }: Props) => {
 
   const gridListRef = useRef<HTMLDivElement>(null);
 
+  const [typeToggle, setTypeToggle] = useState<'GRID' | 'LIST'>('GRID');
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
   const [page, setPage] = useState<number>(0);
 
@@ -45,8 +51,12 @@ const HabitPageClient = ({ email }: Props) => {
 
   const onAddHabit = () => {
     if (habits.length < 18) router.push('/app/inter/input/addHabit', { scroll: false })
-    else alert('습관은 최대 18개까지 생성 가능합니다.');
+    else enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
   }
+  const typeChage = useCallback(() => {
+    if (typeToggle === 'GRID') setTypeToggle('LIST');
+    else setTypeToggle('GRID');
+  }, [typeToggle])
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
@@ -71,6 +81,9 @@ const HabitPageClient = ({ email }: Props) => {
         <button onClick={onAddHabit}>
           <AddIcon fontSize="small" />
         </button>
+        {/* <button onClick={typeChage}>
+          {typeToggle === 'GRID' ? <WindowOutlinedIcon fontSize="small" /> : <SplitscreenOutlinedIcon fontSize="small" />}
+        </button> */}
         <button onClick={sortChage}>
 
           <span>{sortToggle === 'DESC' ?

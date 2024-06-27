@@ -1,6 +1,21 @@
 import styled from "styled-components";
 
 const SC_Common = {
+  YesOrNo: styled.button`
+    padding: 4px 12px;
+    margin-left: 8px;
+    border-radius: 8px;
+    &.yes{
+      background-color: #83c6b6;
+      color: #83c6b6;
+      color: white;
+    }
+    &.no{
+      background-color: #dc7889;
+      color: #dc7889;
+      color: white;
+    }
+  `,
   Wrapper: styled.div`
     padding: 0 20px;  
 

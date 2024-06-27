@@ -7,6 +7,7 @@ import HabitInputValues from "../HabitInput/Input_Values";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import Axios from "@/Aixos/aixos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 
 interface EditHabitProps {
   habitName: string;
@@ -38,9 +39,13 @@ const AddHabitModal = () => {
 
       console.log('add habit success');
       historyBack();
+      setTimeout(() => {
+        enqueueSnackbar('습관 항목 생성 완료', { variant: 'success' });
+      }, 300);
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log('add habit error');
     },
   });
@@ -51,7 +56,9 @@ const AddHabitModal = () => {
   }, []);
   const addHabit = () => {
     if (habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
-    else alert('최대 10글자까지만 가능합니다.')
+    // else alert('최대 10글자까지만 가능합니다.')
+    else enqueueSnackbar('최대 10글자까지만 가능합니다.', { variant: 'info' });
+
   };
 
   return (

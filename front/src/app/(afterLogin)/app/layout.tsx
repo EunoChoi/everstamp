@@ -25,6 +25,7 @@ import { ThemeProvider } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../_lib/user";
 
+import { SnackbarProvider, MaterialDesignContent } from 'notistack'
 
 interface Props {
   children: ReactNode;
@@ -48,57 +49,95 @@ const AppLayout = ({ children, modal }: Props) => {
     point: data.themeColor
   }
 
+  const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
+    '&.notistack-MuiContent-default': {
+      backgroundColor: 'whitesmoke',
+      color: 'rgb(88, 88, 88)',
+      fontWeight: '500'
+    },
+    '&.notistack-MuiContent-info': {
+      backgroundColor: '#8EBCDB',
+      fontWeight: '500'
+    },
+    '&.notistack-MuiContent-success': {
+      backgroundColor: '#83c6b6',
+      fontWeight: '500'
+    },
+    '&.notistack-MuiContent-error': {
+      backgroundColor: '#dc7889',
+      fontWeight: '500'
+    },
+  }));
 
   //loading page, to solve useMediaQuery delay problem
   if (isMobile === null) {
     return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
   }
 
-  return (<ThemeProvider theme={theme}>
-    {
-      isMobile ?
-        <Mobile_Layout>
-          {modal}
-          {children}
-          < Mobile_Nav >
-            <Logo><span>ever</span><span>stamp</span></Logo>
-            <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
-            <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
-            <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
-            <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
-          </Mobile_Nav >
-        </Mobile_Layout >
-        :
-        <Desktop_Layout>
-          <Desktop_Sidebar>
-            <SideBarLogo>
-              <span>ever</span>
-              <span>stamp</span>
-            </SideBarLogo>
-            <Menus>
-              <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
-              <MonthWrapper
-                className={current === 'calendar' ? '' : 'inActive'}
-              >
-                <CalendarSelector />
-              </MonthWrapper>
-              <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
-              <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
-              <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
-            </Menus>
-            <Links>
-              <span><GitHubIcon fontSize="inherit" /></span>
-              <span><BookIcon fontSize="inherit" /></span>
-            </Links>
-          </Desktop_Sidebar>
+  return (
+    <SnackbarProvider
+      Components={{
+        default: StyledMaterialDesignContent,
+        info: StyledMaterialDesignContent,
+        success: StyledMaterialDesignContent,
+        error: StyledMaterialDesignContent,
+      }}
 
-          <Desktop_Content>
-            {modal}
-            {children}
-          </Desktop_Content>
-        </Desktop_Layout>
-    }
-  </ThemeProvider >);
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      maxSnack={3}
+      autoHideDuration={3000}
+      preventDuplicate={true}
+    >
+      <ThemeProvider theme={theme}>
+        {
+          isMobile ?
+            <Mobile_Layout>
+              {modal}
+              {children}
+              < Mobile_Nav >
+                <Logo><span>ever</span><span>stamp</span></Logo>
+                <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
+                <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
+                <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
+                <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
+              </Mobile_Nav >
+            </Mobile_Layout >
+            :
+            <Desktop_Layout>
+              <Desktop_Sidebar>
+                <SideBarLogo>
+                  <span>ever</span>
+                  <span>stamp</span>
+                </SideBarLogo>
+                <Menus>
+                  <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+                  <MonthWrapper
+                    className={current === 'calendar' ? '' : 'inActive'}
+                  >
+                    <CalendarSelector />
+                  </MonthWrapper>
+                  <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
+                  <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
+                  <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
+                </Menus>
+                <Links>
+                  <span><GitHubIcon fontSize="inherit" /></span>
+                  <span><BookIcon fontSize="inherit" /></span>
+                </Links>
+              </Desktop_Sidebar>
+
+              <Desktop_Content>
+                {modal}
+                {children}
+              </Desktop_Content>
+            </Desktop_Layout>
+        }
+      </ThemeProvider >
+    </SnackbarProvider>);
+
 }
 
 export default AppLayout;

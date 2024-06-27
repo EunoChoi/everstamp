@@ -17,6 +17,7 @@ import DiaryInputDate from "../diaryInput/Input_Date";
 import DiaryInputTextArea from "../diaryInput/Input_TextArea";
 import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
+import { enqueueSnackbar } from "notistack";
 
 interface Err {
   response: {
@@ -73,9 +74,14 @@ const EditDiaryModal = () => {
 
       console.log('success edit diary');
       historyBack();
+      setTimeout(() => {
+        enqueueSnackbar('일기 수정 완료', { variant: 'success' });
+      }, 300);
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+
       console.log('edit diary error');
     },
   });

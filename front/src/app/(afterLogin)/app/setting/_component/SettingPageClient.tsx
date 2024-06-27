@@ -14,6 +14,7 @@ import Header from "@/component/Header";
 
 import SC_Common from "@/style/common";
 import Axios from "@/Aixos/aixos";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
 
 
@@ -36,6 +37,22 @@ const SettingPageClient = () => {
       console.log('theme update error')
     },
   })
+
+  const onLogout = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar(); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          Axios.get('user/logout').then(() => { signOut(); });
+        }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar('로그아웃 하시겠습니까?', { action, autoHideDuration: 6000 });
+  }
 
   const themeColorUpdate = (themeColor: string) => {
     themeColorUpdateMutation.mutate(themeColor);
@@ -61,7 +78,7 @@ const SettingPageClient = () => {
             <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
           </Value>
           <Buttons>
-            <Button onClick={() => signOut()}>logout</Button>
+            <Button onClick={onLogout}>logout</Button>
             <Button>delete account</Button>
           </Buttons>
         </Section>

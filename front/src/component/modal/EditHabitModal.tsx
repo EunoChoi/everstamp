@@ -8,7 +8,10 @@ import { useSearchParams } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from 'notistack';
+
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
+import SC_Common from "@/style/common";
 
 interface HabitProps {
   habitId: string | null;
@@ -49,9 +52,14 @@ const EditHabitModal = () => {
 
       console.log('edit habit success');
       historyBack();
+      setTimeout(() => {
+        enqueueSnackbar('습관 항목 수정 완료', { variant: 'success' });
+      }, 300);
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+
       console.log('edit habit error');
     },
   });
@@ -63,11 +71,16 @@ const EditHabitModal = () => {
         queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
 
-      console.log('delete habit success');
+
       historyBack();
+      console.log('delete habit success');
+      closeSnackbar();
+      enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+
       console.log('delete habit error');
     },
   });
@@ -76,11 +89,21 @@ const EditHabitModal = () => {
   const onEditHabit = () => {
     // if (habitData.name === habitName) { historyBack(); } //이름 변화 없이 수정한 경우
     if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
-    else alert('최대 10글자까지만 가능합니다.')
+    // else alert('최대 10글자까지만 가능합니다.')
+    else enqueueSnackbar('최대 10글자만 입력만 가능 합니다.', { variant: 'info' });
   };
   const onDeleteHabit = () => {
-    const res = confirm('일기를 지우시겠습니까?');
-    if (res) deleteHabitMutation.mutate({ habitId, priority });
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar(); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => { deleteHabitMutation.mutate({ habitId, priority }); }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar('습관 항목을 지우시겠습니까?', { action, autoHideDuration: 6000 });
   }
   const historyBack = useCallback(() => {
     history.back();

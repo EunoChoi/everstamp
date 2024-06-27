@@ -56,7 +56,8 @@ const HabitBox = ({ name, id }: Props) => {
       console.log('chack habit success');
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' })
+      // alert(e?.response?.data);
       console.log('uncheck habit error');
     },
   });
@@ -71,7 +72,8 @@ const HabitBox = ({ name, id }: Props) => {
       console.log('unchack habit success');
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log('uncheck habit error');
     },
   });
@@ -246,3 +248,7 @@ const Check = styled.div`
     }
   }
 `
+
+function enqueueSnackbar(data: string, arg1: { variant: string; }) {
+  throw new Error("Function not implemented.");
+}

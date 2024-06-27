@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 import Indicator from "../indicator";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import SC_Common from "@/style/common";
 
 interface Err {
   response: {
@@ -70,17 +72,30 @@ const DiarySlide = ({ diaryData, position }: Props) => {
       });
 
       console.log('success delete diary');
+      closeSnackbar();
+      enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
     },
     onError: (e: Err) => {
-      alert(e?.response?.data);
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log('delete diary error');
     },
   });
 
 
+
   const onDeleteDiary = () => {
-    const res = confirm('일기를 지우시겠습니까?');
-    if (res) deleteDiaryMutation.mutate({ id: diaryData.id });
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar(); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => { deleteDiaryMutation.mutate({ id: diaryData.id }); }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar('일기를 지우시겠습니까?', { action, autoHideDuration: 6000 });
   };
 
   useEffect(() => {
@@ -117,7 +132,9 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
 
         <EditBox className="slideChild">
-          <button><ContentCopyIcon />copy text</button>
+          <button>
+            <ContentCopyIcon />copy text
+          </button>
           <button
             onClick={onEditDiary}
           >
@@ -137,6 +154,16 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 }
 
 export default DiarySlide;
+
+const Button = styled.button`
+  padding: 0 8px;
+  &.yes{
+    color: red;
+  }
+  &.no{
+    color: green;
+  }
+`
 
 const SlideWrapper = styled.div`
   scrollbar-width: none;
