@@ -40,13 +40,10 @@ const HabitPageClient = ({ email }: Props) => {
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
   const [page, setPage] = useState<number>(0);
 
-
-  const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', sortToggle],
     queryFn: () => getHabits({ sort: sortToggle }),
   });
-
 
 
   const onAddHabit = () => {
@@ -62,17 +59,6 @@ const HabitPageClient = ({ email }: Props) => {
     else setSortToggle('DESC');
   }, [sortToggle])
 
-  useEffect(() => {
-    if (habits) {
-      const organized = [];
-      const tempHabits = [...habits];
-
-      while (tempHabits.length > 0) {
-        organized.push(tempHabits.splice(0, 6));
-      }
-      setOrganizedHabits(organized);
-    }
-  }, [habits]);
 
   return (
     <SC_Common.Wrapper className="habit">
@@ -104,12 +90,12 @@ const HabitPageClient = ({ email }: Props) => {
             setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
           }}
         >
-          {organizedHabits?.map((grid: any[], i: number) =>
+          {habits?.map((grid: any[], i: number) =>
             <HabitGrid key={'set' + i}>
               {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id}></HabitBox>)}
             </HabitGrid>)}
         </HabitGridList>
-        <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={organizedHabits.length} />
+        <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={habits.length} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );

@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 const SC_Common = {
+  Input: styled.input`
+    text-align: center;
+    width: 100%;
+    height: 28px;
+    border-radius: 8px;
+    border : solid rgba(0,0,0,0.15) 1px;
+  `,
   YesOrNo: styled.button`
     padding: 4px 12px;
     margin-left: 8px;

@@ -11,6 +11,8 @@ interface DateProps {
 interface ListProps {
   sort: string;
   search: string;
+  limit: number;
+  pageParam: number;
 }
 
 
@@ -34,8 +36,8 @@ export async function getDiary_date({ date }: DateProps) {
   return data;
 }
 
-export async function getDiaries({ sort, search }: ListProps) {
-  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}`)
+export async function getDiaries({ sort, search, pageParam, limit }: ListProps) {
+  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`)
 
   if (!data) {
     console.log('Failed to fetch data!!');

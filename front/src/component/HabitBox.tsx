@@ -94,7 +94,7 @@ const HabitBox = ({ name, id }: Props) => {
       {recentDateArray.map((date, i: number) => {
         return <Check key={`${date}-${name}`}>
           <label htmlFor={`${date}-${name}`}>
-            <span>{format(date, 'eee')}</span>
+            <span className="week">{format(date, 'eee')}</span>
             <span>{format(date, 'd')}</span>
             <input
               id={`${date}-${name}`}
@@ -161,9 +161,9 @@ const Name = styled.span`
   justify-content: center;
 
   span{
-      white-space: nowrap;
-      overflow: scroll;
-    }
+    white-space: nowrap;
+    overflow: scroll;
+  }
 
   @media (max-width: 479px) { //mobile port
     font-size: 18px;
@@ -200,6 +200,16 @@ const Check = styled.div`
   align-items: center;
 
   height: 100%;
+
+  &:first-child{
+    .week{
+      color: rgb(var(--greyTitle)) !important;
+      font-weight: 700;
+    }
+  }
+  .week{
+    color: grey !important;
+  }
 
   label{
     height: 100%;

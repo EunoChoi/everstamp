@@ -7,6 +7,8 @@ interface DateProps {
 interface ListProps {
   sort: string;
   search: string;
+  pageParam: number,
+  limit: number,
 }
 
 export async function getDiary_date_fetch({ date }: DateProps) {
@@ -25,8 +27,8 @@ export async function getDiary_date_fetch({ date }: DateProps) {
 }
 
 
-export async function getDiaries_fetch({ sort, search }: ListProps) {
-  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}`, {
+export async function getDiaries_fetch({ sort, search, pageParam, limit }: ListProps) {
+  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`, {
     headers: {
       cookie: cookies().toString(),
     },

@@ -7,8 +7,10 @@ const tokenCheck = require("../middleware/tokenCheck.js");
 
 
 const User = db.User;
-const Post = db.Post;
+const Diary = db.Diary;
+const Habit = db.Habit;
 const router = express.Router();
+
 
 
 //회원 가입 확인 및 가입 + 로그인
@@ -118,7 +120,7 @@ router.patch("/theme", tokenCheck, async (req, res) => {
     console.error(err);
   }
 })
-
+//로그아웃
 router.get("/logout", (req, res) => {
   res.cookie("accessToken", "", {
     secure: false,
@@ -132,32 +134,37 @@ router.get("/logout", (req, res) => {
 })
 
 //회원탈퇴
-router.delete("/", async (req, res) => {
-  // console.log('----- method : delete, url :  /user -----');
-  // const email = req.currentUserEmail;
-  // try {
-  //   const isUserExist = await User.findOne({
-  //     where: { email }
-  //   });
-  //   if (isUserExist) {
-  //     //유저가 작성한 게시글도 모두 삭제
-  //     await Post.destroy({
-  //       where: { email }
-  //     });
-  //     console.log("탈퇴 유저가 작성한 게시글 모두 삭제 완료");
+router.delete("/", tokenCheck, async (req, res) => {
+  console.log('----- method : delete, url :  /user -----');
+  const email = req.currentUserEmail;
+  try {
+    const isUserExist = await User.findOne({
+      where: { email }
+    });
+    if (isUserExist) {
+      //유저 일기 삭제
+      await Diary.destroy({
+        where: { email }
+      });
+      console.log("탈퇴 유저 일기 모두 삭제 완료");
+      //유저 습관 삭제
+      await Habit.destroy({
+        where: { email }
+      });
+      console.log("탈퇴 유저 습관 모두 삭제 완료");
 
-  //     //유저 삭제 처리
-  //     await User.destroy({
-  //       where: { email }
-  //     });
-  //     console.log("탈퇴 처리 완료");
+      //유저 삭제 처리
+      await User.destroy({
+        where: { email }
+      });
+      console.log("탈퇴 처리 완료");
 
-  //     return res.status(200).json("탈퇴가 완료되었습니다.");
-  //   }
-  //   else return res.status(401).json("존재하지 않은 유저입니다.");
-  // } catch (err) {
-  //   console.error(err);
-  // }
+      return res.status(200).json("탈퇴가 완료되었습니다.");
+    }
+    else return res.status(401).json("존재하지 않은 유저입니다.");
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;

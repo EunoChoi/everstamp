@@ -12,6 +12,7 @@ import Axios from "@/Aixos/aixos";
 import Indicator from "../indicator";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import SC_Common from "@/style/common";
+import { format } from "date-fns";
 
 interface Err {
   response: {
@@ -72,7 +73,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
       });
 
       console.log('success delete diary');
-      closeSnackbar();
+      closeSnackbar('diaryDelete');
       enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
     },
     onError: (e: Err) => {
@@ -87,7 +88,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const onDeleteDiary = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar(); }}>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('diaryDelete'); }}>
           No
         </SC_Common.YesOrNo>
         <SC_Common.YesOrNo className="yes" onClick={() => { deleteDiaryMutation.mutate({ id: diaryData.id }); }}>
@@ -95,7 +96,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         </SC_Common.YesOrNo>
       </>
     );
-    enqueueSnackbar('일기를 지우시겠습니까?', { action, autoHideDuration: 6000 });
+    enqueueSnackbar(`${format(diaryData.date, 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: true, action, autoHideDuration: 6000 });
   };
 
   useEffect(() => {

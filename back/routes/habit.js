@@ -37,6 +37,8 @@ router.get("/list", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/list -----');
   const { sort } = req.query;
   const email = req.currentUserEmail;
+  const result = [];
+
   try {
     const habits = await Habit.findAll({
       where: [{
@@ -47,7 +49,14 @@ router.get("/list", tokenCheck, async (req, res) => {
         ['createdAt', sort], //ASC DESC
       ],
     });
-    if (habits) return res.status(200).json(habits);
+
+    if (habits) {
+      while (habits.length > 0) {
+        result.push(habits.splice(0, 6));
+      }
+      console.log(result);
+      return res.status(200).json(result);
+    }
     else return res.status(400).json('습관 목록을 불러오지 못하였습니다.');
   } catch (e) {
     console.error(e);

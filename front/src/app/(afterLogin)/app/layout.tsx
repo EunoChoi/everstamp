@@ -34,6 +34,26 @@ interface Props {
 }
 
 
+const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
+  '&.notistack-MuiContent-default': {
+    backgroundColor: 'whitesmoke',
+    color: 'rgb(88, 88, 88)',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-info': {
+    backgroundColor: '#8EBCDB',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-success': {
+    backgroundColor: '#83c6b6',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-error': {
+    backgroundColor: '#dc7889',
+    fontWeight: '500'
+  },
+}));
+
 const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
   const router = useRouter();
@@ -49,25 +69,7 @@ const AppLayout = ({ children, modal }: Props) => {
     point: data.themeColor
   }
 
-  const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
-    '&.notistack-MuiContent-default': {
-      backgroundColor: 'whitesmoke',
-      color: 'rgb(88, 88, 88)',
-      fontWeight: '500'
-    },
-    '&.notistack-MuiContent-info': {
-      backgroundColor: '#8EBCDB',
-      fontWeight: '500'
-    },
-    '&.notistack-MuiContent-success': {
-      backgroundColor: '#83c6b6',
-      fontWeight: '500'
-    },
-    '&.notistack-MuiContent-error': {
-      backgroundColor: '#dc7889',
-      fontWeight: '500'
-    },
-  }));
+
 
   //loading page, to solve useMediaQuery delay problem
   if (isMobile === null) {

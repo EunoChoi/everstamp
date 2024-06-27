@@ -1,7 +1,7 @@
 'use client';
 
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 
 //styledComponent
@@ -15,17 +15,41 @@ import Header from "@/component/Header";
 
 //icon
 import SearchIcon from '@mui/icons-material/Search';
-import SortIcon from '@mui/icons-material/Sort';
 import { useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
-import IsMobile from "@/function/IsMobile";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+import { useInView } from "react-intersection-observer";
 
 interface Props {
   email: string;
 }
+
+interface ImageProps {
+  id: string;
+  src: string;
+}
+
+interface Habit {
+  UserId: number;
+  id: number;
+  email: string;
+  name: string;
+  themeColor: string;
+}
+
+
+interface diaryData {
+  email: string;
+  id: number;
+  date: Date;
+  text: string;
+  Images: Array<ImageProps>;
+  Habits: Array<Habit>;
+  visible: boolean;
+};
+
 
 const ListPageClient = () => {
 
@@ -35,11 +59,17 @@ const ListPageClient = () => {
   const [searchInputOpen, setSearchInputOpen] = useState<Boolean>(false);
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
 
-  const { data: diaries } = useQuery({
-    queryKey: ['diary', 'list', 'search', search, sortToggle],
-    queryFn: () => getDiaries({ sort: sortToggle, search }),
+  const { ref, inView } = useInView({
+    threshold: 0,
+    delay: 0
   });
 
+  const { data: diaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
+    queryKey: ['diary', 'list', 'search', search, sortToggle],
+    queryFn: ({ pageParam }) => getDiaries({ sort: sortToggle, search, pageParam, limit: 5 }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => (lastPage.length === 0 ? undefined : allPages.length),
+  });
 
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,11 +81,16 @@ const ListPageClient = () => {
   }, [sortToggle])
 
 
+  useEffect(() => {
+    if (!isFetching && hasNextPage && inView) fetchNextPage();
+  }, [inView, hasNextPage, isFetching])
+
   return (
     <SC_Common.Wrapper>
       <Header title='list' />
 
       <SC_Common.Options>
+        <button onClick={() => fetchNextPage()}>next</button>
         <Search
           open={searchInputOpen}
           onClick={(e) => {
@@ -85,14 +120,16 @@ const ListPageClient = () => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll">
-        {diaries?.length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
+        {diaries?.pages.length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
 
-        {diaries?.map((e: any, i: number) =>
-          <Diary
-            position="list"
-            diaryData={e}
-            key={'listNote' + i}
-          />)}
+        {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => (<Diary
+          position="list"
+          diaryData={data}
+          key={'listNote' + i}
+        />))))
+
+        }
+        <Observer ref={ref} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
@@ -100,6 +137,24 @@ const ListPageClient = () => {
 
 export default ListPageClient;
 
+const Observer = styled.div`
+  flex-shrink: 0;
+  width: 100%;
+  height: 50px;
+`
+
+const Search = styled.button<{ open?: Boolean }>`
+  transition: all ease-in-out 0.3s;
+  width : ${props => props.open === true ? '200px' : '46px'};
+  input{
+    width: 100%;
+    border-radius: 48px;
+    padding : 0 14px;
+    &::placeholder{
+      font-size: 14px;
+    }
+  }
+`
 const NoDiaries = styled.div`
   display: flex;
   align-items: center;
@@ -111,17 +166,5 @@ const NoDiaries = styled.div`
 
   @media (min-height:480px) and (min-width:1024px) { //desktop
     font-size: 22px;
-  }
-`
-const Search = styled.button<{ open?: Boolean }>`
-  transition: all ease-in-out 0.3s;
-  width : ${props => props.open === true ? '200px' : '46px'};
-  input{
-    width: 100%;
-    border-radius: 48px;
-    padding : 0 14px;
-    &::placeholder{
-      font-size: 14px;
-    }
   }
 `

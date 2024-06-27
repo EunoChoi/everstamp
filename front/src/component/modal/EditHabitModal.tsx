@@ -50,16 +50,14 @@ const EditHabitModal = () => {
         queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
 
-      console.log('edit habit success');
       historyBack();
+      console.log('edit habit success');
       setTimeout(() => {
         enqueueSnackbar('습관 항목 수정 완료', { variant: 'success' });
       }, 300);
     },
     onError: (e: Err) => {
-      // alert(e?.response?.data);
       enqueueSnackbar(e?.response?.data, { variant: 'error' });
-
       console.log('edit habit error');
     },
   });
@@ -74,28 +72,26 @@ const EditHabitModal = () => {
 
       historyBack();
       console.log('delete habit success');
-      closeSnackbar();
-      enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
+      setTimeout(() => {
+        closeSnackbar('deleteHabit');
+        enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
+      }, 300);
     },
     onError: (e: Err) => {
-      // alert(e?.response?.data);
       enqueueSnackbar(e?.response?.data, { variant: 'error' });
-
       console.log('delete habit error');
     },
   });
 
 
   const onEditHabit = () => {
-    // if (habitData.name === habitName) { historyBack(); } //이름 변화 없이 수정한 경우
     if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
-    // else alert('최대 10글자까지만 가능합니다.')
     else enqueueSnackbar('최대 10글자만 입력만 가능 합니다.', { variant: 'info' });
   };
   const onDeleteHabit = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar(); }}>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
           No
         </SC_Common.YesOrNo>
         <SC_Common.YesOrNo className="yes" onClick={() => { deleteHabitMutation.mutate({ habitId, priority }); }}>
@@ -103,7 +99,7 @@ const EditHabitModal = () => {
         </SC_Common.YesOrNo>
       </>
     );
-    enqueueSnackbar('습관 항목을 지우시겠습니까?', { action, autoHideDuration: 6000 });
+    enqueueSnackbar(`습관 항목(${habitData.name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
   }
   const historyBack = useCallback(() => {
     history.back();

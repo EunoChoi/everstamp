@@ -179,8 +179,22 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 router.get("/list", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url :  /diary/list -----');
-  const { sort, search } = req.query;
+  const { sort, search, pageParam, limit } = req.query;
   const email = req.currentUserEmail;
+
+  console.log(pageParam);
+  console.log(limit);
+  console.log(pageParam, limit);
+  console.log(pageParam * limit);
+
+  const offset = Number(pageParam * limit);
+
+  //초기 pageParam =0이므로
+  //limit 5 가정하여
+  //pageParam 0일때 offset은 0
+  //pageParam 1일때 offset은 5
+  //pageParam 2일때 offset은 10
+
 
   try {
     const diaries = await Diary.findAll({
@@ -191,6 +205,8 @@ router.get("/list", tokenCheck, async (req, res) => {
           [Op.like]: "%" + `${search}` + "%"
         }
       }],
+      offset: Number(offset),
+      limit: Number(limit),
       include: [{
         model: Image,//이미지
       }, {
