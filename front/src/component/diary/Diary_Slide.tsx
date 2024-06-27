@@ -53,10 +53,6 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
   const onEditDiary = () => {
     router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
   };

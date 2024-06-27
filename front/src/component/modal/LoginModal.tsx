@@ -12,17 +12,15 @@ import kakao from '/public/img/kakao.png';
 import naver from '/public/img/naver.png';
 import { useCallback } from "react";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
-
+  const router = useRouter();
   const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app/calendar?date=${getCleanTodayTime()}` };
 
   return (
-    <Wrapper onClick={historyBack}>
+    <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Logo>
           <span>ever</span>

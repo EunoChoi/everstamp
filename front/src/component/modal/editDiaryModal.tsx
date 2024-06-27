@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
@@ -38,6 +38,7 @@ interface EditDiaryProps {
 
 const EditDiaryModal = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const params = useSearchParams();
   const diaryId = params.get('id');
 
@@ -51,11 +52,6 @@ const EditDiaryModal = () => {
   const onEditDiary = () => {
     editDiaryMutation.mutate({ text, images, diaryId })
   };
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
-
-
 
 
   const { data: diaryData } = useQuery({
@@ -73,7 +69,7 @@ const EditDiaryModal = () => {
       });
 
       console.log('success edit diary');
-      historyBack();
+      router.back();
       setTimeout(() => {
         enqueueSnackbar('일기 수정 완료', { variant: 'success' });
       }, 300);
@@ -99,7 +95,7 @@ const EditDiaryModal = () => {
   }, [])
 
   return (
-    <Wrapper onClick={historyBack}>
+    <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={diaryData?.date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>

@@ -8,6 +8,7 @@ import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import Axios from "@/Aixos/aixos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 interface EditHabitProps {
   habitName: string;
@@ -22,8 +23,7 @@ interface Err {
 
 const AddHabitModal = () => {
   const queryClient = useQueryClient();
-
-  const email = getCurrentUserEmail();
+  const router = useRouter();
   const [habitName, setHabitName] = useState<string>('');
   // const [themeColor, setThemeColor] = useState<string>('default');
   const [priority, setPriority] = useState<number>(0);
@@ -38,7 +38,7 @@ const AddHabitModal = () => {
       });
 
       console.log('add habit success');
-      historyBack();
+      router.back();
       setTimeout(() => {
         enqueueSnackbar('습관 항목 생성 완료', { variant: 'success' });
       }, 300);
@@ -51,9 +51,6 @@ const AddHabitModal = () => {
   });
 
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
   const addHabit = () => {
     if (habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
     // else alert('최대 10글자까지만 가능합니다.')
@@ -62,7 +59,7 @@ const AddHabitModal = () => {
   };
 
   return (
-    <Wrapper onClick={() => historyBack()}>
+    <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Add Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useCallback, useEffect, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 
@@ -27,6 +27,7 @@ interface Err {
 
 const EditHabitModal = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const params = useSearchParams();
   const habitId = params.get('id');
@@ -50,7 +51,7 @@ const EditHabitModal = () => {
         queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
 
-      historyBack();
+      router.back();
       console.log('edit habit success');
       setTimeout(() => {
         enqueueSnackbar('습관 항목 수정 완료', { variant: 'success' });
@@ -70,7 +71,7 @@ const EditHabitModal = () => {
       });
 
 
-      historyBack();
+      router.back();
       console.log('delete habit success');
       setTimeout(() => {
         closeSnackbar('deleteHabit');
@@ -101,10 +102,6 @@ const EditHabitModal = () => {
     );
     enqueueSnackbar(`습관 항목(${habitData.name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
   }
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
-
 
   useEffect(() => {
     setHabitName(habitData?.name);
@@ -114,7 +111,7 @@ const EditHabitModal = () => {
 
 
   return (
-    <Wrapper onClick={() => historyBack()}>
+    <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />

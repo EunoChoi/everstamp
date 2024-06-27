@@ -8,6 +8,7 @@ import { RefObject, useCallback } from "react";
 import Axios from "@/Aixos/aixos";
 import { useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 interface Props {
   type?: string;
@@ -26,6 +27,8 @@ interface Err {
 
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
 
+  const router = useRouter();
+
   const ImageUploadMutation = useMutation({
     // mutationFn: (imageFormData: FoamData) => Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });,
     mutationFn: (imageFormData: FormData) => Axios.post('/image', imageFormData),
@@ -40,11 +43,6 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       console.log('image upload error');
     },
   });
-
-
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
 
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -82,7 +80,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
 
   return (
     <Buttons>
-      <Button onClick={historyBack}>
+      <Button onClick={() => router.back()}>
         <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
       </Button>
       <Button onClick={() => imageUploadRef.current?.click()}>

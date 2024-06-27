@@ -3,7 +3,7 @@
 import { format, lastDayOfMonth } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
@@ -15,6 +15,7 @@ import Indicator from "../indicator";
 
 
 const HabitInfoModal = () => {
+  const router = useRouter();
   const params = useSearchParams();
   const habitId = params.get('id');
   const [habitCount, setHabitCount] = useState<number>(0);
@@ -31,16 +32,13 @@ const HabitInfoModal = () => {
     enabled: habitId !== null
   });
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
 
 
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [])
 
-  return (<Wrapper onClick={historyBack}>
+  return (<Wrapper onClick={() => router.back()}>
     <Modal onClick={(e) => e.stopPropagation()}>
       <Name>
         {habitData?.name ? habitData?.name : '-'}
@@ -75,7 +73,7 @@ const HabitInfoModal = () => {
 
 
       <Buttons>
-        <Button onClick={historyBack} >
+        <Button onClick={() => router.back()} >
           <CancelOutlinedIcon className="icon" />
         </Button>
       </Buttons>

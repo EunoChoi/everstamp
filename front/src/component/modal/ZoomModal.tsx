@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
@@ -17,9 +17,7 @@ interface ImageProps {
 }
 
 const ZoomModal = () => {
-  //param diary id만 가져옴
-  //useQuery로 data 가져옴
-  //가져온걸 뿌림
+  const router = useRouter();
   const params = useSearchParams();
   const diaryId = params.get('id');
 
@@ -39,15 +37,12 @@ const ZoomModal = () => {
   const indicatorLength = images?.length + 1;
 
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
 
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [diaryData])
 
-  return (<Wrapper onClick={historyBack}>
+  return (<Wrapper onClick={() => router.back()}>
     <Modal onClick={(e) => e.stopPropagation()}>
       <DiaryDate>
         <span>{date && format(date, 'yyyy. M. dd')}</span>
@@ -73,7 +68,7 @@ const ZoomModal = () => {
       {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
 
       <Buttons>
-        <Button onClick={historyBack} >
+        <Button onClick={() => router.back()} >
           <CancelOutlinedIcon className="icon" />
         </Button>
       </Buttons>

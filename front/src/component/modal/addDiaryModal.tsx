@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
@@ -28,6 +28,7 @@ interface Err {
 
 const AddDiaryModal = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
 
@@ -46,7 +47,7 @@ const AddDiaryModal = () => {
       });
 
       console.log('add diary success');
-      historyBack();
+      router.back();
       setTimeout(() => {
         enqueueSnackbar('일기 작성 완료', { variant: 'success' });
       }, 300);
@@ -64,16 +65,13 @@ const AddDiaryModal = () => {
     else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
   };
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
   }, [])
 
   return (
-    <Wrapper onClick={historyBack}>
+    <Wrapper onClick={() => { router.back(); }}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />

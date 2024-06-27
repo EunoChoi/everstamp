@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { useRouter } from "next/navigation";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+
 
 
 interface Props {
@@ -10,9 +13,12 @@ interface Props {
 
 const HabitInputButtons = ({ type, onSubmit }: Props) => {
 
-
+  const router = useRouter();
   return (
     <Buttons>
+      <Button onClick={() => router.back()}>
+        <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
+      </Button>
       <Button onClick={() => onSubmit()}>
         {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <AddTaskOutlinedIcon className="icon" />}
       </Button>
