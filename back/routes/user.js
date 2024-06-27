@@ -119,6 +119,18 @@ router.patch("/theme", tokenCheck, async (req, res) => {
   }
 })
 
+router.get("/logout", (req, res) => {
+  res.cookie("accessToken", "", {
+    secure: false,
+    httpOnly: true,
+  })
+  res.cookie("refreshToken", "", {
+    secure: false,
+    httpOnly: true,
+  })
+  res.status(200).json("로그아웃 완료");
+})
+
 //회원탈퇴
 router.delete("/", async (req, res) => {
   // console.log('----- method : delete, url :  /user -----');
