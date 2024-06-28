@@ -124,6 +124,9 @@ const Info = styled.div`
     flex-direction: column;
     font-size: 18px;
     color: #5c5c5c;
+    span{
+      line-height: 120%;
+    }
   }
   .infoCount{
     line-height: 100%;

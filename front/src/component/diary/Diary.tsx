@@ -138,8 +138,8 @@ const Wrapper = styled.div`
 
   width: 100%;
   max-width: 600px;
-  height: 300px;
-  margin: 12px 0;
+  height: 250px;
+  margin-top: 12px;
 
   @media (min-width: 1024px) {//desktop
     height: 350px;

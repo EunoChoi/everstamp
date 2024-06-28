@@ -115,7 +115,7 @@ const EditHabitModal = () => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />
-        <Delete onClick={onDeleteHabit}><button>delete</button></Delete>
+        <Delete><button onClick={onDeleteHabit}>delete</button></Delete>
         <HabitInputButtons onSubmit={onEditHabit} type="edit" />
       </Modal>
     </Wrapper>);
