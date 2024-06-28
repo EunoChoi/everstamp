@@ -141,17 +141,16 @@ const Wrapper = styled.div`
   aspect-ratio: 1;
   
   border-radius: 16px;
-  background-color: whitesmoke;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.075);
 
   display: flex;
   flex-direction: column;
-
+  background-color: ${(props) => props.theme.point ? props.theme.point + '10' : '#9797CB'};
   &.priority1{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#9797CB'}
+    background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'}
   }
   &.priority2{
-    background-color : ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'}
+    background-color : ${(props) => props.theme.point ? props.theme.point + '50' : '#9797CB'}
   }
 `
 const Name = styled.span`

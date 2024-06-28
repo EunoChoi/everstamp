@@ -86,8 +86,8 @@ const EditHabitModal = () => {
 
 
   const onEditHabit = () => {
-    if (habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
-    else enqueueSnackbar('최대 10글자만 입력만 가능 합니다.', { variant: 'info' });
+    if (habitName.length > 0 && habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
+    else enqueueSnackbar('1~10글자의 이름을 입력해주세요.', { variant: 'info' });
   };
   const onDeleteHabit = () => {
     const action = (snackbarId: SnackbarKey) => (

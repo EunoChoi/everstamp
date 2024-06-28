@@ -54,7 +54,7 @@ const AddHabitModal = () => {
   const addHabit = () => {
     if (habitName.length > 0 && habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
     // else alert('최대 10글자까지만 가능합니다.')
-    else enqueueSnackbar('최대 10글자까지만 가능합니다.', { variant: 'info' });
+    else enqueueSnackbar('1~10 글자의 이름을 입력해주세요.', { variant: 'info' });
 
   };
 
