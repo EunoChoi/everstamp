@@ -208,7 +208,7 @@ const TextWrapper = styled.div`
 const Text = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   line-height: 1.7;
   overflow: hidden;
 
