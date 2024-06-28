@@ -1,29 +1,25 @@
 import styled from "styled-components";
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
-import { useEffect, useRef } from "react";
+import { RefObject } from "react";
 
 interface Props {
   habitName: string;
   setHabitName: (name: string) => void;
   priority: number;
   setPriority: (n: number) => void;
+  inputRef: RefObject<HTMLInputElement>;
 }
 
 
-const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Props) => {
+const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inputRef }: Props) => {
 
-  const ref = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    ref.current?.focus();
-  })
 
   return (
     <>
       <Value>
         <span>name</span>
         <input
-          ref={ref}
+          ref={inputRef}
           onChange={(e) => setHabitName(e.currentTarget.value)}
           value={habitName || ""} />
       </Value>
@@ -92,7 +88,7 @@ const Value = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  margin : 0 10%;
+  margin : 12px 10%;
   @media (min-height:480px) and (min-width:1024px) { //desktop
     margin : 0 20%;
   }

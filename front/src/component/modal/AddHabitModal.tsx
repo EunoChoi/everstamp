@@ -1,7 +1,7 @@
 'use client';
 
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
@@ -25,8 +25,8 @@ const AddHabitModal = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const [habitName, setHabitName] = useState<string>('');
-  // const [themeColor, setThemeColor] = useState<string>('default');
   const [priority, setPriority] = useState<number>(0);
+  const inputRef = useRef<HTMLInputElement>(null);
 
 
   const addHabitMutation = useMutation({
@@ -58,12 +58,15 @@ const AddHabitModal = () => {
 
   };
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
+
   return (
     <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Add Habit</Title>
-        <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />
-        <div></div>
+        <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
         <HabitInputButtons onSubmit={addHabit} />
       </Modal>
     </Wrapper>);
@@ -96,7 +99,7 @@ const Modal = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 
   background-color: white;
   border-radius: 8px;
@@ -105,15 +108,10 @@ const Modal = styled.div`
   padding-top: 12px;
   padding-bottom: calc(var(--mobileNav) + 12px);
 
-  @media (max-width: 479px) { //mobile port
-    width: 90%;
-    height: 300px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    min-width: 400px;
-    width: 50%;
-    height: 300px;
-  }
+  width: 100dvw;
+  height: 100dvh;
+
+
   @media (min-height:480px) and (min-width:1024px) { //desktop
     height: 300px;
     width: 450px;

@@ -13,6 +13,7 @@ import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 interface Props {
   name: string;
@@ -110,13 +111,11 @@ const HabitBox = ({ name, id, priority }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
-
       <button onClick={() => router.push(`/app/inter/habitInfo?id=${id}`, { scroll: false })}>
         <InsertChartOutlinedIcon fontSize="small" />
       </button>
       <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
-
-        <SettingsOutlinedIcon fontSize="small" />
+        <EditOutlinedIcon fontSize="small" />
       </button>
     </ButtonWrapper>
   </Wrapper >);
