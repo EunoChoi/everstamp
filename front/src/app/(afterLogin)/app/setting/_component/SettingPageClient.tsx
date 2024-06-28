@@ -102,7 +102,7 @@ const SettingPageClient = () => {
 
         <Section>
           <Title>theme</Title>
-          <SubTitle>foreground color</SubTitle>
+          <SubTitle>point color</SubTitle>
           <FlexRow>
             <Color className="selected" />
             <FlexRow className="end">

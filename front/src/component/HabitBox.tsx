@@ -17,6 +17,7 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 interface Props {
   name: string;
   id: number;
+  priority: number;
 }
 interface Err {
   response: {
@@ -28,7 +29,7 @@ interface CheckHabitProps {
   date: number;
 }
 
-const HabitBox = ({ name, id }: Props) => {
+const HabitBox = ({ name, id, priority }: Props) => {
   const queryClient = useQueryClient();
 
   const router = useRouter();
@@ -88,7 +89,7 @@ const HabitBox = ({ name, id }: Props) => {
     }
   }
 
-  return (<Wrapper>
+  return (<Wrapper className={`${priority ? 'priority' + priority : ''}`}>
     <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {
@@ -145,6 +146,13 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  &.priority1{
+    background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#9797CB'}
+  }
+  &.priority2{
+    background-color : ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'}
+  }
 `
 const Name = styled.span`
   width: 100%;
@@ -166,7 +174,7 @@ const Name = styled.span`
   }
 
   @media (max-width: 479px) { //mobile port
-    font-size: 18px;
+    font-size: 16px;
     span{
       max-width: 120px;
     }
@@ -178,7 +186,7 @@ const Name = styled.span`
     }
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    font-size: 20px;
+    font-size: 18px;
     span{
       max-width: 180px;
     }
@@ -219,7 +227,7 @@ const Check = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: grey;
 

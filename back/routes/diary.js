@@ -214,7 +214,7 @@ router.get("/list", tokenCheck, async (req, res) => {
       }],
       order: [
         ['date', sort], //ASC DESC
-        [Habit, 'name', 'ASC']
+        [Habit, 'priority', 'DESC']
       ],
     });
 
@@ -244,7 +244,7 @@ router.get("/calendar", tokenCheck, async (req, res) => {
         model: Habit,//습관
       }],
       order: [
-        [Habit, 'name', 'ASC']
+        [Habit, 'priority', 'DESC']
       ],
     });
     if (diary) return res.status(201).json(diary);

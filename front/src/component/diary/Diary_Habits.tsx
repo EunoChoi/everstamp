@@ -10,6 +10,7 @@ interface HabitProps {
   email: string;
   name: string;
   themeColor: string;
+  priority: number;
 }
 
 const DiaryHabits = ({ habits }: Props) => {
@@ -17,11 +18,14 @@ const DiaryHabits = ({ habits }: Props) => {
 
   return (
     <Habits className="habits">
-      <Habit
-      >{habits?.length ? habits?.length : 0} habits</Habit>
-      {habits?.map((habit: HabitProps, i: number) => <Habit
-        onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
-        key={habit.name + i}>{habit.name}</Habit>)}
+      <Habit>{habits?.length ? habits?.length : 0} habits</Habit>
+      {habits?.map((habit: HabitProps, i: number) =>
+        <Habit
+          className={`${habit.priority ? 'priority' + habit.priority : ''}`}
+          onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
+          key={habit.name + i}>
+          {habit.name}
+        </Habit>)}
     </Habits>
   );
 }
@@ -52,7 +56,16 @@ const Habit = styled.span`
   
   padding : 0px 16px;
   color: rgb(var(--greyTitle));
-  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
+
+
+  background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
+  &.priority1{
+    background-color: ${(props) => props.theme.point ? props.theme.point + '65' : '#9797CB'};
+  }
+  &.priority2{
+    background-color : ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
+  }
+
   border-radius: 24px;
   margin-right: 12px;
 

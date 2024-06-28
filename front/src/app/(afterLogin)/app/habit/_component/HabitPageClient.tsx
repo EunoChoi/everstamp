@@ -92,7 +92,7 @@ const HabitPageClient = ({ email }: Props) => {
         >
           {habits?.map((grid: any[], i: number) =>
             <HabitGrid key={'set' + i}>
-              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id}></HabitBox>)}
+              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />)}
             </HabitGrid>)}
         </HabitGridList>
         <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={habits.length} />

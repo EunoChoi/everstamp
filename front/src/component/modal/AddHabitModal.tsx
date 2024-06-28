@@ -52,7 +52,7 @@ const AddHabitModal = () => {
 
 
   const addHabit = () => {
-    if (habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
+    if (habitName.length > 0 && habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
     // else alert('최대 10글자까지만 가능합니다.')
     else enqueueSnackbar('최대 10글자까지만 가능합니다.', { variant: 'info' });
 
