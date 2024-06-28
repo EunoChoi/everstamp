@@ -262,23 +262,21 @@ router.patch("/", tokenCheck, async (req, res) => {
     if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
 
-    let habit = await Habit.findOne({
+    const isHabitExist = await Habit.findOne({
       where: { id: habitId },
     });
-    if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
+    if (!isHabitExist) return res.status(403).json("습관이 존재하지 않습니다.");
 
-    habit = await Habit.findOne({
+    const isHabitNameNotOk = await Habit.findOne({
       where: {
         name: habitName,
         id: { [Op.ne]: habitId }
       },
     });
-    if (habit) return res.status(403).json("동일한 이름의 습관이 존재합니다.");
+    if (isHabitNameNotOk) return res.status(403).json("동일한 이름의 습관이 존재합니다.");
 
     //같은 이름 있는지 확인 후 같은 이름이 있으면 수정 중단
-
-
-    habit = await Habit.update({
+    const updatedHabit = await Habit.update({
       name: habitName,
       themeColor,
       priority
@@ -286,7 +284,7 @@ router.patch("/", tokenCheck, async (req, res) => {
       where: { id: habitId }
     });
 
-    if (habit) return res.status(200).json(habit);
+    if (updatedHabit) return res.status(200).json(updatedHabit);
     else return res.status(400).json('수정 중 오류가 발생하였습니다.');
   } catch (e) {
     console.error(e);
