@@ -7,8 +7,10 @@ const tokenCheck = require("../middleware/tokenCheck.js");
 
 
 const User = db.User;
-const Post = db.Post;
+const Diary = db.Diary;
+const Habit = db.Habit;
 const router = express.Router();
+
 
 
 //회원 가입 확인 및 가입 + 로그인
@@ -35,9 +37,9 @@ router.post("/register", async (req, res) => {
     });
     const refreshToken = jwt.sign({
       type: "refreshToken",
-      expiresIn: "60m"
+      expiresIn: "120m"
     }, process.env.REFRECH_KEY, {
-      expiresIn: '60m',
+      expiresIn: '120m',
       issuer: 'everstamp',
     })
 
@@ -61,7 +63,7 @@ router.post("/register", async (req, res) => {
         {
           email,
           provider,
-          themeColor,
+          themeColor: '#9797CB',
           profilePic
         }
       );
@@ -92,8 +94,47 @@ router.get("/current", tokenCheck, async (req, res) => {
     console.log(error);
   }
 })
+
+//유저 테마 색상 변경
+router.patch("/theme", tokenCheck, async (req, res) => {
+  console.log('----- method : patch, url :  /user/theme -----');
+  const email = req.currentUserEmail;
+  const { themeColor } = req.body;
+
+  try {
+    let user = await User.findOne({
+      where: {
+        email
+      }
+    })
+    if (!user) return res.status(404).json('유저 정보가 없습니다.');
+
+    user = await User.update({
+      themeColor,
+    }, {
+      where: { email }
+    });
+    if (user) return res.status(200).json('theme color changed')
+    else return res.status(400).json('theme color update error');
+  } catch (err) {
+    console.error(err);
+  }
+})
+//로그아웃
+router.get("/logout", (req, res) => {
+  res.cookie("accessToken", "", {
+    secure: false,
+    httpOnly: true,
+  })
+  res.cookie("refreshToken", "", {
+    secure: false,
+    httpOnly: true,
+  })
+  res.status(200).json("로그아웃 완료");
+})
+
 //회원탈퇴
-router.delete("/", async (req, res) => {
+router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /user -----');
   const email = req.currentUserEmail;
   try {
@@ -101,11 +142,16 @@ router.delete("/", async (req, res) => {
       where: { email }
     });
     if (isUserExist) {
-      //유저가 작성한 게시글도 모두 삭제
-      await Post.destroy({
+      //유저 일기 삭제
+      await Diary.destroy({
         where: { email }
       });
-      console.log("탈퇴 유저가 작성한 게시글 모두 삭제 완료");
+      console.log("탈퇴 유저 일기 모두 삭제 완료");
+      //유저 습관 삭제
+      await Habit.destroy({
+        where: { email }
+      });
+      console.log("탈퇴 유저 습관 모두 삭제 완료");
 
       //유저 삭제 처리
       await User.destroy({

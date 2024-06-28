@@ -5,20 +5,25 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 //styledComponent
 import SC_Common from "@/style/common";
+import { enqueueSnackbar } from 'notistack'
 
 //component
 import HabitBox from "@/component/HabitBox";
 import Header from "@/component/Header";
 
 //icon
-import SortIcon from '@mui/icons-material/Sort';
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getAllHabits } from "../../../_lib/getAllHabits";
+import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+
+import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
+import SplitscreenOutlinedIcon from '@mui/icons-material/SplitscreenOutlined';
+
+import Indicator from "@/component/indicator";
 
 interface Props {
   email: string;
@@ -31,47 +36,47 @@ const HabitPageClient = ({ email }: Props) => {
 
   const gridListRef = useRef<HTMLDivElement>(null);
 
+  const [typeToggle, setTypeToggle] = useState<'GRID' | 'LIST'>('GRID');
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
   const [page, setPage] = useState<number>(0);
 
-  const [indicator, setIndicator] = useState<Array<number>>([]);
-
-  const [organizedHabits, setOrganizedHabits] = useState<Array<any>>([]);
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'all', sortToggle],
-    queryFn: () => getAllHabits(sortToggle),
+    queryKey: ['habits', 'list', sortToggle],
+    queryFn: () => getHabits({ sort: sortToggle }),
   });
 
+
+  const onAddHabit = () => {
+    if (habits.length < 18) router.push('/app/inter/input/addHabit', { scroll: false })
+    else enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
+  }
+  const typeChage = useCallback(() => {
+    if (typeToggle === 'GRID') setTypeToggle('LIST');
+    else setTypeToggle('GRID');
+  }, [typeToggle])
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
   }, [sortToggle])
 
-  useEffect(() => {
-    if (habits) {
-      const temp = [];
-      const _habits = [...habits];
-
-      while (_habits.length > 0) {
-        temp.push(_habits.splice(0, 6));
-      }
-
-      setIndicator(new Array(temp.length).fill(0));
-      setOrganizedHabits(temp);
-    }
-  }, [habits]);
 
   return (
     <SC_Common.Wrapper className="habit">
       <Header title='habit' />
       <SC_Common.Options>
-        <button onClick={() => router.push('/app/inter/input/addHabit', { scroll: false })}>
+        <button onClick={onAddHabit}>
           <AddIcon fontSize="small" />
         </button>
+        {/* <button onClick={typeChage}>
+          {typeToggle === 'GRID' ? <WindowOutlinedIcon fontSize="small" /> : <SplitscreenOutlinedIcon fontSize="small" />}
+        </button> */}
         <button onClick={sortChage}>
 
-          <span>{sortToggle === 'DESC' ? <ArrowUpwardOutlinedIcon fontSize="small" /> : <ArrowDownwardOutlinedIcon fontSize="small" />}</span>
-          <span>ㄱㄴㄷ</span>
+          <span>{sortToggle === 'DESC' ?
+            <ArrowUpwardOutlinedIcon fontSize="small" /> :
+            <ArrowDownwardOutlinedIcon fontSize="small" />}
+          </span>
+          <span>Time</span>
         </button>
       </SC_Common.Options>
 
@@ -85,26 +90,12 @@ const HabitPageClient = ({ email }: Props) => {
             setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
           }}
         >
-          {organizedHabits?.map((grid: any[], i: number) =>
+          {habits?.map((grid: any[], i: number) =>
             <HabitGrid key={'set' + i}>
-              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id} email={email}></HabitBox>)}
+              {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id}></HabitBox>)}
             </HabitGrid>)}
         </HabitGridList>
-
-
-        <IndicatorWrapper>
-          {indicator.map((_, i: number) =>
-            <div
-              key={'indicator' + i}
-              className={page === i ? 'current' : ''}
-              onClick={() => {
-                gridListRef.current?.scrollTo({
-                  left: gridListRef.current.clientWidth * i,
-                  behavior: "smooth"
-                })
-              }} />)}
-        </IndicatorWrapper>
-
+        <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={habits.length} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
@@ -147,6 +138,7 @@ const HabitGridList = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 60%;
     width: 90%;
+    flex-shrink: 0;
   }
 `
 const HabitGrid = styled.div`
@@ -174,27 +166,6 @@ const HabitGrid = styled.div`
   @media (orientation: portrait) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-  }
-`
-const IndicatorWrapper = styled.div`
-  display: flex;
-  margin-top: 8px;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 16px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  .current {
-    background-color: rgb(var(--point));
   }
 `
 

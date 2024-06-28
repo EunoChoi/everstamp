@@ -1,8 +1,8 @@
-import Login from "@/component/modal/Login";
+import LoginModal from "@/component/modal/LoginModal";
 
 const RouteLogin = () => {
   return (<>
-    <Login />
+    <LoginModal />
   </>);
 }
 

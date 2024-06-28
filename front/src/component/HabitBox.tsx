@@ -3,29 +3,33 @@
 import styled from "styled-components";
 
 
-//icon
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-
 import { subDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
 import Axios from "@/Aixos/aixos";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
-import { useQuery } from "@tanstack/react-query";
-import { getRecentHabitStatus } from "@/app/(afterLogin)/_lib/getRecentHabitStatus";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 
 interface Props {
   name: string;
   id: number;
-  email: string;
+}
+interface Err {
+  response: {
+    data: string;
+  }
+}
+interface CheckHabitProps {
+  habitId: number;
+  date: number;
 }
 
-const HabitBox = ({ name, id, email }: Props) => {
+const HabitBox = ({ name, id }: Props) => {
+  const queryClient = useQueryClient();
 
   const router = useRouter();
 
@@ -34,35 +38,63 @@ const HabitBox = ({ name, id, email }: Props) => {
   let recentDateArray = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
   recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
 
-
-
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
-    queryFn: () => getRecentHabitStatus(id, currentCleanDateTime),
+    queryFn: () => getHabit_status_4day({ id, date: currentCleanDateTime }),
   });
 
 
-  //check, uncheck 처리
-  const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
-    if (e.currentTarget.checked === true) {//habit diary model add relation 
-      Axios.post('/habit/check', { id, date, email });
-      console.log('check')
-    }
-    else {//habit diary model delete relation 
-      Axios.delete('/habit/check', {
-        data: { id, date, email }
+
+  const checkHabitMutation = useMutation({
+    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.post('/habit/check', { habitId, date }),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
-      console.log('unchecked');
+
+      console.log('chack habit success');
+    },
+    onError: (e: Err) => {
+      enqueueSnackbar(e?.response?.data, { variant: 'error' })
+      // alert(e?.response?.data);
+      console.log('uncheck habit error');
+    },
+  });
+  const uncheckHabitMutation = useMutation({
+    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.delete('/habit/check', { data: { habitId, date } }), //delete method data
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('unchack habit success');
+    },
+    onError: (e: Err) => {
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+      console.log('uncheck habit error');
+    },
+  });
+
+
+  const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
+    if (e.currentTarget.checked === true) {
+      checkHabitMutation.mutate({ habitId: id, date });
+    }
+    else {
+      uncheckHabitMutation.mutate({ habitId: id, date });
     }
   }
 
   return (<Wrapper>
-    <Name>{name}</Name>
+    <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {
         return <Check key={`${date}-${name}`}>
           <label htmlFor={`${date}-${name}`}>
-            <span>{format(date, 'eee')}</span>
+            <span className="week">{format(date, 'eee')}</span>
             <span>{format(date, 'd')}</span>
             <input
               id={`${date}-${name}`}
@@ -77,7 +109,12 @@ const HabitBox = ({ name, id, email }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
-      <button onClick={() => router.push('/app/inter/input/editHabit', { scroll: false })}>
+
+      <button onClick={() => router.push(`/app/inter/habitInfo?id=${id}`, { scroll: false })}>
+        <InsertChartOutlinedIcon fontSize="small" />
+      </button>
+      <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
+
         <SettingsOutlinedIcon fontSize="small" />
       </button>
     </ButtonWrapper>
@@ -94,6 +131,9 @@ const ButtonWrapper = styled.div`
   align-items: center;
 
   color: #b9b9b9;
+  button{
+    margin : 0 6px;
+  }
 `
 const Wrapper = styled.div`
   width: 100%;
@@ -109,8 +149,7 @@ const Wrapper = styled.div`
 const Name = styled.span`
   width: 100%;
   height: 30%;
-
-  font-size: 22px;
+  
   font-weight: 600;
   color: rgb(var(--greyTitle));
 
@@ -121,11 +160,28 @@ const Name = styled.span`
   align-items: center;
   justify-content: center;
 
+  span{
+    white-space: nowrap;
+    overflow: scroll;
+  }
+
   @media (max-width: 479px) { //mobile port
     font-size: 18px;
+    span{
+      max-width: 120px;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 14px;
+    span{
+      max-width: 120px;
+    }
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    font-size: 20px;
+    span{
+      max-width: 180px;
+    }
   }
 `
 const Days = styled.div`
@@ -144,6 +200,16 @@ const Check = styled.div`
   align-items: center;
 
   height: 100%;
+
+  &:first-child{
+    .week{
+      color: rgb(var(--greyTitle)) !important;
+      font-weight: 700;
+    }
+  }
+  .week{
+    color: grey !important;
+  }
 
   label{
     height: 100%;
@@ -182,7 +248,7 @@ const Check = styled.div`
         width: 12px;
         height: 12px; 
         border-radius: 20px;
-        background-color: rgb(var(--point));
+        background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
       }    
       
     }
@@ -192,3 +258,7 @@ const Check = styled.div`
     }
   }
 `
+
+function enqueueSnackbar(data: string, arg1: { variant: string; }) {
+  throw new Error("Function not implemented.");
+}

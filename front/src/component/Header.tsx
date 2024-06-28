@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Header = ({ title }: Props) => {
-
   return (
     <Wrapper>
       <Title>{title}</Title>
@@ -55,14 +54,14 @@ const Title = styled.span`
   text-transform: capitalize;
 
   &:first-letter{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
   @media (max-width: 479px) { //mobile port
     line-height: 0.9;
     font-size: 24px;
-    border-bottom: 4px rgb(var(--point)) solid;
+    border-bottom: 4px ${(props) => props.theme.point ? props.theme.point : '#9797CB'} solid;
     &:first-letter{
-      font-size: 28px;
+    /* font-size: 28px; */
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet

@@ -7,14 +7,13 @@ import { useRouter } from 'next/navigation'
 
 //hooks
 import IsMobile from "@/function/IsMobile";
+import Indicator from "@/component/indicator";
 
 //image
 
 const App = () => {
   const router = useRouter()
   const isMobile = IsMobile();
-
-  const indicatorArr = new Array(3).fill(0);
 
   const [page, setPage] = useState<number>(0);
   const slideWrapperRef = useRef<HTMLDivElement>(null);
@@ -26,22 +25,10 @@ const App = () => {
       }}
       ref={slideWrapperRef}
     >
-      <IndicatorWrapper>
-        {indicatorArr.map((_, i: number) =>
-          <div
-            key={'indicator' + i}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                top: slideWrapperRef.current.clientHeight * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
-      </IndicatorWrapper>
-      <Section className="first"></Section>
+      <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={3} />
+      {/* <Section className="first"></Section>
       <Section className="second"></Section>
-      <Section className="third"></Section>
+      <Section className="third"></Section> */}
     </Wrapper>
   );
 }
@@ -74,19 +61,6 @@ const Section = styled.div`
   scroll-snap-stop: always !important;
 
   background-color: whitesmoke;
-
-  
-  /* &.first{
-    background-color: rgba(var(--point2),0.5);
-  }
-  &.second{
-    scroll-snap-align: center;
-    background-color: white;
-  }
-  &.third{
-    background-color: rgb(var(--point3));
-    background-color: rgba(0,0,0,0.07);
-  } */
 `
 const IndicatorWrapper = styled.div`
   position: fixed;

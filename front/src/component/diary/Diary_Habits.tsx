@@ -1,9 +1,10 @@
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 interface Props {
-  habits: Array<Habit>;
+  habits: Array<HabitProps>;
 }
-interface Habit {
+interface HabitProps {
   UserId: number;
   id: number;
   email: string;
@@ -12,11 +13,15 @@ interface Habit {
 }
 
 const DiaryHabits = ({ habits }: Props) => {
-  // console.log(habits);
+  const router = useRouter();
+
   return (
     <Habits className="habits">
-      <Habit>{habits?.length ? habits?.length : 0} habits</Habit>
-      {habits?.map((habit: Habit, i: number) => <Habit key={habit.name + i}>{habit.name}</Habit>)}
+      <Habit
+      >{habits?.length ? habits?.length : 0} habits</Habit>
+      {habits?.map((habit: HabitProps, i: number) => <Habit
+        onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
+        key={habit.name + i}>{habit.name}</Habit>)}
     </Habits>
   );
 }
@@ -47,7 +52,7 @@ const Habit = styled.span`
   
   padding : 0px 16px;
   color: rgb(var(--greyTitle));
-  background-color: rgb(var(--point2));
+  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
   border-radius: 24px;
   margin-right: 12px;
 
@@ -57,11 +62,16 @@ const Habit = styled.span`
   font-size: 16px;
   font-weight: 500;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
   box-sizing: border-box;
-  border : solid 4px rgb(var(--point2));
 
   &:first-child{
     background-color: rgba(0,0,0,0);
+    border : solid 4px ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
   }
   &:last-child{
     margin-right: 0px;

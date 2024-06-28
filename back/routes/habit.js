@@ -1,6 +1,6 @@
 
 const express = require("express");
-const { subDays, startOfMonth, endOfMonth } = require("date-fns");
+const { subDays, startOfMonth, endOfMonth, getYear } = require("date-fns");
 const db = require("../models/index.js");
 const { promise } = require("bcrypt/promises.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
@@ -14,27 +14,54 @@ const Diary = db.Diary;
 const Image = db.Image;
 const Habit = db.Habit;
 
-//load habit list
+//load habit info by id
 router.get("/", tokenCheck, async (req, res) => {
-  console.log('----- method : get, url :  /habit -----');
+  console.log('----- method : get, url :  /habit?id -----');
+  const id = req.query.id;
+  const email = req.currentUserEmail;
+  try {
+    const habits = await Habit.findOne({
+      where: [{
+        id,
+        email,
+      }],
+    });
+    if (habits) return res.status(200).json(habits);
+    else return res.status(400).json('습관 정보를 불러오지 못하였습니다.');
+  } catch (e) {
+    console.error(e);
+  }
+})
+//load habit list
+router.get("/list", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/list -----');
   const { sort } = req.query;
   const email = req.currentUserEmail;
+  const result = [];
+
   try {
     const habits = await Habit.findAll({
       where: [{
         email,
       }],
       order: [
-        ['name', sort], //ASC DESC
+        ['priority', 'DESC'],
+        ['createdAt', sort], //ASC DESC
       ],
     });
-    if (habits) return res.status(200).json(habits);
+
+    if (habits) {
+      while (habits.length > 0) {
+        result.push(habits.splice(0, 6));
+      }
+      console.log(result);
+      return res.status(200).json(result);
+    }
     else return res.status(400).json('습관 목록을 불러오지 못하였습니다.');
   } catch (e) {
     console.error(e);
   }
 })
-
 //load recent habit status
 router.get("/recent", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/recent -----');
@@ -70,7 +97,6 @@ router.get("/recent", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-
 //load month habit status
 router.get("/month", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/month -----');
@@ -102,6 +128,82 @@ router.get("/month", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
+//load month single habit status
+router.get("/month/single", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/month/single -----');
+  const { id, date } = req.query;
+  const email = req.currentUserEmail;
+  try {
+    const current = new Date(Number(date));
+    const monthStart = startOfMonth(current);
+    const monthEnd = endOfMonth(current);
+
+    let diary = await Diary.findAll({
+      where: {
+        email,
+        [Op.and]: [
+          { date: { [Op.gte]: monthStart } },
+          { date: { [Op.lte]: monthEnd } }
+        ],
+      },
+      attributes: ['date'],
+      include: [{
+        model: Habit,
+        where: { id },
+        attributes: ['name'],
+      },],
+    });
+
+    if (diary) return res.status(200).json(diary);
+    else return res.status(400).json(`한달 습관(${id}) 정보를 불러오지 못하였습니다.`);
+  } catch (e) {
+    console.error(e);
+  }
+})
+//load year single habit status
+router.get("/year/single", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/year/single -----');
+  const { id, date } = req.query;
+  const email = req.currentUserEmail;
+
+  // console.log(id, date, email);
+
+  try {
+    const result = [];
+    const year = getYear(Number(date));
+    // console.log('year : ', year);
+    const months = [];
+    for (let i = 0; i < 12; i++) months.push(new Date(year, i + 1, 0));
+    // console.log('months : ', months);
+
+    for (let i = 0; i < 12; i++) {
+      let monthStart = startOfMonth(months[i]);
+      let monthEnd = endOfMonth(months[i]);
+      // console.log(monthStart, monthEnd);
+      let diary = await Diary.findAll({
+        where: {
+          email,
+          [Op.and]: [
+            { date: { [Op.gte]: monthStart } },
+            { date: { [Op.lte]: monthEnd } }
+          ],
+        },
+        attributes: ['date'],
+        include: [{
+          model: Habit,
+          where: { id },
+          attributes: ['name'],
+        },],
+      });
+      if (diary) result.push(diary.length);
+    }
+
+    if (result) return res.status(200).json(result);
+    else return res.status(400).json(`1년 습관(${id}) 정보를 불러오지 못하였습니다.`);
+  } catch (e) {
+    console.error(e);
+  }
+})
 
 
 //add habit
@@ -110,6 +212,7 @@ router.post("/", tokenCheck, async (req, res) => {
 
   const habitName = req.body.habitName;
   const themeColor = req.body.themeColor;
+  const priority = req.body.priority;
   const email = req.currentUserEmail;
   try {
     //유저 존재 확인
@@ -127,10 +230,18 @@ router.post("/", tokenCheck, async (req, res) => {
     })
     if (isHabitExistAready) return res.status(400).json('같은 이름을 가진 습관이 이미 존재합니다.');
 
-    const habit = await Habit.create({
+    let habit = await Habit.findAll({
+      where: {
+        email
+      }
+    })
+    if (habit.length >= 18) return res.status(400).json("습관은 최대 18개까지 생성 가능합니다.");
+
+    habit = await Habit.create({
       UserId: user.id,
       email,
       name: habitName,
+      priority,
       themeColor,
     });
     if (habit) return res.status(200).json(habit);
@@ -140,18 +251,71 @@ router.post("/", tokenCheck, async (req, res) => {
   }
 })
 //edit habit
-router.patch("/", async (req, res) => {
+router.patch("/", tokenCheck, async (req, res) => {
+  console.log('----- method : patch, url :  /habit -----');
+  const email = req.currentUserEmail;
+  const { habitId, habitName, themeColor, priority } = req.body;
   try {
+    const currentUser = await User.findOne({
+      where: { email },
+    });
+    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
+
+    let habit = await Habit.findOne({
+      where: { id: habitId },
+    });
+    if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
+
+    habit = await Habit.findOne({
+      where: {
+        name: habitName,
+        id: { [Op.ne]: habitId }
+      },
+    });
+    if (habit) return res.status(403).json("동일한 이름의 습관이 존재합니다.");
+
+    //같은 이름 있는지 확인 후 같은 이름이 있으면 수정 중단
+
+
+    habit = await Habit.update({
+      name: habitName,
+      themeColor,
+      priority
+    }, {
+      where: { id: habitId }
+    });
+
+    if (habit) return res.status(200).json(habit);
+    else return res.status(400).json('수정 중 오류가 발생하였습니다.');
   } catch (e) {
     console.error(e);
   }
-  return res.status(200).json("");
 })
 //delete habit
-router.delete("/", async (req, res) => {
-  try {
+router.delete("/", tokenCheck, async (req, res) => {
+  console.log('----- method : delete, url :  /habit?id -----');
+  const email = req.currentUserEmail;
+  const { habitId } = req.query;
 
+  try {
+    const currentUser = await User.findOne({
+      where: { email },
+    });
+    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
+
+
+    let habit = await Habit.findOne({
+      where: { id: habitId },
+    });
+    if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
+
+
+    await Habit.destroy({
+      where: { id: habitId }
+    });
+
+    return res.status(200).json('habit deleted');
   } catch (e) {
     console.error(e);
   }
@@ -164,20 +328,21 @@ router.delete("/", async (req, res) => {
 
 //check, uncheck habit
 //post - habit/check
-router.post("/check", async (req, res) => {
+router.post("/check", tokenCheck, async (req, res) => {
   try {
-    const { email, id, date } = req.body;
+    const { habitId, date } = req.body;
+    const email = req.currentUserEmail;
 
     //유저 존재 확인
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+    if (!user) return res.status(400).json("유저 정보가 존재하지 않습니다.");
 
     const habit = await Habit.findOne({
       where: {
         email,
-        id,
+        id: habitId,
       }
     })
     if (!habit) return res.status(400).json("습관이 존재하지 않습니다.");
@@ -192,7 +357,7 @@ router.post("/check", async (req, res) => {
         UserId: user.id,
         email,
         date,
-        text: '',
+        text: '-',
       }
     });
 
@@ -203,20 +368,21 @@ router.post("/check", async (req, res) => {
   }
 })
 //delete - babit/check
-router.delete("/check", async (req, res) => {
+router.delete("/check", tokenCheck, async (req, res) => {
   try {
-    const { email, id, date } = req.body;
+    const { habitId, date } = req.body;
+    const email = req.currentUserEmail;
 
     //유저 존재 확인
     const user = await User.findOne({
       where: { email }
     })
-    if (!user) return res.status(400).json("로그인 상태가 아닙니다.");
+    if (!user) return res.status(400).json("유저 정보가 존재하지 않습니다.");
 
     const habit = await Habit.findOne({
       where: {
         email,
-        id,
+        id: habitId,
       }
     })
     if (!habit) return res.status(400).json("습관이 존재하지 않습니다.");
@@ -228,7 +394,7 @@ router.delete("/check", async (req, res) => {
       }],
     });
     diary.removeHabit(habit);
-    return res.status(200).json('checked');
+    return res.status(200).json('unchecked');
   } catch (e) {
     console.error(e);
   }

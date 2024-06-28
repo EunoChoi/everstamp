@@ -23,7 +23,7 @@ db.sequelize.sync().then(() => {
 }).catch(console.error);
 
 app.use(cors({
-  origin: true,
+  origin: 'http://localhost',
   credentials: true
 }));
 

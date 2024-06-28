@@ -3,23 +3,10 @@
 import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'
-
-
-//component
-// import Loading from "@/component/loading";
-
-//hooks
-import IsMobile from "@/function/IsMobile";
-
-//image
-import loginPageImg from '/public/img/loginPageImg.jpg';
 import tree from '/public/img/tree.png';
 
 
-const Io = () => {
-  const router = useRouter()
-
+const Page = () => {
   return (
     <Wrapper>
       <ImageWrapper>
@@ -45,7 +32,7 @@ const Io = () => {
   );
 }
 
-export default Io;
+export default Page;
 
 const Wrapper = styled.div`
   width: 100dvw;
@@ -62,7 +49,7 @@ const ImageWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   
-  background-color: rgb(var(--point));
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   span{
       color: rgb(var(--greyTitle2));
       font-size: 24px;
@@ -105,8 +92,10 @@ const TextWrapper = styled.div`
     width: 450px;
     padding: 0 32px;
     align-items: end;
+   
     span{
       text-align: end;
+
     }
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
@@ -129,7 +118,7 @@ const Logo = styled.div`
     color: rgb(var(--greyTitle));
   }
   span::first-letter{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
   @media (max-width: 479px) { //mobile port
     font-size: 36px;
@@ -158,7 +147,7 @@ const TextContent = styled.div`
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 32px 0;
+    margin: 48px 0;
     span{
       font-size: 18px;
     }

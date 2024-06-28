@@ -1,5 +1,7 @@
 
 const express = require("express");
+const jwt = require("jsonwebtoken");
+
 
 const db = require("../models/index.js");
 const Op = db.Sequelize.Op;
@@ -77,7 +79,6 @@ router.post("/", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /diary -----');
   const diaryId = req.query.diaryId;
@@ -125,7 +126,7 @@ router.patch("/", tokenCheck, async (req, res) => {
 })
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /diary -----');
-  const diaryId = req.query.diaryId;
+  const id = req.query.id;
   const email = req.currentUserEmail;
 
   try {
@@ -137,12 +138,12 @@ router.delete("/", tokenCheck, async (req, res) => {
 
     //일기 확인
     const isDiaryExist = await Diary.findOne({
-      where: { id: diaryId }
+      where: { id }
     });
     if (!isDiaryExist) return res.status(400).json('일기가 존재하지 않습니다.');
 
     await Diary.destroy({
-      where: { id: diaryId }
+      where: { id }
     });
   } catch (e) {
     console.error(e);
@@ -152,7 +153,8 @@ router.delete("/", tokenCheck, async (req, res) => {
 
 
 
-//load diary - by diary id, for diary
+//load diary
+//by diary id, for diary
 router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url : /diary/:id -----');
@@ -173,12 +175,26 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-//load diary - list
+//list
 router.get("/list", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url :  /diary/list -----');
-  const { sort, search } = req.query;
+  const { sort, search, pageParam, limit } = req.query;
   const email = req.currentUserEmail;
+
+  console.log(pageParam);
+  console.log(limit);
+  console.log(pageParam, limit);
+  console.log(pageParam * limit);
+
+  const offset = Number(pageParam * limit);
+
+  //초기 pageParam =0이므로
+  //limit 5 가정하여
+  //pageParam 0일때 offset은 0
+  //pageParam 1일때 offset은 5
+  //pageParam 2일때 offset은 10
+
 
   try {
     const diaries = await Diary.findAll({
@@ -189,6 +205,8 @@ router.get("/list", tokenCheck, async (req, res) => {
           [Op.like]: "%" + `${search}` + "%"
         }
       }],
+      offset: Number(offset),
+      limit: Number(limit),
       include: [{
         model: Image,//이미지
       }, {

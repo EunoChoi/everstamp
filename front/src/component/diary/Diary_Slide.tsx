@@ -5,9 +5,20 @@ import Image from "next/image";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { deleteDiary } from "@/app/(afterLogin)/_lib/deleteDiary";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Axios from "@/Aixos/aixos";
+import Indicator from "../indicator";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import SC_Common from "@/style/common";
+import { format } from "date-fns";
+
+interface Err {
+  response: {
+    data: string;
+  }
+}
 
 interface ImageProps {
   id: string;
@@ -20,6 +31,7 @@ interface Habit {
   name: string;
   themeColor: string;
 }
+
 interface Props {
   position: 'calendar' | 'list';
   diaryData: {
@@ -33,15 +45,58 @@ interface Props {
 }
 
 const DiarySlide = ({ diaryData, position }: Props) => {
-
+  const queryClient = useQueryClient();
   const router = useRouter();
   const images = diaryData?.Images;
-
-
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
-  const indicatorLength = images.length + 2;
-  const indicatorArr = new Array(indicatorLength).fill(0);
+
+
+
+
+
+
+  const deleteDiaryMutation = useMutation({
+    mutationFn: async ({ id }: { id: number }) => {
+      await Axios.delete(`diary?id=${id}`)
+    },
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('success delete diary');
+      closeSnackbar('diaryDelete');
+      enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
+    },
+    onError: (e: Err) => {
+      // alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+      console.log('delete diary error');
+    },
+  });
+
+  const onCopyDiary = () => {
+    navigator.clipboard.writeText(diaryData.text);
+    enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.', { variant: 'success' });
+  }
+  const onEditDiary = () => {
+    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+  };
+  const onDeleteDiary = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('diaryDelete'); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => { deleteDiaryMutation.mutate({ id: diaryData.id }); }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar(`${format(diaryData.date, 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: true, action, autoHideDuration: 6000 });
+  };
 
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
@@ -54,10 +109,12 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
+
+
         <TextWrapper
           onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
           className={`slideChild`}>
-          <Test className={`${position}`}>{diaryData.text}</Test>
+          <Text className={`${position}`}>{diaryData.text}</Text>
         </TextWrapper>
 
         {images.map(e =>
@@ -70,41 +127,44 @@ const DiarySlide = ({ diaryData, position }: Props) => {
             width={300}
             height={300}
             blurDataURL={e.src}
-          // placeholder="blur"
+            placeholder="blur"
           ></Img>)}
 
+
         <EditBox className="slideChild">
-          <button><ContentCopyIcon />copy text</button>
           <button
-            onClick={() => router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })}
+            onClick={onCopyDiary}>
+            <ContentCopyIcon />copy text
+          </button>
+          <button
+            onClick={onEditDiary}
           >
             <EditIcon />edit diary
           </button>
           <button
-            onClick={() => deleteDiary({ diaryId: diaryData.id })}
+            onClick={onDeleteDiary}
           >
             <DeleteIcon />delete Diary
           </button>
         </EditBox>
       </SlideWrapper>
-      <IndicatorWrapper>
-        {indicatorArr.map((_, i: number) =>
-          <div
-            key={'indicator' + i}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
-      </IndicatorWrapper>
+
+      <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={images.length + 2} />
     </>
   );
 }
 
 export default DiarySlide;
+
+const Button = styled.button`
+  padding: 0 8px;
+  &.yes{
+    color: red;
+  }
+  &.no{
+    color: green;
+  }
+`
 
 const SlideWrapper = styled.div`
   scrollbar-width: none;
@@ -145,12 +205,15 @@ const TextWrapper = styled.div`
   flex-shrink: 0;
   padding: 24px;
 `
-const Test = styled.div`
+const Text = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;
   line-height: 1.7;
   overflow: hidden;
+
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 
   font-size: 16px;
   font-weight: 500;
@@ -162,6 +225,7 @@ const Test = styled.div`
     font-size: 16px;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
+    -webkit-line-clamp: 7;
     &.calendar{
       font-size: 18px;
       line-height: 1.8;
@@ -208,33 +272,5 @@ const EditBox = styled.div`
     font-size: 16px;
     font-weight: 500;
     text-transform: capitalize;
-  }
-`
-const IndicatorWrapper = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  margin-top: 8px;
-  height: auto;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  div:last-child{
-    border-radius: 2px;
-    background-color: rgba(var(--point2), 0.5);
-  }
-  .current {
-    background-color: rgb(var(--point)) !important;
   }
 `

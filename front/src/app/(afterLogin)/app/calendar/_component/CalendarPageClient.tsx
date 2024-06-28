@@ -1,13 +1,11 @@
 'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 //function
 import IsMobile from "@/function/IsMobile";
-import { getDiaryCalendar } from "@/app/(afterLogin)/_lib/getDiaryCalendar";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
+import { getDiary_date } from "@/app/(afterLogin)/_lib/diary";
 
 //styledComponent
 import SC_Common from "@/style/common";
@@ -20,22 +18,27 @@ import CalendarSelector from "@/component/CalendarSelector";
 import Header from "@/component/Header";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useEffect } from "react";
 
 interface Props {
-  email: string;
   date: number;
 }
 
-const CalendarPageClient = ({ email, date }: Props) => {
-  // console.log(email, date);
-
-  const router = useRouter();
+const CalendarPageClient = ({ date }: Props) => {
   const isMobile = IsMobile();
+  const router = useRouter();
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiaryCalendar(date),
+    queryFn: () => getDiary_date({ date }),
   });
+
+  //production mode에서만 동작, 정적 자료만 prefetch
+  useEffect(() => {
+    router.prefetch('/app/list');
+    router.prefetch('/app/habit');
+    router.prefetch('/app/setting');
+  }, [])
 
   return (
     <SC_Common.Wrapper>
@@ -56,4 +59,12 @@ const CalendarWrapper = styled.div`
   border-radius: 8px;
   padding: 0 4px;
   margin-top: 12px;
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    height: 100vh !important;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+  }
 `

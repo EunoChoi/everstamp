@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
@@ -15,27 +15,55 @@ import DiaryInputTextArea from "../diaryInput/Input_TextArea";
 import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
+// import { addDiary } from "@/app/(afterLogin)/_lib/diary";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 
 
-const AddDiary = () => {
+interface Err {
+  response: {
+    data: string;
+  }
+}
 
+const AddDiaryModal = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
-  const email = getCurrentUserEmail();
   const [text, setText] = useState<string>('');
   const [images, setImages] = useState<Array<string>>([]);
 
+  const addDiaryMutation = useMutation({
+    mutationFn: ({ date, text, images }: any) => Axios.post('/diary', { date, text, images }),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
 
-  const addDiary = () => {
-    Axios.post('/diary', { email, date, text, images });
+      console.log('add diary success');
+      router.back();
+      setTimeout(() => {
+        enqueueSnackbar('일기 작성 완료', { variant: 'success' });
+      }, 300);
+    },
+    onError: (e: Err) => {
+      //alert(e?.response?.data);
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+      console.log('add diary error');
+    }
+  });
+
+  const onAddDiary = () => {
+    if (text.length !== 0) addDiaryMutation.mutate({ date, text, images });
+    //else alert('내용을 입력해주세요');
+    else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
   };
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
 
 
   useEffect(() => {
@@ -43,17 +71,17 @@ const AddDiary = () => {
   }, [])
 
   return (
-    <Wrapper onClick={historyBack}>
+    <Wrapper onClick={() => { router.back(); }}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
         <DiaryInputUploadedImage images={images} setImages={setImages} />
-        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={addDiary} images={images} setImages={setImages} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onAddDiary} images={images} setImages={setImages} />
       </Modal>
     </Wrapper>);
 }
 
-export default AddDiary;
+export default AddDiaryModal;
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

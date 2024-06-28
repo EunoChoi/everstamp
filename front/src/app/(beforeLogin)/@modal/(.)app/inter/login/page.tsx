@@ -1,10 +1,9 @@
-import Login from "@/component/modal/Login";
-
+import LoginModal from "@/component/modal/LoginModal";
 //intercepted route
 const InterLogin = () => {
   return (
     <>
-      <Login />
+      <LoginModal />
     </>);
 }
 

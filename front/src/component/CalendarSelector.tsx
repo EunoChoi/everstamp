@@ -16,7 +16,7 @@ import TodayIcon from '@mui/icons-material/Today';
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
-import { getMonthStatus } from "@/app/(afterLogin)/_lib/getMontStatus";
+import { getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
 import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 const CalendarSelector = () => {
@@ -34,10 +34,9 @@ const CalendarSelector = () => {
   const endDate = endOfWeek(monthEnd, { weekStartsOn: 1 });
   const [touchStartX, setTouchStartX] = useState<number>(0);  //for calendar touch gesture
 
-  const email = getCurrentUserEmail();
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(currentMonth, 'MM')],
-    queryFn: () => getMonthStatus(currentMonth),
+    queryFn: () => getHabit_status_month({ date: currentMonth }),
   });
 
 
@@ -63,7 +62,7 @@ const CalendarSelector = () => {
     const formattedDate = format(day, 'd');
 
     return <DateValue>
-      <span className={habitCount || isDiaryExist ? "small" : ""}>{formattedDate}</span>
+      <span>{formattedDate}</span>
       <div>
         {isDiaryExist && <span className="isDiaryExist">D</span>}
         {habitCount > 0 && <span>{habitCount}</span>}
@@ -164,22 +163,22 @@ const DateValue = styled.div`
     align-items: center;
     span{
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 500;
       display: flex;
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
+      line-height: 0%;
 
       width: 16px;
       height: 16px;
       border-radius: 20px;
-      background-color: rgb(var(--point));
-      background-color: #9997cb;
+      background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
       color: whitesmoke;
       margin: 0 1px;
     }
     .isDiaryExist{
-      background-color: #83c6b6;
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#9797CB'};
     }
   }
 `
@@ -190,6 +189,16 @@ const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  
+    height: 90dvh !important;
+    margin-bottom: 24px;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+  }
 `
 
 //calendar header
@@ -256,12 +265,12 @@ const CalDate = styled.button`
   &.today{
     /* font-weight: 500; */
     /* color: rgb(var(--greyTitle)); */
-    background-color: rgba(var(--point2), 0.5);
+    background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{
     /* font-weight: 500; */
-    border : 3px solid rgba(var(--point2), 0.6);
+    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#9797CB'};
     border-radius: 8px;
   }
   &.notCurrentMonth{

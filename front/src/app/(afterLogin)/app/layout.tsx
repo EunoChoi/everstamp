@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from 'next/navigation'
 import { ReactNode } from "react";
-import { GetServerSideProps } from "next";
 
 //component
 import CalendarSelector from "@/component/CalendarSelector";
@@ -21,61 +20,119 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { useRouter } from "next/navigation";
+import { ThemeProvider } from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentUser } from "../_lib/user";
+
+import { SnackbarProvider, MaterialDesignContent } from 'notistack'
 
 interface Props {
   children: ReactNode;
   isMobile: boolean;
+  modal: ReactNode;
 }
 
 
-const AppLayout = ({ children }: Props) => {
+const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
+  '&.notistack-MuiContent-default': {
+    backgroundColor: 'whitesmoke',
+    color: 'rgb(88, 88, 88)',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-info': {
+    backgroundColor: '#8EBCDB',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-success': {
+    backgroundColor: '#83c6b6',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-error': {
+    backgroundColor: '#dc7889',
+    fontWeight: '500'
+  },
+}));
+
+const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
 
-  if (isMobile === null) return <Loading />; //loading page, to solve useMediaQuery delay problem
 
-  return (<>
-    {isMobile ?
-      <Mobile_Layout>
-        {children}
-        <Mobile_Nav>
-          <Logo><span>ever</span><span>stamp</span></Logo>
-          <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
-          <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
-          <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
-          <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
-        </Mobile_Nav>
-      </Mobile_Layout>
-      :
-      <Desktop_Layout>
-        <Desktop_Sidebar>
-          <SideBarLogo>
-            <span>ever</span>
-            <span>stamp</span>
-          </SideBarLogo>
-          <Menus>
-            <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
-            <MonthWrapper
-              className={current === 'calendar' ? '' : 'inActive'}
-            >
-              <CalendarSelector />
-            </MonthWrapper>
-            <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
-            <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
-            <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
-          </Menus>
-          <Links>
-            <span><GitHubIcon fontSize="inherit" /></span>
-            <span><BookIcon fontSize="inherit" /></span>
-          </Links>
-        </Desktop_Sidebar>
+  const { data } = useQuery({
+    queryKey: ['user'],
+    queryFn: getCurrentUser,
+  })
 
-        <Desktop_Content>
-          {children}
-        </Desktop_Content>
-      </Desktop_Layout>
-    }
-  </>);
+  const theme = {
+    point: data.themeColor
+  }
+
+  //loading page, to solve useMediaQuery delay problem
+  if (isMobile === null) return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
+  return (
+    <SnackbarProvider
+      Components={{
+        default: StyledMaterialDesignContent,
+        info: StyledMaterialDesignContent,
+        success: StyledMaterialDesignContent,
+        error: StyledMaterialDesignContent,
+      }}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      maxSnack={3}
+      autoHideDuration={2500}
+      preventDuplicate={true}
+    >
+      <ThemeProvider theme={theme}>
+        {
+          isMobile ?
+            <Mobile_Layout>
+              {modal}
+              {children}
+              < Mobile_Nav >
+                <Logo><span>ever</span><span>stamp</span></Logo>
+                <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
+                <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
+                <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
+                <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
+              </Mobile_Nav >
+            </Mobile_Layout >
+            :
+            <Desktop_Layout>
+              <Desktop_Sidebar>
+                <SideBarLogo>
+                  <span>ever</span>
+                  <span>stamp</span>
+                </SideBarLogo>
+                <Menus>
+                  <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+                  <MonthWrapper
+                    className={current === 'calendar' ? '' : 'inActive'}
+                  >
+                    <CalendarSelector />
+                  </MonthWrapper>
+                  <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
+                  <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
+                  <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
+                </Menus>
+                <Links>
+                  <span><GitHubIcon fontSize="inherit" /></span>
+                  <span><BookIcon fontSize="inherit" /></span>
+                </Links>
+              </Desktop_Sidebar>
+
+              <Desktop_Content>
+                {modal}
+                {children}
+              </Desktop_Content>
+            </Desktop_Layout>
+        }
+      </ThemeProvider >
+    </SnackbarProvider>);
+
 }
 
 export default AppLayout;
@@ -93,7 +150,7 @@ const Logo = styled.span`
     span {
       display: inline-block;
       &::first-letter{
-        color: rgb(var(--point)) !important;  
+        color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;  
       }
       padding: 0 3px;
     }
@@ -112,7 +169,7 @@ const NavMenu = styled(Link)`
 
     span{
       font-weight: 500;
-      font-size: 20px;
+      font-size: 18px;
       text-transform: capitalize;
       display: flex;
       margin: 8px 0;
@@ -171,13 +228,13 @@ const Mobile_Nav = styled.nav`
     vertical-align: center;
   }
   .current{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};;
   }
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     left: 0;
     width: 25dvw;
-    min-width: 150px;
+    /* min-width: 130px; */
     height: 100dvh;
 
     flex-direction: column;
@@ -196,6 +253,7 @@ const Desktop_Layout = styled.div`
 
 const Desktop_Sidebar = styled.div`
   width: 350px;
+  /* width: 400px; */
   height: 100dvh;
   padding: 32px 24px;
   padding-bottom: 12px;
@@ -207,6 +265,8 @@ const Desktop_Sidebar = styled.div`
   flex-direction: column;
   justify-content: center;
   justify-content: space-between;
+
+  transition: all ease-in-out 0.3s;
 `
 const SideBarLogo = styled.div`
   display: flex;
@@ -223,11 +283,11 @@ const SideBarLogo = styled.div`
     color: rgb(var(--greyTitle));
   }
   span:last-child{
-    border-bottom: 8px solid rgb(var(--point));
+    border-bottom: 8px solid ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
     line-height: 120%;
   }
   span::first-letter{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
 `
 const Menus = styled.div`
@@ -278,7 +338,7 @@ const MonthWrapper = styled.div`
     transition: color ease-in-out 0.3s !important;
   }
   &.inActive {
-    opacity: 0.7;
+    opacity: 0.8;
     .selected, .today{
       border: none;
       background-color: rgba(0,0,0,0);

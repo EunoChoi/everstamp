@@ -1,10 +1,10 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
 import { auth } from "@/auth";
 import CalendarPageClient from "./_component/CalendarPageClient";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { getMonthStatus } from "../../_lib/getMontStatus";
-import { format, addMonths, subMonths } from "date-fns";
+import { format } from "date-fns";
+import { getDiary_date_fetch } from "../../_lib/diary_ssr";
+import { getHabit_status_month_fetch } from "../../_lib/habit_ssr";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
@@ -18,11 +18,11 @@ const Page = async ({ searchParams }: any) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiaryCalendar(date),
+    queryFn: () => getDiary_date_fetch({ date }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habit', 'month', format(date, 'MM')],
-    queryFn: () => getMonthStatus(new Date(date)),
+    queryFn: () => getHabit_status_month_fetch({ date: new Date(date) }),
   })
 
 
@@ -30,7 +30,7 @@ const Page = async ({ searchParams }: any) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <CalendarPageClient email={email} date={date} />
+      <CalendarPageClient date={date} />
     </HydrationBoundary>
   );
 }

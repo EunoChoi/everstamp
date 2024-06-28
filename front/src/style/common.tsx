@@ -1,6 +1,28 @@
 import styled from "styled-components";
 
 const SC_Common = {
+  Input: styled.input`
+    text-align: center;
+    width: 100%;
+    height: 28px;
+    border-radius: 8px;
+    border : solid rgba(0,0,0,0.15) 1px;
+  `,
+  YesOrNo: styled.button`
+    padding: 4px 12px;
+    margin-left: 8px;
+    border-radius: 8px;
+    &.yes{
+      background-color: #83c6b6;
+      color: #83c6b6;
+      color: white;
+    }
+    &.no{
+      background-color: #dc7889;
+      color: #dc7889;
+      color: white;
+    }
+  `,
   Wrapper: styled.div`
     padding: 0 20px;  
 
@@ -32,6 +54,7 @@ const SC_Common = {
 
     background-color: rgba(255,255,255,0.7);
     backdrop-filter: blur(12px);    
+    
 
     button{
       transition: all ease-in-out 200ms;
@@ -42,7 +65,7 @@ const SC_Common = {
       border-radius : 48px;
       color: rgb(var(--greyTitle));
       background-color: whitesmoke;
-      background-color: rgba(var(--point2), 0.35);
+      background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'};
       border: 1px solid rgba(0,0,0,0.05);
 
       padding: 4px 12px;
@@ -71,6 +94,7 @@ const SC_Common = {
       max-width: 75dvw;
       height: calc(var(--optionHeight));
       padding: 8px 20px;
+      z-index: 99;
       &.setting{
         display: none;
       }
@@ -114,11 +138,9 @@ const SC_Common = {
 
     //mobile portrait
     @media (max-width: 479px) { //mobile port
-      //common 
       height: 100dvh;
       padding: 0 5vw;
       
-      //none scroll
       padding-top : calc(var(--mobileHeader) + var(--optionHeight));
       padding-bottom: var(--mobileNav);
       &.noOption{
@@ -126,7 +148,6 @@ const SC_Common = {
         padding-bottom: var(--mobileNav);
       }
 
-      //scroll
       &.scroll{
         height: 100dvh;
         padding-top : calc(var(--mobileHeader) + var(--optionHeight));
@@ -142,8 +163,13 @@ const SC_Common = {
       height: 100dvh;
       justify-content: start;
       overflow-y: scroll;
+
       &.habit{
-        justify-content: center;
+        justify-content: start;
+        overflow-y: scroll;
+        @media (min-height:480px){
+          justify-content: center;
+        }
       }
 
       padding-top : var(--optionHeight);
@@ -158,6 +184,7 @@ const SC_Common = {
         }
       }
     }
+    
     @media (min-height:480px) and (min-width:1024px) { //desktop
       height: 100dvh;
       padding-top : calc(var(--desktopHeader) + var(--optionHeight));

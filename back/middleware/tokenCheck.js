@@ -7,18 +7,26 @@ const parseJwt = (token) => {
 const tokenCheck = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
+    // console.log('accessToken : ', accessToken);
+
+
     const user = jwt.verify(accessToken, process.env.ACCESS_KEY);
 
     req.currentUserEmail = user.email;
     req.currentUserProvider = user.provider;
 
+
     console.log('accessToken 검증 완료')
 
-    next();
+    return next();
   } catch (error) {
+
+
     console.log(error.name); //accessToken 검증 실패
     console.log('accessToken 검증 실패')
     try {
+
+
       const accessToken = req.cookies.accessToken;
       const refreshToken = req.cookies.refreshToken;
 
@@ -45,8 +53,11 @@ const tokenCheck = async (req, res, next) => {
       req.currentUserEmail = email;
       req.currentUserProvider = provider;
 
-      next();
+      return next();
     } catch (error) {
+      // console.log(req);
+      // console.log(req.cookies);
+      console.log('refreshToken 검증 실패');
       console.log(error.name);
       res.status(400).send('로그인이 필요합니다.'); //refresh token 검증도 실패한 경우
     }

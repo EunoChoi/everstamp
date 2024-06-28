@@ -10,19 +10,17 @@ import { signIn } from "next-auth/react";
 import google from '/public/img/google.png';
 import kakao from '/public/img/kakao.png';
 import naver from '/public/img/naver.png';
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { useRouter } from "next/navigation";
 
-const Login = () => {
+const LoginModal = () => {
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
-
+  const router = useRouter();
   const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app/calendar?date=${getCleanTodayTime()}` };
 
   return (
-    <Wrapper onClick={historyBack}>
+    <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Logo>
           <span>ever</span>
@@ -56,7 +54,7 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default LoginModal;
 
 const TextWrapper = styled.div`
   display: flex;
@@ -118,7 +116,7 @@ const Logo = styled.div`
     display: inline-block;
     padding: 0 4px;
     &::first-letter{
-      color: rgb(var(--point));
+      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
     }
   }  
   @media (max-width: 479px) { //mobile port

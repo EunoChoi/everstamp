@@ -1,10 +1,10 @@
 import styled from "styled-components";
-
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import { RefObject } from "react";
-import Axios from "@/Aixos/aixos";
+import { useRouter } from "next/navigation";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+
+
 
 interface Props {
   type?: string;
@@ -13,11 +13,14 @@ interface Props {
 
 const HabitInputButtons = ({ type, onSubmit }: Props) => {
 
-
+  const router = useRouter();
   return (
     <Buttons>
+      <Button onClick={() => router.back()}>
+        <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
+      </Button>
       <Button onClick={() => onSubmit()}>
-        {type === 'edit' ? <ModeEditOutlineOutlinedIcon /> : <AddTaskOutlinedIcon className="icon" />}
+        {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <AddTaskOutlinedIcon className="icon" />}
       </Button>
     </Buttons>
   );
@@ -45,9 +48,10 @@ const Buttons = styled.div`
 `
 const Button = styled.button`
   .icon{
-    color: rgba(0,0,0,0.3) !important;
+    color: rgba(0,0,0,0.4) !important;
   }
   .icon:hover{
-    color: rgb(var(--point)) !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    /* color: grey; */
   }
 `

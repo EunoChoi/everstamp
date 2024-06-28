@@ -1,27 +1,22 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaryCalendar } from "../../_lib/getDiaryCalendar";
 import { auth } from "@/auth";
 import HabitPageClient from "./_component/HabitPageClient";
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { getAllHabits } from "../../_lib/getAllHabits";
-import { getRecentHabitStatus } from "../../_lib/getRecentHabitStatus";
+import { getHabits_fetch } from "../../_lib/habit_ssr";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';
-  const params = searchParams;
-  console.log(email, 'dddd');
 
   //server prefetch
   const queryClient = new QueryClient();
 
-  const test = await queryClient.prefetchQuery({
-    queryKey: ['habits', 'all', 'ASC'],
-    queryFn: () => getAllHabits('ASC'),
+  await queryClient.prefetchQuery({
+    queryKey: ['habits', 'list', 'ASC'],
+    queryFn: () => getHabits_fetch({ sort: 'ASC' }),
   })
   await queryClient.prefetchQuery({
-    queryKey: ['habits', 'all', 'DESC'],
-    queryFn: () => getAllHabits('DESC'),
+    queryKey: ['habits', 'list', 'DESC'],
+    queryFn: () => getHabits_fetch({ sort: 'DESC' }),
   })
 
   const dehydratedState = dehydrate(queryClient)

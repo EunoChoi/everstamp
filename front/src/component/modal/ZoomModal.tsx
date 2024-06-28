@@ -4,25 +4,26 @@ import { format } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getDiaryById } from "@/app/(afterLogin)/_lib/getDiaryById";
+import { getDiary } from "@/app/(afterLogin)/_lib/diary";
+
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import Indicator from "../indicator";
 
 interface ImageProps {
   id: number;
   src: string;
 }
 
-const Zoom = () => {
-  //param diary id만 가져옴
-  //useQuery로 data 가져옴
-  //가져온걸 뿌림
+const ZoomModal = () => {
+  const router = useRouter();
   const params = useSearchParams();
   const diaryId = params.get('id');
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById(diaryId),
+    queryFn: () => getDiary({ id: diaryId }),
     enabled: diaryId !== null
   });
 
@@ -34,14 +35,14 @@ const Zoom = () => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
   const indicatorLength = images?.length + 1;
-  const indicatorArr = indicatorLength ? new Array(indicatorLength).fill(0) : [0];
 
 
-  const historyBack = useCallback(() => {
-    history.back();
-  }, []);
 
-  return (<Wrapper onClick={historyBack}>
+  useEffect(() => {
+    slideWrapperRef.current?.scrollTo({ left: 0 });
+  }, [diaryData])
+
+  return (<Wrapper onClick={() => router.back()}>
     <Modal onClick={(e) => e.stopPropagation()}>
       <DiaryDate>
         <span>{date && format(date, 'yyyy. M. dd')}</span>
@@ -54,36 +55,98 @@ const Zoom = () => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}
       >
-        <TextWrapper className="slideChild">{text}</TextWrapper>
+
+        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
+
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
-            <Img src={e.src} alt="zoomImage" width={500} height={500} blurDataURL={e.src} />
+            <Img src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
           </ImageWrapper>)}
-      </SlideWrapper>
-      {indicatorLength > 1 && <IndicatorWrapper>
-        {indicatorArr && indicatorArr.map((_: any, i: number) =>
-          <div
-            key={`indicator${i}`}
-            className={page === i ? 'current' : ''}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
-                behavior: "smooth"
-              })
-            }}
-          />)}
-      </IndicatorWrapper>}
 
+      </SlideWrapper>
+
+      {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
+
+      <Buttons>
+        <Button onClick={() => router.back()} >
+          <CancelOutlinedIcon className="icon" />
+        </Button>
+      </Buttons>
     </Modal>
   </Wrapper>);
 }
 
-export default Zoom;
+export default ZoomModal;
+
+
+const Buttons = styled.div`
+  width: 100%;
+  height: var(--mobileNav);
+  /* flex-shrink: 0; */
+  background-color: whitesmoke;
+  border-top: solid 1px rgba(0,0,0,0.1);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  @media (max-width: 479px) { //mobile port
+    border-radius: 0px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    border-radius: 0px;
+  }
+`
+const Button = styled.button`
+  .icon{
+    color: rgba(0,0,0,0.3) !important;
+  }
+  .icon:hover{
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+  }
+`
 
 const TextWrapper = styled.div`
   width: 100%;
   height: 100%;
   flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  align-items: start;
+
+  .text{
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+
+    color: rgb(var(--greyTitle));
+  }
+
+  @media (max-width: 479px) { //mobile port
+    padding: 24px;
+    .text{
+      font-size: 18px;
+    }
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 24px;
+    .text{
+      font-size: 18px;
+    }
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    padding: 48px;
+    .text{
+      font-size: 20px;
+    }
+  }
 `
 const ImageWrapper = styled.div`
   width: 100%;
@@ -112,10 +175,6 @@ const Wrapper = styled.div`
 
   background-color: rgba(0,0,0,0.2);
   backdrop-filter: blur(4px);
-
-  * {
-    color: rgb(var(--greyTitle));
-  }
 `
 const Modal = styled.div`
   display: flex;
@@ -131,20 +190,9 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
 
-  /* @media (max-width: 479px) { //mobile port
-    width: 90%;
-    height: 90%;
-    max-height: 500px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 50%;
-    min-width: 450px;
-    height: 80%;
-    max-height: 500px;
-  } */
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    width: 90%;
-    height: 90%;
+    width: 70%;
+    height: 80%;
   }
 `
 
@@ -160,7 +208,7 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    color: rgb(var(--point));
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
@@ -187,33 +235,5 @@ const SlideWrapper = styled.div`
     &:last-child{
       margin-right: 0;
     }
-  }
-`
-const IndicatorWrapper = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  margin: 8px 0;
-  height: auto;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  /* div:last-child{
-    border-radius: 2px;
-    background-color: rgba(var(--point2), 0.5);
-  } */
-  .current {
-    background-color: rgb(var(--point)) !important;
   }
 `

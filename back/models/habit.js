@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    priority: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     themeColor: {
       type: DataTypes.STRING(30),
       allowNull: true

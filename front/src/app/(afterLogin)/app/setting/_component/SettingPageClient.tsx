@@ -2,31 +2,78 @@
 
 import styled from "styled-components";
 import { signOut } from "next-auth/react";
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 
 
 //function
-import { getCurrentUser } from "@/app/(afterLogin)/_lib/getCurrentUser";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
+import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 
 //component
 import Header from "@/component/Header";
 
-//styledComponent
 import SC_Common from "@/style/common";
+import Axios from "@/Aixos/aixos";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { useState } from "react";
 
-interface Props {
-  email: string;
-}
 
-const SettingPageClient = ({ email }: Props) => {
+
+const SettingPageClient = () => {
+  const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: ['user', email],
+    queryKey: ['user'],
     queryFn: getCurrentUser,
-    enabled: email !== ''
   })
+
+  const themeColorUpdateMutation = useMutation({
+    mutationFn: (themeColor: string) => Axios.patch('/user/theme', { themeColor }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      console.log('theme update success');
+    },
+    onError: () => {
+      console.log('theme update error')
+    },
+  })
+
+  const onLogout = () => {
+    const logoutAction = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('logout'); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          Axios.get('user/logout').then(() => { signOut(); });
+        }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar('로그아웃 하시겠습니까?', { key: 'logout', persist: true, action: logoutAction, autoHideDuration: 6000 });
+  }
+
+
+  const onDeleteAccount = () => {
+    const userDeleteAction = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('userDelete'); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          Axios.delete('user').then(() => { signOut(); });
+        }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar('회원탈퇴 하시겠습니까?', { key: 'userDelete', persist: true, action: userDeleteAction, autoHideDuration: 6000 });
+  }
+
+  const themeColorUpdate = (themeColor: string) => {
+    themeColorUpdateMutation.mutate(themeColor);
+  }
 
   return (
     <SC_Common.Wrapper>
@@ -48,8 +95,8 @@ const SettingPageClient = ({ email }: Props) => {
             <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
           </Value>
           <Buttons>
-            <Button onClick={() => signOut()}>logout</Button>
-            <Button>delete account</Button>
+            <Button onClick={onLogout}>logout</Button>
+            <Button onClick={onDeleteAccount}>delete account</Button>
           </Buttons>
         </Section>
 
@@ -57,11 +104,13 @@ const SettingPageClient = ({ email }: Props) => {
           <Title>theme</Title>
           <SubTitle>foreground color</SubTitle>
           <FlexRow>
-            <Check></Check>
+            <Color className="selected" />
             <FlexRow className="end">
-              <Check></Check>
-              <Check></Check>
-              <Check></Check>
+              <Color className="purple" onClick={() => themeColorUpdate("#9797CB")} />
+              <Color className="blue" onClick={() => themeColorUpdate("#8EBCDB")} />
+              <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
+              <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
+              <Color className="grey" onClick={() => themeColorUpdate("#8f8f8f")} />
             </FlexRow>
           </FlexRow>
         </Section>
@@ -170,20 +219,43 @@ const Button = styled.button`
   text-transform: capitalize;
   
   &:hover{
-    background-color: rgb(var(--point2));
+    background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#9797CB'};
   }
 `
-const Check = styled.div`
+const Color = styled.div`
   width: 36px;
   height: 36px;
-  border: solid 3px darkgrey;
+  border: solid 3px rgba(0,0,0,0.2);
   margin-right: 8px;
   transition: all ease-in-out 0.3s;
 
   flex-shrink: 0;
 
   border-radius: 8px;
+
+
+  &.selected{
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+  }
+
+  &.purple{
+    background-color: #9797CB;
+  }
+  &.blue{
+    background-color: rgb(142, 188, 219);
+  }
+  &.pink{
+    background-color: #eda5b1;
+  }
+  &.green{
+    background-color: #83c6b6;
+  }
+  &.grey{
+    background-color: #8f8f8f;
+  }
+
+
   &:hover{
-    border-color: rgb(var(--point));
+    border-color: rgba(0,0,0,0.4);
   }
 `
