@@ -109,7 +109,7 @@ const Info = styled.div`
   align-items: center;
   /* text-transform:lowercase; */
 
-  padding: 24px 12px; 
+  padding: 32px 16px; 
 
   width: 100%;
   text-align: start;

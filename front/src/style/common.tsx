@@ -12,6 +12,7 @@ const SC_Common = {
     padding: 4px 12px;
     margin-left: 8px;
     border-radius: 8px;
+    border : 2px solid rgba(0,0,0,0.1);
     &.yes{
       background-color: #83c6b6;
       color: #83c6b6;
@@ -66,10 +67,10 @@ const SC_Common = {
       color: rgb(var(--greyTitle));
       background-color: whitesmoke;
       background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'};
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 2px solid rgba(0,0,0,0.05);
 
       
-      padding: 2px 8px;
+      padding: 2px 12px;
       height: 28px;
 
       font-size: 14px;

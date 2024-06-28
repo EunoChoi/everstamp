@@ -104,10 +104,11 @@ const EmptyWrapper = styled.div`
   background-color: whitesmoke;
   color: rgb(var(--greyTitle));
   box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;
   font-size: 16px;
   font-weight:500;
+  margin-bottom: 12px;
 
   button{
     transition: color ease-in-out 0.2s;

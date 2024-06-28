@@ -219,7 +219,7 @@ const Mobile_Nav = styled.nav`
   backdrop-filter: blur(12px);
 
   color: rgba(0,0,0,0.3);
-  border-top: 1px solid rgba(0,0,0,0.05); 
+  border-top: 2px solid rgba(0,0,0,0.05); 
   > *{
     padding : 0 12px;
     padding-bottom: 2px;

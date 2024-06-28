@@ -66,6 +66,7 @@ const BarWrapper = styled.div<{ $count: number }>`
     display : flex;
     flex-direction: column;
     justify-content: end;
+    padding-bottom: 8px;
   }
   .bar{
     height: ${(props) => props.$count + '%'};
@@ -74,6 +75,7 @@ const BarWrapper = styled.div<{ $count: number }>`
   }
   .month{
     font-weight: 500;
+    padding: 8px 0;
   }
 `
 const Chart = styled.div`

@@ -141,13 +141,14 @@ const Wrapper = styled.div`
   aspect-ratio: 1;
   
   border-radius: 16px;
-  border: 1px solid rgba(0,0,0,0.075);
+  border: 2px solid rgba(0,0,0,0.075);
 
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.point ? props.theme.point + '10' : '#9797CB'};
+  background-color: whitesmoke;
+  /* background-color: ${(props) => props.theme.point ? props.theme.point + '10' : '#9797CB'}; */
   &.priority1{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'}
+    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#9797CB'}
   }
   &.priority2{
     background-color : ${(props) => props.theme.point ? props.theme.point + '50' : '#9797CB'}

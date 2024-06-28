@@ -209,7 +209,7 @@ const Button = styled.button`
 
 
   border-radius: 50px;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0,0,0,0.05);
   background-color: whitesmoke;
   color: rgb(var(--greyTitle));
  
@@ -225,7 +225,7 @@ const Button = styled.button`
 const Color = styled.div`
   width: 36px;
   height: 36px;
-  border: solid 3px rgba(0,0,0,0.2);
+  border: solid 2px rgba(0,0,0,0.2);
   margin-right: 8px;
   transition: all ease-in-out 0.3s;
 

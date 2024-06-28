@@ -199,7 +199,7 @@ const TextWrapper = styled.div`
 
   background-color: whitesmoke;
   box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;
 
   flex-shrink: 0;
@@ -242,7 +242,7 @@ const Img = styled(Image)`
 
   object-fit: cover;
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0,0,0,0.05);
 `
 
 const EditBox = styled.div`
@@ -253,7 +253,7 @@ const EditBox = styled.div`
 
   background-color: whitesmoke;
   box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;
 
   display: flex;
