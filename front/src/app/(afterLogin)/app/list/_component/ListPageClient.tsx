@@ -91,35 +91,37 @@ const ListPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
-      <Header title='list' />
-      <SC_Common.Options>
-        <Search
-          open={searchInputOpen}
-          onClick={(e) => {
-            setSearchInputOpen(c => !c);
-            setTimeout(() => {
-              searchInputRef.current?.focus();
-            }, 50);
-          }}>
-          <SearchIcon fontSize="small" />
+      <Header title='list' >
+        <SC_Common.Options>
+          <Search
+            open={searchInputOpen}
+            onClick={(e) => {
+              setSearchInputOpen(c => !c);
+              setTimeout(() => {
+                searchInputRef.current?.focus();
+              }, 50);
+            }}>
+            <SearchIcon fontSize="small" />
 
-          {searchInputOpen &&
-            <form onSubmit={onSearch}>
-              <input
-                ref={searchInputRef}
-                placeholder="검색어를 입력하세요."
-                value={searchText}
-                onChange={e => setSearchText(e.currentTarget.value)}
-                onClick={e => e.stopPropagation()}>
-              </input>
-            </form>}
+            {searchInputOpen &&
+              <form onSubmit={onSearch}>
+                <input
+                  ref={searchInputRef}
+                  placeholder="검색어를 입력하세요."
+                  value={searchText}
+                  onChange={e => setSearchText(e.currentTarget.value)}
+                  onClick={e => e.stopPropagation()}>
+                </input>
+              </form>}
 
-        </Search>
-        <button onClick={sortChage}>
-          <span>{sortToggle === 'DESC' ? <ArrowDownwardOutlinedIcon fontSize="small" /> : <ArrowUpwardOutlinedIcon fontSize="small" />}</span>
-          <span>Time</span>
-        </button>
-      </SC_Common.Options>
+          </Search>
+          <button onClick={sortChage}>
+            <span>{sortToggle === 'DESC' ? <ArrowDownwardOutlinedIcon fontSize="small" /> : <ArrowUpwardOutlinedIcon fontSize="small" />}</span>
+            <span>Time</span>
+          </button>
+        </SC_Common.Options>
+      </Header>
+
 
       <SC_Common.Content className="scroll" ref={contentRef}>
         {diaries?.pages[0].length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
@@ -128,9 +130,7 @@ const ListPageClient = () => {
           position="list"
           diaryData={data}
           key={'listNote' + i}
-        />))))
-
-        }
+        />))))}
         <Observer ref={ref} />
       </SC_Common.Content>
     </SC_Common.Wrapper>

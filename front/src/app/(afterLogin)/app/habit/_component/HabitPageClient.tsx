@@ -61,27 +61,25 @@ const HabitPageClient = ({ email }: Props) => {
 
 
   return (
-    <SC_Common.Wrapper className="habit">
-      <Header title='habit' />
-      <SC_Common.Options>
-        <button onClick={onAddHabit}>
-          <AddIcon fontSize="small" />
-        </button>
-        {/* <button onClick={typeChage}>
+    <SC_Common.Wrapper>
+      <Header title='habit' >
+        <SC_Common.Options>
+          <button onClick={onAddHabit}>
+            <AddIcon fontSize="small" />
+          </button>
+          {/* <button onClick={typeChage}>
           {typeToggle === 'GRID' ? <WindowOutlinedIcon fontSize="small" /> : <SplitscreenOutlinedIcon fontSize="small" />}
         </button> */}
-        <button onClick={sortChage}>
+          <button onClick={sortChage}>
 
-          <span>{sortToggle === 'DESC' ?
-            <ArrowUpwardOutlinedIcon fontSize="small" /> :
-            <ArrowDownwardOutlinedIcon fontSize="small" />}
-          </span>
-          <span>Time</span>
-        </button>
-      </SC_Common.Options>
-
-
-
+            <span>{sortToggle === 'DESC' ?
+              <ArrowUpwardOutlinedIcon fontSize="small" /> :
+              <ArrowDownwardOutlinedIcon fontSize="small" />}
+            </span>
+            <span>Time</span>
+          </button>
+        </SC_Common.Options>
+      </Header>
       <SC_Common.Content className="habit">
         {(habits === undefined || habits?.length === 0) && <NoHabit>Shall we create a list of habits? 😎</NoHabit>}
         <HabitGridList

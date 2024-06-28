@@ -77,14 +77,14 @@ const SettingPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className="noOption setting" >
-        <Header title='setting' />
-        <SC_Common.Options className="setting" />
+      <SC_Common.Content >
+        <Header title='setting' ></Header>
+        <SC_Common.Options />
         <Section>
           <Title>account</Title>
           <Value>
             <span className="key">email</span>
-            <span className="value">{data?.email}</span>
+            <span className="value email">{data?.email}</span>
           </Value>
           <Value>
             <span className="key">provider</span>
@@ -163,6 +163,10 @@ const Value = styled.span`
 
   display: flex;
   justify-content: space-between;
+  .email{
+    margin-left: 12px;
+    overflow-x: scroll;
+  }
   .key{
     font-weight: 600;
     text-transform: capitalize;

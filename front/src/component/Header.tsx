@@ -1,15 +1,18 @@
 'use client';
 
+import { ReactNode } from "react";
 import styled from "styled-components";
 
 interface Props {
-  title: string
+  title: string;
+  children?: ReactNode;
 }
 
-const Header = ({ title }: Props) => {
+const Header = ({ title, children }: Props) => {
   return (
     <Wrapper>
       <Title>{title}</Title>
+      {children}
     </Wrapper>
   );
 }
@@ -23,26 +26,31 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-shrink: 0;
-  align-items: end;
 
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);  
 
   @media (max-width: 479px) { //mobile port
-    justify-content: start;
-    /* align-items: center; */
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     height: var(--mobileHeader);
-
-    padding : 0 5%;
+    padding: 0 5%;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 75dvw;
+    height: var(--mobileHeader);
+    padding: 0 20px;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
+    align-items: center;
+    justify-content: space-between;
     width: calc(100dvw - 350px);
     height: var(--desktopHeader);
-
-    padding: 0 20px;
     max-width: 800px;
+    padding: 0 20px;
   }
 `
 const Title = styled.span`
@@ -51,7 +59,6 @@ const Title = styled.span`
   font-weight: 700;
 
   text-transform: uppercase;
-  text-transform: capitalize;
 
   &:first-letter{
     color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
@@ -61,7 +68,6 @@ const Title = styled.span`
     font-size: 24px;
     border-bottom: 4px ${(props) => props.theme.point ? props.theme.point : '#9797CB'} solid;
     &:first-letter{
-    /* font-size: 28px; */
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
