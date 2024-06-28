@@ -121,7 +121,7 @@ const ListPageClient = () => {
       </SC_Common.Options>
 
       <SC_Common.Content className="scroll" ref={contentRef}>
-        {diaries?.pages.length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
+        {diaries?.pages[0].length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
 
         {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => (<Diary
           position="list"

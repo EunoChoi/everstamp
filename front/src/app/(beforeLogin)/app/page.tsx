@@ -92,8 +92,10 @@ const TextWrapper = styled.div`
     width: 450px;
     padding: 0 32px;
     align-items: end;
+   
     span{
       text-align: end;
+
     }
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
@@ -145,7 +147,7 @@ const TextContent = styled.div`
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 32px 0;
+    margin: 48px 0;
     span{
       font-size: 18px;
     }
