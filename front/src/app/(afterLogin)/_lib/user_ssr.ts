@@ -12,7 +12,7 @@ export async function getCurrentUser_fetch() {
     return data;
   } catch (e) {
 
-    console.log('error!!!!!!!!!!!!!!!!!!!!');
+    console.log('user data prefetch error');
     redirect('/app');
   }
 }

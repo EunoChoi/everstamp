@@ -58,9 +58,9 @@ const AddHabitModal = () => {
 
   };
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [])
+  // useEffect(() => {
+  //   inputRef.current?.focus();
+  // }, [])
 
   return (
     <Wrapper onClick={() => router.back()}>

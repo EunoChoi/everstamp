@@ -88,7 +88,7 @@ const Value = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  margin : 12px 10%;
+  margin : 6px 10%;
   @media (min-height:480px) and (min-width:1024px) { //desktop
     margin : 0 20%;
   }
