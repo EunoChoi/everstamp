@@ -9,6 +9,7 @@ import { cookies } from "next/headers"
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   providers: [Kakao, Google, Naver],
   session: {
     strategy: 'jwt',
