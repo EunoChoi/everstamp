@@ -63,7 +63,7 @@ const CalendarWrapper = styled.div`
   @media (max-width: 479px) { //mobile port
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    height: 100vh !important;
+    height: 100dvh !important;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
   }

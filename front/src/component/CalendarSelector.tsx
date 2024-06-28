@@ -170,8 +170,8 @@ const DateValue = styled.div`
       align-items: center;
       line-height: 0%;
 
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 20px;
       background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
       color: whitesmoke;
@@ -258,7 +258,7 @@ const CalDate = styled.button`
   width: 14%;
   height: 90%;
 
-  font-size: 14px;
+  font-size: 12px;
   color: #666565;
   text-align: center;
   border : 3px solid rgba(0,0,0,0);

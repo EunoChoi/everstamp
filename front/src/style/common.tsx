@@ -68,11 +68,19 @@ const SC_Common = {
       background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'};
       border: 1px solid rgba(0,0,0,0.05);
 
-      padding: 4px 12px;
-      height: 32px;
+      
+      padding: 2px 8px;
+      height: 28px;
+
       font-size: 14px;
       margin-left: 6px;
       font-weight: 500;
+
+
+      @media (min-height:480px) and (min-width:1024px) { //desktop
+        padding: 4px 12px;
+        height: 32px;
+      }
 
       *:nth-child(2){
         margin-left: 3px;

@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 
   @media (max-width: 479px) { //mobile port
     justify-content: start;
-    align-items: center;
+    /* align-items: center; */
     width: 100%;
     height: var(--mobileHeader);
 
