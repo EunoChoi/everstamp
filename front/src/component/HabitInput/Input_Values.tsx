@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+import { useEffect, useRef } from "react";
 
 interface Props {
   habitName: string;
@@ -10,11 +11,19 @@ interface Props {
 
 
 const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Props) => {
+
+  const ref = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    ref.current?.focus();
+  })
+
   return (
     <>
       <Value>
         <span>name</span>
         <input
+          ref={ref}
           onChange={(e) => setHabitName(e.currentTarget.value)}
           value={habitName || ""} />
       </Value>
