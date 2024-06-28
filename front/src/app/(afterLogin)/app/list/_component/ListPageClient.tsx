@@ -37,6 +37,7 @@ interface Habit {
   email: string;
   name: string;
   themeColor: string;
+  priority: number;
 }
 
 
