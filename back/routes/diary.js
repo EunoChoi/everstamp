@@ -97,7 +97,7 @@ router.patch("/", tokenCheck, async (req, res) => {
     const diary = await Diary.findOne({
       where: { id: diaryId },
     });
-    if (!diary) return res.status(403).json("게시글이 올바르지 않습니다.");
+    if (!diary) return res.status(400).json("게시글이 올바르지 않습니다.");
 
 
     await Diary.update({

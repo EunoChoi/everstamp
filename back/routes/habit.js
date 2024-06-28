@@ -54,7 +54,6 @@ router.get("/list", tokenCheck, async (req, res) => {
       while (habits.length > 0) {
         result.push(habits.splice(0, 6));
       }
-      console.log(result);
       return res.status(200).json(result);
     }
     else return res.status(400).json('습관 목록을 불러오지 못하였습니다.');
@@ -308,7 +307,7 @@ router.delete("/", tokenCheck, async (req, res) => {
     let habit = await Habit.findOne({
       where: { id: habitId },
     });
-    if (!habit) return res.status(403).json("습관이 존재하지 않습니다.");
+    if (!habit) return res.status(400).json("습관이 존재하지 않습니다.");
 
 
     await Habit.destroy({
