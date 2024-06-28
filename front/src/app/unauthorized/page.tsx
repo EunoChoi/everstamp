@@ -8,15 +8,15 @@ import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDiss
 
 const Page = () => {
   const router = useRouter();
-  const params = useSearchParams();
-  const message = params.get('message');
+  // const params = useSearchParams();
+  // const message = params.get('message');
   return (
     <Wrapper>
       <Icon>
         <SentimentDissatisfiedOutlinedIcon fontSize="inherit" />
       </Icon>
       <Text>
-        {message}
+        {/* {message} */}
       </Text>
       <Button onClick={() => router.push(`/app`)}>돌아가기</Button>
     </Wrapper>
