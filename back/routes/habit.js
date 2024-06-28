@@ -250,6 +250,7 @@ router.post("/", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
+
 //edit habit
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /habit -----');
@@ -265,7 +266,7 @@ router.patch("/", tokenCheck, async (req, res) => {
     const isHabitExist = await Habit.findOne({
       where: { id: habitId },
     });
-    if (!isHabitExist) return res.status(403).json("습관이 존재하지 않습니다.");
+    if (!isHabitExist) return res.status(400).json("습관이 존재하지 않습니다.");
 
     const isHabitNameNotOk = await Habit.findOne({
       where: {
@@ -273,7 +274,7 @@ router.patch("/", tokenCheck, async (req, res) => {
         id: { [Op.ne]: habitId }
       },
     });
-    if (isHabitNameNotOk) return res.status(403).json("동일한 이름의 습관이 존재합니다.");
+    if (isHabitNameNotOk) return res.status(400).json("동일한 이름의 습관이 존재합니다.");
 
     //같은 이름 있는지 확인 후 같은 이름이 있으면 수정 중단
     const updatedHabit = await Habit.update({
@@ -290,6 +291,7 @@ router.patch("/", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
+
 //delete habit
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /habit?id -----');
