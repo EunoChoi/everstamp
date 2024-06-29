@@ -20,7 +20,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BookIcon from '@mui/icons-material/Book';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { useRouter } from "next/navigation";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../_lib/user";

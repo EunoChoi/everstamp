@@ -5,9 +5,6 @@ import { auth } from "@/auth";
 import { getDiaries_fetch } from "../../_lib/diary_ssr";
 
 const Page = async () => {
-  const session = await auth()
-  const email = session?.user?.email ? session?.user?.email : '';
-
   //server prefetch
   const queryClient = new QueryClient();
 

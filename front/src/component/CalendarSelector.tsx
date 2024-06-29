@@ -17,7 +17,6 @@ import TodayIcon from '@mui/icons-material/Today';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
 import { getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 
 const CalendarSelector = () => {
   const router = useRouter();
