@@ -12,19 +12,17 @@ import { getHabit } from "@/app/(afterLogin)/_lib/habit";
 import HabitInfoChart from "../habitInfo/HabitInfoChart";
 import Indicator from "../indicator";
 
+interface Props {
+  habitId: string;
+}
 
-
-const HabitInfoModal = () => {
+const HabitInfoModal = ({ habitId }: Props) => {
   const router = useRouter();
-  const params = useSearchParams();
-  const habitId = params.get('id');
+
   const [habitCount, setHabitCount] = useState<number>(0);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
-
-
-  //year data query key ['habit', 'count', 'year', '2024']
 
   const { data: habitData } = useQuery({
     queryKey: ['habits', 'id', habitId],

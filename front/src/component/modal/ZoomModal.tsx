@@ -34,11 +34,17 @@ const ZoomModal = ({ diaryId }: Props) => {
   const images = diaryData?.Images;
   const text = diaryData?.text;
 
+  const [zoomState, setZoomState] = useState<'zoom' | ''>('');
+
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
   const indicatorLength = images?.length + 1;
 
 
+  const zoomToggle = () => {
+    if (zoomState === '') setZoomState('zoom');
+    else setZoomState('');
+  }
 
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
@@ -62,7 +68,7 @@ const ZoomModal = ({ diaryId }: Props) => {
 
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
-            <Img src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
+            <Img onClick={zoomToggle} className={zoomState} src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
           </ImageWrapper>)}
 
       </SlideWrapper>
@@ -160,6 +166,9 @@ const Img = styled(Image)`
   height: 100%;
 
   object-fit: contain;
+  &.zoom{
+    object-fit: cover;
+  }
 `
 
 const Wrapper = styled.div`
