@@ -210,7 +210,7 @@ router.post("/", tokenCheck, async (req, res) => {
   console.log('----- method : post, url :  /habit -----');
 
   const habitName = req.body.habitName;
-  const themeColor = req.body.themeColor;
+  // const themeColor = req.body.themeColor;
   const priority = req.body.priority;
   const email = req.currentUserEmail;
   try {
@@ -241,7 +241,6 @@ router.post("/", tokenCheck, async (req, res) => {
       email,
       name: habitName,
       priority,
-      themeColor,
     });
     if (habit) return res.status(200).json(habit);
     else return res.status(400).json('습관 생성 중 오류가 발생하였습니다.');
@@ -254,7 +253,7 @@ router.post("/", tokenCheck, async (req, res) => {
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /habit -----');
   const email = req.currentUserEmail;
-  const { habitId, habitName, themeColor, priority } = req.body;
+  const { habitId, habitName, priority } = req.body;
   try {
     const currentUser = await User.findOne({
       where: { email },
@@ -278,7 +277,6 @@ router.patch("/", tokenCheck, async (req, res) => {
     //같은 이름 있는지 확인 후 같은 이름이 있으면 수정 중단
     const updatedHabit = await Habit.update({
       name: habitName,
-      themeColor,
       priority
     }, {
       where: { id: habitId }

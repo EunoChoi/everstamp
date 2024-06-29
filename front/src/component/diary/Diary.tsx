@@ -21,7 +21,7 @@ interface Habit {
   id: number;
   email: string;
   name: string;
-  themeColor: string;
+  // themeColor: string;
   priority: number;
 }
 

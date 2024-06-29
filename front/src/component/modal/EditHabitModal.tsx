@@ -16,7 +16,7 @@ import SC_Common from "@/style/common";
 interface HabitProps {
   habitId: string | null;
   habitName?: string;
-  themeColor?: string;
+  // themeColor?: string;
   priority: number;
 }
 interface Err {

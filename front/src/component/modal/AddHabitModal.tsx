@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 interface EditHabitProps {
   habitName: string;
-  themeColor?: string;
+  // themeColor?: string;
   priority: number;
 }
 interface Err {
