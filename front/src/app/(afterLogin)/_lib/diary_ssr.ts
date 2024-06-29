@@ -1,6 +1,9 @@
 import Axios from "@/Aixos/aixos";
 import { cookies } from "next/headers";
 
+interface IdProps {
+  id: string | number | null;
+}
 interface DateProps {
   date: number;
 }
@@ -11,7 +14,28 @@ interface ListProps {
   limit: number,
 }
 
+
+export async function getDiary_fetch({ id }: IdProps) {
+  console.log('diary(id) data prefetching...');
+
+  const { data } = await Axios.get(`/diary/id/${id}`, {
+    headers: {
+      cookie: cookies().toString(),
+    },
+  });
+
+  if (!data) {
+    console.log('Failed to fetch data!!');
+    throw new Error('Failed to fetch data')
+  }
+  return data;
+}
+
+
+
 export async function getDiary_date_fetch({ date }: DateProps) {
+  console.log('diary(date) data prefetching...');
+
   const { data } = await Axios.get(`/diary/calendar?date=${date}`, {
     headers: {
       cookie: cookies().toString(),

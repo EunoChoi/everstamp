@@ -6,11 +6,19 @@ import { format } from "date-fns";
 import { getDiary_date_fetch } from "../../_lib/diary_ssr";
 import { getHabit_status_month_fetch } from "../../_lib/habit_ssr";
 
-const Page = async ({ searchParams }: any) => {
+interface Props {
+  searchParams: {
+    date: string
+  };
+}
+
+const Page = async ({ searchParams }: Props) => {
   const session = await auth()
   const email = session?.user?.email ? session?.user?.email : '';
+
   const params = searchParams;
   let date = Number(params.date);
+  console.log(date);
 
   //server prefetch
   const queryClient = new QueryClient();

@@ -11,15 +11,17 @@ import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import Indicator from "../indicator";
 
+interface Props {
+  diaryId: string;
+}
+
 interface ImageProps {
   id: number;
   src: string;
 }
 
-const ZoomModal = () => {
+const ZoomModal = ({ diaryId }: Props) => {
   const router = useRouter();
-  const params = useSearchParams();
-  const diaryId = params.get('id');
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],

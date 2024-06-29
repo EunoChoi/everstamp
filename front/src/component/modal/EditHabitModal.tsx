@@ -13,6 +13,9 @@ import { SnackbarKey, closeSnackbar, enqueueSnackbar } from 'notistack';
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
 import SC_Common from "@/style/common";
 
+interface Props {
+  habitId: string;
+}
 interface HabitProps {
   habitId: string | null;
   habitName?: string;
@@ -25,14 +28,9 @@ interface Err {
   }
 }
 
-const EditHabitModal = () => {
+const EditHabitModal = ({ habitId }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
-
-  const params = useSearchParams();
-  const habitId = params.get('id');
-  const [habitName, setHabitName] = useState<string>('');
-  const [priority, setPriority] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
 
@@ -42,6 +40,9 @@ const EditHabitModal = () => {
     queryFn: () => getHabit({ id: habitId }),
     enabled: habitId !== null
   });
+
+  const [habitName, setHabitName] = useState<string>(habitData?.name);
+  const [priority, setPriority] = useState<number>(habitData?.priority);
 
   const editHabitMutation = useMutation({
     mutationFn: ({ habitId, habitName, priority }: HabitProps) => Axios.patch('/habit', { habitId, habitName, priority }),
@@ -102,12 +103,6 @@ const EditHabitModal = () => {
     );
     enqueueSnackbar(`습관 항목(${habitData.name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
   }
-
-  useEffect(() => {
-    setHabitName(habitData?.name);
-    setPriority(habitData?.priority);
-    // setThemeColor(habitData?.themeColor);
-  }, [habitData]);
 
   // useEffect(() => {
   //   inputRef.current?.focus();

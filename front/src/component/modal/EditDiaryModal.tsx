@@ -35,30 +35,40 @@ interface EditDiaryProps {
   images: string[];
 }
 
+interface DiaryProps {
+  id: string;
+  date: Date;
+  text: string;
+  Images: Array<any>;
+  diaryId: string | null;
+}
 
-const EditDiaryModal = () => {
+
+const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
   const params = useSearchParams();
-  const diaryId = params.get('id');
 
-  const [text, setText] = useState<string>('');
-  const [images, setImages] = useState<Array<string>>([]);
+
+
+
+
+
+  const { data: diaryData } = useQuery<DiaryProps>({
+    queryKey: ['diary', 'id', diaryId],
+    queryFn: () => getDiary({ id: diaryId }),
+    enabled: diaryId !== null
+  });
+
+  const [text, setText] = useState<string>(diaryData?.text ? diaryData?.text : "");
+  const [images, setImages] = useState<Array<string>>(diaryData?.Images ? diaryData.Images?.map((e: ServerImageProps) => e.src) : []);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
-
-
 
   const onEditDiary = () => {
     editDiaryMutation.mutate({ text, images, diaryId })
   };
 
-
-  const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiary({ id: diaryId }),
-    enabled: diaryId !== null
-  });
 
   const editDiaryMutation = useMutation({
     mutationFn: ({ text, images, diaryId }: EditDiaryProps) => Axios.patch(`/diary?diaryId=${diaryId}`, { text, images }),
@@ -83,13 +93,6 @@ const EditDiaryModal = () => {
   });
 
 
-  useEffect(() => {
-    if (diaryData) {
-      const tempImages = diaryData.Images?.map((e: ServerImageProps) => e.src);
-      setImages(tempImages);
-      setText(diaryData.text);
-    }
-  }, [diaryData])
   useEffect(() => {
     inputRef.current?.focus();
   }, [])

@@ -134,8 +134,6 @@ const HabitGridList = styled.div`
   }
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 60%;
-    width: 90%;
     flex-shrink: 0;
   }
 `
@@ -161,7 +159,7 @@ const HabitGrid = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     grid-gap: 6px;
   }
-  @media (orientation: portrait) {
+  @media (max-width: 720px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }

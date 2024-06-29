@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import styled from "styled-components";
 
 interface Props {
-  date: Date;
+  date: Date | undefined;
 }
 
 const DiaryInputDate = ({ date }: Props) => {

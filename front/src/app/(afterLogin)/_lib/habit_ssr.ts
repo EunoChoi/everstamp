@@ -1,11 +1,29 @@
 import Axios from "@/Aixos/aixos";
 import { cookies } from "next/headers";
 
+interface IdProps {
+  id: string | null;
+}
 interface Props {
   sort: string;
 }
 interface DateProps {
   date: Date;
+}
+
+
+export async function getHabit_fetch({ id }: IdProps) {
+  const { data } = await Axios.get(`habit?id=${id}`, {
+    headers: {
+      cookie: cookies().toString(),
+    },
+  });
+  if (!data) {
+    console.log('Failed to delete data!!');
+    throw new Error('Failed to delte data')
+  }
+
+  return data;
 }
 
 

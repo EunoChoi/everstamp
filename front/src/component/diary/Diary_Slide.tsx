@@ -78,8 +78,9 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   });
 
   const onCopyDiary = () => {
-    navigator.clipboard.writeText(diaryData.text);
-    enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.', { variant: 'success' });
+    navigator.clipboard.writeText(diaryData.text).then(() => {
+      enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.', { variant: 'success' });
+    });
   }
   const onEditDiary = () => {
     router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })

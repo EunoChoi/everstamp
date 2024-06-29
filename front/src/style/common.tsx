@@ -107,7 +107,6 @@ const SC_Common = {
       justify-content: start;
       
       height: 100dvh;
-      padding: 0 5dvw;
       padding-top: var(--mobileHeader);
       
       @media (min-height:720px) {
