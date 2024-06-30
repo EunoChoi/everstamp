@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Image from "next/image";
+
 
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
@@ -6,9 +8,14 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { RefObject, useCallback } from "react";
 import Axios from "@/Aixos/aixos";
-import { useMutation } from "@tanstack/react-query";
+import { UseMutationResult, useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
+import { AxiosResponse } from "axios";
+
+import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
+import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
+
 
 interface Props {
   type?: string;
@@ -26,7 +33,6 @@ interface Err {
 }
 
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
-
   const router = useRouter();
 
   const ImageUploadMutation = useMutation({
@@ -79,23 +85,114 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
   };
 
   return (
-    <Buttons>
-      <Button onClick={() => router.back()}>
-        <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
-      </Button>
-      <Button onClick={() => imageUploadRef.current?.click()}>
-        <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
-        <ImageOutlinedIcon className="icon" />
-      </Button>
-      <Button onClick={submitDiary}>
-        {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <PostAddOutlinedIcon className="icon" />}
-      </Button>
-    </Buttons>
+    <> {(images?.length > 0 || ImageUploadMutation?.isPending) &&
+      <UploadedImages>
+        {images.map((e, i: number) => <ImageBox key={`image-${e}`}>
+          <UploadedImage src={e} alt='diary image' width={100} height={100} />
+          <ImageDeleteButton onClick={() => {
+            const deletedImageArray = [...images];
+            deletedImageArray.splice(i, 1);
+            setImages(deletedImageArray);
+          }}>
+            <RemoveCircleOutlinedIcon fontSize="inherit" />
+          </ImageDeleteButton>
+        </ImageBox>)}
+        {ImageUploadMutation?.isPending ? <ImageBox className="loading"><PendingOutlinedIcon fontSize="large" /></ImageBox> : <></>}
+      </UploadedImages>
+    }
+      <Buttons>
+        <Button onClick={() => router.back()}>
+          <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
+        </Button>
+        <Button onClick={() => imageUploadRef.current?.click()}>
+          <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
+          <ImageOutlinedIcon className="icon" />
+        </Button>
+        <Button onClick={submitDiary}>
+          {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <PostAddOutlinedIcon className="icon" />}
+        </Button>
+      </Buttons>
+    </>
+
   );
 }
 
 export default DiaryInputButtons;
 
+
+const UploadedImages = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  background-color: rgba(var(--whitesmoke), 0.3);
+  border-top: solid 1px rgba(0,0,0,0.05);
+  /* flex-shrink: 0; */
+  min-height: 56px;
+
+  @media (max-width: 479px) { //mobile port
+    height: 112px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    height: 96px;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    height: 172px;
+  }
+`
+const ImageBox = styled.div`
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1.3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &.loading{
+    aspect-ratio: 1;
+    color: rgb(var(--greyTitle));
+  }
+
+  @media (max-width: 479px) { //mobile port
+    aspect-ratio: 1.2;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    aspect-ratio: 1.8;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    aspect-ratio: 1.3;
+  }
+`
+const UploadedImage = styled(Image)`
+  width: 90%;
+  height: 70%;
+
+  border-radius: 8px;
+  object-fit: cover;
+`
+const ImageDeleteButton = styled.button`
+  transition: color ease-in-out 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 20%;
+
+  color: rgb(var(--greyTitle));
+  &:hover{
+    color: #d84141;
+  }
+  
+  @media (max-width: 479px) { //mobile port
+    font-size: 20px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 12px;
+  }
+  @media (min-height:480px) and (min-width:1024px) { //desktop
+    font-size: 22px;
+  }
+`
 
 const Buttons = styled.div`
   height: var(--mobileNav);

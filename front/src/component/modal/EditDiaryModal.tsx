@@ -102,7 +102,6 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={diaryData?.date} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
-        <DiaryInputUploadedImage images={images} setImages={setImages} />
         <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onEditDiary} images={images} setImages={setImages} type={'edit'} />
       </Modal>
     </Wrapper>);

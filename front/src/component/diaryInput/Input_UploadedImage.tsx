@@ -1,18 +1,32 @@
 import styled from "styled-components";
 import Image from "next/image";
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
+import { UseMutationResult } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
+import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
+
+interface Err {
+  response: {
+    data?: string;
+    statusText?: string;
+  }
+}
 
 interface Props {
   images: Array<string>;
   setImages: (images: string[]) => void;
+  ImageUploadMutation: UseMutationResult<AxiosResponse<any, any>, Err, FormData, unknown>;
 }
 
-const DiaryInputUploadedImage = ({ images, setImages }: Props) => {
+const DiaryInputUploadedImage = ({ images, setImages, ImageUploadMutation }: Props) => {
+
+  console.log(ImageUploadMutation?.isPending);
+
   return (<>
-    {images?.length > 0 &&
+    {(images?.length > 0 || ImageUploadMutation?.isPending) &&
       <UploadedImages>
         {images.map((e, i: number) => <ImageBox key={`image-${e}`}>
-          <UploadedImage src={e} alt='diary image' width={200} height={200} />
+          <UploadedImage src={e} alt='diary image' width={100} height={100} />
           <ImageDeleteButton onClick={() => {
             const deletedImageArray = [...images];
             deletedImageArray.splice(i, 1);
@@ -21,6 +35,7 @@ const DiaryInputUploadedImage = ({ images, setImages }: Props) => {
             <RemoveCircleOutlinedIcon fontSize="inherit" />
           </ImageDeleteButton>
         </ImageBox>)}
+        {ImageUploadMutation?.isPending ? <ImageBox className="loading"><PendingOutlinedIcon fontSize="large" /></ImageBox> : <></>}
       </UploadedImages>
     }
   </>);
@@ -55,6 +70,11 @@ const ImageBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &.loading{
+    aspect-ratio: 1;
+  }
+
   @media (max-width: 479px) { //mobile port
     aspect-ratio: 1.2;
   }
