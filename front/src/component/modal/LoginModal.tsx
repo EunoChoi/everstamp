@@ -132,13 +132,13 @@ const Logo = styled.div`
 const Title = styled.span`
   font-weight: 600;
   @media (max-width: 479px) { //mobile port
-    font-size: 24px;
+    font-size: 22px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 24px;
+    font-size: 22px;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    font-size: 32px;
+    font-size: 28px;
   }
 `
 const Text = styled.span`
@@ -152,7 +152,7 @@ const Text = styled.span`
       margin-top: 4px;
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-      font-size: 20px;
+      font-size: 18px;
       margin-top: 8px;
   }
 `
@@ -167,7 +167,7 @@ const Button = styled.button`
   width : 42px;
   height: 42px;
   border-radius: 42px;
-  border : 3px solid rgba(0,0,0,0.1);
+  border : 2px solid rgba(0,0,0,0.05);
   margin: 4px;
 
   @media (min-height:480px) and (min-width:1024px) { //desktop

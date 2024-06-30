@@ -1,5 +1,6 @@
 import styled from "styled-components";
-
+import Image from "next/image";
+import loading from '../../public/img/loading.gif';
 
 const Loading = () => {
   return (
@@ -11,7 +12,8 @@ const Loading = () => {
         </div>
         <div></div>
       </Logo>
-      <Text>we can do better</Text>
+      <Image src={loading} alt='loading' width={100} height={100} />
+      {/* <Text>we can do better</Text> */}
     </Wrapper>
   );
 }

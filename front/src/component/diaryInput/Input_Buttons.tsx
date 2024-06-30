@@ -6,12 +6,12 @@ import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import { RefObject, useCallback } from "react";
+import { RefObject } from "react";
 import Axios from "@/Aixos/aixos";
-import { UseMutationResult, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
-import { AxiosResponse } from "axios";
+import loading from '../../../public/img/loading.gif';
 
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
@@ -97,7 +97,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
             <RemoveCircleOutlinedIcon fontSize="inherit" />
           </ImageDeleteButton>
         </ImageBox>)}
-        {ImageUploadMutation?.isPending ? <ImageBox className="loading"><PendingOutlinedIcon fontSize="large" /></ImageBox> : <></>}
+        {ImageUploadMutation?.isPending ? <ImageBox className="loading"><Image src={loading} alt="loading" width={100} height={100} /></ImageBox> : <></>}
       </UploadedImages>
     }
       <Buttons>
