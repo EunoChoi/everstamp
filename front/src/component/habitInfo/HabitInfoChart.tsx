@@ -44,7 +44,7 @@ const HabitInfoChart = () => {
           <span>count for {year}</span>
         </div>
         <div className="count">
-          {count}/{isLeapYear(year) ? 366 : 365}
+          {count} / {isLeapYear(year) ? 366 : 365}
         </div>
       </Info>
       <span className="title">Monthly habit achievement count</span>
