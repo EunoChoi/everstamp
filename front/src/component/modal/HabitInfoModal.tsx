@@ -42,14 +42,7 @@ const HabitInfoModal = ({ habitId }: Props) => {
         {habitData?.name ? habitData?.name : '-'}
       </Name>
       <Content>
-        <Info>
-          <span className="name"> {habitData?.name ? habitData?.name : '-'}</span>
-          <div className="infoText">
-            <span>Number of habits</span>
-            <span>achieved of {format(currentMonth, 'MMMM')}</span>
-          </div>
-          <div className="infoCount">{habitCount} / {format(lastDayOfMonth(currentMonth), 'dd')}</div>
-        </Info>
+
         <SlideWrapper>
           <Slide
             ref={slideWrapperRef}
@@ -58,6 +51,14 @@ const HabitInfoModal = ({ habitId }: Props) => {
             }}
           >
             <CalendarWrapper className="slideChild">
+              <Info>
+                <span className="name"> {habitData?.name ? habitData?.name : '-'}</span>
+                <div className="infoText">
+                  <span>Number of habits</span>
+                  <span>achieved of {format(currentMonth, 'MMMM')}</span>
+                </div>
+                <div className="infoCount">{habitCount} / {format(lastDayOfMonth(currentMonth), 'dd')}</div>
+              </Info>
               <HabitInfoCalendar setHabitCount={setHabitCount} currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} />
             </CalendarWrapper>
 
@@ -107,7 +108,7 @@ const Info = styled.div`
   align-items: center;
   /* text-transform:lowercase; */
 
-  padding: 32px 16px; 
+  padding: 32px 8px; 
 
   width: 100%;
   text-align: start;
@@ -123,7 +124,7 @@ const Info = styled.div`
     font-size: 18px;
     color: #5c5c5c;
     span{
-      line-height: 120%;
+      line-height: 150%;
     }
   }
   .infoCount{
@@ -151,7 +152,6 @@ const Info = styled.div`
     }
   }
   @media (min-height:480px) and (min-width:1024px) { //desktop
-    padding: 36px 28px; 
     .infoText{
       font-size: 20px;
     }
@@ -169,6 +169,10 @@ const CalendarWrapper = styled.div`
   align-items: center;
 
   padding: 0 12px;
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    flex-direction: row;
+  }
   @media (min-height:480px) and (min-width:1024px) { //desktop
     padding: 0 24px;
   }

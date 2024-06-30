@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import { useState } from "react";
-import { subYears, addYears, format } from "date-fns";
+import { subYears, addYears, format, isLeapYear } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { getHabit_single_status_year } from "@/app/(afterLogin)/_lib/habit";
@@ -18,6 +18,10 @@ const HabitInfoChart = () => {
     queryKey: ['habit', 'id', habitId, 'year', format(current, 'yyyy')],
     queryFn: () => getHabit_single_status_year({ id: habitId, date: current }),
   });
+
+  const year = format(current, 'yyyy');
+  const count = data?.reduce((acc: number, cur: number) => (acc + cur), 0);
+
 
   const currentYear = () => {
     setCurrent(new Date());
@@ -34,6 +38,15 @@ const HabitInfoChart = () => {
 
   return (
     <Chart>
+      <Info>
+        <div className="text">
+          <span>The achievement</span>
+          <span>count for {year}</span>
+        </div>
+        <div className="count">
+          {count}/{isLeapYear(year) ? 366 : 365}
+        </div>
+      </Info>
       <span className="title">Monthly habit achievement count</span>
       <div className="chartArea">
         {[...Array(12)].map((_, i: number) =>
@@ -52,6 +65,35 @@ const HabitInfoChart = () => {
 }
 
 export default HabitInfoChart;
+
+const Info = styled.div`
+  width: 100%;
+  padding: 32px 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .text{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: start;
+
+    span{
+      color: rgb(var(--greyTitle));
+      font-weight: 500;
+      line-height: 150%;
+      font-size: 18px;
+    }
+  }
+  .count{
+        line-height: 100%;
+    font-weight: 700;
+    font-size: 42px;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+  }
+`
 
 const BarWrapper = styled.div<{ $count: number }>`
   width: 100%;
@@ -91,9 +133,17 @@ const Chart = styled.div`
     padding: 8px 0;
   }
   .title, .bottom{
+    line-height: 100%;
     font-size: 18px;
     font-weight: 500;
     color: grey;
+  }
+  .subTitle{
+    text-align: center;
+    line-height: 100%;
+    font-size: 16px;
+    font-weight: 500;
+    color: darkgrey;
   }
   .bottom{
     margin: 8px 0;
