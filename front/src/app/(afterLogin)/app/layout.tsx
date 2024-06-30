@@ -2,8 +2,8 @@
 
 import styled from "styled-components";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from 'next/navigation'
-import { ReactNode } from "react";
+import { redirect, usePathname, useSelectedLayoutSegment } from 'next/navigation'
+import { ReactNode, useEffect } from "react";
 
 //component
 import CalendarSelector from "@/component/CalendarSelector";
@@ -32,40 +32,27 @@ interface Props {
   modal: ReactNode;
 }
 
-
-const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
-  '&.notistack-MuiContent-default': {
-    backgroundColor: 'whitesmoke',
-    color: 'rgb(88, 88, 88)',
-    fontWeight: '500'
-  },
-  '&.notistack-MuiContent-info': {
-    backgroundColor: '#8EBCDB',
-    fontWeight: '500'
-  },
-  '&.notistack-MuiContent-success': {
-    backgroundColor: '#83c6b6',
-    fontWeight: '500'
-  },
-  '&.notistack-MuiContent-error': {
-    backgroundColor: '#dc7889',
-    fontWeight: '500'
-  },
-}));
-
 const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
+  const path = usePathname();
 
-
-  const { data } = useQuery({
+  const { data, refetch, error } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
 
   const theme = {
-    point: data.themeColor
+    point: data?.themeColor
   }
+
+  if (error) {
+    redirect('/app');
+  }
+
+  useEffect(() => {
+    refetch();
+  }, [path]);
 
   //loading page, to solve useMediaQuery delay problem
   if (isMobile === null) return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
@@ -86,49 +73,47 @@ const AppLayout = ({ children, modal }: Props) => {
       preventDuplicate={true}
     >
       <ThemeProvider theme={theme}>
-        {
-          isMobile ?
-            <Mobile_Layout>
+        {isMobile ?
+          <Mobile_Layout>
+            {modal}
+            {children}
+            < Mobile_Nav >
+              <Logo><span>ever</span><span>stamp</span></Logo>
+              <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
+              <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
+              <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
+              <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
+            </Mobile_Nav >
+          </Mobile_Layout >
+          :
+          <Desktop_Layout>
+            <Desktop_Sidebar>
+              <SideBarLogo>
+                <span>ever</span>
+                <span>stamp</span>
+              </SideBarLogo>
+              <Menus>
+                <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+                <MonthWrapper
+                  className={current === 'calendar' ? '' : 'inActive'}
+                >
+                  <CalendarSelector />
+                </MonthWrapper>
+                <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
+                <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
+                <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
+              </Menus>
+              <Links>
+                <span><GitHubIcon fontSize="inherit" /></span>
+                <span><BookIcon fontSize="inherit" /></span>
+              </Links>
+            </Desktop_Sidebar>
+
+            <Desktop_Content>
               {modal}
               {children}
-              < Mobile_Nav >
-                <Logo><span>ever</span><span>stamp</span></Logo>
-                <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
-                <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
-                <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
-                <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
-              </Mobile_Nav >
-            </Mobile_Layout >
-            :
-            <Desktop_Layout>
-              <Desktop_Sidebar>
-                <SideBarLogo>
-                  <span>ever</span>
-                  <span>stamp</span>
-                </SideBarLogo>
-                <Menus>
-                  <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
-                  <MonthWrapper
-                    className={current === 'calendar' ? '' : 'inActive'}
-                  >
-                    <CalendarSelector />
-                  </MonthWrapper>
-                  <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
-                  <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
-                  <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
-                </Menus>
-                <Links>
-                  <span><GitHubIcon fontSize="inherit" /></span>
-                  <span><BookIcon fontSize="inherit" /></span>
-                </Links>
-              </Desktop_Sidebar>
-
-              <Desktop_Content>
-                {modal}
-                {children}
-              </Desktop_Content>
-            </Desktop_Layout>
-        }
+            </Desktop_Content>
+          </Desktop_Layout>}
       </ThemeProvider >
     </SnackbarProvider>);
 
@@ -136,6 +121,25 @@ const AppLayout = ({ children, modal }: Props) => {
 
 export default AppLayout;
 
+const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
+  '&.notistack-MuiContent-default': {
+    backgroundColor: 'whitesmoke',
+    color: 'rgb(88, 88, 88)',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-info': {
+    backgroundColor: '#8EBCDB',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-success': {
+    backgroundColor: '#83c6b6',
+    fontWeight: '500'
+  },
+  '&.notistack-MuiContent-error': {
+    backgroundColor: '#dc7889',
+    fontWeight: '500'
+  },
+}));
 
 const Logo = styled.span`
   display: none;

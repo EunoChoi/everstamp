@@ -93,7 +93,7 @@ const HabitPageClient = ({ email }: Props) => {
               {grid.map(e => <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />)}
             </HabitGrid>)}
         </HabitGridList>
-        <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={habits.length} />
+        <Indicator slideWrapperRef={gridListRef} page={page} indicatorLength={habits?.length} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
   );
