@@ -240,6 +240,11 @@ const CalWeekTitle = styled.div`
   font-size: 15px;
   font-weight: 500;
   color: rgb(var(--greyTitle));
+
+  span{
+    width: 100%;
+    text-align: center;
+  }
 `
 const CalHeaderButtons = styled.div`
   button{
