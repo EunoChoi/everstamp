@@ -262,16 +262,18 @@ router.patch("/", tokenCheck, async (req, res) => {
 
 
     const isHabitExist = await Habit.findOne({
-      where: { id: habitId },
+      where: { id: habitId, email },
     });
     if (!isHabitExist) return res.status(400).json("습관이 존재하지 않습니다.");
 
     const isHabitNameNotOk = await Habit.findOne({
       where: {
         name: habitName,
+        email,
         id: { [Op.ne]: habitId }
       },
     });
+    console.log(isHabitNameNotOk);
     if (isHabitNameNotOk) return res.status(400).json("동일한 이름의 습관이 존재합니다.");
 
     //같은 이름 있는지 확인 후 같은 이름이 있으면 수정 중단
