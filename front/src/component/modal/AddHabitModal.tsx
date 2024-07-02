@@ -1,10 +1,9 @@
 'use client';
 
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
-import { getCurrentUserEmail } from "@/function/getCurrentUserEmail";
 import Axios from "@/Aixos/aixos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";

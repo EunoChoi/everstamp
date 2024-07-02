@@ -12,7 +12,7 @@ const Loading = () => {
         </div>
         <div></div>
       </Logo>
-      <Image src={loading} alt='loading' width={100} height={100} />
+      <Image src={loading} alt='loading' width={100} height={100} priority />
       {/* <Text>we can do better</Text> */}
     </Wrapper>
   );
