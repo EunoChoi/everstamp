@@ -66,11 +66,11 @@ const AppLayout = ({ children, modal }: Props) => {
         error: StyledMaterialDesignContent,
       }}
       anchorOrigin={{
-        vertical: 'top',
+        vertical: `${isMobile ? 'bottom' : 'top'}`,
         horizontal: 'right',
       }}
-      maxSnack={3}
-      autoHideDuration={2500}
+      maxSnack={1}
+      autoHideDuration={1500}
       preventDuplicate={true}
     >
       <ThemeProvider theme={theme}>
