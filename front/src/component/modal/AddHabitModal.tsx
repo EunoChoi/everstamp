@@ -1,7 +1,7 @@
 'use client';
 
 import styled from "styled-components";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
 import Axios from "@/Aixos/aixos";
@@ -57,9 +57,9 @@ const AddHabitModal = () => {
 
   };
 
-  // useEffect(() => {
-  //   inputRef.current?.focus();
-  // }, [])
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
 
   return (
     <Wrapper onClick={() => router.back()}>

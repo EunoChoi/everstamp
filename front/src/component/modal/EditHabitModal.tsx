@@ -1,17 +1,16 @@
 'use client';
 
 import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import HabitInputButtons from "../HabitInput/Input_Buttons";
 import HabitInputValues from "../HabitInput/Input_Values";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
 
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from 'notistack';
+import { enqueueSnackbar } from 'notistack';
 
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
-import SC_Common from "@/style/common";
 
 interface Props {
   habitId: string;
@@ -19,7 +18,6 @@ interface Props {
 interface HabitProps {
   habitId: string | null;
   habitName?: string;
-  // themeColor?: string;
   priority: number;
 }
 interface Err {
@@ -63,73 +61,26 @@ const EditHabitModal = ({ habitId }: Props) => {
       console.log('edit habit error');
     },
   });
-  const deleteHabitMutation = useMutation({
-    mutationFn: async ({ habitId }: HabitProps) => await Axios.delete(`habit?habitId=${habitId}`),
-    onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll().forEach(cache => {
-        queryClient.invalidateQueries({ queryKey: cache.queryKey });
-      });
-
-
-      router.back();
-      console.log('delete habit success');
-      setTimeout(() => {
-        closeSnackbar('deleteHabit');
-        enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
-      }, 300);
-    },
-    onError: (e: Err) => {
-      enqueueSnackbar(e?.response?.data, { variant: 'error' });
-      console.log('delete habit error');
-    },
-  });
-
 
   const onEditHabit = () => {
     if (habitName.length > 0 && habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
     else enqueueSnackbar('1~10글자의 이름을 입력해주세요.', { variant: 'info' });
   };
-  const onDeleteHabit = () => {
-    const action = (snackbarId: SnackbarKey) => (
-      <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
-          No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => { deleteHabitMutation.mutate({ habitId, priority }); }}>
-          Yes
-        </SC_Common.YesOrNo>
-      </>
-    );
-    enqueueSnackbar(`습관 항목(${habitData.name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
-  }
 
-  // useEffect(() => {
-  //   inputRef.current?.focus();
-  // }, [])
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
 
   return (
     <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Title>Edit Habit</Title>
         <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
-        <Delete><button onClick={onDeleteHabit}>delete</button></Delete>
         <HabitInputButtons onSubmit={onEditHabit} type="edit" />
       </Modal>
     </Wrapper>);
 }
 export default EditHabitModal;
-
-const Delete = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 12px;
-  button{
-    font-size: 18px;
-    /* color:  grey; */
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
-  }
-`
 
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

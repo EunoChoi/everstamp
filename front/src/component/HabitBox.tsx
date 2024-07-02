@@ -11,9 +11,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import SC_Common from "@/style/common";
 
 interface Props {
   name: string;
@@ -79,8 +82,38 @@ const HabitBox = ({ name, id, priority }: Props) => {
       console.log('uncheck habit error');
     },
   });
+  const deleteHabitMutation = useMutation({
+    mutationFn: async ({ habitId }: { habitId: number }) => await Axios.delete(`habit?habitId=${habitId}`),
+    onSuccess: () => {
+      const queryCache = queryClient.getQueryCache();
+      queryCache.getAll().forEach(cache => {
+        queryClient.invalidateQueries({ queryKey: cache.queryKey });
+      });
+
+      console.log('delete habit success');
+      enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
+    },
+    onError: (e: Err) => {
+      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+      console.log('delete habit error');
+    },
+  });
 
 
+
+  const onDeleteHabit = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => { deleteHabitMutation.mutate({ habitId: id }); }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
+  }
   const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
     if (e.currentTarget.checked === true) {
       checkHabitMutation.mutate({ habitId: id, date });
@@ -116,6 +149,9 @@ const HabitBox = ({ name, id, priority }: Props) => {
       </button>
       <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
         <EditOutlinedIcon fontSize="small" />
+      </button>
+      <button onClick={onDeleteHabit}>
+        <DeleteForeverOutlinedIcon fontSize="small" />
       </button>
     </ButtonWrapper>
   </Wrapper >);
@@ -161,7 +197,7 @@ const Name = styled.span`
   font-weight: 600;
   color: rgb(var(--greyTitle));
 
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   text-align: center;
 
   display: flex;
@@ -266,7 +302,3 @@ const Check = styled.div`
     }
   }
 `
-
-function enqueueSnackbar(data: string, arg1: { variant: string; }) {
-  throw new Error("Function not implemented.");
-}
