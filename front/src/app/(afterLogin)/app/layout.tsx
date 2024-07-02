@@ -55,7 +55,8 @@ const AppLayout = ({ children, modal }: Props) => {
   }, [path]);
 
   //loading page, to solve useMediaQuery delay problem
-  if (isMobile === null) return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
+  // if (isMobile === null) return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
+  if (isMobile === null) return <></>;
   return (
     <SnackbarProvider
       Components={{

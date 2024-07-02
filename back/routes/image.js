@@ -42,9 +42,10 @@ let s3 = new S3Client({
 const upload = multer({
   storage: multerS3({
     s3: s3,
-    bucket: 'moseoree-s3',
+    bucket: 'everstamp',
     key(req, file, cb) {
-      cb(null, `original/${Date.now()}_${path.basename(file.originalname).split(' ').join('')}`)
+      file.originalname = Buffer.from(file.originalname, 'ascii').toString('utf8');
+      cb(null, `img/${Date.now()}_${path.basename(file.originalname).toString('utf8').split(' ').join('')}`)
     }
   }),
   limits: {
@@ -53,24 +54,10 @@ const upload = multer({
 });
 
 
-// for local multer storage
-// try {
-//   //upload폴더가 존재하는지 확인
-//   fs.accessSync('uploads');
-// } catch (err) {
-//   console.log('upload folder do not exist')
-//   fs.mkdirSync('uploads');
-// }
-
 //image upload
 router.post('/', tokenCheck, upload.array('image'), async (req, res, next) => {
   // s3 multer
   res.json(req.files?.map((v) => decodeURIComponent(v.location)));
-
-  // s3 storage multer, thumb replace
-  // res.json(req.files.map((v) => decodeURIComponent(v.location).replace(/\/original\//, '/thumb/')));
-  // local storage multer
-  // res.json(req.files.map((v) => v.filename));  
 });
 
 
