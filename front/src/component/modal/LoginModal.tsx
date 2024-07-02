@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 const LoginModal = () => {
 
   const router = useRouter();
-  const options = { callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app/calendar?date=${getCleanTodayTime()}` };
+  const options = { callbackUrl: `/app/calendar?date=${getCleanTodayTime()}` };
 
   return (
     <Wrapper onClick={() => router.back()}>
