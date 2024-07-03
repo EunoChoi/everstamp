@@ -42,12 +42,13 @@ const tokenCheck = async (req, res, next) => {
         email,
         provider,
       }, process.env.ACCESS_KEY, {
-        expiresIn: '1m',
+        expiresIn: '5m',
         issuer: 'everstamp',
       });
       res.cookie("accessToken", newAccessToken, {
         secure: false,
         httpOnly: true,
+        domain: `${process.env.DOMAIN}`,
       });
 
       req.currentUserEmail = email;

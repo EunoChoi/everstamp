@@ -32,14 +32,14 @@ router.post("/register", async (req, res) => {
       email,
       provider,
     }, process.env.ACCESS_KEY, {
-      expiresIn: '1m',
+      expiresIn: '5m',
       issuer: 'everstamp',
     });
     const refreshToken = jwt.sign({
       type: "refreshToken",
-      expiresIn: "120m"
+      expiresIn: "720m"
     }, process.env.REFRECH_KEY, {
-      expiresIn: '120m',
+      expiresIn: '720m',
       issuer: 'everstamp',
     })
 
@@ -125,10 +125,12 @@ router.get("/logout", (req, res) => {
   res.cookie("accessToken", "", {
     secure: false,
     httpOnly: true,
+    domain: `${process.env.DOMAIN}`,
   })
   res.cookie("refreshToken", "", {
     secure: false,
     httpOnly: true,
+    domain: `${process.env.DOMAIN}`,
   })
   res.status(200).json("로그아웃 완료");
 })
