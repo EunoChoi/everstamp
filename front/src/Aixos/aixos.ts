@@ -1,11 +1,10 @@
 import axios from "axios";
 
 
-const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-const backPort = process.env.NEXT_PUBLIC_BACK_SERVER_PORT;
+const baseURL = process.env.NEXT_PUBLIC_BACK_URL;
 
 const Axios = axios.create({
-  baseURL: `${baseURL}:${backPort}`,
+  baseURL,
   responseType: "json",
 
   // headers: { accept: "application/json", "Content-Type": "application/json" },

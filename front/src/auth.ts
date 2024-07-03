@@ -23,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const profilePic = user.image;
 
       try {
-        // const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}:${process.env.NEXT_PUBLIC_BACK_SERVER_PORT}/user/register`,
         const res = await Axios.post(`/user/register`,
           {
             email, //primary key
