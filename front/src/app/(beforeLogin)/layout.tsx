@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Suspense } from "react";
 
 type Props = {
   children: ReactNode;
@@ -7,10 +8,10 @@ type Props = {
 
 const Layout = ({ children, modal }: Props) => {
   return (
-    <>
+    <Suspense>
       {modal}
       {children}
-    </>
+    </Suspense>
   );
 }
 
