@@ -167,11 +167,11 @@ const DateWrapper = styled.div`
   flex-direction: row;
   align-items: flex-end;
 
-  .emotion4{ color: #89caa7; font-weight: 500; }
-  .emotion3{ color:#ecbd59;  font-weight: 500;}
-  .emotion2{ color: #a3a3a3; font-weight: 500;}
-  .emotion1{ color: #84a1c1; font-weight: 500;}
-  .emotion0{ color: #e8a0b5; font-weight: 500;}
+  .emotion4{ color: #82d4a0;  }
+  .emotion3{ color:#b3e091;  }
+  .emotion2{ color: #a3a3a3; }
+  .emotion1{ color: #84a1c1; }
+  .emotion0{ color: #d45e5e; }
 
   >div{
     height: 100%;

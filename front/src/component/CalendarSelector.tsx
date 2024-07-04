@@ -169,11 +169,11 @@ const DateValue = styled.div`
   justify-content: center;
   align-items: center;
 
-  .emotion4{ color: #87cf85;  }
-  .emotion3{ color:#ecbd59;  }
+  .emotion4{ color: #82d4a0;  }
+  .emotion3{ color:#b3e091;  }
   .emotion2{ color: #a3a3a3; }
   .emotion1{ color: #84a1c1; }
-  .emotion0{ color: #e8a0b5; }
+  .emotion0{ color: #d45e5e; }
 
   div{
     display: flex;
@@ -290,7 +290,7 @@ const CalDate = styled.button`
   &.today{
     /* font-weight: 500; */
     /* color: rgb(var(--greyTitle)); */
-    background-color: ${(props) => props.theme.point ? props.theme.point + '35' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{

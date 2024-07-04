@@ -41,11 +41,11 @@ const ZoomModal = ({ diaryId }: Props) => {
   const indicatorLength = images?.length + 1;
 
   const emotions = [
-    <span className="emotion0">#Angry</span>,
-    <span className="emotion1">#Sad</span>,
-    <span className="emotion2">#Common</span>,
-    <span className="emotion3">#Happy</span>,
-    <span className="emotion4">#Excited</span>];
+    <span className="emotion0">#Angry day</span>,
+    <span className="emotion1">#Sad day</span>,
+    <span className="emotion2">#Common day</span>,
+    <span className="emotion3">#Happy day</span>,
+    <span className="emotion4">#Excited day</span>];
 
 
   const zoomToggle = () => {
@@ -73,8 +73,8 @@ const ZoomModal = ({ diaryId }: Props) => {
 
         <TextWrapper className="slideChild">
           <div className="info">
-            <span>{emotions[diaryData?.emotion]} day</span>
-            <span>#Complete {diaryData?.Habits?.length} habits</span>
+            <div>{emotions[diaryData?.emotion]}</div>
+            <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
           </div>
           <div className="text">
             {text}

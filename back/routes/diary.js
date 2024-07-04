@@ -55,6 +55,7 @@ router.post("/", tokenCheck, async (req, res) => {
       diary = await Diary.update({
         visible: true,
         text,
+        emotion
       }, {
         where: { email, date }
       });
