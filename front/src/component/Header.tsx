@@ -1,5 +1,7 @@
 'use client';
 
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import Link from "next/link";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -11,7 +13,7 @@ interface Props {
 const Header = ({ title, children }: Props) => {
   return (
     <Wrapper>
-      <Title>{title}</Title>
+      <Title href={`/app/calendar?date=${getCleanTodayTime()}`}>{title}</Title>
       {children}
     </Wrapper>
   );
@@ -53,7 +55,7 @@ const Wrapper = styled.div`
     padding: 0 20px;
   }
 `
-const Title = styled.span`
+const Title = styled(Link)`
   color: rgb(var(--greyTitle));
   font-size: 42px;
   font-weight: 700;
