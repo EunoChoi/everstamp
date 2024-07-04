@@ -35,12 +35,12 @@ const LoginModal = () => {
         <Buttons>
           <Button
             className="google"
-            onClick={() => signIn('google', options)}>
+            onClick={() => signIn('google', options, { prompt: 'consent' })}>
             <Images src={google} alt='google' width={50} height={50} />
           </Button>
           <Button
             className="kakao"
-            onClick={() => signIn('kakao', options)}>
+            onClick={() => signIn('kakao', options, { prompt: 'select_account' })}>
             <Images src={kakao} alt='kakao' width={50} height={50} />
           </Button>
           <Button
