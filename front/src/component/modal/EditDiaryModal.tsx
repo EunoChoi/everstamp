@@ -15,9 +15,9 @@ import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 //icon
 import DiaryInputDate from "../diaryInput/Input_Date";
 import DiaryInputTextArea from "../diaryInput/Input_TextArea";
-import DiaryInputUploadedImage from "../diaryInput/Input_UploadedImage";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
 import { enqueueSnackbar } from "notistack";
+import DiaryInputEmotion from "../diaryInput/Input_Emotion";
 
 interface Err {
   response: {
@@ -33,12 +33,14 @@ interface EditDiaryProps {
   diaryId: string | null;
   text: string;
   images: string[];
+  emotion: number;
 }
 
 interface DiaryProps {
   id: string;
   date: Date;
   text: string;
+  emotion: number;
   Images: Array<any>;
   diaryId: string | null;
 }
@@ -62,16 +64,17 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
 
   const [text, setText] = useState<string>(diaryData?.text ? diaryData?.text : "");
   const [images, setImages] = useState<Array<string>>(diaryData?.Images ? diaryData.Images?.map((e: ServerImageProps) => e.src) : []);
+  const [emotion, setEmotion] = useState<number>(diaryData?.emotion ? diaryData.emotion : 0);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
   const onEditDiary = () => {
-    editDiaryMutation.mutate({ text, images, diaryId })
+    editDiaryMutation.mutate({ text, images, diaryId, emotion })
   };
 
 
   const editDiaryMutation = useMutation({
-    mutationFn: ({ text, images, diaryId }: EditDiaryProps) => Axios.patch(`/diary?diaryId=${diaryId}`, { text, images }),
+    mutationFn: ({ text, images, diaryId, emotion }: EditDiaryProps) => Axios.patch(`/diary?diaryId=${diaryId}`, { text, images, emotion }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {
@@ -101,6 +104,7 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
     <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={diaryData?.date} />
+        <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
         <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onEditDiary} images={images} setImages={setImages} type={'edit'} />
       </Modal>

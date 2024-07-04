@@ -10,6 +10,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 import DiaryHabits from "./Diary_Habits";
 import DiarySlide from "./Diary_Slide";
+import IsMobile from "@/function/IsMobile";
 
 interface ImageProps {
   id: string;
@@ -21,7 +22,6 @@ interface Habit {
   id: number;
   email: string;
   name: string;
-  // themeColor: string;
   priority: number;
 }
 
@@ -32,6 +32,7 @@ interface Props {
     id: number;
     date: Date;
     text: string;
+    emotion: number;
     Images: Array<ImageProps>;
     Habits: Array<Habit>;
     visible: boolean;
@@ -44,12 +45,21 @@ const Diary = ({ diaryData, position }: Props) => {
   const params = useSearchParams();
   const paramDate = params.get('date');
 
+  const isMobile = IsMobile();
+
+  const emotions = [
+    <span className="emotion0">#Angry</span>,
+    <span className="emotion1">#Sad</span>,
+    <span className="emotion2">#Common</span>,
+    <span className="emotion3">#Happy</span>,
+    <span className="emotion4">#Excited</span>];
+
   const [diaryDate, setDiaryDate] = useState<Date>(new Date());
 
   const month = format(diaryDate, 'MMM');
-  const date = format(diaryDate, 'dd');
-  const day = format(diaryDate, `${position === 'calendar' ? 'eeee' : 'eee'}`);
-  const year = format(diaryDate, 'yyyy');
+  const date = format(diaryDate, 'd');
+  const day = format(diaryDate, `${(position === 'calendar' && isMobile === false) ? 'eeee' : 'eee'}`);
+  const year = format(diaryDate, `${(position === 'calendar' && isMobile === false) ? 'yyyy' : 'yy'}`);
 
   const onAddDiary = () => {
     router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
@@ -71,8 +81,9 @@ const Diary = ({ diaryData, position }: Props) => {
         <span className="week">{day}</span>
         <div>
           <span className="date">{month}</span>
-          <span className="date">{date},</span>
+          <span className="date">{date}</span>
           <span className="year">{year}</span>
+          <span className="emotion">{emotions[diaryData?.emotion]}</span>
         </div>
       </DateWrapper>
 
@@ -156,13 +167,25 @@ const DateWrapper = styled.div`
   flex-direction: row;
   align-items: flex-end;
 
-  .date, .year, .week{
+  .emotion4{ color: #89caa7; font-weight: 500; }
+  .emotion3{ color:#ecbd59;  font-weight: 500;}
+  .emotion2{ color: #a3a3a3; font-weight: 500;}
+  .emotion1{ color: #84a1c1; font-weight: 500;}
+  .emotion0{ color: #e8a0b5; font-weight: 500;}
+
+  >div{
+    height: 100%;
+    display:flex;
+    align-items: end;
+  }
+
+  span{
     line-height: 1;
     margin-right: 8px;
     font-weight: 600;
     text-transform: capitalize;
     color: grey;
-    font-size: 22px;
+    font-size: 24px;
 
   }
   .week{

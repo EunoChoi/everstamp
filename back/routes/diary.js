@@ -29,7 +29,7 @@ const Habit = db.Habit;
 //add, edit, delete diary
 router.post("/", tokenCheck, async (req, res) => {
   console.log('----- method : post, url :  /diary -----');
-  let { date, text, images } = req.body;
+  let { date, text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
   //encrypto text
@@ -65,6 +65,7 @@ router.post("/", tokenCheck, async (req, res) => {
         visible: true,
         UserId: user.id,
         email,
+        emotion,
         date,
         text,
       });
@@ -89,8 +90,7 @@ router.post("/", tokenCheck, async (req, res) => {
 router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /diary -----');
   const diaryId = req.query.diaryId;
-  const images = req.body.images;
-  let text = req.body.text;
+  let { text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
   //encrypto text
@@ -112,6 +112,7 @@ router.patch("/", tokenCheck, async (req, res) => {
 
     await Diary.update({
       text,
+      emotion,
     }, {
       where: { id: diaryId }
     });
@@ -176,7 +177,9 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
         id: diaryId,
       }],
       include: [{
-        model: Image,//이미지
+        model: Image//이미지
+      }, {
+        model: Habit
       }],
     });
 

@@ -14,12 +14,20 @@ import DiaryInputButtons from "../diaryInput/Input_Buttons";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
+import DiaryInputEmotion from "../diaryInput/Input_Emotion";
 
 
 interface Err {
   response: {
     data: string;
   }
+}
+
+interface AddDiaryProps {
+  date: Date;
+  text: string;
+  images: string[];
+  emotion: number;
 }
 
 const AddDiaryModal = () => {
@@ -33,9 +41,11 @@ const AddDiaryModal = () => {
 
   const [text, setText] = useState<string>('');
   const [images, setImages] = useState<Array<string>>([]);
+  const [emotion, setEmotion] = useState<number>(2);
+
 
   const addDiaryMutation = useMutation({
-    mutationFn: ({ date, text, images }: any) => Axios.post('/diary', { date, text, images }),
+    mutationFn: ({ date, text, images, emotion }: AddDiaryProps) => Axios.post('/diary', { date, text, images, emotion }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {
@@ -56,7 +66,7 @@ const AddDiaryModal = () => {
   });
 
   const onAddDiary = () => {
-    if (text.length !== 0) addDiaryMutation.mutate({ date, text, images });
+    if (text.length !== 0) addDiaryMutation.mutate({ date, text, images, emotion });
     //else alert('내용을 입력해주세요');
     else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
   };
@@ -70,6 +80,7 @@ const AddDiaryModal = () => {
     <Wrapper onClick={() => { router.back(); }}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <DiaryInputDate date={date} />
+        <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
         <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onAddDiary} images={images} setImages={setImages} />
       </Modal>

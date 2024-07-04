@@ -115,7 +115,9 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         <TextWrapper
           onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
           className={`slideChild`}>
-          <Text className={`${position}`}>{diaryData.text}</Text>
+          <Text className={`${position}`}>
+            {diaryData.text}
+          </Text>
         </TextWrapper>
 
         {images.map(e =>

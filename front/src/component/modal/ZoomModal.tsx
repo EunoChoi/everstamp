@@ -40,6 +40,13 @@ const ZoomModal = ({ diaryId }: Props) => {
   const [page, setPage] = useState<number>(0);
   const indicatorLength = images?.length + 1;
 
+  const emotions = [
+    <span className="emotion0">#Angry</span>,
+    <span className="emotion1">#Sad</span>,
+    <span className="emotion2">#Common</span>,
+    <span className="emotion3">#Happy</span>,
+    <span className="emotion4">#Excited</span>];
+
 
   const zoomToggle = () => {
     if (zoomState === '') setZoomState('zoom');
@@ -64,7 +71,15 @@ const ZoomModal = ({ diaryId }: Props) => {
         }}
       >
 
-        <TextWrapper className="slideChild"><div className="text">{text}</div></TextWrapper>
+        <TextWrapper className="slideChild">
+          <div className="info">
+            <span>{emotions[diaryData?.emotion]} day</span>
+            <span>#Complete {diaryData?.Habits?.length} habits</span>
+          </div>
+          <div className="text">
+            {text}
+          </div>
+        </TextWrapper>
 
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
@@ -123,8 +138,18 @@ const TextWrapper = styled.div`
   flex-shrink: 0;
 
   display: flex;
-  align-items: center;
-  align-items: start;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+
+  .info{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+  }
 
   .text{
     overflow-y: scroll;
