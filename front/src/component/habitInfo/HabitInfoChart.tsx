@@ -50,7 +50,7 @@ const HabitInfoChart = () => {
       <span className="title">Monthly habit achievement count</span>
       <div className="chartArea">
         {[...Array(12)].map((_, i: number) =>
-          <BarWrapper className="barWrapper" key={'month' + i + 1} $count={data && data[i] / 18 * 100}>
+          <BarWrapper className="barWrapper" key={'month' + i + 1} $count={data && data[i] / 31 * 100}>
             <div className="barEmpty">{data && data[i] > 0 && data[i]}</div>
             <div className="bar"></div>
             <div className="month">{i + 1}</div>
