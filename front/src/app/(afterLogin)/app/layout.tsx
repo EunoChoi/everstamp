@@ -256,8 +256,7 @@ const Desktop_Layout = styled.div`
 `;
 
 const Desktop_Sidebar = styled.div`
-  width: 350px;
-  /* width: 400px; */
+  width: var(--sidebarWidth);
   height: 100dvh;
   padding: 32px 24px;
   padding-bottom: 12px;
@@ -330,7 +329,7 @@ const Desktop_Content = styled.div`
   justify-content: start;
   align-items: center;
 
-  width: calc(100vw - 350px);
+  width: calc(100vw - var(--sidebarWidth));
 `
 
 const MonthWrapper = styled.div`

@@ -14,6 +14,12 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TodayIcon from '@mui/icons-material/Today';
 
+import SentimentVeryDissatisfiedTwoToneIcon from '@mui/icons-material/SentimentVeryDissatisfiedTwoTone';
+import SentimentDissatisfiedTwoToneIcon from '@mui/icons-material/SentimentDissatisfiedTwoTone';
+import SentimentNeutralTwoToneIcon from '@mui/icons-material/SentimentNeutralTwoTone';
+import SentimentSatisfiedTwoToneIcon from '@mui/icons-material/SentimentSatisfiedTwoTone';
+import SentimentVerySatisfiedTwoToneIcon from '@mui/icons-material/SentimentVerySatisfiedTwoTone';
+
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
 import { getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
@@ -39,9 +45,9 @@ const CalendarSelector = () => {
   });
 
 
-  const monthHabitResult: { [key: string]: [number, boolean] } = {};
+  const monthHabitResult: { [key: string]: [number, boolean, number] } = {};
   data?.forEach((e: any) => {
-    monthHabitResult[format(e.date, 'yyMMdd')] = [e?.Habits?.length, e?.visible];
+    monthHabitResult[format(e.date, 'yyMMdd')] = [e?.Habits?.length, e?.visible, e?.emotion];
   });
 
 
@@ -58,12 +64,19 @@ const CalendarSelector = () => {
     const result = monthHabitResult[format(day, 'yyMMdd')];
     const habitCount = result && result[0];
     const isDiaryExist = result && result[1];
+    const emotion = result && result[2];
     const formattedDate = format(day, 'd');
 
     return <DateValue>
       <span>{formattedDate}</span>
       <div>
-        {isDiaryExist && <span className="isDiaryExist">D</span>}
+        {isDiaryExist && <span className="isDiaryExist">
+          {emotion === 0 && <SentimentVeryDissatisfiedTwoToneIcon className="icon emotion0" />}
+          {emotion === 1 && <SentimentDissatisfiedTwoToneIcon className="icon emotion1" />}
+          {emotion === 2 && <SentimentNeutralTwoToneIcon className="icon emotion2" />}
+          {emotion === 3 && <SentimentSatisfiedTwoToneIcon className="icon emotion3" />}
+          {emotion === 4 && <SentimentVerySatisfiedTwoToneIcon className="icon emotion4" />}
+        </span>}
         {habitCount > 0 && <span>{habitCount}</span>}
       </div>
     </DateValue>;
@@ -155,7 +168,13 @@ const DateValue = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
+  .emotion4{ color: #87cf85;  }
+  .emotion3{ color:#ecbd59;  }
+  .emotion2{ color: #a3a3a3; }
+  .emotion1{ color: #84a1c1; }
+  .emotion0{ color: #e8a0b5; }
+
   div{
     display: flex;
     justify-content:center;
@@ -169,15 +188,15 @@ const DateValue = styled.div`
       align-items: center;
       line-height: 0%;
 
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border-radius: 20px;
-      background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#9797CB'};
       color: whitesmoke;
       margin: 0 1px;
     }
     .isDiaryExist{
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#9797CB'};
+      background-color: rgba(0,0,0,0);
     }
   }
 `
@@ -271,12 +290,12 @@ const CalDate = styled.button`
   &.today{
     /* font-weight: 500; */
     /* color: rgb(var(--greyTitle)); */
-    background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '35' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{
     /* font-weight: 500; */
-    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#9797CB'};
+    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#9797CB'};
     border-radius: 8px;
   }
   &.notCurrentMonth{

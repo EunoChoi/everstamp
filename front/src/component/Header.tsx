@@ -49,7 +49,7 @@ const Wrapper = styled.div`
   @media (min-height:480px) and (min-width:1024px) { //desktop
     align-items: center;
     justify-content: space-between;
-    width: calc(100dvw - 350px);
+    width: calc(100dvw - var(--sidebarWidth));
     height: var(--desktopHeader);
     max-width: 800px;
     padding: 0 20px;

@@ -46,6 +46,7 @@ interface diaryData {
   id: number;
   date: Date;
   text: string;
+  emotion: number;
   Images: Array<ImageProps>;
   Habits: Array<Habit>;
   visible: boolean;

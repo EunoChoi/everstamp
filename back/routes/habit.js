@@ -114,7 +114,7 @@ router.get("/month", tokenCheck, async (req, res) => {
           { date: { [Op.lte]: monthEnd } }
         ],
       },
-      attributes: ['date', 'visible'],
+      attributes: ['date', 'visible', 'emotion'],
       include: [{
         model: Habit,
         attributes: ['name'],
@@ -355,6 +355,7 @@ router.post("/check", tokenCheck, async (req, res) => {
         visible: false,
         UserId: user.id,
         email,
+        emotion: 0,
         date,
         text: '-',
       }
