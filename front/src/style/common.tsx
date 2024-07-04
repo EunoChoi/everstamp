@@ -108,9 +108,8 @@ const SC_Common = {
       
       height: 100dvh;
       padding-top: var(--mobileHeader);
-      
-      @media (min-height:720px) {
-        &.habit{
+      @media (min-height:480px) {
+        &.habit, &.setting{
           justify-content: center;
         }
       }

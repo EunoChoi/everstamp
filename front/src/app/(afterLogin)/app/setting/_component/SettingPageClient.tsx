@@ -76,7 +76,7 @@ const SettingPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content >
+      <SC_Common.Content className="setting">
         <Header title='setting' ></Header>
         <SC_Common.Options />
         <Section>
