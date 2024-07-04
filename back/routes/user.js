@@ -54,7 +54,7 @@ router.post("/register", async (req, res) => {
       }
       else {
         console.log('provider 불일치, 로그인 중단');
-        return res.status(200).json({ result: false, message: '이미 등록된 이메일입니다. 가입된 SNS 계정으로 로그인해 주세요.' });
+        return res.status(200).json({ result: false, message: '이미 다른 SNS로 가입된 이메일입니다. 가입된 SNS로 로그인해 주세요.' });
       }
     }
     else {

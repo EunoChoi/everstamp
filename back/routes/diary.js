@@ -10,6 +10,9 @@ const sequelize = db.Sequelize;
 const router = express.Router();
 const tokenCheck = require("../middleware/tokenCheck.js");
 
+const encrypt = require('../function/encrypt.js');
+const decrypt = require('../function/decrypt.js');
+
 
 // const NextAuth = require('next-auth');
 
@@ -26,8 +29,11 @@ const Habit = db.Habit;
 //add, edit, delete diary
 router.post("/", tokenCheck, async (req, res) => {
   console.log('----- method : post, url :  /diary -----');
-  const { date, text, images } = req.body;
+  let { date, text, images } = req.body;
   const email = req.currentUserEmail;
+
+  //encrypto text
+  text = encrypt(text, process.env.DATA_SECRET_KEY);
 
   try {
     const user = await User.findOne({
@@ -53,6 +59,7 @@ router.post("/", tokenCheck, async (req, res) => {
         where: { email, date }
       });
     }
+
     else {
       diary = await Diary.create({
         visible: true,
@@ -83,8 +90,11 @@ router.patch("/", tokenCheck, async (req, res) => {
   console.log('----- method : patch, url :  /diary -----');
   const diaryId = req.query.diaryId;
   const images = req.body.images;
-  const text = req.body.text;
+  let text = req.body.text;
   const email = req.currentUserEmail;
+
+  //encrypto text
+  text = encrypt(text, process.env.DATA_SECRET_KEY);
 
   try {
     //current user
@@ -169,7 +179,14 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
         model: Image,//이미지
       }],
     });
-    if (diary) return res.status(201).json(diary);
+
+
+    if (diary) {
+      const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
+      diary.text = decryptedText;
+      return res.status(201).json(diary);
+    }
+
     else return res.status(400).json('no diary found by id');
   } catch (e) {
     console.error(e);
@@ -177,19 +194,12 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 })
 //list
 router.get("/list", tokenCheck, async (req, res) => {
-
   console.log('----- method : get, url :  /diary/list -----');
   const { sort, search, pageParam, limit } = req.query;
   const email = req.currentUserEmail;
-
-  console.log(pageParam);
-  console.log(limit);
-  console.log(pageParam, limit);
-  console.log(pageParam * limit);
-
   const offset = Number(pageParam * limit);
 
-  //초기 pageParam =0이므로
+  //초기 pageParam =0 이므로
   //limit 5 가정하여
   //pageParam 0일때 offset은 0
   //pageParam 1일때 offset은 5
@@ -218,7 +228,14 @@ router.get("/list", tokenCheck, async (req, res) => {
       ],
     });
 
-    if (diaries) return res.status(201).json(diaries);
+    if (diaries) {
+      diaries.map(diary => {
+        const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
+        diary.text = decryptedText;
+        return diary;
+      });
+      return res.status(201).json(diaries);
+    }
     else return res.status(400).json('no diary list');
   } catch (e) {
     console.error(e);
@@ -247,7 +264,13 @@ router.get("/calendar", tokenCheck, async (req, res) => {
         [Habit, 'priority', 'DESC']
       ],
     });
-    if (diary) return res.status(201).json(diary);
+
+    if (diary) {
+      const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
+      diary.text = decryptedText;
+      return res.status(201).json(diary);
+    }
+
     else return res.status(200).json('다이어리가 존재하지 않습니다.');
   } catch (e) {
     console.error(e);
