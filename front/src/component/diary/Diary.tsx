@@ -47,7 +47,7 @@ const Diary = ({ diaryData, position }: Props) => {
 
   const isMobile = IsMobile();
 
-  const emotions = ['#Angry', '#Sad', '#Common', '#Happy', '#Excited'];
+  const emotions = ['#Angry', '#Sad', '#Common', '#Happy', '#Joyful'];
 
   const [diaryDate, setDiaryDate] = useState<Date>(new Date());
 

@@ -80,10 +80,10 @@ const AppLayout = ({ children, modal }: Props) => {
             {children}
             < Mobile_Nav >
               <Logo><span>ever</span><span>stamp</span></Logo>
-              <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon fontSize="small" /> <span>calendar</span></NavMenu>
-              <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon fontSize="small" /> <span>list</span></NavMenu>
-              <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon fontSize="small" /> <span>habit</span></NavMenu>
-              <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon fontSize="small" /> <span>setting</span></NavMenu>
+              <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
+              <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
+              <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" fontSize="small" /> <span>habit</span></NavMenu>
+              <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" fontSize="small" /> <span>setting</span></NavMenu>
             </Mobile_Nav >
           </Mobile_Layout >
           :
@@ -163,6 +163,10 @@ const Logo = styled.span`
 `
 const NavMenu = styled(Link)`
   padding: 0;
+
+  .icon{
+    line-height: 0%;
+  }
   span{
       display: none;
   }

@@ -41,11 +41,11 @@ const ZoomModal = ({ diaryId }: Props) => {
   const indicatorLength = images?.length + 1;
 
   const emotions = [
-    <span className="emotion0">#Angry day</span>,
-    <span className="emotion1">#Sad day</span>,
-    <span className="emotion2">#Common day</span>,
-    <span className="emotion3">#Happy day</span>,
-    <span className="emotion4">#Excited day</span>];
+    <span className="emotion0">#Angry</span>,
+    <span className="emotion1">#Sad</span>,
+    <span className="emotion2">#Common</span>,
+    <span className="emotion3">#Happy</span>,
+    <span className="emotion4">#Joyful</span>];
 
 
   const zoomToggle = () => {

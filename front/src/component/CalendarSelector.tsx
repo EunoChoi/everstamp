@@ -76,7 +76,7 @@ const CalendarSelector = () => {
           {emotion === 1 && <Image src={emotion1} alt='sad' width={30} height={30} />}
           {emotion === 2 && <Image src={emotion2} alt='common' width={30} height={30} />}
           {emotion === 3 && <Image src={emotion3} alt='happy' width={30} height={30} />}
-          {emotion === 4 && <Image src={emotion4} alt='excited' width={30} height={30} />}
+          {emotion === 4 && <Image src={emotion4} alt='Joyful' width={30} height={30} />}
         </span>}
         {habitCount > 0 && <span className="habitCount">{habitCount}</span>}
       </div>

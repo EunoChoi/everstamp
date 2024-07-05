@@ -19,7 +19,7 @@ const EmotionSelector = ({ emotion, setEmotion }: Props) => {
     <Image src={emotion1} alt="sad" width={24} height={24} />,
     <Image src={emotion2} alt="common" width={24} height={24} />,
     <Image src={emotion3} alt="happy" width={24} height={24} />,
-    <Image src={emotion4} alt="excited" width={24} height={24} />];
+    <Image src={emotion4} alt="Joyful" width={24} height={24} />];
 
 
   return (<Wrapper>
