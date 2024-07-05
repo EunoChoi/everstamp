@@ -47,12 +47,7 @@ const Diary = ({ diaryData, position }: Props) => {
 
   const isMobile = IsMobile();
 
-  const emotions = [
-    <span className="emotion0">#Angry</span>,
-    <span className="emotion1">#Sad</span>,
-    <span className="emotion2">#Common</span>,
-    <span className="emotion3">#Happy</span>,
-    <span className="emotion4">#Excited</span>];
+  const emotions = ['#Angry', '#Sad', '#Common', '#Happy', '#Excited'];
 
   const [diaryDate, setDiaryDate] = useState<Date>(new Date());
 
@@ -167,11 +162,9 @@ const DateWrapper = styled.div`
   flex-direction: row;
   align-items: flex-end;
 
-  .emotion4{ color: #82d4a0;  }
-  .emotion3{ color:#b3e091;  }
-  .emotion2{ color: #a3a3a3; }
-  .emotion1{ color: #84a1c1; }
-  .emotion0{ color: #d45e5e; }
+  .emotion{
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+  }
 
   >div{
     height: 100%;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from "next/navigation"
@@ -19,6 +20,12 @@ import SentimentDissatisfiedTwoToneIcon from '@mui/icons-material/SentimentDissa
 import SentimentNeutralTwoToneIcon from '@mui/icons-material/SentimentNeutralTwoTone';
 import SentimentSatisfiedTwoToneIcon from '@mui/icons-material/SentimentSatisfiedTwoTone';
 import SentimentVerySatisfiedTwoToneIcon from '@mui/icons-material/SentimentVerySatisfiedTwoTone';
+
+import emotion0 from '../../public/img/emotion/emotion0.png'
+import emotion1 from '../../public/img/emotion/emotion1.png'
+import emotion2 from '../../public/img/emotion/emotion2.png'
+import emotion3 from '../../public/img/emotion/emotion3.png'
+import emotion4 from '../../public/img/emotion/emotion4.png'
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
@@ -68,16 +75,16 @@ const CalendarSelector = () => {
     const formattedDate = format(day, 'd');
 
     return <DateValue>
-      <span>{formattedDate}</span>
+      <span className={(isDiaryExist && habitCount > 0) ? 'diaryExist' : ''}>{formattedDate}</span>
       <div>
-        {isDiaryExist && <span className="isDiaryExist">
-          {emotion === 0 && <SentimentVeryDissatisfiedTwoToneIcon className="icon emotion0" />}
-          {emotion === 1 && <SentimentDissatisfiedTwoToneIcon className="icon emotion1" />}
-          {emotion === 2 && <SentimentNeutralTwoToneIcon className="icon emotion2" />}
-          {emotion === 3 && <SentimentSatisfiedTwoToneIcon className="icon emotion3" />}
-          {emotion === 4 && <SentimentVerySatisfiedTwoToneIcon className="icon emotion4" />}
+        {isDiaryExist && <span className="emotion">
+          {emotion === 0 && <Image src={emotion0} alt='angry' width={30} height={30} />}
+          {emotion === 1 && <Image src={emotion1} alt='sad' width={30} height={30} />}
+          {emotion === 2 && <Image src={emotion2} alt='common' width={30} height={30} />}
+          {emotion === 3 && <Image src={emotion3} alt='happy' width={30} height={30} />}
+          {emotion === 4 && <Image src={emotion4} alt='excited' width={30} height={30} />}
         </span>}
-        {habitCount > 0 && <span>{habitCount}</span>}
+        {habitCount > 0 && <span className="habitCount">{habitCount}</span>}
       </div>
     </DateValue>;
   };
@@ -169,34 +176,39 @@ const DateValue = styled.div`
   justify-content: center;
   align-items: center;
 
-  .emotion4{ color: #82d4a0;  }
-  .emotion3{ color:#b3e091;  }
-  .emotion2{ color: #a3a3a3; }
-  .emotion1{ color: #84a1c1; }
-  .emotion0{ color: #d45e5e; }
+  .diaryExist{
+    display: none;
+  }
 
   div{
     display: flex;
+    flex-direction: column;
     justify-content:center;
     align-items: center;
     span{
-      font-size: 11px;
-      font-weight: 500;
       display: flex;
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
       line-height: 0%;
 
-      width: 20px;
-      height: 20px;
-      border-radius: 20px;
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#9797CB'};
-      color: whitesmoke;
+      width: 24px;
+      height: 24px;
+      border-radius: 24px;
+      
       margin: 0 1px;
     }
-    .isDiaryExist{
-      background-color: rgba(0,0,0,0);
+    .habitCount{
+      margin-top: 2px;
+      font-size: 11px;
+      font-weight: 500;
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+
+      background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      color: white;
+      /* color: rgb(var(--greyTitle)); */
     }
   }
 `
@@ -288,9 +300,7 @@ const CalDate = styled.button`
   text-align: center;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    /* font-weight: 500; */
-    /* color: rgb(var(--greyTitle)); */
-    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#9797CB'};
     border-radius: 8px;
   }
   &.selected{
