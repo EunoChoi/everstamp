@@ -221,34 +221,54 @@ router.get("/list", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
   const offset = Number(pageParam * limit);
 
-  //초기 pageParam =0 이므로
-  //limit 5 가정하여
+  //초기 pageParam =0 이므로 limit 5 가정하여
   //pageParam 0일때 offset은 0
   //pageParam 1일때 offset은 5
   //pageParam 2일때 offset은 10
 
 
   try {
-    const diaries = await Diary.findAll({
-      where: [{
-        email,
-        visible: true,
-        text: {
-          [Op.like]: "%" + `${search}` + "%"
-        }
-      }],
-      offset: Number(offset),
-      limit: Number(limit),
-      include: [{
-        model: Image,//이미지
-      }, {
-        model: Habit,//습관
-      }],
-      order: [
-        ['date', sort], //ASC DESC
-        [Habit, 'priority', 'DESC']
-      ],
-    });
+    let diaries;
+    if (Number(search) >= 0) {
+      diaries = await Diary.findAll({
+        where: [{
+          email,
+          visible: true,
+          emotion: search
+        }],
+        offset: Number(offset),
+        limit: Number(limit),
+        include: [{
+          model: Image,//이미지
+        }, {
+          model: Habit,//습관
+        }],
+        order: [
+          ['date', sort], //ASC DESC
+          [Habit, 'priority', 'DESC']
+        ],
+      });
+    }
+    else {
+      diaries = await Diary.findAll({
+        where: [{
+          email,
+          visible: true,
+        }],
+        offset: Number(offset),
+        limit: Number(limit),
+        include: [{
+          model: Image,//이미지
+        }, {
+          model: Habit,//습관
+        }],
+        order: [
+          ['date', sort], //ASC DESC
+          [Habit, 'priority', 'DESC']
+        ],
+      });
+    }
+
 
     if (diaries) {
       diaries.map(diary => {

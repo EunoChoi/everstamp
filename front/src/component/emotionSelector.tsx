@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import emotion0 from '../../../public/img/emotion/emotion0.png'
-import emotion1 from '../../../public/img/emotion/emotion1.png'
-import emotion2 from '../../../public/img/emotion/emotion2.png'
-import emotion3 from '../../../public/img/emotion/emotion3.png'
-import emotion4 from '../../../public/img/emotion/emotion4.png'
+import emotion0 from '../../public/img/emotion/emotion0.png'
+import emotion1 from '../../public/img/emotion/emotion1.png'
+import emotion2 from '../../public/img/emotion/emotion2.png'
+import emotion3 from '../../public/img/emotion/emotion3.png'
+import emotion4 from '../../public/img/emotion/emotion4.png'
 import Image from "next/image";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   setEmotion: (n: number) => void;
 }
 
-const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
+const EmotionSelector = ({ emotion, setEmotion }: Props) => {
 
   const emotions =
     [<Image src={emotion0} alt="angry" width={24} height={24} />,
@@ -25,6 +25,12 @@ const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
   return (<Wrapper>
     {/* <Title>emotion check</Title> */}
     <RadioWrapper>
+      <RadioButton key={'radio-1'}>
+        <input type="radio" checked={-1 === emotion} name="priority" value={-1} onChange={(e) => {
+          if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
+        }} />
+        <div className="checkmark all">all</div>
+      </RadioButton>
       {emotions.map((e: JSX.Element, i: number) =>
         <RadioButton key={'radio' + i}>
           <input type="radio" checked={i === emotion} name="priority" value={i} onChange={(e) => {
@@ -36,33 +42,14 @@ const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
   </Wrapper>);
 }
 
-export default DiaryInputEmotion;
+export default EmotionSelector;
 
 const Wrapper = styled.div`
   width: 100%;
   height: auto;
-
-  @media (max-width: 479px) { //mobile port
-    padding: 16px;
-    padding-bottom: 0;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px;
-    padding-bottom: 0;
-  }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
-    padding: 20px;
-    padding-bottom: 0;
-  }
+  margin-top: 12px;
 `
 
-const Title = styled.span`
-  font-weight: 500;
-  font-size: 18px;
-  margin-left: 2px;
-  text-transform: capitalize;
-  color: rgb(var(--greyTitle));
-`
 const RadioWrapper = styled.div`
   width: 100%;
   margin : 0;
@@ -79,6 +66,11 @@ const RadioButton = styled.label`
   border-right : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#9797CB'};
   &:last-child{
     border: none;
+  }
+  .all{
+    text-transform: uppercase;
+    font-weight: 500;
+    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
   }
   input{
     position: absolute;

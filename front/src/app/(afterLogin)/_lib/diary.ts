@@ -10,7 +10,7 @@ interface DateProps {
 
 interface ListProps {
   sort: string;
-  search: string;
+  search: number;
   limit: number;
   pageParam: number;
 }

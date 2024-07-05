@@ -17,11 +17,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
-import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
-import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
-
-import WindowOutlinedIcon from '@mui/icons-material/WindowOutlined';
-import SplitscreenOutlinedIcon from '@mui/icons-material/SplitscreenOutlined';
+import SortIcon from '@mui/icons-material/Sort';
 
 import Indicator from "@/component/indicator";
 
@@ -71,12 +67,8 @@ const HabitPageClient = ({ email }: Props) => {
           {typeToggle === 'GRID' ? <WindowOutlinedIcon fontSize="small" /> : <SplitscreenOutlinedIcon fontSize="small" />}
         </button> */}
           <button onClick={sortChage}>
-
-            <span>{sortToggle === 'DESC' ?
-              <ArrowUpwardOutlinedIcon fontSize="small" /> :
-              <ArrowDownwardOutlinedIcon fontSize="small" />}
-            </span>
-            <span>Time</span>
+            <span><SortIcon fontSize="small" /></span>
+            <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
           </button>
         </SC_Common.Options>
       </Header>
