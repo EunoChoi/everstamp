@@ -26,7 +26,7 @@ const EmotionSelector = ({ emotion, setEmotion }: Props) => {
     {/* <Title>emotion check</Title> */}
     <RadioWrapper>
       <RadioButton key={'radio-1'}>
-        <input type="radio" checked={-1 === emotion} name="priority" value={-1} onChange={(e) => {
+        <input type="radio" checked={-1 === emotion} name="listViewEmotion" value={-1} onChange={(e) => {
           if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
         }} />
         <div className="checkmark all">all</div>

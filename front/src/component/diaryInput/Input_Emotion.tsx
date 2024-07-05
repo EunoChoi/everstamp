@@ -23,11 +23,10 @@ const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
 
 
   return (<Wrapper>
-    {/* <Title>emotion check</Title> */}
     <RadioWrapper>
       {emotions.map((e: JSX.Element, i: number) =>
         <RadioButton key={'radio' + i}>
-          <input type="radio" checked={i === emotion} name="priority" value={i} onChange={(e) => {
+          <input type="radio" checked={i === emotion} name="diaryEmotion" value={i} onChange={(e) => {
             if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
           }} />
           <div className="checkmark">{e}</div>
@@ -54,14 +53,6 @@ const Wrapper = styled.div`
     padding: 20px;
     padding-bottom: 0;
   }
-`
-
-const Title = styled.span`
-  font-weight: 500;
-  font-size: 18px;
-  margin-left: 2px;
-  text-transform: capitalize;
-  color: rgb(var(--greyTitle));
 `
 const RadioWrapper = styled.div`
   width: 100%;
