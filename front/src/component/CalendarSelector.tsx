@@ -15,12 +15,6 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TodayIcon from '@mui/icons-material/Today';
 
-import SentimentVeryDissatisfiedTwoToneIcon from '@mui/icons-material/SentimentVeryDissatisfiedTwoTone';
-import SentimentDissatisfiedTwoToneIcon from '@mui/icons-material/SentimentDissatisfiedTwoTone';
-import SentimentNeutralTwoToneIcon from '@mui/icons-material/SentimentNeutralTwoTone';
-import SentimentSatisfiedTwoToneIcon from '@mui/icons-material/SentimentSatisfiedTwoTone';
-import SentimentVerySatisfiedTwoToneIcon from '@mui/icons-material/SentimentVerySatisfiedTwoTone';
-
 import emotion0 from '../../public/img/emotion/emotion0.png'
 import emotion1 from '../../public/img/emotion/emotion1.png'
 import emotion2 from '../../public/img/emotion/emotion2.png'
@@ -197,10 +191,15 @@ const DateValue = styled.div`
       border-radius: 24px;
       
       margin: 0 1px;
+      @media (min-height:480px) and (min-width:1024px) { //desktop
+        width: 26px;
+        height: 26px;
+        border-radius: 26px;
+      }
     }
     .habitCount{
       margin-top: 2px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
       width: 16px;
       height: 16px;
@@ -208,7 +207,13 @@ const DateValue = styled.div`
 
       background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
       color: white;
-      /* color: rgb(var(--greyTitle)); */
+
+      @media (min-height:480px) and (min-width:1024px) { //desktop
+        width: 18px;
+        height: 18px;
+        border-radius: 18px;
+        font-size: 12px;
+      }
     }
   }
 `

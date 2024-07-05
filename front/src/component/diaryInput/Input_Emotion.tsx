@@ -7,6 +7,13 @@ import SentimentNeutralTwoToneIcon from '@mui/icons-material/SentimentNeutralTwo
 import SentimentSatisfiedTwoToneIcon from '@mui/icons-material/SentimentSatisfiedTwoTone';
 import SentimentVerySatisfiedTwoToneIcon from '@mui/icons-material/SentimentVerySatisfiedTwoTone';
 
+import emotion0 from '../../../public/img/emotion/emotion0.png'
+import emotion1 from '../../../public/img/emotion/emotion1.png'
+import emotion2 from '../../../public/img/emotion/emotion2.png'
+import emotion3 from '../../../public/img/emotion/emotion3.png'
+import emotion4 from '../../../public/img/emotion/emotion4.png'
+import Image from "next/image";
+
 interface Props {
   emotion: number;
   setEmotion: (n: number) => void;
@@ -15,11 +22,11 @@ interface Props {
 const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
 
   const emotions =
-    [<SentimentVeryDissatisfiedTwoToneIcon />,
-    <SentimentDissatisfiedTwoToneIcon />,
-    <SentimentNeutralTwoToneIcon />,
-    <SentimentSatisfiedTwoToneIcon />,
-    <SentimentVerySatisfiedTwoToneIcon />];
+    [<Image src={emotion0} alt="angry" width={24} height={24} />,
+    <Image src={emotion1} alt="sad" width={24} height={24} />,
+    <Image src={emotion2} alt="common" width={24} height={24} />,
+    <Image src={emotion3} alt="happy" width={24} height={24} />,
+    <Image src={emotion4} alt="excited" width={24} height={24} />];
 
 
   return (<Wrapper>
@@ -102,7 +109,7 @@ const RadioButton = styled.label`
     font-size: 14px;
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#9797CB'};
     /* color: rgb(var(--greyTitle)); */
     /* color: white; */
   }

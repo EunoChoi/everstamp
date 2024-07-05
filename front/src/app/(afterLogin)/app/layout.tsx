@@ -104,10 +104,11 @@ const AppLayout = ({ children, modal }: Props) => {
                 <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
                 <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
               </Menus>
-              <Links>
+              <div></div>
+              {/* <Links>
                 <span><GitHubIcon fontSize="inherit" /></span>
                 <span><BookIcon fontSize="inherit" /></span>
-              </Links>
+              </Links> */}
             </Desktop_Sidebar>
 
             <Desktop_Content>
@@ -336,7 +337,7 @@ const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 100%;
   margin-bottom: 24px;
-  height:350px;
+  height:400px;
   *{
     transition: color ease-in-out 0.3s !important;
   }
