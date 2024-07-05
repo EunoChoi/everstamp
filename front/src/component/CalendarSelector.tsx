@@ -169,7 +169,9 @@ const DateValue = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  >span{
+    font-size: 14px;
+  }
   .diaryExist{
     display: none;
   }
@@ -198,7 +200,7 @@ const DateValue = styled.div`
       }
     }
     .habitCount{
-      margin-top: 2px;
+      margin-top: 4px;
       font-size: 10px;
       font-weight: 500;
       width: 16px;
@@ -226,15 +228,9 @@ const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 479px) { //mobile port
-  }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-  
     height: 90dvh !important;
     margin-bottom: 24px;
-  }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
   }
 `
 
@@ -244,7 +240,7 @@ const CalTitle = styled.div`
     justify-content: space-between;
     align-items: center;
     color: rgb(var(--greyTitle));
-    padding: 4px 0;
+    padding: 2px 0;
     >div{
       /* display: flex; */
       font-size: 22px;
@@ -274,7 +270,7 @@ const CalWeekTitle = styled.div`
   display: flex;
   justify-content: space-around;
   text-transform: capitalize;
-  padding: 6px 0;
+  padding: 2px 0;
   font-size: 15px;
   font-weight: 500;
   color: rgb(var(--greyTitle));
