@@ -54,7 +54,7 @@ const Diary = ({ diaryData, position }: Props) => {
   const month = format(diaryDate, 'MMM');
   const date = format(diaryDate, 'd');
   const day = format(diaryDate, `${(position === 'calendar' && isMobile === false) ? 'eeee' : 'eee'}`);
-  const year = format(diaryDate, `${(position === 'calendar' && isMobile === false) ? 'yyyy' : 'yy'}`);
+  const year = format(diaryDate, `yyyy`);
 
   const onAddDiary = () => {
     router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
@@ -78,7 +78,7 @@ const Diary = ({ diaryData, position }: Props) => {
           <span className="date">{month}</span>
           <span className="date">{date}</span>
           <span className="year">{year}</span>
-          <span className="emotion">{emotions[diaryData?.emotion]}</span>
+          <span className="emotion">{diaryData?.visible && emotions[diaryData?.emotion]}</span>
         </div>
       </DateWrapper>
 
@@ -164,6 +164,7 @@ const DateWrapper = styled.div`
 
   .emotion{
     color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    font-weight: 500;
   }
 
   >div{

@@ -138,7 +138,7 @@ router.patch("/", tokenCheck, async (req, res) => {
 })
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /diary -----');
-  const id = req.query.id;
+  const diaryId = req.query.id;
   const email = req.currentUserEmail;
 
   try {
@@ -148,15 +148,33 @@ router.delete("/", tokenCheck, async (req, res) => {
     });
     if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
-    //일기 확인
-    const isDiaryExist = await Diary.findOne({
-      where: { id }
-    });
-    if (!isDiaryExist) return res.status(400).json('일기가 존재하지 않습니다.');
+    // //일기 확인
+    // const isDiaryExist = await Diary.findOne({
+    //   where: { id }
+    // });
+    // if (!isDiaryExist) return res.status(400).json('일기가 존재하지 않습니다.');
 
-    await Diary.destroy({
-      where: { id }
+    // await Diary.destroy({
+    //   where: { id }
+    // });
+
+    const diary = await Diary.findOne({
+      where: { id: diaryId },
     });
+    if (!diary) return res.status(400).json("게시글이 올바르지 않습니다.");
+
+    //체크된 습관 유지하기 위해 삭제 대신 visible false 처리
+    await Diary.update({
+      text: '',
+      visible: false,
+      emotion: 2,
+    }, {
+      where: { id: diaryId }
+    });
+    await Image.destroy({
+      where: { diaryId }
+    })
+
   } catch (e) {
     console.error(e);
   }

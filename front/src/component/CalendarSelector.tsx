@@ -69,7 +69,7 @@ const CalendarSelector = () => {
     const formattedDate = format(day, 'd');
 
     return <DateValue>
-      <span className={(isDiaryExist && habitCount > 0) ? 'diaryExist' : ''}>{formattedDate}</span>
+      <span className={(isDiaryExist || habitCount > 0) ? 'diaryExist' : ''}>{formattedDate}</span>
       <div>
         {isDiaryExist && <span className="emotion">
           {emotion === 0 && <Image src={emotion0} alt='angry' width={30} height={30} />}
@@ -186,15 +186,15 @@ const DateValue = styled.div`
       align-items: center;
       line-height: 0%;
 
-      width: 24px;
-      height: 24px;
-      border-radius: 24px;
+      width: 26px;
+      height: 26px;
+      border-radius: 26px;
       
       margin: 0 1px;
       @media (min-height:480px) and (min-width:1024px) { //desktop
-        width: 26px;
-        height: 26px;
-        border-radius: 26px;
+        width: 28px;
+        height: 28px;
+        border-radius: 28px;
       }
     }
     .habitCount{
@@ -205,7 +205,7 @@ const DateValue = styled.div`
       height: 16px;
       border-radius: 16px;
 
-      background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#9797CB'};
       color: white;
 
       @media (min-height:480px) and (min-width:1024px) { //desktop
