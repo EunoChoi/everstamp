@@ -47,14 +47,14 @@ const Logo = styled.div`
       color: rgb(var(--greyTitle));
     }
     span::first-letter{
-      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
   div:last-child{
     width: 100%;
     height: 23%;
     border-top: solid 1px rgba(0,0,0,0.05);
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
 }

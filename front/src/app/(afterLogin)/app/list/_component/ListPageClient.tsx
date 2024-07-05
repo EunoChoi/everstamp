@@ -21,7 +21,6 @@ import SortIcon from '@mui/icons-material/Sort';
 import { useInView } from "react-intersection-observer";
 import EmotionSelector from "@/component/emotionSelector";
 
-
 interface ImageProps {
   id: string;
   src: string;
@@ -112,7 +111,6 @@ const Observer = styled.div`
   width: 100%;
   height: 50px;
 `
-
 const NoDiaries = styled.div`
   display: flex;
   align-items: center;
@@ -122,7 +120,7 @@ const NoDiaries = styled.div`
   font-weight: 500;
   color: rgb(var(--greyTitle));
 
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `

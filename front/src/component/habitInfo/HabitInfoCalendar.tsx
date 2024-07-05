@@ -147,7 +147,7 @@ const DateValue = styled.div`
     width: 14px;
     height: 14px;
     border-radius: 20px;
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     color: whitesmoke;
     margin: 0 1px;
   }
@@ -223,12 +223,12 @@ const CalDate = styled.button`
   text-align: center;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '35' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '35' : '#979FC7'};
     border-radius: 8px;
   }
   &.selected{
     /* font-weight: 500; */
-    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#9797CB'};
+    border : 3px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#979FC7'};
     border-radius: 8px;
   }
   &.notCurrentMonth{

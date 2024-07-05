@@ -63,11 +63,11 @@ const SC_Common = {
       text-transform: capitalize;
       
       color: rgb(var(--greyTitle));
-      background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#9797CB'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#979FC7'};
       border: 2px solid rgba(0,0,0,0.05);
       border-radius : 48px;
 
-      @media (min-height:480px) and (min-width:1024px) { //desktop
+      @media (min-width:1024px) { //desktop
         padding: 4px 12px;
         height: 32px;
       }
@@ -114,7 +114,7 @@ const SC_Common = {
         }
       }
     }
-    @media (min-height:480px) and (min-width:1024px) { //desktop
+    @media (min-width:1024px) { //desktop
       height: 100dvh;
       padding-top: var(--desktopHeader);
     }

@@ -105,7 +105,7 @@ const SettingPageClient = () => {
           <FlexRow>
             <Color className="selected" />
             <FlexRow className="end">
-              <Color className="purple" onClick={() => themeColorUpdate("#9797CB")} />
+              <Color className="purple" onClick={() => themeColorUpdate("#979FC7")} />
               <Color className="blue" onClick={() => themeColorUpdate("#8EBCDB")} />
               <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
               <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
@@ -222,7 +222,7 @@ const Button = styled.button`
   text-transform: capitalize;
   
   &:hover{
-    background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#979FC7'};
   }
 `
 const Color = styled.div`
@@ -238,11 +238,11 @@ const Color = styled.div`
 
 
   &.selected{
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 
   &.purple{
-    background-color: #9797CB;
+    background-color: #979FC7;
   }
   &.blue{
     background-color: rgb(142, 188, 219);

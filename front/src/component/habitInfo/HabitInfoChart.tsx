@@ -91,7 +91,7 @@ const Info = styled.div`
         line-height: 100%;
     font-weight: 700;
     font-size: 42px;
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `
 
@@ -113,7 +113,7 @@ const BarWrapper = styled.div<{ $count: number }>`
   .bar{
     height: ${(props) => props.$count + '%'};
     border-radius: 8px;
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};  
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};  
   }
   .month{
     font-weight: 500;

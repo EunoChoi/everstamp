@@ -124,7 +124,7 @@ const EmptyWrapper = styled.div`
     padding: 8px;
     padding-top: 16px;
     &:hover{
-      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
 
@@ -163,7 +163,7 @@ const DateWrapper = styled.div`
   align-items: flex-end;
 
   .emotion{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     font-weight: 500;
   }
 

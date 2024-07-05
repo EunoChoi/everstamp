@@ -99,7 +99,7 @@ const Content = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     flex-direction: row;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
   }
 `
 const Info = styled.div`
@@ -131,7 +131,7 @@ const Info = styled.div`
     line-height: 100%;
     font-weight: 700;
     font-size: 52px;
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
   
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
@@ -151,7 +151,7 @@ const Info = styled.div`
       margin: 24px 0;
     }
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     .infoText{
       font-size: 20px;
     }
@@ -173,7 +173,7 @@ const CalendarWrapper = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     flex-direction: row;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     padding: 0 24px;
   }
 `
@@ -187,7 +187,7 @@ const ChartWrapper = styled.div`
   align-items: center;
 
   padding: 0 12px;
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     padding: 0 24px;
   }
 `
@@ -204,7 +204,7 @@ const Name = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     display: none;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 28px;
   }
 `
@@ -239,7 +239,7 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
 
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     width: 500px;
     height: 80%;
   }
@@ -272,7 +272,7 @@ const Button = styled.button`
     color: rgba(0,0,0,0.3) !important;
   }
   .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `
 
@@ -319,6 +319,6 @@ const IndicatorWrapper = styled.div`
     }
   }
   .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `

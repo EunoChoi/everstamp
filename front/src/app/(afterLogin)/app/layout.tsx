@@ -155,7 +155,7 @@ const Logo = styled.span`
     span {
       display: inline-block;
       &::first-letter{
-        color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;  
+        color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;  
       }
       padding: 0 3px;
     }
@@ -233,7 +233,7 @@ const Mobile_Nav = styled.nav`
     vertical-align: center;
   }
   .current{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};;
   }
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
@@ -287,11 +287,11 @@ const SideBarLogo = styled.div`
     color: rgb(var(--greyTitle));
   }
   span:last-child{
-    border-bottom: 8px solid ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    border-bottom: 8px solid ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     line-height: 120%;
   }
   span::first-letter{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
 const Menus = styled.div`

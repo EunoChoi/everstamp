@@ -46,7 +46,7 @@ const Wrapper = styled.div`
     height: var(--mobileHeader);
     padding: 0 20px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     align-items: center;
     justify-content: space-between;
     width: calc(100dvw - var(--sidebarWidth));
@@ -63,12 +63,12 @@ const Title = styled(Link)`
   text-transform: uppercase;
 
   &:first-letter{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
   @media (max-width: 479px) { //mobile port
     line-height: 0.9;
     font-size: 24px;
-    border-bottom: 4px ${(props) => props.theme.point ? props.theme.point : '#9797CB'} solid;
+    border-bottom: 4px ${(props) => props.theme.point ? props.theme.point : '#979FC7'} solid;
     &:first-letter{
     }
   }

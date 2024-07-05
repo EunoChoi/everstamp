@@ -227,7 +227,7 @@ const Text = styled.div`
   @media (max-width: 479px) { //mobile port
     font-size: 16px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     -webkit-line-clamp: 7;
     &.calendar{
       font-size: 18px;

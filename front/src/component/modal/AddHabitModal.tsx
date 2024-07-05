@@ -111,7 +111,7 @@ const Modal = styled.div`
   height: 100dvh;
 
 
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     height: 300px;
     width: 450px;
   }

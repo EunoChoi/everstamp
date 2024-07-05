@@ -79,7 +79,7 @@ const RadioButton = styled.label`
     font-size: 14px;
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
   }
 `;
 
@@ -89,7 +89,7 @@ const Value = styled.div`
   justify-content: center;
   align-items: start;
   margin : 6px 10%;
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     margin : 0 20%;
   }
   >div{

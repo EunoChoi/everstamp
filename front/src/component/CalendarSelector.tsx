@@ -193,7 +193,7 @@ const DateValue = styled.div`
       border-radius: 26px;
       
       margin: 0 1px;
-      @media (min-height:480px) and (min-width:1024px) { //desktop
+      @media (min-width:1024px) { //desktop
         width: 28px;
         height: 28px;
         border-radius: 28px;
@@ -207,10 +207,10 @@ const DateValue = styled.div`
       height: 16px;
       border-radius: 16px;
 
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#9797CB'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#979FC7'};
       color: white;
 
-      @media (min-height:480px) and (min-width:1024px) { //desktop
+      @media (min-width:1024px) { //desktop
         width: 18px;
         height: 18px;
         border-radius: 18px;
@@ -301,12 +301,12 @@ const CalDate = styled.button`
   text-align: center;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#979FC7'};
     border-radius: 8px;
   }
   &.selected{
     /* font-weight: 500; */
-    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#9797CB'};
+    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#979FC7'};
     border-radius: 8px;
   }
   &.notCurrentMonth{

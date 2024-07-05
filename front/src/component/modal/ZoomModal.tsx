@@ -128,7 +128,7 @@ const Button = styled.button`
     color: rgba(0,0,0,0.3) !important;
   }
   .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `
 
@@ -148,7 +148,7 @@ const TextWrapper = styled.div`
     margin-bottom: 20px;
     font-size: 18px;
     font-weight: 500;
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 
   .text{
@@ -174,7 +174,7 @@ const TextWrapper = styled.div`
       font-size: 18px;
     }
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     padding: 48px;
     .text{
       font-size: 20px;
@@ -226,7 +226,7 @@ const Modal = styled.div`
   width: 100%;
   height: 100%;
 
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     width: 70%;
     height: 80%;
   }
@@ -244,12 +244,12 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 26px;
   }
 `

@@ -134,7 +134,7 @@ const UploadedImages = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     height: 96px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     height: 172px;
   }
 `
@@ -159,7 +159,7 @@ const ImageBox = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     aspect-ratio: 1.8;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     aspect-ratio: 1.3;
   }
 `
@@ -189,7 +189,7 @@ const ImageDeleteButton = styled.button`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 12px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `
@@ -219,6 +219,6 @@ const Button = styled.button`
     color: rgba(0,0,0,0.3) !important;
   }
   .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `

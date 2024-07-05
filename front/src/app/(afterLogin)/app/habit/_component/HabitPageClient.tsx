@@ -33,7 +33,7 @@ const HabitPageClient = ({ email }: Props) => {
   const gridListRef = useRef<HTMLDivElement>(null);
 
   const [typeToggle, setTypeToggle] = useState<'GRID' | 'LIST'>('GRID');
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('ASC');
+  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
   const [page, setPage] = useState<number>(0);
 
   const { data: habits } = useQuery({
@@ -104,7 +104,7 @@ const NoHabit = styled.span`
   text-align: center;
   color: rgb(var(--greyTitle));
 
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `

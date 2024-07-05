@@ -47,7 +47,7 @@ const IndicatorWrapper = styled.div`
     }
   }
   .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
 

@@ -58,12 +58,12 @@ const Habit = styled.span`
   color: rgb(var(--greyTitle));
 
 
-  background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#9797CB'};
+  background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#979FC7'};
   &.priority1{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '65' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '65' : '#979FC7'};
   }
   &.priority2{
-    background-color : ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
+    background-color : ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
 
   border-radius: 24px;
@@ -84,7 +84,7 @@ const Habit = styled.span`
 
   &:first-child{
     background-color: rgba(0,0,0,0);
-    border : solid 4px ${(props) => props.theme.point ? props.theme.point + '90' : '#9797CB'};
+    border : solid 4px ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
   &:last-child{
     margin-right: 0px;

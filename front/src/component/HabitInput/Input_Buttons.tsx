@@ -51,7 +51,7 @@ const Button = styled.button`
     color: rgba(0,0,0,0.4) !important;
   }
   .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'} !important;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
     /* color: grey; */
   }
 `

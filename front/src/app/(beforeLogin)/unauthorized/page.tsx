@@ -46,7 +46,7 @@ const Icon = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 84px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 124px;
   }
 `
@@ -64,7 +64,7 @@ const Text = styled.span`
     font-size: 18px;
     margin: 32px 0;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 22px;
     margin: 48px 0;
   }
@@ -80,7 +80,7 @@ const Button = styled.button`
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 22px;
   }
 `

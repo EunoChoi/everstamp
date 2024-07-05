@@ -63,7 +63,7 @@ router.post("/register", async (req, res) => {
         {
           email,
           provider,
-          themeColor: '#9797CB',
+          themeColor: '#979FC7',
           profilePic
         }
       );

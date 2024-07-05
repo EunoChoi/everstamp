@@ -30,13 +30,13 @@ const DiaryDate = styled.div`
     padding: 4px;
   }
   .week{
-    color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     /* color: grey; */
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 26px;
   }
 `

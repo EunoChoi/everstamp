@@ -65,6 +65,6 @@ const CalendarWrapper = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     height: 100dvh !important;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
   }
 `

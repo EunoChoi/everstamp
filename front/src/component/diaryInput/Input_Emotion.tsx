@@ -50,7 +50,7 @@ const Wrapper = styled.div`
     padding: 12px;
     padding-bottom: 0;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     padding: 20px;
     padding-bottom: 0;
   }
@@ -67,7 +67,7 @@ const RadioWrapper = styled.div`
   width: 100%;
   margin : 0;
   height: 42px;
-  border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#9797CB'};
+  border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
   border-radius: 8px;
   overflow: hidden;
   display: flex;
@@ -76,7 +76,7 @@ const RadioButton = styled.label`
   position: relative;
   width: 100%;
   height: 100%;
-  border-right : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#9797CB'};
+  border-right : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
   &:last-child{
     border: none;
   }
@@ -98,11 +98,11 @@ const RadioButton = styled.label`
     flex-shrink: 0;
 
     color: rgb(var(--greyTitle));
-    color:  ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+    color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     font-size: 14px;
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
     /* color: rgb(var(--greyTitle)); */
     /* color: white; */
   }

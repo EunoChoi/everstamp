@@ -182,11 +182,11 @@ const Wrapper = styled.div`
   background-color: whitesmoke;
   border: 2px solid rgba(0,0,0,0.075);
   &.priority1{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '28' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '28' : '#979FC7'};
     border: 2px solid rgba(0,0,0,0.075);  
   }
   &.priority2{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '43' : '#9797CB'};
+    background-color: ${(props) => props.theme.point ? props.theme.point + '43' : '#979FC7'};
     border: 2px solid rgba(0,0,0,0.075);  
   }
 `
@@ -221,7 +221,7 @@ const Name = styled.span`
       max-width: 120px;
     }
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 18px;
     span{
       max-width: 180px;
@@ -292,7 +292,7 @@ const Check = styled.div`
         width: 12px;
         height: 12px; 
         border-radius: 20px;
-        background-color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+        background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
       }    
       
     }

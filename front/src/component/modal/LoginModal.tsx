@@ -60,6 +60,8 @@ const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin: 32px 0;
 `
 const Wrapper = styled.div`
   display: flex;
@@ -86,7 +88,6 @@ const Modal = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  justify-content: space-evenly;
   align-items: center;
 
   background-color: white;
@@ -94,17 +95,17 @@ const Modal = styled.div`
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
 
   @media (max-width: 479px) { //mobile port
-    width: 90%;
-    height: 60%;
-    max-height: 500px;
+    width: 100%;
+    height: 100%;
+    /* max-height: 500px; */
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 50%;
-    min-width: 450px;
-    height: 80%;
-    max-height: 500px;
+    width: 100%;
+    /* min-width: 450px; */
+    height: 100%;
+    /* max-height: 500px; */
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     width: 50%;
     height: 60%;
   }
@@ -116,7 +117,7 @@ const Logo = styled.div`
     display: inline-block;
     padding: 0 4px;
     &::first-letter{
-      color: ${(props) => props.theme.point ? props.theme.point : '#9797CB'};
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }  
   @media (max-width: 479px) { //mobile port
@@ -125,33 +126,33 @@ const Logo = styled.div`
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 32px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     font-size: 48px;
   }
 `
 const Title = styled.span`
   font-weight: 600;
   @media (max-width: 479px) { //mobile port
-    font-size: 22px;
+    font-size: 20px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 22px;
+    font-size: 20px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
-    font-size: 28px;
+  @media (min-width:1024px) { //desktop
+    font-size: 24px;
   }
 `
 const Text = styled.span`
   font-weight: 500;
   @media (max-width: 479px) { //mobile port
-      font-size: 18px;
+      font-size: 16px;
       margin-top: 8px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       font-size: 16px;
       margin-top: 4px;
   }
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
       font-size: 18px;
       margin-top: 8px;
   }
@@ -170,7 +171,7 @@ const Button = styled.button`
   border : 2px solid rgba(0,0,0,0.05);
   margin: 4px;
 
-  @media (min-height:480px) and (min-width:1024px) { //desktop
+  @media (min-width:1024px) { //desktop
     width : 56px;
     height: 56px;
     margin: 6px;
