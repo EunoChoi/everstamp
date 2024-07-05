@@ -70,7 +70,7 @@ const RadioButton = styled.label`
   }
   .all{
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 600;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
   input{

@@ -68,7 +68,7 @@ const HabitPageClient = ({ email }: Props) => {
         </button> */}
           <button onClick={sortChage}>
             <span><SortIcon fontSize="small" /></span>
-            <span>{sortToggle === 'DESC' ? 'DESC' : 'ASC'}</span>
+            <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>
         </SC_Common.Options>
       </Header>
