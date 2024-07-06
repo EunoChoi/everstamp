@@ -18,7 +18,7 @@ const Page = () => {
         <span>Stamp daily habits in diary</span>
         <span>for lifelong your growth</span>
       </TextContent>
-      <Link href='/app/inter/login' scroll={false}><Button>start</Button></Link>
+      <Link href='/app/calendar' scroll={false}><Button>start</Button></Link>
     </Wrapper>
   );
 }
