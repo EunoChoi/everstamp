@@ -140,7 +140,7 @@ const Modal = styled.div`
   justify-content: center;
 
   background-color: white;
-  border-radius: 8px;
+  
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
 
   @media (max-width: 479px) { //mobile port
@@ -156,5 +156,6 @@ const Modal = styled.div`
   @media (min-width:1024px) { //desktop
     width: 50%;
     height: 70%;
+    border-radius: 8px;
   }
 `

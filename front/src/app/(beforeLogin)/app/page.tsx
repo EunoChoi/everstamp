@@ -4,6 +4,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import Link from "next/link";
 import tree from '/public/img/tree.png';
+import emotions from '/public/img/emotion/emotions.png';
 
 
 const Page = () => {
@@ -12,11 +13,14 @@ const Page = () => {
       <Logo>
         <span>ever</span>
         <span>stamp</span>
+        <span className="sub">grow every day</span>
       </Logo>
-      <Img src={tree} priority width={100} height={100} alt='tree'></Img>
+
+      <Img src={emotions} priority width={800} height={800} alt='emotions'></Img>
+
       <TextContent>
-        <span>Stamp daily habits in diary</span>
-        <span>for lifelong your growth</span>
+        <span>감정일기와 습관을 한곳에서 관리하고</span>
+        <span>당신의 변화와 성장을 기록해보세요</span>
       </TextContent>
       <Link href='/app/calendar' scroll={false}><Button>start</Button></Link>
     </Wrapper>
@@ -34,34 +38,23 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #979FC7;
+  background-color: #EFF0F6;
 
  
   @media (max-width: 479px) { //mobile port
-    >*{ margin: 16px  0; }
+    >*{ margin: 28px  0; }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    >*{ margin: 8px  0; }
+    >*{ margin: 12px  0; }
   }
   @media (min-width:1024px) { //desktop
-    >*{ margin: 24px  0; }
+    >*{ margin: 32px  0; }
   }
 `
 
 const Img = styled(Image)`
   object-fit: contain;
-  @media (max-width: 479px) { //mobile port
-    width: 150px;
-    height: 150px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 100px;
-    height: 100px;
-  }
-  @media (min-width:1024px) { //desktop
-    width: 180px;
-    height: 180px;
-  }
+  width: 250px;
 `;
 
 
@@ -71,7 +64,7 @@ const TextContent = styled.div`
   span{
     text-align: center;
     color: rgb(var(--greyTitle));
-    font-weight: 500;
+    font-weight: 600;
     line-height: 130%;    
   }
   @media (max-width: 479px) { //mobile port
@@ -88,7 +81,6 @@ const Logo = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink : 0;
-
   span {
     font-weight: 700;
     text-transform: uppercase;
@@ -98,7 +90,16 @@ const Logo = styled.div`
   }
   span::first-letter{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    color: #f9f9f9;
+  }
+  .sub{
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #EF9C92 !important;
+    text-transform: capitalize;
+    &::first-letter{
+    color: #EF9C92;
+    }
   }
   @media (max-width: 479px) { //mobile port
     font-size: 42px;
@@ -113,10 +114,10 @@ const Logo = styled.div`
 const Button = styled.button`
   cursor: pointer;
 
-  background-color : #f9f9f9;
-  color: rgb(var(--greyTitle));
+  background-color : #979FC7;
+  color: #EFF0F6;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
 
   padding: 4px 20px;

@@ -111,7 +111,7 @@ const Modal = styled.div`
   justify-content: center;
 
   background-color: white;
-  border-radius: 8px;
+  
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
 
   padding-top: 12px;
@@ -124,6 +124,7 @@ const Modal = styled.div`
     min-width: 500px;
     width: 40%;
     height: 50%;
+    border-radius: 8px;
   }
 `
 const Title = styled.span`
