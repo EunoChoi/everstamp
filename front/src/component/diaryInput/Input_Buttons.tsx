@@ -197,7 +197,7 @@ const ImageDeleteButton = styled.button`
 const Buttons = styled.div`
   height: var(--mobileNav);
   /* flex-shrink: 0; */
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   border-top: solid 1px rgba(0,0,0,0.1);
 
   display: flex;

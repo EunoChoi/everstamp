@@ -98,7 +98,7 @@ const Logo = styled.div`
   }
   span::first-letter{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    color: whitesmoke;
+    color: #f9f9f9;
   }
   @media (max-width: 479px) { //mobile port
     font-size: 42px;
@@ -113,7 +113,7 @@ const Logo = styled.div`
 const Button = styled.button`
   cursor: pointer;
 
-  background-color : whitesmoke;
+  background-color : #f9f9f9;
   color: rgb(var(--greyTitle));
   font-size: 16px;
   font-weight: 500;

@@ -5,9 +5,10 @@ import styled from "styled-components";
 import { useState, useRef } from "react";
 import { useRouter } from 'next/navigation'
 
+import tree from '../../public/img/tree.png';
+
 //hooks
 import IsMobile from "@/function/IsMobile";
-import Indicator from "@/component/indicator";
 
 //image
 
@@ -15,26 +16,100 @@ const App = () => {
   const router = useRouter()
   const isMobile = IsMobile();
 
-  const [page, setPage] = useState<number>(0);
-  const slideWrapperRef = useRef<HTMLDivElement>(null);
+
 
   return (
-    <Wrapper
-      onScroll={(e) => {
-        setPage(Math.round((e.currentTarget?.scrollTop - 1) / e.currentTarget?.clientHeight));
-      }}
-      ref={slideWrapperRef}
-    >
-      <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={3} />
-      {/* <Section className="first"></Section>
-      <Section className="second"></Section>
-      <Section className="third"></Section> */}
+    <Wrapper>
+      <Section>
+        <Logo>
+          <span>ever</span>
+          <span>stamp</span>
+        </Logo>
+        <TextWrapper>
+          <span>일기와 습관을 한곳에서 기록하며</span>
+          <span>당신의 변화와 성장을 기록해보세요.</span>
+        </TextWrapper>
+        <Image src={tree} alt="tree" width={100} height={100}></Image>
+      </Section>
+      <Section bgcolor="white">
+        <span>웹에서 바로 가능, pwa으로도 사용 가능</span>
+        <Buttons>
+          <button>PWA으로 사용</button>
+          <button>웹에서 사용</button>
+        </Buttons>
+      </Section>
+      <Section bgcolor="#979FC750">
+
+      </Section>
     </Wrapper>
   );
 }
 
 export default App;
 
+const Buttons = styled.div`
+  display: flex;
+
+  button{
+    font-size: 16px;
+    color: rgb(var(--greyTitle));
+    background-color: #979FC7;
+
+    border-radius : 100px;
+    padding: 4px 16px;
+    margin : 0 4px;
+  }
+`
+
+const Section = styled.section < { bgcolor?: string }> `
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 64px;
+
+  &.space-evenly{justify-content: space-evenly}
+
+  background-color: #979FC7;
+
+  background-color: ${(props) => props.bgcolor !== null && props.bgcolor};
+`
+const Logo = styled.div`
+  display: flex;
+  span {
+    line-height: 1;
+    display: block;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: rgb(var(--greyTitle));
+    font-weight: 600;
+    padding: 0 2px;
+
+    &:first-letter {
+      color: white;
+    }    
+  }
+`
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin : 48px 0;
+  width: 100vw;
+  span{
+    line-height: 1.2;
+    color: rgb(var(--greyTitle));
+    font-size: 20px;
+    font-weight: 500;
+  }
+`
 const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
@@ -42,62 +117,13 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
+  align-items: center;
 
+  /* scroll-snap-type: y mandatory; */
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-
   scrollbar-width: none;
   -ms-overflow-style: none;
   &::-webkit-scrollbar{
     display: none;
-  }
-`
-const Section = styled.div`
-  width: 100dvw;
-  height: 90dvh;
-  flex-shrink: 0;
-
-  scroll-snap-align: start;
-  scroll-snap-stop: always !important;
-
-  background-color: whitesmoke;
-`
-const IndicatorWrapper = styled.div`
-  position: fixed;
-  right: 0;
-  height: 100dvh;
-  width: 100px;
-  width: 10dvw;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  div {
-    width: 18px;
-    height: 18px;
-    border-radius: 18px;
-/* 
-    background-color: rgb(var(--lightGrey2)); */
-    background-color: #fff;
-    border: 1px solid rgba(0,0,0,0.2);
-
-    margin: 12px;
-  }
-
-  /* .current {
-    background-color: rgb(var(--point3)) !important;
-    background-color: darkgrey !important;
-  } */
-
-  @media (max-width: 479px) { //mobile port
-    width: 15dvw;
-    div{
-      width: 14px;
-      height: 14px;
-      border-radius: 14px;
-      margin: 8px;
-    }
   }
 `

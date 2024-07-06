@@ -148,7 +148,7 @@ const DateValue = styled.div`
     height: 14px;
     border-radius: 20px;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    color: whitesmoke;
+    color: #f9f9f9;
     margin: 0 1px;
   }
 `

@@ -179,7 +179,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   
   border-radius: 16px;
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   border: 2px solid rgba(0,0,0,0.075);
   &.priority1{
     background-color: ${(props) => props.theme.point ? props.theme.point + '28' : '#979FC7'};

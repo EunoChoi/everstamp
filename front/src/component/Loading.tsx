@@ -23,7 +23,7 @@ export default Loading;
 const Logo = styled.div`
   width: 140px;
   height: 140px;
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   border : 2px solid rgba(0,0,0,0.1);
   border-radius: 16px;
 

@@ -194,7 +194,7 @@ const TextWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   box-sizing: border-box;
   border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;
@@ -248,7 +248,7 @@ const EditBox = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   box-sizing: border-box;
   border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;

@@ -213,7 +213,7 @@ const Button = styled.button`
 
   border-radius: 50px;
   border: 2px solid rgba(0,0,0,0.05);
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   color: rgb(var(--greyTitle));
  
 

@@ -101,7 +101,7 @@ const EmptyWrapper = styled.div`
   height: 100px;
   flex-grow: 1;
 
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   box-sizing: border-box;
   border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;

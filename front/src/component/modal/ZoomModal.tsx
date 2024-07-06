@@ -106,7 +106,7 @@ const Buttons = styled.div`
   width: 100%;
   height: var(--mobileNav);
   /* flex-shrink: 0; */
-  background-color: whitesmoke;
+  background-color: #f9f9f9;
   border-top: solid 1px rgba(0,0,0,0.1);
 
   display: flex;
