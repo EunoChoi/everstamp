@@ -51,11 +51,6 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-
-
-
-
-
   const deleteDiaryMutation = useMutation({
     mutationFn: async ({ id }: { id: number }) => {
       await Axios.delete(`diary?id=${id}`)
@@ -71,7 +66,6 @@ const DiarySlide = ({ diaryData, position }: Props) => {
       enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
     },
     onError: (e: Err) => {
-      // alert(e?.response?.data);
       enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log('delete diary error');
     },

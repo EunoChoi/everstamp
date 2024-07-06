@@ -50,11 +50,9 @@ const Diary = ({ diaryData, position }: Props) => {
   const emotions = ['#Angry', '#Sad', '#Common', '#Happy', '#Joyful'];
 
   const [diaryDate, setDiaryDate] = useState<Date>(new Date());
-
-  const month = format(diaryDate, 'MMM');
-  const date = format(diaryDate, 'd');
+  const date = format(diaryDate, 'MMM d yyyy');
   const day = format(diaryDate, `${(position === 'calendar' && isMobile === false) ? 'eeee' : 'eee'}`);
-  const year = format(diaryDate, `yyyy`);
+
 
   const onAddDiary = () => {
     router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
@@ -74,10 +72,8 @@ const Diary = ({ diaryData, position }: Props) => {
     <Wrapper className={position}>
       <DateWrapper className={position}>
         <span className="week">{day}</span>
-        <div>
-          <span className="date">{month}</span>
-          <span className="date">{date}</span>
-          <span className="year">{year}</span>
+        <div className="date">
+          <span>{date}</span>
           <span className="emotion">{diaryData?.visible && emotions[diaryData?.emotion]}</span>
         </div>
       </DateWrapper>
@@ -87,8 +83,6 @@ const Diary = ({ diaryData, position }: Props) => {
       {diaryData?.visible ?
         <DiarySlide diaryData={diaryData} position={position} /> :
         <EmptyWrapper>
-          <span>There are no diary yet.</span>
-          <span>Create a new one :)</span>
           <button onClick={onAddDiary}>
             <AddCircleOutlinedIcon fontSize="inherit" />
           </button>
@@ -108,31 +102,24 @@ const EmptyWrapper = styled.div`
   flex-grow: 1;
 
   background-color: whitesmoke;
-  color: rgb(var(--greyTitle));
   box-sizing: border-box;
   border: 2px solid rgba(0,0,0,0.05);
   border-radius: 8px;
-  font-size: 16px;
-  font-weight:500;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 
   button{
     transition: color ease-in-out 0.2s;
     line-height: 50%;
     font-size: 48px;
     color: rgb(var(--greyTitle));
-    padding: 8px;
-    padding-top: 16px;
     &:hover{
       color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
-
-  @media (min-width:480px) and (min-width:1024px) { //desktop
-    height: 500px;
-    font-size: 56px;
-    span{ 
-      font-size: 20px;
+  @media (min-width:1024px) { //desktop
+    margin-bottom: 28px;
+    button{
+      font-size: 72px;
     }
   }
 `
@@ -147,9 +134,10 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   height: 250px;
-  margin-top: 12px;
+  margin-top: 20px;
 
   @media (min-width: 1024px) {//desktop
+    margin-top: 30px;
     height: 350px;
     &.calendar{
       height: 550px;
@@ -176,7 +164,7 @@ const DateWrapper = styled.div`
   span{
     line-height: 1;
     margin-right: 8px;
-    font-weight: 600;
+    font-weight: 500;
     text-transform: capitalize;
     color: grey;
     font-size: 24px;
@@ -196,8 +184,11 @@ const DateWrapper = styled.div`
         font-size: 56px;
         margin-bottom: 12px;
       }
-      span{
-        font-size: 36px;
+      .date{
+        span{
+          line-height: 48px;
+          font-size: 36px;
+        }
       }
     }
   }

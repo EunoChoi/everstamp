@@ -20,6 +20,7 @@ import SortIcon from '@mui/icons-material/Sort';
 
 import { useInView } from "react-intersection-observer";
 import EmotionSelector from "@/component/emotionSelector";
+import { format } from "date-fns";
 
 interface ImageProps {
   id: string;
@@ -77,6 +78,8 @@ const ListPageClient = () => {
     if (!isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching])
 
+  let temmDate = '';
+
   return (
     <SC_Common.Wrapper>
       <Header title='list' >
@@ -93,11 +96,27 @@ const ListPageClient = () => {
         <EmotionSelector emotion={emotion} setEmotion={setEmotion} />
 
         {diaries?.pages[0].length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
-        {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => (<Diary
-          position="list"
-          diaryData={data}
-          key={'listNote' + i}
-        />))))}
+        {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => {
+          const diaryDate = format(data.date, 'MMMM yyyy');
+          if (temmDate !== diaryDate) {
+            temmDate = diaryDate;
+            return <>
+              <MonthInfo><span>{diaryDate}</span></MonthInfo>
+              <Diary
+                position="list"
+                diaryData={data}
+                key={'listNote' + i}
+              />
+            </>
+          }
+          else {
+            return <Diary
+              position="list"
+              diaryData={data}
+              key={'listNote' + i}
+            />
+          }
+        })))}
         <Observer ref={ref} />
       </SC_Common.Content>
     </SC_Common.Wrapper>
@@ -105,6 +124,36 @@ const ListPageClient = () => {
 }
 
 export default ListPageClient;
+
+const MonthInfo = styled.span`
+  margin-top: 40px;
+  margin-bottom: 20px;
+  
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  height: 2px;
+  background-color:  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+
+  span{
+    padding: 0 4px;
+    background-color: white;
+    color:  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  
+
+  @media (min-width:1024px) { //desktop
+    font-size: 22px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+  }
+`
 
 const Observer = styled.div`
   flex-shrink: 0;

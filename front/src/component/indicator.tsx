@@ -30,7 +30,7 @@ const IndicatorWrapper = styled.div`
   width: 100%;
   justify-content: center;
   display: flex;
-  margin: 8px 0;
+  margin: 4px 0;
   height: auto;
   div {
     width: 12px;

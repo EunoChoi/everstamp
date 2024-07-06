@@ -72,11 +72,11 @@ const CalendarSelector = () => {
       <span className={(isDiaryExist || habitCount > 0) ? 'diaryExist' : ''}>{formattedDate}</span>
       <div>
         {isDiaryExist && <span className="emotion">
-          {emotion === 0 && <Image src={emotion0} alt='angry' width={30} height={30} />}
-          {emotion === 1 && <Image src={emotion1} alt='sad' width={30} height={30} />}
-          {emotion === 2 && <Image src={emotion2} alt='common' width={30} height={30} />}
-          {emotion === 3 && <Image src={emotion3} alt='happy' width={30} height={30} />}
-          {emotion === 4 && <Image src={emotion4} alt='Joyful' width={30} height={30} />}
+          {emotion === 0 && <Image src={emotion0} alt='angry' width={36} height={36} />}
+          {emotion === 1 && <Image src={emotion1} alt='sad' width={36} height={36} />}
+          {emotion === 2 && <Image src={emotion2} alt='common' width={36} height={36} />}
+          {emotion === 3 && <Image src={emotion3} alt='happy' width={36} height={36} />}
+          {emotion === 4 && <Image src={emotion4} alt='Joyful' width={36} height={36} />}
         </span>}
         {habitCount > 0 && <span className="habitCount">{habitCount}</span>}
       </div>
@@ -188,9 +188,9 @@ const DateValue = styled.div`
       align-items: center;
       line-height: 0%;
 
-      width: 26px;
-      height: 26px;
-      border-radius: 26px;
+      width: 24px;
+      height: 24px;
+      border-radius: 24px;
       
       margin: 0 1px;
       @media (min-width:1024px) { //desktop
@@ -200,7 +200,7 @@ const DateValue = styled.div`
       }
     }
     .habitCount{
-      margin-top: 4px;
+      margin-top: 2px;
       font-size: 10px;
       font-weight: 500;
       width: 16px;
@@ -256,14 +256,16 @@ const CalTitle = styled.div`
       }
     }
 `
-const CalTitleText = styled.span`
-  width: 14%;
-  color: rgb(var(--greyTitle));
+const CalTitleText = styled.div`
+  width: auto;
   font-weight: 600;
   text-align: center;
   text-transform: capitalize;
 
-  font-size: 1.2em;
+  span{
+    color: rgb(var(--greyTitle));
+    font-size: 18px;
+  }  
 `
 const CalWeekTitle = styled.div`
   width: 100%;

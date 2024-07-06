@@ -88,13 +88,10 @@ const RadioButton = styled.label`
     align-items: center;
     flex-shrink: 0;
 
-    color: rgb(var(--greyTitle));
     color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     font-size: 14px;
   }
   input:checked ~ .checkmark{
     background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
-    /* color: rgb(var(--greyTitle)); */
-    /* color: white; */
   }
 `;
