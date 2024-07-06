@@ -147,6 +147,9 @@ const Logo = styled.div`
         color: #EFF0F6;
       }
     }
+    >span{
+      color: #F6E388;
+    }
   }
 `
 
@@ -164,7 +167,7 @@ const Section = styled.div`
 
   &.intro{
     padding-top: 5dvh;
-    height: 90dvh;
+    height: 98dvh;
     background-color: white;
 
     justify-content: space-evenly;
