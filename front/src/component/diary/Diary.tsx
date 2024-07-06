@@ -72,7 +72,7 @@ const Diary = ({ diaryData, position }: Props) => {
     <Wrapper className={position}>
       <DateWrapper className={position}>
         <span className="week">{day}</span>
-        <div className="date">
+        <div className="dateAndEmotion">
           <span>{date}</span>
           <span className="emotion">{diaryData?.visible && emotions[diaryData?.emotion]}</span>
         </div>
@@ -148,32 +148,31 @@ const DateWrapper = styled.div`
   height: auto;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: end;
 
-  .emotion{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    font-weight: 500;
+  
+  .week{
+    font-size: 26px;
+    font-weight: 700;
+    color: rgb(var(--greyTitle));
+    margin-right: 8px;
+    line-height : 1;
   }
-
-  >div{
+  .dateAndEmotion{
     height: 100%;
     display:flex;
     align-items: end;
-  }
-
-  span{
-    line-height: 1;
-    margin-right: 8px;
-    font-weight: 500;
-    text-transform: capitalize;
-    color: grey;
-    font-size: 24px;
-
-  }
-  .week{
-    font-size: 32px;
-    font-weight: 700;
-    color: rgb(var(--greyTitle));
+    span{
+      line-height: 1;
+      margin-right: 8px;
+      font-weight: 500;
+      text-transform: capitalize;
+      color: grey;
+      font-size: 22px;
+    }
+    .emotion{
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    }
   }
 
   &.calendar{
@@ -181,12 +180,11 @@ const DateWrapper = styled.div`
       flex-direction: column;
       align-items: start;
       .week{
+        margin-bottom: 14px;
         font-size: 56px;
-        margin-bottom: 12px;
       }
-      .date{
+      .dateAndEmotion{
         span{
-          line-height: 48px;
           font-size: 36px;
         }
       }

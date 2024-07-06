@@ -1,7 +1,7 @@
 'use client';
 
 import styled from "styled-components";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 
 //styledComponent
@@ -100,14 +100,13 @@ const ListPageClient = () => {
           const diaryDate = format(data.date, 'MMMM yyyy');
           if (temmDate !== diaryDate) {
             temmDate = diaryDate;
-            return <>
+            return <React.Fragment key={'listNote' + i}>
               <MonthInfo><span>{diaryDate}</span></MonthInfo>
               <Diary
                 position="list"
                 diaryData={data}
-                key={'listNote' + i}
               />
-            </>
+            </React.Fragment>
           }
           else {
             return <Diary
