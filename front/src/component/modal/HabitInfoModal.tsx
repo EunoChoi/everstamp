@@ -242,6 +242,8 @@ const Modal = styled.div`
   @media (min-width:1024px) { //desktop
     width: 500px;
     height: 80%;
+
+    border-radius: 8px;
   }
 `
 

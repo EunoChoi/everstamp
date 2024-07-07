@@ -5,11 +5,14 @@ import styled from "styled-components";
 
 import calendar from '/public/img/intro/calendar.png';
 import list from '/public/img/intro/list.png';
+import listDesktop from '/public/img/intro/listDesktop.png';
 import zoom1 from '/public/img/intro/zoom1.png';
 import zoom2 from '/public/img/intro/zoom2.png';
 import habit from '/public/img/intro/habit.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
+import habitinfoDesktop1 from '/public/img/intro/habitinfoDesktop1.png';
+import habitinfoDesktop2 from '/public/img/intro/habitinfoDesktop2.png';
 import setting from '/public/img/intro/setting.png';
 
 
@@ -26,11 +29,13 @@ import { useRouter } from "next/navigation";
 import LockIcon from '@mui/icons-material/Lock';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import PhonelinkIcon from '@mui/icons-material/Phonelink';
+import IsMobile from "@/function/IsMobile";
 
 
 const Page = () => {
 
   const router = useRouter();
+  const isMobile = IsMobile();
 
   return (
     <Wrapper>
@@ -45,20 +50,22 @@ const Page = () => {
           </div>
           <span>grow every day</span>
         </Logo>
-        <TextWrapper>
+        <Text>
           <span>감정일기와 습관을 한곳에서 관리하고</span>
           <span>당신의 변화와 성장을 기록해보세요.</span>
-        </TextWrapper>
+        </Text>
 
         <ImageWrapper>
-          <Img className="slide" src={calendar} alt="calendar" width={700} height={700} priority></Img>
-          <Img className="slide" src={list} alt="list" width={700} height={700} priority></Img>
-          <Img className="slide" src={zoom1} alt="zoom1" width={700} height={700} priority></Img>
-          <Img className="slide" src={zoom2} alt="zoom2" width={700} height={700} priority></Img>
-          <Img className="slide" src={habit} alt="habit" width={700} height={700} priority></Img>
-          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={300} height={700} priority></Img>
-          <Img className="slide" src={habitinfo2} alt="habitinfo2" width={300} height={700} priority></Img>
-          <Img className="slide" src={setting} alt="setting" width={700} height={700} priority></Img>
+          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1400} height={1400} priority></Img>}
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1400} height={1400} priority></Img>}
+          <Img className="slide" src={calendar} alt="calendar" width={400} height={400} priority></Img>
+          <Img className="slide" src={list} alt="list" width={400} height={400} ></Img>
+          <Img className="slide" src={zoom1} alt="zoom1" width={400} height={400} ></Img>
+          <Img className="slide" src={zoom2} alt="zoom2" width={400} height={400} ></Img>
+          <Img className="slide" src={habit} alt="habit" width={400} height={400} ></Img>
+          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={400} height={400} ></Img>
+          <Img className="slide" src={habitinfo2} alt="habitinfo2" width={400} height={400} ></Img>
+          <Img className="slide" src={setting} alt="setting" width={400} height={400} ></Img>
         </ImageWrapper>
 
         <div>
@@ -67,48 +74,57 @@ const Page = () => {
         </div>
       </Section>
       <Section className="emotion">
-        <div className="title">#emotions</div>
-        <div className="text">
+        <Title>#emotions</Title>
+        <Text>
           <span>나의 모든 감정을 솔직하게 기록하면</span>
           <span>나를 이해하고 사랑하는데 도움이 됩니다.</span>
           <span>함께 감정 일기를 시작해볼까요?</span>
-        </div>
-        <Img className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Img>
+        </Text>
+        <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
       </Section>
       <Section className="view">
-        <span className="title">#view feature</span>
-        <div className="text">
+        <Title>#diary feature</Title>
+        <Text>
           <span>달력에서 감정과 습관 성취를 한눈에,</span>
           <span>목록에서 시간순으로 편하게 확인하세요.</span>
-        </div>
+        </Text>
         <ImageWrapper>
-          <Img className="slide" src={calendar} alt="calendar" width={700} height={700} priority></Img>
-          <Img className="slide" src={list} alt="list" width={700} height={700} priority></Img>
-          <Img className="slide" src={zoom1} alt="zoom1" width={700} height={700} priority></Img>
-          <Img className="slide" src={zoom2} alt="zoom2" width={700} height={700} priority></Img>
+          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1400} height={1400}></Img>}
+          <Img className="slide" src={calendar} alt="calendar" width={400} height={400} ></Img>
+          <Img className="slide" src={list} alt="list" width={400} height={400} ></Img>
+          <Img className="slide" src={zoom1} alt="zoom1" width={400} height={400} ></Img>
+          <Img className="slide" src={zoom2} alt="zoom2" width={400} height={400} ></Img>
         </ImageWrapper>
       </Section>
       <Section className="habit">
-        <span className="title">#habit feature</span>
-        <div className="text">
+        <Title>#habit feature</Title>
+        <Text>
           <span>매일의 습관을 기록하며</span>
           <span>목표를 향해 한걸음씩 나아가세요.</span>
           <span>작은 변화가 큰 차이를 만듭니다.</span>
-        </div>
+        </Text>
         <RowWrapper>
-          <Img className="habitbox" src={habitbox} alt="habitbox" width={300} height={300} priority></Img>
+          <Img className="habitbox" src={habitbox} alt="habitbox" width={400} height={400}></Img>
         </RowWrapper>
-        <div className="text">
+        <Text>
           <span>매달 성취 결과를 달력으로 한눈에,</span>
           <span>매년 성취 결과를 차트로 한눈에 확인하세요.</span>
-        </div>
+        </Text>
         <ImageWrapper>
-          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={300} height={700} priority></Img>
-          <Img className="slide" src={habitinfo2} alt="habitinfo2" width={300} height={700} priority></Img>
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1400} height={1400} ></Img>}
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop2} alt="habitinfoDesktop2" width={1400} height={1400} ></Img>}
+          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={400} height={400} ></Img>
+          <Img className="slide" src={habitinfo2} alt="habitinfo2" width={400} height={400} ></Img>
         </ImageWrapper>
       </Section>
       <Section className="others">
-        <span className="title">#other feature</span>
+        <Title>#other feature</Title>
+
+        <Text>
+          <span>암호화, 테마, 멀티 플랫폼 최적화 등</span>
+          <span>추가적인 사용자 편의 기능을 제공합니다.</span>
+        </Text>
+
         <RowWrapper>
           <ColWrapper className="othersIcons">
             <LockIcon fontSize="large" />
@@ -116,17 +132,18 @@ const Page = () => {
           </ColWrapper>
           <ColWrapper className="othersIcons">
             <ColorLensIcon fontSize="large" />
-            <span>유저 테마 설정</span>
+            <span>테마 설정</span>
           </ColWrapper>
           <ColWrapper className="othersIcons">
             <PhonelinkIcon fontSize="large" />
             <span>멀티 플랫폼</span>
           </ColWrapper>
         </RowWrapper>
-        <ImageWrapper>
-          <Img className="slide" src={otherinfo1} alt="otherinfo1" width={700} height={700} priority></Img>
-          <Img className="slide" src={otherinfo2} alt="otherinfo2" width={700} height={700} priority></Img>
-          <Img className="slide" src={otherinfo3} alt="otherinfo3" width={700} height={700} priority></Img>
+
+        <ImageWrapper className="desktopNoScroll">
+          <Img className="slide" src={otherinfo1} alt="otherinfo1" width={300} height={300} ></Img>
+          <Img className="slide" src={otherinfo2} alt="otherinfo2" width={300} height={300} ></Img>
+          <Img className="slide" src={otherinfo3} alt="otherinfo3" width={300} height={300} ></Img>
         </ImageWrapper>
       </Section>
       <Section className="outro">
@@ -147,6 +164,12 @@ const Page = () => {
 
 export default Page;
 
+
+const Wrapper = styled.div`
+  width: 100dvw;
+  height: 100dvh;
+  overflow-y: scroll;
+`
 const RowWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -169,44 +192,75 @@ const ColWrapper = styled.div`
       font-size: 14px;
       font-weight: 500;
       margin-top: 8px;
+      @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+        font-size: 16px;
+      }
+      @media (min-width:1024px) { //desktop
+        font-size: 18px;
+      }
     }
   }
 `
-
-const ImageWrapper = styled.div`
-  width : 100dvw;
-  overflow-x: scroll;
-  display : flex;
-
-  scroll-snap-type: x mandatory;
-  padding: 12px 40dvw;
-
-  /* scroll-snap-align: start;
-  scroll-snap-stop: always !important; */
-`
-const Button = styled.button`
-  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
-
-  padding: 6px 16px;
-  margin: 0 4px;
-  border-radius: 32px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  color: rgb(var(--greyTitle));
-  background-color: #d7daeb;
-`
-const TextWrapper = styled.div`
+const Section = styled.div`
+  width: 100dvw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  span{
-    color: rgb(var(--greyTitle));
-    font-size: 20px;
-    font-weight: 600;
+  &.intro{
+    padding-top: 32px;
+    background-color: white;
+    justify-content: space-evenly;
+    position: relative;
+
+    .topBar{
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      width: 100%;
+      height: 32px;
+      background-color : #979FC7;
+      margin: 0;
+
+      position: absolute;
+      top: 0;
+      span{
+        text-transform: uppercase;
+        color: rgb(var(--greyTitle));
+        color: #EFF0F6;
+        font-size: 12px;
+        font-weight: 500;
+        margin-left: 16px;
+      }
+    }
+  }
+  &.intro, &.emotion, &.view, &.habit, &.others, &.outro{
+    background-color: #EFF0F6;
+    width: 100%;
+    height: auto;
+    padding: 56px 0;
+    > *{
+      margin: 20px 0;
+    }
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      padding: 64px 0;
+      > *{
+        margin: 28px 0;
+      }
+    }
+    @media (min-width:1024px) { //desktop
+      padding: 72px 0;
+      > *{
+        margin: 36px 0;
+      }
+    }
+  }
+  &.intro, &.view, &.others{
+    background-color: white;
+  }
+  &.outro{
+    background-color: #979FC7;
   }
 `
 const Logo = styled.div`
@@ -235,6 +289,24 @@ const Logo = styled.div`
     text-transform: capitalize;
     color: #EF9C92;
   }
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    >div>span{
+      font-size: 28px;
+    }
+    >span{
+      font-size: 20px;
+    }
+  }
+  @media (min-width:1024px) { //desktop
+    >div>span{
+      font-size: 32px;
+    }
+    >span{
+      font-size: 24px;
+    }
+  }
+
   &.outro{
     >div>span{
       &::first-letter{
@@ -246,100 +318,83 @@ const Logo = styled.div`
     }
   }
 `
+const Button = styled.button`
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 
-const Wrapper = styled.div`
-  width: 100dvw;
-  height: 100dvh;
-  overflow-y: scroll;
+  padding: 6px 16px;
+  margin: 0 8px;
+  border-radius: 32px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: rgb(var(--greyTitle));
+  background-color: #d7daeb;
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 16px;
+  }
+  @media (min-width:1024px) { //desktop
+    font-size: 18px;
+  }
 `
-const Section = styled.div`
-  width: 100dvw;
+const Title = styled.span`
+  color: #989FC4;
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: capitalize;
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 22px;
+  }
+  @media (min-width:1024px) { //desktop
+    font-size: 24px;
+  }
+`
+const Text = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
-  &.intro{
-    padding-top: 32px;
-    background-color: white;
-    justify-content: space-evenly;
-    position: relative;
-
-    > *{
-      margin: 20px 0;
-      &:nth-child(2){
-        margin-top: 68px;
-      }
-      &:last-child{
-        margin-bottom: 68px;
-      }
-    }
-
-    .topBar{
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      width: 100%;
-      height: 32px;
-      background-color : #979FC7;
-      margin: 0;
-
-      position: absolute;
-      top: 0;
-      span{
-        text-transform: uppercase;
-        color: rgb(var(--greyTitle));
-        color: #EFF0F6;
-        font-size: 12px;
-        font-weight: 500;
-        margin-left: 16px;
-      }
-    }
-  }
-  &.emotion, &.view, &.habit, &.others, &.outro{
-    background-color: #EFF0F6;
-    width: 100%;
-    height: auto;
-    padding: 48px 0;
-    > *{
-      margin: 20px 0;
-    }
-  }
-  &.view, &.others{
-    background-color: white;
-  }
-  &.outro{
-    background-color: #979FC7;
-  }
-
-  .title{
-    color: #989FC4;
+  span{
     font-size: 20px;
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-  .text{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    span{
-      font-size: 20px;
-      font-weight: 600;
-      color: rgb(var(--greyTitle));
-      line-height: 1.3;
+    font-weight: 600;
+    color: rgb(var(--greyTitle));
+    line-height: 1.4;
+
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      font-size: 28px;
+    }
+    @media (min-width:1024px) { //desktop
+      font-size: 32px;
+      line-height: 1.5;
     }
   }
 `
+const ImageWrapper = styled.div`
+  width : 100dvw;
+  overflow-x: scroll;
+  display : flex;
 
+  scroll-snap-type: x mandatory;
+  padding: 12px 40dvw;
+
+  @media (min-width:1024px) { //desktop
+    padding: 12px 15dvw;
+  }
+
+  &.desktopNoScroll{
+    @media (min-width:1024px) { //desktop
+      padding: 12px 40dvw;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+  }
+
+`
 const Img = styled(Image)`
   width: auto;
   &.emotionImg{
       width: 200px;
-  }
-  &.calendar{
-    width: 180px;
-    border-radius: 16px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
   }
   &.habitbox{
     box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
@@ -349,17 +404,31 @@ const Img = styled(Image)`
     border-radius: 16px;
     background-color: white;
     margin: 0 4px;
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      width: 240px;
+      height: 240px;
+    }
+    @media (min-width:1024px) { //desktop
+      width: 280px;
+      height: 280px;
+    }
   }
   &.slide{
     border-radius: 16px;
     box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
 
-    max-width: 60dvw;
+    max-width: 100dvw;
     max-height: 80dvh;
     width: 60dvw;
+    height: auto;
 
     scroll-snap-align: center;
     scroll-snap-stop: always !important;
     margin: 0 16px;
+  }
+  &.desktop{
+    max-width: 100dvw;
+    height: auto;
+    width: auto;
   }
 `
