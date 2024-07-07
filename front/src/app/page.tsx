@@ -2,12 +2,23 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-import Link from "next/link";
+
+import calendar from '/public/img/intro/calendar.png';
+import list from '/public/img/intro/list.png';
+import zoom1 from '/public/img/intro/zoom1.png';
+import zoom2 from '/public/img/intro/zoom2.png';
+import habit from '/public/img/intro/habit.png';
+import habitinfo1 from '/public/img/intro/habitinfo1.png';
+import habitinfo2 from '/public/img/intro/habitinfo2.png';
+import setting from '/public/img/intro/setting.png';
 
 
-import calendarImg from '/public/img/intro/calendar.png';
 import emotions2 from '/public/img/emotion/emotions2.png';
 import habitbox from '/public/img/intro/habitbox.png';
+import otherinfo1 from '/public/img/intro/otherinfo1.png';
+import otherinfo2 from '/public/img/intro/otherinfo2.png';
+import otherinfo3 from '/public/img/intro/otherinfo3.png';
+
 
 
 import { useRouter } from "next/navigation";
@@ -36,16 +47,18 @@ const Page = () => {
         </Logo>
         <TextWrapper>
           <span>감정일기와 습관을 한곳에서 관리하고</span>
-          <span>당신의 변화와 성장을 기록해보세요</span>
+          <span>당신의 변화와 성장을 기록해보세요.</span>
         </TextWrapper>
 
         <ImageWrapper>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
+          <Img className="slide" src={calendar} alt="calendar" width={700} height={700} priority></Img>
+          <Img className="slide" src={list} alt="list" width={700} height={700} priority></Img>
+          <Img className="slide" src={zoom1} alt="zoom1" width={700} height={700} priority></Img>
+          <Img className="slide" src={zoom2} alt="zoom2" width={700} height={700} priority></Img>
+          <Img className="slide" src={habit} alt="habit" width={700} height={700} priority></Img>
+          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={300} height={700} priority></Img>
+          <Img className="slide" src={habitinfo2} alt="habitinfo2" width={300} height={700} priority></Img>
+          <Img className="slide" src={setting} alt="setting" width={700} height={700} priority></Img>
         </ImageWrapper>
 
         <div>
@@ -60,20 +73,19 @@ const Page = () => {
           <span>나를 이해하고 사랑하는데 도움이 됩니다.</span>
           <span>함께 감정 일기를 시작해볼까요?</span>
         </div>
-        <Image className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Image>
+        <Img className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Img>
       </Section>
       <Section className="view">
         <span className="title">#view feature</span>
         <div className="text">
           <span>달력에서 감정과 습관 성취를 한눈에,</span>
           <span>목록에서 시간순으로 편하게 확인하세요.</span>
-          {/* <span>살펴보세요</span> */}
         </div>
         <ImageWrapper>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
+          <Img className="slide" src={calendar} alt="calendar" width={700} height={700} priority></Img>
+          <Img className="slide" src={list} alt="list" width={700} height={700} priority></Img>
+          <Img className="slide" src={zoom1} alt="zoom1" width={700} height={700} priority></Img>
+          <Img className="slide" src={zoom2} alt="zoom2" width={700} height={700} priority></Img>
         </ImageWrapper>
       </Section>
       <Section className="habit">
@@ -91,8 +103,8 @@ const Page = () => {
           <span>매년 성취 결과를 차트로 한눈에 확인하세요.</span>
         </div>
         <ImageWrapper>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={300} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={300} height={700} priority></Img>
+          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={300} height={700} priority></Img>
+          <Img className="slide" src={habitinfo2} alt="habitinfo2" width={300} height={700} priority></Img>
         </ImageWrapper>
       </Section>
       <Section className="others">
@@ -112,9 +124,9 @@ const Page = () => {
           </ColWrapper>
         </RowWrapper>
         <ImageWrapper>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
-          <Img className="slide" src={calendarImg} alt="calendarImg" width={700} height={700} priority></Img>
+          <Img className="slide" src={otherinfo1} alt="otherinfo1" width={700} height={700} priority></Img>
+          <Img className="slide" src={otherinfo2} alt="otherinfo2" width={700} height={700} priority></Img>
+          <Img className="slide" src={otherinfo3} alt="otherinfo3" width={700} height={700} priority></Img>
         </ImageWrapper>
       </Section>
       <Section className="outro">
@@ -173,6 +185,8 @@ const ImageWrapper = styled.div`
   scroll-snap-stop: always !important; */
 `
 const Button = styled.button`
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+
   padding: 6px 16px;
   margin: 0 4px;
   border-radius: 32px;
@@ -287,9 +301,6 @@ const Section = styled.div`
     width: 100%;
     height: auto;
     padding: 48px 0;
-    .emotionImg{
-      width: 200px;
-    }
     > *{
       margin: 20px 0;
     }
@@ -322,6 +333,9 @@ const Section = styled.div`
 
 const Img = styled(Image)`
   width: auto;
+  &.emotionImg{
+      width: 200px;
+  }
   &.calendar{
     width: 180px;
     border-radius: 16px;
