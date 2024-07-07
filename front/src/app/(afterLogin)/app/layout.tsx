@@ -47,7 +47,7 @@ const AppLayout = ({ children, modal }: Props) => {
   }
 
   if (error) {
-    redirect('/app');
+    redirect('/app/inter/login');
   }
 
   useEffect(() => {
@@ -96,9 +96,7 @@ const AppLayout = ({ children, modal }: Props) => {
               </SideBarLogo>
               <Menus>
                 <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
-                <MonthWrapper
-                  className={current === 'calendar' ? '' : 'inActive'}
-                >
+                <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
                   <CalendarSelector />
                 </MonthWrapper>
                 <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
@@ -284,7 +282,7 @@ const SideBarLogo = styled.div`
   /* margin-bottom: 48px; */
 
   span{
-    font-size: 56px;
+    font-size: 48px;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 100%;
@@ -319,7 +317,7 @@ const Menu = styled.span`
   text-transform: uppercase;
   text-transform: capitalize;
 
-  margin: 8px 0%;
+  margin: 6px 0%;
   color: #939393;
   > *:first-child{
     margin-right: 8px;
@@ -342,7 +340,7 @@ const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 100%;
   margin-bottom: 24px;
-  height:400px;
+  height:360px;
   *{
     transition: color ease-in-out 0.3s !important;
   }

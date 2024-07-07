@@ -233,7 +233,7 @@ const Modal = styled.div`
   align-items: center;
 
   background-color: white;
-  border-radius: 8px;
+  
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
 
   width: 100%;
@@ -260,11 +260,8 @@ const Buttons = styled.div`
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 
-  @media (max-width: 479px) { //mobile port
-    border-radius: 0px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    border-radius: 0px;
+  @media (min-width:1024px) { //desktop
+    border-radius: 8px;
   }
 `
 const Button = styled.button`

@@ -14,7 +14,7 @@ export async function getCurrentUser_fetch() {
       return data;
     }
   } catch (e) {
-    redirect('/app');
+    redirect('/app/inter/login');
   }
 
 
