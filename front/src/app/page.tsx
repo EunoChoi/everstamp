@@ -42,7 +42,6 @@ const Page = () => {
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: any) => {
-      console.log(e);
       e.preventDefault();
       setPwa(e);
     }
@@ -50,7 +49,7 @@ const Page = () => {
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     }
-  }, [isMobile]);
+  }, []);
 
   const installPwa = () => {
     if (pwa) {
@@ -66,7 +65,7 @@ const Page = () => {
       })
     }
     else {
-      alert(`자동 설치가 지원되지 않는 브라우저 입니다. '메뉴 -> 홈 화면에 추가'를 진행하여 앱을 설치해주세요.`)
+      alert(`이미 앱이 설치되어 있는 경우 혹은\n자동 설치를 지원하지 않는 브라우저입니다.\n \n '메뉴(공유하기)->홈 화면에 추가'를\n진행하여 앱을 설치해주세요.`);
     }
   }
 
@@ -83,8 +82,8 @@ const Page = () => {
           <span>grow every day</span>
         </Logo>
         <Text>
-          <span>감정 일기를 작성하고 목표 습관을 달성하며</span>
-          <span>당신의 변화와 성장을 기록해보세요.</span>
+          <span>당신의 긍정적 변화와 성장을 위한</span>
+          <span>감정 일기와 습관 만들기를 실천하세요.</span>
         </Text>
 
         <ImageWrapper>
@@ -105,7 +104,7 @@ const Page = () => {
           <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
         </div>
         <ColWrapper>
-          <SubText>Safari 브라우저의 경우 앱 다운로드 버튼이 동작하지 않습니다.</SubText>
+          <SubText>일부 브라우저에서 앱 다운로드 버튼이 동작하지 않습니다.</SubText>
           <SubText>{`'공유하기 -> 홈 화면에 추가'를 진행하여 앱을 설치해주세요.`}</SubText>
         </ColWrapper>
       </Section>
@@ -117,12 +116,16 @@ const Page = () => {
           <span>함께 감정 일기를 시작해볼까요?</span>
         </Text>
         <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
+        <ColWrapper>
+          <SubText>5가지 감정 선택을 지원합니다.</SubText>
+          <SubText>'기쁨', '행복', '무난', '슬픔', '화남'</SubText>
+        </ColWrapper>
       </Section>
       <Section className="view">
         <Title>#diary feature</Title>
         <Text>
-          <span>감정과 성취 습관 확인을 한눈에!</span>
-          <span>달력, 시간순, 감정별 모음으로 확인해요.</span>
+          <span>감정과 습관 완료 여부를 한눈에 확인!</span>
+          <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400}></Img>}
@@ -131,6 +134,10 @@ const Page = () => {
           <Img className="slide" src={zoom1} alt="zoom1" width={400} height={400} ></Img>
           <Img className="slide" src={zoom2} alt="zoom2" width={400} height={400} ></Img>
         </ImageWrapper>
+        <ColWrapper>
+          <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
+          <SubText>날짜별 오름/내림 차순 정렬을 지원합니다.</SubText>
+        </ColWrapper>
       </Section>
       <Section className="habit">
         <Title>#habit feature</Title>
@@ -141,6 +148,11 @@ const Page = () => {
         <RowWrapper>
           <Img className="habitbox" src={habitbox} alt="habitbox" width={400} height={400}></Img>
         </RowWrapper>
+        <ColWrapper>
+          <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>
+          <SubText>최근 4일 동안만 완료 여부를 선택할 수 있습니다.</SubText>
+        </ColWrapper>
+
         <Text>
           <span>목표 기간 동안 얼마나 발전했을까?</span>
           <span>월별, 연간 목표 달성 여부를 확인하세요.</span>
@@ -151,6 +163,9 @@ const Page = () => {
           <Img className="slide" src={habitinfo1} alt="habitinfo1" width={400} height={400} ></Img>
           <Img className="slide" src={habitinfo2} alt="habitinfo2" width={400} height={400} ></Img>
         </ImageWrapper>
+        <ColWrapper>
+          <SubText>습관 항목마다 확인 가능합니다.</SubText>
+        </ColWrapper>
       </Section>
       <Section className="others">
         <Title>#other feature</Title>
@@ -183,7 +198,7 @@ const Page = () => {
       </Section>
       <Section className="outro">
         <div>
-          <Button onClick={() => { alert('준비중입니다...') }}>앱 다운로드</Button>
+          <Button onClick={installPwa}>앱 다운로드</Button>
           <Button onClick={() => (router.push('/app'))}>웹으로 시작</Button>
         </div>
         <Logo className="outro">
@@ -381,6 +396,12 @@ const Text = styled.div`
 const SubText = styled.span`
   color: salmon;
   font-size: 14px;
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 16px;
+  }
+  @media (min-width:1024px) { //desktop
+    font-size: 18px;
+  }
 `
 const ImageWrapper = styled.div`
   width : 100dvw;
@@ -427,7 +448,7 @@ const Img = styled(Image)`
   }
   &.slide{
     border-radius: 32px;
-    box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
 
     scroll-snap-align: center;
     scroll-snap-stop: always !important;
