@@ -54,8 +54,8 @@ const HabitInfoModal = ({ habitId }: Props) => {
               <Info>
                 <span className="name"> {habitData?.name ? habitData?.name : '-'}</span>
                 <div className="infoText">
-                  <span>Number of habits</span>
-                  <span>achieved of {format(currentMonth, 'MMMM')}</span>
+                  <span>{format(currentMonth, 'yyyy년 M월')}</span>
+                  <span>실천 횟수</span>
                 </div>
                 <div className="infoCount">{habitCount} / {format(lastDayOfMonth(currentMonth), 'dd')}</div>
               </Info>

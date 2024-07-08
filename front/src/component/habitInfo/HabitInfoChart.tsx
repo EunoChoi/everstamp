@@ -40,14 +40,14 @@ const HabitInfoChart = () => {
     <Chart>
       <Info>
         <div className="text">
-          <span>The achievement</span>
-          <span>count for {year}</span>
+          <span>{year}년 연간</span>
+          <span>실천 횟수</span>
         </div>
         <div className="count">
           {count} / {isLeapYear(year) ? 366 : 365}
         </div>
       </Info>
-      <span className="title">Monthly habit achievement count</span>
+      <span className="title">{year}년 월별 실천 횟수 그래프</span>
       <div className="chartArea">
         {[...Array(12)].map((_, i: number) =>
           <BarWrapper className="barWrapper" key={'month' + i + 1} $count={data && data[i] / 31 * 100}>

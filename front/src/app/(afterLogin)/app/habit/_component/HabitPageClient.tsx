@@ -73,7 +73,7 @@ const HabitPageClient = ({ email }: Props) => {
         </SC_Common.Options>
       </Header>
       <SC_Common.Content className="habit">
-        {(habits === undefined || habits?.length === 0) && <NoHabit>Shall we create a list of habits? 😎</NoHabit>}
+        {(habits === undefined || habits?.length === 0) && <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>}
         <HabitGridList
           ref={gridListRef}
           onScroll={(e) => {

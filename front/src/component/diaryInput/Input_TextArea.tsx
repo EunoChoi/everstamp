@@ -20,7 +20,7 @@ const DiaryInputTextArea = ({ text, setText, inputRef }: Props) => {
       onChange={onChangeText}
       ref={inputRef}
       value={text}
-      placeholder="we can do better" />
+      placeholder="일상의 작은 감정들을 기록하세요." />
   </InputWrapper>
   );
 }

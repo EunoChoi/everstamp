@@ -95,7 +95,7 @@ const ListPageClient = () => {
       <SC_Common.Content className="scroll" ref={contentRef}>
         <EmotionSelector emotion={emotion} setEmotion={setEmotion} />
 
-        {diaries?.pages[0].length === 0 && <NoDiaries>Shall we write in our diaries? 😆</NoDiaries>}
+        {diaries?.pages[0].length === 0 && <NoDiaries>일기 작성을 시작해볼까요? 😀</NoDiaries>}
         {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => {
           const diaryDate = format(data.date, 'MMMM yyyy');
           if (temmDate !== diaryDate) {

@@ -53,7 +53,7 @@ const Page = () => {
           <span>grow every day</span>
         </Logo>
         <Text>
-          <span>감정일기와 습관을 한곳에서 관리하고</span>
+          <span>감정 일기를 작성하고 목표 습관을 달성하며</span>
           <span>당신의 변화와 성장을 기록해보세요.</span>
         </Text>
 
@@ -87,8 +87,8 @@ const Page = () => {
       <Section className="view">
         <Title>#diary feature</Title>
         <Text>
-          <span>달력에서 감정과 습관 성취를 한눈에,</span>
-          <span>목록에서 시간순으로 편하게 확인하세요.</span>
+          <span>감정과 습관 성취를 달력에서 한눈에!</span>
+          <span>일기 목록에서 간단하게!</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400}></Img>}
@@ -101,16 +101,15 @@ const Page = () => {
       <Section className="habit">
         <Title>#habit feature</Title>
         <Text>
-          <span>매일의 습관을 기록하며</span>
-          <span>목표를 향해 한걸음씩 나아가세요.</span>
           <span>작은 변화가 큰 차이를 만듭니다.</span>
+          <span>매일의 습관을 기록하며 나아가세요.</span>
         </Text>
         <RowWrapper>
           <Img className="habitbox" src={habitbox} alt="habitbox" width={400} height={400}></Img>
         </RowWrapper>
         <Text>
-          <span>매달 성취 결과를 달력으로 한눈에,</span>
-          <span>매년 성취 결과를 차트로 한눈에 확인하세요.</span>
+          <span>반성과 성찰도 중요합니다.</span>
+          <span>월별, 연간 목표 달성 여부를 확인하세요.</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} ></Img>}
