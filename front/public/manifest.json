@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/app/calendar",
-    "name": "everstamp",
-    "short_name": "everstamp",
+    "name": "Everstamp",
+    "short_name": "Everstamp",
     "icons": [
         {
             "src": "/icon/icon-192x192.png",

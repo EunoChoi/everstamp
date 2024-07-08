@@ -104,8 +104,8 @@ const Page = () => {
           <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
         </div>
         <ColWrapper>
-          <SubText>일부 브라우저에서 다운로드 버튼이 동작하지 않습니다.</SubText>
-          <SubText>{`'메뉴(공유하기) -> 홈 화면에 추가'로 앱 설치가 가능합니다.`}</SubText>
+          <SubText>앱 다운로드 기능은 크롬 브라우저에 최적화 되어있으며</SubText>
+          <SubText>{`'메뉴(공유하기) -> 홈 화면에 추가'로 가능합니다.`}</SubText>
         </ColWrapper>
       </Section>
       <Section className="emotion">
@@ -152,7 +152,6 @@ const Page = () => {
           <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>
           <SubText>최근 4일 동안만 완료 여부를 선택할 수 있습니다.</SubText>
         </ColWrapper>
-        <span></span>
         <span></span>
         <Text>
           <span>꾸준함이 습관을 만들어냅니다.</span>
