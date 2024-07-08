@@ -1,7 +1,7 @@
 {
     "theme_color": "#979FC7",
     "background_color": "#979FC7",
-    "display": "fullscreen",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/app/calendar",
     "name": "everstamp",

@@ -42,10 +42,6 @@ const Page = () => {
   return (
     <Wrapper>
       <Section className="intro">
-        <div className="topBar">
-          <span>git</span>
-          <span>velog</span>
-        </div>
         <Logo>
           <div>
             <span>ever</span><span>stamp</span>
@@ -87,8 +83,8 @@ const Page = () => {
       <Section className="view">
         <Title>#diary feature</Title>
         <Text>
-          <span>감정과 습관 성취를 달력에서 한눈에!</span>
-          <span>일기 목록에서 간단하게!</span>
+          <span>감정과 성취 습관 확인을 한눈에!</span>
+          <span>달력, 시간순, 감정별 모음으로 확인해요.</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400}></Img>}
@@ -108,7 +104,7 @@ const Page = () => {
           <Img className="habitbox" src={habitbox} alt="habitbox" width={400} height={400}></Img>
         </RowWrapper>
         <Text>
-          <span>반성과 성찰도 중요합니다.</span>
+          <span>목표 기간 동안 얼마나 발전했을까?</span>
           <span>월별, 연간 목표 달성 여부를 확인하세요.</span>
         </Text>
         <ImageWrapper>
@@ -209,33 +205,6 @@ const Section = styled.div`
   justify-content: center;
   align-items: center;
 
-  &.intro{
-    padding-top: 32px;
-    background-color: white;
-    justify-content: space-evenly;
-    position: relative;
-
-    .topBar{
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      width: 100%;
-      height: 32px;
-      background-color : #979FC7;
-      margin: 0;
-
-      position: absolute;
-      top: 0;
-      span{
-        text-transform: uppercase;
-        color: rgb(var(--greyTitle));
-        color: #EFF0F6;
-        font-size: 12px;
-        font-weight: 500;
-        margin-left: 16px;
-      }
-    }
-  }
   &.intro, &.emotion, &.view, &.habit, &.others, &.outro{
     background-color: #EFF0F6;
     width: 100%;
