@@ -101,6 +101,11 @@ const SC_Common = {
       padding: 0 5dvw;
       padding-top: var(--mobileHeader);
       padding-bottom: var(--mobileNav);
+
+      &.habit{
+        padding-left : 0;
+        padding-right: 0;
+      }
     }
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       overflow-y: scroll;

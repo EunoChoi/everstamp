@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   initialScale: 1,
   width: 'device-width',
-  interactiveWidget: 'resizes-content',
-  themeColor: '#f5f5f5',
+  // interactiveWidget: 'resizes-content',
+  themeColor: 'white',
   // interactiveWidget: 'overlays-content'
 }
 
@@ -36,6 +36,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <SessionProvider>
         <StyledComponentsRegistry>
           <body className={pretendard.className}>

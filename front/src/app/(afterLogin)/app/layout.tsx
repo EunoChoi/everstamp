@@ -34,6 +34,14 @@ const AppLayout = ({ children, modal }: Props) => {
   const current = useSelectedLayoutSegment();
   const path = usePathname();
 
+  // Detects if device is on iOS 
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  // Detects if device is in standalone mode
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
   const { data, refetch, error } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
@@ -74,7 +82,7 @@ const AppLayout = ({ children, modal }: Props) => {
           <Mobile_Layout>
             {modal}
             {children}
-            < Mobile_Nav >
+            <Mobile_Nav className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
               <Logo><span>ever</span><span>stamp</span></Logo>
               <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
               <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
@@ -219,6 +227,12 @@ const Mobile_Nav = styled.nav`
 
   color: rgba(0,0,0,0.3);
   border-top: 2px solid rgba(0,0,0,0.05); 
+
+  &.iosPwa{
+    height: calc(var(--mobileNav) + 20px);
+    padding-bottom: 20px;
+  }
+
   > *{
     padding : 0 12px;
     padding-bottom: 2px;
@@ -229,6 +243,8 @@ const Mobile_Nav = styled.nav`
   .current{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};;
   }
+  
+
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     left: 0;

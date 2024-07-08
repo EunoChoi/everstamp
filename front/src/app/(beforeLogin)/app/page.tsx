@@ -52,7 +52,7 @@ const Page = () => {
       </Buttons>
       <BackButton onClick={() => router.push('/')}>
         <ArrowBackIcon />
-        <span>이전 페이지</span>
+        <span>Intro</span>
       </BackButton>
     </Wrapper>
   );

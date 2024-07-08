@@ -143,10 +143,11 @@ const HabitGrid = styled.div`
   scroll-snap-stop: always !important;
 
   @media (max-width: 479px) { //mobile port
+    scroll-snap-align: center;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 12px;
-    padding: 0 4px;
+    padding: 0 5vw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     grid-gap: 6px;
