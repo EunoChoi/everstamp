@@ -3,6 +3,9 @@
 import Image from "next/image";
 import styled from "styled-components";
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
+
 import emotions from '/public/img/emotion/emotions.png';
 import { signIn } from "next-auth/react";
 
@@ -10,9 +13,11 @@ import google from '/public/img/google.png';
 import kakao from '/public/img/kakao.png';
 import naver from '/public/img/naver.png';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { useRouter } from "next/navigation";
 
 
 const Page = () => {
+  const router = useRouter();
   const options = { callbackUrl: `/app/calendar?date=${getCleanTodayTime()}` };
   return (
     <Wrapper>
@@ -29,22 +34,26 @@ const Page = () => {
         <span>당신의 변화와 성장을 기록해보세요</span>
       </TextContent>
       <Buttons>
-        <Button
+        <LoginButton
           className="google"
           onClick={() => signIn('google', options, { prompt: 'consent' })}>
           <Images src={google} alt='google' width={50} height={50} />
-        </Button>
-        <Button
+        </LoginButton>
+        <LoginButton
           className="kakao"
           onClick={() => signIn('kakao', options, { prompt: 'select_account' })}>
           <Images src={kakao} alt='kakao' width={50} height={50} />
-        </Button>
-        <Button
+        </LoginButton>
+        <LoginButton
           className="naver"
           onClick={() => signIn('naver', options)}>
           <Images src={naver} alt='naver' width={50} height={50} />
-        </Button>
+        </LoginButton>
       </Buttons>
+      <BackButton onClick={() => router.push('/')}>
+        <ArrowBackIcon />
+        <span>이전 페이지</span>
+      </BackButton>
     </Wrapper>
   );
 }
@@ -148,7 +157,7 @@ const Logo = styled.div`
 const Buttons = styled.div`
   display: flex;
 `
-const Button = styled.button`
+const LoginButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -173,6 +182,18 @@ const Button = styled.button`
   }
   &.google{
     background-color: white;
+  }
+`
+const BackButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: grey;
+  span{
+    line-height: 0;
+    font-weight: 500;
+    margin-left: 4px;
   }
 `
 const Images = styled(Image)`
