@@ -104,8 +104,8 @@ const Page = () => {
           <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
         </div>
         <ColWrapper>
-          <SubText>일부 브라우저에서 앱 다운로드 버튼이 동작하지 않습니다.</SubText>
-          <SubText>{`'공유하기 -> 홈 화면에 추가'를 진행하여 앱을 설치해주세요.`}</SubText>
+          <SubText>일부 브라우저에서 다운로드 버튼이 동작하지 않습니다.</SubText>
+          <SubText>{`'메뉴(공유하기) -> 홈 화면에 추가'로 앱 설치가 가능합니다.`}</SubText>
         </ColWrapper>
       </Section>
       <Section className="emotion">
@@ -118,11 +118,11 @@ const Page = () => {
         <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
         <ColWrapper>
           <SubText>5가지 감정 선택을 지원합니다.</SubText>
-          <SubText>'기쁨', '행복', '무난', '슬픔', '화남'</SubText>
+          <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
         </ColWrapper>
       </Section>
       <Section className="view">
-        <Title>#diary feature</Title>
+        <Title>#view feature</Title>
         <Text>
           <span>감정과 습관 완료 여부를 한눈에 확인!</span>
           <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
@@ -152,10 +152,11 @@ const Page = () => {
           <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>
           <SubText>최근 4일 동안만 완료 여부를 선택할 수 있습니다.</SubText>
         </ColWrapper>
-
+        <span></span>
+        <span></span>
         <Text>
-          <span>목표 기간 동안 얼마나 발전했을까?</span>
-          <span>월별, 연간 목표 달성 여부를 확인하세요.</span>
+          <span>꾸준함이 습관을 만들어냅니다.</span>
+          <span>월별, 연간 습관 실천 여부를 확인하세요.</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} ></Img>}
@@ -164,7 +165,8 @@ const Page = () => {
           <Img className="slide" src={habitinfo2} alt="habitinfo2" width={400} height={400} ></Img>
         </ImageWrapper>
         <ColWrapper>
-          <SubText>습관 항목마다 확인 가능합니다.</SubText>
+          <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
+          <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
         </ColWrapper>
       </Section>
       <Section className="others">
@@ -264,7 +266,7 @@ const Section = styled.div`
     height: auto;
     padding: 56px 0;
     > *{
-      margin: 20px 0;
+      margin: 24px 0;
     }
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       padding: 64px 0;
