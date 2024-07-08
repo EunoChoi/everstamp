@@ -14,8 +14,14 @@ interface Props {
 const HabitInputButtons = ({ type, onSubmit }: Props) => {
 
   const router = useRouter();
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
   return (
-    <Buttons>
+    <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
       <Button onClick={() => router.back()}>
         <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
       </Button>
@@ -30,12 +36,8 @@ export default HabitInputButtons;
 
 
 const Buttons = styled.div`
-  position: absolute;
-  bottom: 0;
-
   width: 100%;
   height: var(--mobileNav);
-  /* flex-shrink: 0; */
   background-color: #f9f9f9;
   border-top: solid 1px rgba(0,0,0,0.1);
 
@@ -45,6 +47,11 @@ const Buttons = styled.div`
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  &.iosPwa{
+    height: calc(var(--mobileNav) + 20px);
+    padding-bottom: 20px;
+  }
 `
 const Button = styled.button`
   .icon{

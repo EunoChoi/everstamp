@@ -23,6 +23,12 @@ interface ImageProps {
 const ZoomModal = ({ diaryId }: Props) => {
   const router = useRouter();
 
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => getDiary({ id: diaryId }),
@@ -90,7 +96,7 @@ const ZoomModal = ({ diaryId }: Props) => {
 
       {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
 
-      <Buttons>
+      <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
         <Button onClick={() => router.back()} >
           <CancelOutlinedIcon className="icon" />
         </Button>
@@ -115,6 +121,11 @@ const Buttons = styled.div`
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  &.iosPwa{
+    height: calc(var(--mobileNav) + 20px);
+    padding-bottom: 20px;
+  }
 
   @media (max-width: 479px) { //mobile port
     border-radius: 0px;

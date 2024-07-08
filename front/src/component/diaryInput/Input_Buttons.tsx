@@ -35,6 +35,12 @@ interface Err {
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
   const router = useRouter();
 
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
   const ImageUploadMutation = useMutation({
     // mutationFn: (imageFormData: FoamData) => Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });,
     mutationFn: (imageFormData: FormData) => Axios.post('/image', imageFormData),
@@ -100,7 +106,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
         {ImageUploadMutation?.isPending ? <ImageBox className="loading"><Image src={loading} alt="loading" width={100} height={100} /></ImageBox> : <></>}
       </UploadedImages>
     }
-      <Buttons>
+      <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
         <Button onClick={() => router.back()}>
           <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
         </Button>
@@ -206,6 +212,11 @@ const Buttons = styled.div`
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  &.iosPwa{
+    height: calc(var(--mobileNav) + 20px);
+    padding-bottom: 20px;
+  }
 
   @media (max-width: 479px) { //mobile port
     border-radius: 0px;

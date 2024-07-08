@@ -64,14 +64,23 @@ const AddHabitModal = () => {
   return (
     <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Title>Add Habit</Title>
-        <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
+        <Content>
+          <Title>Add Habit</Title>
+          <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
+        </Content>
         <HabitInputButtons onSubmit={addHabit} />
       </Modal>
     </Wrapper>);
 }
 export default AddHabitModal;
 
+const Content = styled.div`
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;
   display: flex;
@@ -101,11 +110,7 @@ const Modal = styled.div`
   justify-content: center;
 
   background-color: white;
-  
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
-
-  padding-top: 12px;
-  padding-bottom: calc(var(--mobileNav) + 12px);
 
   width: 100dvw;
   height: 100dvh;

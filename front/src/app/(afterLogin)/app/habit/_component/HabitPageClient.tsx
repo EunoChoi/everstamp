@@ -29,6 +29,11 @@ interface Props {
 const HabitPageClient = ({ email }: Props) => {
 
   const router = useRouter();
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
   const gridListRef = useRef<HTMLDivElement>(null);
 
@@ -72,7 +77,7 @@ const HabitPageClient = ({ email }: Props) => {
           </button>
         </SC_Common.Options>
       </Header>
-      <SC_Common.Content className="habit">
+      <SC_Common.Content className={(isInStandaloneMode() && isIos()) ? 'habit iosPwa' : 'habit'}>
         {(habits === undefined || habits?.length === 0) && <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>}
         <HabitGridList
           ref={gridListRef}

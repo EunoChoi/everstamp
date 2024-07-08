@@ -20,6 +20,11 @@ import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
 const SettingPageClient = () => {
   const queryClient = useQueryClient();
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
   const { data } = useQuery({
     queryKey: ['user'],
@@ -76,7 +81,7 @@ const SettingPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className="setting">
+      <SC_Common.Content className={(isInStandaloneMode() && isIos()) ? 'setting iosPwa' : 'setting'}>
         <Header title='setting' ></Header>
         <SC_Common.Options />
         <Section>

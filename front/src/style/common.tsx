@@ -95,13 +95,16 @@ const SC_Common = {
       overflow-y: scroll;
       justify-content: start;
     }
-        
+    
     @media (max-width: 479px) { //mobile portrait
       height: 100dvh;
       padding: 0 5dvw;
       padding-top: var(--mobileHeader);
       padding-bottom: var(--mobileNav);
 
+      &.iosPwa{
+        padding-bottom: calc(var(--mobileNav) + 20px);
+      }
       &.habit{
         padding-left : 0;
         padding-right: 0;

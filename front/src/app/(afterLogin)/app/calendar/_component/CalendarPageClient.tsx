@@ -28,6 +28,12 @@ const CalendarPageClient = ({ date }: Props) => {
   const isMobile = IsMobile();
   const router = useRouter();
 
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
     queryFn: () => getDiary_date({ date }),
@@ -42,7 +48,7 @@ const CalendarPageClient = ({ date }: Props) => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className="noOption">
+      <SC_Common.Content className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
         <Header title='calendar' />
         {isMobile && <CalendarWrapper><CalendarSelector /></CalendarWrapper>}
         <Diary diaryData={diaryData} position="calendar" />
