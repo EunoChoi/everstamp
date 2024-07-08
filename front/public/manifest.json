@@ -1,6 +1,6 @@
 {
-    "theme_color": "#979FC7",
-    "background_color": "#979FC7",
+    "theme_color": "#F8F8F8",
+    "background_color": "#F8F8F8",
     "display": "standalone",
     "scope": "/",
     "start_url": "/app/calendar",
