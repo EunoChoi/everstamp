@@ -58,16 +58,16 @@ const Page = () => {
         </Text>
 
         <ImageWrapper>
-          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} priority></Img>}
-          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400} priority></Img>}
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1400} height={400} priority></Img>}
+          {/* {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400} priority></Img>} */}
           <Img className="slide" src={calendar} alt="calendar" width={400} height={400} priority></Img>
           <Img className="slide" src={list} alt="list" width={400} height={400} ></Img>
           <Img className="slide" src={zoom1} alt="zoom1" width={400} height={400} ></Img>
-          <Img className="slide" src={zoom2} alt="zoom2" width={400} height={400} ></Img>
+          {/* <Img className="slide" src={zoom2} alt="zoom2" width={400} height={400} ></Img> */}
           <Img className="slide" src={habit} alt="habit" width={400} height={400} ></Img>
-          <Img className="slide" src={habitinfo1} alt="habitinfo1" width={400} height={400} ></Img>
+          {/* <Img className="slide" src={habitinfo1} alt="habitinfo1" width={400} height={400} ></Img> */}
           <Img className="slide" src={habitinfo2} alt="habitinfo2" width={400} height={400} ></Img>
-          <Img className="slide" src={setting} alt="setting" width={400} height={400} ></Img>
+          {/* <Img className="slide" src={setting} alt="setting" width={400} height={400} ></Img> */}
         </ImageWrapper>
 
         <div>
@@ -142,9 +142,9 @@ const Page = () => {
         </RowWrapper>
 
         <ImageWrapper className="desktopNoScroll">
-          <Img className="slide" src={otherinfo1} alt="otherinfo1" width={300} height={300} ></Img>
-          <Img className="slide" src={otherinfo2} alt="otherinfo2" width={300} height={300} ></Img>
-          <Img className="slide" src={otherinfo3} alt="otherinfo3" width={300} height={300} ></Img>
+          <Img className="slide otherinfo" src={otherinfo1} alt="otherinfo1" width={300} height={300} ></Img>
+          <Img className="slide otherinfo" src={otherinfo2} alt="otherinfo2" width={300} height={300} ></Img>
+          <Img className="slide otherinfo" src={otherinfo3} alt="otherinfo3" width={300} height={300} ></Img>
         </ImageWrapper>
       </Section>
       <Section className="outro">
@@ -415,7 +415,7 @@ const Img = styled(Image)`
     }
   }
   &.slide{
-    border-radius: 16px;
+    border-radius: 32px;
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
 
     scroll-snap-align: center;
@@ -424,13 +424,16 @@ const Img = styled(Image)`
 
     
     max-width: 100dvw;
-    max-height: 80dvh;
+    max-height: 70dvh;
     width: 60dvw;
     height: auto;
   }
+  &.otherinfo{
+    border-radius: 16px;
+  }
   &.desktop{
     max-width: 80dvw;
-    max-height: 80dvh;
+    max-height: 70dvh;
     width: auto;
     height: auto;
   }

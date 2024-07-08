@@ -19,6 +19,12 @@ interface Props {
 const HabitInfoModal = ({ habitId }: Props) => {
   const router = useRouter();
 
+  const isIos = () => {
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    return /iphone|ipad|ipod/.test(userAgent);
+  }
+  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
   const [habitCount, setHabitCount] = useState<number>(0);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const slideWrapperRef = useRef<HTMLDivElement>(null);
@@ -71,7 +77,7 @@ const HabitInfoModal = ({ habitId }: Props) => {
       </Content>
 
 
-      <Buttons>
+      <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
         <Button onClick={() => router.back()} >
           <CancelOutlinedIcon className="icon" />
         </Button>
@@ -261,6 +267,11 @@ const Buttons = styled.div`
 
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+
+  &.iosPwa{
+    height: calc(var(--mobileNav) + 20px);
+    padding-bottom: 20px;
+  }
 
   @media (min-width:1024px) { //desktop
     border-radius: 8px;
