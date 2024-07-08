@@ -30,6 +30,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import PhonelinkIcon from '@mui/icons-material/Phonelink';
 import IsMobile from "@/function/IsMobile";
+import { useEffect, useState } from "react";
 
 
 const Page = () => {
@@ -37,8 +38,41 @@ const Page = () => {
   const router = useRouter();
   const isMobile = IsMobile();
 
-  if (isMobile == null) return <></>;
+  const [pwa, setPwa] = useState<any>(null);
 
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: any) => {
+      console.log(e);
+      e.preventDefault();
+      setPwa(e);
+    }
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    }
+  }, [isMobile]);
+
+  const installPwa = () => {
+    if (pwa) {
+      pwa.prompt();
+      pwa.userChoice.then((result: any) => {
+        if (result.outcome === 'accepted') {
+          console.log('install pwa...');
+        }
+        else {
+          console.log('deny');
+        }
+        setPwa(null);
+      })
+    }
+    else {
+      alert(`자동 설치가 지원되지 않는 브라우저 입니다. '메뉴 -> 홈 화면에 추가'를 진행하여 앱을 설치해주세요.`)
+    }
+  }
+
+
+
+  if (isMobile == null) return <></>;
   return (
     <Wrapper>
       <Section className="intro">
@@ -67,9 +101,13 @@ const Page = () => {
         </ImageWrapper>
 
         <div>
-          <Button onClick={() => { alert('준비중입니다...') }}>앱 다운로드</Button>
+          <Button onClick={installPwa}>앱 다운로드</Button>
           <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
         </div>
+        <ColWrapper>
+          <SubText>Safari 브라우저의 경우 앱 다운로드 버튼이 동작하지 않습니다.</SubText>
+          <SubText>{`'공유하기 -> 홈 화면에 추가'를 진행하여 앱을 설치해주세요.`}</SubText>
+        </ColWrapper>
       </Section>
       <Section className="emotion">
         <Title>#emotions</Title>
@@ -339,6 +377,10 @@ const Text = styled.div`
       line-height: 1.5;
     }
   }
+`
+const SubText = styled.span`
+  color: salmon;
+  font-size: 14px;
 `
 const ImageWrapper = styled.div`
   width : 100dvw;

@@ -17,7 +17,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   width: 'device-width',
   // interactiveWidget: 'resizes-content',
-  themeColor: 'white',
+  themeColor: '#ffffff',
   // interactiveWidget: 'overlays-content'
 }
 
