@@ -7,7 +7,6 @@ import { ReactNode, useEffect } from "react";
 
 //component
 import CalendarSelector from "@/component/CalendarSelector";
-import Loading from "@/component/Loading";
 
 //hooks
 import IsMobile from "@/function/IsMobile";
@@ -17,8 +16,6 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import BookIcon from '@mui/icons-material/Book';
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
@@ -54,8 +51,6 @@ const AppLayout = ({ children, modal }: Props) => {
     refetch();
   }, [path]);
 
-  //loading page, to solve useMediaQuery delay problem
-  // if (isMobile === null) return <ThemeProvider theme={theme}><Loading /></ThemeProvider>;
   if (isMobile === null) return <></>;
   return (
     <SnackbarProvider
@@ -104,10 +99,6 @@ const AppLayout = ({ children, modal }: Props) => {
                 <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
               </Menus>
               <div></div>
-              {/* <Links>
-                <span><GitHubIcon fontSize="inherit" /></span>
-                <span><BookIcon fontSize="inherit" /></span>
-              </Links> */}
             </Desktop_Sidebar>
 
             <Desktop_Content>
