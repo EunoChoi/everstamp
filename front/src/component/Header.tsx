@@ -51,7 +51,7 @@ const Wrapper = styled.div`
     justify-content: space-between;
     width: calc(100dvw - var(--sidebarWidth));
     height: var(--desktopHeader);
-    max-width: 800px;
+    max-width: 700px;
     padding: 0 20px;
   }
 `

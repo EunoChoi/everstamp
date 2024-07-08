@@ -37,6 +37,8 @@ const Page = () => {
   const router = useRouter();
   const isMobile = IsMobile();
 
+  if (isMobile == null) return <></>;
+
   return (
     <Wrapper>
       <Section className="intro">
@@ -56,8 +58,8 @@ const Page = () => {
         </Text>
 
         <ImageWrapper>
-          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1400} height={1400} priority></Img>}
-          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1400} height={1400} priority></Img>}
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} priority></Img>}
+          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400} priority></Img>}
           <Img className="slide" src={calendar} alt="calendar" width={400} height={400} priority></Img>
           <Img className="slide" src={list} alt="list" width={400} height={400} ></Img>
           <Img className="slide" src={zoom1} alt="zoom1" width={400} height={400} ></Img>
@@ -89,7 +91,7 @@ const Page = () => {
           <span>목록에서 시간순으로 편하게 확인하세요.</span>
         </Text>
         <ImageWrapper>
-          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1400} height={1400}></Img>}
+          {isMobile || <Img className="slide desktop" src={listDesktop} alt="calendar" width={1200} height={400}></Img>}
           <Img className="slide" src={calendar} alt="calendar" width={400} height={400} ></Img>
           <Img className="slide" src={list} alt="list" width={400} height={400} ></Img>
           <Img className="slide" src={zoom1} alt="zoom1" width={400} height={400} ></Img>
@@ -111,8 +113,8 @@ const Page = () => {
           <span>매년 성취 결과를 차트로 한눈에 확인하세요.</span>
         </Text>
         <ImageWrapper>
-          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1400} height={1400} ></Img>}
-          {isMobile || <Img className="slide desktop" src={habitinfoDesktop2} alt="habitinfoDesktop2" width={1400} height={1400} ></Img>}
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} ></Img>}
+          {isMobile || <Img className="slide desktop" src={habitinfoDesktop2} alt="habitinfoDesktop2" width={1200} height={400} ></Img>}
           <Img className="slide" src={habitinfo1} alt="habitinfo1" width={400} height={400} ></Img>
           <Img className="slide" src={habitinfo2} alt="habitinfo2" width={400} height={400} ></Img>
         </ImageWrapper>
@@ -394,10 +396,10 @@ const ImageWrapper = styled.div`
 const Img = styled(Image)`
   width: auto;
   &.emotionImg{
-      width: 200px;
+    width: 200px;
   }
   &.habitbox{
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
 
     width: 200px;
     height: 200px;
@@ -415,20 +417,22 @@ const Img = styled(Image)`
   }
   &.slide{
     border-radius: 16px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.1);
-
-    max-width: 100dvw;
-    max-height: 80dvh;
-    width: 60dvw;
-    height: auto;
+    box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
 
     scroll-snap-align: center;
     scroll-snap-stop: always !important;
     margin: 0 16px;
+
+    
+    max-width: 100dvw;
+    max-height: 80dvh;
+    width: 60dvw;
+    height: auto;
   }
   &.desktop{
-    max-width: 100dvw;
-    height: auto;
+    max-width: 80dvw;
+    max-height: 80dvh;
     width: auto;
+    height: auto;
   }
 `

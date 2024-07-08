@@ -26,7 +26,7 @@ const SC_Common = {
     padding: 0 20px;  
 
     width: 100%;
-    max-width: 800px;
+    max-width: 700px;
     min-width: 400px;
     height: 100dvh;
 
