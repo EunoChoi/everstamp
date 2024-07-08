@@ -3,13 +3,11 @@ import { Suspense } from "react";
 
 type Props = {
   children: ReactNode;
-  modal: ReactNode;
 }
 
-const Layout = ({ children, modal }: Props) => {
+const Layout = ({ children }: Props) => {
   return (
     <Suspense>
-      {modal}
       {children}
     </Suspense>
   );
