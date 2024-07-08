@@ -2,12 +2,18 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-import Link from "next/link";
-import tree from '/public/img/tree.png';
+
 import emotions from '/public/img/emotion/emotions.png';
+import { signIn } from "next-auth/react";
+
+import google from '/public/img/google.png';
+import kakao from '/public/img/kakao.png';
+import naver from '/public/img/naver.png';
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 
 const Page = () => {
+  const options = { callbackUrl: `/app/calendar?date=${getCleanTodayTime()}` };
   return (
     <Wrapper>
       <Logo>
@@ -16,13 +22,29 @@ const Page = () => {
         <span className="sub">grow every day</span>
       </Logo>
 
-      <Img src={emotions} priority width={800} height={800} alt='emotions'></Img>
+      <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
 
       <TextContent>
         <span>감정일기와 습관을 한곳에서 관리하고</span>
         <span>당신의 변화와 성장을 기록해보세요</span>
       </TextContent>
-      <Link href='/app/calendar' scroll={false}><Button>start</Button></Link>
+      <Buttons>
+        <Button
+          className="google"
+          onClick={() => signIn('google', options, { prompt: 'consent' })}>
+          <Images src={google} alt='google' width={50} height={50} />
+        </Button>
+        <Button
+          className="kakao"
+          onClick={() => signIn('kakao', options, { prompt: 'select_account' })}>
+          <Images src={kakao} alt='kakao' width={50} height={50} />
+        </Button>
+        <Button
+          className="naver"
+          onClick={() => signIn('naver', options)}>
+          <Images src={naver} alt='naver' width={50} height={50} />
+        </Button>
+      </Buttons>
     </Wrapper>
   );
 }
@@ -51,13 +73,10 @@ const Wrapper = styled.div`
     >*{ margin: 32px  0; }
   }
 `
-
 const Img = styled(Image)`
   object-fit: contain;
-  width: 250px;
+  width: 300px;
 `;
-
-
 const TextContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -111,18 +130,53 @@ const Logo = styled.div`
     font-size: 56px;
   }
 `
+// const Button = styled.button`
+//   cursor: pointer;
+
+//   background-color : #979FC7;
+//   color: #EFF0F6;
+//   font-size: 16px;
+//   font-weight: 600;
+//   text-transform: uppercase;
+
+//   padding: 4px 20px;
+//   border-radius: 48px;
+//   @media (min-width:1024px) { //desktop
+//     font-size: 18px;
+//   }
+// `
+const Buttons = styled.div`
+  display: flex;
+`
 const Button = styled.button`
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width : 42px;
+  height: 42px;
+  border-radius: 42px;
+  border : 2px solid rgba(0,0,0,0.1);
+  margin: 4px;
 
-  background-color : #979FC7;
-  color: #EFF0F6;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-
-  padding: 4px 20px;
-  border-radius: 48px;
   @media (min-width:1024px) { //desktop
-    font-size: 18px;
+    width : 56px;
+    height: 56px;
+    margin: 6px;
   }
+
+  &.kakao{
+    background-color: rgb(250, 225, 0);
+  }
+  &.naver{
+    background-color: rgb(2, 199, 60);
+  }
+  &.google{
+    background-color: white;
+  }
+`
+const Images = styled(Image)`
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
 `

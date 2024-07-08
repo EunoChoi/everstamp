@@ -47,7 +47,7 @@ const AppLayout = ({ children, modal }: Props) => {
   }
 
   if (error) {
-    redirect('/app/inter/login');
+    redirect('/app');
   }
 
   useEffect(() => {
