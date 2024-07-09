@@ -104,7 +104,8 @@ const Page = () => {
           <Button onClick={() => (router.push('/app'))}>실행하기</Button>
         </div>
         <ColWrapper>
-          <SubText>앱 다운로드 기능은 크롬 브라우저에 최적화 되어있습니다.</SubText>
+          <SubText>쾌적한 이용을 위해 앱을 설치해 주세요.</SubText>
+          <SubText>웹 브라우저 환경에 따라 레이아웃이 어긋날 수 있습니다.</SubText>
           <SubText>{`* 앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
         </ColWrapper>
       </Section>
