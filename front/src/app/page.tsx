@@ -82,8 +82,8 @@ const Page = () => {
           <span>grow every day</span>
         </Logo>
         <Text>
-          <span>당신의 긍정적 변화와 성장을 위한</span>
-          <span>감정 일기와 습관 만들기를 실천하세요.</span>
+          <span>감정 일기를 적고 습관을 실천하세요.</span>
+          <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
         </Text>
 
         <ImageWrapper>
@@ -101,7 +101,7 @@ const Page = () => {
 
         <div>
           <Button onClick={installPwa}>앱 다운로드</Button>
-          <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
+          <Button onClick={() => (router.push('/app'))}>실행하기</Button>
         </div>
         <ColWrapper>
           <SubText>앱 다운로드 기능은 크롬 브라우저에 최적화 되어있습니다.</SubText>
@@ -111,7 +111,7 @@ const Page = () => {
       <Section className="emotion">
         <Title>#emotions</Title>
         <Text>
-          <span>나의 모든 감정을 솔직하게 기록하면</span>
+          <span>일기를 쓰며 감정과 생각을 정리하세요.</span>
           <span>나를 이해하고 사랑하는데 도움이 됩니다.</span>
           <span>함께 감정 일기를 시작해볼까요?</span>
         </Text>
@@ -124,7 +124,7 @@ const Page = () => {
       <Section className="view">
         <Title>#view feature</Title>
         <Text>
-          <span>감정과 습관 완료 여부를 한눈에 확인!</span>
+          <span>일기, 감정, 습관 실천 목록을 한눈에!</span>
           <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
         </Text>
         <ImageWrapper>
@@ -143,7 +143,7 @@ const Page = () => {
         <Title>#habit feature</Title>
         <Text>
           <span>작은 변화가 큰 차이를 만듭니다.</span>
-          <span>매일의 습관을 기록하며 나아가세요.</span>
+          <span>매일 실천한 습관들을 기록하세요.</span>
         </Text>
         <RowWrapper>
           <Img className="habitbox" src={habitbox} alt="habitbox" width={400} height={400}></Img>
@@ -154,8 +154,8 @@ const Page = () => {
         </ColWrapper>
         <span></span>
         <Text>
-          <span>꾸준함이 습관을 만들어냅니다.</span>
-          <span>월별, 연간 습관 실천 여부를 확인하세요.</span>
+          <span>21일간 지속하면 습관이 형성됩니다. </span>
+          <span>누적된 실천들을 매달, 매년 확인하세요.</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} ></Img>}
@@ -200,7 +200,7 @@ const Page = () => {
       <Section className="outro">
         <div>
           <Button onClick={installPwa}>앱 다운로드</Button>
-          <Button onClick={() => (router.push('/app'))}>웹으로 시작</Button>
+          <Button onClick={() => (router.push('/app'))}>실행하기</Button>
         </div>
         <Logo className="outro">
           <div>
