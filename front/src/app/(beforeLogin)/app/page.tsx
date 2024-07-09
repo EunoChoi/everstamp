@@ -30,8 +30,8 @@ const Page = () => {
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
 
       <TextContent>
-        <span>감정일기와 습관을 한곳에서 관리하고</span>
-        <span>당신의 변화와 성장을 기록해보세요</span>
+        <span>감정 일기를 적고 습관을 실천하세요.</span>
+        <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
       </TextContent>
       <Buttons>
         <LoginButton
