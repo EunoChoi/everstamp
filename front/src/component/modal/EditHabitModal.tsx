@@ -78,13 +78,23 @@ const EditHabitModal = ({ habitId }: Props) => {
         <Content>
           <Title>Edit Habit</Title>
           <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
+          <SubText>우선순위가 높은 경우 습관 목록 상단에 정렬됩니다.</SubText>
         </Content>
         <HabitInputButtons onSubmit={onEditHabit} type="edit" />
       </Modal>
     </Wrapper>);
 }
 export default EditHabitModal;
+const SubText = styled.span`
+  margin-top: 36px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: salmon;
+
+  font-size: 14px;
+`
 const Content = styled.div`
   height: 100%;
   flex-grow: 1;
@@ -131,6 +141,7 @@ const Modal = styled.div`
     border-radius: 8px;
   }
 `
+
 const Title = styled.span`
   width: 100%;
   text-align: center;
