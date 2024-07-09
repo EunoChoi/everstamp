@@ -24,7 +24,7 @@
   --desktopHeader: 96px;
   --optionHeight: 47px;
   --mobileHeader: 56px;
-  --mobileNav: 42px;
+  --mobileNav: 48px;
 }
 
 
@@ -45,6 +45,12 @@ textarea {
 * {
   scrollbar-width: none;
   -ms-overflow-style: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 
   &::-webkit-scrollbar {
     display: none;

@@ -65,7 +65,7 @@ const Page = () => {
       })
     }
     else {
-      alert(`이미 앱이 설치되어 있는 경우 혹은\n자동 설치를 지원하지 않는 브라우저입니다.\n \n '메뉴(공유하기)->홈 화면에 추가'를\n진행하여 앱을 설치해주세요.`);
+      alert(`이미 앱이 설치되어 있는 경우 혹은\n퀵 설치 기능을 지원하지 않는 브라우저입니다.\n \n '메뉴(공유하기)->홈 화면에 추가'를\n진행하여 앱을 설치해주세요.`);
     }
   }
 
@@ -104,8 +104,8 @@ const Page = () => {
           <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
         </div>
         <ColWrapper>
-          <SubText>앱 다운로드 기능은 크롬 브라우저에 최적화 되어있으며</SubText>
-          <SubText>{`'메뉴(공유하기) -> 홈 화면에 추가'로 가능합니다.`}</SubText>
+          <SubText>앱 다운로드 기능은 크롬 브라우저에 최적화 되어있습니다.</SubText>
+          <SubText>{`* 앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
         </ColWrapper>
       </Section>
       <Section className="emotion">
