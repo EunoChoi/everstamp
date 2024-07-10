@@ -76,7 +76,7 @@ const IntroMobile = () => {
         <span>감정 일기를 적고 습관을 실천하세요.</span>
         <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
       </Text>
-      <ImageCarousel images={introImages} keyValue="mobileIntro" type="none" width="100%" height="70dvh" borderRadius="16px" />
+      <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="85dvh" borderRadius="16px" />
       <div>
         <Button onClick={installPwa}>앱 다운로드</Button>
         <Button onClick={() => (router.push('/app'))}>실행하기</Button>
@@ -106,7 +106,7 @@ const IntroMobile = () => {
         <span>일기, 감정, 습관 목록을 한눈에!</span>
         <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
       </Text>
-      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="none" width="100%" height="70dvh" borderRadius="16px" />
+      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="fullWidth" width="100%" height="85dvh" borderRadius="16px" />
 
       <ColWrapper>
         <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
@@ -131,7 +131,7 @@ const IntroMobile = () => {
         <span>습관이 형성되는 시간 21일!</span>
         <span>실천 결과를 확인하고 점검하세요.</span>
       </Text>
-      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="none" width="100%" height="70dvh" borderRadius="16px" />
+      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="85dvh" borderRadius="16px" />
       <ColWrapper>
         <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
         <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
@@ -160,7 +160,7 @@ const IntroMobile = () => {
         </ColWrapper>
       </RowWrapper>
 
-      <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="none" width="100%" height="400px" borderRadius="16px" />
+      <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
     </Mobile_Section>
     <Mobile_Section className="outro">
       <div>

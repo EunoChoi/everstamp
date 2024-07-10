@@ -46,26 +46,20 @@ const Wrapper = styled.div <{ $height: string, $width: string }> `
   height: ${props => props.$height};
   width: ${props => props.$width};
 
+  min-height: 450px;
+
   display: flex;
   flex-direction: column;
 `
 const SlideWrapper = styled.div`
+  width : 100%;
+  height: 100%;
+
   overflow-x: scroll;
   display : flex;
   flex-direction: row;
 
   scroll-snap-type: x mandatory;
-
-  &.fullWidth{
-    width : 100%;
-    height: 0%;
-    flex-grow: 1;
-  }
-  &.none{
-    width : 100%;
-    height: 0%;
-    flex-grow: 1;
-  }
 `
 const ImgBox = styled.div`
   display: flex;
@@ -80,10 +74,12 @@ const ImgBox = styled.div`
   scroll-snap-stop: always !important;
 
   &.none{
+    height: 100%;
     width: auto;
     max-width: 100%;
+    /* border : 2px black solid; */
     &:first-child{
-    margin-left: 40%;
+      margin-left: 40%;
     }
     &:last-child{
       margin-right: 40%;
