@@ -98,7 +98,7 @@ const IntroDesktop = () => {
         </ColWrapper>
       </div>
       <div>
-        <ImageCarousel images={introImages} keyValue="intro" type="fullWidth" width="100%" height="85%" borderRadius="16px" />
+        <ImageCarousel images={introImages} keyValue="intro" type="fullWidth" width="100%" height="85%" borderRadius="32px" />
       </div>
     </Desktop_Section>
     <Desktop_Section className="emotion right">
@@ -114,8 +114,8 @@ const IntroDesktop = () => {
           <span>감정 일기를 시작해볼까요?</span>
         </Text>
         <ColWrapper className="right">
-          <SubText>5가지 감정 선택을 지원합니다.</SubText>
           <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
+          <SubText>5가지 감정 선택을 지원합니다.</SubText>
         </ColWrapper>
       </div>
     </Desktop_Section>
@@ -132,7 +132,7 @@ const IntroDesktop = () => {
         </ColWrapper>
       </div>
       <div>
-        <ImageCarousel images={viewImages} keyValue="view" type="fullWidth" width="100%" height="85%" borderRadius="16px" />
+        <ImageCarousel images={viewImages} keyValue="view" type="fullWidth" width="100%" height="85%" borderRadius="32px" />
       </div>
     </Desktop_Section>
     <Desktop_Section className="habit small right">
@@ -164,7 +164,7 @@ const IntroDesktop = () => {
         </ColWrapper>
       </div>
       <div>
-        <ImageCarousel images={habitImages} keyValue="habit" type="fullWidth" width="100%" height="85%" borderRadius="16px" />
+        <ImageCarousel images={habitImages} keyValue="habit" type="fullWidth" width="100%" height="85%" borderRadius="32px" />
       </div>
     </Desktop_Section>
     <Desktop_Section className="others center">
@@ -182,7 +182,7 @@ const IntroDesktop = () => {
           <span>멀티 플랫폼</span>
         </ColWrapper>
       </RowWrapper>
-      <ImageWrapper className="desktopNoScroll">
+      <ImageWrapper>
         <Img className="otherinfo" src={otherinfo1} alt="otherinfo1" width={300} height={300} priority></Img>
         <Img className="otherinfo" src={otherinfo2} alt="otherinfo2" width={300} height={300} priority></Img>
         <Img className="otherinfo" src={otherinfo3} alt="otherinfo3" width={300} height={300} ></Img>
@@ -469,22 +469,9 @@ const SubText = styled.span`
 `
 const ImageWrapper = styled.div`
   width : 100%;
-  overflow-x: scroll;
   display : flex;
-
-  scroll-snap-type: x mandatory;
-  padding: 12px 40dvw;
-
-  @media (min-width:1024px) { //desktop
-    /* padding: 12px 40%; */
-    padding: 0;
-  }
-
-  &.desktopNoScroll{
-    padding: 12px 0;
-    justify-content: center;
-    overflow-x: hidden;
-  }
+  justify-content: center;
+  padding: 12px 0;
 `
 const Img = styled(Image)`
   width: auto;
@@ -497,44 +484,11 @@ const Img = styled(Image)`
   &.habitbox{
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
 
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 16px;
     background-color: white;
     margin: 0 4px;
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-      width: 240px;
-      height: 240px;
-    }
-    @media (min-width:1024px) { //desktop
-      width: 280px;
-      height: 280px;
-    }
-  }
-  &.slide{
-    border-radius: 32px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
-
-    scroll-snap-align: center;
-    scroll-snap-stop: always !important;
-    margin: 0 16px;
-
-    
-    max-width: 100dvw;
-    max-height: 70dvh;
-    
-    height: auto;
-    @media (max-width: 479px) { //mobile port
-      width: 60dvw;
-    }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-      width: auto;
-    }
-    @media (min-width:1024px) { //desktop
-      width: auto;
-      max-height: 75dvh;
-      margin: 0;
-    }
   }
   &.otherinfo{
     width: 250px;
@@ -542,11 +496,5 @@ const Img = styled(Image)`
     box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
     border-radius: 16px;
     margin: 0 16px;
-  }
-  &.desktop{
-    max-width: 80dvw;
-    max-height: 70dvh;
-    width: auto;
-    height: auto;
   }
 `

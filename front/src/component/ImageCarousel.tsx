@@ -46,7 +46,7 @@ const Wrapper = styled.div <{ $height: string, $width: string }> `
   height: ${props => props.$height};
   width: ${props => props.$width};
 
-  min-height: 450px;
+  min-height: 350px;
 
   display: flex;
   flex-direction: column;
