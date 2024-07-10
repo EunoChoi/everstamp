@@ -37,7 +37,8 @@ const IndicatorWrapper = styled.div`
     height: 12px;
     border-radius: 12px;
     background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
+    background-color: white;
+    border: 1px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC790'};
 
     margin: 4px;
     @media (max-width: 479px) { //mobile port
