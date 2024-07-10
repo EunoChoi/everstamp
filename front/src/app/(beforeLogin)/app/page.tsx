@@ -4,7 +4,6 @@ import Image from "next/image";
 import styled from "styled-components";
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 
 import emotions from '/public/img/emotion/emotions.png';
 import { signIn } from "next-auth/react";

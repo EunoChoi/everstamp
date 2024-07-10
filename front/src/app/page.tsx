@@ -155,8 +155,8 @@ const Page = () => {
         </ColWrapper>
         <span></span>
         <Text>
-          <span>21일간 지속하면 습관이 형성됩니다. </span>
-          <span>누적된 실천들을 매달, 매년 확인하세요.</span>
+          <span>습관이 형성되는 시간 21일!</span>
+          <span>실천 결과를 확인하고 점검하세요.</span>
         </Text>
         <ImageWrapper>
           {isMobile || <Img className="slide desktop" src={habitinfoDesktop1} alt="habitinfoDesktop1" width={1200} height={400} ></Img>}
