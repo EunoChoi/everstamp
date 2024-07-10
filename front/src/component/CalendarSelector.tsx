@@ -223,15 +223,10 @@ const DateValue = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  /* min-height: 350px; */
 
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    height: 90dvh !important;
-    margin-bottom: 24px;
-  }
 `
 
 //calendar header

@@ -21,8 +21,10 @@ const Page = () => {
   return (
     <Wrapper>
       <Logo>
-        <span>ever</span>
-        <span>stamp</span>
+        <div className="main">
+          <span>ever</span>
+          <span>stamp</span>
+        </div>
         <span className="sub">grow every day</span>
       </Logo>
 
@@ -84,6 +86,10 @@ const Wrapper = styled.div`
 const Img = styled(Image)`
   object-fit: contain;
   width: 300px;
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: auto;
+    height: 50px;
+  }
 `;
 const TextContent = styled.div`
   display: flex;
@@ -95,10 +101,10 @@ const TextContent = styled.div`
     line-height: 130%;    
   }
   @media (max-width: 479px) { //mobile port
-    span{ font-size: 18px; }
+    span{ font-size: 16px; }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    span{ font-size: 16px; }
+    span{ font-size: 14px; }
   }
   @media (min-width:1024px) { //desktop
     span{ font-size: 20px; }
@@ -107,52 +113,64 @@ const TextContent = styled.div`
 const Logo = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   flex-shrink : 0;
-  span {
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 100%;
-    text-align: center;
-    color: rgb(var(--greyTitle));
-  }
-  span::first-letter{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
-  .sub{
-    margin-top: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #EF9C92 !important;
-    text-transform: capitalize;
-    &::first-letter{
-    color: #EF9C92;
+
+  .main{
+    display: flex;
+    flex-direction: column;
+
+    span {
+      margin: 0 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 100%;
+      text-align: center;
+      color: rgb(var(--greyTitle));
+    }
+    span::first-letter{
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
+  
+  .sub{
+    font-weight: 600;
+    color: #EF9C92;
+    text-transform: capitalize;
+  }
+
   @media (max-width: 479px) { //mobile port
-    font-size: 42px;
+    .main{
+      span{
+        font-size: 42px;
+      }
+    }
+    .sub{
+      font-size: 16px;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 32px;
+    .main{
+      flex-direction: row;
+      span{
+        font-size: 32px;
+      }
+    }
+    .sub{
+      font-size: 18px;
+    }
   }
   @media (min-width:1024px) { //desktop
-    font-size: 56px;
+    .main{
+      span{
+        font-size: 56px;
+      }
+    }
+    .sub{
+      font-size: 20px;
+    }
   }
 `
-// const Button = styled.button`
-//   cursor: pointer;
-
-//   background-color : #979FC7;
-//   color: #EFF0F6;
-//   font-size: 16px;
-//   font-weight: 600;
-//   text-transform: uppercase;
-
-//   padding: 4px 20px;
-//   border-radius: 48px;
-//   @media (min-width:1024px) { //desktop
-//     font-size: 18px;
-//   }
-// `
 const Buttons = styled.div`
   display: flex;
 `

@@ -26,6 +26,8 @@ const Wrapper = styled.div`
   top: 0;
   z-index: 99;
 
+
+
   display: flex;
   flex-shrink: 0;
 
@@ -73,6 +75,6 @@ const Title = styled(Link)`
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 5vh;
+    font-size: 28px;
   }
 `

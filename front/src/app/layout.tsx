@@ -5,7 +5,9 @@ import "./globals.css";
 import localFont from "next/font/local";
 import StyledComponentsRegistry from "../../lib/registry";
 import { SessionProvider } from "next-auth/react";
-import { Head } from "next/document";
+
+
+import { headers } from 'next/headers'
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -35,11 +37,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  const { get } = headers()
+  let userAgent = get('user-agent')
+  userAgent = userAgent ? userAgent.toLowerCase() : '';
+  const isIosDevice = userAgent?.includes('iphone') || userAgent?.includes('macintosh');
 
   return (
     <html lang="en">
       <head>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
+        {/* <link rel="manifest" href="/manifest.json" /> */}
 
         <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/splash_screens/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png" />
         <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="/splash_screens/iPhone_15_Pro__iPhone_15__iPhone_14_Pro_landscape.png" />
@@ -79,6 +85,9 @@ export default function RootLayout({
         <link rel="apple-touch-startup-image" media="screen and (device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash_screens/10.2__iPad_portrait.png" />
         <link rel="apple-touch-startup-image" media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash_screens/9.7__iPad_Pro__7.9__iPad_mini__9.7__iPad_Air__9.7__iPad_portrait.png" />
         <link rel="apple-touch-startup-image" media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash_screens/8.3__iPad_Mini_portrait.png" />
+
+        {isIosDevice && <meta name="apple-mobile-web-app-capable" content="yes" />}
+        <meta name="mobile-web-app-capable" content="yes" />
 
         <meta name="theme-color" content="#ffffff" />
         <meta property="og:title" content="Everstamp" />

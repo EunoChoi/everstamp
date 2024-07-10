@@ -183,20 +183,6 @@ const NavMenu = styled(Link)`
     }
   }
 `
-const Links = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  span{
-    font-size: 20px;
-    cursor: pointer;
-    color: darkgray;
-    padding: 0 12px;
-  }
-`
 
 const Mobile_Layout = styled.div`
   width: 100dvw;
@@ -204,7 +190,6 @@ const Mobile_Layout = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  /* height: 100vh; */
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 75dvw;
@@ -228,10 +213,6 @@ const Mobile_Nav = styled.nav`
   color: rgba(0,0,0,0.3);
   border-top: 2px solid rgba(0,0,0,0.05); 
 
-  &.iosPwa{
-    height: calc(var(--mobileNav) + 20px);
-    padding-bottom: 20px;
-  }
 
   > *{
     padding : 0 12px;
@@ -244,6 +225,13 @@ const Mobile_Nav = styled.nav`
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};;
   }
   
+ 
+  @media (max-width: 479px) { //mobile port
+    &.iosPwa{
+      height: calc(var(--mobileNav) + 20px);
+      padding-bottom: 20px;
+    }
+  }
 
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
