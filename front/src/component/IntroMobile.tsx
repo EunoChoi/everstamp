@@ -5,15 +5,12 @@ import { useRouter } from "next/navigation";
 
 import calendar from '/public/img/intro/calendar.png';
 import list from '/public/img/intro/list.png';
-import listDesktop from '/public/img/intro/listDesktop.png';
 import zoom1 from '/public/img/intro/zoom1.png';
 import zoom2 from '/public/img/intro/zoom2.png';
 import habit from '/public/img/intro/habit.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
-import habitinfoDesktop1 from '/public/img/intro/habitinfoDesktop1.png';
-import habitinfoDesktop2 from '/public/img/intro/habitinfoDesktop2.png';
-import setting from '/public/img/intro/setting.png';
+
 
 import emotions2 from '/public/img/emotion/emotions2.png';
 import habitbox from '/public/img/intro/habitbox.png';
@@ -76,7 +73,7 @@ const IntroMobile = () => {
         <span>감정 일기를 적고 습관을 실천하세요.</span>
         <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
       </Text>
-      <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="85dvh" borderRadius="16px" />
+      <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="16px" />
       <div>
         <Button onClick={installPwa}>앱 다운로드</Button>
         <Button onClick={() => (router.push('/app'))}>실행하기</Button>
@@ -106,7 +103,7 @@ const IntroMobile = () => {
         <span>일기, 감정, 습관 목록을 한눈에!</span>
         <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
       </Text>
-      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="fullWidth" width="100%" height="85dvh" borderRadius="16px" />
+      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="16px" />
 
       <ColWrapper>
         <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
@@ -120,7 +117,7 @@ const IntroMobile = () => {
         <span>매일 실천한 습관들을 기록하세요.</span>
       </Text>
       <RowWrapper>
-        <Img className="habitbox" src={habitbox} alt="habitbox" width={300} height={300}></Img>
+        <Img className="habitbox" src={habitbox} alt="habitbox" width={350} height={350}></Img>
       </RowWrapper>
       <ColWrapper>
         <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>
@@ -131,7 +128,7 @@ const IntroMobile = () => {
         <span>습관이 형성되는 시간 21일!</span>
         <span>실천 결과를 확인하고 점검하세요.</span>
       </Text>
-      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="85dvh" borderRadius="16px" />
+      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="16px" />
       <ColWrapper>
         <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
         <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
@@ -160,7 +157,7 @@ const IntroMobile = () => {
         </ColWrapper>
       </RowWrapper>
 
-      <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
+      <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="55dvh" borderRadius="16px" />
     </Mobile_Section>
     <Mobile_Section className="outro">
       <div>
@@ -418,18 +415,18 @@ const Img = styled(Image)`
   &.habitbox{
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
 
-    width: 200px;
-    height: 200px;
+    width: 240px;
+    height: 240px;
     border-radius: 16px;
     background-color: white;
     margin: 0 4px;
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-      width: 240px;
-      height: 240px;
+      width: 320px;
+      height: 320px;
     }
     @media (min-width:1024px) { //desktop
-      width: 280px;
-      height: 280px;
+      width: 320px;
+      height: 320px;
     }
   }
   &.slide{
