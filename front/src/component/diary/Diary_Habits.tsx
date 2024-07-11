@@ -36,7 +36,7 @@ export default DiaryHabits;
 const Habits = styled.div`
   width: 100%;
   height: auto;
-  padding : 14px 0;
+  padding : 10px 0;
   /* margin: 8px 0; */
   
   display: flex;

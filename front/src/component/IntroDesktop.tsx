@@ -27,10 +27,6 @@ import otherinfo3 from '/public/img/intro/otherinfo3.png';
 
 
 import { useRouter } from "next/navigation";
-
-import LockIcon from '@mui/icons-material/Lock';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import PhonelinkIcon from '@mui/icons-material/Phonelink';
 import { useEffect, useState } from "react";
 
 
@@ -73,115 +69,104 @@ const IntroDesktop = () => {
   }
 
   return <Wrapper>
-    <Desktop_Section className="intro left">
-      <div>
-        <Logo className="left">
+    <Desktop_Section className="intro">
+      <section>
+        <Logo>
           <div>
             <span>ever</span><span>stamp</span>
           </div>
           <span>grow every day</span>
         </Logo>
-        <Text className="left">
-          <span>감정 일기를 적고</span>
-          <span>습관을 실천하세요.</span>
-          <span>당신의 긍정적 변화와</span>
-          <span>성장을 응원합니다.</span>
+        <Text>
+          <span>꾸준히 감정 일기를 작성하고</span>
+          <span>목표 습관을 실천하세요.</span>
+          <span>당신의 변화와 성장을 응원합니다 :)</span>
         </Text>
         <div>
           <Button onClick={installPwa}>앱 다운로드</Button>
           <Button onClick={() => (router.push('/app'))}>실행하기</Button>
         </div>
-        <ColWrapper className="left">
+        <ColWrapper>
           <SubText>쾌적한 이용을 위해 앱을 설치해 주세요.</SubText>
           <SubText>웹 브라우저 환경에 따라 레이아웃이 어긋날 수 있습니다.</SubText>
           <SubText>{`* 앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
         </ColWrapper>
-      </div>
-      <div>
-        <ImageCarousel images={introImages} keyValue="intro" type="fullWidth" width="100%" height="85%" borderRadius="32px" />
-      </div>
+      </section>
+      <section>
+        <ImageCarousel images={introImages} keyValue="intro" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
+      </section>
     </Desktop_Section>
-    <Desktop_Section className="emotion right">
-      <div>
+    <Desktop_Section className="emotion">
+      <section>
         <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
-      </div>
-      <div>
+      </section>
+      <section>
         <Title>#emotions</Title>
-        <Text className="right">
-          <span>감정 일기를 쓰며</span>
-          <span>감정과 생각을 정리하세요.</span>
+        <Text>
+          <span>나의 감정을 정리하면</span>
           <span>나를 이해하고 사랑하게 됩니다.</span>
           <span>감정 일기를 시작해볼까요?</span>
         </Text>
-        <ColWrapper className="right">
+        <ColWrapper>
           <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
           <SubText>5가지 감정 선택을 지원합니다.</SubText>
         </ColWrapper>
-      </div>
+      </section>
     </Desktop_Section>
-    <Desktop_Section className="view left">
-      <div>
+    <Desktop_Section className="view">
+      <section>
         <Title>#view feature</Title>
-        <Text className="left">
-          <span>일기, 감정, 습관 목록을 한눈에!</span>
-          <span>달력, 리스트 뷰를 이용하세요.</span>
+        <Text>
+          <span>일기, 감정, 습관 목록을</span>
+          <span>한눈에 확인 하세요.</span>
         </Text>
-        <ColWrapper className="left">
+        <ColWrapper>
           <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
           <SubText>날짜별 오름/내림 차순 정렬을 지원합니다.</SubText>
         </ColWrapper>
-      </div>
-      <div>
-        <ImageCarousel images={viewImages} keyValue="view" type="fullWidth" width="100%" height="85%" borderRadius="32px" />
-      </div>
+      </section>
+      <section>
+        <ImageCarousel images={viewImages} keyValue="view" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
+      </section>
     </Desktop_Section>
-    <Desktop_Section className="habit small right">
-      <div>
+    <Desktop_Section className="habit small">
+      <section>
         <Img className="habitbox" src={habitbox} alt="habitbox" width={300} height={300}></Img>
-      </div>
-      <div>
+      </section>
+      <section>
         <Title>#habit feature</Title>
-        <Text className="right">
+        <Text>
           <span>작은 변화가 큰 차이를 만듭니다.</span>
           <span>매일 실천한 습관들을 기록하세요.</span>
         </Text>
-        <ColWrapper className="right">
+        <ColWrapper>
           <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>
           <SubText>최근 4일 동안만 완료 여부를 선택할 수 있습니다.</SubText>
         </ColWrapper>
-      </div>
+      </section>
     </Desktop_Section>
-    <Desktop_Section className="habit left">
-      <div>
+    <Desktop_Section className="habit">
+      <section>
+        <ImageCarousel images={habitImages} keyValue="habit" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
+      </section>
+      <section>
         <Title>#habit view feature</Title>
-        <Text className="left">
-          <span>습관이 형성되는 시간 21일!</span>
-          <span>결과를 확인하고 점검하세요.</span>
+        <Text>
+          <span>습관이 형성되는 시간 21일</span>
+          <span>실천 결과를 확인하고 점검하세요.</span>
         </Text>
-        <ColWrapper className="left">
+        <ColWrapper>
           <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
           <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
         </ColWrapper>
-      </div>
-      <div>
-        <ImageCarousel images={habitImages} keyValue="habit" type="fullWidth" width="100%" height="85%" borderRadius="32px" />
-      </div>
+      </section>
     </Desktop_Section>
     <Desktop_Section className="others center">
-      <RowWrapper>
-        <ColWrapper className="othersIcons">
-          <LockIcon fontSize="large" />
-          <span>텍스트 암호화</span>
-        </ColWrapper>
-        <ColWrapper className="othersIcons">
-          <ColorLensIcon fontSize="large" />
-          <span>테마 설정</span>
-        </ColWrapper>
-        <ColWrapper className="othersIcons">
-          <PhonelinkIcon fontSize="large" />
-          <span>멀티 플랫폼</span>
-        </ColWrapper>
-      </RowWrapper>
+      <Title>#other feature</Title>
+      <Text>
+        <span>암호화, 테마, 멀티 플랫폼 최적화 등</span>
+        <span>추가적인 사용자 편의 기능을 제공합니다.</span>
+      </Text>
       <ImageWrapper>
         <Img className="otherinfo" src={otherinfo1} alt="otherinfo1" width={300} height={300} priority></Img>
         <Img className="otherinfo" src={otherinfo2} alt="otherinfo2" width={300} height={300} priority></Img>
@@ -207,10 +192,12 @@ export default IntroDesktop;
 
 
 //desktop
-const Desktop_Section = styled.div`
+const Desktop_Section = styled.section`
   height: 95dvh;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  padding: 0 10dvw;
 
   &.intro, &.view, &.others{
     background-color: #fff;
@@ -226,65 +213,24 @@ const Desktop_Section = styled.div`
     height: 60dvh;
   }
 
-  &.left{
-    >div:first-child{
-      width: 45dvw; 
-      height: 100%;
+  >section{
+    width: 50%; 
+    height: 100%;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-      padding-left : 10dvw;
-      >*{
-        margin : 32px 0;
-      }
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: start;
-    }
-    >div:nth-child(2){
-      width: 55dvw;
-      height: 100%;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+    > *{ margin : 32px 0; }
   }
-  &.right{
-    >div:first-child{
-      width: 55dvw; 
-      height: 100%;
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    >div:nth-child(2){
-      width: 45dvw;
-      height: 100%;
-
-      padding-right : 10dvw;
-      >*{
-        margin : 32px 0;
-      }
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: end;
-      
-    }
-  }
   &.center{
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    >*{
-      margin : 32px 0;
-    }
+    > *{ margin : 32px 0; }
   }
 `
 
@@ -294,14 +240,7 @@ const Wrapper = styled.div`
   height: 100dvh;
   overflow-y: scroll;
 `
-const RowWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 
-  color: rgb(var(--greyTitle));
-`
 const ColWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -309,28 +248,6 @@ const ColWrapper = styled.div`
   align-items: center;
 
   color: rgb(var(--greyTitle));
-
-  &.left{
-    align-items: start;
-  }
-  &.right{
-    align-items: end;
-  }
-
-  &.othersIcons{
-    margin: 0 12px;
-    span{
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 8px;
-      @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-        font-size: 16px;
-      }
-      @media (min-width:1024px) { //desktop
-        font-size: 18px;
-      }
-    }
-  }
 `
 const Logo = styled.div`
   display: flex;
@@ -340,8 +257,7 @@ const Logo = styled.div`
 
   >div>span{
     display: inline-block;
-
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
     margin: 0 4px;
@@ -349,22 +265,13 @@ const Logo = styled.div`
     &::first-letter{
       color: #979FC7;
     }
-    
   }
   >span{
     line-height: 1;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 600;
     text-transform: capitalize;
     color: #EF9C92;
-  }
-
-  &.left{
-    align-items: start;
-    span{
-      margin: 0;
-      margin-right: 8px;
-    }
   }
 
   &.outro{
@@ -377,95 +284,45 @@ const Logo = styled.div`
       color: #F6E388;
     }
   }
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    >div>span{
-      font-size: 28px;
-    }
-    >span{
-      font-size: 20px;
-    }
-  }
-  @media (min-width:1024px) { //desktop
-    >div>span{
-      font-size: 32px;
-    }
-    >span{
-      font-size: 24px;
-    }
-  }
 `
 const Title = styled.span`
   color: #989FC4;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   text-transform: capitalize;
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 22px;
-  }
-  @media (min-width:1024px) { //desktop
-    font-size: 24px;
-  }
 `
 const Text = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  &.left{
-    align-items: start;
-  }
-  &.right{
-    align-items: end;
-  }
 
   span{
-    font-size: 20px;
+    font-size: 32px;
     font-weight: 600;
     color: rgb(var(--greyTitle));
     line-height: 1.4;
-
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-      font-size: 28px;
-    }
-    @media (min-width:1024px) { //desktop
-      white-space: nowrap;
-      font-size: 36px;
-      line-height: 1.3;
-    }
+    white-space: nowrap;
   }
 `
 const Button = styled.button`
-  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
-
-  margin: 0 8px;
-  padding: 6px 16px;
+  border: 3px solid rgba(0,0,0,0.1);
   border-radius: 32px;
+  padding: 6px 24px;
 
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
+
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
 
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 16px;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 6px 24px;
-    font-size: 18px;
+  &:first-child{
+    margin-right: 14px;
   }
 `
 const SubText = styled.span`
-  color: #fda095;
-  font-size: 14px;
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 16px;
-  }
-  @media (min-width:1024px) { //desktop
-    font-size: 16px;
-  }
+  color: grey;
+  font-size: 16px;
 `
 const ImageWrapper = styled.div`
   width : 100%;
@@ -476,10 +333,7 @@ const ImageWrapper = styled.div`
 const Img = styled(Image)`
   width: auto;
   &.emotionImg{
-    width: 200px;
-    @media (min-width:1024px) { //desktop
-      width: 350px;
-    }
+    width: 350px;
   }
   &.habitbox{
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
@@ -491,7 +345,7 @@ const Img = styled(Image)`
     margin: 0 4px;
   }
   &.otherinfo{
-    width: 250px;
+    width: 220px;
     border-radius: 32px;
     box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
     border-radius: 16px;

@@ -70,10 +70,10 @@ const IntroMobile = () => {
         <span>grow every day</span>
       </Logo>
       <Text>
-        <span>감정 일기를 적고 습관을 실천하세요.</span>
-        <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
+        <span>감정 일기를 적고 목표 습관을 실천하세요.</span>
+        <span>당신의 변화와 성장을 응원합니다.</span>
       </Text>
-      <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="32px" />
+      <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
       <div>
         <Button onClick={installPwa}>앱 다운로드</Button>
         <Button onClick={() => (router.push('/app'))}>실행하기</Button>
@@ -87,9 +87,8 @@ const IntroMobile = () => {
     <Mobile_Section className="emotion">
       <Title>#emotions</Title>
       <Text>
-        <span>일기를 쓰며 감정과 생각을 정리하세요.</span>
+        <span>감정과 생각을 정리하며 일기를 적어보세요.</span>
         <span>나를 이해하고 사랑하는데 도움이 됩니다.</span>
-        <span>함께 감정 일기를 시작해볼까요?</span>
       </Text>
       <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
       <ColWrapper>
@@ -103,7 +102,7 @@ const IntroMobile = () => {
         <span>일기, 감정, 습관 목록을 한눈에!</span>
         <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
       </Text>
-      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="32px" />
+      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
 
       <ColWrapper>
         <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
@@ -129,7 +128,7 @@ const IntroMobile = () => {
         <span>습관이 형성되는 시간 21일!</span>
         <span>실천 결과를 확인하고 점검하세요.</span>
       </Text>
-      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="32px" />
+      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
       <ColWrapper>
         <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
         <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
@@ -245,9 +244,6 @@ const ColWrapper = styled.div`
       @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
         font-size: 16px;
       }
-      @media (min-width:1024px) { //desktop
-        font-size: 18px;
-      }
     }
   }
 `
@@ -305,14 +301,6 @@ const Logo = styled.div`
       font-size: 20px;
     }
   }
-  @media (min-width:1024px) { //desktop
-    >div>span{
-      font-size: 32px;
-    }
-    >span{
-      font-size: 24px;
-    }
-  }
 `
 const Title = styled.span`
   color: #989FC4;
@@ -322,9 +310,6 @@ const Title = styled.span`
 
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 22px;
-  }
-  @media (min-width:1024px) { //desktop
-    font-size: 24px;
   }
 `
 const Text = styled.div`
@@ -348,15 +333,10 @@ const Text = styled.div`
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       font-size: 28px;
     }
-    @media (min-width:1024px) { //desktop
-      white-space: nowrap;
-      font-size: 36px;
-      line-height: 1.3;
-    }
   }
 `
 const Button = styled.button`
-  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  border: 2px solid rgba(0,0,0,0.1);
 
   margin: 0 8px;
   padding: 6px 16px;
@@ -367,22 +347,11 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 16px;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 6px 24px;
-    font-size: 18px;
-  }
 `
 const SubText = styled.span`
-  color: #fda095;
+  color: grey;
   font-size: 14px;
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 16px;
-  }
-  @media (min-width:1024px) { //desktop
     font-size: 16px;
   }
 `
