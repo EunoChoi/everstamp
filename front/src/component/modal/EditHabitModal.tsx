@@ -2,8 +2,8 @@
 
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import HabitInputButtons from "../HabitInput/Input_Buttons";
-import HabitInputValues from "../HabitInput/Input_Values";
+import HabitInputButtons from "../habit/Input_Buttons";
+import HabitInputValues from "../habit/Input_Values";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";

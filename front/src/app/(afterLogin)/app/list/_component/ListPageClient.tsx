@@ -11,7 +11,7 @@ import { getDiaries } from "@/app/(afterLogin)/_lib/diary";
 
 //component
 import Diary from "@/component/diary/Diary";
-import Header from "@/component/Header";
+import Header from "@/component/common/Header";
 
 //icon
 import { useRef } from "react";
@@ -19,7 +19,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import SortIcon from '@mui/icons-material/Sort';
 
 import { useInView } from "react-intersection-observer";
-import EmotionSelector from "@/component/emotionSelector";
+import EmotionSelector from "@/component/diaryInput/emotionSelector";
 import { format } from "date-fns";
 
 interface ImageProps {

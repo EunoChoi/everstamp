@@ -21,7 +21,7 @@ import otherinfo3 from '/public/img/intro/otherinfo3.png';
 import LockIcon from '@mui/icons-material/Lock';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import PhonelinkIcon from '@mui/icons-material/Phonelink';
-import ImageCarousel from "./ImageCarousel";
+import ImageCarousel from "../common/ImageCarousel";
 
 const IntroMobile = () => {
   const router = useRouter();

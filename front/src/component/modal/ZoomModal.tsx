@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import Indicator from "../indicator";
+import Indicator from "../common/indicator";
 
 interface Props {
   diaryId: string;

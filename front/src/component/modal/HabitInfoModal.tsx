@@ -7,10 +7,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import HabitInfoCalendar from "../habitInfo/HabitInfoCalendar";
+import HabitInfoCalendar from "../calendar/HabitInfoCalendar";
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
-import HabitInfoChart from "../habitInfo/HabitInfoChart";
-import Indicator from "../indicator";
+import HabitInfoChart from "../habit/HabitInfoChart";
+import Indicator from "../common/indicator";
 
 interface Props {
   habitId: string;

@@ -2,8 +2,8 @@
 
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import HabitInputButtons from "../HabitInput/Input_Buttons";
-import HabitInputValues from "../HabitInput/Input_Values";
+import HabitInputButtons from "../habit/Input_Buttons";
+import HabitInputValues from "../habit/Input_Values";
 import Axios from "@/Aixos/aixos";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";

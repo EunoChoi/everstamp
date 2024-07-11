@@ -9,7 +9,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
-import Indicator from "../indicator";
+import Indicator from "../common/indicator";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import SC_Common from "@/style/common";
 import { format } from "date-fns";

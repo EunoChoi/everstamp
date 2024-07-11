@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import emotion0 from '../../public/img/emotion/emotion0.png'
-import emotion1 from '../../public/img/emotion/emotion1.png'
-import emotion2 from '../../public/img/emotion/emotion2.png'
-import emotion3 from '../../public/img/emotion/emotion3.png'
-import emotion4 from '../../public/img/emotion/emotion4.png'
+import emotion0 from '/public/img/emotion/emotion0.png'
+import emotion1 from '/public/img/emotion/emotion1.png'
+import emotion2 from '/public/img/emotion/emotion2.png'
+import emotion3 from '/public/img/emotion/emotion3.png'
+import emotion4 from '/public/img/emotion/emotion4.png'
 import Image from "next/image";
 
 interface Props {
@@ -23,7 +23,6 @@ const EmotionSelector = ({ emotion, setEmotion }: Props) => {
 
 
   return (<Wrapper>
-    {/* <Title>emotion check</Title> */}
     <RadioWrapper>
       <RadioButton key={'radio-1'}>
         <input type="radio" checked={-1 === emotion} name="listViewEmotion" value={-1} onChange={(e) => {

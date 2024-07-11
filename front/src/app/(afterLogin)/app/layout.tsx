@@ -6,7 +6,7 @@ import { redirect, usePathname, useSelectedLayoutSegment } from 'next/navigation
 import { ReactNode, useEffect } from "react";
 
 //component
-import CalendarSelector from "@/component/CalendarSelector";
+import CalendarSelector from "@/component/calendar/CalendarSelector";
 
 //hooks
 import IsMobile from "@/function/IsMobile";

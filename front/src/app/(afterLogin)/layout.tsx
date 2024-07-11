@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import RQProvider from "@/component/RQProvider";
+import RQProvider from "@/component/common/RQProvider";
 
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getCurrentUser_fetch } from "./_lib/user_ssr";

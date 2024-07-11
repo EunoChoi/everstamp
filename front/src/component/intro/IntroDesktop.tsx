@@ -1,7 +1,7 @@
 'use client';
 
 
-import ImageCarousel from "@/component/ImageCarousel";
+import ImageCarousel from "../common/ImageCarousel";
 
 import Image from "next/image";
 import styled from "styled-components";

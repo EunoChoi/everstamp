@@ -1,8 +1,8 @@
 'use client';
 
 import IsMobile from "@/function/IsMobile";
-import IntroMobile from "@/component/IntroMobile";
-import IntroDesktop from "@/component/IntroDesktop";
+import IntroMobile from "@/component/intro/IntroMobile";
+import IntroDesktop from "@/component/intro/IntroDesktop";
 
 
 const Page = () => {

@@ -12,10 +12,10 @@ import SC_Common from "@/style/common";
 
 //component
 import Diary from "@/component/diary/Diary";
-import CalendarSelector from "@/component/CalendarSelector";
+import CalendarSelector from "@/component/calendar/CalendarSelector";
 
 //icon
-import Header from "@/component/Header";
+import Header from "@/component/common/Header";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useEffect } from "react";

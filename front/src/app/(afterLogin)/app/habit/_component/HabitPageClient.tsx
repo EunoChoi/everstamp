@@ -8,8 +8,8 @@ import SC_Common from "@/style/common";
 import { enqueueSnackbar } from 'notistack'
 
 //component
-import HabitBox from "@/component/HabitBox";
-import Header from "@/component/Header";
+import HabitBox from "@/component/habit/HabitBox";
+import Header from "@/component/common/Header";
 
 //icon
 import AddIcon from '@mui/icons-material/Add';
@@ -19,7 +19,7 @@ import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
 import SortIcon from '@mui/icons-material/Sort';
 
-import Indicator from "@/component/indicator";
+import Indicator from "@/component/common/indicator";
 
 interface Props {
   email: string;

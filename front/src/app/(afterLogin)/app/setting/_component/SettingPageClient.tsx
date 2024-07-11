@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 
 //component
-import Header from "@/component/Header";
+import Header from "@/component/common/Header";
 
 import SC_Common from "@/style/common";
 import Axios from "@/Aixos/aixos";
