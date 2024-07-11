@@ -13,12 +13,9 @@ interface Props {
 }
 
 const Page = async ({ searchParams }: Props) => {
-  const session = await auth()
-  const email = session?.user?.email ? session?.user?.email : '';
 
   const params = searchParams;
   let date = Number(params.date);
-  console.log(date);
 
   //server prefetch
   const queryClient = new QueryClient();

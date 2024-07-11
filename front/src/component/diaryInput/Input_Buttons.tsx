@@ -15,6 +15,7 @@ import loading from '../../../public/img/loading.gif';
 
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
+import BottomButtonArea from "../common/BottomButtonArea";
 
 
 interface Props {
@@ -34,12 +35,6 @@ interface Err {
 
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
   const router = useRouter();
-
-  const isIos = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    return /iphone|ipad|ipod/.test(userAgent);
-  }
-  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
   const ImageUploadMutation = useMutation({
     // mutationFn: (imageFormData: FoamData) => Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });,
@@ -77,7 +72,6 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
         return null;
       }
 
-
       //용량 초과 이미지가 없는 경우 imageFormData에 이미지들 추가
       //e.target.files => formData 변환 과정 필요
       const imageFormData = new FormData();
@@ -91,22 +85,23 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
   };
 
   return (
-    <> {(images?.length > 0 || ImageUploadMutation?.isPending) &&
-      <UploadedImages>
-        {images.map((e, i: number) => <ImageBox key={`image-${e}`}>
-          <UploadedImage src={e} alt='diary image' width={100} height={100} />
-          <ImageDeleteButton onClick={() => {
-            const deletedImageArray = [...images];
-            deletedImageArray.splice(i, 1);
-            setImages(deletedImageArray);
-          }}>
-            <RemoveCircleOutlinedIcon fontSize="inherit" />
-          </ImageDeleteButton>
-        </ImageBox>)}
-        {ImageUploadMutation?.isPending ? <ImageBox className="loading"><Image src={loading} alt="loading" width={100} height={100} /></ImageBox> : <></>}
-      </UploadedImages>
-    }
-      <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
+    <>
+      {(images?.length > 0 || ImageUploadMutation?.isPending) &&
+        <UploadedImages>
+          {images.map((e, i: number) => <ImageBox key={`image-${e}`}>
+            <UploadedImage src={e} alt='diary image' width={100} height={100} />
+            <ImageDeleteButton onClick={() => {
+              const deletedImageArray = [...images];
+              deletedImageArray.splice(i, 1);
+              setImages(deletedImageArray);
+            }}>
+              <RemoveCircleOutlinedIcon fontSize="inherit" />
+            </ImageDeleteButton>
+          </ImageBox>)}
+          {ImageUploadMutation?.isPending ? <ImageBox className="loading"><Image src={loading} alt="loading" width={100} height={100} /></ImageBox> : <></>}
+        </UploadedImages>
+      }
+      <BottomButtonArea>
         <Button onClick={() => router.back()}>
           <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
         </Button>
@@ -117,7 +112,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
         <Button onClick={submitDiary}>
           {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <PostAddOutlinedIcon className="icon" />}
         </Button>
-      </Buttons>
+      </BottomButtonArea>
     </>
 
   );
@@ -197,32 +192,6 @@ const ImageDeleteButton = styled.button`
   }
   @media (min-width:1024px) { //desktop
     font-size: 22px;
-  }
-`
-
-const Buttons = styled.div`
-  height: var(--mobileNav);
-  /* flex-shrink: 0; */
-  background-color: #f9f9f9;
-  border-top: solid 1px rgba(0,0,0,0.1);
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-
-  &.iosPwa{
-    height: calc(var(--mobileNav) + 20px);
-    padding-bottom: 20px;
-  }
-
-  @media (max-width: 479px) { //mobile port
-    border-radius: 0px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    border-radius: 0px;
   }
 `
 const Button = styled.button`

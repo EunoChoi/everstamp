@@ -21,6 +21,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import { useInView } from "react-intersection-observer";
 import EmotionSelector from "@/component/diaryInput/emotionSelector";
 import { format } from "date-fns";
+import ContentArea from "@/component/common/ContentArea";
 
 interface ImageProps {
   id: string;
@@ -82,7 +83,7 @@ const ListPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
-      <Header title='list' >
+      <Header title='list'>
         <SC_Common.Options>
           <button onClick={sortChage}>
             <span><SortIcon fontSize="small" /></span>
@@ -92,7 +93,7 @@ const ListPageClient = () => {
       </Header>
 
 
-      <SC_Common.Content className="scroll" ref={contentRef}>
+      <ContentArea className="scroll" _ref={contentRef}>
         <EmotionSelector emotion={emotion} setEmotion={setEmotion} />
 
         {diaries?.pages[0].length === 0 && <NoDiaries>일기 작성을 시작해볼까요? 😀</NoDiaries>}
@@ -117,7 +118,7 @@ const ListPageClient = () => {
           }
         })))}
         <Observer ref={ref} />
-      </SC_Common.Content>
+      </ContentArea>
     </SC_Common.Wrapper>
   );
 }

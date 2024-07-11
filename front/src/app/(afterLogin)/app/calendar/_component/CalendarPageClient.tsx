@@ -19,6 +19,7 @@ import Header from "@/component/common/Header";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useEffect } from "react";
+import ContentArea from "@/component/common/ContentArea";
 
 interface Props {
   date: number;
@@ -27,12 +28,6 @@ interface Props {
 const CalendarPageClient = ({ date }: Props) => {
   const isMobile = IsMobile();
   const router = useRouter();
-
-  const isIos = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    return /iphone|ipad|ipod/.test(userAgent);
-  }
-  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
@@ -48,11 +43,11 @@ const CalendarPageClient = ({ date }: Props) => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
+      <ContentArea>
         <Header title='calendar' />
         {isMobile && <CalendarWrapper><CalendarSelector /></CalendarWrapper>}
         <Diary diaryData={diaryData} position="calendar" />
-      </SC_Common.Content>
+      </ContentArea>
     </SC_Common.Wrapper>
   );
 }

@@ -15,16 +15,13 @@ import Header from "@/component/common/Header";
 import SC_Common from "@/style/common";
 import Axios from "@/Aixos/aixos";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import ContentArea from "@/component/common/ContentArea";
 
 
 
 const SettingPageClient = () => {
   const queryClient = useQueryClient();
-  const isIos = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    return /iphone|ipad|ipod/.test(userAgent);
-  }
-  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
 
   const { data } = useQuery({
     queryKey: ['user'],
@@ -81,7 +78,7 @@ const SettingPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
-      <SC_Common.Content className={(isInStandaloneMode() && isIos()) ? 'setting iosPwa' : 'setting'}>
+      <ContentArea className='setting'>
         <Header title='setting' ></Header>
         <SC_Common.Options />
         <Section>
@@ -118,8 +115,7 @@ const SettingPageClient = () => {
             </FlexRow>
           </FlexRow>
         </Section>
-
-      </SC_Common.Content>
+      </ContentArea>
     </SC_Common.Wrapper>
   );
 }

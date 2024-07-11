@@ -10,6 +10,7 @@ import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import Indicator from "../common/indicator";
+import BottomButtonArea from "../common/BottomButtonArea";
 
 interface Props {
   diaryId: string;
@@ -22,12 +23,6 @@ interface ImageProps {
 
 const ZoomModal = ({ diaryId }: Props) => {
   const router = useRouter();
-
-  const isIos = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    return /iphone|ipad|ipod/.test(userAgent);
-  }
-  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],
@@ -96,11 +91,11 @@ const ZoomModal = ({ diaryId }: Props) => {
 
       {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
 
-      <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
+      <BottomButtonArea>
         <Button onClick={() => router.back()} >
           <CancelOutlinedIcon className="icon" />
         </Button>
-      </Buttons>
+      </BottomButtonArea>
     </Modal>
   </Wrapper>);
 }
@@ -108,32 +103,6 @@ const ZoomModal = ({ diaryId }: Props) => {
 export default ZoomModal;
 
 
-const Buttons = styled.div`
-  width: 100%;
-  height: var(--mobileNav);
-  /* flex-shrink: 0; */
-  background-color: #f9f9f9;
-  border-top: solid 1px rgba(0,0,0,0.1);
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-
-  &.iosPwa{
-    height: calc(var(--mobileNav) + 20px);
-    padding-bottom: 20px;
-  }
-
-  @media (max-width: 479px) { //mobile port
-    border-radius: 0px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    border-radius: 0px;
-  }
-`
 const Button = styled.button`
   .icon{
     color: rgba(0,0,0,0.3) !important;
@@ -142,7 +111,6 @@ const Button = styled.button`
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `
-
 const TextWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -206,7 +174,6 @@ const Img = styled(Image)`
     object-fit: cover;
   }
 `
-
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -243,7 +210,6 @@ const Modal = styled.div`
     border-radius: 8px;
   }
 `
-
 const DiaryDate = styled.div`
   color: rgb(var(--greyTitle));
   font-weight: 600;
@@ -265,7 +231,6 @@ const DiaryDate = styled.div`
     font-size: 26px;
   }
 `
-
 const SlideWrapper = styled.div`
   scroll-snap-type: x mandatory;
 

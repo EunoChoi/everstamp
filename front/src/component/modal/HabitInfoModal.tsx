@@ -11,6 +11,7 @@ import HabitInfoCalendar from "../calendar/HabitInfoCalendar";
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
 import HabitInfoChart from "../habit/HabitInfoChart";
 import Indicator from "../common/indicator";
+import BottomButtonArea from "../common/BottomButtonArea";
 
 interface Props {
   habitId: string;
@@ -18,12 +19,6 @@ interface Props {
 
 const HabitInfoModal = ({ habitId }: Props) => {
   const router = useRouter();
-
-  const isIos = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    return /iphone|ipad|ipod/.test(userAgent);
-  }
-  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
   const [habitCount, setHabitCount] = useState<number>(0);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
@@ -77,11 +72,11 @@ const HabitInfoModal = ({ habitId }: Props) => {
       </Content>
 
 
-      <Buttons className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
+      <BottomButtonArea>
         <Button onClick={() => router.back()} >
           <CancelOutlinedIcon className="icon" />
         </Button>
-      </Buttons>
+      </BottomButtonArea>
     </Modal>
   </Wrapper>);
 }
@@ -252,31 +247,6 @@ const Modal = styled.div`
     border-radius: 8px;
   }
 `
-
-
-const Buttons = styled.div`
-  width: 100%;
-  height: var(--mobileNav);
-  /* flex-shrink: 0; */
-  background-color: #f9f9f9;
-  border-top: solid 1px rgba(0,0,0,0.1);
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-
-  &.iosPwa{
-    height: calc(var(--mobileNav) + 20px);
-    padding-bottom: 20px;
-  }
-
-  @media (min-width:1024px) { //desktop
-    border-radius: 8px;
-  }
-`
 const Button = styled.button`
   .icon{
     color: rgba(0,0,0,0.3) !important;
@@ -285,8 +255,6 @@ const Button = styled.button`
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `
-
-
 const Slide = styled.div`
   scroll-snap-type: x mandatory;
 
@@ -306,29 +274,5 @@ const Slide = styled.div`
     &:last-child{
       margin-right: 0;
     }
-  }
-`
-const IndicatorWrapper = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  margin: 8px 0;
-  height: auto;
-  div {
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    background-color: rgb(var(--lightGrey2));
-    border: 1px solid rgba(0,0,0,0.05);
-
-    margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 8px;
-      height: 8px;
-      margin: 2px;
-    }
-  }
-  .current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
