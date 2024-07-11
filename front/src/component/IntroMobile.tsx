@@ -338,8 +338,9 @@ const Text = styled.div`
 const Button = styled.button`
   border: 2px solid rgba(0,0,0,0.1);
 
-  margin: 0 8px;
+  margin: 0 6px;
   padding: 6px 16px;
+  width: 110px;
   border-radius: 32px;
 
   font-size: 14px;

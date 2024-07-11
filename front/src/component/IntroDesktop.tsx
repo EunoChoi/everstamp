@@ -309,6 +309,8 @@ const Button = styled.button`
   border-radius: 32px;
   padding: 6px 24px;
 
+  width: 140px;
+
   font-size: 18px;
   font-weight: 600;
 
