@@ -153,16 +153,6 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
 export default DiarySlide;
 
-const Button = styled.button`
-  padding: 0 8px;
-  &.yes{
-    color: red;
-  }
-  &.no{
-    color: green;
-  }
-`
-
 const SlideWrapper = styled.div`
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -192,7 +182,7 @@ const SlideWrapper = styled.div`
     padding-left : 5dvw;
     padding-right: 5dvw;
     .slideChild{
-      margin-right: 12px;
+      margin-right: 10px;
     }
   }
 `

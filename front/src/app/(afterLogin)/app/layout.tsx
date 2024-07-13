@@ -22,7 +22,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../_lib/user";
 
 import { SnackbarProvider, MaterialDesignContent } from 'notistack'
-import Loading from "@/component/common/Loading";
 
 interface Props {
   children: ReactNode;
@@ -56,28 +55,10 @@ const AppLayout = ({ children, modal }: Props) => {
     redirect('/app');
   }
 
-  const [hide, setHide] = useState<boolean>(false);
-
-  useEffect(() => {
-    const hideModeUpdate = () => {
-      setHide(true);
-      setTimeout(() => {
-        setHide(false);
-      }, 500);
-    }
-    window.addEventListener('resize', hideModeUpdate);
-    window.addEventListener('orientationchange', hideModeUpdate); //rotate
-    return () => {
-      window.removeEventListener('resize', hideModeUpdate);
-      window.removeEventListener('orientationchange', hideModeUpdate); //rotate
-    }
-  }, []);
-
   useEffect(() => {
     refetch();
   }, [path]);
 
-  if (hide) return <Loading />;
   if (isMobile === null) return <></>;
   return (
     <SnackbarProvider
@@ -287,6 +268,8 @@ const Desktop_Sidebar = styled.div`
   justify-content: center;
   justify-content: space-between;
 
+  overflow-y : scroll;
+
   transition: all ease-in-out 0.3s;
 `
 const SideBarLogo = styled.div`
@@ -353,7 +336,8 @@ const Desktop_Content = styled.div`
 const MonthWrapper = styled.div`
   transition: all 0.2s ease-in-out;
   width: 100%;
-  margin-bottom: 24px;
+  margin-top: 12px;
+  margin-bottom: 12px;
   height:360px;
   *{
     transition: color ease-in-out 0.3s !important;

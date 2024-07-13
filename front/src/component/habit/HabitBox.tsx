@@ -172,9 +172,6 @@ const ButtonWrapper = styled.div`
   }
 `
 const Wrapper = styled.div`
-  /* width: 100%; */
-  /* aspect-ratio: 1/1; */
-
   display: flex;
   flex-direction: column;
   
@@ -207,19 +204,17 @@ const Name = styled.span`
   span{
     white-space: nowrap;
     overflow: scroll;
+    max-width: 120px;
   }
 
   @media (max-width: 479px) { //mobile port
     font-size: 16px;
-    span{
-      max-width: 120px;
-    }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1023px) { // tablet
+    font-size: 16px;
+  }
+  @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
     font-size: 14px;
-    span{
-      max-width: 120px;
-    }
   }
   @media (min-width:1024px) { //desktop
     font-size: 18px;

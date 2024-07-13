@@ -76,7 +76,14 @@ const ListPageClient = () => {
     getNextPageParam: (lastPage, allPages) => (lastPage.length === 0 ? undefined : allPages.length),
   });
 
-  const sortChage = useCallback(() => {
+
+  const emotionToggleChange = () => {
+    setEmotionToggle(c => (c + 1) % 6)
+    setTimeout(() => {
+      contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 200);
+  };
+  const sortToggleChange = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
 
@@ -97,10 +104,8 @@ const ListPageClient = () => {
     <SC_Common.Wrapper>
       <Header title='list'>
         <SC_Common.Options>
-          <button onClick={() => {
-            setEmotionToggle(c => (c + 1) % 6)
-          }}>{emotions[emotionToggle]}</button>
-          <button onClick={sortChage}>
+          <button onClick={emotionToggleChange}>{emotions[emotionToggle]}</button>
+          <button onClick={sortToggleChange}>
             <span><SortIcon fontSize="small" /></span>
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>

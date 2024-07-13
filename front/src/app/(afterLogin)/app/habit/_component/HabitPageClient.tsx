@@ -47,22 +47,23 @@ const HabitPageClient = ({ email }: Props) => {
     if (habits.length < 18) router.push('/app/inter/input/addHabit', { scroll: false })
     else enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
   }
-  // 기능 추가 예정
-  // const [typeToggle, setTypeToggle] = useState<'GRID' | 'LIST'>('GRID');
-  // const typeChage = useCallback(() => {
-  //   if (typeToggle === 'GRID') setTypeToggle('LIST');
-  //   else setTypeToggle('GRID');
-  // }, [typeToggle])
-
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
   }, [sortToggle])
 
 
-
+  const [hide, setHide] = useState<boolean>(false);
   const [type, setType] = useState<string | null>(null);
   useEffect(() => {
+    const onhideMode = () => {
+      if (!hide) {
+        setHide(true);
+        setTimeout(() => {
+          setHide(false);
+        }, 350);
+      }
+    }
     const typeUpdate = () => {
       const gridWrapperWidth = gridListWrapperRef.current?.offsetWidth!;
       const gridWrapperHeight = gridListWrapperRef.current?.offsetHeight! - 28;
@@ -72,11 +73,14 @@ const HabitPageClient = ({ email }: Props) => {
       else setType('width') //width 100%, ratio 3/2
     }
     typeUpdate();
-    window.addEventListener('orientationchange', typeUpdate); //rotate
-    window.addEventListener('resize', typeUpdate);
+    //resize 안하면 그냥 웹에서 변경 처리 안됨
+    window.addEventListener('resize', onhideMode);
+    window.addEventListener('resize', typeUpdate); //rotate
+    window.addEventListener('orientationchange', typeUpdate, true);
     return () => {
-      window.removeEventListener('orientationchange', typeUpdate); //rotate
-      window.removeEventListener('resize', typeUpdate);
+      window.removeEventListener('resize', onhideMode);
+      window.removeEventListener('resize', typeUpdate); //rotate
+      window.removeEventListener('orientationchange', typeUpdate, true);
     }
   }, []);
 
@@ -88,9 +92,6 @@ const HabitPageClient = ({ email }: Props) => {
           <button onClick={onAddHabit}>
             <AddIcon fontSize="small" />
           </button>
-          {/* <button onClick={typeChage}>
-          {typeToggle === 'GRID' ? <WindowOutlinedIcon fontSize="small" /> : <SplitscreenOutlinedIcon fontSize="small" />}
-        </button> */}
           <button onClick={sortChage}>
             <span><SortIcon fontSize="small" /></span>
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
@@ -100,7 +101,7 @@ const HabitPageClient = ({ email }: Props) => {
       <ContentArea className="habit">
         {(habits === undefined || habits?.length === 0) && <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>}
 
-        <HabitGridWrapper ref={gridListWrapperRef}>
+        <HabitGridWrapper className={hide ? 'hide' : ''} ref={gridListWrapperRef}>
           <HabitGridScroll
             className={type ? type : ''}
             ref={gridListScrollRef}
@@ -126,6 +127,11 @@ const HabitPageClient = ({ email }: Props) => {
 export default HabitPageClient;
 
 const HabitGridWrapper = styled.div`
+  &.hide{
+    transition: all ease-in-out 100ms;
+    opacity: 0;
+  }
+
   width: 100%;
   height: 100%;
   display: flex;
@@ -151,22 +157,39 @@ const HabitGridScroll = styled.div`
   }
 
   max-height: calc(100% - 28px); //indicator height 28px
-
   &.port{
-    width: 100%;
+    width: 85%;
     aspect-ratio: 2/3;
   }
   &.land{
-    height: 95%;
+    height: 85%;
     aspect-ratio: 3/2;
   }
   &.height{
-    height: 90%;
+    height: 85%;
     aspect-ratio: 2/3;
   }
   &.width{
-    width: 90%;
+    width: 85%;
     aspect-ratio: 3/2;
+  }
+  @media (max-width: 479px), ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //mobile port
+    &.port{
+      width: 100%;
+      aspect-ratio: 2/3;
+    }
+    &.land{
+      height: 100%;
+      aspect-ratio: 3/2;
+    }
+    &.height{
+      height: 100%;
+      aspect-ratio: 2/3;
+    }
+    &.width{
+      width: 100%;
+      aspect-ratio: 3/2;
+    }
   }
 `
 const HabitGridContainer = styled.div`
@@ -196,8 +219,8 @@ const HabitGridContainer = styled.div`
     grid-gap: 8px;
   }
   @media (min-width:1024px) { //desktop
-    padding: 16px;
-    grid-gap: 16px;
+    padding: 12px;
+    grid-gap: 12px;
   }
 `
 

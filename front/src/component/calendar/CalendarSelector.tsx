@@ -187,15 +187,16 @@ const DateValue = styled.div`
       justify-content: center;
       align-items: center;
       line-height: 0%;
-
+    }
+    .emotion{
       width: 24px;
       height: 24px;
       border-radius: 24px;
       
       margin: 0 1px;
       @media (min-width:1024px) { //desktop
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         border-radius: 28px;
       }
     }

@@ -76,12 +76,11 @@ const IntroMobile = () => {
       <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
       <div>
         <Button onClick={installPwa}>앱 다운로드</Button>
-        <Button onClick={() => (router.push('/app'))}>실행하기</Button>
+        {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </div>
       <ColWrapper>
-        <SubText>쾌적한 이용을 위해 앱을 설치해 주세요.</SubText>
-        <SubText>웹 브라우저 환경에 따라 레이아웃이 어긋날 수 있습니다.</SubText>
-        <SubText>{`* 앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
+        <SubText>{`앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
+        <SubText>*앱 실행 후 로그인 화면이 나타나지 않는 경우, 앱을 재실행해 주세요.</SubText>
       </ColWrapper>
     </Mobile_Section>
     <Mobile_Section className="emotion">
@@ -162,7 +161,7 @@ const IntroMobile = () => {
     <Mobile_Section className="outro">
       <div>
         <Button onClick={installPwa}>앱 다운로드</Button>
-        <Button onClick={() => (router.push('/app'))}>실행하기</Button>
+        {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </div>
       <Logo className="outro">
         <div>
