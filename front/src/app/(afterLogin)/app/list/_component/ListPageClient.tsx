@@ -69,9 +69,12 @@ const ListPageClient = () => {
   });
 
   const sortChage = useCallback(() => {
-    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
+
+    setTimeout(() => {
+      contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 200);
   }, [sortToggle])
 
 

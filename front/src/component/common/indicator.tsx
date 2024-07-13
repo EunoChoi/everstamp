@@ -33,19 +33,13 @@ const IndicatorWrapper = styled.div`
   margin: 4px 0;
   height: auto;
   div {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     border-radius: 12px;
-    background-color: rgb(var(--lightGrey2));
     background-color: white;
     border: 2px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC790'};
 
     margin: 4px;
-    @media (max-width: 479px) { //mobile port
-      width: 10px;
-      height: 10px;
-      margin: 2px;
-    }
   }
   .current {
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};

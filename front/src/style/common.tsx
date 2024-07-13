@@ -23,10 +23,10 @@ const SC_Common = {
     }
   `,
   Wrapper: styled.div`
-    padding: 0 20px;  
+    /* padding: 0 20px;   */
 
     width: 100%;
-    max-width: 700px;
+    
     min-width: 400px;
     height: 100dvh;
 
@@ -41,6 +41,12 @@ const SC_Common = {
     }
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       max-width: 75dvw;
+    }
+    @media (min-width:1024px) { //desktop
+      max-width: 700px;
+      &.habit{
+        max-width: 850px;
+      }
     }
   `,
   Options: styled.div`

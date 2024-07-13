@@ -1,7 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import { useRef } from "react";
 import Axios from "@/Aixos/aixos";
@@ -49,12 +49,6 @@ interface DiaryProps {
 const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const params = useSearchParams();
-
-
-
-
-
 
   const { data: diaryData } = useQuery<DiaryProps>({
     queryKey: ['diary', 'id', diaryId],

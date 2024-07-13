@@ -172,8 +172,8 @@ const ButtonWrapper = styled.div`
   }
 `
 const Wrapper = styled.div`
-  width: 100%;
-  aspect-ratio: 1;
+  /* width: 100%; */
+  /* aspect-ratio: 1/1; */
 
   display: flex;
   flex-direction: column;

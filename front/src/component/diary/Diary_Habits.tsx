@@ -38,6 +38,10 @@ const Habits = styled.div`
   height: auto;
   padding : 10px 0;
   /* margin: 8px 0; */
+
+  @media (min-width:1024px) { //desktop
+    padding : 14px 0;
+  }
   
   display: flex;
   justify-content: start;

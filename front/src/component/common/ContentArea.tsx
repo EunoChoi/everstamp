@@ -59,7 +59,9 @@ const Wrapper = styled.div`
     justify-content: start;
     
     height: 100dvh;
+    /* padding: 5vw; */
     padding-top: var(--mobileHeader);
+
     @media (min-height:480px) {
       &.habit, &.setting{
         justify-content: center;

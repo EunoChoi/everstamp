@@ -8,11 +8,12 @@ import styled from "styled-components";
 interface Props {
   title: string;
   children?: ReactNode;
+  classname?: string;
 }
 
-const Header = ({ title, children }: Props) => {
+const Header = ({ title, children, classname }: Props) => {
   return (
-    <Wrapper>
+    <Wrapper className={classname}>
       <Title href={`/app/calendar?date=${getCleanTodayTime()}`}>{title}</Title>
       {children}
     </Wrapper>
@@ -51,13 +52,11 @@ const Wrapper = styled.div`
     justify-content: space-between;
     width: calc(100dvw - var(--sidebarWidth));
     height: var(--desktopHeader);
-    max-width: 700px;
-    padding: 0 20px;
+    padding: 0 48px;
   }
 `
 const Title = styled(Link)`
   color: rgb(var(--greyTitle));
-  font-size: 42px;
   font-weight: 700;
 
   text-transform: uppercase;
@@ -74,5 +73,8 @@ const Title = styled(Link)`
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     font-size: 28px;
+  }
+  @media (min-width:1024px) { //desktop
+    font-size: 36px;
   }
 `

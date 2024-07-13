@@ -115,6 +115,8 @@ const SettingPageClient = () => {
             </FlexRow>
           </FlexRow>
         </Section>
+
+        <Section></Section>
       </ContentArea>
     </SC_Common.Wrapper>
   );
@@ -126,13 +128,20 @@ export default SettingPageClient;
 const Section = styled.div`
   width: 100%;
   height: auto;
-  padding: 36px 0px;
+  padding: 36px 0;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
 
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    max-width: 600px;
+  }
+  @media (min-width:1024px) { //desktop
+  }
 `
 const Title = styled.span`
   font-size: 28px;
