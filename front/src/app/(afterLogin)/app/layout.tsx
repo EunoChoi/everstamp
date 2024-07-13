@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { redirect, usePathname, useSelectedLayoutSegment } from 'next/navigation'
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 //component
 import CalendarSelector from "@/component/calendar/CalendarSelector";
@@ -22,6 +22,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "../_lib/user";
 
 import { SnackbarProvider, MaterialDesignContent } from 'notistack'
+import Loading from "@/component/common/Loading";
 
 interface Props {
   children: ReactNode;
@@ -55,10 +56,28 @@ const AppLayout = ({ children, modal }: Props) => {
     redirect('/app');
   }
 
+  const [hide, setHide] = useState<boolean>(false);
+
+  useEffect(() => {
+    const hideModeUpdate = () => {
+      setHide(true);
+      setTimeout(() => {
+        setHide(false);
+      }, 500);
+    }
+    window.addEventListener('resize', hideModeUpdate);
+    window.addEventListener('orientationchange', hideModeUpdate); //rotate
+    return () => {
+      window.removeEventListener('resize', hideModeUpdate);
+      window.removeEventListener('orientationchange', hideModeUpdate); //rotate
+    }
+  }, []);
+
   useEffect(() => {
     refetch();
   }, [path]);
 
+  if (hide) return <Loading />;
   if (isMobile === null) return <></>;
   return (
     <SnackbarProvider

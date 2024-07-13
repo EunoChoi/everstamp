@@ -136,6 +136,8 @@ const Section = styled.div`
   align-items: start;
 
   @media (max-width: 479px) { //mobile port
+    padding-left : 5dvw;
+    padding-right: 5dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     max-width: 600px;

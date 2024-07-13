@@ -39,6 +39,11 @@ const Habits = styled.div`
   padding : 10px 0;
   /* margin: 8px 0; */
 
+  @media (max-width: 479px) { //mobile port
+    padding-left : 5dvw;
+    padding-right: 5dvw;
+  }
+  
   @media (min-width:1024px) { //desktop
     padding : 14px 0;
   }

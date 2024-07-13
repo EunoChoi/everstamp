@@ -150,6 +150,9 @@ const MonthInfo = styled.span`
   }
 
   
+  @media (max-width: 479px) { //mobile port
+    width: 90dvw;
+  }
 
   @media (min-width:1024px) { //desktop
     font-size: 22px;

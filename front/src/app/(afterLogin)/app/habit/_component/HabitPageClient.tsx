@@ -58,18 +58,11 @@ const HabitPageClient = ({ email }: Props) => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
   }, [sortToggle])
+
+
+
   const [type, setType] = useState<string | null>(null);
-  const [hide, setHide] = useState<boolean>(false);
-
-
-
   useEffect(() => {
-    const hideModeUpdate = () => {
-      setHide(true);
-      setTimeout(() => {
-        setHide(false);
-      }, 300);
-    }
     const typeUpdate = () => {
       const gridWrapperWidth = gridListWrapperRef.current?.offsetWidth!;
       const gridWrapperHeight = gridListWrapperRef.current?.offsetHeight! - 28;
@@ -78,21 +71,12 @@ const HabitPageClient = ({ email }: Props) => {
       else if (gridWrapperHeight > gridWrapperWidth) setType('height') //height 100%, ratio 2/3
       else setType('width') //width 100%, ratio 3/2
     }
-
     typeUpdate();
-
-    // window.addEventListener('resize', hideModeUpdate);
-    window.addEventListener('orientationchange', hideModeUpdate); //rotate
-
     window.addEventListener('orientationchange', typeUpdate); //rotate
     window.addEventListener('resize', typeUpdate);
     return () => {
-      // window.removeEventListener('resize', hideModeUpdate);
-      window.removeEventListener('orientationchange', hideModeUpdate); //rotate
-
       window.removeEventListener('orientationchange', typeUpdate); //rotate
       window.removeEventListener('resize', typeUpdate);
-
     }
   }, []);
 
@@ -116,7 +100,7 @@ const HabitPageClient = ({ email }: Props) => {
       <ContentArea className="habit">
         {(habits === undefined || habits?.length === 0) && <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>}
 
-        <HabitGridWrapper ref={gridListWrapperRef} className={hide ? 'hide' : ''}>
+        <HabitGridWrapper ref={gridListWrapperRef}>
           <HabitGridScroll
             className={type ? type : ''}
             ref={gridListScrollRef}
@@ -142,10 +126,6 @@ const HabitPageClient = ({ email }: Props) => {
 export default HabitPageClient;
 
 const HabitGridWrapper = styled.div`
-  &.hide{
-    opacity: 0;
-  }
-
   width: 100%;
   height: 100%;
   display: flex;

@@ -48,6 +48,11 @@ const Wrapper = styled.div`
   height: auto;
   margin-top: 12px;
   max-width: 600px;
+
+  @media (max-width: 479px) { //mobile port
+    padding-left : 5dvw;
+    padding-right: 5dvw;
+  }
 `
 
 const RadioWrapper = styled.div`

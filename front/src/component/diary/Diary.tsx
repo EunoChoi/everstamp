@@ -116,6 +116,12 @@ const EmptyWrapper = styled.div`
       color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
+
+  @media (max-width: 479px) { //mobile port
+    margin-left: 5dvw;
+    margin-right: 5dvw;
+    width: 90dvw;
+  }
   @media (min-width:1024px) { //desktop
     margin-bottom: 28px;
     button{
@@ -150,6 +156,10 @@ const DateWrapper = styled.div`
   flex-direction: row;
   align-items: end;
 
+  @media (max-width: 479px) { //mobile port
+    padding-left : 5dvw;
+    padding-right: 5dvw;
+  }
   
   .week{
     font-size: 26px;

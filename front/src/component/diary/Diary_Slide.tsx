@@ -181,10 +181,18 @@ const SlideWrapper = styled.div`
 
   .slideChild{
     scroll-snap-align: start;
+    scroll-snap-align: center;
     scroll-snap-stop: always !important;
     margin-right: 16px;
     &:last-child{
       margin-right: 0;
+    }
+  }
+  @media (max-width: 479px) { //mobile port
+    padding-left : 5dvw;
+    padding-right: 5dvw;
+    .slideChild{
+      margin-right: 12px;
     }
   }
 `
