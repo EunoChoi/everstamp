@@ -11,10 +11,9 @@ import Axios from "@/Aixos/aixos";
 import { useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
-import loading from '../../../public/img/loading.gif';
+import loading from '/public/img/loading.gif';
 
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
-import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
 import BottomButtonArea from "../common/BottomButtonArea";
 
 

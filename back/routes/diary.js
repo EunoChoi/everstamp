@@ -229,7 +229,7 @@ router.get("/list", tokenCheck, async (req, res) => {
 
   try {
     let diaries;
-    if (Number(search) >= 0) {
+    if (Number(search) !== 5) {
       diaries = await Diary.findAll({
         where: [{
           email,

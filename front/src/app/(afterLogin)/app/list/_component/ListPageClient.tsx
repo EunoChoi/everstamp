@@ -19,7 +19,6 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import SortIcon from '@mui/icons-material/Sort';
 
 import { useInView } from "react-intersection-observer";
-import EmotionSelector from "@/component/diaryInput/emotionSelector";
 import { format } from "date-fns";
 import ContentArea from "@/component/common/ContentArea";
 
@@ -52,8 +51,17 @@ interface diaryData {
 const ListPageClient = () => {
 
   const contentRef = useRef<HTMLDivElement>(null);
-  const [emotion, setEmotion] = useState<number>(-1);
+  let temmDate = '';
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
+  const [emotionToggle, setEmotionToggle] = useState<number>(5);
+  const emotions = [
+    'angry',
+    'sad',
+    'common',
+    'happy',
+    'joyful',
+    'all',
+  ];
 
 
   const { ref, inView } = useInView({
@@ -62,8 +70,8 @@ const ListPageClient = () => {
   });
 
   const { data: diaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', emotion, sortToggle],
-    queryFn: ({ pageParam }) => getDiaries({ sort: sortToggle, search: emotion, pageParam, limit: 5 }),
+    queryKey: ['diary', 'list', 'search', emotionToggle, sortToggle],
+    queryFn: ({ pageParam }) => getDiaries({ sort: sortToggle, search: emotionToggle, pageParam, limit: 5 }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => (lastPage.length === 0 ? undefined : allPages.length),
   });
@@ -82,12 +90,16 @@ const ListPageClient = () => {
     if (!isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching])
 
-  let temmDate = '';
+
+
 
   return (
     <SC_Common.Wrapper>
       <Header title='list'>
         <SC_Common.Options>
+          <button onClick={() => {
+            setEmotionToggle(c => (c + 1) % 6)
+          }}>{emotions[emotionToggle]}</button>
           <button onClick={sortChage}>
             <span><SortIcon fontSize="small" /></span>
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
@@ -97,8 +109,6 @@ const ListPageClient = () => {
 
 
       <ContentArea className="scroll" _ref={contentRef}>
-        <EmotionSelector emotion={emotion} setEmotion={setEmotion} />
-
         {diaries?.pages[0].length === 0 && <NoDiaries>일기 작성을 시작해볼까요? 😀</NoDiaries>}
         {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => {
           const diaryDate = format(data.date, 'MMMM yyyy');
