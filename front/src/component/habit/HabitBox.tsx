@@ -293,8 +293,12 @@ const Check = styled.div`
         height: 12px; 
         border-radius: 20px;
         background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+
+        @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+          height: 8px;
+          width: 8px;
+        }
       }    
-      
     }
     span:first-child{
       font-weight: 600;
