@@ -13,8 +13,8 @@ const Loading = () => {
 export default Loading;
 
 const Wrapper = styled.div`
-  width: 100dvw;
-  height: 100dvh;
+  width: 100%;
+  height: 100%;
 
   background-color: white;
 

@@ -67,7 +67,8 @@ const AddHabitModal = () => {
         <Content>
           <Title>Add Habit</Title>
           <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
-          <SubText>우선순위가 높은 경우 습관 목록 상단에 정렬됩니다.</SubText>
+          <SubText>중요도는 습관 생성일 보다 높은 정렬 우선 순위를 갖습니다.</SubText>
+          <SubText>최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</SubText>
         </Content>
         <HabitInputButtons onSubmit={addHabit} />
       </Modal>
@@ -75,8 +76,6 @@ const AddHabitModal = () => {
 }
 export default AddHabitModal;
 const SubText = styled.span`
-  margin-top: 36px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,6 +89,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 479px) { //mobile port
+    justify-content: start;
+    padding-top: 50%;
+  }
 `
 const Wrapper = styled.div`
   transition: all ease-in-out 0.2s;

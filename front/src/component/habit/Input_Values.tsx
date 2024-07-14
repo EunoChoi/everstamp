@@ -15,7 +15,7 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
 
 
   return (
-    <>
+    <Wrapper>
       <Value>
         <span>name</span>
         <input
@@ -37,11 +37,15 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
             </RadioButton>)}
         </RadioWrapper>
       </Value>
-    </>
+    </Wrapper>
   );
 }
 
 export default HabitInputValues;
+
+const Wrapper = styled.div`
+  margin : 32px 0;
+`
 
 const RadioWrapper = styled.div`
   width: 100%;

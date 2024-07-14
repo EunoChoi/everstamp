@@ -13,13 +13,16 @@ import SC_Common from "@/style/common";
 //component
 import Diary from "@/component/diary/Diary";
 import CalendarSelector from "@/component/calendar/CalendarSelector";
+const LazyCalendarSelector = lazy(() => import('@/component/calendar/CalendarSelector'));
 
 //icon
 import Header from "@/component/common/Header";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import ContentArea from "@/component/common/ContentArea";
+import Loading from "@/component/common/Loading";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface Props {
   date: number;
@@ -45,7 +48,16 @@ const CalendarPageClient = ({ date }: Props) => {
     <SC_Common.Wrapper>
       <ContentArea>
         <Header title='calendar' />
-        {isMobile && <CalendarWrapper><CalendarSelector /></CalendarWrapper>}
+        {isMobile &&
+          <Suspense fallback={<CalendarLoading>
+            <CalendarMonthIcon fontSize="inherit" />
+            <span>Loading</span>
+          </CalendarLoading>}>
+            <CalendarWrapper>
+              <LazyCalendarSelector />
+            </CalendarWrapper>
+          </Suspense>
+        }
         <Diary diaryData={diaryData} position="calendar" />
       </ContentArea>
     </SC_Common.Wrapper>
@@ -53,7 +65,21 @@ const CalendarPageClient = ({ date }: Props) => {
 }
 
 export default CalendarPageClient;
+const CalendarLoading = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 128px;
 
+  color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
+  span{
+    font-size: 22px;
+    font-weight: 600;
+  }
+`
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;

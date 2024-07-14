@@ -226,9 +226,7 @@ const Name = styled.span`
 const Days = styled.div`
   width: 100%;
   height: 40%;
-  font-size: 16px;
   
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -248,6 +246,9 @@ const Check = styled.div`
   }
   .week{
     color: grey !important;
+    @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+      font-size: 13px;
+    }
   }
 
   label{
@@ -279,6 +280,10 @@ const Check = styled.div`
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
+      @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+        height: 16px;
+        width: 16px;
+      }
     }
     input:checked ~ .checkmark{
       div{
