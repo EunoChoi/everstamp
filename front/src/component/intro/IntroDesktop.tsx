@@ -84,7 +84,7 @@ const IntroDesktop = () => {
         </Text>
         <div>
           <Button onClick={installPwa}>앱 다운로드</Button>
-          <Button onClick={() => (router.push('/app'))}>실행하기</Button>
+          <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
         </div>
         <ColWrapper>
           <SubText>쾌적한 이용을 위해 앱을 설치해 주세요.</SubText>

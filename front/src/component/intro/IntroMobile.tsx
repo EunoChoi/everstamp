@@ -80,7 +80,7 @@ const IntroMobile = () => {
       </div>
       <ColWrapper>
         <SubText>{`앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
-        <SubText>*앱 실행 후 로그인 화면이 나타나지 않는 경우, 앱을 재실행해 주세요.</SubText>
+        <SubText>*로그인 화면이 나타나지 않는 경우, 앱을 재실행해 주세요.</SubText>
       </ColWrapper>
     </Mobile_Section>
     <Mobile_Section className="emotion">
@@ -367,8 +367,8 @@ const Img = styled(Image)`
   &.habitbox{
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
 
-    width: 280px;
-    height: 280px;
+    width: 240px;
+    height: 240px;
     border-radius: 16px;
     background-color: white;
     margin: 0 4px;

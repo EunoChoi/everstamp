@@ -173,7 +173,7 @@ const HabitGridScroll = styled.div`
     width: 85%;
     aspect-ratio: 3/2;
   }
-  @media (max-width: 479px), ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //mobile port
+  @media (max-width: 479px), ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) {
     &.port{
       width: 100%;
       aspect-ratio: 2/3;

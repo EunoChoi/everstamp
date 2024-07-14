@@ -51,10 +51,10 @@ const Page = () => {
           <Images src={naver} alt='naver' width={50} height={50} />
         </LoginButton>
       </Buttons>
-      <BackButton onClick={() => router.push('/')}>
+      {/* <BackButton onClick={() => router.push('/')}>
         <ArrowBackIcon />
         <span>Intro</span>
-      </BackButton>
+      </BackButton> */}
     </Wrapper>
   );
 }
