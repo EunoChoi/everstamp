@@ -144,7 +144,7 @@ const Wrapper = styled.div`
 
   @media (min-width: 1024px) {//desktop
     margin-top: 30px;
-    height: 350px;
+    height: 300px;
     &.calendar{
       height: 550px;
     }

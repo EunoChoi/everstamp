@@ -220,7 +220,7 @@ const Text = styled.div`
     font-size: 16px;
   }
   @media (min-width:1024px) { //desktop
-    -webkit-line-clamp: 7;
+    -webkit-line-clamp: 5;
     &.calendar{
       font-size: 18px;
       line-height: 1.8;
