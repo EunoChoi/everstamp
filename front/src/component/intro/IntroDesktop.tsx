@@ -176,7 +176,7 @@ const IntroDesktop = () => {
     <Desktop_Section className="outro center">
       <div>
         <Button onClick={installPwa}>앱 다운로드</Button>
-        <Button onClick={() => (router.push('/app'))}>실행하기</Button>
+        <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
       </div>
       <Logo className="outro">
         <div>

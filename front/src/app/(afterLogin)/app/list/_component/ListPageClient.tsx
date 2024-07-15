@@ -154,12 +154,12 @@ const MonthInfo = styled.span`
   width: 100%;
   max-width: 600px;
   height: 2px;
-  background-color:  ${(props) => props.theme.point ? props.theme.point + '50' : '#979FC7'};
+  background-color:  ${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
 
   span{
     padding: 0 8px;
     background-color: white;
-    color:  ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
+    color:  ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
     font-size: 16px;
     font-weight: 500;
   }

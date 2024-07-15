@@ -9,12 +9,12 @@ const Page = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', '-1', 'ASC'],
+    queryKey: ['diary', 'list', 'search', 5, 'ASC'],
     queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
     initialPageParam: 0,
   })
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', '-1', 'DESC'],
+    queryKey: ['diary', 'list', 'search', 5, 'DESC'],
     queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
     initialPageParam: 0,
   })
