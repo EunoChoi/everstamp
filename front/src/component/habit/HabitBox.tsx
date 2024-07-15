@@ -130,7 +130,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
         return <Check key={`${date}-${name}`}>
           <label htmlFor={`${date}-${name}`}>
             <span className="week">{format(date, 'eee')}</span>
-            <span>{format(date, 'd')}</span>
+            <span className="date">{format(date, 'd')}</span>
             <input
               id={`${date}-${name}`}
               type="checkbox"
@@ -161,6 +161,7 @@ export default HabitBox;
 const ButtonWrapper = styled.div`
   width: 100%;
   height: 30%;
+  height: auto;
 
   display: flex;
   justify-content: center;
@@ -174,6 +175,7 @@ const ButtonWrapper = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   
   border-radius: 16px;
   background-color: #f9f9f9;
@@ -190,6 +192,7 @@ const Wrapper = styled.div`
 const Name = styled.span`
   width: 100%;
   height: 30%;
+  height: auto;
   
   font-weight: 600;
   color: rgb(var(--greyTitle));
@@ -226,6 +229,7 @@ const Name = styled.span`
 const Days = styled.div`
   width: 100%;
   height: 40%;
+  height: auto;
   
   display: flex;
   justify-content: space-evenly;
@@ -243,6 +247,9 @@ const Check = styled.div`
       color: rgb(var(--greyTitle)) !important;
       font-weight: 700;
     }
+  }
+  .date{
+    margin: 6px 0;
   }
   .week{
     color: grey !important;
