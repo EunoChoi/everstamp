@@ -42,13 +42,16 @@ const AppLayout = ({ children, modal }: Props) => {
   // Detects if device is in standalone mode
   const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-  const { data, failureCount } = useQuery({
+  const { data, refetch, failureCount } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
     retry: 3,
   })
 
 
+  useEffect(() => {
+    refetch();
+  }, [path]);
   useEffect(() => {
     if (failureCount >= 3) {
       redirect('/app');
