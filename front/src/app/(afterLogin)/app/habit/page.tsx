@@ -4,8 +4,8 @@ import HabitPageClient from "./_component/HabitPageClient";
 import { getHabits_fetch } from "../../_lib/habit_ssr";
 
 const Page = async ({ searchParams }: any) => {
-  const session = await auth()
-  const email = session?.user?.email ? session?.user?.email : '';
+  // const session = await auth()
+  // const email = session?.user?.email ? session?.user?.email : '';
 
   //server prefetch
   const queryClient = new QueryClient();
@@ -23,7 +23,7 @@ const Page = async ({ searchParams }: any) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <HabitPageClient email={email} />
+      <HabitPageClient />
     </HydrationBoundary>
   );
 }
