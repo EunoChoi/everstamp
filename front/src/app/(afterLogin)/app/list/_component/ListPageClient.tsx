@@ -15,12 +15,13 @@ import Header from "@/component/common/Header";
 
 //icon
 import { useRef } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import SortIcon from '@mui/icons-material/Sort';
 
 import { useInView } from "react-intersection-observer";
 import { format } from "date-fns";
 import ContentArea from "@/component/common/ContentArea";
+import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 
 interface ImageProps {
   id: string;
@@ -69,11 +70,16 @@ const ListPageClient = () => {
     delay: 0
   });
 
-  const { data: diaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
+  const { data: user } = useQuery({
+    queryKey: ['user'],
+    queryFn: getCurrentUser,
+  })
+
+  const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'search', emotionToggle, sortToggle],
     queryFn: ({ pageParam }) => getDiaries({ sort: sortToggle, search: emotionToggle, pageParam, limit: 5 }),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages) => (lastPage.length === 0 ? undefined : allPages.length),
+    getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
 
@@ -94,10 +100,10 @@ const ListPageClient = () => {
 
 
   useEffect(() => {
-    if (!isFetching && hasNextPage && inView) fetchNextPage();
+    if (user && !isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching])
 
-
+  console.log(diaries, isSuccess);
 
 
   return (
@@ -114,27 +120,29 @@ const ListPageClient = () => {
 
 
       <ContentArea className="scroll" _ref={contentRef}>
-        {diaries?.pages[0].length === 0 && <NoDiaries>일기 작성을 시작해볼까요? 😀</NoDiaries>}
-        {diaries?.pages?.map((page: Array<diaryData>, i: number) => (page.map((data, i) => {
-          const diaryDate = format(data.date, 'MMMM yyyy');
-          if (temmDate !== diaryDate) {
-            temmDate = diaryDate;
-            return <React.Fragment key={'listNote' + i}>
-              <MonthInfo><span>{diaryDate}</span></MonthInfo>
-              <Diary
+        {isSuccess ?
+          diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
+            const diaryDate = format(data.date, 'MMMM yyyy');
+            if (temmDate !== diaryDate) {
+              temmDate = diaryDate;
+              return <React.Fragment key={'listNote' + i}>
+                <MonthInfo><span>{diaryDate}</span></MonthInfo>
+                <Diary
+                  position="list"
+                  diaryData={data}
+                />
+              </React.Fragment>
+            }
+            else {
+              return <Diary
                 position="list"
                 diaryData={data}
+                key={'listNote' + i}
               />
-            </React.Fragment>
-          }
-          else {
-            return <Diary
-              position="list"
-              diaryData={data}
-              key={'listNote' + i}
-            />
-          }
-        })))}
+            }
+          })))
+          :
+          <NoDiaries>일기 작성을 시작해볼까요? 😀</NoDiaries>}
         <Observer ref={ref} />
       </ContentArea>
     </SC_Common.Wrapper>

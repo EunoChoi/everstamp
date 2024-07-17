@@ -54,8 +54,6 @@ const SettingPageClient = () => {
     );
     enqueueSnackbar('로그아웃 하시겠습니까?', { key: 'logout', persist: true, action: logoutAction, autoHideDuration: 6000 });
   }
-
-
   const onDeleteAccount = () => {
     const userDeleteAction = (snackbarId: SnackbarKey) => (
       <>

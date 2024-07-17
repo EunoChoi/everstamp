@@ -22,12 +22,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import Indicator from "@/component/common/indicator";
 import ContentArea from "@/component/common/ContentArea";
 
-interface Props {
-  email: string;
-}
-
-
-const HabitPageClient = ({ email }: Props) => {
+const HabitPageClient = () => {
 
   const router = useRouter();
 
@@ -99,26 +94,26 @@ const HabitPageClient = ({ email }: Props) => {
         </SC_Common.Options>
       </Header>
       <ContentArea className="habit">
-        {(habits === undefined || habits?.length === 0) && <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>}
-
-        <HabitGridWrapper className={hide ? 'hide' : ''} ref={gridListWrapperRef}>
-          <HabitGridScroll
-            className={type ? type : ''}
-            ref={gridListScrollRef}
-            onScroll={(e) => {
-              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-            }}
-          >
-            {habits?.map((grid: any[], i: number) =>
-              <HabitGridContainer key={'set' + i} className={type ? type : ''}>
-                {grid.map(e =>
-                  <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />
-                )}
-              </HabitGridContainer>)}
-          </HabitGridScroll>
-          {habits.length > 1 && <Indicator slideWrapperRef={gridListScrollRef} page={page} indicatorLength={habits?.length} />}
-        </HabitGridWrapper>
-
+        {(habits === undefined || habits?.length === 0) ?
+          <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>
+          :
+          <HabitGridWrapper className={hide ? 'hide' : ''} ref={gridListWrapperRef}>
+            <HabitGridScroll
+              className={type ? type : ''}
+              ref={gridListScrollRef}
+              onScroll={(e) => {
+                setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+              }}
+            >
+              {habits?.map((grid: any[], i: number) =>
+                <HabitGridContainer key={'set' + i} className={type ? type : ''}>
+                  {grid.map(e =>
+                    <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />
+                  )}
+                </HabitGridContainer>)}
+            </HabitGridScroll>
+            {habits?.length > 1 && <Indicator slideWrapperRef={gridListScrollRef} page={page} indicatorLength={habits?.length} />}
+          </HabitGridWrapper>}
       </ContentArea>
     </SC_Common.Wrapper>
   );

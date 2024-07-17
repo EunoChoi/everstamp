@@ -250,6 +250,9 @@ const Check = styled.div`
   }
   .date{
     margin: 6px 0;
+    @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+      margin: 3px 0;
+    }
   }
   .week{
     color: grey !important;
