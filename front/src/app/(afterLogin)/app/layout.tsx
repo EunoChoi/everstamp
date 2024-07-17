@@ -42,7 +42,7 @@ const AppLayout = ({ children, modal }: Props) => {
   // Detects if device is in standalone mode
   const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-  const { data, refetch, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
@@ -51,13 +51,7 @@ const AppLayout = ({ children, modal }: Props) => {
     point: data?.themeColor
   }
 
-  if (error) {
-    redirect('/app');
-  }
 
-  useEffect(() => {
-    refetch();
-  }, [path]);
 
   if (isMobile === null) return <></>;
   return (

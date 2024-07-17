@@ -16,69 +16,62 @@ interface MonthProps {
 
 
 export async function getHabit({ id }: IdProps) {
-
-  const { data } = await Axios.get(`habit?id=${id}`);
-  if (!data) {
-    console.log('Failed to delete data!!');
-    throw new Error('Failed to delte data')
+  try {
+    const { data } = await Axios.get(`habit?id=${id}`);
+    return data;
   }
-
-  return data;
+  catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habit(id) data!!');
+  }
 }
 
 export async function getHabits({ sort }: ListProps) {
-  const { data } = await Axios.get(`/habit/list?sort=${sort}`);
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    const { data } = await Axios.get(`/habit/list?sort=${sort}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habits(list) data!!');
   }
-
-  return data;
 }
 
 export async function getHabit_status_4day({ id, date }: RecentProps) {
-  const { data } = await Axios.get(`/habit/recent?id=${id}&date=${date}`);
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    const { data } = await Axios.get(`/habit/recent?id=${id}&date=${date}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habits(4day) data!!');
   }
 
-  return data;
 }
-
-
-
 export async function getHabit_status_month({ date }: MonthProps) {
-  const { data } = await Axios.get(`/habit/month?date=${date.getTime()}`);
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    const { data } = await Axios.get(`/habit/month?date=${date.getTime()}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habits(all month) data!!');
   }
-
-  return data;
 }
 
 export async function getHabit_single_status_month({ id, date }: { id: string | null, date: Date }) {
-  const { data } = await Axios.get(`/habit/month/single?id=${id}&date=${date.getTime()}`);
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    const { data } = await Axios.get(`/habit/month/single?id=${id}&date=${date.getTime()}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habits(info month) data!!');
   }
-
-  return data;
 }
 
 export async function getHabit_single_status_year({ id, date }: { id: string | null, date: Date }) {
-  const { data } = await Axios.get(`/habit/year/single?id=${id}&date=${date.getTime()}`);
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    const { data } = await Axios.get(`/habit/year/single?id=${id}&date=${date.getTime()}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habits(info year) data!!');
   }
-
-  return data;
 }

@@ -1,4 +1,5 @@
 import Axios from "@/Aixos/aixos";
+import { redirect } from "next/navigation";
 
 interface IdProps {
   id: string | number | null;
@@ -15,34 +16,33 @@ interface ListProps {
   pageParam: number;
 }
 
-
 export async function getDiary({ id }: IdProps) {
-  if (!id) return null;
-  const { data } = await Axios.get(`/diary/id/${id}`);
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    if (!id) return null;
+    const { data } = await Axios.get(`/diary/id/${id}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to fetch diary(id) data!!');
   }
-  return data;
 }
 
 export async function getDiary_date({ date }: DateProps) {
-  const { data } = await Axios.get(`/diary/calendar?date=${date}`);
-  if (!data) {
-    console.log('no diary in this day');
-    throw new Error('no diary in this day')
+  try {
+    const { data } = await Axios.get(`/diary/calendar?date=${date}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to fetch diary(date) data!!');
   }
-
-  return data;
 }
 
 export async function getDiaries({ sort, search, pageParam, limit }: ListProps) {
-  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`)
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`)
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to fetch diaries(list) data!!');
   }
-
-  return data;
 }

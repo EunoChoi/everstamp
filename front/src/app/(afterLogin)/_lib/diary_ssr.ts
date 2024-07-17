@@ -16,52 +16,49 @@ interface ListProps {
 
 
 export async function getDiary_fetch({ id }: IdProps) {
-  console.log('diary(id) data prefetching...');
-
-  const { data } = await Axios.get(`/diary/id/${id}`, {
-    headers: {
-      cookie: cookies().toString(),
-    },
-  });
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    console.log('diary(id) data prefetching...');
+    const { data } = await Axios.get(`/diary/id/${id}`, {
+      headers: {
+        cookie: cookies().toString(),
+      },
+    });
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to fetch diary(id) data!!');
   }
-  return data;
 }
 
 
 
 export async function getDiary_date_fetch({ date }: DateProps) {
-  console.log('diary(date) data prefetching...');
-
-  const { data } = await Axios.get(`/diary/calendar?date=${date}`, {
-    headers: {
-      cookie: cookies().toString(),
-    },
-  });
-
-  if (!data) {
-    console.log('no diary in this day');
-    throw new Error('no diary in this day')
+  try {
+    console.log('diary(date) data prefetching...');
+    const { data } = await Axios.get(`/diary/calendar?date=${date}`, {
+      headers: {
+        cookie: cookies().toString(),
+      },
+    });
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to fetch diary(date) data!!');
   }
-
-  return data;
 }
 
 
 export async function getDiaries_fetch({ sort, search, pageParam, limit }: ListProps) {
-  const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`, {
-    headers: {
-      cookie: cookies().toString(),
-    },
-  })
-
-  if (!data) {
-    console.log('Failed to fetch data!!');
-    throw new Error('Failed to fetch data')
+  try {
+    console.log('diaries(list) data prefetching...');
+    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`, {
+      headers: {
+        cookie: cookies().toString(),
+      },
+    })
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to fetch diaries(list) data!!');
   }
-
-  return data;
 }

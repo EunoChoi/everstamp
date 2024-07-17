@@ -15,7 +15,7 @@ const Layout = async ({ children, modal }: Props) => {
   const queryClient = new QueryClient();
 
   //for login status check
-  await queryClient.fetchQuery({
+  await queryClient.prefetchQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser_fetch,
   })
