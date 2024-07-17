@@ -42,10 +42,18 @@ const AppLayout = ({ children, modal }: Props) => {
   // Detects if device is in standalone mode
   const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-  const { data } = useQuery({
+  const { data, failureCount } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
+    retry: 3,
   })
+
+
+  useEffect(() => {
+    if (failureCount >= 3) {
+      redirect('/app');
+    }
+  }, [failureCount]);
 
   const theme = {
     point: data?.themeColor
@@ -134,7 +142,6 @@ const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
     fontWeight: '500'
   },
 }));
-
 const Logo = styled.span`
   display: none;
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
