@@ -37,9 +37,9 @@ router.post("/register", async (req, res) => {
     });
     const refreshToken = jwt.sign({
       type: "refreshToken",
-      expiresIn: "24h"
+      expiresIn: "72h"
     }, process.env.REFRECH_KEY, {
-      expiresIn: '24h',
+      expiresIn: '72h',
       issuer: 'everstamp',
     })
 
