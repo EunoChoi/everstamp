@@ -228,49 +228,37 @@ router.get("/list", tokenCheck, async (req, res) => {
 
 
   try {
-    let diaries;
-    if (Number(search) !== 5) {
-      diaries = await Diary.findAll({
-        where: [{
-          email,
-          visible: true,
-          emotion: search
-        }],
-        offset: Number(offset),
-        limit: Number(limit),
-        include: [{
-          model: Image,//이미지
-        }, {
-          model: Habit,//습관
-        }],
-        order: [
-          ['date', sort], //ASC DESC
-          [Habit, 'priority', 'DESC']
-        ],
-      });
-    }
-    else {
-      diaries = await Diary.findAll({
-        where: [{
-          email,
-          visible: true,
-        }],
-        offset: Number(offset),
-        limit: Number(limit),
-        include: [{
-          model: Image,//이미지
-        }, {
-          model: Habit,//습관
-        }],
-        order: [
-          ['date', sort], //ASC DESC
-          [Habit, 'priority', 'DESC']
-        ],
-      });
+    let where = {};
+    if (Number(search) === 5) {
+      where = {
+        email,
+        visible: true,
+      }
+    } else {
+      where = {
+        email,
+        visible: true,
+        emotion: search
+      }
     }
 
+    const diaries = await Diary.findAll({
+      where,
+      offset: Number(offset),
+      limit: Number(limit),
+      include: [{
+        model: Image,//이미지
+      }, {
+        model: Habit,//습관
+      }],
+      order: [
+        ['date', sort], //ASC DESC
+        [Habit, 'priority', 'DESC']
+      ],
+    });
 
-    if (diaries) {
+
+    if (diaries.length > 0) {
       diaries.map(diary => {
         const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
         diary.text = decryptedText;
