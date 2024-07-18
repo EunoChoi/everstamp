@@ -258,7 +258,7 @@ router.get("/list", tokenCheck, async (req, res) => {
     });
 
 
-    if (diaries.length > 0) {
+    if (diaries) {
       diaries.map(diary => {
         const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
         diary.text = decryptedText;

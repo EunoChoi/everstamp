@@ -103,8 +103,6 @@ const ListPageClient = () => {
     if (user && !isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching])
 
-  console.log(diaries, isSuccess);
-
 
   return (
     <SC_Common.Wrapper>
@@ -120,7 +118,7 @@ const ListPageClient = () => {
 
 
       <ContentArea className="scroll" _ref={contentRef}>
-        {isSuccess ?
+        {diaries?.pages[0].length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
             const diaryDate = format(data.date, 'MMMM yyyy');
             if (temmDate !== diaryDate) {
