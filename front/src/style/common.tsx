@@ -45,7 +45,7 @@ const SC_Common = {
       max-width: 700px;
       padding: 0 20px;  
       &.habit{
-        max-width: 850px;
+        max-width: 900px;
       }
     }
   `,
