@@ -3,25 +3,25 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { redirect, usePathname, useSelectedLayoutSegment } from 'next/navigation'
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect } from "react";
+import { ThemeProvider } from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { SnackbarProvider, MaterialDesignContent } from 'notistack'
 
 //component
 import CalendarSelector from "@/component/calendar/CalendarSelector";
 
-//hooks
+//function
 import IsMobile from "@/function/IsMobile";
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { getCurrentUser } from "../_lib/user";
 
 //icons
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { ThemeProvider } from "styled-components";
-import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "../_lib/user";
 
-import { SnackbarProvider, MaterialDesignContent } from 'notistack'
 
 interface Props {
   children: ReactNode;

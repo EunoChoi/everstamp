@@ -3,12 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* --point: 255, 100, 78; */
-  /* --point2: 255, 167, 155; */
-
   --whitesmoke: 245, 245, 245;
-  /* --point: 142, 188, 219;
-  --point2: 181, 211, 231; */
 
   --point: 153, 151, 203;
   --point2: 187, 185, 220;

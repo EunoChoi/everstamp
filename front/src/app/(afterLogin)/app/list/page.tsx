@@ -1,7 +1,5 @@
 import ListPageClient from "./_component/ListPageClient";
-
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { auth } from "@/auth";
 import { getDiaries_fetch } from "../../_lib/diary_ssr";
 
 const Page = async () => {

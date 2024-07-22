@@ -2,25 +2,26 @@
 
 import styled from "styled-components";
 import { useCallback, useEffect, useRef, useState } from "react";
-
-//styledComponent
-import SC_Common from "@/style/common";
+import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 import { enqueueSnackbar } from 'notistack'
+
+//style
+import SC_Common from "@/style/common";
 
 //component
 import HabitBox from "@/component/habit/HabitBox";
 import Header from "@/component/common/Header";
+import Indicator from "@/component/common/indicator";
+import ContentArea from "@/component/common/ContentArea";
+
+//function
+import { getHabits } from "@/app/(afterLogin)/_lib/habit";
 
 //icon
 import AddIcon from '@mui/icons-material/Add';
-import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { getHabits } from "@/app/(afterLogin)/_lib/habit";
-
 import SortIcon from '@mui/icons-material/Sort';
 
-import Indicator from "@/component/common/indicator";
-import ContentArea from "@/component/common/ContentArea";
 
 const HabitPageClient = () => {
 

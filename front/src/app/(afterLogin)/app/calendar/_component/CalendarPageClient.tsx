@@ -1,7 +1,10 @@
 'use client';
 
-import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { lazy, Suspense, useEffect } from "react";
 
 //function
 import IsMobile from "@/function/IsMobile";
@@ -11,17 +14,12 @@ import { getDiary_date } from "@/app/(afterLogin)/_lib/diary";
 import SC_Common from "@/style/common";
 
 //component
+import ContentArea from "@/component/common/ContentArea";
 import Diary from "@/component/diary/Diary";
-import CalendarSelector from "@/component/calendar/CalendarSelector";
 const LazyCalendarSelector = lazy(() => import('@/component/calendar/CalendarSelector'));
 
 //icon
 import Header from "@/component/common/Header";
-import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { lazy, Suspense, useEffect } from "react";
-import ContentArea from "@/component/common/ContentArea";
-import Loading from "@/component/common/Loading";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface Props {

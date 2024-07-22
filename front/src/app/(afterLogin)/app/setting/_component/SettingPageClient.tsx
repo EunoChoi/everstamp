@@ -4,24 +4,23 @@ import styled from "styled-components";
 import { signOut } from "next-auth/react";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
+import Axios from "@/Aixos/aixos";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
+//style
+import SC_Common from "@/style/common";
 
 //function
 import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 
 //component
 import Header from "@/component/common/Header";
-
-import SC_Common from "@/style/common";
-import Axios from "@/Aixos/aixos";
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import ContentArea from "@/component/common/ContentArea";
 
 
 
 const SettingPageClient = () => {
   const queryClient = useQueryClient();
-
 
   const { data } = useQuery({
     queryKey: ['user'],

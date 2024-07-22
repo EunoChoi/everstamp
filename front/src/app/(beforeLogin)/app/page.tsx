@@ -2,18 +2,17 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-import emotions from '/public/img/emotion/emotions.png';
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
+//function
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+
+//images
+import emotions from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { useRouter } from "next/navigation";
-
 
 const Page = () => {
   const router = useRouter();

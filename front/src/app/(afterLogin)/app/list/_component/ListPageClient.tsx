@@ -2,26 +2,27 @@
 
 import styled from "styled-components";
 import React, { useCallback, useEffect, useState } from "react";
+import { useRef } from "react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
+import { format } from "date-fns";
 
-
-//styledComponent
+//style
 import SC_Common from "@/style/common";
 
+//function
+import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 import { getDiaries } from "@/app/(afterLogin)/_lib/diary";
 
 //component
+import ContentArea from "@/component/common/ContentArea";
 import Diary from "@/component/diary/Diary";
 import Header from "@/component/common/Header";
 
 //icon
-import { useRef } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import SortIcon from '@mui/icons-material/Sort';
 
-import { useInView } from "react-intersection-observer";
-import { format } from "date-fns";
-import ContentArea from "@/component/common/ContentArea";
-import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
+
 
 interface ImageProps {
   id: string;
