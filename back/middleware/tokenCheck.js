@@ -30,8 +30,8 @@ const tokenCheck = async (req, res, next) => {
       const accessToken = req.cookies.accessToken;
       const refreshToken = req.cookies.refreshToken;
 
-      jwt.verify(refreshToken, process.env.REFRECH_KEY); //refreshToken 검증 진행
-      console.log('refreshToken 재검증 완료')
+      const refreshVerify = jwt.verify(refreshToken, process.env.REFRECH_KEY); //refreshToken 검증 진행
+      console.log('refreshToken : ', refreshVerify);
 
 
       const email = parseJwt(accessToken)?.email;
@@ -49,6 +49,7 @@ const tokenCheck = async (req, res, next) => {
         secure: false,
         httpOnly: true,
         domain: `${process.env.DOMAIN}`,
+        maxAge: 7 * 24 * 60 * 60
       });
 
       req.currentUserEmail = email;
@@ -59,7 +60,7 @@ const tokenCheck = async (req, res, next) => {
       // console.log(req);
       // console.log(req.cookies);
       console.log('refreshToken 검증 실패');
-      console.log(error.name);
+      console.log(error);
       res.status(400).send('로그인이 필요합니다.'); //refresh token 검증도 실패한 경우
     }
   }
