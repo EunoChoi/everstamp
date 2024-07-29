@@ -244,6 +244,9 @@ const Mobile_Nav = styled.nav`
     /* min-width: 130px; */
     height: 100dvh;
 
+    border: none;
+    border-right: 2px solid rgba(0,0,0,0.05); 
+
     flex-direction: column;
     justify-content: space-evenly;
     justify-content: center;
