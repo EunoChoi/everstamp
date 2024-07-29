@@ -13,8 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Kakao, Google, Naver],
   session: {
     strategy: 'jwt',
-    maxAge: 70 * 60 * 60, //1 hours 
-    // maxAge: 4 * 60 * 60 // 4 hours
+    maxAge: 5 * 24 * 60 * 60, //5 day 
   },
   callbacks: {
     async signIn({ user, account, profile }) {
