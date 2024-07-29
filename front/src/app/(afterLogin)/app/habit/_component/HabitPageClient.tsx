@@ -79,6 +79,7 @@ const HabitPageClient = () => {
                     {grid.map(e =>
                       <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />
                     )}
+                    {grid.length !== 6 && Array(grid.length).fill(<EmptyHabitBox onClick={onAddHabit}><AddIcon fontSize="inherit" /></EmptyHabitBox>)}
                   </HabitGridContainer>
                 </HabitsSliderPage>
               )}
@@ -91,6 +92,17 @@ const HabitPageClient = () => {
 }
 
 export default HabitPageClient;
+
+const EmptyHabitBox = styled.div`
+  border-radius: 16px;
+  border: 2px solid rgba(0,0,0,0.05);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: rgba(0,0,0,0.1);
+`
 const HabitsSliderWrapper = styled.div`
   &.hide{
     transition: all ease-in-out 100ms;
