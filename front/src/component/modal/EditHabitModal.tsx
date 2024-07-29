@@ -135,9 +135,16 @@ const Modal = styled.div`
   background-color: white;
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
 
-  width: 100dvw;
-  height: 100dvh;
-
+  @media (max-width: 479px) { //mobile port
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+  }
   @media (min-width:1024px) { //desktop
     min-width: 500px;
     width: 40%;
