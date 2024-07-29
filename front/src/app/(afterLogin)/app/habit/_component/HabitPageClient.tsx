@@ -26,8 +26,6 @@ import SortIcon from '@mui/icons-material/Sort';
 const HabitPageClient = () => {
 
   const router = useRouter();
-
-  const gridListWrapperRef = useRef<HTMLDivElement>(null);
   const gridListScrollRef = useRef<HTMLDivElement>(null);
 
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
@@ -49,36 +47,7 @@ const HabitPageClient = () => {
   }, [sortToggle])
 
 
-  const [hide, setHide] = useState<boolean>(false);
-  const [type, setType] = useState<string | null>(null);
-  useEffect(() => {
-    const onhideMode = () => {
-      if (!hide) {
-        setHide(true);
-        setTimeout(() => {
-          setHide(false);
-        }, 350);
-      }
-    }
-    const typeUpdate = () => {
-      const gridWrapperWidth = gridListWrapperRef.current?.offsetWidth!;
-      const gridWrapperHeight = gridListWrapperRef.current?.offsetHeight! - 28;
-      if (gridWrapperWidth > gridWrapperHeight * (3 / 2)) setType('land');
-      else if (gridWrapperHeight > gridWrapperWidth * (3 / 2)) setType('port');
-      else if (gridWrapperHeight > gridWrapperWidth) setType('height') //height 100%, ratio 2/3
-      else setType('width') //width 100%, ratio 3/2
-    }
-    typeUpdate();
-    //resize 안하면 그냥 웹에서 변경 처리 안됨
-    window.addEventListener('resize', onhideMode);
-    window.addEventListener('resize', typeUpdate); //rotate
-    window.addEventListener('orientationchange', typeUpdate, true);
-    return () => {
-      window.removeEventListener('resize', onhideMode);
-      window.removeEventListener('resize', typeUpdate); //rotate
-      window.removeEventListener('orientationchange', typeUpdate, true);
-    }
-  }, []);
+
 
 
   return (
@@ -98,31 +67,31 @@ const HabitPageClient = () => {
         {(habits === undefined || habits?.length === 0) ?
           <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>
           :
-          <HabitGridWrapper className={hide ? 'hide' : ''} ref={gridListWrapperRef}>
-            <HabitGridScroll
-              className={type ? type : ''}
-              ref={gridListScrollRef}
+          <HabitsSliderWrapper>
+            <HabitsSlider
               onScroll={(e) => {
                 setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
               }}
             >
               {habits?.map((grid: any[], i: number) =>
-                <HabitGridContainer key={'set' + i} className={type ? type : ''}>
-                  {grid.map(e =>
-                    <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />
-                  )}
-                </HabitGridContainer>)}
-            </HabitGridScroll>
+                <HabitsSliderPage>
+                  <HabitGridContainer key={'set' + i}>
+                    {grid.map(e =>
+                      <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />
+                    )}
+                  </HabitGridContainer>
+                </HabitsSliderPage>
+              )}
+            </HabitsSlider>
             {habits?.length > 1 && <Indicator slideWrapperRef={gridListScrollRef} page={page} indicatorLength={habits?.length} />}
-          </HabitGridWrapper>}
+          </HabitsSliderWrapper>}
       </ContentArea>
     </SC_Common.Wrapper>
   );
 }
 
 export default HabitPageClient;
-
-const HabitGridWrapper = styled.div`
+const HabitsSliderWrapper = styled.div`
   &.hide{
     transition: all ease-in-out 100ms;
     opacity: 0;
@@ -138,13 +107,15 @@ const HabitGridWrapper = styled.div`
   overflow: hidden;
 `
 
-const HabitGridScroll = styled.div`
+const HabitsSlider = styled.div`
   position: relative;
+
+  width: 100%;
   
   display:  flex;
   overflow-y: hidden;
-
   overflow-x: scroll;
+  
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -153,70 +124,38 @@ const HabitGridScroll = styled.div`
   }
 
   max-height: calc(100% - 28px); //indicator height 28px
-  &.port{
-    width: 85%;
-    aspect-ratio: 2/3;
-  }
-  &.land{
-    height: 85%;
-    aspect-ratio: 3/2;
-  }
-  &.height{
-    height: 85%;
-    aspect-ratio: 2/3;
-  }
-  &.width{
-    width: 85%;
-    aspect-ratio: 3/2;
-  }
-  @media (max-width: 479px), ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) {
-    &.port{
-      width: 100%;
-      aspect-ratio: 2/3;
-    }
-    &.land{
-      height: 100%;
-      aspect-ratio: 3/2;
-    }
-    &.height{
-      height: 100%;
-      aspect-ratio: 2/3;
-    }
-    &.width{
-      width: 100%;
-      aspect-ratio: 3/2;
-    }
-  }
 `
-const HabitGridContainer = styled.div`
-  flex-shrink: 0;
+const HabitsSliderPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  display: grid;
   width: 100%;
   height: 100%;
-    
+  flex-shrink: 0;
+`
+const HabitGridContainer = styled.div`
+  display: grid;
   scroll-snap-align: center;
   scroll-snap-stop: always !important;
 
-  &.port, &.height{
+  flex-shrink: 0;
+  width: auto;  
+
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 6px;
+  
+
+  @media (max-width: 479px) { //mobile port
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }
-  &.land, &.width{
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-  @media (max-width: 479px) { //mobile port
-    padding: 5vw;
-    grid-gap: 8px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 8px;
-    grid-gap: 8px;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 12px;
-    grid-gap: 12px;
+  @media (min-width:480px) and (max-width:1023px) { //tablet
+    @media (orientation: portrait){
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+    }
   }
 `
 

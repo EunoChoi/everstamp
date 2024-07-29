@@ -180,6 +180,26 @@ const Wrapper = styled.div`
   border-radius: 16px;
   background-color: #f9f9f9;
   border: 2px solid rgba(0,0,0,0.075);
+
+  @media (max-width: 479px) { //mobile port
+    width: 45dvw;
+    aspect-ratio: 1;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //tablet
+    width: 160px;
+    aspect-ratio: 1;
+  }
+  @media (min-width:480px) and (max-width:1023px) and (max-height:480px){ //mobile land only
+    width: auto;
+    height: 37dvh;
+    aspect-ratio: 1;
+  }
+  @media (min-width:1024px) { //desktop
+    width: 200px;
+    aspect-ratio: 1;
+  }
+
+
   &.priority1{
     background-color: ${(props) => props.theme.point ? props.theme.point + '28' : '#979FC7'};
     border: 2px solid rgba(0,0,0,0.075);  

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { lazy, Suspense, useEffect } from "react";
+import { useEffect } from "react";
 
 //function
 import IsMobile from "@/function/IsMobile";
@@ -16,11 +16,8 @@ import SC_Common from "@/style/common";
 //component
 import ContentArea from "@/component/common/ContentArea";
 import Diary from "@/component/diary/Diary";
-const LazyCalendarSelector = lazy(() => import('@/component/calendar/CalendarSelector'));
-
-//icon
+import CalendarSelector from "@/component/calendar/CalendarSelector";
 import Header from "@/component/common/Header";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface Props {
   date: number;
@@ -46,38 +43,22 @@ const CalendarPageClient = ({ date }: Props) => {
     <SC_Common.Wrapper>
       <ContentArea>
         <Header title='calendar' />
-        {isMobile &&
-          <Suspense fallback={<CalendarLoading>
-            <CalendarMonthIcon fontSize="inherit" />
-            <span>Loading</span>
-          </CalendarLoading>}>
+        {isMobile === true &&
+          <>
             <CalendarWrapper>
-              <LazyCalendarSelector />
+              <CalendarSelector />
             </CalendarWrapper>
-          </Suspense>
+            <Diary diaryData={diaryData} position="calendar" />
+          </>}
+        {isMobile === false &&
+          <Diary diaryData={diaryData} position="calendar" />
         }
-        <Diary diaryData={diaryData} position="calendar" />
       </ContentArea>
     </SC_Common.Wrapper>
   );
 }
 
 export default CalendarPageClient;
-const CalendarLoading = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 128px;
-
-  color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
-  span{
-    font-size: 22px;
-    font-weight: 600;
-  }
-`
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;
