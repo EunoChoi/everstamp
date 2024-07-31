@@ -12,15 +12,13 @@ const tokenCheck = async (req, res, next) => {
 
     const user = jwt.verify(accessToken, process.env.ACCESS_KEY);
 
+    console.log('accessToken 검증 완료');
+
     req.currentUserEmail = user.email;
     req.currentUserProvider = user.provider;
 
-
-    console.log('accessToken 검증 완료')
-
     return next();
   } catch (error) {
-
 
     console.log(error.name); //accessToken 검증 실패
     console.log('accessToken 검증 실패')
@@ -41,6 +39,7 @@ const tokenCheck = async (req, res, next) => {
       const newAccessToken = jwt.sign({ //accessToken 재밝브
         email,
         provider,
+        expiresIn: '5m',
       }, process.env.ACCESS_KEY, {
         expiresIn: '5m',
         issuer: 'everstamp',
@@ -57,8 +56,6 @@ const tokenCheck = async (req, res, next) => {
 
       return next();
     } catch (error) {
-      // console.log(req);
-      // console.log(req.cookies);
       console.log('refreshToken 검증 실패');
       console.log(error);
       res.status(400).send('로그인이 필요합니다.'); //refresh token 검증도 실패한 경우

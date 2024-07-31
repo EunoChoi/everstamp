@@ -31,12 +31,13 @@ router.post("/register", async (req, res) => {
     const accessToken = jwt.sign({
       email,
       provider,
+      expiresIn: '5m',
     }, process.env.ACCESS_KEY, {
       expiresIn: '5m',
       issuer: 'everstamp',
     });
     const refreshToken = jwt.sign({
-      type: "refreshToken",
+      tokenName: "refreshToken",
       expiresIn: "7d"
     }, process.env.REFRECH_KEY, {
       expiresIn: '7d',
