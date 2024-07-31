@@ -27,7 +27,6 @@ const Page = () => {
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
-  console.log(user?.provider);
 
   const start = () => {
     router.push(`app/calendar?date=${getCleanTodayTime()}`);
@@ -61,7 +60,7 @@ const Page = () => {
           {user?.provider === 'google' && <Image src={google} alt='google' width={24} height={24} />}
           {user?.provider === 'kakao' && <Image src={kakao} alt='kakao' width={24} height={24} />}
           {user?.provider === 'naver' && <Image src={naver} alt='naver' width={24} height={24} />}
-          <span>{user?.provider} 계정으로 시작하기</span></LoggedInButtonStart>
+          <span>{user?.provider} 계정으로 진행</span></LoggedInButtonStart>
         <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
       </LoggedInButtonWrapper> :
         <Buttons>
