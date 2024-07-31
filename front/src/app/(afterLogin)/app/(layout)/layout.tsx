@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import Link from "next/link";
-import { redirect, usePathname, useSelectedLayoutSegment } from 'next/navigation'
+import { redirect, useSelectedLayoutSegment } from 'next/navigation'
 import { ReactNode, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
@@ -32,7 +32,6 @@ interface Props {
 const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
   const current = useSelectedLayoutSegment();
-  const path = usePathname();
 
   // Detects if device is on iOS 
   const isIos = () => {
@@ -42,16 +41,13 @@ const AppLayout = ({ children, modal }: Props) => {
   // Detects if device is in standalone mode
   const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-  const { data, refetch, failureCount } = useQuery({
+  const { data, failureCount } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
-    retry: 3,
+    retry: 2,
+    refetchOnWindowFocus: "always",
   })
 
-
-  useEffect(() => {
-    refetch();
-  }, [path]);
   useEffect(() => {
     if (failureCount >= 2) {
       redirect('/app');

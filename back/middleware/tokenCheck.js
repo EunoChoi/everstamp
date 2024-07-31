@@ -41,16 +41,15 @@ const tokenCheck = async (req, res, next) => {
       const newAccessToken = jwt.sign({ //accessToken 재밝브
         email,
         provider,
-        expiresIn: '1m',
       }, process.env.ACCESS_KEY, {
-        expiresIn: '1m',
+        expiresIn: '5m',
         issuer: 'everstamp',
       });
       res.cookie("accessToken", newAccessToken, {
         secure: false,
         httpOnly: true,
         domain: `${process.env.DOMAIN}`,
-        maxAge: 7 * 24 * 60 * 60
+        maxAge: 7 * 24 * 60 * 60 * 1000 //ms
       });
 
       req.currentUserEmail = email;
