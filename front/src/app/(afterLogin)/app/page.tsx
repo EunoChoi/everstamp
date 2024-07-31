@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import Axios from "@/Aixos/aixos";
 
 //function
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
@@ -18,17 +19,27 @@ import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
 
 
+
 const Page = () => {
   const router = useRouter();
 
-  const { data } = useQuery({
+  const { data: user, refetch } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
-  console.log(data.provider);
+  console.log(user?.provider);
 
+  const start = () => {
+    router.push(`app/calendar?date=${getCleanTodayTime()}`);
+  }
+  const logout = () => {
+    Axios.get('user/logout').then(() => {
+      signOut();
+      refetch();
+    });
+  }
 
-  const options = { callbackUrl: `/app/calendar?date=${getCleanTodayTime()}` };
+  const options = {};
   return (
     <Wrapper>
       <Logo>
@@ -45,27 +56,31 @@ const Page = () => {
         <span>감정 일기를 적고 습관을 실천하세요.</span>
         <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
       </TextContent>
-      <Buttons>
-        <LoginButton
-          className="google"
-          onClick={() => signIn('google', options, { prompt: 'consent' })}>
-          <Images src={google} alt='google' width={50} height={50} />
-        </LoginButton>
-        <LoginButton
-          className="kakao"
-          onClick={() => signIn('kakao', options, { prompt: 'select_account' })}>
-          <Images src={kakao} alt='kakao' width={50} height={50} />
-        </LoginButton>
-        <LoginButton
-          className="naver"
-          onClick={() => signIn('naver', options)}>
-          <Images src={naver} alt='naver' width={50} height={50} />
-        </LoginButton>
-      </Buttons>
-      {/* <BackButton onClick={() => router.push('/')}>
-        <ArrowBackIcon />
-        <span>Intro</span>
-      </BackButton> */}
+      {user ? <LoggedInButtonWrapper >
+        <LoggedInButtonStart className={user?.provider} onClick={start}>
+          {user?.provider === 'google' && <Image src={google} alt='google' width={24} height={24} />}
+          {user?.provider === 'kakao' && <Image src={kakao} alt='kakao' width={24} height={24} />}
+          {user?.provider === 'naver' && <Image src={naver} alt='naver' width={24} height={24} />}
+          <span>{user?.provider} 계정으로 시작하기</span></LoggedInButtonStart>
+        <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
+      </LoggedInButtonWrapper> :
+        <Buttons>
+          <LoginButton
+            className="google"
+            onClick={() => signIn('google', options, { prompt: 'consent' })}>
+            <SnsImage src={google} alt='google' width={50} height={50} />
+          </LoginButton>
+          <LoginButton
+            className="kakao"
+            onClick={() => signIn('kakao', options, { prompt: 'select_account' })}>
+            <SnsImage src={kakao} alt='kakao' width={50} height={50} />
+          </LoginButton>
+          <LoginButton
+            className="naver"
+            onClick={() => signIn('naver', options)}>
+            <SnsImage src={naver} alt='naver' width={50} height={50} />
+          </LoginButton>
+        </Buttons>}
     </Wrapper>
   );
 }
@@ -182,6 +197,53 @@ const Logo = styled.div`
     }
   }
 `
+const LoggedInButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const LoggedInButtonStart = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width : auto;
+  height: 42px;
+  border-radius: 42px;
+  border : 2px solid rgba(0,0,0,0.1);
+  padding: 0 22px;
+  margin-bottom: 24px;
+
+  background-color:#fff;
+  color: rgb(var(--greyTitle));
+  text-transform: capitalize;
+  font-weight: 500;
+
+  span{ margin-left : 8px;}  
+  
+  &.google{
+    background-color:#fff;
+  }
+  &.kakao{
+    background-color:rgb(250, 225, 0);
+    color: #39181D;
+  }
+  &.naver{
+    background-color: rgb(2, 199, 60);
+    color: white;
+  }
+
+
+  @media (min-width:1024px) { //desktop
+    height: 56px;
+    /* margin: 6px; */
+  }
+`
+const LoggedInButtonLogout = styled.button`
+  color: rgb(var(--greyTitle));
+  font-size: 14px;
+`
 const Buttons = styled.div`
   display: flex;
 `
@@ -212,6 +274,14 @@ const LoginButton = styled.button`
     background-color: white;
   }
 `
+
+const SnsImage = styled(Image)`
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+`
+
+
 const BackButton = styled.button`
   display: flex;
   justify-content: center;
@@ -223,9 +293,4 @@ const BackButton = styled.button`
     font-weight: 500;
     margin-left: 4px;
   }
-`
-const Images = styled(Image)`
-  width: 70%;
-  height: 70%;
-  object-fit: cover;
 `
