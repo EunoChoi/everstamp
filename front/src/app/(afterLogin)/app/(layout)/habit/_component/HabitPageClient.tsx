@@ -74,12 +74,13 @@ const HabitPageClient = () => {
               }}
             >
               {habits?.map((grid: any[], i: number) =>
-                <HabitsSliderPage>
-                  <HabitGridContainer key={'set' + i}>
+                <HabitsSliderPage key={'page' + i}>
+                  <HabitGridContainer>
                     {grid.map(e =>
                       <HabitBox key={e.email + e.name} name={e.name} id={e.id} priority={e.priority} />
                     )}
-                    {grid.length !== 6 && Array(6 - grid.length).fill(<EmptyHabitBox onClick={onAddHabit}><AddIcon fontSize="inherit" /></EmptyHabitBox>)}
+                    {grid.length !== 6 && [...Array(6 - grid.length)].map((_, i) =>
+                      <EmptyHabitBox key={'emptyBox' + i} onClick={onAddHabit}><AddIcon fontSize="inherit" /></EmptyHabitBox>)}
                   </HabitGridContainer>
                 </HabitsSliderPage>
               )}
