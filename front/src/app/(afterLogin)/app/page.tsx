@@ -6,6 +6,8 @@ import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import Axios from "@/Aixos/aixos";
+import { useEffect } from "react";
+
 
 //function
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
@@ -38,7 +40,10 @@ const Page = () => {
     });
   }
 
-  const options = {};
+  useEffect(() => {
+    refetch();
+  }, [])
+  const options = { callbackUrl: '/app' };
   return (
     <Wrapper>
       <Logo>

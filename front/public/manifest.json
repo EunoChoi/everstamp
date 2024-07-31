@@ -7,7 +7,6 @@
     "name": "Everstamp",
     "short_name": "Everstamp",
     "orientation": "portrait",
-    "prefer_related_applications": false,
     "icons": [
         {
             "src": "/icon/icon-192x192.png",

@@ -53,7 +53,7 @@ const AppLayout = ({ children, modal }: Props) => {
     refetch();
   }, [path]);
   useEffect(() => {
-    if (failureCount >= 3) {
+    if (failureCount >= 2) {
       redirect('/app');
     }
   }, [failureCount]);

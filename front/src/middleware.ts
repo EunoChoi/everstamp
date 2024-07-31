@@ -7,6 +7,7 @@ export async function middleware(request: NextRequest) {
   const session = await auth(); //로그인 되어있다면 세션에 정보가 담김, 로그인 안된 경우 로그인 페이지로 리다이렉트
 
   if (!session) {
+    console.log('need login, redirect to login page');
     return NextResponse.redirect(`${process.env.NEXT_PUBLIC_FRONT_URL}/app`);
   }
 }
