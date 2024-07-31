@@ -123,6 +123,7 @@ router.patch("/theme", tokenCheck, async (req, res) => {
 })
 //로그아웃
 router.get("/logout", (req, res) => {
+  console.log('----- method : get, url :  /user/logout -----');
   res.cookie("accessToken", "", {
     secure: false,
     httpOnly: true,
