@@ -6,10 +6,9 @@ import { getCurrentUser_fetch } from "./_lib/user_ssr";
 
 type Props = {
   children: ReactNode;
-  modal: ReactNode;
 }
 
-const Layout = async ({ children, modal }: Props) => {
+const Layout = async ({ children }: Props) => {
   //server prefetch
   const queryClient = new QueryClient();
 
@@ -24,7 +23,6 @@ const Layout = async ({ children, modal }: Props) => {
   return (
     <RQProvider>
       <HydrationBoundary state={dehydratedState}>
-        {modal}
         {children}
       </HydrationBoundary>
     </RQProvider>
