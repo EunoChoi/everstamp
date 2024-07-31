@@ -28,7 +28,7 @@ const tokenCheck = async (req, res, next) => {
       const accessToken = req.cookies.accessToken;
       const refreshToken = req.cookies.refreshToken;
 
-      console.log('accessToken : '.accessToken);
+      console.log('accessToken : ', accessToken);
 
       const refreshVerify = jwt.verify(refreshToken, process.env.REFRECH_KEY); //refreshToken 검증 진행
       console.log('refreshToken : ', refreshVerify);
