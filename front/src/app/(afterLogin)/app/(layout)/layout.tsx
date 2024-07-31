@@ -14,7 +14,7 @@ import CalendarSelector from "@/component/calendar/CalendarSelector";
 //function
 import IsMobile from "@/function/IsMobile";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import { getCurrentUser } from "../_lib/user";
+import { getCurrentUser } from "../../_lib/user";
 
 //icons
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';

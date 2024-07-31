@@ -4,9 +4,12 @@ import Image from "next/image";
 import styled from "styled-components";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 //function
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { getCurrentUser } from "../_lib/user";
+
 
 //images
 import emotions from '/public/img/emotion/emotions.png';
@@ -14,8 +17,17 @@ import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
 
+
 const Page = () => {
   const router = useRouter();
+
+  const { data } = useQuery({
+    queryKey: ['user'],
+    queryFn: getCurrentUser,
+  })
+  console.log(data.provider);
+
+
   const options = { callbackUrl: `/app/calendar?date=${getCleanTodayTime()}` };
   return (
     <Wrapper>

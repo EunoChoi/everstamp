@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { getDiary_date_fetch } from "../../_lib/diary_ssr";
-import { getHabit_status_month_fetch } from "../../_lib/habit_ssr";
+import { getDiary_date_fetch } from "../../../_lib/diary_ssr";
+import { getHabit_status_month_fetch } from "../../../_lib/habit_ssr";
 
 //component
 import CalendarPageClient from "./_component/CalendarPageClient";
