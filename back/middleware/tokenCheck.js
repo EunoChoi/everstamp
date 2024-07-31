@@ -7,7 +7,7 @@ const parseJwt = (token) => {
 const tokenCheck = async (req, res, next) => {
   try {
     const accessToken = req.cookies.accessToken;
-    // console.log('accessToken : ', accessToken);
+    console.log('accessToken : ', accessToken);
 
 
     const user = jwt.verify(accessToken, process.env.ACCESS_KEY);
@@ -41,9 +41,9 @@ const tokenCheck = async (req, res, next) => {
       const newAccessToken = jwt.sign({ //accessToken 재밝브
         email,
         provider,
-        expiresIn: '5m',
+        expiresIn: '1m',
       }, process.env.ACCESS_KEY, {
-        expiresIn: '5m',
+        expiresIn: '1m',
         issuer: 'everstamp',
       });
       res.cookie("accessToken", newAccessToken, {
