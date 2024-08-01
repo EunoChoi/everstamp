@@ -165,8 +165,19 @@ const NavMenu = styled(Link)`
   .icon{
     line-height: 0%;
   }
-  span{
-      display: none;
+  @media (max-width: 479px) { //mobile port
+    width: 23%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    span{
+      margin-top: 4px;
+      line-height: 1;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     display: flex;
@@ -201,7 +212,7 @@ const Mobile_Nav = styled.nav`
   bottom: 0;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 
   width: 100vw;
