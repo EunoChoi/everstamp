@@ -72,11 +72,11 @@ const CalendarSelector = () => {
       <span className={(isDiaryExist || habitCount > 0) ? 'diaryExist' : ''}>{formattedDate}</span>
       <div>
         {isDiaryExist && <span className="emotion">
-          {emotion === 0 && <Image src={emotion0} alt='angry' width={36} height={36} />}
-          {emotion === 1 && <Image src={emotion1} alt='sad' width={36} height={36} />}
-          {emotion === 2 && <Image src={emotion2} alt='common' width={36} height={36} />}
-          {emotion === 3 && <Image src={emotion3} alt='happy' width={36} height={36} />}
-          {emotion === 4 && <Image src={emotion4} alt='Joyful' width={36} height={36} />}
+          {emotion === 0 && <Image src={emotion0} alt='angry' width={44} height={44} />}
+          {emotion === 1 && <Image src={emotion1} alt='sad' width={44} height={44} />}
+          {emotion === 2 && <Image src={emotion2} alt='common' width={44} height={44} />}
+          {emotion === 3 && <Image src={emotion3} alt='happy' width={44} height={44} />}
+          {emotion === 4 && <Image src={emotion4} alt='Joyful' width={44} height={44} />}
         </span>}
         {habitCount > 0 && <span className="habitCount">{habitCount}</span>}
       </div>
@@ -175,7 +175,6 @@ const DateValue = styled.div`
   .diaryExist{
     display: none;
   }
-
   div{
     display: flex;
     flex-direction: column;
@@ -188,33 +187,32 @@ const DateValue = styled.div`
       align-items: center;
       line-height: 0%;
     }
-    .emotion{
-      width: 24px;
-      height: 24px;
-      border-radius: 24px;
-      
+    .emotion{      
       margin: 0 1px;
+      width: 44px;
+      height: auto;
       @media (min-width:1024px) { //desktop
-        width: 24px;
-        height: 24px;
-        border-radius: 28px;
+        width: 32px;
+        height: auto;
       }
     }
     .habitCount{
       margin-top: 2px;
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 500;
-      width: 16px;
+      width: auto;
+      padding: 4px 8px;
       height: 16px;
       border-radius: 16px;
 
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#979FC7'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + 'e0' : '#979FC7'};
       color: white;
 
       @media (min-width:1024px) { //desktop
-        width: 18px;
-        height: 18px;
-        border-radius: 18px;
+        width: auto;
+        padding: 4px 8px;
+        height: 16px;
+        border-radius: 16px;
         font-size: 12px;
       }
     }
