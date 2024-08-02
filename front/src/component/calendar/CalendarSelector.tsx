@@ -69,17 +69,25 @@ const CalendarSelector = () => {
     const formattedDate = format(day, 'd');
 
     return <DateValue>
-      <span className={(isDiaryExist || habitCount > 0) ? 'diaryExist' : ''}>{formattedDate}</span>
-      <div>
-        {isDiaryExist && <span className="emotion">
-          {emotion === 0 && <Image src={emotion0} alt='angry' width={44} height={44} />}
-          {emotion === 1 && <Image src={emotion1} alt='sad' width={44} height={44} />}
-          {emotion === 2 && <Image src={emotion2} alt='common' width={44} height={44} />}
-          {emotion === 3 && <Image src={emotion3} alt='happy' width={44} height={44} />}
-          {emotion === 4 && <Image src={emotion4} alt='Joyful' width={44} height={44} />}
-        </span>}
-        {habitCount > 0 && <span className="habitCount">{habitCount}</span>}
-      </div>
+      {isDiaryExist && habitCount === 0 && <DateValue_Diary>
+        {emotion === 0 && <Image src={emotion0} alt='angry' width={44} height={44} />}
+        {emotion === 1 && <Image src={emotion1} alt='sad' width={44} height={44} />}
+        {emotion === 2 && <Image src={emotion2} alt='common' width={44} height={44} />}
+        {emotion === 3 && <Image src={emotion3} alt='happy' width={44} height={44} />}
+        {emotion === 4 && <Image src={emotion4} alt='Joyful' width={44} height={44} />}
+      </DateValue_Diary>}
+      {isDiaryExist && habitCount > 0 && <DateValue_Diary>
+        {emotion === 0 && <Image src={emotion0} alt='angry' width={44} height={44} />}
+        {emotion === 1 && <Image src={emotion1} alt='sad' width={44} height={44} />}
+        {emotion === 2 && <Image src={emotion2} alt='common' width={44} height={44} />}
+        {emotion === 3 && <Image src={emotion3} alt='happy' width={44} height={44} />}
+        {emotion === 4 && <Image src={emotion4} alt='Joyful' width={44} height={44} />}
+        <div className="count">{habitCount}</div>
+      </DateValue_Diary>}
+      {!isDiaryExist && habitCount > 0 && <DateValue_Count>
+        {habitCount}
+      </DateValue_Count>}
+      {!isDiaryExist && !habitCount && <DateValue_Date>{formattedDate}</DateValue_Date>}
     </DateValue>;
   };
 
@@ -169,55 +177,64 @@ const DateValue = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  >span{
-    font-size: 14px;
+`
+const DateValue_Date = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+
+  margin: 6px 0px;
+`
+const DateValue_Diary = styled.div`
+  position: relative;
+
+  width: 36px;
+  height: auto;
+
+  @media (min-width:1024px) { //desktop
+    width: 30px;
   }
-  .diaryExist{
-    display: none;
-  }
-  div{
+
+  .count{
+    position: absolute;
     display: flex;
-    flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
-    span{
-      display: flex;
-      flex-shrink: 0;
-      justify-content: center;
-      align-items: center;
-      line-height: 0%;
-    }
-    .emotion{      
-      margin: 0 1px;
-      width: 44px;
-      height: auto;
-      @media (min-width:1024px) { //desktop
-        width: 32px;
-        height: auto;
-      }
-    }
-    .habitCount{
-      margin-top: 2px;
-      font-size: 12px;
-      font-weight: 500;
-      width: auto;
-      padding: 4px 8px;
-      height: 16px;
-      border-radius: 16px;
 
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'e0' : '#979FC7'};
-      color: white;
-
-      @media (min-width:1024px) { //desktop
-        width: auto;
-        padding: 4px 8px;
-        height: 16px;
-        border-radius: 16px;
-        font-size: 12px;
-      }
-    }
+    top: -10px;
+    right: -6px;
+  
+    width: 22px;
+    height: 22px;
+    border-radius: 30px;
+    border : 2px solid rgba(0,0,0,0.1);
+    
+    font-size: 14px;
+    color: white;
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
+const DateValue_Count = styled.div`
+  position: relative;
+
+  width: 26px;
+  height: 26px;
+  @media (min-width:1024px) { //desktop
+    width: 22px;
+    height: 22px;
+  }
+
+  border-radius: 32px;
+  border : 2px solid rgba(0,0,0,0.1);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 14px;
+  color: white;
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+`
+
 
 const Wrapper = styled.div`
   width: 100%;
@@ -228,7 +245,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `
 
-//calendar header
 const CalTitle = styled.div`
   display: flex;
     justify-content: space-between;
@@ -236,7 +252,6 @@ const CalTitle = styled.div`
     color: rgb(var(--greyTitle));
     padding: 2px 0;
     >div{
-      /* display: flex; */
       font-size: 22px;
       .month{
         margin-left: 0px;
@@ -245,7 +260,6 @@ const CalTitle = styled.div`
       .year{
         font-weight: 500;
         color: grey;
-        /* font-size: 20px; */
         margin-left: 8px;
       }
     }
@@ -286,22 +300,17 @@ const CalHeaderButtons = styled.div`
     }
 `
 
-//calendar body
-
 const CalDate = styled.button`
   width: 14%;
-  height: 90%;
+  height: 95%;
 
-  font-size: 12px;
   color: #666565;
-  text-align: center;
   border : 3px solid rgba(0,0,0,0);
   &.today{
     background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#979FC7'};
     border-radius: 8px;
   }
   &.selected{
-    /* font-weight: 500; */
     border : 2px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#979FC7'};
     border-radius: 8px;
   }
