@@ -187,11 +187,11 @@ const DateValue_Date = styled.div`
 const DateValue_Diary = styled.div`
   position: relative;
 
-  width: 36px;
+  width: 30px;
   height: auto;
 
   @media (min-width:1024px) { //desktop
-    width: 30px;
+    width: 24px;
   }
 
   .count{
@@ -200,11 +200,16 @@ const DateValue_Diary = styled.div`
     justify-content: center;
     align-items: center;
 
-    top: -10px;
-    right: -6px;
+    top: -12px;
+    right: -8px;
   
     width: 22px;
     height: 22px;
+    @media (min-width:1024px) { //desktop
+      width: 18px;
+      height: 18px;
+      font-size: 11px;
+    }
     border-radius: 30px;
     border : 2px solid rgba(0,0,0,0.1);
     
@@ -219,8 +224,9 @@ const DateValue_Count = styled.div`
   width: 24px;
   height: 24px;
   @media (min-width:1024px) { //desktop
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
   }
 
   border-radius: 32px;
@@ -243,29 +249,43 @@ const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  border: 2px solid rgba(0,0,0,0.05);
+  border-radius: 8px;
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  }
+  @media (min-width:1024px) { //desktop
+    background-color: white;
+  }
 `
 
 const CalTitle = styled.div`
   display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgb(var(--greyTitle));
-    padding: 2px 0;
-    >div{
-      font-size: 22px;
-      .month{
-        margin-left: 0px;
-        font-weight: 700;
-      }
-      .year{
-        font-weight: 500;
-        color: grey;
-        margin-left: 8px;
-      }
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(var(--greyTitle));
+  padding: 2px 12px;
+
+  >div{
+    font-size: 22px;
+    .month{
+      margin-left: 0px;
+      font-weight: 700;
     }
+    .year{
+      font-weight: 500;
+      color: grey;
+      margin-left: 8px;
+    }
+  }
 `
 const CalTitleText = styled.div`
   width: auto;
+  height: 100%;
+
   font-weight: 600;
   text-align: center;
   text-transform: capitalize;
@@ -280,8 +300,8 @@ const CalWeekTitle = styled.div`
   display: flex;
   justify-content: space-around;
   text-transform: capitalize;
-  padding: 2px 0;
-  font-size: 15px;
+  padding: 6px 0;
+  font-size: 16px;
   font-weight: 500;
   color: rgb(var(--greyTitle));
 
@@ -292,12 +312,8 @@ const CalWeekTitle = styled.div`
 `
 const CalHeaderButtons = styled.div`
   button{
-      padding: 0px 4px;
-      padding-bottom: 2px;
-    }
-    button:nth-child(2){
-      margin: 0 8px;
-    }
+    margin-left: 16px;  
+  }
 `
 
 const CalDate = styled.button`
