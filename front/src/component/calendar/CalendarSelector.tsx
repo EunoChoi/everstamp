@@ -225,7 +225,7 @@ const DateValue_Count = styled.div`
   width: 30px;
   height: 29.375px;
   border-radius: 8px;
-  border : 2px solid rgba(0,0,0,0.2);
+  /* border : 2px solid rgba(0,0,0,0.2); */
   margin-top: 6px;
  
 
@@ -254,8 +254,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  border: 2px solid rgba(0,0,0,0.05);
-  border-radius: 8px;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+  padding-bottom: 10px;
+  /* border-radius: 8px; */
 
   @media (max-width: 479px) { //mobile port
   }
@@ -271,7 +272,7 @@ const CalTitle = styled.div`
   justify-content: space-between;
   align-items: center;
   color: rgb(var(--greyTitle));
-  padding: 2px 12px;
+  padding: 2px 8px;
 
   >div{
     font-size: 22px;
