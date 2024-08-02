@@ -189,6 +189,7 @@ const DateValue_Diary = styled.div`
 
   width: 30px;
   height: auto;
+  padding-top: 6px;
 
   @media (min-width:1024px) { //desktop
     width: 24px;
@@ -200,7 +201,7 @@ const DateValue_Diary = styled.div`
     justify-content: center;
     align-items: center;
 
-    top: -12px;
+    top: -6px;
     right: -8px;
   
     width: 22px;
@@ -223,6 +224,8 @@ const DateValue_Count = styled.div`
 
   width: 24px;
   height: 24px;
+  margin-top: 6px;
+
   @media (min-width:1024px) { //desktop
     width: 20px;
     height: 20px;
