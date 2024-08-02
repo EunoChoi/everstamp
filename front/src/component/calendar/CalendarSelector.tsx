@@ -212,7 +212,7 @@ const DateValue_Diary = styled.div`
       font-size: 12px;
     }
     border-radius: 30px;
-    border : 2px solid rgba(0,0,0,0.2);
+    border : 2px solid white;
     
     font-size: 13px;
     color: white;
@@ -225,7 +225,6 @@ const DateValue_Count = styled.div`
   width: 30px;
   height: 29.375px;
   border-radius: 8px;
-  /* border : 2px solid rgba(0,0,0,0.2); */
   margin-top: 6px;
  
 
@@ -256,12 +255,7 @@ const Wrapper = styled.div`
 
   border-bottom: 2px solid rgba(0,0,0,0.05);
   padding-bottom: 10px;
-  /* border-radius: 8px; */
 
-  @media (max-width: 479px) { //mobile port
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-  }
   @media (min-width:1024px) { //desktop
     background-color: white;
   }
@@ -328,11 +322,11 @@ const CalDate = styled.button`
   color: #666565;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '20' : '#979FC7'};
+    border : 2px solid ${(props) => props.theme.point ? props.theme.point + 'b0' : '#979FC7'};
     border-radius: 8px;
   }
   &.selected{
-    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '80' : '#979FC7'};
+    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '50' : '#979FC7'};
     border-radius: 8px;
   }
   &.notCurrentMonth{
