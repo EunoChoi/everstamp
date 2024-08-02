@@ -208,7 +208,7 @@ const DateValue_Diary = styled.div`
     border-radius: 30px;
     border : 2px solid rgba(0,0,0,0.1);
     
-    font-size: 14px;
+    font-size: 13px;
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
@@ -216,8 +216,8 @@ const DateValue_Diary = styled.div`
 const DateValue_Count = styled.div`
   position: relative;
 
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   @media (min-width:1024px) { //desktop
     width: 22px;
     height: 22px;
