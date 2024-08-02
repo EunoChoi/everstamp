@@ -209,10 +209,10 @@ const DateValue_Diary = styled.div`
     @media (min-width:1024px) { //desktop
       width: 18px;
       height: 18px;
-      font-size: 11px;
+      font-size: 12px;
     }
     border-radius: 30px;
-    border : 2px solid rgba(0,0,0,0.1);
+    border : 2px solid rgba(0,0,0,0.2);
     
     font-size: 13px;
     color: white;
@@ -222,18 +222,19 @@ const DateValue_Diary = styled.div`
 const DateValue_Count = styled.div`
   position: relative;
 
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 29.375px;
+  border-radius: 8px;
+  border : 2px solid rgba(0,0,0,0.2);
   margin-top: 6px;
+ 
 
   @media (min-width:1024px) { //desktop
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 23.5px;
     font-size: 13px;
+    border-radius: 6px;
   }
-
-  border-radius: 32px;
-  border : 2px solid rgba(0,0,0,0.1);
 
   display: flex;
   justify-content: center;
