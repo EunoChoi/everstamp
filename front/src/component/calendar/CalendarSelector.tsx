@@ -178,11 +178,6 @@ const Wrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
-  @media (min-width:1024px) { //desktop
-    border-radius: 8px;
-    background-color: white;
-  }
 `
 
 const DateValue = styled.div`
@@ -232,6 +227,7 @@ const DateValue_Diary = styled.div`
       font-size: 12px;
       width: 20px;
       height: 20px;
+      border-color: #f6f6f6;
     }
   }
 `
@@ -317,6 +313,12 @@ const CalDate = styled.button`
     border-radius: 8px;
     .count{
       border-color: #f1f1f1;
+      @media (min-width:1024px) { //desktop
+        border-color: #e4e4e4;
+      }
+    }
+    @media (min-width:1024px) { //desktop
+      background-color: #e4e4e4;
     }
   }
   &.selected{
