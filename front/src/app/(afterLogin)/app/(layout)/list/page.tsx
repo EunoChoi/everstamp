@@ -6,77 +6,19 @@ const Page = async () => {
   //server prefetch
   const queryClient = new QueryClient();
 
-  //all
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 5, 'ASC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 5, 'DESC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-
-  //0
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 0, 'ASC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 0, 'DESC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-
-  //1
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 1, 'ASC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 1, 'DESC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-
-  //2
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 2, 'ASC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 2, 'DESC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-
-  //3
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 3, 'ASC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 3, 'DESC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-
-  //4
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 4, 'ASC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', 4, 'DESC'],
-    queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: '', limit: 5, pageParam }),
-    initialPageParam: 0,
-  })
+  //prefetch list data - all emotion and all sort
+  for (let i = 0; i <= 5; i++) {
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: ['diary', 'list', 'search', i, 'ASC'],
+      queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'ASC', search: i, limit: 5, pageParam }),
+      initialPageParam: 0,
+    })
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: ['diary', 'list', 'search', i, 'DESC'],
+      queryFn: ({ pageParam }) => getDiaries_fetch({ sort: 'DESC', search: i, limit: 5, pageParam }),
+      initialPageParam: 0,
+    })
+  };
 
 
   const dehydratedState = dehydrate(queryClient)
