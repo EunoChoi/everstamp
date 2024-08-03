@@ -29,9 +29,10 @@ const Page = () => {
     queryKey: ['user'],
     queryFn: getCurrentUser,
     refetchOnWindowFocus: "always",
-    staleTime: 60 * 1000,
+
+    staleTime: 0,
     gcTime: 0,
-    retry: 3,
+    retry: 1,
   })
 
   const start = () => {
@@ -60,14 +61,16 @@ const Page = () => {
         <span>감정 일기를 적고 습관을 실천하세요.</span>
         <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
       </TextContent>
-      {isSuccess ? <LoggedInButtonWrapper >
-        <LoggedInButtonStart className={user?.provider} onClick={start}>
-          {user?.provider === 'google' && <Image src={google} alt='google' width={24} height={24} />}
-          {user?.provider === 'kakao' && <Image src={kakao} alt='kakao' width={24} height={24} />}
-          {user?.provider === 'naver' && <Image src={naver} alt='naver' width={24} height={24} />}
-          <span>{user?.email}</span></LoggedInButtonStart>
-        <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
-      </LoggedInButtonWrapper> :
+      {isSuccess ?
+        <LoggedInButtonWrapper >
+          <LoggedInButtonStart className={user?.provider} onClick={start}>
+            {user?.provider === 'google' && <Image src={google} alt='google' width={24} height={24} />}
+            {user?.provider === 'kakao' && <Image src={kakao} alt='kakao' width={24} height={24} />}
+            {user?.provider === 'naver' && <Image src={naver} alt='naver' width={24} height={24} />}
+            <span>{user?.email}</span></LoggedInButtonStart>
+          <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
+        </LoggedInButtonWrapper>
+        :
         <Buttons>
           <LoginButton
             className="google"

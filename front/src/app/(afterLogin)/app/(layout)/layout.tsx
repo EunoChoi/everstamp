@@ -44,8 +44,11 @@ const AppLayout = ({ children, modal }: Props) => {
   const { data, failureCount } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
-    retry: 2,
     refetchOnWindowFocus: "always",
+
+    staleTime: 0,
+    gcTime: 0,
+    retry: 3,
   })
 
   useEffect(() => {
