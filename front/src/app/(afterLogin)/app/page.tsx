@@ -29,6 +29,9 @@ const Page = () => {
     queryKey: ['user'],
     queryFn: getCurrentUser,
     refetchOnWindowFocus: "always",
+    staleTime: 60 * 1000,
+    gcTime: 0,
+    retry: 3,
   })
 
   const start = () => {
