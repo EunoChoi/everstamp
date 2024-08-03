@@ -269,13 +269,13 @@ const CalTitleText = styled.div`
   text-transform: capitalize;
 
   font-size: 20px;
+  color: rgb(var(--greyTitle));
+
   .month{
-    color: rgb(var(--greyTitle));
     font-weight: 600;
   }
   .year{
     font-weight: 500;
-    color: #939393;
     margin-left: 8px;
   }
 `

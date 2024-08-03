@@ -141,7 +141,7 @@ const ListPageClient = () => {
             }
           })))
           :
-          <NoDiaries>일기 작성을 시작해볼까요? 😀</NoDiaries>}
+          <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
         <Observer ref={ref} />
       </ContentArea>
     </SC_Common.Wrapper>

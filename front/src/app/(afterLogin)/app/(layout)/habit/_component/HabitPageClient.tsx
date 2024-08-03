@@ -62,7 +62,7 @@ const HabitPageClient = () => {
       </Header>
       <ContentArea className="habit">
         {(habits === undefined || habits?.length === 0) ?
-          <NoHabit>습관 목록 작성을 시작해볼까요? 😀</NoHabit>
+          <NoHabit>습관 목록이 존재하지 않습니다. 🥹</NoHabit>
           :
           <HabitsSliderWrapper>
             <HabitsSlider
