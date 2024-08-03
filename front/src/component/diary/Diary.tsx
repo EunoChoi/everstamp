@@ -140,7 +140,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   height: 250px;
-  margin-top: 10px;
+  margin-top: 20px;
 
   @media (min-width: 1024px) {//desktop
     margin-top: 30px;
@@ -162,7 +162,7 @@ const DateWrapper = styled.div`
   }
   
   .week{
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     color: rgb(var(--greyTitle));
     margin-right: 8px;
@@ -177,7 +177,7 @@ const DateWrapper = styled.div`
       margin-right: 8px;
       font-weight: 500;
       text-transform: capitalize;
-      color: grey;
+      color: #939393;
       font-size: 22px;
     }
     .emotion{

@@ -47,9 +47,6 @@ const HabitPageClient = () => {
   }, [sortToggle])
 
 
-
-
-
   return (
     <SC_Common.Wrapper className="habit">
       <Header title='habit' classname="habit" >

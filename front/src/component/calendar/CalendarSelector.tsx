@@ -133,9 +133,9 @@ const CalendarSelector = () => {
   return (
     <Wrapper>
       <header>
-        <CalTitle>
+        <CalTitleWrapper>
           <CalTitleText>
-            <span className="month">{format(currentMonth, 'MMM')},</span>
+            <span className="month">{format(currentMonth, 'MMMM')},</span>
             <span className="year">{format(currentMonth, 'yyyy')}</span>
           </CalTitleText>
           <CalHeaderButtons>
@@ -149,7 +149,7 @@ const CalendarSelector = () => {
             </button>
             <button onClick={addCurrentMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
           </CalHeaderButtons>
-        </CalTitle>
+        </CalTitleWrapper>
         <CalWeekTitle>
           {weekTitle.map(e => <span key={e}>{e}</span>)}
         </CalWeekTitle>
@@ -170,6 +170,20 @@ const CalendarSelector = () => {
 }
 
 export default CalendarSelector;
+
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width:1024px) { //desktop
+    border-radius: 8px;
+    background-color: white;
+  }
+`
 
 const DateValue = styled.div`
   display: flex;
@@ -206,27 +220,36 @@ const DateValue_Diary = styled.div`
   
     width: 22px;
     height: 22px;
-    @media (min-width:1024px) { //desktop
-      width: 18px;
-      height: 18px;
-      font-size: 12px;
-    }
+
     border-radius: 30px;
     border : 2px solid white;
     
     font-size: 13px;
     color: white;
+
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    @media (min-width:1024px) { //desktop
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+    }
   }
 `
 const DateValue_Count = styled.div`
   position: relative;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 30px;
   height: 29.375px;
   border-radius: 8px;
   margin-top: 6px;
- 
+
+  font-size: 14px;
+  color: white;
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 
   @media (min-width:1024px) { //desktop
     width: 24px;
@@ -234,66 +257,39 @@ const DateValue_Count = styled.div`
     font-size: 13px;
     border-radius: 6px;
   }
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 14px;
-  color: white;
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 `
 
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-
-  border-bottom: 2px solid rgba(0,0,0,0.05);
-  padding-bottom: 10px;
-
-  @media (min-width:1024px) { //desktop
-    background-color: white;
-  }
-`
-
-const CalTitle = styled.div`
+const CalTitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: rgb(var(--greyTitle));
+  
   padding: 2px 8px;
-
-  >div{
-    font-size: 22px;
-    .month{
-      margin-left: 0px;
-      font-weight: 700;
-    }
-    .year{
-      font-weight: 500;
-      color: grey;
-      margin-left: 8px;
-    }
-  }
 `
 const CalTitleText = styled.div`
   width: auto;
-  height: 100%;
-
-  font-weight: 600;
+  
   text-align: center;
   text-transform: capitalize;
 
-  span{
+  font-size: 20px;
+  .month{
     color: rgb(var(--greyTitle));
-    font-size: 18px;
-  }  
+    font-weight: 600;
+  }
+  .year{
+    font-weight: 500;
+    color: #939393;
+    margin-left: 8px;
+  }
 `
+const CalHeaderButtons = styled.div`
+  color: rgb(var(--greyTitle));
+  button{
+    margin-left: 16px;  
+  }
+`
+
 const CalWeekTitle = styled.div`
   width: 100%;
   display: flex;
@@ -301,17 +297,12 @@ const CalWeekTitle = styled.div`
   text-transform: capitalize;
   padding: 6px 0;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: rgb(var(--greyTitle));
 
   span{
     width: 100%;
     text-align: center;
-  }
-`
-const CalHeaderButtons = styled.div`
-  button{
-    margin-left: 16px;  
   }
 `
 
@@ -322,11 +313,14 @@ const CalDate = styled.button`
   color: #666565;
   border : 3px solid rgba(0,0,0,0);
   &.today{
-    border : 2px solid ${(props) => props.theme.point ? props.theme.point + 'b0' : '#979FC7'};
+    background-color: #f1f1f1;
     border-radius: 8px;
+    .count{
+      border-color: #f1f1f1;
+    }
   }
   &.selected{
-    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '50' : '#979FC7'};
+    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
     border-radius: 8px;
   }
   &.notCurrentMonth{
