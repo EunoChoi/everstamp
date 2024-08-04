@@ -98,18 +98,19 @@ const HabitInfoCalendar = ({ setHabitCount, currentMonth, setCurrentMonth }: Pro
     <Wrapper>
       <header>
         <CalTitle>
-          <CalTitleText>
-            <span className="month">{format(currentMonth, 'MMM')},</span>
-            <span className="year">{format(currentMonth, 'yyyy')}</span>
-          </CalTitleText>
-          <CalHeaderButtons>
-            <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
+          <CalHeaderButtons className="start">
             <button
               onClick={() => {
                 setCurrentMonth(new Date());
               }}>
               <TodayIcon fontSize="small" />
             </button>
+          </CalHeaderButtons>
+          <CalTitleText>
+            <span className="month">{format(currentMonth, 'yyyy.MM')}</span>
+          </CalTitleText>
+          <CalHeaderButtons className="end">
+            <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
             <button onClick={addCurrentMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
           </CalHeaderButtons>
         </CalTitle>
@@ -164,27 +165,32 @@ const Wrapper = styled.div`
 //calendar header
 const CalTitle = styled.div`
   display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgb(var(--greyTitle));
-    padding: 4px 0;
-    >div{
-      /* display: flex; */
-      font-size: 22px;
-      .month{
-        margin-left: 0px;
-        font-weight: 700;
-      }
-      .year{
-        font-weight: 500;
-        color: grey;
-        /* font-size: 20px; */
-        margin-left: 8px;
-      }
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(var(--greyTitle));
+  padding: 4px 0;
+
+  >*{
+    width: 30%;
+  }
+
+  >div{
+    /* display: flex; */
+    font-size: 22px;
+    .month{
+      margin-left: 0px;
+      font-weight: 700;
     }
+    .year{
+      font-weight: 500;
+      color: grey;
+      /* font-size: 20px; */
+      margin-left: 8px;
+    }
+  }
 `
 const CalTitleText = styled.span`
-  width: 14%;
+  /* width: auto; */
   color: rgb(var(--greyTitle));
   font-weight: 600;
   text-align: center;
@@ -203,13 +209,17 @@ const CalWeekTitle = styled.div`
   color: rgb(var(--greyTitle));
 `
 const CalHeaderButtons = styled.div`
+  color: rgb(var(--greyTitle));
+  display: flex;
+  &.start{
+    justify-content: start;
+  }
+  &.end{
+    justify-content: end;
+  }
   button{
-      padding: 0px 4px;
-      padding-bottom: 2px;
-    }
-    button:nth-child(2){
-      margin: 0 8px;
-    }
+    padding: 0 8px;
+  }
 `
 
 //calendar body

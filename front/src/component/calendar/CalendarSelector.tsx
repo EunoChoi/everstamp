@@ -134,12 +134,7 @@ const CalendarSelector = () => {
     <Wrapper>
       <header>
         <CalTitleWrapper>
-          <CalTitleText>
-            <span className="month">{format(currentMonth, 'MMMM')},</span>
-            <span className="year">{format(currentMonth, 'yyyy')}</span>
-          </CalTitleText>
-          <CalHeaderButtons>
-            <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
+          <CalHeaderButtons className="start">
             <button
               onClick={() => {
                 router.push(`/app/calendar?date=${getCleanTodayTime()}`);
@@ -147,6 +142,12 @@ const CalendarSelector = () => {
               }}>
               <TodayIcon fontSize="small" />
             </button>
+          </CalHeaderButtons>
+          <CalTitleText>
+            <span className="month">{format(currentMonth, 'yyyy.MM')}</span>
+          </CalTitleText>
+          <CalHeaderButtons className="end">
+            <button onClick={subCurrentMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
             <button onClick={addCurrentMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
           </CalHeaderButtons>
         </CalTitleWrapper>
@@ -260,10 +261,13 @@ const CalTitleWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   
-  padding: 2px 8px;
+  padding: 2px 0px;
+  >*{
+    width: 30%;
+  }
 `
 const CalTitleText = styled.div`
-  width: auto;
+  /* width: auto; */
   
   text-align: center;
   text-transform: capitalize;
@@ -281,8 +285,15 @@ const CalTitleText = styled.div`
 `
 const CalHeaderButtons = styled.div`
   color: rgb(var(--greyTitle));
+  display: flex;
+  &.start{
+    justify-content: start;
+  }
+  &.end{
+    justify-content: end;
+  }
   button{
-    margin-left: 16px;  
+    padding: 0 8px;
   }
 `
 

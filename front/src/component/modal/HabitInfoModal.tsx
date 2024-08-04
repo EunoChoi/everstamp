@@ -131,19 +131,29 @@ const Info = styled.div`
   .infoCount{
     line-height: 100%;
     font-weight: 700;
-    font-size: 52px;
+    font-size: 32px;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
   
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 50%;
+    height: 100%;
+    border-right: 2px solid whitesmoke;
+    margin-right: 12px;
     flex-direction: column;
     justify-content: space-evenly;
+
     .name{
       display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       margin: 24px 0;
+      width: 90%;
+     
       font-weight: 600;
-      font-size: 42px;
+      font-size: 32px;
+      word-break: keep-all;
     } 
     .infoText{
       text-align: center;
