@@ -92,10 +92,6 @@ const SettingPageClient = () => {
             <span className="key">creation date</span>
             <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
           </Value>
-          <Buttons>
-            <Button onClick={onLogout}>logout</Button>
-            <Button onClick={onDeleteAccount}>delete account</Button>
-          </Buttons>
         </Section>
 
         <Section>
@@ -111,6 +107,13 @@ const SettingPageClient = () => {
               <Color className="grey" onClick={() => themeColorUpdate("#8f8f8f")} />
             </FlexRow>
           </FlexRow>
+        </Section>
+
+        <Section>
+          <Buttons className="center">
+            <Button onClick={onLogout}>logout</Button>
+            <Button onClick={onDeleteAccount}>delete account</Button>
+          </Buttons>
         </Section>
 
         <Section></Section>
@@ -189,6 +192,10 @@ const Value = styled.span`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
+  &.center{
+    width: 100%;
+    justify-content: center;
+  }
   margin-top: 24px;
   padding-left: 12px;
 `
