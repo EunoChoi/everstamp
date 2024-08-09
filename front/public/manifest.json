@@ -2,6 +2,9 @@
     "theme_color": "#F8F8F8",
     "background_color": "#F8F8F8",
     "display": "standalone",
+    "display_override": [
+        "window_controls_overlay"
+    ],
     "scope": "/",
     "start_url": "/app",
     "name": "Everstamp",
