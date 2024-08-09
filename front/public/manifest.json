@@ -3,7 +3,9 @@
     "background_color": "#F8F8F8",
     "display": "standalone",
     "display_override": [
-        "window_controls_overlay"
+        "window_controls_overlay",
+        "standalone",
+        "fullscreen"
     ],
     "scope": "/",
     "start_url": "/app",
