@@ -53,10 +53,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
   const checkHabitMutation = useMutation({
     mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.post('/habit/check', { habitId, date }),
     onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll().forEach(cache => {
-        queryClient.invalidateQueries({ queryKey: cache.queryKey });
-      });
+      queryClient.invalidateQueries({ queryKey: ['habit', name, 'recent'] });
 
       console.log('chack habit success');
     },
@@ -69,10 +66,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
   const uncheckHabitMutation = useMutation({
     mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.delete('/habit/check', { data: { habitId, date } }), //delete method data
     onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll().forEach(cache => {
-        queryClient.invalidateQueries({ queryKey: cache.queryKey });
-      });
+      queryClient.invalidateQueries({ queryKey: ['habit', name, 'recent'] });
 
       console.log('unchack habit success');
     },
