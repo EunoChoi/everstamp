@@ -24,6 +24,9 @@ import otherinfo1 from '/public/img/intro/otherinfo1.png';
 import otherinfo2 from '/public/img/intro/otherinfo2.png';
 import otherinfo3 from '/public/img/intro/otherinfo3.png';
 
+import AndroidIcon from '@mui/icons-material/Android';
+import InstallMobileIcon from '@mui/icons-material/InstallMobile';
+
 
 
 import { useRouter } from "next/navigation";
@@ -75,21 +78,23 @@ const IntroDesktop = () => {
           <div>
             <span>ever</span><span>stamp</span>
           </div>
-          <span>grow every day</span>
+          {/* <span>grow every day</span> */}
         </Logo>
         <Text>
           <span>꾸준히 감정 일기를 작성하고</span>
           <span>목표 습관을 실천하세요.</span>
           <span>당신의 변화와 성장을 응원합니다 :)</span>
         </Text>
-        <div>
-          <Button onClick={installPwa}>앱 다운로드</Button>
-          <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
-        </div>
+        <DownLoadButtons>
+          <a href="/download/Everstamp.apk" download>
+            <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
+          </a>
+          <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+          <Button className="web" onClick={() => (router.push('/app'))}>웹에서 실행하기</Button>
+        </DownLoadButtons>
         <ColWrapper>
-          <SubText>쾌적한 이용을 위해 앱을 설치해 주세요.</SubText>
-          <SubText>웹 브라우저 환경에 따라 레이아웃이 어긋날 수 있습니다.</SubText>
-          <SubText>{`* 앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
+          <SubText>iOS 사용자의 경우 PWA를 설치하여 이용 가능합니다.</SubText>
+          <SubText>*로그인 화면이 나타나지 않는 경우, 앱을 재실행 해주세요.</SubText>
         </ColWrapper>
       </section>
       <section>
@@ -174,21 +179,59 @@ const IntroDesktop = () => {
       </ImageWrapper>
     </Desktop_Section>
     <Desktop_Section className="outro center">
-      <div>
-        <Button onClick={installPwa}>앱 다운로드</Button>
-        <Button onClick={() => (router.push('/app'))}>웹에서 실행</Button>
-      </div>
+      <DownLoadButtons>
+        <a href="/download/Everstamp.apk" download>
+          <Button className="bottom" ><AndroidIcon className="icon" fontSize="small" />APK</Button>
+        </a>
+        <Button className="bottom" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+        <Button className="web bottom" onClick={() => (router.push('/app'))}>웹에서 실행하기</Button>
+      </DownLoadButtons>
       <Logo className="outro">
         <div>
           <span>ever</span><span>stamp</span>
         </div>
-        <span>grow every day</span>
       </Logo>
     </Desktop_Section>
   </Wrapper >;
 }
 
 export default IntroDesktop;
+
+const DownLoadButtons = styled.div`
+  display: flex;
+`
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 3px solid rgba(0,0,0,0.2);
+  white-space: nowrap;
+
+  margin: 0 6px;
+  padding: 6px 18px;
+  /* width: 110px; */
+  border-radius: 32px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: rgb(var(--greyTitle));
+  background-color: #d7daeb;
+
+  &.web{
+    padding: 6px 32px;
+    background-color: rgba(0,0,0,0);
+    border-color: #c1c5db;
+  }
+  &.bottom{
+    background-color: rgba(255,255,255,0.8);
+    color: rgb(var(--greyTitle));
+  }
+  .icon{
+    margin-right: 8px;
+  }
+`
 
 
 //desktop
@@ -257,7 +300,7 @@ const Logo = styled.div`
 
   >div>span{
     display: inline-block;
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 700;
     text-transform: uppercase;
     margin: 0 4px;
@@ -297,31 +340,14 @@ const Text = styled.div`
   align-items: center;
 
   span{
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
     color: rgb(var(--greyTitle));
     line-height: 1.4;
     white-space: nowrap;
   }
 `
-const Button = styled.button`
-  border: 3px solid rgba(0,0,0,0.1);
-  border-radius: 32px;
-  padding: 6px 24px;
 
-  width: 140px;
-
-  font-size: 18px;
-  font-weight: 600;
-
-
-  color: rgb(var(--greyTitle));
-  background-color: #d7daeb;
-
-  &:first-child{
-    margin-right: 14px;
-  }
-`
 const SubText = styled.span`
   color: grey;
   font-size: 16px;

@@ -22,6 +22,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import PhonelinkIcon from '@mui/icons-material/Phonelink';
 import ImageCarousel from "../common/ImageCarousel";
+import AndroidIcon from '@mui/icons-material/Android';
+import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 
 const IntroMobile = () => {
   const router = useRouter();
@@ -67,20 +69,21 @@ const IntroMobile = () => {
         <div>
           <span>ever</span><span>stamp</span>
         </div>
-        <span>grow every day</span>
       </Logo>
       <Text>
         <span>감정 일기를 적고 목표 습관을 실천하세요.</span>
         <span>당신의 변화와 성장을 응원합니다.</span>
       </Text>
       <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
-      <div>
-        <Button onClick={installPwa}>앱 다운로드</Button>
-        {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
-      </div>
+      <DownLoadButtons>
+        <a href="/download/Everstamp.apk" download>
+          <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
+        </a>
+        <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+      </DownLoadButtons>
       <ColWrapper>
-        <SubText>{`앱 다운로드 : '메뉴(공유하기) -> 홈 화면에 추가'`}</SubText>
-        <SubText>*로그인 화면이 나타나지 않는 경우, 앱을 재실행해 주세요.</SubText>
+        <SubText>iOS 사용자의 경우 PWA를 설치하여 이용 가능합니다.</SubText>
+        <SubText>*로그인 화면이 나타나지 않는 경우, 앱을 재실행 해주세요.</SubText>
       </ColWrapper>
     </Mobile_Section>
     <Mobile_Section className="emotion">
@@ -159,21 +162,51 @@ const IntroMobile = () => {
       <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
     </Mobile_Section>
     <Mobile_Section className="outro">
-      <div>
-        <Button onClick={installPwa}>앱 다운로드</Button>
+      <DownLoadButtons>
+        <a href="/download/Everstamp.apk" download>
+          <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
+        </a>
+        <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
         {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
-      </div>
+      </DownLoadButtons>
       <Logo className="outro">
         <div>
           <span>ever</span><span>stamp</span>
         </div>
-        <span>grow every day</span>
       </Logo>
     </Mobile_Section>
   </Wrapper>);
 }
 
 export default IntroMobile;
+
+
+const DownLoadButtons = styled.div`
+  display: flex;
+`
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid rgba(0,0,0,0.1);
+
+  margin: 0 6px;
+  padding: 6px 24px;
+  /* width: 110px; */
+  border-radius: 32px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: rgb(var(--greyTitle));
+  background-color: #d7daeb;
+
+  .icon{
+    margin-right: 8px;
+  }
+`
+
 
 //tablet + phone
 const Mobile_Section = styled.div`
@@ -333,20 +366,6 @@ const Text = styled.div`
       font-size: 28px;
     }
   }
-`
-const Button = styled.button`
-  border: 2px solid rgba(0,0,0,0.1);
-
-  margin: 0 6px;
-  padding: 6px 16px;
-  width: 110px;
-  border-radius: 32px;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  color: rgb(var(--greyTitle));
-  background-color: #d7daeb;
 `
 const SubText = styled.span`
   color: grey;
