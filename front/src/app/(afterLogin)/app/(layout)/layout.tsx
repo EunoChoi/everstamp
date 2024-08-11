@@ -73,12 +73,12 @@ const AppLayout = ({ children, modal }: Props) => {
         error: StyledMaterialDesignContent,
       }}
       anchorOrigin={{
-        // vertical: `${isMobile ? 'bottom' : 'top'}`,
-        vertical: 'top',
+        vertical: `${isMobile ? 'bottom' : 'top'}`,
+        // vertical: 'top',
         horizontal: 'right',
       }}
       maxSnack={1}
-      autoHideDuration={1300}
+      autoHideDuration={2000}
       preventDuplicate={true}
     >
       <ThemeProvider theme={theme}>
@@ -221,7 +221,8 @@ const Mobile_Nav = styled.nav`
   width: 100vw;
   height: var(--mobileNav);
 
-  background-color: rgba(var(--whitesmoke), 0.7);
+  /* background-color: rgba(var(--whitesmoke), 0.7); */
+  background-color: whitesmoke;
   backdrop-filter: blur(12px);
 
   color: rgba(0,0,0,0.3);
