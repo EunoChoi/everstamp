@@ -57,7 +57,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       //게시글 최대 이미지 개수 제한
       if (images.length + ArrayImages.length > 5) {
         // alert('이미지 파일은 최대 5개까지 삽입 가능합니다.')
-        enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'info' });
+        enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'error' });
         return null;
       }
 
@@ -67,7 +67,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       });
       if (isOverSize) {
         // alert("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.");
-        enqueueSnackbar("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.", { variant: 'info' });
+        enqueueSnackbar("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
         return null;
       }
 
