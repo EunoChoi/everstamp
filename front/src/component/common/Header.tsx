@@ -30,7 +30,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-shrink: 0;
 
-  background-color: rgba(255,255,255,0.7);
+  /* background-color: rgba(255,255,255,0.7); */
+  background-color: white;
   backdrop-filter: blur(12px);  
 
   @media (max-width: 479px) { //mobile port

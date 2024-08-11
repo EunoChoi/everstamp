@@ -222,12 +222,13 @@ const LoggedInButtonStart = styled.button`
   height: 42px;
   border-radius: 42px;
   border : 2px solid rgba(0,0,0,0.1);
-  padding: 0 22px;
+  padding: 0 28px;
   margin-bottom: 24px;
 
   background-color:#fff;
   color: rgb(var(--greyTitle));
   text-transform: lowercase;
+  font-size: 16px;
   font-weight: 500;
 
   span{
@@ -249,7 +250,7 @@ const LoggedInButtonStart = styled.button`
 
 
   @media (min-width:1024px) { //desktop
-    height: 56px;
+    height: 48px;
     /* margin: 6px; */
   }
 `

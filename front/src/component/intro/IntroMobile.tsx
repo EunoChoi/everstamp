@@ -288,7 +288,7 @@ const Logo = styled.div`
   >div>span{
     display: inline-block;
 
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
     margin: 0 4px;
