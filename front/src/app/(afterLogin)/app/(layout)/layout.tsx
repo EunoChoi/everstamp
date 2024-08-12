@@ -73,8 +73,8 @@ const AppLayout = ({ children, modal }: Props) => {
         error: StyledMaterialDesignContent,
       }}
       anchorOrigin={{
-        vertical: `${isMobile ? 'bottom' : 'top'}`,
-        // vertical: 'top',
+        // vertical: `${isMobile ? 'bottom' : 'top'}`,
+        vertical: 'top',
         horizontal: 'right',
       }}
       maxSnack={1}
