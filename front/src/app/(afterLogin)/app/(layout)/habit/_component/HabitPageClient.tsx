@@ -154,8 +154,9 @@ const HabitGridContainer = styled.div`
 
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  grid-gap: 6px;
+  grid-gap: 10px;
   
+
 
   @media (max-width: 479px) { //mobile port
     grid-template-columns: 1fr 1fr;

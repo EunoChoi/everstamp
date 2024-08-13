@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   }
   p{
     width: 80%;
-    font-size: 22px;
+    font-size: 18px;
     color: #525252;
     text-align: center;
   }

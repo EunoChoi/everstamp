@@ -222,7 +222,7 @@ const Mobile_Nav = styled.nav`
   height: var(--mobileNav);
 
   /* background-color: rgba(var(--whitesmoke), 0.7); */
-  background-color: whitesmoke;
+  background-color: #f8f8f8;
   backdrop-filter: blur(12px);
 
   color: rgba(0,0,0,0.3);

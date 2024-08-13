@@ -225,6 +225,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: all ease-in-out 0.3s;
   padding: 4px 14px;
+  font-size: 14px;
 
 
   border-radius: 50px;

@@ -118,10 +118,13 @@ const Wrapper = styled.div`
 `
 const Img = styled(Image)`
   object-fit: contain;
-  width: 300px;
+  width: 350px;
+  @media (max-width: 479px) { //mobile port
+    width: 90dvw;
+  }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: auto;
-    height: 50px;
+    height: 60px;
   }
 `;
 const TextContent = styled.div`
