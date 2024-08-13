@@ -5,6 +5,8 @@ import "./globals.css";
 import localFont from "next/font/local";
 import StyledComponentsRegistry from "../../lib/registry";
 import { SessionProvider } from "next-auth/react";
+import ServiceWorkerRegister from "@/component/ServiceWorkerRegister";
+
 
 
 import { headers } from 'next/headers'
@@ -101,6 +103,7 @@ export default function RootLayout({
       <SessionProvider>
         <StyledComponentsRegistry>
           <body className={pretendard.className}>
+            <ServiceWorkerRegister />
             {children}
           </body>
         </StyledComponentsRegistry>
