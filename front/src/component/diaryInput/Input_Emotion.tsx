@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
-import emotion0 from '/public/img/emotion/circle_emotion0.png'
-import emotion1 from '/public/img/emotion/circle_emotion1.png'
-import emotion2 from '/public/img/emotion/circle_emotion2.png'
-import emotion3 from '/public/img/emotion/circle_emotion3.png'
-import emotion4 from '/public/img/emotion/circle_emotion4.png'
+// import emotion0 from '/public/img/emotion/circle_emotion0.png'
+// import emotion1 from '/public/img/emotion/circle_emotion1.png'
+// import emotion2 from '/public/img/emotion/circle_emotion2.png'
+// import emotion3 from '/public/img/emotion/circle_emotion3.png'
+// import emotion4 from '/public/img/emotion/circle_emotion4.png'
+
+import emotion0 from '/public/img/emotion/emotion0.png'
+import emotion1 from '/public/img/emotion/emotion1.png'
+import emotion2 from '/public/img/emotion/emotion2.png'
+import emotion3 from '/public/img/emotion/emotion3.png'
+import emotion4 from '/public/img/emotion/emotion4.png'
 import Image from "next/image";
 
 interface Props {
@@ -15,11 +21,11 @@ interface Props {
 const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
 
   const emotions =
-    [<Image src={emotion0} alt="angry" width={24} height={24} />,
-    <Image src={emotion1} alt="sad" width={24} height={24} />,
-    <Image src={emotion2} alt="common" width={24} height={24} />,
-    <Image src={emotion3} alt="happy" width={24} height={24} />,
-    <Image src={emotion4} alt="Joyful" width={24} height={24} />];
+    [<Image src={emotion0} alt="angry" width={28} height={28} />,
+    <Image src={emotion1} alt="sad" width={28} height={28} />,
+    <Image src={emotion2} alt="common" width={28} height={28} />,
+    <Image src={emotion3} alt="happy" width={28} height={28} />,
+    <Image src={emotion4} alt="Joyful" width={28} height={28} />];
 
 
   return (<Wrapper>

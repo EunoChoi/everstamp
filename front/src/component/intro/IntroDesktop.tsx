@@ -103,7 +103,7 @@ const IntroDesktop = () => {
     </Desktop_Section>
     <Desktop_Section className="emotion">
       <section>
-        <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
+        <Img className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Img>
       </section>
       <section>
         <Title>#emotions</Title>
@@ -330,7 +330,7 @@ const Logo = styled.div`
 `
 const Title = styled.span`
   color: #989FC4;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 500;
   text-transform: capitalize;
 `
@@ -340,7 +340,7 @@ const Text = styled.div`
   align-items: center;
 
   span{
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 600;
     color: rgb(var(--greyTitle));
     line-height: 1.4;
@@ -350,7 +350,7 @@ const Text = styled.div`
 
 const SubText = styled.span`
   color: grey;
-  font-size: 16px;
+  font-size: 18px;
 `
 const ImageWrapper = styled.div`
   width : 100%;
@@ -361,7 +361,7 @@ const ImageWrapper = styled.div`
 const Img = styled(Image)`
   width: auto;
   &.emotionImg{
-    width: 350px;
+    width: 500px;
   }
   &.habitbox{
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);

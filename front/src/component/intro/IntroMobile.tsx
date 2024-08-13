@@ -92,7 +92,7 @@ const IntroMobile = () => {
         <span>감정과 생각을 정리하며 일기를 적어보세요.</span>
         <span>나를 이해하고 사랑하는데 도움이 됩니다.</span>
       </Text>
-      <Img className="emotionImg" src={emotions2} alt="emotions2" width={300} height={300}></Img>
+      <Img className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Img>
       <ColWrapper>
         <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
         <SubText>5가지 감정 선택을 지원합니다.</SubText>
@@ -378,10 +378,8 @@ const SubText = styled.span`
 const Img = styled(Image)`
   width: auto;
   &.emotionImg{
-    width: 200px;
-    @media (min-width:1024px) { //desktop
-      width: 350px;
-    }
+    border: none;
+    width: 300px;
   }
   &.habitbox{
     box-shadow: 0px 0px 16px rgba(0,0,0,0.2);
