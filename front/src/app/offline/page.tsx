@@ -1,18 +1,21 @@
 'use client'
-import Image from "next/image";
-import sad from '/public/img/emotion/emotion1.png'
 import styled from "styled-components";
 
 export default function OfflinePage() {
   return (
     <Wrapper>
       <header>Offline</header>
-      <Image className="emotion" src={sad} alt='sad emotion' width={120} height={120} />
+      <Img className="emotion" src="/img/emotion/emotion1.png" alt='sad emotion' />
       <p>Please check internet connection.</p>
     </Wrapper>
   );
 }
 
+const Img = styled.img`
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+`
 
 const Wrapper = styled.div`
   width: 100dvw;
@@ -32,7 +35,7 @@ const Wrapper = styled.div`
     font-weight: 500;
   }
   .emotion{
-    margin: 24px 0;
+    margin: 36px 0;
   }
   p{
     width: 80%;
