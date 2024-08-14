@@ -75,15 +75,12 @@ const IntroDesktop = () => {
     <Desktop_Section className="intro">
       <section>
         <Logo>
-          <div>
-            <span>ever</span><span>stamp</span>
-          </div>
-          {/* <span>grow every day</span> */}
+          <span>everstamp</span>
         </Logo>
         <Text>
           <span>꾸준히 감정 일기를 작성하고</span>
           <span>목표 습관을 실천하세요.</span>
-          <span>당신의 변화와 성장을 응원합니다 :)</span>
+          {/* <span>당신의 변화와 성장을 응원합니다 :)</span> */}
         </Text>
         <DownLoadButtons>
           <a href="/download/Everstamp.apk" download>
@@ -187,9 +184,7 @@ const IntroDesktop = () => {
         <Button className="web bottom" onClick={() => (router.push('/app'))}>웹에서 실행하기</Button>
       </DownLoadButtons>
       <Logo className="outro">
-        <div>
-          <span>ever</span><span>stamp</span>
-        </div>
+        <span>everstamp</span>
       </Logo>
     </Desktop_Section>
   </Wrapper >;
@@ -298,33 +293,24 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
 
-  >div>span{
+  >span{
     display: inline-block;
-    font-size: 48px;
+    font-size: 56px;
     font-weight: 700;
     text-transform: uppercase;
+    text-transform: capitalize;
     margin: 0 4px;
     color: rgb(var(--greyTitle));
     &::first-letter{
       color: #979FC7;
     }
   }
-  >span{
-    line-height: 1;
-    font-size: 22px;
-    font-weight: 600;
-    text-transform: capitalize;
-    color: #EF9C92;
-  }
 
   &.outro{
-    >div>span{
+    span{
       &::first-letter{
         color: #EFF0F6;
       }
-    }
-    >span{
-      color: #F6E388;
     }
   }
 `
@@ -340,9 +326,10 @@ const Text = styled.div`
   align-items: center;
 
   span{
-    font-size: 30px;
+    font-size: 34px;
     font-weight: 600;
     color: rgb(var(--greyTitle));
+    color: #5f5f5f;
     line-height: 1.4;
     white-space: nowrap;
   }

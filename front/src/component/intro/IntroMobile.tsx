@@ -66,9 +66,7 @@ const IntroMobile = () => {
   return (<Wrapper>
     <Mobile_Section className="intro">
       <Logo>
-        <div>
-          <span>ever</span><span>stamp</span>
-        </div>
+        <span>everstamp</span>
       </Logo>
       <Text>
         <span>감정 일기를 적고 목표 습관을 실천하세요.</span>
@@ -170,9 +168,7 @@ const IntroMobile = () => {
         {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </DownLoadButtons>
       <Logo className="outro">
-        <div>
-          <span>ever</span><span>stamp</span>
-        </div>
+        <span>everstamp</span>
       </Logo>
     </Mobile_Section>
   </Wrapper>);
@@ -285,43 +281,29 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
 
-  >div>span{
+  >span{
     display: inline-block;
+
+    line-height: 120%;
 
     font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
+    text-transform: capitalize;
     margin: 0 4px;
     color: rgb(var(--greyTitle));
+
     &::first-letter{
       color: #979FC7;
-    }
-    
-  }
-  >span{
-    line-height: 1;
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: capitalize;
-    color: #EF9C92;
-  }
-
-  &.left{
-    align-items: start;
-    span{
-      margin: 0;
-      margin-right: 8px;
     }
   }
 
   &.outro{
-    >div>span{
+    >span{
       &::first-letter{
         color: #EFF0F6;
       }
-    }
-    >span{
-      color: #F6E388;
+      line-height: 120%;
     }
   }
 

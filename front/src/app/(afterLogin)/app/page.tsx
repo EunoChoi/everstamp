@@ -49,10 +49,10 @@ const Page = () => {
     <Wrapper>
       <Logo>
         <div className="main">
-          <span>ever</span>
-          <span>stamp</span>
+          <span>everstamp</span>
+          {/* <span>stamp</span> */}
         </div>
-        <span className="sub">grow every day</span>
+        {/* <span className="sub">grow every day</span> */}
       </Logo>
 
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
@@ -119,12 +119,14 @@ const Wrapper = styled.div`
 const Img = styled(Image)`
   object-fit: contain;
   width: 350px;
+  margin: 24px 0;
   @media (max-width: 479px) { //mobile port
-    width: 90dvw;
+    margin: 56px 0;
+    width: 70dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: auto;
-    height: 60px;
+    height: 80px;
   }
 `;
 const TextContent = styled.div`
@@ -160,6 +162,7 @@ const Logo = styled.div`
       margin: 0 4px;
       font-weight: 700;
       text-transform: uppercase;
+      text-transform: capitalize;
       line-height: 100%;
       text-align: center;
       color: rgb(var(--greyTitle));
