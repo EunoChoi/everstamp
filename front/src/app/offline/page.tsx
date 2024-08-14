@@ -1,5 +1,3 @@
-// app/offline/page.tsx
-
 'use client'
 import Image from "next/image";
 import sad from '/public/img/emotion/emotion1.png'

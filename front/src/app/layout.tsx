@@ -10,6 +10,7 @@ import ServiceWorkerRegister from "@/component/ServiceWorkerRegister";
 
 
 import { headers } from 'next/headers'
+import NetworkStatus from "@/component/NetworkStatus";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -104,6 +105,7 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <body className={pretendard.className}>
             <ServiceWorkerRegister />
+            <NetworkStatus />
             {children}
           </body>
         </StyledComponentsRegistry>

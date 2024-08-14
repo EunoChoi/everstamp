@@ -1,6 +1,12 @@
 // public/sw.js
 const CACHE_NAME = 'my-cache-v1';
-const urlsToCache = ['/offline']; // 캐싱할 페이지나 리소스
+const urlsToCache = ['/offline',
+  'img/emotion/emotion0.png',
+  'img/emotion/emotion1.png',
+  'img/emotion/emotion2.png',
+  'img/emotion/emotion3.png',
+  'img/emotion/emotion4.png',
+]; // 캐싱할 페이지나 리소스
 
 self.addEventListener('install', event => {
   event.waitUntil(
