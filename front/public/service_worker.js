@@ -19,16 +19,40 @@ self.addEventListener('install', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // 캐시된 응답이 있으면 반환하고, 그렇지 않으면 네트워크 요청
-        return response || fetch(event.request);
-      }).catch(() => {
-        // 네트워크가 불가능할 때 오프라인 페이지 제공
-        return caches.match('/offline');
-      })
+    (async () => {
+      try {
+        const { request } = event;
+
+        const cachedResponse = await caches.match(request);
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        const networkResponse = await fetch(request);
+
+        return networkResponse;
+      } catch (error) {
+        return handleOffline();
+      }
+    })()
   );
 });
+
+async function handleOffline() {
+  try {
+    const offlineResponse = await caches.match('/offline');
+    if (offlineResponse) {
+      return offlineResponse;
+    }
+    return new Response('<h1>Offline</h1><p>Please check your network connection.</p>', {
+      headers: { 'Content-Type': 'text/html' }
+    });
+  } catch (error) {
+    return new Response('<h1>Offline.</h1><p>Please check your network connection.</p>', {
+      headers: { 'Content-Type': 'text/html' }
+    });
+  }
+}
 
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];

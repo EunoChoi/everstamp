@@ -5,35 +5,37 @@ import { useEffect, useState } from 'react';
 
 const NetworkStatus = () => {
   const router = useRouter();
-  const [isOnline, setIsOnline] = useState<boolean>(true);
+  const [beforeUrl, setBeforeUrl] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const updateNetworkStatus = () => {
+    const onOnline = () => {
+      if (beforeUrl !== '' && navigator.onLine) {
+        console.log('on!');
+        setBeforeUrl('');
+        router.push(beforeUrl);
+      }
+    };
+    const onOffline = () => {
       if (!navigator.onLine) {
+        console.log('off!');
+        setBeforeUrl(window.location.href);
         router.push('/offline');
       }
-      // setIsOnline(navigator.onLine);
-    };
+    }
 
-    window.addEventListener('online', updateNetworkStatus);
-    window.addEventListener('offline', updateNetworkStatus);
-
-    updateNetworkStatus();
+    window.addEventListener('online', onOnline);
+    window.addEventListener('offline', onOffline);
 
     return () => {
-      window.removeEventListener('online', updateNetworkStatus);
-      window.removeEventListener('offline', updateNetworkStatus);
+      window.removeEventListener('online', onOnline);
+      window.removeEventListener('offline', onOffline);
     };
-  }, []);
+  }, [beforeUrl]);
 
 
-  return (
-    <>
-      {/* {isOnline ? <></> : <div>off</div>} */}
-    </>
-  );
+  return null;
 };
 
 export default NetworkStatus;
