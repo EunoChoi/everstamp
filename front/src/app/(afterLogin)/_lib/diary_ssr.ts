@@ -1,5 +1,6 @@
 import Axios from "@/Aixos/aixos";
 import { cookies } from "next/headers";
+import { redirect } from 'next/navigation';
 
 interface IdProps {
   id: string | number | null;
@@ -14,7 +15,6 @@ interface ListProps {
   limit: number,
 }
 
-
 export async function getDiary_fetch({ id }: IdProps) {
   try {
     console.log('diary(id) data prefetching...');
@@ -25,6 +25,11 @@ export async function getDiary_fetch({ id }: IdProps) {
     });
     return data;
   } catch (e: any) {
+    if (!navigator.onLine) {
+      // 오프라인 상태인 경우 오프라인 페이지로 이동
+      redirect('/offline');
+    }
+
     console.error(e.response.data);
     throw new Error('Failed to fetch diary(id) data!!');
   }
@@ -42,6 +47,11 @@ export async function getDiary_date_fetch({ date }: DateProps) {
     });
     return data;
   } catch (e: any) {
+    if (!navigator.onLine) {
+      // 오프라인 상태인 경우 오프라인 페이지로 이동
+      redirect('/offline');
+    }
+
     console.error(e.response.data);
     throw new Error('Failed to fetch diary(date) data!!');
   }
@@ -58,6 +68,11 @@ export async function getDiaries_fetch({ sort, search, pageParam, limit }: ListP
     })
     return data;
   } catch (e: any) {
+    if (!navigator.onLine) {
+      // 오프라인 상태인 경우 오프라인 페이지로 이동
+      redirect('/offline');
+    }
+
     console.error(e.response.data);
     throw new Error('Failed to fetch diaries(list) data!!');
   }
