@@ -138,8 +138,8 @@ const IntroDesktop = () => {
       <section>
         <Title>#habit feature</Title>
         <Text>
-          <span>작은 변화가 큰 차이를 만듭니다.</span>
-          <span>매일 실천한 습관들을 기록하세요.</span>
+          <span>완벽하지 않아도 괜찮습니다.</span>
+          <span>부담없이 습관 실천을 시도하세요.</span>
         </Text>
         <ColWrapper>
           <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>

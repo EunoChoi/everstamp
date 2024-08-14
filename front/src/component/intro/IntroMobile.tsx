@@ -112,8 +112,8 @@ const IntroMobile = () => {
     <Mobile_Section className="habit">
       <Title>#habit feature</Title>
       <Text>
-        <span>작은 변화가 큰 차이를 만듭니다.</span>
-        <span>매일 실천한 습관들을 기록하세요.</span>
+        <span>완벽하지 않아도 괜찮습니다.</span>
+        <span>부담없이 습관 실천을 시도하세요.</span>
       </Text>
       <RowWrapper>
         <Img className="habitbox" src={habitbox} alt="habitbox" width={300} height={300}></Img>
@@ -306,15 +306,13 @@ const Logo = styled.div`
       line-height: 120%;
     }
   }
-
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    >div>span{
-      font-size: 28px;
-    }
-    >span{
-      font-size: 20px;
-    }
+    >span{ 
+      font-size: 46px;
+   }
   }
+
+
 `
 const Title = styled.span`
   color: #989FC4;
