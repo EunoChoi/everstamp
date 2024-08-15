@@ -4,7 +4,7 @@ import axios from "axios"
 import Kakao from "next-auth/providers/kakao"
 import Google from "next-auth/providers/google"
 import Naver from "next-auth/providers/naver"
-import Axios from "./Aixos/aixos"
+import Axios from "./Axios/axios"
 import { cookies } from "next/headers"
 
 

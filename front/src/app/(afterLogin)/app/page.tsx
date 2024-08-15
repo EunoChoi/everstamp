@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 import { useEffect } from "react";
 
 

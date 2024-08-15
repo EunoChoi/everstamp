@@ -7,7 +7,7 @@ import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { RefObject } from "react";
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 import { useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styled from "styled-components";
 import { useRef } from "react";
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 
 
 //icon

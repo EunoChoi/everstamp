@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { signOut } from "next-auth/react";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
 //style

@@ -119,7 +119,7 @@ const ListPageClient = () => {
 
 
       <ContentArea className="scroll" _ref={contentRef}>
-        {diaries?.pages[0].length > 0 ?
+        {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
             const diaryDate = format(data.date, 'MMMM yyyy');
             if (temmDate !== diaryDate) {

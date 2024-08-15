@@ -25,7 +25,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 interface Props {
   children: ReactNode;
-  isMobile: boolean;
+  isMobile?: boolean;
   modal: ReactNode;
 }
 

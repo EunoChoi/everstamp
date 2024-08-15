@@ -6,7 +6,7 @@ import HabitInputButtons from "../habit/Input_Buttons";
 import HabitInputValues from "../habit/Input_Values";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 
 import { enqueueSnackbar } from 'notistack';
 

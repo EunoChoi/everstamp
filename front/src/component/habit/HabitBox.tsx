@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { subDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";

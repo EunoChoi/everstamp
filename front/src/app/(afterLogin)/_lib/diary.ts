@@ -1,4 +1,4 @@
-import Axios from "@/Aixos/aixos";
+import Axios from "@/Axios/axios";
 import { redirect } from "next/navigation";
 
 interface IdProps {
