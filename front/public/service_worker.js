@@ -22,22 +22,10 @@ self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          return cache.match('/offline');
-        });
-      })
-    );
-  }
-  else {
-    event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        // 캐시에 데이터가 있으면 반환
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request).then((networkResponse) => {
-          return networkResponse;
-        });
+        return caches.open(CACHE_NAME)
+          .then((cache) => {
+            return cache.match('/offline');
+          });
       })
     );
   }

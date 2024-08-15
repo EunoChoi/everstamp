@@ -1,25 +1,22 @@
 'use client'
 import styled from "styled-components";
+import SignalWifiConnectedNoInternet4RoundedIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4Rounded';
 
 export default function OfflinePage() {
   return (
     <Wrapper>
-      <header>Offline</header>
-      <Img className="emotion" src="/img/emotion/emotion1.png" alt='sad emotion' />
-      <p>Please check internet connection.</p>
+      <SignalWifiConnectedNoInternet4RoundedIcon className="icon" fontSize="inherit" />
+      <span className="title">오프라인</span>
+      <p>인터넷 연결 상태를 확인해주세요.</p>
     </Wrapper>
   );
 }
 
-const Img = styled.img`
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-`
 
 const Wrapper = styled.div`
-  width: 100dvw;
-  height: 100dvh;
+  color: #3f3f3f;
+  width: 100%;
+  height: 95dvh;
 
   display: flex;
   flex-direction: column;
@@ -30,12 +27,14 @@ const Wrapper = styled.div`
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-  header{
+  
+  .icon{
+    font-size: 96px;
+  }
+  .title{
     font-size: 36px;
     font-weight: 500;
-  }
-  .emotion{
-    margin: 36px 0;
+    margin: 32px 0;
   }
   p{
     width: 80%;
