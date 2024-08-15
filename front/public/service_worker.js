@@ -18,37 +18,27 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('fetch', event => {
-  const requestUrl = new URL(event.request.url);
-
-  // Next.js의 페이지 요청인 경우에만 네트워크 우선 전략 적용
-  if (requestUrl.origin === location.origin && requestUrl.pathname.startsWith('/')) {
+self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate') {
     event.respondWith(
-      (async () => {
-        try {
-          // 네트워크 요청 시도
-          const networkResponse = await fetch(event.request);
-          return networkResponse;
-        } catch (error) {
-          // 네트워크 요청이 실패한 경우
-          const cachedResponse = await caches.match(event.request);
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-
-          // 캐시에도 없는 경우 오프라인 페이지 제공
-          return caches.match('/offline');
-        }
-      })()
+      fetch(event.request).catch(() => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          return cache.match('/offline');
+        });
+      })
     );
-  } else {
-    // 일반적인 요청 처리 (예: API 요청 등)
+  }
+  else {
     event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          return response || fetch(event.request);
-        })
-        .catch(() => caches.match('/offline'))
+      caches.match(event.request).then((cachedResponse) => {
+        // 캐시에 데이터가 있으면 반환
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request).then((networkResponse) => {
+          return networkResponse;
+        });
+      })
     );
   }
 });

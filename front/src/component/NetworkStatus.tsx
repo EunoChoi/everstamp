@@ -1,14 +1,24 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const NetworkStatus = () => {
   const router = useRouter();
   const [beforeUrl, setBeforeUrl] = useState('');
+  const pathname = usePathname();
+
+  useEffect(() => {
+    console.log('online : ', navigator.onLine);
+    if (!navigator.onLine) {
+      router.push('/offline');
+    }
+  }, [pathname])
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+
 
     const onOnline = () => {
       if (beforeUrl !== '' && navigator.onLine) {
