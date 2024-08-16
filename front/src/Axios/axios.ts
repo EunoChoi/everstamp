@@ -1,12 +1,6 @@
-'use client';
-
 import axios from "axios";
-import { useRouter } from "next/navigation";
-
 
 const baseURL = process.env.NEXT_PUBLIC_BACK_URL;
-
-// const router = useRouter();
 
 const Axios = axios.create({
   baseURL,
