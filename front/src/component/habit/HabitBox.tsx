@@ -295,10 +295,25 @@ const Check = styled.div`
       width: 0;
     }
     .checkmark{
+      
       height: 20px;
       width: 20px;
       border-radius: 25px;
       border : solid darkgrey 2px;
+
+      div{
+        transition: all ease-in-out 0.4s;
+
+        flex-shrink: 0;
+        width: 12px;
+        height: 12px; 
+        border-radius: 20px;
+
+        @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+          height: 8px;
+          width: 8px;
+        }
+      }
 
       display: flex;
       flex-shrink: 0;
@@ -311,17 +326,10 @@ const Check = styled.div`
     }
     input:checked ~ .checkmark{
       div{
-        flex-shrink: 0;
-
-        width: 12px;
-        height: 12px; 
-        border-radius: 20px;
+        
         background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 
-        @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
-          height: 8px;
-          width: 8px;
-        }
+        
       }    
     }
     span:first-child{
