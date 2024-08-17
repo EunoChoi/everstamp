@@ -176,7 +176,7 @@ const Wrapper = styled.div`
   border: 2px solid rgba(0,0,0,0.075);
 
   @media (max-width: 479px) { //mobile port
-    width: 45dvw;
+    width: calc(45dvw - 3px);
     aspect-ratio: 1;
   }
   @media (min-width:480px) and (max-width:1023px) { //tablet
