@@ -7,10 +7,10 @@ import { useEffect } from 'react';
 const NetworkStatus = () => {
   const router = useRouter();
 
-  console.log(window.navigator.userAgent);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    console.log(window.navigator.userAgent);
     const onOnline = () => {
       // if (navigator.onLine && window.location.pathname === '/offline') {
       //   router.push('/app');

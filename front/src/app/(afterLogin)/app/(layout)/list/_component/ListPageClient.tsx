@@ -21,6 +21,8 @@ import Header from "@/component/common/Header";
 
 //icon
 import SortIcon from '@mui/icons-material/Sort';
+import EmotionSelection from "@/component/EmotionSelection";
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 
 
@@ -109,7 +111,13 @@ const ListPageClient = () => {
     <SC_Common.Wrapper>
       <Header title='list'>
         <SC_Common.Options>
-          <button onClick={emotionToggleChange}>{emotions[emotionToggle]}</button>
+          <button
+            onClick={() => {
+              alert('개발 예정..')
+            }}
+          >
+            <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />
+          </button>
           <button onClick={sortToggleChange}>
             <span><SortIcon fontSize="small" /></span>
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
@@ -119,13 +127,14 @@ const ListPageClient = () => {
 
 
       <ContentArea className="scroll" _ref={contentRef}>
+        <EmotionSelection contentRef={contentRef} setEmotionToggle={setEmotionToggle} />
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
             const diaryDate = format(data.date, 'MMMM yyyy');
             if (temmDate !== diaryDate) {
               temmDate = diaryDate;
               return <React.Fragment key={'listNote' + i}>
-                <MonthInfo><span>{diaryDate}</span></MonthInfo>
+                <MonthInfo className={`Month${i}`}><span>{diaryDate}</span></MonthInfo>
                 <Diary
                   position="list"
                   diaryData={data}
@@ -162,6 +171,10 @@ const MonthInfo = styled.span`
   max-width: 600px;
   height: 2px;
   background-color:  ${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
+
+  &.Month0{
+    display:none;
+  }
 
   span{
     padding: 0 8px;

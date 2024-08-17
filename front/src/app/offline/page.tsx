@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function OfflinePage() {
   const router = useRouter();
   useEffect(() => {
-
+    if (typeof window === 'undefined') return;
     const onOnline = () => {
       router.push('/app');
     }
@@ -16,7 +16,7 @@ export default function OfflinePage() {
     return () => {
       window.removeEventListener('online', onOnline);
     };
-  }, [window.location.pathname])
+  }, [])
 
   return (
     <Wrapper>
