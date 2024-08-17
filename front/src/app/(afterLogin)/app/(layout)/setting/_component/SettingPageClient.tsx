@@ -101,7 +101,7 @@ const SettingPageClient = () => {
             <Color className="selected" />
             <FlexRow className="end">
               <Color className="purple" onClick={() => themeColorUpdate("#979FC7")} />
-              <Color className="blue" onClick={() => themeColorUpdate("#82b3d5")} />
+              <Color className="blue" onClick={() => themeColorUpdate("#8CADE2")} />
               <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
               <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
               <Color className="grey" onClick={() => themeColorUpdate("#8f8f8f")} />
@@ -262,7 +262,7 @@ const Color = styled.div`
     background-color: #979FC7;
   }
   &.blue{
-    background-color: rgb(142, 188, 219);
+    background-color: #8CADE2;
   }
   &.pink{
     background-color: #eda5b1;
