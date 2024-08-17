@@ -1,8 +1,23 @@
 'use client'
 import styled from "styled-components";
 import SignalWifiConnectedNoInternet4RoundedIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4Rounded';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function OfflinePage() {
+  const router = useRouter();
+  useEffect(() => {
+
+    const onOnline = () => {
+      router.push('/app');
+    }
+
+    window.addEventListener('online', onOnline);
+    return () => {
+      window.removeEventListener('online', onOnline);
+    };
+  }, [window.location.pathname])
+
   return (
     <Wrapper>
       <SignalWifiConnectedNoInternet4RoundedIcon className="icon" fontSize="inherit" />
