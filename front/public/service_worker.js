@@ -21,12 +21,16 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => {
-        return caches.open(CACHE_NAME)
-          .then((cache) => {
-            return cache.match('/offline');
-          });
-      })
+      fetch(event.request)
+        .then((response) => {
+          return response; // 네트워크 응답 반환
+        })
+        .catch(() => {
+          return caches.open(CACHE_NAME)
+            .then((cache) => {
+              return cache.match('/offline');
+            });
+        })
     );
   }
 });
