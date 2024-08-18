@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { getMonth, getYear } from "date-fns";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -9,7 +9,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 interface Props {
-  open: boolean;
+  contentRef: React.MutableRefObject<HTMLDivElement | null>;
+  monthSelectorOpen: boolean;
   selectedMonth: number;
   setMonthSelectorOpen: (d: boolean) => void;
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
@@ -17,12 +18,15 @@ interface Props {
 }
 
 const MonthSelector = ({
-  open,
+  contentRef,
+  monthSelectorOpen,
   selectedMonth,
   setMonthSelectorOpen,
   setSelectedYear,
   setSelectedMonth
 }: Props) => {
+
+  // const scrollTimeoutRef = useRef<number | null>(null);
 
   const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
   const [tempMonth, setTempMonth] = useState<number>(0);
@@ -47,72 +51,251 @@ const MonthSelector = ({
     setTempYear(getYear(new Date()));
     setTempMonth(0)
   }
-  const submit = () => {
+  const onSubmit = () => {
     setSelectedMonth(tempMonth);
     setSelectedYear(tempYear);
   }
 
-  return (<Wrapper className={open ? 'open' : ''}>
-    <Year>
-      <div className="left">
-      </div>
-      <div className="center">
-        <button className="arrow" onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
-        <span onClick={goToCurrentDate}>{tempYear}</span>
-        <button className="arrow" onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
-      </div>
-      <div className="right">
-        <button onClick={calcelSelectMonth}><RefreshIcon fontSize="small" /></button>
-      </div>
-    </Year>
-    <Months>
-      <Section>{monthsTopNum.map((e, i) =>
-        <Month
-          className={tempMonth === i + 1 ? 'selectedMonth' : ''}
-          key={'month' + i + 1}
-          onClick={() => setTempMonth(i + 1)}>
-          <span className="num">{e}</span>
-          <span className="eng">{monthsTopEng[i]}</span>
-        </Month>)}
-      </Section>
-      <Section>{monthsBottomNum.map((e, i) =>
-        <Month
-          className={tempMonth === i + 7 ? 'selectedMonth' : ''}
-          key={'month' + i + 6}
-          onClick={() => setTempMonth(i + 7)}>
-          <span className="num">{e}</span>
-          <span className="eng">{monthsBottomEng[i]}</span>
-        </Month>)}
-      </Section>
-      <div>
-        <Button onClick={() => {
-          submit();
-          setMonthSelectorOpen(false);
-        }}>
-          확인
-        </Button>
-      </div>
-    </Months>
-  </Wrapper>);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (scrollTimeoutRef.current !== null) {
+  //       cancelAnimationFrame(scrollTimeoutRef.current);
+  //     }
+  //     scrollTimeoutRef.current = requestAnimationFrame(() => {
+  //       if (contentRef.current && monthSelectorOpen) {
+  //         setMonthSelectorOpen(false);
+  //       }
+  //     });
+  //   };
+  //   const container = contentRef.current;
+  //   if (container) {
+  //     container.addEventListener('scroll', handleScroll);
+  //   }
+  //   return () => {
+  //     if (container) {
+  //       container.removeEventListener('scroll', handleScroll);
+  //     }
+  //     if (scrollTimeoutRef.current !== null) {
+  //       cancelAnimationFrame(scrollTimeoutRef.current);
+  //     }
+  //   };
+  // }, [monthSelectorOpen]);
+
+  return (
+    <BG className={monthSelectorOpen ? 'open' : ''} onClick={() => setMonthSelectorOpen(false)} >
+      <Wrapper
+        onClick={(e) => e.stopPropagation()}
+        className={monthSelectorOpen ? 'open' : ''}>
+        <YearArea>
+          <div className="left">
+          </div>
+          <div className="center">
+            <button className="arrow" onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
+            <span onClick={goToCurrentDate}>{tempYear}</span>
+            <button className="arrow" onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
+          </div>
+          <div className="right">
+            <button onClick={calcelSelectMonth}><RefreshIcon fontSize="small" /></button>
+          </div>
+        </YearArea>
+        <MonthsArea>
+          <Section>{monthsTopNum.map((e, i) =>
+            <Month
+              className={tempMonth === i + 1 ? 'selectedMonth' : ''}
+              key={'month' + i + 1}
+              onClick={() => setTempMonth(i + 1)}>
+              <span className="num">{e}</span>
+              <span className="eng">{monthsTopEng[i]}</span>
+            </Month>)}
+          </Section>
+          <Section>{monthsBottomNum.map((e, i) =>
+            <Month
+              className={tempMonth === i + 7 ? 'selectedMonth' : ''}
+              key={'month' + i + 6}
+              onClick={() => setTempMonth(i + 7)}>
+              <span className="num">{e}</span>
+              <span className="eng">{monthsBottomEng[i]}</span>
+            </Month>)}
+          </Section>
+        </MonthsArea>
+        <ButtonArea>
+          <button onClick={() => {
+            onSubmit();
+            setMonthSelectorOpen(false);
+          }}>
+            확인
+          </button>
+        </ButtonArea>
+      </Wrapper>
+    </BG>
+  );
 }
 
 export default MonthSelector;
 
-const Button = styled.button`
-  font-size: 14px;
-  margin-top: 24px;
-  margin-left: 4px;
-  margin-right: 4px;
+const BG = styled.div`
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  
 
-  padding: 4px 16px;
-  width: 80px;
-  border-radius: 32px;
-  border: 2px solid rgba(0,0,0,0.08);
+  width: 100dvw;
+  height: 100dvh;
+  backdrop-filter: blur(4px);
 
-  color: rgb(var(--greyTitle));
-  font-weight: 600;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  &.open{
+    opacity: 1;
+    visibility: visible;
+  }
 
-  background-color:  ${(props) => props.theme.point ? props.theme.point + '45' : '#979FC7'};
+  @media (max-width: 479px) { //mobile port
+    z-index: 98;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    z-index: 105;
+  }
+  @media (min-width:1024px) { //desktop
+    z-index: 105;
+  }
+`
+
+const Wrapper = styled.div`
+  overflow: hidden;
+
+  position: fixed;
+  top: var(--mobileHeader);
+
+  flex-shrink: 0;
+  
+  padding: 0 24px;
+
+  background-color: white;
+  box-shadow: 0px 3px 48px rgba(0,0,0,0.25);
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+  @media (max-width: 479px) { //mobile port
+    width: 100%;
+    height: 0px;
+
+    border-end-start-radius: 24px;
+    border-end-end-radius: 24px;
+
+    transition: height 0.3s ease-in-out;
+    
+    &.open{
+      height: 400px;
+    }
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    z-index: 999;
+    top: 50dvh;
+    left: 50dvw;
+    transform: translate(-50%, -50%);
+
+    width: 450px;
+    height: 370px;
+    border-radius: 24px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s linear, visibility 0.3s linear;
+
+    &.open{
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  @media (min-width:1024px) { //desktop
+    top: 50dvh;
+    left: 50dvw;
+    transform: translate(-50%, -50%);
+
+    height: 400px;
+    width: 500px;
+    border-radius: 24px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s linear, visibility 0.3s linear;
+
+    &.open{
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`
+const YearArea = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  span{
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 36px;
+    line-height: 0;
+  }
+  .center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .left, .right{
+    width: 16%;
+  }
+  .right{
+    display: flex;
+    justify-content: end;
+    justify-content: center;
+    align-items: center;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  }
+  .arrow{
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  }
+`
+const MonthsArea = styled.div`
+  width: 100%;
+  height: 200px;
+
+  margin : 32px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const ButtonArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
+
+  button{
+    font-size: 14px;
+    font-weight: 600;
+
+
+    padding: 4px 24px;
+    border-radius: 32px;
+    border: 2px solid rgba(0,0,0,0.08);
+
+    background-color:  ${(props) => props.theme.point ? props.theme.point + '45' : '#979FC7'};
+    color: rgb(var(--greyTitle));
+  }
 `
 const Month = styled.button`
   width : 16%;
@@ -138,7 +321,6 @@ const Month = styled.button`
     border-radius: 12px;
   }
 `
-
 const Section = styled.section`
   width: 100%;
   height: 50%;
@@ -147,103 +329,4 @@ const Section = styled.section`
   justify-content: space-between;
 `
 
-const Wrapper = styled.div`
-  overflow: hidden;
 
-  position: fixed;
-  top: var(--mobileHeader);
-
-  flex-shrink: 0;
-  transition: ease-in-out 0.4s all;
-
-
-  @media (max-width: 479px) { //mobile port
-    width: 100%;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 75dvw;
-  }
-  @media (min-width:1024px) { //desktop
-    width: calc(100vw - var(--sidebarWidth));
-  }
-  height: 0px;
-  padding: 0 24px;
-  border-bottom: none;
-  
-  &.open{
-    height: 270px;
-    padding: 18px;
-    padding-bottom: 24px;
-    background-color: white;
-    box-shadow: 0px 3px 48px rgba(0,0,0,0.25);
-    @media (max-width: 479px) { //mobile port
-      padding-top: 32px;
-      padding-bottom: 32px;
-      height: 320px;
-    }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-      height: 350px;
-    }
-    @media (min-width:1024px) { //desktop
-      padding: 36px;
-      height: 400px;
-    }
-  }
-  
-
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-
-  border-end-start-radius: 24px;
-  border-end-end-radius: 24px;
-`
-const Year = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 16px 0;
-
-  .center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-  }
-  .left, .right{
-    width: 16%;
-  }
-  .right{
-    display: flex;
-    justify-content: end;
-    justify-content: center;
-    align-items: center;
-    color: #999999;
-  }
-  .arrow{
-    color: #999999;
-  }
-
-  span{
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0 36px;
-    line-height: 0;
-  }
-`
-const Months = styled.div`
-  width: 100%;
-
-  flex-grow: 1;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`

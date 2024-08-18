@@ -96,7 +96,16 @@ const Content = styled.div`
   }
 `
 const Wrapper = styled.div`
-  transition: all ease-in-out 0.2s;
+  @keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  animation: fadeIn 300ms ease-in-out;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,7 +118,7 @@ const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
 
-  background-color: rgba(0,0,0,0.2);
+  /* background-color: rgba(0,0,0,0.2); */
   backdrop-filter: blur(4px);
 
   text-transform: uppercase;
@@ -123,6 +132,7 @@ const Modal = styled.div`
 
   background-color: white;
   box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
+  box-shadow: 0px 3px 48px rgba(0,0,0,0.25);
 
   @media (max-width: 479px) { //mobile port
     width: 100%;
@@ -138,7 +148,7 @@ const Modal = styled.div`
     min-width: 500px;
     width: 40%;
     height: 50%;
-    border-radius: 8px;
+    border-radius: 24px;
   }
 `
 

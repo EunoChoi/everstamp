@@ -30,8 +30,8 @@ const Wrapper = styled.div`
   justify-content: space-around;
   align-items: center;
 
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
 
   &.iosPwa{
     height: calc(var(--mobileNav) + 20px);

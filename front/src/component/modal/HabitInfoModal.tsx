@@ -221,6 +221,16 @@ const Name = styled.div`
 `
 
 const Wrapper = styled.div`
+  @keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  animation: fadeIn 300ms ease-in-out;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,7 +243,7 @@ const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
 
-  background-color: rgba(0,0,0,0.2);
+  /* background-color: rgba(0,0,0,0.2); */
   backdrop-filter: blur(4px);
 `
 const Modal = styled.div`
@@ -245,7 +255,7 @@ const Modal = styled.div`
 
   background-color: white;
   
-  box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
 
   width: 100%;
   height: 100%;
@@ -254,7 +264,7 @@ const Modal = styled.div`
     width: 500px;
     height: 80%;
 
-    border-radius: 8px;
+    border-radius: 24px;
   }
 `
 const Button = styled.button`
