@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useRef } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import { format } from "date-fns";
+import { format, getMonth, getYear } from "date-fns";
 
 //style
 import SC_Common from "@/style/common";
@@ -21,8 +21,9 @@ import Header from "@/component/common/Header";
 
 //icon
 import SortIcon from '@mui/icons-material/Sort';
-import EmotionSelection from "@/component/EmotionSelection";
+import EmotionSelection from "@/component/list/EmotionSelection";
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import MonthSelector from "@/component/list/MonthSelector";
 
 
 
@@ -56,16 +57,13 @@ const ListPageClient = () => {
 
   const contentRef = useRef<HTMLDivElement>(null);
   let temmDate = '';
+
+  const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
+  const [selectedMonth, setSelectedMonth] = useState<number>(0);
+  const [monthSelectorOpen, setMonthSelectorOpen] = useState<boolean>(false);
+
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
   const [emotionToggle, setEmotionToggle] = useState<number>(5);
-  const emotions = [
-    'angry',
-    'sad',
-    'common',
-    'happy',
-    'joyful',
-    'all',
-  ];
 
 
   const { ref, inView } = useInView({
@@ -79,19 +77,19 @@ const ListPageClient = () => {
   })
 
   const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
-    queryKey: ['diary', 'list', 'search', emotionToggle, sortToggle],
-    queryFn: ({ pageParam }) => getDiaries({ sort: sortToggle, search: emotionToggle, pageParam, limit: 5 }),
+    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortToggle, 'year', selectedYear, 'momth', selectedMonth],
+    queryFn: ({ pageParam }) => getDiaries({
+      sort: sortToggle,
+      search: emotionToggle,
+      pageParam,
+      limit: 5,
+      selectedYear: selectedYear,
+      selectedMonth: selectedMonth
+    }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
-
-  const emotionToggleChange = () => {
-    setEmotionToggle(c => (c + 1) % 6)
-    setTimeout(() => {
-      contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 200);
-  };
   const sortToggleChange = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
@@ -113,10 +111,11 @@ const ListPageClient = () => {
         <SC_Common.Options>
           <button
             onClick={() => {
-              alert('개발 예정..')
+              setMonthSelectorOpen(c => !c);
             }}
           >
-            <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />
+            {(selectedMonth !== 0)
+              ? <>{selectedYear}.{selectedMonth}</> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
           </button>
           <button onClick={sortToggleChange}>
             <span><SortIcon fontSize="small" /></span>
@@ -124,10 +123,19 @@ const ListPageClient = () => {
           </button>
         </SC_Common.Options>
       </Header>
-
-
       <ContentArea className="scroll" _ref={contentRef}>
-        <EmotionSelection contentRef={contentRef} setEmotionToggle={setEmotionToggle} />
+        <MonthSelector
+          open={monthSelectorOpen}
+          selectedMonth={selectedMonth}
+          setMonthSelectorOpen={setMonthSelectorOpen}
+          setSelectedYear={setSelectedYear}
+          setSelectedMonth={setSelectedMonth}
+        />
+        <EmotionSelection
+          contentRef={contentRef}
+          emotionToggle={emotionToggle}
+
+          setEmotionToggle={setEmotionToggle} />
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
             const diaryDate = format(data.date, 'MMMM yyyy');

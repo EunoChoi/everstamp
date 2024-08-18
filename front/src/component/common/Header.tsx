@@ -23,8 +23,7 @@ const Header = ({ title, children, classname }: Props) => {
 export default Header;
 
 const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
+
   z-index: 99;
 
   display: flex;

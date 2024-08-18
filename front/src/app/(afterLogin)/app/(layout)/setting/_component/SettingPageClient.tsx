@@ -16,6 +16,7 @@ import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 //component
 import Header from "@/component/common/Header";
 import ContentArea from "@/component/common/ContentArea";
+import React from "react";
 
 
 
@@ -75,48 +76,48 @@ const SettingPageClient = () => {
 
   return (
     <SC_Common.Wrapper>
+      <Header title='setting' />
       <ContentArea className='setting'>
-        <Header title='setting' ></Header>
-        <SC_Common.Options />
-        <Section>
-          <Title>account</Title>
-          <Value>
-            <span className="key">email</span>
-            <span className="value email">{data?.email}</span>
-          </Value>
-          <Value>
-            <span className="key">provider</span>
-            <span className="value">{data?.provider}</span>
-          </Value>
-          <Value>
-            <span className="key">creation date</span>
-            <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
-          </Value>
-        </Section>
+        <SettingContainer>
+          <Section>
+            <Title>account</Title>
+            <Value>
+              <span className="key">email</span>
+              <span className="value email">{data?.email}</span>
+            </Value>
+            <Value>
+              <span className="key">provider</span>
+              <span className="value">{data?.provider}</span>
+            </Value>
+            <Value>
+              <span className="key">creation date</span>
+              <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
+            </Value>
+          </Section>
 
-        <Section>
-          <Title>theme</Title>
-          <SubTitle>point color</SubTitle>
-          <FlexRow>
-            <Color className="selected" />
-            <FlexRow className="end">
-              <Color className="purple" onClick={() => themeColorUpdate("#979FC7")} />
-              <Color className="blue" onClick={() => themeColorUpdate("#8CADE2")} />
-              <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
-              <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
-              <Color className="grey" onClick={() => themeColorUpdate("#8f8f8f")} />
+          <Section>
+            <Title>theme</Title>
+            <SubTitle>point color</SubTitle>
+            <FlexRow>
+              <Color className="selected" />
+              <FlexRow className="end">
+                <Color className="purple" onClick={() => themeColorUpdate("#979FC7")} />
+                <Color className="blue" onClick={() => themeColorUpdate("#8CADE2")} />
+                <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
+                <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
+                <Color className="grey" onClick={() => themeColorUpdate("#8f8f8f")} />
+              </FlexRow>
             </FlexRow>
-          </FlexRow>
-        </Section>
+          </Section>
 
-        <Section>
-          <Buttons className="center">
-            <Button onClick={onLogout}>logout</Button>
-            <Button onClick={onDeleteAccount}>delete account</Button>
-          </Buttons>
-        </Section>
+          <Section>
+            <Buttons className="center">
+              <Button onClick={onLogout}>logout</Button>
+              <Button onClick={onDeleteAccount}>delete account</Button>
+            </Buttons>
+          </Section>
 
-        <Section></Section>
+        </SettingContainer>
       </ContentArea>
     </SC_Common.Wrapper>
   );
@@ -124,7 +125,13 @@ const SettingPageClient = () => {
 
 export default SettingPageClient;
 
-
+const SettingContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 const Section = styled.div`
   width: 100%;
   height: auto;

@@ -41,24 +41,34 @@ const CalendarPageClient = ({ date }: Props) => {
 
   return (
     <SC_Common.Wrapper>
+      <Header title='calendar' />
       <ContentArea>
-        <Header title='calendar' />
-        {isMobile === true &&
-          <>
-            <CalendarWrapper>
-              <CalendarSelector />
-            </CalendarWrapper>
+        <CalendarContainer>
+          {isMobile === true &&
+            <>
+              <CalendarWrapper>
+                <CalendarSelector />
+              </CalendarWrapper>
+              <Diary diaryData={diaryData} position="calendar" />
+            </>}
+          {isMobile === false &&
             <Diary diaryData={diaryData} position="calendar" />
-          </>}
-        {isMobile === false &&
-          <Diary diaryData={diaryData} position="calendar" />
-        }
+          }
+        </CalendarContainer>
       </ContentArea>
     </SC_Common.Wrapper>
   );
 }
 
 export default CalendarPageClient;
+const CalendarContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;

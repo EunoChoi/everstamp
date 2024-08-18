@@ -326,10 +326,7 @@ const Check = styled.div`
     }
     input:checked ~ .checkmark{
       div{
-        
         background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-
-        
       }    
     }
     span:first-child{

@@ -10,31 +10,38 @@ import emotion4 from '/public/img/emotion/emotion4.png'
 interface Props {
   contentRef: React.RefObject<HTMLDivElement>
   setEmotionToggle: (n: number) => void;
+  emotionToggle: number;
 }
 
-const EmotionSelection = ({ contentRef, setEmotionToggle }: Props) => {
+const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props) => {
 
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
   const emotionName = ['upset', 'sad', 'common', 'happy', 'joyful'];
 
+  console.log(emotionToggle);
 
   return (<Wrapper>
     <Title>Emotions</Title>
     <ScrollWrapper>
-      <EmotionWrapper className="all" onClick={() => {
-        setEmotionToggle(5);
-        contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
-      }}>All</EmotionWrapper>
+      <EmotionWrapper
+        className={`all ${emotionToggle == 5 ? 'selected' : ''}`}
+        onClick={() => {
+          setEmotionToggle(5);
+          contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
+        }}>
+        All
+      </EmotionWrapper>
       {emotions.map((e, i) =>
         <EmotionWrapper
           key={emotionName[i]}
-          className={emotionName[i]}
+          className={`${emotionName[i]} ${emotionToggle === i ? 'selected' : ''}`}
           onClick={() => {
             setEmotionToggle(i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
           <Img src={e} alt={emotionName[i]} width={150} height={150} />
-        </EmotionWrapper>)}
+        </EmotionWrapper>)
+      }
     </ScrollWrapper>
   </Wrapper>);
 }
@@ -46,6 +53,8 @@ const EmotionWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+
+  box-sizing: border-box;
 
 
   @media (max-width: 479px) { //mobile port
@@ -67,8 +76,7 @@ const EmotionWrapper = styled.div`
     margin-right: 0;
   }
   padding: 8xp 0;
-  border: 2px solid rgba(0, 0, 0, 0.05);
-
+  border: 3px solid rgba(0, 0, 0, 0.05);
 
   &.all{
     display: flex;
@@ -87,6 +95,12 @@ const EmotionWrapper = styled.div`
   &.common{ background-color: #DADADA;}
   &.happy{ background-color: #99E8C7;}
   &.joyful{ background-color: #FAE278;}
+
+
+  &.selected{
+    border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    border-color: rgba(0, 0, 0, 0.2);
+  }
 `
 
 const Img = styled(Image)`

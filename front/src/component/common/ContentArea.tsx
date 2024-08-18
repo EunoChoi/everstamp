@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 
   width: 100%;
@@ -37,32 +37,22 @@ const Wrapper = styled.div`
   
   &.scroll{
     overflow-y: scroll;
-    justify-content: start;
   }
   
   @media (max-width: 479px) { //mobile portrait
     height: 100dvh;
-    /* padding: 0 5dvw; */
     padding-left : 0;
     padding-right: 0;
-    padding-top: var(--mobileHeader);
     padding-bottom: var(--mobileNav);
 
     &.iosPwa{
       padding-bottom: calc(var(--mobileNav) + 20px);
     }
-    &.habit{
-      /* padding-left : 0;
-      padding-right: 0; */
-    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     overflow-y: scroll;
-    justify-content: start;
     height: 100dvh;
-    /* padding: 5vw; */
     padding-top: var(--mobileHeader);
-
     @media (min-height:480px) {
       &.habit, &.setting{
         justify-content: center;
@@ -71,7 +61,6 @@ const Wrapper = styled.div`
   }
   @media (min-width:1024px) { //desktop
     height: 100dvh;
-    padding-top: var(--desktopHeader);
   }
 `
 

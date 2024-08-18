@@ -217,9 +217,26 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 //list
 router.get("/list", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /diary/list -----');
-  const { sort, search, pageParam, limit } = req.query;
+  const { sort, search, pageParam, limit, selectedYear, selectedMonth } = req.query;
   const email = req.currentUserEmail;
   const offset = Number(pageParam * limit);
+
+
+  const nYear = Number(selectedYear);
+  const nMonth = Number(selectedMonth);
+
+  console.log(nYear, nMonth);
+
+  let rangeStart = new Date(0, 0, 0);
+  let rangeEnd = new Date(3000, 0, 0);
+
+  if (nYear && nMonth && nMonth !== 0) {
+    rangeStart = new Date(nYear, nMonth - 1);
+    rangeEnd = new Date(nYear, nMonth);
+  }
+
+  console.log(rangeStart, rangeEnd);
+
 
   //초기 pageParam =0 이므로 limit 5 가정하여
   //pageParam 0일때 offset은 0
@@ -233,14 +250,23 @@ router.get("/list", tokenCheck, async (req, res) => {
       where = {
         email,
         visible: true,
+        [Op.and]: [
+          { date: { [Op.gte]: rangeStart } },
+          { date: { [Op.lt]: rangeEnd } }
+        ],
       }
     } else {
       where = {
         email,
         visible: true,
-        emotion: search
+        emotion: search,
+        [Op.and]: [
+          { date: { [Op.gte]: rangeStart } },
+          { date: { [Op.lte]: rangeEnd } }
+        ],
       }
     }
+
 
     const diaries = await Diary.findAll({
       where,

@@ -14,6 +14,8 @@ interface ListProps {
   search: number;
   limit: number;
   pageParam: number;
+  selectedMonth: number;
+  selectedYear: number;
 }
 
 export async function getDiary({ id }: IdProps) {
@@ -37,9 +39,9 @@ export async function getDiary_date({ date }: DateProps) {
   }
 }
 
-export async function getDiaries({ sort, search, pageParam, limit }: ListProps) {
+export async function getDiaries({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
   try {
-    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`)
+    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}&selectedMonth=${selectedMonth}&selectedYear=${selectedYear}`)
     return data;
   } catch (e: any) {
     console.error(e.response.data);
