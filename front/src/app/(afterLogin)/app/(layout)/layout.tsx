@@ -87,7 +87,7 @@ const AppLayout = ({ children, modal }: Props) => {
             {modal}
             {children}
             <Mobile_Nav className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
-              <Logo><span>ever</span><span>stamp</span></Logo>
+              <Logo><span>everstamp</span></Logo>
               <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
               <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
               <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" fontSize="small" /> <span>habit</span></NavMenu>
@@ -153,6 +153,7 @@ const Logo = styled.span`
     font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
+    text-transform: capitalize;
     span {
       display: inline-block;
       &::first-letter{

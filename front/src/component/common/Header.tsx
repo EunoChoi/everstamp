@@ -29,7 +29,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-shrink: 0;
 
-  /* background-color: rgba(255,255,255,0.7); */
   background-color: white;
   backdrop-filter: blur(12px);  
 
@@ -41,11 +40,10 @@ const Wrapper = styled.div`
     padding: 0 5%;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     width: 75dvw;
-    height: var(--mobileHeader);
-    padding: 0 20px;
+    padding: 8px 20px;
   }
   @media (min-width:1024px) { //desktop
     align-items: center;
@@ -72,7 +70,7 @@ const Title = styled(Link)`
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 28px;
+    display: none;
   }
   @media (min-width:1024px) { //desktop
     font-size: 36px;

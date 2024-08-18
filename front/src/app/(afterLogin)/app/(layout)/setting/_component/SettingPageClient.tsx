@@ -77,7 +77,7 @@ const SettingPageClient = () => {
   return (
     <SC_Common.Wrapper>
       <Header title='setting' />
-      <ContentArea className='setting'>
+      <ContentArea>
         <SettingContainer>
           <Section>
             <Title>account</Title>
@@ -128,9 +128,17 @@ export default SettingPageClient;
 const SettingContainer = styled.div`
   width: 100%;
   height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  overflow: scroll;
+
+  @media (min-width:480px) and (max-width:1023px) and (max-height:480px) { //only mobild land
+    justify-content: start;
+  }
 `
 const Section = styled.div`
   width: 100%;
@@ -158,8 +166,6 @@ const Title = styled.span`
   color: rgb(var(--greyTitle));
 
   text-transform: capitalize;
-  /* text-transform: uppercase; */
-
   padding-bottom: 16px;
 `
 const SubTitle = styled.span`
@@ -167,7 +173,6 @@ const SubTitle = styled.span`
   font-weight: 500;
   text-transform: capitalize;
   margin: 12px;
-  /* margin-bottom: 0px; */
 
   color: grey;
 `
@@ -203,8 +208,6 @@ const Buttons = styled.div`
     width: 100%;
     justify-content: center;
   }
-  margin-top: 24px;
-  padding-left: 12px;
 `
 
 const FlexRow = styled.div`

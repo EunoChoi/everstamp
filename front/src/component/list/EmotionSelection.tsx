@@ -15,8 +15,8 @@ interface Props {
 
 const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props) => {
 
-  const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
-  const emotionName = ['upset', 'sad', 'common', 'happy', 'joyful'];
+  const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4].reverse();
+  const emotionName = ['upset', 'sad', 'common', 'happy', 'joyful'].reverse();
 
   return (<Wrapper>
     <Title>Emotions</Title>
@@ -32,12 +32,12 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
       {emotions.map((e, i) =>
         <EmotionWrapper
           key={emotionName[i]}
-          className={`${emotionName[i]} ${emotionToggle === i ? 'selected' : ''}`}
+          className={`${emotionName[i]} ${emotionToggle === (4 - i) ? 'selected' : ''}`}
           onClick={() => {
-            setEmotionToggle(i);
+            setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
-          <Img src={e} alt={emotionName[i]} width={150} height={150} />
+          <Img src={e} alt={emotionName[i]} width={120} height={120} />
         </EmotionWrapper>)
       }
     </ScrollWrapper>
@@ -56,8 +56,8 @@ const EmotionWrapper = styled.div`
 
 
   @media (max-width: 479px) { //mobile port
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 120px;

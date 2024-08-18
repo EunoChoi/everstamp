@@ -68,6 +68,14 @@ const CalendarContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+     justify-content: start;
+  }
+  @media (min-width:1024px) { //desktop
+  }
 `
 const CalendarWrapper = styled.div`
   width: 100%;
@@ -80,8 +88,6 @@ const CalendarWrapper = styled.div`
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     max-width: 600px;
-    min-height : 500px;
-  }
-  @media (min-width:1024px) { //desktop
+    min-height : 360px;
   }
 `

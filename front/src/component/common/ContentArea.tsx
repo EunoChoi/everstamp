@@ -31,13 +31,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  overflow-y: scroll;
 
   width: 100%;
-  height: 100dvh;
-  
-  &.scroll{
-    overflow-y: scroll;
-  }
+  height: 100%;
   
   @media (max-width: 479px) { //mobile portrait
     height: 100dvh;
@@ -48,19 +45,6 @@ const Wrapper = styled.div`
     &.iosPwa{
       padding-bottom: calc(var(--mobileNav) + 20px);
     }
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    overflow-y: scroll;
-    height: 100dvh;
-    padding-top: var(--mobileHeader);
-    @media (min-height:480px) {
-      &.habit, &.setting{
-        justify-content: center;
-      }
-    }
-  }
-  @media (min-width:1024px) { //desktop
-    height: 100dvh;
   }
 `
 

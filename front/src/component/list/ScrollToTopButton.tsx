@@ -62,7 +62,17 @@ export default ScrollToTopButton;
 
 const Wrapper = styled.button`
       position: fixed;
-      bottom : calc(var(--mobileNav) + 24px);
+      
+
+      @media (max-width: 479px) { //mobile port
+        bottom : calc(var(--mobileNav) + 24px);
+      }
+      @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+        bottom : 32px;
+      }
+      @media (min-width:1024px) { //desktop
+        bottom : 48px;
+      }
 
       display: flex;
       justify-content : center;
