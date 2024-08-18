@@ -27,6 +27,7 @@ const MonthSelector = ({
   const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
   const [tempMonth, setTempMonth] = useState<number>(0);
 
+
   const monthsTopNum = [1, 2, 3, 4, 5, 6];
   const monthsTopEng = ['jan', 'feb', 'mar', 'apr', 'may', 'jun'];
   const monthsBottomNum = [7, 8, 9, 10, 11, 12];
@@ -54,12 +55,11 @@ const MonthSelector = ({
   return (<Wrapper className={open ? 'open' : ''}>
     <Year>
       <div className="left">
-
       </div>
       <div className="center">
-        <button onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
+        <button className="arrow" onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
         <span onClick={goToCurrentDate}>{tempYear}</span>
-        <button onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
+        <button className="arrow" onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
       </div>
       <div className="right">
         <button onClick={calcelSelectMonth}><RefreshIcon fontSize="small" /></button>
@@ -88,7 +88,9 @@ const MonthSelector = ({
         <Button onClick={() => {
           submit();
           setMonthSelectorOpen(false);
-        }}>확인</Button>
+        }}>
+          확인
+        </Button>
       </div>
     </Months>
   </Wrapper>);
@@ -107,6 +109,9 @@ const Button = styled.button`
   border-radius: 32px;
   border: 2px solid rgba(0,0,0,0.08);
 
+  color: rgb(var(--greyTitle));
+  font-weight: 600;
+
   background-color:  ${(props) => props.theme.point ? props.theme.point + '45' : '#979FC7'};
 `
 const Month = styled.button`
@@ -116,6 +121,17 @@ const Month = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .num{
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(var(--greyTitle));
+  }
+  .eng{
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #999999;
+  }
 
   &.selectedMonth{
     background-color:  ${(props) => props.theme.point ? props.theme.point + '45' : '#979FC7'};
@@ -129,25 +145,16 @@ const Section = styled.section`
   /* flex-grow: 1; */
   display: flex;
   justify-content: space-between;
-
-  .num{
-    font-size: 16px;
-    font-weight: 600;
-    color: rgb(var(--greyTitle));
-  }
-  .eng{
-    font-size: 14px;
-    text-transform: capitalize;
-    color: grey;
-  }
 `
 
 const Wrapper = styled.div`
+  overflow: hidden;
+
   position: fixed;
   top: var(--mobileHeader);
 
   flex-shrink: 0;
-  transition: ease-in-out 0.3s all;
+  transition: ease-in-out 0.4s all;
 
 
   @media (max-width: 479px) { //mobile port
@@ -159,13 +166,11 @@ const Wrapper = styled.div`
   @media (min-width:1024px) { //desktop
     width: calc(100vw - var(--sidebarWidth));
   }
-  height: 0;
+  height: 0px;
   padding: 0 24px;
   border-bottom: none;
-  opacity: 0;
   
   &.open{
-    opacity: 1;
     height: 270px;
     padding: 18px;
     padding-bottom: 24px;
@@ -174,7 +179,7 @@ const Wrapper = styled.div`
     @media (max-width: 479px) { //mobile port
       padding-top: 32px;
       padding-bottom: 32px;
-      height: 370px;
+      height: 320px;
     }
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       height: 350px;
@@ -219,6 +224,10 @@ const Year = styled.div`
     justify-content: end;
     justify-content: center;
     align-items: center;
+    color: #999999;
+  }
+  .arrow{
+    color: #999999;
   }
 
   span{

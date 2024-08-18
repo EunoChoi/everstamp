@@ -18,8 +18,6 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
   const emotionName = ['upset', 'sad', 'common', 'happy', 'joyful'];
 
-  console.log(emotionToggle);
-
   return (<Wrapper>
     <Title>Emotions</Title>
     <ScrollWrapper>

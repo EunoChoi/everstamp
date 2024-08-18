@@ -10,7 +10,8 @@ const NetworkStatus = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    console.log(window.navigator.userAgent);
+    // console.log(window.navigator.userAgent);
+
     const onOnline = () => {
       // if (navigator.onLine && window.location.pathname === '/offline') {
       //   router.push('/app');
