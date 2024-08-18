@@ -24,6 +24,7 @@ import SortIcon from '@mui/icons-material/Sort';
 import EmotionSelection from "@/component/list/EmotionSelection";
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import MonthSelector from "@/component/list/MonthSelector";
+import ScrollToTopButton from "@/component/list/ScrollToTopButton";
 
 
 
@@ -55,8 +56,9 @@ interface diaryData {
 
 const ListPageClient = () => {
 
-  const contentRef = useRef<HTMLDivElement>(null);
   let temmDate = '';
+
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
@@ -76,6 +78,7 @@ const ListPageClient = () => {
     queryFn: getCurrentUser,
   })
 
+
   const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortToggle, 'year', selectedYear, 'momth', selectedMonth],
     queryFn: ({ pageParam }) => getDiaries({
@@ -90,15 +93,15 @@ const ListPageClient = () => {
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
+
   const sortToggleChange = useCallback(() => {
-    if (sortToggle === 'DESC') setSortToggle('ASC');
-    else setSortToggle('DESC');
+    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
 
     setTimeout(() => {
-      contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 200);
+      if (sortToggle === 'DESC') setSortToggle('ASC');
+      else setSortToggle('DESC');
+    }, 500);
   }, [sortToggle])
-
 
   useEffect(() => {
     if (user && !isFetching && hasNextPage && inView) fetchNextPage();
@@ -115,7 +118,7 @@ const ListPageClient = () => {
             }}
           >
             {(selectedMonth !== 0)
-              ? <>{selectedYear}.{selectedMonth}</> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
+              ? <span>{selectedYear}.{selectedMonth}</span> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
           </button>
           <button onClick={sortToggleChange}>
             <span><SortIcon fontSize="small" /></span>
@@ -125,7 +128,8 @@ const ListPageClient = () => {
       </Header>
       <ContentArea className="scroll" _ref={contentRef}>
         <MonthSelector
-          open={monthSelectorOpen}
+          contentRef={contentRef}
+          monthSelectorOpen={monthSelectorOpen}
           selectedMonth={selectedMonth}
           setMonthSelectorOpen={setMonthSelectorOpen}
           setSelectedYear={setSelectedYear}
@@ -134,7 +138,6 @@ const ListPageClient = () => {
         <EmotionSelection
           contentRef={contentRef}
           emotionToggle={emotionToggle}
-
           setEmotionToggle={setEmotionToggle} />
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
@@ -161,6 +164,7 @@ const ListPageClient = () => {
           <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
         <Observer ref={ref} />
       </ContentArea>
+      <ScrollToTopButton contentRef={contentRef} />
     </SC_Common.Wrapper>
   );
 }
