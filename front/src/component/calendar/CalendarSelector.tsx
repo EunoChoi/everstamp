@@ -30,6 +30,8 @@ const CalendarSelector = () => {
   const params = useSearchParams();
   const date = Number(params.get('date'));
   const weekTitle = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
+  const emotionNames = ['upset', 'sad', 'common', 'happy', 'joyful'];
 
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -65,23 +67,15 @@ const CalendarSelector = () => {
     const result = monthHabitResult[format(day, 'yyMMdd')];
     const habitCount = result && result[0];
     const isDiaryExist = result && result[1];
-    const emotion = result && result[2];
+    const emotionIdx = result && result[2];
     const formattedDate = format(day, 'd');
 
     return <DateValue>
       {isDiaryExist && habitCount === 0 && <DateValue_Diary>
-        {emotion === 0 && <Image src={emotion0} alt='angry' width={44} height={44} />}
-        {emotion === 1 && <Image src={emotion1} alt='sad' width={44} height={44} />}
-        {emotion === 2 && <Image src={emotion2} alt='common' width={44} height={44} />}
-        {emotion === 3 && <Image src={emotion3} alt='happy' width={44} height={44} />}
-        {emotion === 4 && <Image src={emotion4} alt='Joyful' width={44} height={44} />}
+        <Image src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
       </DateValue_Diary>}
       {isDiaryExist && habitCount > 0 && <DateValue_Diary>
-        {emotion === 0 && <Image src={emotion0} alt='angry' width={44} height={44} />}
-        {emotion === 1 && <Image src={emotion1} alt='sad' width={44} height={44} />}
-        {emotion === 2 && <Image src={emotion2} alt='common' width={44} height={44} />}
-        {emotion === 3 && <Image src={emotion3} alt='happy' width={44} height={44} />}
-        {emotion === 4 && <Image src={emotion4} alt='Joyful' width={44} height={44} />}
+        <Image src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
         <div className="count">{habitCount}</div>
       </DateValue_Diary>}
       {!isDiaryExist && habitCount > 0 && <DateValue_Count>
@@ -182,6 +176,16 @@ const Wrapper = styled.div`
 `
 
 const DateValue = styled.div`
+  @keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  animation: fadeIn 300ms ease-in-out;
+
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
