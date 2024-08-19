@@ -2,6 +2,7 @@
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -12,9 +13,13 @@ interface Props {
 }
 
 const Header = ({ title, children, classname }: Props) => {
+  const router = useRouter();
+
   return (
     <Wrapper className={classname}>
-      <Title href={`/app/calendar?date=${getCleanTodayTime()}`}>{title}</Title>
+      <Title onClick={() => {
+        router.push('/app');
+      }}>{title}</Title>
       {children}
     </Wrapper>
   );
@@ -53,7 +58,7 @@ const Wrapper = styled.div`
     padding: 0 48px;
   }
 `
-const Title = styled(Link)`
+const Title = styled.span`
   color: rgb(var(--greyTitle));
   font-weight: 700;
 

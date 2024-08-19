@@ -47,6 +47,8 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
 export default EmotionSelection;
 
 const EmotionWrapper = styled.div`
+  transition: border 0.3s ease-in-out;
+
   display: flex;
   justify-content: center;
   align-items: center;
