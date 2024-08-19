@@ -56,18 +56,6 @@ interface diaryData {
 
 const ListPageClient = () => {
 
-  let temmDate = '';
-
-  const contentRef = useRef<HTMLDivElement | null>(null);
-
-  const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
-  const [selectedMonth, setSelectedMonth] = useState<number>(0);
-  const [monthSelectorOpen, setMonthSelectorOpen] = useState<boolean>(false);
-
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
-  const [emotionToggle, setEmotionToggle] = useState<number>(5);
-
-
   const { ref, inView } = useInView({
     threshold: 0,
     delay: 0
@@ -77,6 +65,25 @@ const ListPageClient = () => {
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
+
+  let temmDate = '';
+
+  const userEmail: string = user.email ? user.email : '';
+  const contentRef = useRef<HTMLDivElement | null>(null);
+
+  const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
+  const [selectedMonth, setSelectedMonth] = useState<number>(0);
+  const [monthSelectorOpen, setMonthSelectorOpen] = useState<boolean>(false);
+
+  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>(() => {
+    const localData = localStorage.getItem(userEmail)
+    if (localData) {
+      const jsonLocalData = JSON.parse(localData);
+      return jsonLocalData['listSortType'] ? jsonLocalData['listSortType'] : 'DESC';
+    }
+    else return 'DESC';
+  });
+  const [emotionToggle, setEmotionToggle] = useState<number>(5);
 
 
   const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
@@ -93,15 +100,24 @@ const ListPageClient = () => {
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
-
   const sortToggleChange = useCallback(() => {
     contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-
     setTimeout(() => {
       if (sortToggle === 'DESC') setSortToggle('ASC');
       else setSortToggle('DESC');
-    }, 500);
+    }, 50);
   }, [sortToggle])
+
+
+  useEffect(() => {
+    const localData = localStorage.getItem(userEmail)
+    let jsonLocalData;
+    if (localData) {
+      jsonLocalData = JSON.parse(localData);
+    }
+
+    localStorage.setItem(userEmail, JSON.stringify({ ...jsonLocalData, listSortType: sortToggle }));
+  }, [userEmail, sortToggle])
 
   useEffect(() => {
     if (user && !isFetching && hasNextPage && inView) fetchNextPage();

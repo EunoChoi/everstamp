@@ -17,18 +17,35 @@ import ContentArea from "@/component/common/ContentArea";
 
 //function
 import { getHabits } from "@/app/(afterLogin)/_lib/habit";
+import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 
 //icon
 import AddIcon from '@mui/icons-material/Add';
 import SortIcon from '@mui/icons-material/Sort';
 
 
+
 const HabitPageClient = () => {
 
   const router = useRouter();
+
+  const { data: user } = useQuery({
+    queryKey: ['user'],
+    queryFn: getCurrentUser,
+  })
+
+  const userEmail: string = user.email ? user.email : '';
   const gridListScrollRef = useRef<HTMLDivElement>(null);
 
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>('DESC');
+  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>(() => {
+    const localData = localStorage.getItem(userEmail)
+    if (localData) {
+      const jsonLocalData = JSON.parse(localData);
+      return jsonLocalData['habitSortType'] ? jsonLocalData['habitSortType'] : 'DESC';
+    }
+    else return 'DESC';
+  }
+  );
   const [page, setPage] = useState<number>(0);
 
   const { data: habits } = useQuery({
@@ -45,6 +62,17 @@ const HabitPageClient = () => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else setSortToggle('DESC');
   }, [sortToggle])
+
+
+  useEffect(() => {
+    const localData = localStorage.getItem(userEmail)
+    let jsonLocalData;
+    if (localData) {
+      jsonLocalData = JSON.parse(localData);
+    }
+
+    localStorage.setItem(userEmail, JSON.stringify({ ...jsonLocalData, habitSortType: sortToggle }));
+  }, [userEmail, sortToggle])
 
 
   return (
