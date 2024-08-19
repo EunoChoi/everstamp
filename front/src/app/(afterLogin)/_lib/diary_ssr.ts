@@ -13,6 +13,8 @@ interface ListProps {
   search: number;
   pageParam: number,
   limit: number,
+  selectedMonth: number;
+  selectedYear: number;
 }
 
 export async function getDiary_fetch({ id }: IdProps) {
@@ -47,10 +49,10 @@ export async function getDiary_date_fetch({ date }: DateProps) {
   }
 }
 
-export async function getDiaries_fetch({ sort, search, pageParam, limit }: ListProps) {
+export async function getDiaries_fetch({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
   try {
     console.log('diaries(list) data prefetching...');
-    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}`, {
+    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}&selectedMonth=${selectedMonth}&selectedYear=${selectedYear}`, {
       headers: {
         cookie: cookies().toString(),
       },
