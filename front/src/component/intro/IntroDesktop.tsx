@@ -22,7 +22,7 @@ import otherinfo2 from '/public/img/intro/otherinfo2.png';
 import otherinfo3 from '/public/img/intro/otherinfo3.png';
 import login from '/public/img/intro/login.png';
 
-import pc_addhabit from '/public/img/intro/pc_addhabit.png';
+import pc_addHabit from '/public/img/intro/pc_addHabit.png';
 import pc_calendar from '/public/img/intro/pc_calendar.png';
 import pc_habit from '/public/img/intro/pc_habit.png';
 import pc_habitinfo1 from '/public/img/intro/pc_habitinfo1.png';
@@ -56,7 +56,7 @@ const IntroDesktop = () => {
   const viewImages = [calendar, list, list2, zoom1];
   const habitImages = [habitinfo1, habitinfo2];
   const otherInfoImages = [otherinfo1, otherinfo2, otherinfo3];
-  const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addhabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
+  const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addHabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
 
   const router = useRouter();
 
