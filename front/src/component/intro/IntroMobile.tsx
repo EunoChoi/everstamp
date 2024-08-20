@@ -5,18 +5,36 @@ import { useRouter } from "next/navigation";
 
 import calendar from '/public/img/intro/calendar.png';
 import list from '/public/img/intro/list.png';
+import list2 from '/public/img/intro/list2.png';
 import zoom1 from '/public/img/intro/zoom1.png';
 import zoom2 from '/public/img/intro/zoom2.png';
 import habit from '/public/img/intro/habit.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
-
-
+import setting from '/public/img/intro/setting.png';
 import emotions2 from '/public/img/emotion/emotions2.png';
 import habitbox from '/public/img/intro/habitbox.png';
 import otherinfo1 from '/public/img/intro/otherinfo1.png';
 import otherinfo2 from '/public/img/intro/otherinfo2.png';
 import otherinfo3 from '/public/img/intro/otherinfo3.png';
+
+import pc_addhabit from '/public/img/intro/pc_addhabit.png';
+import pc_calendar from '/public/img/intro/pc_calendar.png';
+import pc_habit from '/public/img/intro/pc_habit.png';
+import pc_habitinfo1 from '/public/img/intro/pc_habitinfo1.png';
+import pc_habitinfo2 from '/public/img/intro/pc_habitinfo2.png';
+import pc_list from '/public/img/intro/pc_list.png';
+import pc_list2 from '/public/img/intro/pc_list2.png';
+import pc_login from '/public/img/intro/pc_login.png';
+import pc_setting from '/public/img/intro/pc_setting.png';
+import pc_zoom1 from '/public/img/intro/pc_zoom1.png';
+import login from '/public/img/intro/login.png';
+
+import ipad_calendar from '/public/img/intro/ipad_calendar.png';
+import ipad_list from '/public/img/intro/ipad_list.png';
+import ipad_list2 from '/public/img/intro/ipad_list2.png';
+import ipad_login from '/public/img/intro/ipad_login.png';
+
 
 import LockIcon from '@mui/icons-material/Lock';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
@@ -28,10 +46,12 @@ import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 const IntroMobile = () => {
   const router = useRouter();
 
-  const introImages = [calendar, list, zoom1, habit, habitinfo2];
-  const mobileViewImages = [calendar, list, zoom1, zoom2];
-  const mobileHabitImages = [habitinfo1, habitinfo2];
+  const introImages = [calendar, list, list2, zoom1, zoom2, habit, habitinfo1, habitinfo2, setting];
+  const viewImages = [calendar, list, list2, zoom1];
+  const habitImages = [habitinfo1, habitinfo2];
   const otherInfoImages = [otherinfo1, otherinfo2, otherinfo3];
+  const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addhabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
+
 
   //pwa
   const [pwa, setPwa] = useState<any>(null);
@@ -102,7 +122,7 @@ const IntroMobile = () => {
         <span>일기, 감정, 습관 목록을 한눈에!</span>
         <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
       </Text>
-      <ImageCarousel images={mobileViewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
+      <ImageCarousel images={viewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
 
       <ColWrapper>
         <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
@@ -128,12 +148,24 @@ const IntroMobile = () => {
         <span>습관이 형성되는 시간 21일!</span>
         <span>실천 결과를 확인하고 점검하세요.</span>
       </Text>
-      <ImageCarousel images={mobileHabitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
+      <ImageCarousel images={habitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
       <ColWrapper>
         <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
         <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
       </ColWrapper>
     </Mobile_Section>
+
+    <Mobile_Section className="ui center">
+      <Title>#반응형 UI</Title>
+      <Text>
+        <span>모바일, PC, 태블릿</span>
+        <span>다양한 환경에 최적화된 UI를 제공합니다.</span>
+      </Text>
+      <Images className="ui">
+        {uiImages.map((e) => <Image className="uiImage" src={e} alt='ui images' height={500} width={500} priority />)}
+      </Images>
+    </Mobile_Section>
+
     <Mobile_Section className="others">
       <Title>#other feature</Title>
 
@@ -156,7 +188,6 @@ const IntroMobile = () => {
           <span>멀티 플랫폼</span>
         </ColWrapper>
       </RowWrapper>
-
       <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
     </Mobile_Section>
     <Mobile_Section className="outro">
@@ -176,6 +207,27 @@ const IntroMobile = () => {
 
 export default IntroMobile;
 
+const Images = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  width: 100dvw;
+  overflow-x: scroll;
+
+  padding: 18px 36px;
+
+  .uiImage{
+    flex-shrink: 0;
+    height: 300px;
+    width: auto;
+    max-width: none;
+    margin-left: 9px;
+    margin-right: 9px;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
+    border-radius: 12px;
+  }
+`
 
 const DownLoadButtons = styled.div`
   display: flex;
@@ -212,7 +264,7 @@ const Mobile_Section = styled.div`
   justify-content: center;
   align-items: center;
 
-  &.intro, &.emotion, &.view, &.habit, &.others, &.outro{
+  &.intro, &.emotion, &.view, &.ui, &.habit, &.others, &.outro{
     background-color: #EFF0F6;
     width: 100%;
     height: auto;
@@ -227,7 +279,7 @@ const Mobile_Section = styled.div`
       }
     }
   }
-  &.intro, &.view, &.others{
+  &.intro, &.view, &.ui{
     background-color: white;
   }
   &.outro{

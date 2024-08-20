@@ -8,21 +8,38 @@ import styled from "styled-components";
 
 import calendar from '/public/img/intro/calendar.png';
 import list from '/public/img/intro/list.png';
-import listDesktop from '/public/img/intro/listDesktop.png';
+import list2 from '/public/img/intro/list2.png';
 import zoom1 from '/public/img/intro/zoom1.png';
 import zoom2 from '/public/img/intro/zoom2.png';
 import habit from '/public/img/intro/habit.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
-import habitinfoDesktop1 from '/public/img/intro/habitinfoDesktop1.png';
-import habitinfoDesktop2 from '/public/img/intro/habitinfoDesktop2.png';
-
-
+import setting from '/public/img/intro/setting.png';
 import emotions2 from '/public/img/emotion/emotions2.png';
 import habitbox from '/public/img/intro/habitbox.png';
 import otherinfo1 from '/public/img/intro/otherinfo1.png';
 import otherinfo2 from '/public/img/intro/otherinfo2.png';
 import otherinfo3 from '/public/img/intro/otherinfo3.png';
+import login from '/public/img/intro/login.png';
+
+import pc_addhabit from '/public/img/intro/pc_addhabit.png';
+import pc_calendar from '/public/img/intro/pc_calendar.png';
+import pc_habit from '/public/img/intro/pc_habit.png';
+import pc_habitinfo1 from '/public/img/intro/pc_habitinfo1.png';
+import pc_habitinfo2 from '/public/img/intro/pc_habitinfo2.png';
+import pc_list from '/public/img/intro/pc_list.png';
+import pc_list2 from '/public/img/intro/pc_list2.png';
+import pc_login from '/public/img/intro/pc_login.png';
+import pc_setting from '/public/img/intro/pc_setting.png';
+import pc_zoom1 from '/public/img/intro/pc_zoom1.png';
+
+import ipad_calendar from '/public/img/intro/ipad_calendar.png';
+import ipad_list from '/public/img/intro/ipad_list.png';
+import ipad_list2 from '/public/img/intro/ipad_list2.png';
+import ipad_login from '/public/img/intro/ipad_login.png';
+
+
+
 
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
@@ -35,9 +52,11 @@ import { useEffect, useState } from "react";
 
 const IntroDesktop = () => {
 
-  const introImages = [calendar, list, habit, habitinfo2, habitinfoDesktop1, listDesktop,];
-  const viewImages = [calendar, list, zoom1, zoom2, listDesktop];
-  const habitImages = [habitinfo1, habitinfo2, habitinfoDesktop1, habitinfoDesktop2];
+  const introImages = [calendar, list, list2, zoom1, zoom2, habit, habitinfo1, habitinfo2, setting];
+  const viewImages = [calendar, list, list2, zoom1];
+  const habitImages = [habitinfo1, habitinfo2];
+  const otherInfoImages = [otherinfo1, otherinfo2, otherinfo3];
+  const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addhabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
 
   const router = useRouter();
 
@@ -163,6 +182,16 @@ const IntroDesktop = () => {
         </ColWrapper>
       </section>
     </Desktop_Section>
+    <Desktop_Section className="ui center">
+      <Title>#반응형 UI</Title>
+      <Text>
+        <span>모바일, PC, 태블릿</span>
+        <span>다양한 환경에 최적화된 UI를 제공합니다.</span>
+      </Text>
+      <ImageWrapper className="ui">
+        {uiImages.map((e) => <Image className="uiImage" src={e} alt='otherinfo' width={300} height={300} priority />)}
+      </ImageWrapper>
+    </Desktop_Section>
     <Desktop_Section className="others center">
       <Title>#other feature</Title>
       <Text>
@@ -170,9 +199,7 @@ const IntroDesktop = () => {
         <span>추가적인 사용자 편의 기능을 제공합니다.</span>
       </Text>
       <ImageWrapper>
-        <Img className="otherinfo" src={otherinfo1} alt="otherinfo1" width={300} height={300} priority></Img>
-        <Img className="otherinfo" src={otherinfo2} alt="otherinfo2" width={300} height={300} priority></Img>
-        <Img className="otherinfo" src={otherinfo3} alt="otherinfo3" width={300} height={300} ></Img>
+        {otherInfoImages.map((e) => <Img className="otherinfo" src={e} alt='otherinfo' width={300} height={300} priority />)}
       </ImageWrapper>
     </Desktop_Section>
     <Desktop_Section className="outro center">
@@ -237,10 +264,10 @@ const Desktop_Section = styled.section`
   justify-content: center;
   padding: 0 10dvw;
 
-  &.intro, &.view, &.others{
+  &.intro, &.view, &.ui{
     background-color: #fff;
   }
-  &.emotion, &.habit{
+  &.emotion, &.habit,  &.others{
     background-color: #EFF0F6;
   }
   &.outro{
@@ -344,6 +371,21 @@ const ImageWrapper = styled.div`
   display : flex;
   justify-content: center;
   padding: 12px 0;
+
+  &.ui{
+    width: 100dvw;
+    overflow-x: scroll;
+    justify-content: start;
+    padding: 18px 72px;
+  }
+  .uiImage{
+    height: 400px;
+    width: auto;
+    margin-left: 18px;
+    margin-right: 18px;
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
+    border-radius: 12px;
+  }
 `
 const Img = styled(Image)`
   width: auto;
@@ -360,6 +402,7 @@ const Img = styled(Image)`
     margin: 0 4px;
   }
   &.otherinfo{
+    object-fit: cover;
     width: 220px;
     border-radius: 32px;
     box-shadow: 0px 0px 12px rgba(0,0,0,0.2);

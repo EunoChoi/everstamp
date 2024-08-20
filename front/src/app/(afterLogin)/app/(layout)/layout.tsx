@@ -298,7 +298,7 @@ const SideBarLogo = styled.div`
   /* margin-bottom: 48px; */
 
   span{
-    font-size: 48px;
+    font-size: 42px;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 100%;
@@ -327,7 +327,7 @@ const Menu = styled.span`
   align-items: center;
 
   cursor: pointer;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
 
   text-transform: uppercase;
@@ -357,7 +357,7 @@ const MonthWrapper = styled.div`
   width: 100%;
   margin-top: 12px;
   margin-bottom: 12px;
-  height:360px;
+  height:340px;
   *{
     transition: color ease-in-out 0.3s !important;
   }
