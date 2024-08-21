@@ -80,7 +80,7 @@ const Wrapper = styled.button`
   width: 36px;
   height: 36px;
   border-radius: 100px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.07);
 
 
   background-color: white;
