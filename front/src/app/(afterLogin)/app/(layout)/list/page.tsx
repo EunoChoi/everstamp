@@ -6,6 +6,7 @@ const Page = async () => {
   //server prefetch
   const queryClient = new QueryClient();
   const selectedYear = new Date().getFullYear();
+  const limit = 10;
 
   //prefetch list data - all emotion and all sort
   for (let i = 0; i <= 5; i++) {
@@ -15,7 +16,7 @@ const Page = async () => {
         sort: 'ASC',
         search: i,
         pageParam,
-        limit: 5,
+        limit,
         selectedYear: selectedYear,
         selectedMonth: 0
       }),
@@ -27,7 +28,7 @@ const Page = async () => {
         sort: 'DESC',
         search: i,
         pageParam,
-        limit: 5,
+        limit,
         selectedYear: selectedYear,
         selectedMonth: 0
       }),

@@ -70,6 +70,7 @@ const ListPageClient = () => {
   })
 
   let temmDate = '';
+  const limit = 10; //get diary limit
 
   const userEmail: string = user.email ? user.email : '';
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -95,7 +96,7 @@ const ListPageClient = () => {
       sort: sortToggle,
       search: emotionToggle,
       pageParam,
-      limit: 5,
+      limit,
       selectedYear: selectedYear,
       selectedMonth: selectedMonth
     }),
