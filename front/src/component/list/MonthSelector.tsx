@@ -186,6 +186,8 @@ const Wrapper = styled.div`
     width: 100%;
     /* height: 0px; */
     height: 400px;
+
+    will-change: height;
     transform: scaleY(0);
     transform-origin: top;
 
