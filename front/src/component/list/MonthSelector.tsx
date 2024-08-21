@@ -184,15 +184,19 @@ const Wrapper = styled.div`
 
   @media (max-width: 479px) { //mobile port
     width: 100%;
-    height: 0px;
+    /* height: 0px; */
+    height: 400px;
+    transform: scaleY(0);
+    transform-origin: top;
 
     border-end-start-radius: 24px;
     border-end-end-radius: 24px;
 
-    transition: height 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     
     &.open{
-      height: 400px;
+      transform: scaleY(1);
+      /* height: 400px; */
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
