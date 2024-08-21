@@ -53,6 +53,9 @@ interface diaryData {
   visible: boolean;
 };
 
+interface User {
+  email: string;
+}
 
 const ListPageClient = () => {
 
@@ -61,7 +64,7 @@ const ListPageClient = () => {
     delay: 0
   });
 
-  const { data: user } = useQuery({
+  const { data: user = { email: '' } } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })

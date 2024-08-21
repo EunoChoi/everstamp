@@ -29,7 +29,7 @@ const HabitPageClient = () => {
 
   const router = useRouter();
 
-  const { data: user } = useQuery({
+  const { data: user = { email: '' } } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })

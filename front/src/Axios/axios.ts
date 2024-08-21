@@ -9,7 +9,7 @@ const Axios = axios.create({
   // headers: { accept: "application/json", "Content-Type": "application/json" },
 
   withCredentials: true, //쿠키를 첨부해서 요청
-  timeout: 30000 //30s
+  timeout: 15000 //15s
 });
 
 Axios.interceptors.response.use(
@@ -20,7 +20,7 @@ Axios.interceptors.response.use(
     if (!navigator.onLine) {
       window.location.href = '/offline';
     }
-    return error;
+    return Promise.reject(error);
   }
 );
 

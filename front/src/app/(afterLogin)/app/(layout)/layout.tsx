@@ -41,7 +41,7 @@ const AppLayout = ({ children, modal }: Props) => {
   // Detects if device is in standalone mode
   const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-  const { data, failureCount } = useQuery({
+  const { data = { themeColor: '' }, failureCount } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
     refetchOnWindowFocus: "always",
@@ -49,16 +49,18 @@ const AppLayout = ({ children, modal }: Props) => {
     staleTime: 0,
     gcTime: 0,
     retry: 3,
+    retryDelay: 1000,
   })
 
   useEffect(() => {
+    console.log('get user info failureCount : ', failureCount);
     if (failureCount >= 2) {
       redirect('/app');
     }
   }, [failureCount]);
 
   const theme = {
-    point: data?.themeColor
+    point: data?.themeColor ? data?.themeColor : ''
   }
 
 
