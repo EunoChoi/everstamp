@@ -189,7 +189,7 @@ const IntroDesktop = () => {
         <span>다양한 환경에 최적화된 UI를 제공합니다.</span>
       </Text>
       <ImageWrapper className="ui">
-        {uiImages.map((e) => <Image className="uiImage" src={e} alt='otherinfo' width={300} height={300} priority />)}
+        {uiImages.map((e, i) => <Image className="uiImage" key={'ui images' + i} src={e} alt='ui images' width={300} height={300} priority />)}
       </ImageWrapper>
     </Desktop_Section>
     <Desktop_Section className="others center">
@@ -199,7 +199,7 @@ const IntroDesktop = () => {
         <span>추가적인 사용자 편의 기능을 제공합니다.</span>
       </Text>
       <ImageWrapper>
-        {otherInfoImages.map((e) => <Img className="otherinfo" src={e} alt='otherinfo' width={300} height={300} priority />)}
+        {otherInfoImages.map((e, i) => <Img className="otherinfo" key={'otherinfo images' + i} src={e} alt='otherinfo' width={300} height={300} priority />)}
       </ImageWrapper>
     </Desktop_Section>
     <Desktop_Section className="outro center">

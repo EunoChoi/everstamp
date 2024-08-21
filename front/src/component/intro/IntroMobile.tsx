@@ -162,7 +162,7 @@ const IntroMobile = () => {
         <span>다양한 환경에 최적화된 UI를 제공합니다.</span>
       </Text>
       <Images className="ui">
-        {uiImages.map((e) => <Image className="uiImage" src={e} alt='ui images' height={500} width={500} priority />)}
+        {uiImages.map((e, i) => <Image key={'ui image' + i} className="uiImage" src={e} alt='ui images' height={500} width={500} priority />)}
       </Images>
     </Mobile_Section>
 
