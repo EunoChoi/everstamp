@@ -61,32 +61,31 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
 export default ScrollToTopButton;
 
 const Wrapper = styled.button`
-      position: fixed;
-      
+  position: fixed;
 
-      @media (max-width: 479px) { //mobile port
-        bottom : calc(var(--mobileNav) + 24px);
-      }
-      @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-        bottom : 32px;
-      }
-      @media (min-width:1024px) { //desktop
-        bottom : 48px;
-      }
+  @media (max-width: 479px) { //mobile port
+    bottom : calc(var(--mobileNav) + 24px);
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    bottom : 32px;
+  }
+  @media (min-width:1024px) { //desktop
+    bottom : 48px;
+  }
 
-      display: flex;
-      justify-content : center;
-      align-items : center;
+  display: flex;
+  justify-content : center;
+  align-items : center;
 
-      width: 36px;
-      height: 36px;
-      border-radius: 100px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 
 
-      background-color: white;
-      background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#979FC7'};
-      background-color: whitesmoke;
-      color: rgb(var(--greyTitle));
-      border: 2px solid rgba(0,0,0,0.05);
-      `
+  background-color: white;
+  background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#979FC7'};
+  background-color: whitesmoke;
+  color: rgb(var(--greyTitle));
+  border: 2px solid rgba(0,0,0,0.05);
+`
