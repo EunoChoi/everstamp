@@ -8,6 +8,8 @@ const urlsToCache = ['/offline',
   'img/emotion/emotion4.png',
 ]; // 캐싱할 페이지나 리소스
 
+const OFFLINE_URL = '/offline';
+
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
@@ -19,6 +21,8 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', (event) => {
+  const requestUrl = new URL(event.request.url);
+
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
@@ -28,10 +32,30 @@ self.addEventListener('fetch', (event) => {
         .catch(() => {
           return caches.open(CACHE_NAME)
             .then((cache) => {
-              return cache.match('/offline');
+              return cache.match(OFFLINE_URL);
             });
         })
     );
+  }
+  if (requestUrl.pathname.startsWith('/_next/image')) {
+    event.respondWith(
+      caches.match(event.request).then((response) => {
+        console.log('cache match', requestUrl);
+        if (response) {
+          return response;
+        }
+
+        return fetch(event.request).then((networkResponse) => {
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
+          });
+        });
+      })
+    );
+  }
+  else {
+    event.respondWith(fetch(event.request));
   }
 });
 

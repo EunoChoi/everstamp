@@ -72,10 +72,10 @@ const CalendarSelector = () => {
 
     return <DateValue>
       {isDiaryExist && habitCount === 0 && <DateValue_Diary>
-        <Image src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
+        <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
       </DateValue_Diary>}
       {isDiaryExist && habitCount > 0 && <DateValue_Diary>
-        <Image src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
+        <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
         <div className="count">{habitCount}</div>
       </DateValue_Diary>}
       {!isDiaryExist && habitCount > 0 && <DateValue_Count>
