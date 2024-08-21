@@ -37,7 +37,7 @@ self.addEventListener('fetch', (event) => {
         })
     );
   }
-  if (requestUrl.pathname.startsWith('/_next/image')) {
+  else if (requestUrl.pathname.startsWith('/_next/image')) {
     event.respondWith(
       caches.match(event.request).then((response) => {
         console.log('cache match', requestUrl);
@@ -53,9 +53,6 @@ self.addEventListener('fetch', (event) => {
         });
       })
     );
-  }
-  else {
-    event.respondWith(fetch(event.request));
   }
 });
 
