@@ -17,6 +17,7 @@ import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 import Header from "@/component/common/Header";
 import ContentArea from "@/component/common/ContentArea";
 import React from "react";
+import HabitOrderSetting from "@/component/habit/HabitOrderSetting";
 
 
 
@@ -27,6 +28,10 @@ const SettingPageClient = () => {
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
+
+  const colorName = ['purple', 'blue', 'green', 'pink', 'grey'];
+  const colorValue = ['#979FC7', '#8CADE2', '#83c6b6', '#eda5b1', '#8f8f8f'];
+
 
   const themeColorUpdateMutation = useMutation({
     mutationFn: (themeColor: string) => Axios.patch('/user/theme', { themeColor }),
@@ -101,14 +106,17 @@ const SettingPageClient = () => {
             <FlexRow>
               <Color className="selected" />
               <FlexRow className="end">
-                <Color className="purple" onClick={() => themeColorUpdate("#979FC7")} />
-                <Color className="blue" onClick={() => themeColorUpdate("#8CADE2")} />
-                <Color className="green" onClick={() => themeColorUpdate("#83c6b6")} />
-                <Color className="pink" onClick={() => themeColorUpdate("#eda5b1")} />
-                <Color className="grey" onClick={() => themeColorUpdate("#8f8f8f")} />
+                {colorValue.map((e, i) =>
+                  <Color
+                    key={colorName[i] + 'Color'}
+                    className={colorName[i]}
+                    onClick={() => themeColorUpdate(e)}
+                  />)}
               </FlexRow>
             </FlexRow>
           </Section>
+
+          <HabitOrderSetting />
 
           <Section>
             <Buttons className="center">
