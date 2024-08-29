@@ -54,6 +54,8 @@ const SC_Common = {
     align-items: center;
     justify-content: center;
 
+    margin: 8px 0;
+
     .calIcon{
       font-size: 19px;
     }
