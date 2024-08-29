@@ -11,6 +11,16 @@ interface Props {
 }
 
 
+const NStart = (n: number) => {
+  return (
+    <>
+      {Array(n).fill(0).map((_, i) => (
+        <StarPurple500OutlinedIcon key={'star' + i} fontSize="inherit" />
+      ))}
+    </>
+  );
+}
+
 const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inputRef }: Props) => {
 
 
@@ -32,7 +42,8 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
                 if (e.currentTarget.checked) setPriority(Number(e.currentTarget.value));
               }} />
               <div className="checkmark">
-                {[...Array(i + 1)].map((_, j: number) => <StarPurple500OutlinedIcon key={i + j} fontSize="inherit" />)}
+                {NStart(i + 1)}
+                {/* {[...Array(i + 1)].map((_, j: number) => <StarPurple500OutlinedIcon key={i + j} fontSize="inherit" />)} */}
               </div>
             </RadioButton>)}
         </RadioWrapper>

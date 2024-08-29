@@ -7,6 +7,8 @@ import { format } from 'date-fns';
 import Axios from "@/Axios/axios";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
+import emotion4 from '/public/img/emotion/emotion4.png'
+
 //style
 import SC_Common from "@/style/common";
 
@@ -17,11 +19,14 @@ import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 import Header from "@/component/common/Header";
 import ContentArea from "@/component/common/ContentArea";
 import React from "react";
-import HabitOrderSetting from "@/component/habit/HabitOrderSetting";
+import { useRouter } from "next/navigation";
 
 
+import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
+import Image from "next/image";
 
 const SettingPageClient = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
@@ -52,6 +57,7 @@ const SettingPageClient = () => {
         </SC_Common.YesOrNo>
         <SC_Common.YesOrNo className="yes" onClick={() => {
           Axios.get('user/logout').then(() => { signOut(); });
+          closeSnackbar('logout');
         }}>
           Yes
         </SC_Common.YesOrNo>
@@ -67,6 +73,7 @@ const SettingPageClient = () => {
         </SC_Common.YesOrNo>
         <SC_Common.YesOrNo className="yes" onClick={() => {
           Axios.delete('user').then(() => { signOut(); });
+          closeSnackbar('userDelete');
         }}>
           Yes
         </SC_Common.YesOrNo>
@@ -101,8 +108,8 @@ const SettingPageClient = () => {
           </Section>
 
           <Section>
-            <Title>theme</Title>
-            <SubTitle>point color</SubTitle>
+            <Title>customize</Title>
+            <SubTitle>theme color</SubTitle>
             <FlexRow>
               <Color className="selected" />
               <FlexRow className="end">
@@ -114,9 +121,23 @@ const SettingPageClient = () => {
                   />)}
               </FlexRow>
             </FlexRow>
+            <EmptyBar />
+            <SubTitle>others</SubTitle>
+            <FlexRow className="between">
+              <span>Edit habit custom order</span>
+              <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
+                <LowPriorityRoundedIcon className="icon" fontSize="small" />
+              </button>
+            </FlexRow>
+            <FlexRow className="between">
+              <span>Emotion icon type</span>
+              <button onClick={() => {
+                // router.push('/app/inter/habitOrder', { scroll: false })
+              }}>
+                <Image src={emotion4} alt="emotion icon" width={28} height={28} />
+              </button>
+            </FlexRow>
           </Section>
-
-          <HabitOrderSetting />
 
           <Section>
             <Buttons className="center">
@@ -132,7 +153,10 @@ const SettingPageClient = () => {
 }
 
 export default SettingPageClient;
-
+const EmptyBar = styled.div`
+  width: 100%;
+  height: 20px;
+`
 const SettingContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -178,9 +202,9 @@ const Title = styled.span`
 `
 const SubTitle = styled.span`
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: capitalize;
-  margin: 12px;
+  margin : 6px 12px;
 
   color: grey;
 `
@@ -237,6 +261,20 @@ const FlexRow = styled.div`
     *:last-child{
       margin-right: 0;
     }
+  }
+  &.between{
+    justify-content: space-between
+  }
+
+  span{
+    color: darkgrey;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .icon{
+    color: darkgrey;
+    width: 28px;
+    height: 28px;
   }
 `
 const Button = styled.button`

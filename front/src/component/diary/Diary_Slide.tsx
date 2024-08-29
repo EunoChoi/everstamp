@@ -85,7 +85,10 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('diaryDelete'); }}>
           No
         </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => { deleteDiaryMutation.mutate({ id: diaryData.id }); }}>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          deleteDiaryMutation.mutate({ id: diaryData.id });
+          closeSnackbar('diaryDelete');
+        }}>
           Yes
         </SC_Common.YesOrNo>
       </>
