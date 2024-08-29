@@ -36,19 +36,57 @@ router.get("/", tokenCheck, async (req, res) => {
 router.get("/list", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/list -----');
   const { sort } = req.query;
+  let { customOrder } = req.query;
   const email = req.currentUserEmail;
   const result = [];
+  customOrder = customOrder?.map(e => Number(e));
+
+  let habits;
 
   try {
-    const habits = await Habit.findAll({
-      where: [{
-        email,
-      }],
-      order: [
-        ['priority', 'DESC'],
-        ['createdAt', sort], //ASC DESC
-      ],
-    });
+    if (sort === 'CUSTOM' && customOrder) {
+      let otherHabits = await Habit.findAll({
+        where: [{
+          email,
+          id: {
+            [Op.notIn]: customOrder // excludedIds에 포함되지 않는 ID로 필터링
+          }
+        }]
+      });
+      otherHabits = otherHabits.map(e => e.id);
+      customOrder = [...customOrder, ...otherHabits];
+      habits = await Habit.findAll({
+        where: [{
+          id: customOrder
+        }],
+        order: [
+          [sequelize.literal(`FIELD(id, ${customOrder.join(',')})`), 'ASC']
+        ]
+      });
+    }
+    else if (sort === 'ASC' || sort === 'DESC') {
+      habits = await Habit.findAll({
+        where: [{
+          email,
+        }],
+        order: [
+          ['priority', 'DESC'],
+          ['createdAt', sort], //ASC DESC
+        ],
+      });
+    }
+    else {
+      habits = await Habit.findAll({
+        where: [{
+          email,
+        }],
+        order: [
+          ['priority', 'DESC'],
+          ['createdAt', 'ASC'], //ASC DESC
+        ],
+      });
+    }
+
 
     if (habits) {
       while (habits.length > 0) {

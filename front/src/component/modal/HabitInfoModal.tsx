@@ -6,12 +6,14 @@ import styled from "styled-components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import HabitInfoCalendar from "../calendar/HabitInfoCalendar";
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
 import HabitInfoChart from "../habit/HabitInfoChart";
 import Indicator from "../common/indicator";
 import BottomButtonArea from "../common/BottomButtonArea";
+
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+
 
 interface Props {
   habitId: string;
@@ -74,7 +76,7 @@ const HabitInfoModal = ({ habitId }: Props) => {
 
       <BottomButtonArea>
         <Button onClick={() => router.back()} >
-          <CancelOutlinedIcon className="icon" />
+          <CloseRoundedIcon className="icon" />
         </Button>
       </BottomButtonArea>
     </Modal>

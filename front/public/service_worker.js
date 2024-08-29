@@ -40,7 +40,7 @@ self.addEventListener('fetch', (event) => {
   else if (requestUrl.pathname.startsWith('/_next/image')) {
     event.respondWith(
       caches.match(event.request).then((response) => {
-        console.log('cache match', requestUrl);
+        // console.log('cache match', requestUrl);
         if (response) {
           return response;
         }

@@ -93,7 +93,7 @@ const Habit = styled.span`
 
   &:first-child{
     background-color: rgba(0,0,0,0);
-    border : solid 4px ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+    border : solid 2px ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
   &:last-child{
     margin-right: 0px;

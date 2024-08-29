@@ -5,6 +5,7 @@ interface IdProps {
 }
 interface ListProps {
   sort: string;
+  customOrder?: number[];
 }
 interface RecentProps {
   id: number;
@@ -26,9 +27,13 @@ export async function getHabit({ id }: IdProps) {
   }
 }
 
-export async function getHabits({ sort }: ListProps) {
+export async function getHabits({ sort, customOrder }: ListProps) {
   try {
-    const { data } = await Axios.get(`/habit/list?sort=${sort}`);
+    const params = {
+      sort,
+      customOrder
+    };
+    const { data } = await Axios.get(`/habit/list`, { params });
     return data;
   } catch (e: any) {
     console.error(e.response.data);

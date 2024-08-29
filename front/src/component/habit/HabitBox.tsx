@@ -67,7 +67,6 @@ const HabitBox = ({ name, id, priority }: Props) => {
     mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.delete('/habit/check', { data: { habitId, date } }), //delete method data
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['habit', name, 'recent'] });
-
       console.log('unchack habit success');
     },
     onError: (e: Err) => {
@@ -101,7 +100,10 @@ const HabitBox = ({ name, id, priority }: Props) => {
         <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
           No
         </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => { deleteHabitMutation.mutate({ habitId: id }); }}>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          deleteHabitMutation.mutate({ habitId: id });
+          closeSnackbar('deleteHabit');
+        }}>
           Yes
         </SC_Common.YesOrNo>
       </>
@@ -221,7 +223,7 @@ const Name = styled.span`
   span{
     white-space: nowrap;
     overflow: scroll;
-    max-width: 120px;
+    max-width: 90%;
   }
 
   @media (max-width: 479px) { //mobile port

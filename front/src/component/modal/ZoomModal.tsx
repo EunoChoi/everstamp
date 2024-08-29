@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Indicator from "../common/indicator";
 import BottomButtonArea from "../common/BottomButtonArea";
 
@@ -93,7 +93,7 @@ const ZoomModal = ({ diaryId }: Props) => {
 
       <BottomButtonArea>
         <Button onClick={() => router.back()} >
-          <CancelOutlinedIcon className="icon" />
+          <CloseRoundedIcon className="icon" />
         </Button>
       </BottomButtonArea>
     </Modal>

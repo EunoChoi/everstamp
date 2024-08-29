@@ -48,7 +48,7 @@ const Wrapper = styled.div`
     justify-content: end;
     align-items: center;
     width: 75dvw;
-    padding: 8px 20px;
+    padding: 0 20px;
   }
   @media (min-width:1024px) { //desktop
     align-items: center;

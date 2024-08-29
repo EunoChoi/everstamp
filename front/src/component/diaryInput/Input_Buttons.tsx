@@ -5,7 +5,7 @@ import Image from "next/image";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { RefObject } from "react";
 import Axios from "@/Axios/axios";
 import { useMutation } from "@tanstack/react-query";
@@ -102,7 +102,7 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
       }
       <BottomButtonArea>
         <Button onClick={() => router.back()}>
-          <CancelOutlinedIcon className="icon"></CancelOutlinedIcon>
+          <CloseRoundedIcon className="icon"></CloseRoundedIcon>
         </Button>
         <Button onClick={() => imageUploadRef.current?.click()}>
           <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />

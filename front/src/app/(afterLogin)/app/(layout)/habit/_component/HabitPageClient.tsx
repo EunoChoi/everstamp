@@ -29,6 +29,12 @@ const HabitPageClient = () => {
 
   const router = useRouter();
 
+  const SORT_TEXT = {
+    'ASC': 'Old',
+    'DESC': 'New',
+    'CUSTOM': 'Cus'
+  }
+
   const { data: user = { email: '' } } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
@@ -37,7 +43,17 @@ const HabitPageClient = () => {
   const userEmail: string = user.email ? user.email : '';
   const gridListScrollRef = useRef<HTMLDivElement>(null);
 
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>(() => {
+
+  const [customOrder, setCustomOrder] = useState<number[]>(() => {
+    const localData = localStorage.getItem(userEmail)
+    if (localData) {
+      const jsonLocalData = JSON.parse(localData);
+      return jsonLocalData['habitCustomOrder'] ? jsonLocalData['habitCustomOrder'] : [];
+    }
+    else return [];
+  });
+
+  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC' | 'CUSTOM'>(() => {
     const localData = localStorage.getItem(userEmail)
     if (localData) {
       const jsonLocalData = JSON.parse(localData);
@@ -50,7 +66,7 @@ const HabitPageClient = () => {
 
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', sortToggle],
-    queryFn: () => getHabits({ sort: sortToggle }),
+    queryFn: () => getHabits({ sort: sortToggle, customOrder }),
   });
 
 
@@ -59,8 +75,9 @@ const HabitPageClient = () => {
     else enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
   }
   const sortChage = useCallback(() => {
-    if (sortToggle === 'DESC') setSortToggle('ASC');
-    else setSortToggle('DESC');
+    if (sortToggle === 'ASC') setSortToggle('DESC');
+    else if (sortToggle === 'DESC') setSortToggle('CUSTOM');
+    else if (sortToggle === 'CUSTOM') setSortToggle('ASC');
   }, [sortToggle])
 
 
@@ -75,6 +92,8 @@ const HabitPageClient = () => {
   }, [userEmail, sortToggle])
 
 
+
+
   return (
     <SC_Common.Wrapper className="habit">
       <Header title='habit' classname="habit" >
@@ -84,7 +103,7 @@ const HabitPageClient = () => {
           </button>
           <button onClick={sortChage}>
             <span><SortIcon fontSize="small" /></span>
-            <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
+            <span>{SORT_TEXT[sortToggle]}</span>
           </button>
         </SC_Common.Options>
       </Header>
