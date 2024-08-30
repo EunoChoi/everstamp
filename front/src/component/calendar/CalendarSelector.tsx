@@ -71,16 +71,23 @@ const CalendarSelector = () => {
     const formattedDate = format(day, 'd');
 
     return <DateValue>
+      {/* only emotion */}
       {isDiaryExist && habitCount === 0 && <DateValue_Diary>
         <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
       </DateValue_Diary>}
+
+      {/* emotion + habit count */}
       {isDiaryExist && habitCount > 0 && <DateValue_Diary>
         <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
         <div className="count">{habitCount}</div>
       </DateValue_Diary>}
+
+      {/* only habit count */}
       {!isDiaryExist && habitCount > 0 && <DateValue_Count>
         {habitCount}
       </DateValue_Count>}
+
+      {/* none */}
       {!isDiaryExist && !habitCount && <DateValue_Date>{formattedDate}</DateValue_Date>}
     </DateValue>;
   };
@@ -225,8 +232,8 @@ const DateValue_Diary = styled.div`
     border : 2px solid white;
     
     font-size: 13px;
+    font-weight: 500;
     color: white;
-
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     @media (min-width:1024px) { //desktop
       font-size: 12px;
@@ -244,11 +251,12 @@ const DateValue_Count = styled.div`
   align-items: center;
 
   width: 30px;
-  height: 29.375px;
+  height: 29px;
   border-radius: 8px;
   margin-top: 6px;
 
   font-size: 14px;
+  font-weight: 500;
   color: white;
   background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 
@@ -270,9 +278,7 @@ const CalTitleWrapper = styled.div`
     width: 30%;
   }
 `
-const CalTitleText = styled.div`
-  /* width: auto; */
-  
+const CalTitleText = styled.div`  
   text-align: center;
   text-transform: capitalize;
 

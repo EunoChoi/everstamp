@@ -32,7 +32,7 @@ const HabitPageClient = () => {
   const SORT_TEXT = {
     'ASC': 'Old',
     'DESC': 'New',
-    'CUSTOM': 'Cus'
+    'CUSTOM': 'Custom'
   }
 
   const { data: user = { email: '' } } = useQuery({
@@ -75,9 +75,9 @@ const HabitPageClient = () => {
     else enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
   }
   const sortChage = useCallback(() => {
-    if (sortToggle === 'ASC') setSortToggle('DESC');
-    else if (sortToggle === 'DESC') setSortToggle('CUSTOM');
-    else if (sortToggle === 'CUSTOM') setSortToggle('ASC');
+    if (sortToggle === 'DESC') setSortToggle('ASC');
+    else if (sortToggle === 'ASC') setSortToggle('CUSTOM');
+    else if (sortToggle === 'CUSTOM') setSortToggle('DESC');
   }, [sortToggle])
 
 
@@ -98,11 +98,11 @@ const HabitPageClient = () => {
     <SC_Common.Wrapper className="habit">
       <Header title='habit' classname="habit" >
         <SC_Common.Options>
-          <button onClick={onAddHabit}>
+          <button onClick={onAddHabit} className="type1">
             <AddIcon fontSize="small" />
           </button>
-          <button onClick={sortChage}>
-            <span><SortIcon fontSize="small" /></span>
+          <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'type3' : 'type2'}>
+            {/* <span><SortIcon fontSize="small" /></span> */}
             <span>{SORT_TEXT[sortToggle]}</span>
           </button>
         </SC_Common.Options>

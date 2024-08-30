@@ -140,7 +140,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   height: 250px;
-  margin-top: 20px;
+  margin-top: 28px;
 
   @media (min-width: 1024px) {//desktop
     margin-top: 30px;

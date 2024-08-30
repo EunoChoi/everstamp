@@ -71,6 +71,18 @@ const SC_Common = {
 
       font-size: 14px;
       font-weight: 500;
+      
+     
+      &.type1{
+        width: 47px;
+      }
+      &.type2{
+        width: 60px;
+      }
+      &.type3{
+        width: 80px;
+      }
+      
       transition: all ease-in-out 200ms;
       text-transform: capitalize;
       

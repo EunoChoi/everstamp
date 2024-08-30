@@ -132,16 +132,12 @@ const ListPageClient = () => {
     <SC_Common.Wrapper>
       <Header title='list'>
         <SC_Common.Options>
-          <button
-            onClick={() => {
-              setMonthSelectorOpen(c => !c);
-            }}
-          >
+          <button onClick={() => { setMonthSelectorOpen(c => !c); }}>
             {(selectedMonth !== 0)
               ? <span>{selectedYear}.{selectedMonth}</span> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
           </button>
-          <button onClick={sortToggleChange}>
-            <span><SortIcon fontSize="small" /></span>
+          <button onClick={sortToggleChange} className='type2'>
+            {/* <span><SortIcon fontSize="small" /></span> */}
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>
         </SC_Common.Options>

@@ -203,8 +203,7 @@ const HabitOrderModal = () => {
       e.stopPropagation();
     }}>
       <Title>
-        <span>Edit Order</span>
-        <span className='type'>[habit]</span>
+        <span>Habit List Order</span>
       </Title>
       <Container >
         <EmptyBox />
@@ -371,6 +370,7 @@ const EmptyBox = styled.div`
 `
 const Title = styled.div`
   color: rgb(var(--greyTitle));
+  /* color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'}; */
   font-weight: 600;
   font-size: 20px;
   height: auto;
@@ -380,15 +380,13 @@ const Title = styled.div`
   span{
     padding: 4px;
   }
-  .type{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
   @media (min-width:1024px) { //desktop
     font-size: 26px;
   }
 `
 const Button = styled.button`
   color: rgba(0,0,0,0.3) !important;
+  font-weight: 500;
   &.initialize{
     text-transform: capitalize;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;

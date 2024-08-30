@@ -124,7 +124,7 @@ const SettingPageClient = () => {
             <EmptyBar />
             <SubTitle>others</SubTitle>
             <FlexRow className="between">
-              <span>Edit habit custom order</span>
+              <span>habit list order</span>
               <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
                 <LowPriorityRoundedIcon className="icon" fontSize="small" />
               </button>
