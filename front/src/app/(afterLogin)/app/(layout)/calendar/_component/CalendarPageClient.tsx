@@ -82,6 +82,8 @@ const CalendarWrapper = styled.div`
   height: 100%;
   padding: 0;
   margin-top: 24px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 
   @media (max-width: 479px) { //mobile port
     padding: 0 5dvw;

@@ -170,9 +170,9 @@ const ListPageClient = () => {
             }
             else {
               return <Diary
+                key={'listNote' + i}
                 position="list"
                 diaryData={data}
-                key={'listNote' + i}
               />
             }
           })))
@@ -188,8 +188,8 @@ const ListPageClient = () => {
 export default ListPageClient;
 
 const MonthInfo = styled.span`
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 32px;
+  margin-bottom: 32px;
   
 
   display: flex;
@@ -198,7 +198,7 @@ const MonthInfo = styled.span`
   width: 100%;
   max-width: 600px;
   height: 2px;
-  background-color:  ${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
+  background-color:  ${(props) => props.theme.point ? props.theme.point + '35' : '#979FC7'};
 
   &.Month0{
     display:none;

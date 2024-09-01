@@ -29,13 +29,12 @@ export default Header;
 
 const Wrapper = styled.div`
 
-  z-index: 99;
+  /* z-index: 99; */
 
   display: flex;
   flex-shrink: 0;
 
   background-color: white;
-  backdrop-filter: blur(12px);  
 
   @media (max-width: 479px) { //mobile port
     justify-content: space-between;

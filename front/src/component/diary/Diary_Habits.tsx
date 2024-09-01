@@ -18,13 +18,15 @@ const DiaryHabits = ({ habits }: Props) => {
 
   return (
     <Habits className="habits">
-      <Habit>{habits?.length ? habits?.length : 0} habits</Habit>
+      <Habit>
+        <span> {habits?.length ? habits?.length : 0} habits</span>
+      </Habit>
       {habits?.map((habit: HabitProps, i: number) =>
         <Habit
           className={`${habit.priority ? 'priority' + habit.priority : ''}`}
           onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
           key={habit.name + i}>
-          {habit.name}
+          <span>{habit.name}</span>
         </Habit>)}
     </Habits>
   );
@@ -63,8 +65,8 @@ const Habit = styled.span`
   cursor: pointer;
   flex-shrink: 0;
   
-  padding : 0px 16px;
-  color: rgb(var(--greyTitle));
+
+  
 
 
   background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#979FC7'};
@@ -81,13 +83,10 @@ const Habit = styled.span`
   white-space: nowrap;
   text-transform: capitalize;
 
-  font-size: 16px;
-  font-weight: 500;
 
   display: flex;
   align-items: center;
   justify-content: center;
-
 
   box-sizing: border-box;
 
@@ -98,9 +97,21 @@ const Habit = styled.span`
   &:last-child{
     margin-right: 0px;
   }
+
+
+  
+  padding : 1px 16px;
+  span{
+    color: rgb(var(--greyTitle));
+    font-size: 16px;
+    font-weight: 500;
+  }
+
   @media (max-width: 479px) { //mobile port
-    padding : 0px 12px;
-    font-size: 13px;
+    padding : 1px 12px;
     margin-right: 8px;
+    span{
+      font-size: 14px;
+    }
   }
 `
