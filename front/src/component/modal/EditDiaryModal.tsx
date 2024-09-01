@@ -100,8 +100,7 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
         <DiaryInputDate date={diaryData?.date} />
         <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef}></DiaryInputTextArea>
-
-        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onEditDiary} images={images} setImages={setImages} type={'edit'} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onEditDiary} images={images} setImages={setImages} type={'edit'} isLoading={editDiaryMutation.isPending} />
       </Modal>
     </Wrapper>);
 }

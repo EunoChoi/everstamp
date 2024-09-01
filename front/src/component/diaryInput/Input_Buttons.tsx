@@ -23,6 +23,7 @@ interface Props {
   submitDiary: () => void;
   images: Array<string>;
   setImages: (images: string[]) => void;
+  isLoading: boolean;
 }
 
 interface Err {
@@ -32,7 +33,7 @@ interface Err {
   }
 }
 
-const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type }: Props) => {
+const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type, isLoading }: Props) => {
   const router = useRouter();
 
   const ImageUploadMutation = useMutation({
@@ -104,11 +105,11 @@ const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, typ
         <Button onClick={() => router.back()}>
           <CloseRoundedIcon className="icon"></CloseRoundedIcon>
         </Button>
-        <Button onClick={() => imageUploadRef.current?.click()}>
+        <Button disabled={isLoading} onClick={() => imageUploadRef.current?.click()}>
           <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
           <ImageOutlinedIcon className="icon" />
         </Button>
-        <Button onClick={submitDiary}>
+        <Button disabled={isLoading} onClick={submitDiary}>
           {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <PostAddOutlinedIcon className="icon" />}
         </Button>
       </BottomButtonArea>
@@ -194,6 +195,9 @@ const ImageDeleteButton = styled.button`
   }
 `
 const Button = styled.button`
+  &:disabled{
+    opacity: 0.4;
+  }
   .icon{
     color: rgba(0,0,0,0.3) !important;
   }

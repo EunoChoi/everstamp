@@ -10,9 +10,10 @@ import BottomButtonArea from "../common/BottomButtonArea";
 interface Props {
   type?: string;
   onSubmit: () => void;
+  isLoading: boolean;
 }
 
-const HabitInputButtons = ({ type, onSubmit }: Props) => {
+const HabitInputButtons = ({ type, onSubmit, isLoading }: Props) => {
   const router = useRouter();
 
   return (
@@ -20,7 +21,7 @@ const HabitInputButtons = ({ type, onSubmit }: Props) => {
       <Button onClick={() => router.back()}>
         <CloseRoundedIcon className="icon"></CloseRoundedIcon>
       </Button>
-      <Button onClick={() => onSubmit()}>
+      <Button onClick={() => onSubmit()} disabled={isLoading}>
         {type === 'edit' ? <ModeEditOutlineOutlinedIcon className="icon" /> : <AddTaskOutlinedIcon className="icon" />}
       </Button>
     </BottomButtonArea>
@@ -31,6 +32,9 @@ export default HabitInputButtons;
 
 
 const Button = styled.button`
+  &:disabled{
+    opacity: 0.4;
+  }
   .icon{
     color: rgba(0,0,0,0.4) !important;
   }

@@ -82,8 +82,7 @@ const AddDiaryModal = () => {
         <DiaryInputDate date={date} />
         <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
         <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
-
-        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onAddDiary} images={images} setImages={setImages} />
+        <DiaryInputButtons imageUploadRef={imageUploadRef} submitDiary={onAddDiary} images={images} setImages={setImages} isLoading={addDiaryMutation.isPending} />
       </Modal>
     </Wrapper>);
 }
