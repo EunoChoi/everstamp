@@ -6,9 +6,10 @@ import { Suspense } from "react";
 
 //icon
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
+import { useCustomRouter } from "@/function/customRouter";
 
 const Page = () => {
-  const router = useRouter();
+  const router = useCustomRouter();
   const params = useSearchParams();
   const message = params.get('message');
   return (

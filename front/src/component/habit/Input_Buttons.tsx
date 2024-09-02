@@ -4,6 +4,7 @@ import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutl
 import { useRouter } from "next/navigation";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import BottomButtonArea from "../common/BottomButtonArea";
+import { useCustomRouter } from "@/function/customRouter";
 
 
 
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const HabitInputButtons = ({ type, onSubmit, isLoading }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   return (
     <BottomButtonArea>

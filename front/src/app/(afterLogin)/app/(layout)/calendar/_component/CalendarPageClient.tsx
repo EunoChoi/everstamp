@@ -18,6 +18,7 @@ import ContentArea from "@/component/common/ContentArea";
 import Diary from "@/component/diary/Diary";
 import CalendarSelector from "@/component/calendar/CalendarSelector";
 import Header from "@/component/common/Header";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface Props {
   date: number;
@@ -25,7 +26,7 @@ interface Props {
 
 const CalendarPageClient = ({ date }: Props) => {
   const isMobile = IsMobile();
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],

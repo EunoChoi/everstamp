@@ -1,11 +1,12 @@
 'use client'
 
+import { useCustomRouter } from '@/function/customRouter';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 
 const NetworkStatus = () => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
 
   useEffect(() => {

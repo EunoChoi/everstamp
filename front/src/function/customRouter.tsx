@@ -26,6 +26,10 @@ const useCustomRouter = () => {
     }
   }, [pathname, searchParams, targetUrl]);
 
+  const back = router.back;
+  const refresh = router.refresh;
+  const prefetch = router.prefetch;
+
   const push = useCallback((url: string, options?: object) => {
     setTargetUrl(url);
     if (pathname === url) { //same url
@@ -39,7 +43,7 @@ const useCustomRouter = () => {
     }
   }, [router, pathname]);
 
-  return { push };
+  return { push, back, refresh, prefetch };
 };
 
 

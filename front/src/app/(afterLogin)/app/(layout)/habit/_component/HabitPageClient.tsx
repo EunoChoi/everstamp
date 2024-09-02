@@ -22,12 +22,13 @@ import { getCurrentUser } from "@/app/(afterLogin)/_lib/user";
 //icon
 import AddIcon from '@mui/icons-material/Add';
 import SortIcon from '@mui/icons-material/Sort';
+import { useCustomRouter } from "@/function/customRouter";
 
 
 
 const HabitPageClient = () => {
 
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const SORT_TEXT = {
     'ASC': 'Old',

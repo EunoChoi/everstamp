@@ -17,6 +17,7 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import SC_Common from "@/style/common";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface Props {
   name: string;
@@ -36,7 +37,7 @@ interface CheckHabitProps {
 const HabitBox = ({ name, id, priority }: Props) => {
   const queryClient = useQueryClient();
 
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const currentCleanDateTime = getCleanTodayTime()
   const currentDate = new Date();

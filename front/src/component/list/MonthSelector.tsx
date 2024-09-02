@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { getMonth, getYear } from "date-fns";
-import { useEffect, useRef, useState } from "react";
+import { getYear } from "date-fns";
+import { useState } from "react";
 
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -18,9 +18,7 @@ interface Props {
 }
 
 const MonthSelector = ({
-  contentRef,
   monthSelectorOpen,
-  selectedMonth,
   setMonthSelectorOpen,
   setSelectedYear,
   setSelectedMonth
@@ -55,31 +53,6 @@ const MonthSelector = ({
     setSelectedMonth(tempMonth);
     setSelectedYear(tempYear);
   }
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (scrollTimeoutRef.current !== null) {
-  //       cancelAnimationFrame(scrollTimeoutRef.current);
-  //     }
-  //     scrollTimeoutRef.current = requestAnimationFrame(() => {
-  //       if (contentRef.current && monthSelectorOpen) {
-  //         setMonthSelectorOpen(false);
-  //       }
-  //     });
-  //   };
-  //   const container = contentRef.current;
-  //   if (container) {
-  //     container.addEventListener('scroll', handleScroll);
-  //   }
-  //   return () => {
-  //     if (container) {
-  //       container.removeEventListener('scroll', handleScroll);
-  //     }
-  //     if (scrollTimeoutRef.current !== null) {
-  //       cancelAnimationFrame(scrollTimeoutRef.current);
-  //     }
-  //   };
-  // }, [monthSelectorOpen]);
 
   return (
     <BG className={monthSelectorOpen ? 'open' : ''} onClick={() => setMonthSelectorOpen(false)} >
@@ -134,8 +107,7 @@ const MonthSelector = ({
 export default MonthSelector;
 
 const BG = styled.div`
-  position: fixed;
-  top: 0px;
+  position: fixed; 
   left: 0px;
   
 
@@ -152,28 +124,31 @@ const BG = styled.div`
   }
 
   @media (max-width: 479px) { //mobile port
+    top: var(--mobileHeader);
     z-index: 98;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    top: 0px;
     z-index: 105;
   }
   @media (min-width:1024px) { //desktop
+    top: 0px;
     z-index: 105;
   }
 `
 
 const Wrapper = styled.div`
   overflow: hidden;
-
   position: fixed;
   top: var(--mobileHeader);
+  top: 0;
 
   flex-shrink: 0;
   
   padding: 0 24px;
 
   background-color: white;
-  box-shadow: 0px 3px 48px rgba(0,0,0,0.25);
+  
 
 
   display: flex;
@@ -183,6 +158,7 @@ const Wrapper = styled.div`
 
 
   @media (max-width: 479px) { //mobile port
+    box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
     width: 100%;
     /* height: 0px; */
     height: 400px;
@@ -202,6 +178,7 @@ const Wrapper = styled.div`
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
     z-index: 999;
     top: 50dvh;
     left: 50dvw;
@@ -221,6 +198,8 @@ const Wrapper = styled.div`
     }
   }
   @media (min-width:1024px) { //desktop
+    box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
+
     top: 50dvh;
     left: 50dvw;
     transform: translate(-50%, -50%);

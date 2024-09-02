@@ -18,6 +18,7 @@ import DiaryInputTextArea from "../diaryInput/Input_TextArea";
 import DiaryInputButtons from "../diaryInput/Input_Buttons";
 import { enqueueSnackbar } from "notistack";
 import DiaryInputEmotion from "../diaryInput/Input_Emotion";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface Err {
   response: {
@@ -48,7 +49,7 @@ interface DiaryProps {
 
 const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const { data: diaryData } = useQuery<DiaryProps>({
     queryKey: ['diary', 'id', diaryId],

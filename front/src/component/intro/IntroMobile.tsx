@@ -42,9 +42,10 @@ import PhonelinkIcon from '@mui/icons-material/Phonelink';
 import ImageCarousel from "../common/ImageCarousel";
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
+import { useCustomRouter } from "@/function/customRouter";
 
 const IntroMobile = () => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const introImages = [calendar, list, list2, zoom1, zoom2, habit, habitinfo1, habitinfo2, setting];
   const viewImages = [calendar, list, list2, zoom1];

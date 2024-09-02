@@ -1,3 +1,4 @@
+import { useCustomRouter } from "@/function/customRouter";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
@@ -14,7 +15,7 @@ interface HabitProps {
 }
 
 const DiaryHabits = ({ habits }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   return (
     <Habits className="habits">

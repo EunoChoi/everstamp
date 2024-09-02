@@ -13,6 +13,7 @@ import Indicator from "../common/indicator";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import SC_Common from "@/style/common";
 import { format } from "date-fns";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface Err {
   response: {
@@ -46,7 +47,7 @@ interface Props {
 
 const DiarySlide = ({ diaryData, position }: Props) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useCustomRouter();
   const images = diaryData?.Images;
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);

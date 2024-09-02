@@ -15,6 +15,7 @@ import loading from '/public/img/loading.gif';
 
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import BottomButtonArea from "../common/BottomButtonArea";
+import { useCustomRouter } from "@/function/customRouter";
 
 
 interface Props {
@@ -34,7 +35,7 @@ interface Err {
 }
 
 const DiaryInputButtons = ({ imageUploadRef, submitDiary, images, setImages, type, isLoading }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const ImageUploadMutation = useMutation({
     // mutationFn: (imageFormData: FoamData) => Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });,

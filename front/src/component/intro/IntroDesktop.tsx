@@ -58,7 +58,7 @@ const IntroDesktop = () => {
   const otherInfoImages = [otherinfo1, otherinfo2, otherinfo3];
   const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addHabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
 
-  const router = useRouter();
+  const router = useCustomRouter();
 
   //pwa
   const [pwa, setPwa] = useState<any>(null);

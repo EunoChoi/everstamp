@@ -11,6 +11,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import DiaryHabits from "./Diary_Habits";
 import DiarySlide from "./Diary_Slide";
 import IsMobile from "@/function/IsMobile";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface ImageProps {
   id: string;
@@ -41,7 +42,7 @@ interface Props {
 
 //날짜만 프롭으로 받아오면 그걸로 검색해서 데이터 패칭
 const Diary = ({ diaryData, position }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
   const params = useSearchParams();
   const paramDate = params.get('date');
 

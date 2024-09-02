@@ -12,6 +12,7 @@ import { enqueueSnackbar } from 'notistack';
 
 import { getHabit } from "@/app/(afterLogin)/_lib/habit";
 import React from "react";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface Props {
   habitId: string;
@@ -29,7 +30,7 @@ interface Err {
 
 const EditHabitModal = ({ habitId }: Props) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useCustomRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
 

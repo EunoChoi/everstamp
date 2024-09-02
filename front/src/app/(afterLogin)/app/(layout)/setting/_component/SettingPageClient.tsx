@@ -24,9 +24,10 @@ import { useRouter } from "next/navigation";
 
 import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
 import Image from "next/image";
+import { useCustomRouter } from "@/function/customRouter";
 
 const SettingPageClient = () => {
-  const router = useRouter();
+  const router = useCustomRouter();
   const queryClient = useQueryClient();
 
   const { data } = useQuery({

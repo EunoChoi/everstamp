@@ -19,11 +19,12 @@ import emotions from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
+import { useCustomRouter } from "@/function/customRouter";
 
 
 
 const Page = () => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const { data: user, isSuccess } = useQuery({
     queryKey: ['user'],

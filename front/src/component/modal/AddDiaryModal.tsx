@@ -15,6 +15,7 @@ import DiaryInputButtons from "../diaryInput/Input_Buttons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import DiaryInputEmotion from "../diaryInput/Input_Emotion";
+import { useCustomRouter } from "@/function/customRouter";
 
 
 interface Err {
@@ -32,7 +33,7 @@ interface AddDiaryProps {
 
 const AddDiaryModal = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useCustomRouter();
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
 

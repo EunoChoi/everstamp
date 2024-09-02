@@ -3,9 +3,10 @@ import styled from "styled-components";
 import SignalWifiConnectedNoInternet4RoundedIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4Rounded';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useCustomRouter } from "@/function/customRouter";
 
 export default function OfflinePage() {
-  const router = useRouter();
+  const router = useCustomRouter();
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const onOnline = () => {

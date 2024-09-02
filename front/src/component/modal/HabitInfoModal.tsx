@@ -13,6 +13,7 @@ import Indicator from "../common/indicator";
 import BottomButtonArea from "../common/BottomButtonArea";
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { useCustomRouter } from "@/function/customRouter";
 
 
 interface Props {
@@ -20,7 +21,7 @@ interface Props {
 }
 
 const HabitInfoModal = ({ habitId }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const [habitCount, setHabitCount] = useState<number>(0);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());

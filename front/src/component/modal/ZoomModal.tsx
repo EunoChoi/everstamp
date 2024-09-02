@@ -11,6 +11,7 @@ import { getDiary } from "@/app/(afterLogin)/_lib/diary";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Indicator from "../common/indicator";
 import BottomButtonArea from "../common/BottomButtonArea";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface Props {
   diaryId: string;
@@ -22,7 +23,7 @@ interface ImageProps {
 }
 
 const ZoomModal = ({ diaryId }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'id', diaryId],

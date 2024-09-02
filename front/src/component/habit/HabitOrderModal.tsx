@@ -18,6 +18,7 @@ import { getCurrentUser } from '@/app/(afterLogin)/_lib/user';
 import { enqueueSnackbar } from 'notistack';
 
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+import { useCustomRouter } from '@/function/customRouter';
 
 
 interface Habit {
@@ -37,7 +38,7 @@ const NStart = (n: number) => {
 
 const HabitOrderModal = () => {
 
-  const router = useRouter();
+  const router = useCustomRouter();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [habits, setHabits] = useState<Habit[]>([]);

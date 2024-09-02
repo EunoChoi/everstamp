@@ -2,11 +2,12 @@
 
 import styled from "styled-components";
 import Link from "next/link";
-import { redirect, useSelectedLayoutSegment } from 'next/navigation'
+import { redirect, usePathname, useSearchParams, useSelectedLayoutSegment } from 'next/navigation'
 import { ReactNode, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { SnackbarProvider, MaterialDesignContent } from 'notistack'
+
 
 //component
 import CalendarSelector from "@/component/calendar/CalendarSelector";
@@ -23,6 +24,10 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 
+import { useRouter } from "next/navigation";
+import { useCustomRouter } from "@/function/customRouter";
+import NProgressStyles from "@/style/nProgressStyles";
+
 interface Props {
   children: ReactNode;
   isMobile?: boolean;
@@ -31,6 +36,7 @@ interface Props {
 
 const AppLayout = ({ children, modal }: Props) => {
   let isMobile = IsMobile();
+  const router = useCustomRouter();
   const current = useSelectedLayoutSegment();
 
   // Detects if device is on iOS 
@@ -64,7 +70,6 @@ const AppLayout = ({ children, modal }: Props) => {
   }
 
 
-
   if (isMobile === null) return <></>;
   return (
     <SnackbarProvider
@@ -84,16 +89,17 @@ const AppLayout = ({ children, modal }: Props) => {
       preventDuplicate={true}
     >
       <ThemeProvider theme={theme}>
+        <NProgressStyles barColor={data?.themeColor} />
         {isMobile ?
           <Mobile_Layout>
             {modal}
             {children}
             <Mobile_Nav className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
               <Logo><span>everstamp</span></Logo>
-              <NavMenu href={`/app/calendar?date=${getCleanTodayTime()}`} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
-              <NavMenu href='/app/list' className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
-              <NavMenu href='/app/habit' className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" fontSize="small" /> <span>habit</span></NavMenu>
-              <NavMenu href='/app/setting' className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" fontSize="small" /> <span>setting</span></NavMenu>
+              <NavMenu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
+              <NavMenu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
+              <NavMenu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" fontSize="small" /> <span>habit</span></NavMenu>
+              <NavMenu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" fontSize="small" /> <span>setting</span></NavMenu>
             </Mobile_Nav >
           </Mobile_Layout >
           :
@@ -104,24 +110,23 @@ const AppLayout = ({ children, modal }: Props) => {
                 <span>stamp</span>
               </SideBarLogo>
               <Menus>
-                <Link href={`/app/calendar?date=${getCleanTodayTime()}`}><Menu className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon />calendar</Menu></Link>
+                <Menu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
                 <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
                   <CalendarSelector />
                 </MonthWrapper>
-                <Link href='/app/list'><Menu className={current === 'list' ? 'current' : ''}><ViewListIcon />list</Menu></Link>
-                <Link href='/app/habit'><Menu className={current === 'habit' ? 'current' : ''}><CheckBoxIcon />habit</Menu></Link>
-                <Link href='/app/setting'><Menu className={current === 'setting' ? 'current' : ''}><SettingsIcon />setting</Menu></Link>
+                <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
+                <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
+                <Menu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
               </Menus>
               <div></div>
             </Desktop_Sidebar>
-
             <Desktop_Content>
               {modal}
               {children}
             </Desktop_Content>
           </Desktop_Layout>}
       </ThemeProvider >
-    </SnackbarProvider>);
+    </SnackbarProvider >);
 
 }
 
@@ -165,7 +170,8 @@ const Logo = styled.span`
     }
   }
 `
-const NavMenu = styled(Link)`
+// const NavMenu = styled(Link)`
+const NavMenu = styled.button`
   padding: 0;
 
   .icon{

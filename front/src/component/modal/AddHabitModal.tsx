@@ -8,6 +8,7 @@ import Axios from "@/Axios/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
+import { useCustomRouter } from "@/function/customRouter";
 
 interface EditHabitProps {
   habitName: string;
@@ -22,7 +23,7 @@ interface Err {
 
 const AddHabitModal = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useCustomRouter();
   const [habitName, setHabitName] = useState<string>('');
   const [priority, setPriority] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);

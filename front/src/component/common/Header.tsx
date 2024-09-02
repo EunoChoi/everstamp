@@ -1,5 +1,6 @@
 'use client';
 
+import { useCustomRouter } from "@/function/customRouter";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const Header = ({ title, children, classname }: Props) => {
-  const router = useRouter();
+  const router = useCustomRouter();
 
   return (
     <Wrapper className={classname}>
