@@ -8,7 +8,6 @@ const useCustomRouter = () => {
   const searchParams = useSearchParams();
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const [targetUrl, setTargetUrl] = useState('');
 
   nProgress.configure({
     showSpinner: false,
@@ -18,20 +17,15 @@ const useCustomRouter = () => {
   });
 
   useEffect(() => {
-    // console.log(pathname, targetUrl.split('?')[0])
-    if (pathname === targetUrl.split('?')[0]) {
-      nProgress.done();
-      setTargetUrl('');
-      if (timerRef.current) clearTimeout(timerRef.current);
-    }
-  }, [pathname, searchParams, targetUrl]);
+    nProgress.done();
+    if (timerRef.current) clearTimeout(timerRef.current);
+  }, [pathname, searchParams]);
 
   const back = router.back;
   const refresh = router.refresh;
   const prefetch = router.prefetch;
 
   const push = useCallback((url: string, options?: object) => {
-    setTargetUrl(url);
     if (pathname === url) { //same url
       router.refresh();
     }

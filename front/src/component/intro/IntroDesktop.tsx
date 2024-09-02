@@ -43,11 +43,8 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
-
-
-
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCustomRouter } from "@/function/customRouter";
 
 
 const IntroDesktop = () => {
