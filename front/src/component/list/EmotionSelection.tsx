@@ -37,7 +37,7 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
             setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
-          <Img src={e} alt={emotionName[i]} width={120} height={120} />
+          <Img src={e} alt={emotionName[i]} width={140} height={140} />
         </EmotionWrapper>)
       }
     </ScrollWrapper>
@@ -105,8 +105,7 @@ const EmotionWrapper = styled.div`
 
 const Img = styled(Image)`
   flex-shrink: 0;
-
-  width: 90%;
+  clip-path: inset(20px 20px 20px 20px);
 `
 const Wrapper = styled.div`
   display: flex;

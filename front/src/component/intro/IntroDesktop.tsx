@@ -45,6 +45,7 @@ import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import { useEffect, useState } from "react";
 import { useCustomRouter } from "@/function/customRouter";
+import nProgress from "nprogress";
 
 
 const IntroDesktop = () => {
@@ -56,6 +57,13 @@ const IntroDesktop = () => {
   const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addHabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
 
   const router = useCustomRouter();
+
+  nProgress.configure({
+    showSpinner: true,
+    easing: 'ease',
+    speed: 500,
+    minimum: 0.3
+  });
 
   //pwa
   const [pwa, setPwa] = useState<any>(null);
@@ -103,7 +111,10 @@ const IntroDesktop = () => {
             <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
           </a>
           <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
-          <Button className="web" onClick={() => (router.push('/app'))}>웹에서 실행하기</Button>
+          <Button className="web" onClick={() => {
+            nProgress.start();
+            router.push('/app');
+          }}>웹에서 실행하기</Button>
         </DownLoadButtons>
         <ColWrapper>
           <SubText>iOS 사용자의 경우 PWA를 설치하여 이용 가능합니다.</SubText>

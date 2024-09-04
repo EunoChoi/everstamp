@@ -1,9 +1,6 @@
 'use client';
 
 import { useCustomRouter } from "@/function/customRouter";
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -19,7 +16,7 @@ const Header = ({ title, children, classname }: Props) => {
   return (
     <Wrapper className={classname}>
       <Title onClick={() => {
-        router.push('/app');
+        router.refresh();
       }}>{title}</Title>
       {children}
     </Wrapper>
@@ -29,9 +26,6 @@ const Header = ({ title, children, classname }: Props) => {
 export default Header;
 
 const Wrapper = styled.div`
-
-  /* z-index: 99; */
-
   display: flex;
   flex-shrink: 0;
 

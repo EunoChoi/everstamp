@@ -1,6 +1,6 @@
 'use client';
 
-import { getHabits } from '@/app/(afterLogin)/_lib/habit';
+import { getHabits } from '@/function/fetch/habit';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -12,9 +12,7 @@ import BottomButtonArea from '../common/BottomButtonArea';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
-
-import { useRouter } from 'next/navigation';
-import { getCurrentUser } from '@/app/(afterLogin)/_lib/user';
+import { getCurrentUser } from '@/function/fetch/user';
 import { enqueueSnackbar } from 'notistack';
 
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';

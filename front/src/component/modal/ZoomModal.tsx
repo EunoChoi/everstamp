@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getDiary } from "@/app/(afterLogin)/_lib/diary";
+import { getDiary } from "@/function/fetch/diary";
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Indicator from "../common/indicator";

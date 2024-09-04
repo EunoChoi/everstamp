@@ -1,3 +1,5 @@
+'use client'
+
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 import nProgress from "nprogress";
@@ -17,6 +19,7 @@ const CustomRouter = () => {
     }
     nProgress.done();
   }, [pathname, searchParams]);
+  return null;
 }
 
 const useCustomRouter = () => {

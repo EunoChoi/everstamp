@@ -14,7 +14,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import TodayIcon from '@mui/icons-material/Today';
 
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_single_status_month } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit_single_status_month } from "@/function/fetch/habit";
 
 interface Props {
   setHabitCount: (n: number) => void;

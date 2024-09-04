@@ -9,7 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 
 //function
-import { getDiary } from "@/app/(afterLogin)/_lib/diary";
+import { getDiary } from "@/function/fetch/diary";
 
 
 //icon

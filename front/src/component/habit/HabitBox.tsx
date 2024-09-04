@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
 import Axios from "@/Axios/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getHabit_status_4day } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit_status_4day } from "@/function/fetch/habit";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';

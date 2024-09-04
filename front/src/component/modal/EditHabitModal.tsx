@@ -10,7 +10,7 @@ import Axios from "@/Axios/axios";
 
 import { enqueueSnackbar } from 'notistack';
 
-import { getHabit } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit } from "@/function/fetch/habit";
 import React from "react";
 import { useCustomRouter } from "@/function/customRouter";
 

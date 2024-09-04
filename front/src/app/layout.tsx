@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
 import type { Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import StyledComponentsRegistry from "../../lib/registry";
 import { SessionProvider } from "next-auth/react";
-import ServiceWorkerRegister from "@/component/ServiceWorkerRegister";
 
 
 
 import { headers } from 'next/headers'
-import NetworkStatus from "@/component/NetworkStatus";
-
-// const inter = Inter({ subsets: ["latin"] });
+import RQProvider from "@/component/reactQuery/RQProvider";
+import ClientComponentProvider from "@/component/ClientComponentProvider";
+import PrefetchLayout from "@/component/layout/PrefetchLayout";
 
 export const metadata: Metadata = {
   title: "EverStamp",
@@ -26,7 +24,6 @@ export const viewport: Viewport = {
   width: 'device-width',
   themeColor: '#FFFFFF',
   userScalable: false,
-  // interactiveWidget: 'resizes-content',
   // interactiveWidget: 'overlays-content'
 }
 
@@ -104,9 +101,13 @@ export default function RootLayout({
       <SessionProvider>
         <StyledComponentsRegistry>
           <body className={pretendard.className}>
-            <ServiceWorkerRegister />
-            <NetworkStatus />
-            {children}
+            <RQProvider>
+              <PrefetchLayout>
+                <ClientComponentProvider>
+                  {children}
+                </ClientComponentProvider>
+              </PrefetchLayout>
+            </RQProvider>
           </body>
         </StyledComponentsRegistry>
       </SessionProvider>

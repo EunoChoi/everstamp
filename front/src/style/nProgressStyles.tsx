@@ -16,7 +16,7 @@ const NProgressStyles = createGlobalStyle<{ barColor: string }>`
     @media (max-width: 479px) { //mobile port
       top: auto;
       bottom: 0;
-      height: 5px;
+      height: 6px;
     }
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
       height: 4px;
@@ -30,7 +30,7 @@ const NProgressStyles = createGlobalStyle<{ barColor: string }>`
     display: block;
     position: fixed;
     z-index: 1031;
-    top: 50%;
+    top: 40%;
     right: 50%;
     transform: translate(50%, 0);
   }
@@ -43,7 +43,7 @@ const NProgressStyles = createGlobalStyle<{ barColor: string }>`
     border-top-color: ${props => props.barColor};
     border-left-color: ${props => props.barColor};
     border-radius: 50%;
-    animation: nprogress-spinner 400ms ease-in-out infinite;
+    animation: nprogress-spinner 350ms ease-in-out infinite;
   }
 
   @keyframes nprogress-spinner {

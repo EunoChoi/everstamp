@@ -6,7 +6,7 @@ import { useState } from "react";
 import { subYears, addYears, format, isLeapYear } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { getHabit_single_status_year } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit_single_status_year } from "@/function/fetch/habit";
 
 const HabitInfoChart = () => {
   const params = useSearchParams(); //for habit id

@@ -11,7 +11,7 @@ const Page = () => {
 
   if (isMobile == null) return <></>;
   else if (isMobile === true) return <IntroMobile />;
-  else return <IntroDesktop />
+  else return <IntroDesktop />;
 }
 
 export default Page;

@@ -23,7 +23,7 @@ import emotion4 from '/public/img/emotion/emotion4.png'
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_status_month } from "@/app/(afterLogin)/_lib/habit";
+import { getHabit_status_month } from "@/function/fetch/habit";
 import { useCustomRouter } from "@/function/customRouter";
 
 const CalendarSelector = () => {
