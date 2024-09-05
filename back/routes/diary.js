@@ -72,15 +72,23 @@ router.post("/", tokenCheck, async (req, res) => {
       });
     }
 
-
-    //image 모델 요소 생성 후 Post 모델과 연결
     if (images.length >= 1) {
-      const ImagesData = [];
-      for (i = 0; i < images.length; i++) {
-        const img = await Image.create({ src: images[i] });
-        ImagesData.push(img);
+      try {
+        const imagePromises = images.map((src, index) => {
+          return Image.create({ src })
+            .then((createdImage) => ({
+              img: createdImage,
+              index,
+            }));
+        });
+
+        const imagesData = await Promise.all(imagePromises);
+        imagesData.sort((a, b) => a.index - b.index);
+
+        await diary.addImages(imagesData.map(item => item.img));
+      } catch (error) {
+        console.error('이미지 생성 및 추가 중 에러 발생:', error);
       }
-      diary.addImages(ImagesData);
     }
 
     return res.status(200).json(diary);
@@ -124,12 +132,22 @@ router.patch("/", tokenCheck, async (req, res) => {
       where: { diaryId }
     })
     if (images.length >= 1) {
-      const ImagesData = [];
-      for (i = 0; i < images.length; i++) {
-        const img = await Image.create({ src: images[i] });
-        ImagesData.push(img);
+      try {
+        const imagePromises = images.map((src, index) => {
+          return Image.create({ src })
+            .then((createdImage) => ({
+              img: createdImage,
+              index,
+            }));
+        });
+
+        const imagesData = await Promise.all(imagePromises);
+        imagesData.sort((a, b) => a.index - b.index);
+
+        await diary.addImages(imagesData.map(item => item.img));
+      } catch (error) {
+        console.error('이미지 생성 및 추가 중 에러 발생:', error);
       }
-      diary.addImages(ImagesData);
     }
     return res.status(200).json(diary);
   } catch (e) {
