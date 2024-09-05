@@ -1,10 +1,9 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef } from "react";
-import nProgress from "nprogress";
-
+import { useCallback, useEffect } from "react";
 import { getTimerId, setTimerId } from "./timerId";
+import nProgress from "nprogress";
 
 
 const CustomRouter = () => {
@@ -12,9 +11,9 @@ const CustomRouter = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    console.log('custom router')
     const timer = getTimerId();
     if (timer) {
+      // console.log(timer)
       clearTimeout(timer);
     }
     nProgress.done();
@@ -24,7 +23,6 @@ const CustomRouter = () => {
 
 const useCustomRouter = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const loadingDelay = 1000; //ms
 
   nProgress.configure({
@@ -37,10 +35,12 @@ const useCustomRouter = () => {
   const back = router.back;
   const refresh = router.refresh;
   const prefetch = router.prefetch;
-
   const push = useCallback((url: string, options?: object) => {
-    // console.log(pathname, url)
-    if (pathname === url) { //same url
+    const pathAndQuery = window.location.pathname + window.location.search;
+    console.log('from : ', pathAndQuery)
+    console.log('to : ', url)
+    if (pathAndQuery === url) { //same url
+      console.log('same url - refresh')
       router.refresh();
     }
     else {
@@ -51,7 +51,7 @@ const useCustomRouter = () => {
       }, loadingDelay);
       setTimerId(tempTimerId);
     }
-  }, [router, pathname]);
+  }, [router]);
 
   return { push, back, refresh, prefetch };
 };
