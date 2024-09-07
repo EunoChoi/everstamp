@@ -79,6 +79,7 @@ router.post("/", tokenCheck, async (req, res) => {
             .then((createdImage) => ({
               img: createdImage,
               index,
+              name: src
             }));
         });
 
@@ -138,6 +139,7 @@ router.patch("/", tokenCheck, async (req, res) => {
             .then((createdImage) => ({
               img: createdImage,
               index,
+              name: src
             }));
         });
 
