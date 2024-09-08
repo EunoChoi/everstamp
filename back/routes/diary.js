@@ -75,18 +75,10 @@ router.post("/", tokenCheck, async (req, res) => {
     if (images.length >= 1) {
       try {
         const imagePromises = images.map((src, index) => {
-          return Image.create({ src })
-            .then((createdImage) => ({
-              img: createdImage,
-              index,
-              name: src
-            }));
+          return Image.create({ src, order: index })
         });
-
-        const imagesData = await Promise.all(imagePromises);
-        imagesData.sort((a, b) => a.index - b.index);
-
-        await diary.addImages(imagesData.map(item => item.img));
+        const createdImages = await Promise.all(imagePromises);
+        await diary.addImages(createdImages);
       } catch (error) {
         console.error('이미지 생성 및 추가 중 에러 발생:', error);
       }
@@ -135,18 +127,10 @@ router.patch("/", tokenCheck, async (req, res) => {
     if (images.length >= 1) {
       try {
         const imagePromises = images.map((src, index) => {
-          return Image.create({ src })
-            .then((createdImage) => ({
-              img: createdImage,
-              index,
-              name: src
-            }));
+          return Image.create({ src, order: index })
         });
-
-        const imagesData = await Promise.all(imagePromises);
-        imagesData.sort((a, b) => a.index - b.index);
-
-        await diary.addImages(imagesData.map(item => item.img));
+        const createdImages = await Promise.all(imagePromises);
+        await diary.addImages(createdImages);
       } catch (error) {
         console.error('이미지 생성 및 추가 중 에러 발생:', error);
       }
@@ -204,7 +188,7 @@ router.delete("/", tokenCheck, async (req, res) => {
 
 
 //load diary
-//by diary id, for diary
+//load diary from diary id
 router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url : /diary/:id -----');
@@ -220,6 +204,9 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
       }, {
         model: Habit
       }],
+      order: [
+        [Image, 'order', 'ASC'],
+      ],
     });
 
 
@@ -299,6 +286,7 @@ router.get("/list", tokenCheck, async (req, res) => {
       }],
       order: [
         ['date', sort], //ASC DESC
+        [Image, 'order', 'ASC'],
         [Habit, 'priority', 'DESC']
       ],
     });
@@ -317,7 +305,7 @@ router.get("/list", tokenCheck, async (req, res) => {
     console.error(e);
   }
 })
-//load diary - calendar date
+//load diary - from calendar date
 router.get("/calendar", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url :  /diary/calendar -----');
@@ -337,6 +325,7 @@ router.get("/calendar", tokenCheck, async (req, res) => {
         model: Habit,//습관
       }],
       order: [
+        [Image, 'order', 'ASC'],
         [Habit, 'priority', 'DESC']
       ],
     });
