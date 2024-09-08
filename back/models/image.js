@@ -3,6 +3,10 @@ module.exports = (sequelize, DataTypes) => {
     src: {
       type: DataTypes.STRING(500),
       allowNull: false,
+    },
+    order: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     }
   }, {
     charset: 'utf8mb4',
