@@ -331,7 +331,7 @@ const Color = styled.div`
   }
 
 
-  &:hover{
+  /* &:hover{
     border-color: rgba(0,0,0,0.4);
-  }
+  } */
 `
