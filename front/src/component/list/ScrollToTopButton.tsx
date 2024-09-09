@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import { useEffect, useRef, useState } from "react";
+import { isIosPwa } from "@/function/isIosPwa";
 
 
 interface Props {
@@ -13,6 +14,7 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
   const scrollTimeoutRef = useRef<number | null>(null);
   const [buttonVisible, setButtonVisible] = useState<boolean>(false);
   const buttonVisibleHeight = 2000;
+  const iosPwa = isIosPwa();
 
 
   const goToTop = () => {
@@ -50,7 +52,7 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
   return (
     <>
       {buttonVisible ?
-        <Wrapper onClick={goToTop}>
+        <Wrapper onClick={goToTop} className={iosPwa ? 'iosPwa' : ''}>
           <ArrowUpwardRoundedIcon fontSize="small" />
         </Wrapper> :
         <></>}
@@ -65,6 +67,9 @@ const Wrapper = styled.button`
 
   @media (max-width: 479px) { //mobile port
     bottom : calc(var(--mobileNav) + 24px);
+    &.iosPwa{
+      bottom : calc(var(--mobileNav) + 36px);
+    }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     bottom : 32px;

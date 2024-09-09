@@ -202,7 +202,7 @@ const HabitOrderModal = () => {
       e.stopPropagation();
     }}>
       <Title>
-        <span>습관 리스트 순서</span>
+        <span>습관 리스트 정렬</span>
       </Title>
       <Container >
         <EmptyBox />

@@ -37,10 +37,10 @@ const useCustomRouter = () => {
   const prefetch = router.prefetch;
   const push = useCallback((url: string, options?: object) => {
     const pathAndQuery = window.location.pathname + window.location.search;
-    console.log('from : ', pathAndQuery)
-    console.log('to : ', url)
+    // console.log('from : ', pathAndQuery)
+    // console.log('to : ', url)
     if (pathAndQuery === url) { //same url
-      console.log('same url - refresh')
+      // console.log('same url - refresh')
       router.refresh();
     }
     else {

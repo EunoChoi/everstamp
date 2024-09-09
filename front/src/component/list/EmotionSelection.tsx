@@ -47,7 +47,7 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
 export default EmotionSelection;
 
 const EmotionWrapper = styled.div`
-  transition: border 0.3s ease-in-out;
+  transition: border-radius 250ms ease-in-out;
 
   display: flex;
   justify-content: center;
@@ -98,14 +98,15 @@ const EmotionWrapper = styled.div`
 
 
   &.selected{
-    border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    border-color: rgba(0, 0, 0, 0.2);
+    /* border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    border-color: rgba(0, 0, 0, 0.2); */
+    border-radius: 100px;
   }
 `
 
 const Img = styled(Image)`
   flex-shrink: 0;
-  clip-path: inset(20px 20px 20px 20px);
+  clip-path: inset(12px 12px 12px 12px);
 `
 const Wrapper = styled.div`
   display: flex;
