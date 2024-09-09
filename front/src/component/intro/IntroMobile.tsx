@@ -12,6 +12,8 @@ import habit from '/public/img/intro/habit.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
 import setting from '/public/img/intro/setting.png';
+import habitorder from '/public/img/intro/habitorder.png';
+
 import emotions2 from '/public/img/emotion/emotions2.png';
 import habitbox from '/public/img/intro/habitbox.png';
 import otherinfo1 from '/public/img/intro/otherinfo1.png';
@@ -47,7 +49,7 @@ import { useCustomRouter } from "@/function/customRouter";
 const IntroMobile = () => {
   const router = useCustomRouter();
 
-  const introImages = [calendar, list, list2, zoom1, zoom2, habit, habitinfo1, habitinfo2, setting];
+  const introImages = [calendar, list, list2, zoom1, zoom2, habit, habitinfo1, habitinfo2, setting, habitorder];
   const viewImages = [calendar, list, list2, zoom1];
   const habitImages = [habitinfo1, habitinfo2];
   const otherInfoImages = [otherinfo1, otherinfo2, otherinfo3];
