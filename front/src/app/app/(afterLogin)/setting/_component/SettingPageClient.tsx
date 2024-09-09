@@ -94,15 +94,15 @@ const SettingPageClient = () => {
           <Section>
             <Title>account</Title>
             <Value>
-              <span className="key">email</span>
+              <span className="key">이메일</span>
               <span className="value email">{data?.email}</span>
             </Value>
             <Value>
-              <span className="key">provider</span>
+              <span className="key">계정 타입</span>
               <span className="value">{data?.provider}</span>
             </Value>
             <Value>
-              <span className="key">creation date</span>
+              <span className="key">가입일</span>
               <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
             </Value>
           </Section>
@@ -124,13 +124,13 @@ const SettingPageClient = () => {
             <EmptyBar />
             <SubTitle>others</SubTitle>
             <FlexRow className="between">
-              <span>habit list order</span>
+              <span>습관 리스트 순서</span>
               <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
                 <LowPriorityRoundedIcon className="icon" fontSize="small" />
               </button>
             </FlexRow>
             <FlexRow className="between">
-              <span>Emotion icon type</span>
+              <span>감정 아이콘 이미지</span>
               <button onClick={() => {
                 // router.push('/app/inter/habitOrder', { scroll: false })
               }}>
@@ -141,8 +141,8 @@ const SettingPageClient = () => {
 
           <Section>
             <Buttons className="center">
-              <Button onClick={onLogout}>logout</Button>
-              <Button onClick={onDeleteAccount}>delete account</Button>
+              <Button onClick={onLogout}>로그아웃</Button>
+              <Button onClick={onDeleteAccount}>계정 삭제</Button>
             </Buttons>
           </Section>
 
