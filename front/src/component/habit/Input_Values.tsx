@@ -27,14 +27,14 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
   return (
     <Wrapper>
       <Value>
-        <span>name</span>
+        <span>목표 습관 이름</span>
         <input
           ref={inputRef}
           onChange={(e) => setHabitName(e.currentTarget.value)}
           value={habitName || ""} />
       </Value>
       <Value>
-        <span>priority</span>
+        <span>중요도</span>
         <RadioWrapper>
           {[...Array(3)].map((_, i: number) =>
             <RadioButton key={'radio' + i}>

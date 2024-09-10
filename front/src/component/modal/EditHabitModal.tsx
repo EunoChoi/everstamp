@@ -77,9 +77,8 @@ const EditHabitModal = ({ habitId }: Props) => {
     <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Content>
-          <Title>Edit Habit</Title>
+          <Title>목표 습관 수정</Title>
           <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
-          {/* <SubText>중요도는 습관 생성일 보다 높은 정렬 우선 순위를 갖습니다.</SubText> */}
           <SubText>최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</SubText>
         </Content>
         <HabitInputButtons onSubmit={onEditHabit} type="edit" isLoading={editHabitMutation.isPending} />

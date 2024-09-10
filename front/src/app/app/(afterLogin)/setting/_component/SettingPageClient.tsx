@@ -123,7 +123,7 @@ const SettingPageClient = () => {
           <EmptyBar />
           <SubTitle>others</SubTitle>
           <FlexRow className="between">
-            <span>습관 리스트 정렬</span>
+            <span>목표 습관 리스트 정렬</span>
             <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
               <LowPriorityRoundedIcon className="icon" fontSize="small" />
             </button>
@@ -213,6 +213,7 @@ const Value = styled.span`
     font-weight: 600;
     text-transform: capitalize;
     color :grey;
+    color: darkgrey
   }
   .value{
     color: grey;
