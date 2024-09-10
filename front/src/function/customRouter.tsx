@@ -23,10 +23,10 @@ const CustomRouter = () => {
 
 const useCustomRouter = () => {
   const router = useRouter();
-  const loadingDelay = 1000; //ms
+  const loadingDelay = 700; //ms
 
   nProgress.configure({
-    showSpinner: true,
+    showSpinner: false,
     easing: 'ease',
     speed: 500,
     minimum: 0.3
