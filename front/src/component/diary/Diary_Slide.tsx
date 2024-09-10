@@ -133,20 +133,9 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
 
         <EditBox className="slideChild">
-          <button
-            onClick={onCopyDiary}>
-            <ContentCopyIcon />copy text
-          </button>
-          <button
-            onClick={onEditDiary}
-          >
-            <EditIcon />edit diary
-          </button>
-          <button
-            onClick={onDeleteDiary}
-          >
-            <DeleteIcon />delete Diary
-          </button>
+          <button onClick={onCopyDiary}><ContentCopyIcon />텍스트 복사</button>
+          <button onClick={onEditDiary}><EditIcon />일기 수정</button>
+          <button onClick={onDeleteDiary}><DeleteIcon />일기 삭제</button>
         </EditBox>
       </SlideWrapper>
 
