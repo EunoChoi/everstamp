@@ -90,87 +90,74 @@ const SettingPageClient = () => {
     <SC_Common.Wrapper>
       <Header title='setting' />
       <ContentArea>
-        <SettingContainer>
-          <Section>
-            <Title>account</Title>
-            <Value>
-              <span className="key">이메일</span>
-              <span className="value email">{data?.email}</span>
-            </Value>
-            <Value>
-              <span className="key">계정 타입</span>
-              <span className="value">{data?.provider}</span>
-            </Value>
-            <Value>
-              <span className="key">가입일</span>
-              <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
-            </Value>
-          </Section>
-
-          <Section>
-            <Title>customize</Title>
-            <SubTitle>theme color</SubTitle>
-            <FlexRow>
-              <Color className="selected" />
-              <FlexRow className="end">
-                {colorValue.map((e, i) =>
-                  <Color
-                    key={colorName[i] + 'Color'}
-                    className={colorName[i]}
-                    onClick={() => themeColorUpdate(e)}
-                  />)}
-              </FlexRow>
+        <EmtpyBox />
+        <Section>
+          <Title>account</Title>
+          <Value>
+            <span className="key">이메일</span>
+            <span className="value email">{data?.email}</span>
+          </Value>
+          <Value>
+            <span className="key">계정 타입</span>
+            <span className="value">{data?.provider}</span>
+          </Value>
+          <Value>
+            <span className="key">가입일</span>
+            <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
+          </Value>
+        </Section>
+        <Section>
+          <Title>customize</Title>
+          <SubTitle>theme color</SubTitle>
+          <FlexRow>
+            <Color className="selected" />
+            <FlexRow className="end">
+              {colorValue.map((e, i) =>
+                <Color
+                  key={colorName[i] + 'Color'}
+                  className={colorName[i]}
+                  onClick={() => themeColorUpdate(e)}
+                />)}
             </FlexRow>
-            <EmptyBar />
-            <SubTitle>others</SubTitle>
-            <FlexRow className="between">
-              <span>습관 리스트 정렬</span>
-              <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
-                <LowPriorityRoundedIcon className="icon" fontSize="small" />
-              </button>
-            </FlexRow>
-            <FlexRow className="between">
-              <span>감정 아이콘 이미지</span>
-              <button onClick={() => {
-                // router.push('/app/inter/habitOrder', { scroll: false })
-              }}>
-                <Image src={emotion4} alt="emotion icon" width={28} height={28} />
-              </button>
-            </FlexRow>
-          </Section>
-
-          <Section>
-            <Buttons className="center">
-              <Button onClick={onLogout}>로그아웃</Button>
-              <Button onClick={onDeleteAccount}>계정 삭제</Button>
-            </Buttons>
-          </Section>
-
-        </SettingContainer>
+          </FlexRow>
+          <EmptyBar />
+          <SubTitle>others</SubTitle>
+          <FlexRow className="between">
+            <span>습관 리스트 정렬</span>
+            <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
+              <LowPriorityRoundedIcon className="icon" fontSize="small" />
+            </button>
+          </FlexRow>
+          <FlexRow className="between">
+            <span>감정 아이콘 이미지</span>
+            <button onClick={() => {
+              // router.push('/app/inter/habitOrder', { scroll: false })
+            }}>
+              <Image src={emotion4} alt="emotion icon" width={28} height={28} />
+            </button>
+          </FlexRow>
+        </Section>
+        <Section>
+          <Buttons className="center">
+            <Button onClick={onLogout}>로그아웃</Button>
+            <Button onClick={onDeleteAccount}>계정 삭제</Button>
+          </Buttons>
+        </Section>
+        <EmtpyBox />
       </ContentArea>
     </SC_Common.Wrapper>
   );
 }
 
 export default SettingPageClient;
+
+
+const EmtpyBox = styled.div` //for align center
+  flex: 1;
+`
 const EmptyBar = styled.div`
   width: 100%;
   height: 20px;
-`
-const SettingContainer = styled.div`
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  overflow: scroll;
-
-  @media (min-width:480px) and (max-width:1023px) and (max-height:480px) { //only mobild land
-    justify-content: start;
-  }
 `
 const Section = styled.div`
   width: 100%;
@@ -241,7 +228,6 @@ const Buttons = styled.div`
     justify-content: center;
   }
 `
-
 const FlexRow = styled.div`
   display: flex;
   align-items: center;

@@ -101,16 +101,16 @@ const HabitPageClient = () => {
             <AddIcon fontSize="small" />
           </button>
           <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'type3' : 'type2'}>
-            {/* <span><SortIcon fontSize="small" /></span> */}
             <span>{SORT_TEXT[sortToggle]}</span>
           </button>
         </SC_Common.Options>
       </Header>
-      <ContentArea className="habit">
+      <ContentArea>
         {(habits === undefined || habits?.length === 0) ?
           <NoHabit>습관 목록이 존재하지 않습니다. 🥹</NoHabit>
           :
-          <HabitsSliderWrapper>
+          <>
+            <EmtpyBox />
             <HabitsSlider
               onScroll={(e) => {
                 setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
@@ -129,7 +129,8 @@ const HabitPageClient = () => {
               )}
             </HabitsSlider>
             {habits?.length > 1 && <Indicator slideWrapperRef={gridListScrollRef} page={page} indicatorLength={habits?.length} />}
-          </HabitsSliderWrapper>}
+            <EmtpyBox />
+          </>}
       </ContentArea>
     </SC_Common.Wrapper>
   );
@@ -137,6 +138,9 @@ const HabitPageClient = () => {
 
 export default HabitPageClient;
 
+const EmtpyBox = styled.div` //for align center
+  flex: 1;
+`
 const EmptyHabitBox = styled.div`
   border-radius: 16px;
   border: 2px solid rgba(0,0,0,0.05);
@@ -147,29 +151,13 @@ const EmptyHabitBox = styled.div`
   font-size: 48px;
   color: rgba(0,0,0,0.1);
 `
-const HabitsSliderWrapper = styled.div`
-  &.hide{
-    transition: all ease-in-out 100ms;
-    opacity: 0;
-  }
-
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  overflow: hidden;
-`
-
 const HabitsSlider = styled.div`
   position: relative;
 
   width: 100%;
   
   display:  flex;
-  overflow-y: hidden;
+  flex-shrink: 0;
   overflow-x: scroll;
   
   scroll-snap-type: x mandatory;
@@ -178,16 +166,15 @@ const HabitsSlider = styled.div`
   &::-webkit-scrollbar{
     display: none;
   }
-
   max-height: calc(100% - 28px); //indicator height 28px
 `
 const HabitsSliderPage = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 
   width: 100%;
-  height: 100%;
+  height: auto;
   flex-shrink: 0;
 `
 const HabitGridContainer = styled.div`
