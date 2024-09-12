@@ -196,7 +196,7 @@ const SubTitle = styled.span`
   color: grey;
 `
 const Value = styled.span`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   width: 100%;
   width: inherit;
@@ -213,7 +213,7 @@ const Value = styled.span`
     font-weight: 600;
     text-transform: capitalize;
     color :grey;
-    color: darkgrey
+    /* color: darkgrey */
   }
   .value{
     color: grey;
@@ -255,7 +255,8 @@ const FlexRow = styled.div`
 
   span{
     color: darkgrey;
-    font-size: 18px;
+    /* font-size: 18px; */
+    font-size: 16px;
     font-weight: 500;
   }
   .icon{

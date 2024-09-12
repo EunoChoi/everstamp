@@ -191,7 +191,7 @@ const TextWrapper = styled.div`
   border-radius: 8px;
 
   flex-shrink: 0;
-  padding: 24px;
+  padding: 16px;
 `
 const Text = styled.div`
   display: -webkit-box;

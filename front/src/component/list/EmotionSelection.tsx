@@ -19,7 +19,10 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
   const emotionName = ['upset', 'sad', 'common', 'happy', 'joyful'].reverse();
 
   return (<Wrapper>
-    <Title>Emotions</Title>
+    <Title>
+      <span>Emotion</span>
+      <span className="type">#{emotionToggle === 5 ? 'all' : emotionName[4 - emotionToggle]}</span>
+    </Title>
     <ScrollWrapper>
       <EmotionWrapper
         className={`all ${emotionToggle == 5 ? 'selected' : ''}`}
@@ -121,10 +124,18 @@ const Wrapper = styled.div`
   max-width: 600px;
 `
 const Title = styled.h1`
-  
-  font-size: 22px;
-  font-weight: 700;
-  color : rgb(var(--greyTitle));
+  span{
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-right: 8px;
+    color : rgb(var(--greyTitle));
+    
+    &.type{
+      font-weight: 500;
+      color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    }
+  }
 
   @media (max-width: 479px) { //mobile port
     padding: 0 5vw;
