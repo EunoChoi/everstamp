@@ -14,9 +14,10 @@ interface Props {
   height: string;
   width: string;
   borderRadius?: string;
+  className?: string;
 }
 
-const ImageCarousel = ({ images, keyValue, type, height, width, borderRadius }: Props) => {
+const ImageCarousel = ({ images, keyValue, type, height, width, borderRadius, className }: Props) => {
 
 
   const slideRef = useRef<HTMLDivElement>(null);
@@ -32,7 +33,7 @@ const ImageCarousel = ({ images, keyValue, type, height, width, borderRadius }: 
         }}>
         {images.map((e, i) =>
           <ImgBox className={type} key={`${keyValue}-${i}`}>
-            <Img className="slide" $borderRadius={borderRadius} src={e} alt={keyValue} width={600} height={600} priority />
+            <Img className={className} $borderRadius={borderRadius} src={e} alt={keyValue} width={600} height={600} priority />
           </ImgBox>)}
       </SlideWrapper>
       {type === 'fullWidth' && <Indicator slideWrapperRef={slideRef} page={page} indicatorLength={images.length} />}
@@ -99,4 +100,9 @@ const Img = styled(Image) <{ $borderRadius?: string }>`
   max-height: 100%;
 
   box-sizing: border-box;
+
+  &.otherinfo{
+    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
+    border-radius: 16px;
+  }
 `

@@ -191,7 +191,7 @@ const IntroMobile = () => {
           <span>멀티 플랫폼</span>
         </ColWrapper>
       </RowWrapper>
-      <ImageCarousel images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
+      <ImageCarousel className='otherinfo' images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
     </Mobile_Section>
     <Mobile_Section className="outro">
       <DownLoadButtons>

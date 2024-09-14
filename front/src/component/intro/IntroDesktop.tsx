@@ -411,7 +411,6 @@ const Img = styled(Image)`
   &.otherinfo{
     object-fit: cover;
     width: 220px;
-    border-radius: 32px;
     box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
     border-radius: 16px;
     margin: 0 16px;
