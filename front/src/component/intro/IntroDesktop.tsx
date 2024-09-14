@@ -217,7 +217,7 @@ const IntroDesktop = () => {
       </section>
     </Desktop_Section>
     <Desktop_Section className="ui center">
-      <Title>#반응형 UI</Title>
+      <Title>#Responsive UI</Title>
       <Text>
         <span>모바일, 데스크탑 PC, 태블릿 등</span>
         <span>다양한 환경에 최적화된 UI를 제공합니다.</span>
