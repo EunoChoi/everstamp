@@ -47,6 +47,8 @@ import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import { useEffect, useState } from "react";
 import { useCustomRouter } from "@/function/customRouter";
 import nProgress from "nprogress";
+import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
+import SC_Common from "@/style/common";
 
 
 const IntroDesktop = () => {
@@ -95,6 +97,31 @@ const IntroDesktop = () => {
       alert(`이미 앱이 설치되어 있는 경우 혹은\n퀵 설치 기능을 지원하지 않는 브라우저입니다.\n \n '메뉴(공유하기)->홈 화면에 추가'를\n진행하여 앱을 설치해주세요. \n\n *크롬(안드로이드), 사파리(iOS) 브라우저에 최적화 되어있습니다.`);
     }
   }
+  const StartInWebText = () => (
+    <div>
+      <p>웹에서 계속 진행하시겠습니까?</p>
+      <p style={{ fontSize: '15px', marginTop: '8px', color: '#DC7889' }}>🚨 실행 환경에 따라 레이아웃이 어긋날 수 있습니다.</p>
+      <p style={{ fontSize: '15px', color: '#DC7889' }}>원할한 이용을 위해 앱을 설치해주세요.</p>
+    </div>
+  );
+  const startInWeb = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => {
+          closeSnackbar('startInWeb');
+        }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          closeSnackbar('startInWeb');
+          router.push('/app')
+        }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar(<StartInWebText />, { key: 'startInWeb', persist: true, action, autoHideDuration: 6000 });
+  }
 
   return <Wrapper>
     <Desktop_Section className="intro">
@@ -105,7 +132,6 @@ const IntroDesktop = () => {
         <Text>
           <span>꾸준히 감정 일기를 작성하고</span>
           <span>목표 습관을 실천하세요.</span>
-          {/* <span>당신의 변화와 성장을 응원합니다 :)</span> */}
         </Text>
         <DownLoadButtons>
           <a href="/download/Everstamp.apk" download>
@@ -113,8 +139,7 @@ const IntroDesktop = () => {
           </a>
           <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
           <Button className="web" onClick={() => {
-            nProgress.start();
-            router.push('/app');
+            startInWeb();
           }}>웹에서 실행하기</Button>
         </DownLoadButtons>
         <ColWrapper>
@@ -133,9 +158,9 @@ const IntroDesktop = () => {
       <section>
         <Title>#emotions</Title>
         <Text>
-          <span>나의 감정을 정리하면</span>
-          <span>나를 이해하고 사랑하게 됩니다.</span>
-          <span>감정 일기를 시작해볼까요?</span>
+          <span>감정을 정리하고 기록하세요.</span>
+          <span>긍정적 변화가 시작됩니다.</span>
+          <span>함께 감정 일기를 시작해볼까요?</span>
         </Text>
         <ColWrapper>
           <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
@@ -167,7 +192,7 @@ const IntroDesktop = () => {
         <Title>#habit feature</Title>
         <Text>
           <span>완벽하지 않아도 괜찮습니다.</span>
-          <span>부담없이 습관 실천을 시도하세요.</span>
+          <span>부담없는 습관부터 시도하세요.</span>
         </Text>
         <ColWrapper>
           <SubText>습관 목록은 최대 18개까지 생성 가능하며</SubText>
@@ -217,7 +242,9 @@ const IntroDesktop = () => {
           <Button className="bottom" ><AndroidIcon className="icon" fontSize="small" />APK</Button>
         </a>
         <Button className="bottom" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
-        <Button className="web bottom" onClick={() => (router.push('/app'))}>웹에서 실행하기</Button>
+        <Button className="web bottom" onClick={() => {
+          startInWeb();
+        }}>웹에서 실행하기</Button>
       </DownLoadButtons>
       <Logo className="outro">
         <span>everstamp</span>
@@ -236,7 +263,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 
-  border: 3px solid rgba(0,0,0,0.2);
+  border: 3px solid rgba(0,0,0,0.07);
   white-space: nowrap;
 
   margin: 0 6px;
@@ -249,14 +276,19 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
+  background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#d7daeb'};
+
 
   &.web{
     padding: 6px 32px;
     background-color: rgba(0,0,0,0);
     border-color: #c1c5db;
+    border-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#c1c5db'};
   }
   &.bottom{
     background-color: rgba(255,255,255,0.8);
+    background-color: white;
+    border-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#c1c5db'};
     color: rgb(var(--greyTitle));
   }
   .icon{
@@ -278,10 +310,12 @@ const Desktop_Section = styled.section`
   }
   &.emotion, &.habit,  &.others{
     background-color: #EFF0F6;
+    background-color : ${(props) => props.theme.point ? props.theme.point + '20' : '#EFF0F6'};
   }
   &.outro{
     height: 50dvh;
     background-color: #979FC7;
+    background-color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
   &.small{
     height: 60dvh;
@@ -339,19 +373,21 @@ const Logo = styled.div`
     color: rgb(var(--greyTitle));
     &::first-letter{
       color: #979FC7;
+      color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
 
   &.outro{
     span{
       &::first-letter{
-        color: #EFF0F6;
+        color: white;
       }
     }
   }
 `
 const Title = styled.span`
   color: #989FC4;
+  color : ${(props) => props.theme.point ? props.theme.point : '#989FC4'};
   font-size: 28px;
   font-weight: 500;
   text-transform: capitalize;

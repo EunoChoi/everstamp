@@ -45,6 +45,8 @@ import ImageCarousel from "../common/ImageCarousel";
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import { useCustomRouter } from "@/function/customRouter";
+import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
+import SC_Common from "@/style/common";
 
 const IntroMobile = () => {
   const router = useCustomRouter();
@@ -85,6 +87,31 @@ const IntroMobile = () => {
       alert(`이미 앱이 설치되어 있는 경우 혹은\n퀵 설치 기능을 지원하지 않는 브라우저입니다.\n \n '메뉴(공유하기)->홈 화면에 추가'를\n진행하여 앱을 설치해주세요. \n\n *크롬(안드로이드), 사파리(iOS) 브라우저에 최적화 되어있습니다.`);
     }
   }
+  const StartInWebText = () => (
+    <div>
+      <p>웹에서 계속 진행하시겠습니까?</p>
+      <p style={{ fontSize: '15px', marginTop: '8px', color: '#DC7889' }}>🚨 실행 환경에 따라 레이아웃이 어긋날 수 있습니다.</p>
+      <p style={{ fontSize: '15px', color: '#DC7889' }}>원할한 이용을 위해 앱을 설치해주세요.</p>
+    </div>
+  );
+  const startInWeb = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => {
+          closeSnackbar('startInWeb');
+        }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          closeSnackbar('startInWeb');
+          router.push('/app')
+        }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar(<StartInWebText />, { key: 'startInWeb', persist: true, action, autoHideDuration: 6000 });
+  }
 
   return (<Wrapper>
     <Mobile_Section className="intro">
@@ -102,16 +129,24 @@ const IntroMobile = () => {
         </a>
         <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
       </DownLoadButtons>
+
+      <StartInWeb
+        onClick={startInWeb}
+      >
+        웹에서 실행하기
+      </StartInWeb>
+
       <ColWrapper>
         <SubText>iOS 사용자의 경우 PWA를 설치하여 이용 가능합니다.</SubText>
         <SubText>*로그인 화면이 나타나지 않는 경우, 앱을 재실행 해주세요.</SubText>
       </ColWrapper>
     </Mobile_Section>
+
     <Mobile_Section className="emotion">
       <Title>#emotions</Title>
       <Text>
-        <span>감정과 생각을 정리하며 일기를 적어보세요.</span>
-        <span>나를 이해하고 사랑하는데 도움이 됩니다.</span>
+        <span>감정을 정리하고 기록하세요.</span>
+        <span>긍정적 변화가 시작됩니다.</span>
       </Text>
       <Img className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Img>
       <ColWrapper>
@@ -136,7 +171,7 @@ const IntroMobile = () => {
       <Title>#habit feature</Title>
       <Text>
         <span>완벽하지 않아도 괜찮습니다.</span>
-        <span>부담없이 습관 실천을 시도하세요.</span>
+        <span>부담없는 습관부터 시도하세요.</span>
       </Text>
       <RowWrapper>
         <Img className="habitbox" src={habitbox} alt="habitbox" width={300} height={300}></Img>
@@ -196,11 +231,17 @@ const IntroMobile = () => {
     <Mobile_Section className="outro">
       <DownLoadButtons>
         <a href="/download/Everstamp.apk" download>
-          <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
+          <Button className="outro"><AndroidIcon className="icon" fontSize="small" />APK</Button>
         </a>
-        <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+        <Button className="outro" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
         {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </DownLoadButtons>
+      <StartInWeb
+        className="outro"
+        onClick={startInWeb}
+      >
+        웹에서 실행하기
+      </StartInWeb>
       <Logo className="outro">
         <span>everstamp</span>
       </Logo>
@@ -209,6 +250,18 @@ const IntroMobile = () => {
 }
 
 export default IntroMobile;
+
+const StartInWeb = styled.button`
+  font-size: 15px;
+  border-bottom: solid 2px ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  padding: 0 4px;
+  font-weight: 500;
+  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  &.outro{
+    color: rgb(var(--greyTitle));
+    border-color : rgb(var(--greyTitle));
+  }
+`
 
 const Images = styled.div`
   display: flex;
@@ -250,6 +303,12 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
+  background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#d7daeb'};
+
+  &.outro{
+    background-color: rgba(255,255,255,0.8);
+    border-color:${(props) => props.theme.point ? props.theme.point + '90' : '#d7daeb'};
+  }
 
   .icon{
     margin-right: 8px;
@@ -267,6 +326,7 @@ const Mobile_Section = styled.div`
 
   &.intro, &.emotion, &.view, &.ui, &.habit, &.others, &.outro{
     background-color: #EFF0F6;
+    background-color: ${(props) => props.theme.point ? props.theme.point + '18' : '#EFF0F6'};
     width: 100%;
     height: auto;
     padding: 56px 0;
@@ -285,6 +345,7 @@ const Mobile_Section = styled.div`
   }
   &.outro{
     background-color: #979FC7;
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
 //common
@@ -348,6 +409,7 @@ const Logo = styled.div`
 
     &::first-letter{
       color: #979FC7;
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
 
@@ -369,6 +431,7 @@ const Logo = styled.div`
 `
 const Title = styled.span`
   color: #989FC4;
+  color: ${(props) => props.theme.point ? props.theme.point : '#989FC4'};
   font-size: 20px;
   font-weight: 500;
   text-transform: capitalize;

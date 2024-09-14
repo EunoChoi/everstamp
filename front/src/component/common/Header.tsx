@@ -1,6 +1,8 @@
 'use client';
 
 import { useCustomRouter } from "@/function/customRouter";
+import SC_Common from "@/style/common";
+import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -13,11 +15,34 @@ interface Props {
 const Header = ({ title, children, classname }: Props) => {
   const router = useCustomRouter();
 
+  const GoIntroText = () => (
+    <div>
+      <p>소개 페이지로 이동하시겠습니까?</p>
+      <p style={{ fontSize: '15px', marginTop: '8px', color: '#DC7889' }}>🚨 소개 페이지 내부 '웹에서 실행하기' 버튼을 눌러 앱 화면으로 돌아올 수 있습니다.</p>
+    </div>
+  );
+  const goIntro = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <SC_Common.YesOrNo className="no" onClick={() => {
+          closeSnackbar('goIntro');
+        }}>
+          No
+        </SC_Common.YesOrNo>
+        <SC_Common.YesOrNo className="yes" onClick={() => {
+          closeSnackbar('goIntro');
+          router.push('/')
+        }}>
+          Yes
+        </SC_Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar(<GoIntroText />, { key: 'goIntro', persist: true, action, autoHideDuration: 6000 });
+  }
+
   return (
     <Wrapper className={classname}>
-      <Title onClick={() => {
-        router.refresh();
-      }}>{title}</Title>
+      <Title onClick={goIntro}>{title}</Title>
       {children}
     </Wrapper>
   );
