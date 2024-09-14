@@ -208,7 +208,7 @@ const IntroDesktop = () => {
         <span>추가적인 사용자 편의 기능을 제공합니다.</span>
       </Text>
       <ImageWrapper>
-        {otherInfoImages.map((e, i) => <Img className="otherinfo" key={'otherinfo images' + i} src={e} alt='otherinfo' width={300} height={300} priority />)}
+        {otherInfoImages.map((e, i) => <Img className="otherinfo" key={'otherinfo images' + i} src={e} alt='otherinfo' width={600} height={600} priority />)}
       </ImageWrapper>
     </Desktop_Section>
     <Desktop_Section className="outro center">
