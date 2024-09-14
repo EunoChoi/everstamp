@@ -99,11 +99,4 @@ const Img = styled(Image) <{ $borderRadius?: string }>`
   max-height: 100%;
 
   box-sizing: border-box;
-  background-color: white;
-
-  border-radius: ${(props) => props.$borderRadius ? props.$borderRadius : '0px'};
-  @media (min-width:480px) and (max-width:1023px) and (max-height: 479px) { //mobild land only
-    border-radius: 12px;
-  }
-  box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
 `

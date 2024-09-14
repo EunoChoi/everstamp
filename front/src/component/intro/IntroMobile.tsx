@@ -227,8 +227,6 @@ const Images = styled.div`
     max-width: none;
     margin-left: 9px;
     margin-right: 9px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
-    border-radius: 12px;
   }
 `
 

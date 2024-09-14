@@ -392,8 +392,6 @@ const ImageWrapper = styled.div`
     width: auto;
     margin-left: 18px;
     margin-right: 18px;
-    box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
-    border-radius: 12px;
   }
 `
 const Img = styled(Image)`
