@@ -102,6 +102,7 @@ const Img = styled(Image) <{ $borderRadius?: string }>`
   box-sizing: border-box;
 
   &.otherinfo{
+    background-color: white;
     box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
     border-radius: 16px;
   }
