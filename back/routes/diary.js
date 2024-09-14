@@ -1,20 +1,16 @@
 
 const express = require("express");
-const jwt = require("jsonwebtoken");
 
 
 const db = require("../models/index.js");
 const Op = db.Sequelize.Op;
-const sequelize = db.Sequelize;
+const sequelize = db.sequelize;
 
 const router = express.Router();
 const tokenCheck = require("../middleware/tokenCheck.js");
 
 const encrypt = require('../function/encrypt.js');
 const decrypt = require('../function/decrypt.js');
-
-
-// const NextAuth = require('next-auth');
 
 //model load
 const User = db.User;
@@ -23,12 +19,9 @@ const Image = db.Image;
 const Habit = db.Habit;
 
 
-
-
-
-//add, edit, delete diary
+//add, update, delete diary
 router.post("/", tokenCheck, async (req, res) => {
-  console.log('----- method : post, url :  /diary -----');
+  console.log('----- method : post, url : /diary -----');
   let { date, text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
@@ -36,110 +29,116 @@ router.post("/", tokenCheck, async (req, res) => {
   text = encrypt(text, process.env.DATA_SECRET_KEY);
 
   try {
-    const user = await User.findOne({
-      where: { email }
-    })
-    if (!user) return res.status(400).json("유저가 존재하지 않습니다.");
-
-    const isVisibleDiaryExistAready = await Diary.findOne({
-      where: { email, visible: true, date }
-    })
-    if (isVisibleDiaryExistAready) return res.status(400).json('해당 날짜에 일기가 이미 존재합니다.');
-
-    const isEmptyDiaryExistAready = await Diary.findOne({
-      where: { email, visible: false, date }
-    })
-
-    let diary;
-    if (isEmptyDiaryExistAready) {
-      diary = await Diary.update({
-        visible: true,
-        text,
-        emotion
-      }, {
-        where: { email, date }
+    const result = await sequelize.transaction(async (t) => {
+      // 유저 확인
+      const user = await User.findOne({
+        where: { email },
+        transaction: t
       });
-    }
+      if (!user) throw new Error("유저가 존재하지 않습니다.");
 
-    else {
-      diary = await Diary.create({
-        visible: true,
-        UserId: user.id,
-        email,
-        emotion,
-        date,
-        text,
+      // 기존 일기 존재 확인
+      const existingDiary = await Diary.findOne({
+        where: { email, date },
+        transaction: t
       });
-    }
 
-    if (images.length >= 1) {
-      try {
-        const imagePromises = images.map((src, index) => {
-          return Image.create({ src, order: index })
-        });
-        const createdImages = await Promise.all(imagePromises);
-        await diary.addImages(createdImages);
-      } catch (error) {
-        console.error('이미지 생성 및 추가 중 에러 발생:', error);
+      let diary;
+      if (existingDiary) {
+        if (existingDiary.visible) {
+          throw new Error('해당 날짜에 일기가 이미 존재합니다.');
+        }
+        // 기존 비가시성 일기 업데이트
+        await existingDiary.update({
+          visible: true,
+          text,
+          emotion
+        }, { transaction: t });
+        diary = existingDiary;
+      } else {
+        // 새 일기 생성
+        diary = await Diary.create({
+          visible: true,
+          UserId: user.id,
+          email,
+          emotion,
+          date,
+          text,
+        }, { transaction: t });
       }
-    }
 
-    return res.status(200).json(diary);
+      // 이미지 처리
+      if (images.length > 0) {
+        const imagePromises = images.map((src, index) => ({
+          src, order: index, diaryId: diary.id
+        }));
+        await Image.bulkCreate(imagePromises, { transaction: t });
+      }
+
+      return diary;
+    });
+
+    return res.status(200).json(result);
+
   } catch (e) {
     console.error(e);
+    return res.status(400).json({ error: e.message });
   }
-})
+});
 router.patch("/", tokenCheck, async (req, res) => {
-  console.log('----- method : patch, url :  /diary -----');
+  console.log('----- method : patch, url : /diary -----');
   const diaryId = req.query.diaryId;
   let { text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
-  //encrypto text
+  // Encrypt text
   text = encrypt(text, process.env.DATA_SECRET_KEY);
 
   try {
-    //current user
-    const currentUser = await User.findOne({
-      where: { email },
-    });
-    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
+    // 트랜잭션 시작
+    const result = await sequelize.transaction(async (t) => {
+      // 유저 확인
+      const currentUser = await User.findOne({
+        where: { email },
+        transaction: t
+      });
+      if (!currentUser) throw new Error('유저가 존재하지 않습니다.');
 
+      // 다이어리 확인 및 업데이트
+      const diary = await Diary.findOne({
+        where: { id: diaryId, UserId: currentUser.id },
+        transaction: t
+      });
+      if (!diary) throw new Error("게시글이 올바르지 않습니다.");
 
-    const diary = await Diary.findOne({
-      where: { id: diaryId },
-    });
-    if (!diary) return res.status(400).json("게시글이 올바르지 않습니다.");
+      await diary.update({
+        text,
+        emotion
+      }, { transaction: t });
 
+      // 기존 이미지 삭제 및 새로운 이미지 추가
+      await Image.destroy({
+        where: { diaryId },
+        transaction: t
+      });
 
-    await Diary.update({
-      text,
-      emotion,
-    }, {
-      where: { id: diaryId }
-    });
-
-
-    //기존에 등록되어 있는 이미지 삭제 및 재 추가
-    await Image.destroy({
-      where: { diaryId }
-    })
-    if (images.length >= 1) {
-      try {
-        const imagePromises = images.map((src, index) => {
-          return Image.create({ src, order: index })
-        });
-        const createdImages = await Promise.all(imagePromises);
-        await diary.addImages(createdImages);
-      } catch (error) {
-        console.error('이미지 생성 및 추가 중 에러 발생:', error);
+      if (images.length > 0) {
+        const imagePromises = images.map((src, index) => ({
+          src, order: index, diaryId
+        }));
+        await Image.bulkCreate(imagePromises, { transaction: t });
       }
-    }
-    return res.status(200).json(diary);
+
+      return diary;
+    });
+
+    return res.status(200).json(result);
+
   } catch (e) {
     console.error(e);
+    return res.status(400).json({ error: e.message });
   }
-})
+});
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /diary -----');
   const diaryId = req.query.id;
