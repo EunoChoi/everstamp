@@ -5,11 +5,10 @@ interface IndicatorProps {
   slideWrapperRef: RefObject<HTMLDivElement>;
   page: number;
   indicatorLength: number;
-  diary?: boolean;
+  type?: string;
 }
 
-const Indicator = ({ slideWrapperRef, page, indicatorLength, diary }: IndicatorProps) => {
-  const type = diary ? 'diary' : '';
+const Indicator = ({ slideWrapperRef, page, indicatorLength, type }: IndicatorProps) => {
   return <IndicatorWrapper>
     {[...Array(indicatorLength)].map((_: any, i: number) =>
       <Dot
@@ -46,9 +45,9 @@ const Dot = styled.div`
  
   &.diary{
    &:last-child{
-    border-radius: 4px;
-    border-width: 3.5px;
-    border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    border-radius: 2px;
+    border-width: 2px;
+    border-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#979FC7'};
    }
   }
   &.current {

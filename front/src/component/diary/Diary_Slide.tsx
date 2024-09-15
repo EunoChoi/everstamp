@@ -139,7 +139,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
         </EditBox>
       </SlideWrapper>
 
-      <Indicator diary={true} slideWrapperRef={slideWrapperRef} page={page} indicatorLength={images.length + 2} />
+      <Indicator type='diary' slideWrapperRef={slideWrapperRef} page={page} indicatorLength={images.length + 2} />
     </>
   );
 }
