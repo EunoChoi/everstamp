@@ -24,7 +24,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   themeColor: '#FFFFFF',
   userScalable: false,
-  // interactiveWidget: 'overlays-content'
+  interactiveWidget: 'resizes-content'
 }
 
 const pretendard = localFont({
