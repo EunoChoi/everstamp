@@ -32,10 +32,19 @@ const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
     <RadioWrapper>
       {emotions.map((e: JSX.Element, i: number) =>
         <RadioButton key={'radio' + i}>
-          <input type="radio" checked={i === emotion} name="diaryEmotion" value={i} onChange={(e) => {
-            if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
-          }} />
-          <div className="checkmark">{e}</div>
+          <input
+            type="radio"
+            checked={i === emotion}
+            name="diaryEmotion"
+            value={i}
+            onChange={(e) => {
+              if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
+            }}
+          />
+          <div className="emotion">{e}</div>
+          <div className="checkmark">
+            <span>{e.props.alt}</span>
+          </div>
         </RadioButton>)}
     </RadioWrapper>
   </Wrapper>);
@@ -63,9 +72,6 @@ const Wrapper = styled.div`
 const RadioWrapper = styled.div`
   width: 100%;
   margin : 0;
-  height: 42px;
-  border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
-  border-radius: 8px;
   overflow: hidden;
   display: flex;
 `
@@ -73,7 +79,6 @@ const RadioButton = styled.label`
   position: relative;
   width: 100%;
   height: 100%;
-  border-right : 2px solid  ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
   &:last-child{
     border: none;
   }
@@ -83,21 +88,34 @@ const RadioButton = styled.label`
     height: 0;
     width: 0;
   }
-  .checkmark{
-    box-sizing: border-box;
-    cursor: pointer;
-
+  .emotion{
     width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-shrink: 0;
+  }
+  .checkmark{
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    span{
+      transition: all 200ms ease-in-out;
+      border-radius: 56px;
+      padding: 2px 8px;
+      border : 2px solid rgba(0,0,0,0);
+    }
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
+    span{
+      border : 2px solid rgba(0,0,0,0.1);
+      background-color: ${(props) => props.theme.point ? props.theme.point + '60' : '#979FC7'};
+    }
   }
 `;

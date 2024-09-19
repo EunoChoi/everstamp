@@ -31,11 +31,13 @@ const InputWrapper = styled.div`
   /* height: 100%; */
   flex-grow: 1;
   textarea{
+    border-top: solid 2px rgba(0,0,0,0.08);
     font-size: 1.1em;
     font-weight: 500;
     width: 100%;
     height: 100%;
     resize: none;
+    padding-top: 16px;
     &::placeholder{
       color: rgba(0,0,0,0.25);
       padding-top: 100px;
@@ -49,7 +51,7 @@ const InputWrapper = styled.div`
     padding: 16px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px;
+    padding: 12px 36px;
   }
   @media (min-width:1024px) { //desktop
     padding: 20px;
