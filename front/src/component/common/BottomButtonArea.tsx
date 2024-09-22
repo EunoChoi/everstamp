@@ -1,5 +1,5 @@
 import { isIosPwa } from "@/function/isIosPwa";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 interface Props {
@@ -11,6 +11,27 @@ const BottomButtonArea = ({ children }: Props) => {
 
 
   const iosPwa = isIosPwa();
+
+  //ios 키보드 올라온경우 홈바 영역 삭제
+  // useEffect(() => {
+  //   const keyboardOpenHandler = () => {
+  //     if (window.visualViewport) {
+  //       if (window.visualViewport.height < window.innerHeight) {
+  //         console.log('keyboard open');
+  //       }
+  //       else {
+  //         console.log('keyboard close');
+  //       }
+  //     }
+  //   }
+
+  //   if (window.visualViewport) {
+  //     window.visualViewport.addEventListener('resize', keyboardOpenHandler);
+  //     return () => {
+  //       window.visualViewport?.removeEventListener('resize', keyboardOpenHandler);
+  //     }
+  //   }
+  // }, [])
 
   return (<Wrapper className={iosPwa ? 'iosPwa' : ''}>
     {children}
