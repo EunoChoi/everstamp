@@ -9,8 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getDiary } from "@/function/fetch/diary";
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import Indicator from "../common/indicator";
-import BottomButtonArea from "../common/BottomButtonArea";
+import Indicator from "@/component/common/indicator";
+import BottomButtonArea from "@/component/common/BottomButtonArea";
 import { useCustomRouter } from "@/function/customRouter";
 
 interface Props {

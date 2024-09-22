@@ -1,4 +1,4 @@
-import HabitInfoModal from "@/component/modal/HabitInfoModal";
+import HabitInfoModal from "@/component/modal/habitInfo/HabitInfoModal";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getHabit_fetch } from "@/function/fetch/habit_ssr";
 

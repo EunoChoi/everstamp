@@ -6,11 +6,11 @@ import styled from "styled-components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
-import HabitInfoCalendar from "../calendar/HabitInfoCalendar";
+import HabitInfoCalendar from "../../calendar/HabitInfoCalendar";
 import { getHabit } from "@/function/fetch/habit";
-import HabitInfoChart from "../habit/HabitInfoChart";
-import Indicator from "../common/indicator";
-import BottomButtonArea from "../common/BottomButtonArea";
+import HabitInfoChart from "../../habit/HabitInfoChart";
+import Indicator from "../../common/indicator";
+import BottomButtonArea from "../../common/BottomButtonArea";
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useCustomRouter } from "@/function/customRouter";

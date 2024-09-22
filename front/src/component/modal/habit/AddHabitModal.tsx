@@ -2,24 +2,17 @@
 
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import HabitInputButtons from "../habit/Input_Buttons";
-import HabitInputValues from "../habit/Input_Values";
-import { useRouter } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import HabitInputButtons from "../../habit/Input_Buttons";
+import HabitInputValues from "../../habit/Input_Values";
 import Axios from "@/Axios/axios";
-
-import { enqueueSnackbar } from 'notistack';
-
-import { getHabit } from "@/function/fetch/habit";
-import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 import { useCustomRouter } from "@/function/customRouter";
 
-interface Props {
-  habitId: string;
-}
-interface HabitProps {
-  habitId: string | null;
-  habitName?: string;
+interface EditHabitProps {
+  habitName: string;
+  // themeColor?: string;
   priority: number;
 }
 interface Err {
@@ -28,45 +21,41 @@ interface Err {
   }
 }
 
-const EditHabitModal = ({ habitId }: Props) => {
+const AddHabitModal = () => {
   const queryClient = useQueryClient();
   const router = useCustomRouter();
+  const [habitName, setHabitName] = useState<string>('');
+  const [priority, setPriority] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
 
-
-  const { data: habitData } = useQuery({
-    queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabit({ id: habitId }),
-    enabled: habitId !== null
-  });
-
-  const [habitName, setHabitName] = useState<string>(habitData?.name);
-  const [priority, setPriority] = useState<number>(habitData?.priority);
-
-  const editHabitMutation = useMutation({
-    mutationFn: ({ habitId, habitName, priority }: HabitProps) => Axios.patch('/habit', { habitId, habitName, priority }),
+  const addHabitMutation = useMutation({
+    mutationFn: ({ habitName, priority }: EditHabitProps) => Axios.post('/habit', { habitName, priority }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {
         queryClient.invalidateQueries({ queryKey: cache.queryKey });
       });
 
+      console.log('add habit success');
       router.back();
-      console.log('edit habit success');
       setTimeout(() => {
-        enqueueSnackbar('습관 항목 수정 완료', { variant: 'success' });
+        enqueueSnackbar('습관 항목 생성 완료', { variant: 'success' });
       }, 300);
     },
     onError: (e: Err) => {
+      // alert(e?.response?.data);
       enqueueSnackbar(e?.response?.data, { variant: 'error' });
-      console.log('edit habit error');
+      console.log('add habit error');
     },
   });
 
-  const onEditHabit = () => {
-    if (habitName.length > 0 && habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
-    else enqueueSnackbar('1~10글자의 이름을 입력해주세요.', { variant: 'info' });
+
+  const addHabit = () => {
+    if (habitName.length > 0 && habitName.length <= 10) addHabitMutation.mutate({ habitName, priority });
+    // else alert('최대 10글자까지만 가능합니다.')
+    else enqueueSnackbar('1~10 글자의 이름을 입력해주세요.', { variant: 'info' });
+
   };
 
   useEffect(() => {
@@ -77,15 +66,15 @@ const EditHabitModal = ({ habitId }: Props) => {
     <Wrapper onClick={() => router.back()}>
       <Modal onClick={(e) => e.stopPropagation()}>
         <Content>
-          <Title>목표 습관 수정</Title>
+          <Title>목표 습관 추가</Title>
           <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
-          <SubText>최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</SubText>
+          <SubText>*최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</SubText>
         </Content>
-        <HabitInputButtons onSubmit={onEditHabit} type="edit" isLoading={editHabitMutation.isPending} />
+        <HabitInputButtons onSubmit={addHabit} isLoading={addHabitMutation.isPending} />
       </Modal>
     </Wrapper>);
 }
-export default EditHabitModal;
+export default AddHabitModal;
 const SubText = styled.span`
   display: flex;
   align-items: center;
@@ -116,7 +105,7 @@ const Wrapper = styled.div`
     }
   }
   animation: fadeIn 300ms ease-in-out;
-
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -142,7 +131,8 @@ const Modal = styled.div`
   justify-content: center;
 
   background-color: white;
-  box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
+  box-shadow: 0px 0px 64px rgba(0,0,0,0.2);
+  box-shadow: 0px 3px 48px rgba(0,0,0,0.25);
 
   @media (max-width: 479px) { //mobile port
     width: 100%;
@@ -164,9 +154,11 @@ const Modal = styled.div`
 
 const Title = styled.span`
   width: 100%;
+  height: 40px;
+
   text-align: center;
   text-transform: uppercase;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   color: rgb(var(--greyTitle));
 `

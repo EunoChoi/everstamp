@@ -1,5 +1,5 @@
 import { getDiary_fetch } from "@/function/fetch/diary_ssr";
-import EditDiaryModal from "@/component/modal/EditDiaryModal";
+import EditDiaryModal from "@/component/modal/diary/EditDiaryModal";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 interface Props {

@@ -1,4 +1,4 @@
-import EditHabitModal from "@/component/modal/EditHabitModal";
+import EditHabitModal from "@/component/modal/habit/EditHabitModal";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getHabit_fetch } from "@/function/fetch/habit_ssr";
 

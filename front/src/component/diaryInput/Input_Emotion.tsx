@@ -55,19 +55,6 @@ export default DiaryInputEmotion;
 const Wrapper = styled.div`
   width: 100%;
   height: auto;
-
-  @media (max-width: 479px) { //mobile port
-    padding: 16px;
-    padding-bottom: 0;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px;
-    padding-bottom: 0;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 20px;
-    padding-bottom: 0;
-  }
 `
 const RadioWrapper = styled.div`
   width: 100%;

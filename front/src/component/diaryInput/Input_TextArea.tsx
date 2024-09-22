@@ -28,30 +28,29 @@ const DiaryInputTextArea = ({ text, setText, inputRef }: Props) => {
 export default DiaryInputTextArea;
 
 const InputWrapper = styled.div`
-  /* height: 100%; */
-  flex-grow: 1;
+  width : 100%;
+  height: 100%;
   textarea{
-    border-top: solid 2px rgba(0,0,0,0.08);
-    font-size: 1.1em;
+    font-size: 16px;
     font-weight: 500;
     width: 100%;
     height: 100%;
     resize: none;
-    padding-top: 16px;
     &::placeholder{
-      color: rgba(0,0,0,0.25);
-      padding-top: 100px;
+      padding-top: 70px;
       text-align: center;
+      height: 100%;
+
+      color: rgba(0,0,0,0.25);
       font-weight: 500;
-      text-transform: uppercase;
       font-size: 1.0em;
     }
   }
   @media (max-width: 479px) { //mobile port
-    padding: 16px;
+    padding: 12px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px 36px;
+    padding: 12px;
   }
   @media (min-width:1024px) { //desktop
     padding: 20px;
