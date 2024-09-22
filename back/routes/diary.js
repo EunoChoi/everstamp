@@ -191,11 +191,13 @@ router.delete("/", tokenCheck, async (req, res) => {
 router.get("/id/:diaryId", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url : /diary/:id -----');
+  const email = req.currentUserEmail;
   const diaryId = req.params.diaryId;
 
   try {
     const diary = await Diary.findOne({
       where: [{
+        email,
         id: diaryId,
       }],
       include: [{
