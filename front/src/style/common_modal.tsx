@@ -118,6 +118,37 @@ const $Modal = {
       }
     }
   `,
+  DiaryInputSection: styled.section`
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    padding: 18px 5vw;
+    flex-shrink: 0;
+  `,
+  DiaryInputTitle: styled.section`
+    text-transform: capitalize;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgb(var(--greyTitle));
+    margin-bottom: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
+  DiaryInputTextarea: styled.div`
+    width: 100%;
+    height: 220px;
+    border : 2px solid whitesmoke;
+  `,
+  DiaryInputImages: styled.div`
+    width: 100%;
+    height: 120px;
+    border : 2px solid whitesmoke;
+    border-radius: 8px;
+    overflow: hidden;
+  `
 }
 
 export default $Modal;
