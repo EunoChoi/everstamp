@@ -28,7 +28,7 @@ const $Modal = {
   `,
   Wrapper: styled.div`
     transition : all 300ms ease-in-out;
-    scroll-snap-type: y mandatory;
+    /* scroll-snap-type: y mandatory; */
 
     display: flex;
     flex-direction: column;
@@ -120,9 +120,9 @@ const $Modal = {
     display: flex;
     flex-direction: column;
 
-    scroll-snap-align: start;
+    /* scroll-snap-align: start;
     scroll-margin-top: var(--mobileHeader);
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal; */
 
     width: 100%;
     padding: 18px 5vw;

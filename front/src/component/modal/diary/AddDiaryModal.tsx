@@ -40,7 +40,6 @@ const AddDiaryModal = () => {
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
 
-  const inputRef = useRef<HTMLTextAreaElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
   const [text, setText] = useState<string>('');
@@ -109,7 +108,7 @@ const AddDiaryModal = () => {
           </$Modal.DiaryInputTitle>
           {contentsOpen &&
             <$Modal.DiaryInputTextarea>
-              <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />
+              <DiaryInputTextArea text={text} setText={setText} />
             </$Modal.DiaryInputTextarea>
           }
         </$Modal.DiaryInputSection>

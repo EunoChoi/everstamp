@@ -1,24 +1,31 @@
 import styled from "styled-components";
-import { RefObject, useCallback } from "react";
+import { RefObject, useCallback, useRef } from "react";
 import { ChangeEvent } from "react";
 
 
 interface Props {
   text: string;
   setText: (v: string) => void;
-  inputRef: RefObject<HTMLTextAreaElement>;
 }
 
-const DiaryInputTextArea = ({ text, setText, inputRef }: Props) => {
+const DiaryInputTextArea = ({ text, setText }: Props) => {
+
+  const inputRef = useRef<HTMLDivElement>(null);
 
   const onChangeText = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
-  }, [])
+  }, []);
+  const onFocus = () => {
+    setTimeout(() => {
+      inputRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 200);
+  }
 
-  return (<InputWrapper>
+  return (<InputWrapper ref={inputRef} >
     <textarea
+      onFocus={onFocus}
       onChange={onChangeText}
-      ref={inputRef}
+
       value={text}
       placeholder="일상의 작은 감정들을 기록하세요." />
   </InputWrapper>
@@ -30,6 +37,7 @@ export default DiaryInputTextArea;
 const InputWrapper = styled.div`
   width : 100%;
   height: 100%;
+  scroll-margin-top: 128px;
   textarea{
     font-size: 16px;
     font-weight: 500;
