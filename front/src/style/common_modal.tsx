@@ -27,7 +27,6 @@ const $Modal = {
     backdrop-filter: blur(4px);
   `,
   Wrapper: styled.div`
-    position: relative;
     transition : all 300ms ease-in-out;
 
     display: flex;
@@ -41,21 +40,22 @@ const $Modal = {
     border-radius: 0px;
     background-color: white;
 
-    padding-top: var(--mobileHeader);
-
+    @media (max-width: 479px) { //mobile port
+      padding-top: var(--mobileHeader);
+    }
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      padding-top: var(--mobileHeader);
+    }
     @media (min-width:1024px) { //desktop
       width: 600px;
       height: 90%;
       border-radius: 24px;
       box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
 
-      padding-top: var(--desktopHeader);
+      /* padding-top: var(--desktopHeader); */
     }
   `,
   Top: styled.div`
-    position: absolute;
-    top: 0;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,7 +64,16 @@ const $Modal = {
     height: var(--mobileHeader);
     padding: 0 5vw;
     background-color: white;
+    z-index: 9999;
 
+    @media (max-width: 479px) { //mobile port
+      position: fixed;
+      top: 0;
+    }
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      position: fixed;
+      top: 0;
+    }
     @media (min-width:1024px) { //desktop
       height: var(--desktopHeader);
       padding: 0 28px;

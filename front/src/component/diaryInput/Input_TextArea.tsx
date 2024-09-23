@@ -39,7 +39,6 @@ const InputWrapper = styled.div`
     &::placeholder{
       padding-top: 70px;
       text-align: center;
-      height: 100%;
 
       color: rgba(0,0,0,0.25);
       font-weight: 500;
