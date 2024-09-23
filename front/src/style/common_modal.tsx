@@ -27,6 +27,7 @@ const $Modal = {
     backdrop-filter: blur(4px);
   `,
   Wrapper: styled.div`
+    position: relative;
     transition : all 300ms ease-in-out;
 
     display: flex;
@@ -40,23 +41,33 @@ const $Modal = {
     border-radius: 0px;
     background-color: white;
 
+    padding-top: var(--mobileHeader);
+
     @media (min-width:1024px) { //desktop
       width: 600px;
       height: 90%;
       border-radius: 24px;
       box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
+
+      padding-top: var(--desktopHeader);
     }
   `,
   Top: styled.div`
+    position: absolute;
+    top: 0;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     width: 100%;
-    padding: 12px 5vw;
+    height: var(--mobileHeader);
+    padding: 0 5vw;
+    background-color: white;
 
     @media (min-width:1024px) { //desktop
-      padding: 20px 28px;
+      height: var(--desktopHeader);
+      padding: 0 28px;
     }
     .title{
       color: rgb(var(--greyTitle));
