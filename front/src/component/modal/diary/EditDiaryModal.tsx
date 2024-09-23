@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Axios from "@/Axios/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -50,10 +50,9 @@ interface DiaryProps {
 const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
   const queryClient = useQueryClient();
   const router = useCustomRouter();
-  const isMobile = IsMobile();
 
 
-  const { data: diaryData } = useQuery<DiaryProps>({
+  const { data: diaryData, isError } = useQuery<DiaryProps>({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => getDiary({ id: diaryId }),
     enabled: diaryId !== null
@@ -91,6 +90,10 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
       console.log('edit diary error');
     },
   });
+
+  useEffect(() => {
+    if (isError) router.push('/404');
+  }, [isError])
 
   const textarea = <DiaryInputTextArea text={text} setText={setText} inputRef={inputRef} />;
   const emotionSelector = <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
