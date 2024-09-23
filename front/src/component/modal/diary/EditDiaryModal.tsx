@@ -101,6 +101,8 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
 
   return (
     <InputDiaryLayout
+      typeText="수정"
+      isLoading={editDiaryMutation.isPending}
       date={diaryData?.date}
       textarea={textarea}
       emotionSelector={emotionSelector}

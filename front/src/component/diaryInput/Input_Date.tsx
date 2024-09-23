@@ -31,12 +31,11 @@ const DiaryDate = styled.div`
   }
   .week{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    /* color: grey; */
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     /* display: none; */
   }
   @media (min-width:1024px) { //desktop
-    font-size: 26px;
+    font-size: 24px;
   }
 `

@@ -16,7 +16,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 import { useCustomRouter } from "@/function/customRouter";
 
 interface Props {
@@ -98,15 +98,15 @@ const HabitBox = ({ name, id, priority }: Props) => {
   const onDeleteHabit = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
+        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
           No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => {
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
           deleteHabitMutation.mutate({ habitId: id });
           closeSnackbar('deleteHabit');
         }}>
           Yes
-        </SC_Common.YesOrNo>
+        </$Common.YesOrNo>
       </>
     );
     enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });

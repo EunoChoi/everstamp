@@ -11,7 +11,7 @@ import IsMobile from "@/function/IsMobile";
 import { getDiary_date } from "@/function/fetch/diary";
 
 //styledComponent
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 
 //component
 import ContentArea from "@/component/common/ContentArea";
@@ -41,7 +41,7 @@ const CalendarPageClient = ({ date }: Props) => {
   }, [])
 
   return (
-    <SC_Common.Wrapper>
+    <$Common.Wrapper>
       <Header title='calendar' />
       <ContentArea>
         <CalendarContainer>
@@ -57,7 +57,7 @@ const CalendarPageClient = ({ date }: Props) => {
           }
         </CalendarContainer>
       </ContentArea>
-    </SC_Common.Wrapper>
+    </$Common.Wrapper>
   );
 }
 

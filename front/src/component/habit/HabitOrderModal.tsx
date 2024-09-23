@@ -17,6 +17,10 @@ import { enqueueSnackbar } from 'notistack';
 
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
 import { useCustomRouter } from '@/function/customRouter';
+import $Modal from '@/style/common_modal';
+
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import $Common from '@/style/common';
 
 
 interface Habit {
@@ -197,103 +201,49 @@ const HabitOrderModal = () => {
     window.addEventListener('touchend', dragEnd);
   }
 
-  return (<Wrapper onClick={() => router.back()}>
-    <Modal onClick={(e) => {
+  return (<$Modal.Background onClick={() => router.back()}>
+    <$Modal.Wrapper onClick={(e) => {
       e.stopPropagation();
     }}>
-      <Title>
-        <span>습관 리스트 정렬</span>
-      </Title>
-      <Container >
-        <EmptyBox />
+      <$Modal.Top>
+        <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
+        <span className='title'>습관 리스트 정렬</span>
+        <button onClick={onSubmit}>완료</button>
+      </$Modal.Top>
+
+      <ListsWrapper >
+        <$Common.Empty />
         <Lists ref={containerRef}>
           {habits && habits?.map((habit: any, i: number) =>
             <ListWrapper key={habit.id}>
               <List className={i == dragItemIndex ? 'dragItem' : ''}>
                 <span className='star'>{NStart(habit?.priority + 1)}</span>
                 <span className='name'>{habit?.name}</span>
-                <Button
+                <button
                   onContextMenu={(e) => e.preventDefault()}
                   onPointerDown={e => dragStart(e, i)}>
                   <DragIndicatorRoundedIcon className='icon' fontSize='inherit' />
-                </Button>
+                </button>
               </List>
             </ListWrapper>
           )}
         </Lists>
-        <Button className='initialize' onClick={onInitialize}>초기화</Button>
-        <EmptyBox />
-      </Container>
-
-
-      <BottomButtonArea>
-        <Button onClick={() => router.back()} >
-          <CloseRoundedIcon className="icon" />
-        </Button>
-        <Button onClick={onSubmit} >
-          <CheckRoundedIcon className="icon" />
-        </Button>
-      </BottomButtonArea>
-    </Modal>
-  </Wrapper>);
+        <InitButton onClick={onInitialize}>초기화</InitButton>
+        <$Common.Empty />
+      </ListsWrapper>
+    </$Modal.Wrapper>
+  </$Modal.Background>);
 }
 
 export default HabitOrderModal;
 
-const Wrapper = styled.div`
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  animation: fadeIn 300ms ease-in-out;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 999;
-  width: 100dvw;
-  height: 100dvh;
-
-  /* background-color: rgba(0,0,0,0.2); */
-  backdrop-filter: blur(4px);
-`
-const Modal = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-content: space-evenly;
-  align-items: center;
-
-  background-color: white;
-  
-  box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
-
-  width: 100%;
-  height: 100%;
-
-  @media (min-width:1024px) { //desktop
-    width: 550px;
-    height: 85%;
-    border-radius: 24px;
-  }
-`
-const Container = styled.div`
+const ListsWrapper = styled.div`
   width: 100%;
   height: 100%;
   flex-grow: 1;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   justify-content: start;
   align-items: center;
 
@@ -357,6 +307,7 @@ const List = styled.div`
   }
   button{
     width: 20%;
+    color: rgba(0,0,0,0.4);
   }
   .icon{
     display: flex;
@@ -364,32 +315,15 @@ const List = styled.div`
     align-items: center;
   }
 `
-const EmptyBox = styled.div`
-  flex-grow: 1;
-`
-const Title = styled.div`
-  color: rgb(var(--greyTitle));
-  /* color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'}; */
-  font-weight: 600;
-  font-size: 20px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  span{
-    padding: 4px;
-  }
-  @media (min-width:1024px) { //desktop
-    font-size: 26px;
-  }
-`
-const Button = styled.button`
-  color: rgba(0,0,0,0.3) !important;
+
+const InitButton = styled.button`
+  color: rgba(0,0,0,0.3);
   font-weight: 500;
-  &.initialize{
-    text-transform: capitalize;
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
-    font-size: 16px;
-    padding-top: 8px;
-  }
+
+  text-transform: capitalize;
+  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
+  font-size: 16px;
+  padding-top: 8px;
+  margin-bottom: 24px;
+  
 `

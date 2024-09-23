@@ -7,7 +7,6 @@ interface Props {
   setHabitName: (name: string) => void;
   priority: number;
   setPriority: (n: number) => void;
-  inputRef: RefObject<HTMLInputElement>;
 }
 
 
@@ -21,7 +20,7 @@ const NStart = (n: number) => {
   );
 }
 
-const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inputRef }: Props) => {
+const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Props) => {
 
 
   return (
@@ -29,7 +28,6 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
       <Value>
         <span>목표 습관 이름</span>
         <input
-          ref={inputRef}
           onChange={(e) => setHabitName(e.currentTarget.value)}
           value={habitName || ""} />
       </Value>
@@ -43,7 +41,6 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
               }} />
               <div className="checkmark">
                 {NStart(i + 1)}
-                {/* {[...Array(i + 1)].map((_, j: number) => <StarPurple500OutlinedIcon key={i + j} fontSize="inherit" />)} */}
               </div>
             </RadioButton>)}
         </RadioWrapper>
@@ -55,13 +52,13 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority, inpu
 export default HabitInputValues;
 
 const Wrapper = styled.div`
-  margin : 32px 0;
+  width: 100%;
 `
 
 const RadioWrapper = styled.div`
   width: 100%;
   margin : 8px 0;
-  height: 28px;
+  height: 38px;
   border : 2px solid rgba(0,0,0,0.1);
   border-radius: 8px;
   overflow: hidden;
@@ -103,10 +100,7 @@ const Value = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  margin : 6px 10%;
-  @media (min-width:1024px) { //desktop
-    margin : 0 20%;
-  }
+  margin : 24px 10%;
   >div{
     width: 100%;
     display:flex;
@@ -122,33 +116,14 @@ const Value = styled.div`
   input{
     font-size: 16px;
     width: 100%;
+    height: 38px;
     margin: 8px 0;
-    padding: 2px 8px;
+    padding: 4px 8px;
     flex-grow: 1;
     font-weight: 500;
 
 
     border : 2px solid rgba(0,0,0,0.1);
     border-radius: 8px;
-  }
-  .colors{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-
-    width: 100%;
-    margin: 8px 0;
-    overflow-x: scroll;
-  }
-  .color{
-    height: 44px;
-    aspect-ratio: 1;
-    margin-right: 8px;
-    border : 2px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
-
-    &.selected{
-      border : 2px solid rgba(0,0,0,0.2);
-    }
   }
 `

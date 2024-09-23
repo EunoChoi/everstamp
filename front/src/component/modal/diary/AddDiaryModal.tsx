@@ -77,6 +77,8 @@ const AddDiaryModal = () => {
 
   return (
     <InputDiaryLayout
+      typeText='추가'
+      isLoading={addDiaryMutation.isPending}
       date={date}
       textarea={textarea}
       emotionSelector={emotionSelector}

@@ -46,7 +46,7 @@ import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import { useCustomRouter } from "@/function/customRouter";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 
 const IntroMobile = () => {
   const router = useCustomRouter();
@@ -97,17 +97,17 @@ const IntroMobile = () => {
   const startInWeb = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => {
+        <$Common.YesOrNo className="no" onClick={() => {
           closeSnackbar('startInWeb');
         }}>
           No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => {
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
           closeSnackbar('startInWeb');
           router.push('/app')
         }}>
           Yes
-        </SC_Common.YesOrNo>
+        </$Common.YesOrNo>
       </>
     );
     enqueueSnackbar(<StartInWebText />, { key: 'startInWeb', persist: true, action, autoHideDuration: 6000 });

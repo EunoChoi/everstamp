@@ -61,8 +61,8 @@ const EmotionWrapper = styled.div`
 
 
   @media (max-width: 479px) { //mobile port
-    width: 110px;
-    height: 110px;
+    width: 96px;
+    height: 96px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: 120px;

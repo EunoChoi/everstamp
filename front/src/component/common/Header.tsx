@@ -1,7 +1,7 @@
 'use client';
 
 import { useCustomRouter } from "@/function/customRouter";
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { ReactNode } from "react";
 import styled from "styled-components";
@@ -24,17 +24,17 @@ const Header = ({ title, children, classname }: Props) => {
   const goIntro = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => {
+        <$Common.YesOrNo className="no" onClick={() => {
           closeSnackbar('goIntro');
         }}>
           No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => {
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
           closeSnackbar('goIntro');
           router.push('/')
         }}>
           Yes
-        </SC_Common.YesOrNo>
+        </$Common.YesOrNo>
       </>
     );
     enqueueSnackbar(<GoIntroText />, { key: 'goIntro', persist: true, action, autoHideDuration: 6000 });

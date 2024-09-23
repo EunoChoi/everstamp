@@ -13,6 +13,13 @@ import Indicator from "@/component/common/indicator";
 import BottomButtonArea from "@/component/common/BottomButtonArea";
 import { useCustomRouter } from "@/function/customRouter";
 
+
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import $Modal from "@/style/common_modal";
+import DiaryInputDate from "@/component/diaryInput/Input_Date";
+
+
+
 interface Props {
   diaryId: string;
 }
@@ -59,57 +66,52 @@ const ZoomModal = ({ diaryId }: Props) => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [diaryData])
 
-  return (<Wrapper onClick={() => router.back()}>
-    <Modal onClick={(e) => e.stopPropagation()}>
-      <DiaryDate>
-        <span>{date && format(date, 'yyyy. M. dd')}</span>
-        <span className="week">{date && format(date, '(eee)')}</span>
-      </DiaryDate>
+  return (
+    <$Modal.Background onClick={() => router.back()}>
+      <ZoomModalWrapper onClick={(e) => e.stopPropagation()}>
+        <$Modal.Top>
+          <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
+          <DiaryInputDate date={date} />
+          <button></button>
+        </$Modal.Top>
 
-      <SlideWrapper
-        ref={slideWrapperRef}
-        onScroll={(e) => {
-          setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-        }}
-      >
+        <SlideWrapper
+          ref={slideWrapperRef}
+          onScroll={(e) => {
+            setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+          }}
+        >
 
-        <TextWrapper className="slideChild">
-          <div className="info">
-            <div>{emotions[diaryData?.emotion]}</div>
-            <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
-          </div>
-          <div className="text">
-            {text}
-          </div>
-        </TextWrapper>
+          <TextWrapper className="slideChild">
+            <div className="info">
+              <div>{emotions[diaryData?.emotion]}</div>
+              <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
+            </div>
+            <div className="text">
+              {text}
+            </div>
+          </TextWrapper>
 
-        {images?.map((e: ImageProps) =>
-          <ImageWrapper key={e.id} className="slideChild">
-            <Img onClick={zoomToggle} className={zoomState} src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
-          </ImageWrapper>)}
+          {images?.map((e: ImageProps) =>
+            <ImageWrapper key={e.id} className="slideChild">
+              <Img onClick={zoomToggle} className={zoomState} src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
+            </ImageWrapper>)}
 
-      </SlideWrapper>
+        </SlideWrapper>
 
-      {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
-
-      <BottomButtonArea>
-        <Button onClick={() => router.back()} >
-          <CloseRoundedIcon className="icon" />
-        </Button>
-      </BottomButtonArea>
-    </Modal>
-  </Wrapper>);
+        {indicatorLength > 1 && <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={indicatorLength} />}
+      </ZoomModalWrapper>
+    </$Modal.Background>);
 }
 
 export default ZoomModal;
 
+const ZoomModalWrapper = styled($Modal.Wrapper)`
+  padding-bottom: 16px;
 
-const Button = styled.button`
-  .icon{
-    color: rgba(0,0,0,0.3) !important;
-  }
-  .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
+  @media (min-width:1024px) { //desktop
+    width: 70%;
+    height: 80%;
   }
 `
 const TextWrapper = styled.div`
@@ -173,73 +175,6 @@ const Img = styled(Image)`
   object-fit: contain;
   &.zoom{
     object-fit: cover;
-  }
-`
-const Wrapper = styled.div`
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  animation: fadeIn 300ms ease-in-out;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 999;
-  width: 100dvw;
-  height: 100dvh;
-
-  /* background-color: rgba(0,0,0,0.2); */
-  backdrop-filter: blur(4px);
-`
-const Modal = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-content: space-evenly;
-  align-items: center;
-
-  background-color: white;
-  
-  box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
-
-  width: 100%;
-  height: 100%;
-
-  @media (min-width:1024px) { //desktop
-    width: 70%;
-    height: 80%;
-    border-radius: 24px;
-  }
-`
-const DiaryDate = styled.div`
-  color: rgb(var(--greyTitle));
-  font-weight: 600;
-  font-size: 20px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  span{
-    padding: 4px;
-  }
-  .week{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    /* display: none; */
-  }
-  @media (min-width:1024px) { //desktop
-    font-size: 26px;
   }
 `
 const SlideWrapper = styled.div`

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SC_Common = {
+const $Common = {
   Input: styled.input`
     text-align: center;
     width: 100%;
@@ -99,7 +99,10 @@ const SC_Common = {
         margin-left: 3px;
       }
     }
+  `,
+  Empty: styled.div`
+    flex-grow: 1;
   `
 }
 
-export default SC_Common;
+export default $Common;

@@ -2,13 +2,18 @@
 
 import styled from "styled-components";
 
-//icon
+
 import DiaryInputDate from "./Input_Date";
 import { useCustomRouter } from "@/function/customRouter";
+import { useState } from "react";
+
+//icon
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { useState } from "react";
+import $Modal from "@/style/common_modal";
+import $Common from "@/style/common";
+
 
 interface Props {
   textarea: JSX.Element;
@@ -16,11 +21,13 @@ interface Props {
   inputImages: JSX.Element;
   onSubmit: () => void;
   date: Date | undefined;
+  isLoading: boolean;
+  typeText: string;
 }
 
 
 const InputDiaryLayout = (
-  { date, textarea, emotionSelector, inputImages, onSubmit }: Props
+  { typeText, date, textarea, emotionSelector, inputImages, onSubmit, isLoading }: Props
 ) => {
 
   const router = useCustomRouter();
@@ -29,16 +36,16 @@ const InputDiaryLayout = (
   const [imagesOpen, setImagesOpen] = useState(true);
 
   return (
-    <Wrapper onClick={() => router.back()}>
-      <Modal onClick={(e) => e.stopPropagation()}>
-        <Mobile_Top>
+    <$Modal.Background onClick={() => router.back()}>
+      <$Modal.Wrapper onClick={(e) => e.stopPropagation()}>
+        <$Modal.Top>
           <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
           <DiaryInputDate date={date} />
-          <button onClick={onSubmit}>완료</button>
-        </Mobile_Top>
+          <button onClick={onSubmit} disabled={isLoading}>{typeText}</button>
+        </$Modal.Top>
 
 
-        <Empty />
+        <$Common.Empty />
         <Mobile_Section>
           <Mobile_Section_Title>
             <span>emotion</span>
@@ -67,11 +74,10 @@ const InputDiaryLayout = (
             </button>
           </Mobile_Section_Title>
           {imagesOpen && <Mobile_Images>{inputImages}</Mobile_Images>}
-
         </Mobile_Section>
-        <Empty />
-      </Modal>
-    </Wrapper>);
+        <$Common.Empty />
+      </$Modal.Wrapper>
+    </$Modal.Background>);
 }
 
 export default InputDiaryLayout;
@@ -105,41 +111,6 @@ const Wrapper = styled.div`
   text-transform: uppercase;
   color: rgb(var(--greyTitle));
 `
-const Modal = styled.div`
-  transition : all 300ms ease-in-out;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
-  border-radius: 0px;
-  background-color: white;
-
-  overflow-y: scroll;
-
-  @media (min-width:1024px) { //desktop
-    width: 45%;
-    height: 90%;
-    border-radius: 24px;
-    box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
-  }
-`
-const Mobile_Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  padding: 8px 5vw;
-
-  button{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    font-weight: 500;
-  }
-`
 const Mobile_Section = styled.section`
   display: flex;
   flex-direction: column;
@@ -170,9 +141,4 @@ const Mobile_Images = styled.div`
   border : 2px solid whitesmoke;
   border-radius: 8px;
   overflow: hidden;
-`
-
-
-const Empty = styled.div`
-  flex-grow: 1;
 `

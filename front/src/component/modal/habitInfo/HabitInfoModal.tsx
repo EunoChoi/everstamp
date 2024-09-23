@@ -14,6 +14,9 @@ import BottomButtonArea from "../../common/BottomButtonArea";
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useCustomRouter } from "@/function/customRouter";
+import $Modal from "@/style/common_modal";
+
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
 interface Props {
@@ -40,8 +43,13 @@ const HabitInfoModal = ({ habitId }: Props) => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [])
 
-  return (<Wrapper onClick={() => router.back()}>
-    <Modal onClick={(e) => e.stopPropagation()}>
+  return (<$Modal.Background onClick={() => router.back()}>
+    <ModalWrapper onClick={(e) => e.stopPropagation()}>
+      <$Modal.Top>
+        <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
+        <span className="title">습관 정보</span>
+        <button></button>
+      </$Modal.Top>
       <Name>
         {habitData?.name ? habitData?.name : '-'}
       </Name>
@@ -73,18 +81,15 @@ const HabitInfoModal = ({ habitId }: Props) => {
           <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={2} />
         </SlideWrapper>
       </Content>
-
-
-      <BottomButtonArea>
-        <Button onClick={() => router.back()} >
-          <CloseRoundedIcon className="icon" />
-        </Button>
-      </BottomButtonArea>
-    </Modal>
-  </Wrapper>);
+    </ModalWrapper>
+  </$Modal.Background>);
 }
 
 export default HabitInfoModal;
+
+const ModalWrapper = styled($Modal.Wrapper)`
+  padding-bottom: 16px;
+`
 
 const SlideWrapper = styled.div`
   display: flex;
@@ -220,62 +225,6 @@ const Name = styled.div`
   }
   @media (min-width:1024px) { //desktop
     font-size: 28px;
-  }
-`
-
-const Wrapper = styled.div`
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  animation: fadeIn 300ms ease-in-out;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 999;
-  width: 100dvw;
-  height: 100dvh;
-
-  /* background-color: rgba(0,0,0,0.2); */
-  backdrop-filter: blur(4px);
-`
-const Modal = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  justify-content: space-evenly;
-  align-items: center;
-
-  background-color: white;
-  
-  box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
-
-  width: 100%;
-  height: 100%;
-
-  @media (min-width:1024px) { //desktop
-    width: 500px;
-    height: 80%;
-
-    border-radius: 24px;
-  }
-`
-const Button = styled.button`
-  .icon{
-    color: rgba(0,0,0,0.3) !important;
-  }
-  .icon:hover{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
 `
 const Slide = styled.div`

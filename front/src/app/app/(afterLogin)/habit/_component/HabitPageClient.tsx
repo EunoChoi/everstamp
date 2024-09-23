@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { enqueueSnackbar } from 'notistack'
 
 //style
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 
 //component
 import HabitBox from "@/component/habit/HabitBox";
@@ -94,16 +94,16 @@ const HabitPageClient = () => {
 
 
   return (
-    <SC_Common.Wrapper className="habit">
+    <$Common.Wrapper className="habit">
       <Header title='habit' classname="habit" >
-        <SC_Common.Options>
+        <$Common.Options>
           <button onClick={onAddHabit} className="type1">
             <AddIcon fontSize="small" />
           </button>
           <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'type3' : 'type2'}>
             <span>{SORT_TEXT[sortToggle]}</span>
           </button>
-        </SC_Common.Options>
+        </$Common.Options>
       </Header>
       <ContentArea>
         {(habits === undefined || habits?.length === 0) ?
@@ -139,7 +139,7 @@ const HabitPageClient = () => {
             <EmtpyBox />
           </>}
       </ContentArea>
-    </SC_Common.Wrapper>
+    </$Common.Wrapper>
   );
 }
 

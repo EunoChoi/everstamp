@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Axios/axios";
 import Indicator from "../common/indicator";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 import { format } from "date-fns";
 import { useCustomRouter } from "@/function/customRouter";
 
@@ -83,15 +83,15 @@ const DiarySlide = ({ diaryData, position }: Props) => {
   const onDeleteDiary = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('diaryDelete'); }}>
+        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('diaryDelete'); }}>
           No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => {
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
           deleteDiaryMutation.mutate({ id: diaryData.id });
           closeSnackbar('diaryDelete');
         }}>
           Yes
-        </SC_Common.YesOrNo>
+        </$Common.YesOrNo>
       </>
     );
     enqueueSnackbar(`${format(diaryData.date, 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: true, action, autoHideDuration: 6000 });

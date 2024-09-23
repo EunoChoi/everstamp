@@ -10,7 +10,7 @@ import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import emotion4 from '/public/img/emotion/emotion4.png'
 
 //style
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 
 //function
 import { getCurrentUser } from "@/function/fetch/user";
@@ -52,15 +52,15 @@ const SettingPageClient = () => {
   const onLogout = () => {
     const logoutAction = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('logout'); }}>
+        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('logout'); }}>
           No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => {
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
           Axios.get('user/logout').then(() => { signOut(); });
           closeSnackbar('logout');
         }}>
           Yes
-        </SC_Common.YesOrNo>
+        </$Common.YesOrNo>
       </>
     );
     enqueueSnackbar('로그아웃 하시겠습니까?', { key: 'logout', persist: true, action: logoutAction, autoHideDuration: 6000 });
@@ -68,15 +68,15 @@ const SettingPageClient = () => {
   const onDeleteAccount = () => {
     const userDeleteAction = (snackbarId: SnackbarKey) => (
       <>
-        <SC_Common.YesOrNo className="no" onClick={() => { closeSnackbar('userDelete'); }}>
+        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('userDelete'); }}>
           No
-        </SC_Common.YesOrNo>
-        <SC_Common.YesOrNo className="yes" onClick={() => {
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
           Axios.delete('user').then(() => { signOut(); });
           closeSnackbar('userDelete');
         }}>
           Yes
-        </SC_Common.YesOrNo>
+        </$Common.YesOrNo>
       </>
     );
     enqueueSnackbar('회원탈퇴 하시겠습니까?', { key: 'userDelete', persist: true, action: userDeleteAction, autoHideDuration: 6000 });
@@ -87,7 +87,7 @@ const SettingPageClient = () => {
   }
 
   return (
-    <SC_Common.Wrapper>
+    <$Common.Wrapper>
       <Header title='setting' />
       <ContentArea>
         <EmtpyBox />
@@ -145,7 +145,7 @@ const SettingPageClient = () => {
         </Section>
         <EmtpyBox />
       </ContentArea>
-    </SC_Common.Wrapper>
+    </$Common.Wrapper>
   );
 }
 

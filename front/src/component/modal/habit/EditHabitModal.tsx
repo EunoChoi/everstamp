@@ -13,6 +13,7 @@ import { enqueueSnackbar } from 'notistack';
 import { getHabit } from "@/function/fetch/habit";
 import React from "react";
 import { useCustomRouter } from "@/function/customRouter";
+import HabitInputLayout from "@/component/habit/Input_Layout";
 
 interface Props {
   habitId: string;
@@ -31,9 +32,6 @@ interface Err {
 const EditHabitModal = ({ habitId }: Props) => {
   const queryClient = useQueryClient();
   const router = useCustomRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-
 
   const { data: habitData } = useQuery({
     queryKey: ['habits', 'id', habitId],
@@ -64,109 +62,20 @@ const EditHabitModal = ({ habitId }: Props) => {
     },
   });
 
-  const onEditHabit = () => {
+  const editHabit = () => {
     if (habitName.length > 0 && habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
     else enqueueSnackbar('1~10글자의 이름을 입력해주세요.', { variant: 'info' });
   };
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, [])
-
   return (
-    <Wrapper onClick={() => router.back()}>
-      <Modal onClick={(e) => e.stopPropagation()}>
-        <Content>
-          <Title>목표 습관 수정</Title>
-          <HabitInputValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} inputRef={inputRef} />
-          <SubText>최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</SubText>
-        </Content>
-        <HabitInputButtons onSubmit={onEditHabit} type="edit" isLoading={editHabitMutation.isPending} />
-      </Modal>
-    </Wrapper>);
+    <HabitInputLayout
+      habitName={habitName}
+      setHabitName={setHabitName}
+      priority={priority}
+      setPriority={setPriority}
+      typeText='수정'
+      onSubmit={editHabit}
+      isLoading={editHabitMutation.isPending}
+    />);
 }
 export default EditHabitModal;
-const SubText = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: salmon;
-
-  font-size: 14px;
-`
-const Content = styled.div`
-  height: 100%;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  @media (max-width: 479px) { //mobile port
-    justify-content: start;
-    padding-top: 50%;
-  }
-`
-const Wrapper = styled.div`
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  animation: fadeIn 300ms ease-in-out;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  z-index: 999;
-  width: 100dvw;
-  height: 100dvh;
-
-  /* background-color: rgba(0,0,0,0.2); */
-  backdrop-filter: blur(4px);
-
-  text-transform: uppercase;
-  color: rgb(var(--greyTitle));
-`
-
-const Modal = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  background-color: white;
-  box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
-
-  @media (max-width: 479px) { //mobile port
-    width: 100%;
-    height: 100%;
-    border-radius: 0px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 100%;
-    height: 100%;
-    border-radius: 0px;
-  }
-  @media (min-width:1024px) { //desktop
-    min-width: 500px;
-    width: 40%;
-    height: 50%;
-    border-radius: 24px;
-  }
-`
-
-const Title = styled.span`
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 28px;
-  font-weight: 600;
-  color: rgb(var(--greyTitle));
-`

@@ -8,7 +8,7 @@ import { useInView } from "react-intersection-observer";
 import { format, getYear } from "date-fns";
 
 //style
-import SC_Common from "@/style/common";
+import $Common from "@/style/common";
 
 //function
 import { getCurrentUser } from "@/function/fetch/user";
@@ -128,9 +128,9 @@ const ListPageClient = () => {
 
 
   return (
-    <SC_Common.Wrapper>
+    <$Common.Wrapper>
       <Header title='list'>
-        <SC_Common.Options>
+        <$Common.Options>
           <button onClick={() => { setMonthSelectorOpen(c => !c); }}>
             {(selectedMonth !== 0)
               ? <span>{selectedYear}.{selectedMonth}</span> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
@@ -139,7 +139,7 @@ const ListPageClient = () => {
             {/* <span><SortIcon fontSize="small" /></span> */}
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>
-        </SC_Common.Options>
+        </$Common.Options>
       </Header>
       <ContentArea className="scroll" _ref={contentRef}>
         <MonthSelector
@@ -180,7 +180,7 @@ const ListPageClient = () => {
         <Observer ref={ref} />
       </ContentArea>
       <ScrollToTopButton contentRef={contentRef} />
-    </SC_Common.Wrapper>
+    </$Common.Wrapper>
   );
 }
 
