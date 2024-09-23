@@ -14,15 +14,9 @@ const DiaryInputTextArea = ({ text, setText, inputRef }: Props) => {
   const onChangeText = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   }, [])
-  const onFocus = () => {
-    setTimeout(() => {
-      inputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 100);
-  }
 
   return (<InputWrapper>
     <textarea
-      onFocus={onFocus}
       onChange={onChangeText}
       ref={inputRef}
       value={text}

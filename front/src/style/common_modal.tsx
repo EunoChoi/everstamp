@@ -28,6 +28,7 @@ const $Modal = {
   `,
   Wrapper: styled.div`
     transition : all 300ms ease-in-out;
+    scroll-snap-type: y mandatory;
 
     display: flex;
     flex-direction: column;
@@ -51,8 +52,6 @@ const $Modal = {
       height: 90%;
       border-radius: 24px;
       box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
-
-      /* padding-top: var(--desktopHeader); */
     }
   `,
   Top: styled.div`
@@ -98,7 +97,6 @@ const $Modal = {
         font-size: 24px;
       }
     }
-
     button{
       width: 15%;
       color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
@@ -121,6 +119,10 @@ const $Modal = {
   DiaryInputSection: styled.section`
     display: flex;
     flex-direction: column;
+
+    scroll-snap-align: start;
+    scroll-margin-top: var(--mobileHeader);
+    scroll-snap-stop: always;
 
     width: 100%;
     padding: 18px 5vw;
