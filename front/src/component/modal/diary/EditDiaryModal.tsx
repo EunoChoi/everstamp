@@ -66,6 +66,7 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
   const [images, setImages] = useState<Array<string>>(diaryData?.Images ? diaryData.Images?.map((e: ServerImageProps) => e.src) : []);
   const [emotion, setEmotion] = useState<number>(diaryData?.emotion ? diaryData.emotion : 0);
 
+  const emotionsRef = useRef<HTMLDivElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
   const [emotionOpen, setEmotionOpen] = useState(true);
@@ -121,7 +122,11 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
               {emotionOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </button>
           </$Modal.DiaryInputTitle>
-          {emotionOpen && <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />}
+          {emotionOpen &&
+            <$Modal.DiaryInputEmotions ref={emotionsRef}>
+              <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
+            </$Modal.DiaryInputEmotions>
+          }
         </$Modal.DiaryInputSection>
         <$Modal.DiaryInputSection>
           <$Modal.DiaryInputTitle>
@@ -132,7 +137,7 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
           </$Modal.DiaryInputTitle>
           {contentsOpen &&
             <$Modal.DiaryInputTextarea>
-              <DiaryInputTextArea text={text} setText={setText} />
+              <DiaryInputTextArea text={text} setText={setText} emotionsRef={emotionsRef} />
             </$Modal.DiaryInputTextarea>
           }
         </$Modal.DiaryInputSection>

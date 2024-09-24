@@ -54,7 +54,9 @@ export default DiaryInputEmotion;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: auto;
+  height: 56px;
+  display: flex;
+  align-items: center;
 `
 const RadioWrapper = styled.div`
   width: 100%;
@@ -83,7 +85,7 @@ const RadioButton = styled.label`
   }
   .checkmark{
     width: 100%;
-    margin-top: 8px;
+    margin-top: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,13 +97,13 @@ const RadioButton = styled.label`
     span{
       transition: all 200ms ease-in-out;
       border-radius: 56px;
-      padding: 2px 8px;
+      padding: 0 8px;
       border : 2px solid rgba(0,0,0,0);
     }
   }
   input:checked ~ .checkmark{
     span{
-      border : 2px solid rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.1);
       background-color: ${(props) => props.theme.point ? props.theme.point + '60' : '#979FC7'};
     }
   }

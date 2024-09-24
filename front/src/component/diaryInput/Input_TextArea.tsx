@@ -6,9 +6,10 @@ import { ChangeEvent } from "react";
 interface Props {
   text: string;
   setText: (v: string) => void;
+  emotionsRef: RefObject<HTMLDivElement>;
 }
 
-const DiaryInputTextArea = ({ text, setText }: Props) => {
+const DiaryInputTextArea = ({ text, setText, emotionsRef }: Props) => {
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -17,8 +18,8 @@ const DiaryInputTextArea = ({ text, setText }: Props) => {
   }, []);
   const onFocus = () => {
     setTimeout(() => {
-      inputRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 200);
+      emotionsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 300);
   }
 
   return (<InputWrapper ref={inputRef} >

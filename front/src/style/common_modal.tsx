@@ -139,6 +139,10 @@ const $Modal = {
     justify-content: space-between;
     align-items: center;
   `,
+  DiaryInputEmotions: styled.div`
+    width: 100%;
+    height: 100%;
+  `,
   DiaryInputTextarea: styled.div`
     width: 100%;
     height: 220px;
