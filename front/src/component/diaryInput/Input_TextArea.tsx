@@ -38,7 +38,6 @@ export default DiaryInputTextArea;
 const InputWrapper = styled.div`
   width : 100%;
   height: 100%;
-  scroll-margin-top: 128px;
   textarea{
     font-size: 16px;
     font-weight: 500;
