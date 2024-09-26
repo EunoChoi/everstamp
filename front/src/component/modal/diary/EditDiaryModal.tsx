@@ -4,6 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import Axios from "@/Axios/axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { notFound } from 'next/navigation';
+
+
 //function
 import { getDiary } from "@/function/fetch/diary";
 
@@ -46,6 +49,7 @@ interface DiaryProps {
   emotion: number;
   Images: Array<any>;
   diaryId: string | null;
+  visible?: boolean;
 }
 
 
@@ -101,7 +105,7 @@ const EditDiaryModal = ({ diaryId }: { diaryId: string | null }) => {
   });
 
   useEffect(() => {
-    if (isError) router.push('/404');
+    if (isError || diaryData?.visible === false) notFound();
   }, [isError])
 
   return (

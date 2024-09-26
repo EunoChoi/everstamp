@@ -15,6 +15,9 @@ import React from "react";
 import { useCustomRouter } from "@/function/customRouter";
 import HabitInputLayout from "@/component/habit/Input_Layout";
 
+import { notFound } from 'next/navigation';
+
+
 interface Props {
   habitId: string;
 }
@@ -33,7 +36,7 @@ const EditHabitModal = ({ habitId }: Props) => {
   const queryClient = useQueryClient();
   const router = useCustomRouter();
 
-  const { data: habitData } = useQuery({
+  const { data: habitData, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
     queryFn: () => getHabit({ id: habitId }),
     enabled: habitId !== null
@@ -66,6 +69,10 @@ const EditHabitModal = ({ habitId }: Props) => {
     if (habitName.length > 0 && habitName.length <= 10) editHabitMutation.mutate({ habitId, habitName, priority });
     else enqueueSnackbar('1~10글자의 이름을 입력해주세요.', { variant: 'info' });
   };
+
+  useEffect(() => {
+    if (isError) notFound();
+  }, [isError])
 
   return (
     <HabitInputLayout

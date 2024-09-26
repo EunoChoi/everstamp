@@ -17,6 +17,8 @@ import { useCustomRouter } from "@/function/customRouter";
 import $Modal from "@/style/common_modal";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { notFound } from 'next/navigation';
+
 
 
 interface Props {
@@ -31,13 +33,16 @@ const HabitInfoModal = ({ habitId }: Props) => {
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-  const { data: habitData } = useQuery({
+  const { data: habitData, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
     queryFn: () => getHabit({ id: habitId }),
     enabled: habitId !== null
   });
 
 
+  useEffect(() => {
+    if (isError) notFound();
+  }, [isError])
 
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
