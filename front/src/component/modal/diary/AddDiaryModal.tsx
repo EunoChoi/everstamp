@@ -40,7 +40,7 @@ const AddDiaryModal = () => {
   const param = useSearchParams();
   const date = new Date(Number(param.get('date')));
 
-  const emotionsRef = useRef<HTMLDivElement>(null);
+  const contentsRef = useRef<HTMLElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
 
   const [text, setText] = useState<string>('');
@@ -99,12 +99,12 @@ const AddDiaryModal = () => {
             </button>
           </$Modal.DiaryInputTitle>
           {emotionOpen &&
-            <$Modal.DiaryInputEmotions ref={emotionsRef}>
+            <$Modal.DiaryInputEmotions>
               <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
             </$Modal.DiaryInputEmotions>
           }
         </$Modal.DiaryInputSection>
-        <$Modal.DiaryInputSection>
+        <$Modal.DiaryInputSection ref={contentsRef}>
           <$Modal.DiaryInputTitle>
             <span>contents</span>
             <button onClick={() => { setContentsOpen(c => !c) }}>
@@ -113,7 +113,7 @@ const AddDiaryModal = () => {
           </$Modal.DiaryInputTitle>
           {contentsOpen &&
             <$Modal.DiaryInputTextarea>
-              <DiaryInputTextArea text={text} setText={setText} emotionsRef={emotionsRef} />
+              <DiaryInputTextArea text={text} setText={setText} contentsRef={contentsRef} />
             </$Modal.DiaryInputTextarea>
           }
         </$Modal.DiaryInputSection>

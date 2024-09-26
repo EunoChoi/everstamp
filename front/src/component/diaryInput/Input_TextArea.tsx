@@ -6,25 +6,26 @@ import { ChangeEvent } from "react";
 interface Props {
   text: string;
   setText: (v: string) => void;
-  emotionsRef: RefObject<HTMLDivElement>;
+  contentsRef: RefObject<HTMLElement>;
 }
 
-const DiaryInputTextArea = ({ text, setText, emotionsRef }: Props) => {
+const DiaryInputTextArea = ({ text, setText, contentsRef }: Props) => {
 
   const inputRef = useRef<HTMLDivElement>(null);
 
   const onChangeText = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   }, []);
-  const onFocus = () => {
+  const scroll = () => {
     setTimeout(() => {
-      emotionsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 300);
+      contentsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 200);
   }
 
   return (<InputWrapper ref={inputRef} >
     <textarea
-      onFocus={onFocus}
+      onFocus={scroll}
+      onClick={scroll}
       onChange={onChangeText}
 
       value={text}

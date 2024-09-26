@@ -42,6 +42,7 @@ const $Modal = {
     background-color: white;
 
     @media (max-width: 479px) { //mobile port
+      height: 99.5%; 
       padding-top: var(--mobileHeader);
     }
     @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet

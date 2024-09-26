@@ -70,8 +70,8 @@ const HabitPageClient = () => {
 
 
   const onAddHabit = () => {
-    if (habits.length < 18) router.push('/app/inter/input/addHabit', { scroll: false })
-    else enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
+    if (habits && habits.length >= 18) enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
+    else router.push('/app/inter/input/addHabit', { scroll: false })
   }
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
