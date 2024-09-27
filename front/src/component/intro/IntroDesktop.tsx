@@ -130,8 +130,8 @@ const IntroDesktop = () => {
           <span>everstamp</span>
         </Logo>
         <Text>
-          <span>꾸준히 감정 일기를 작성하고</span>
-          <span>목표 습관을 실천하세요.</span>
+          <span>내일 더 나은 나로 나아가기 위해</span>
+          <span>감정 일기와 습관 만들기를 시작하세요.</span>
         </Text>
         <DownLoadButtons>
           <a href="/download/Everstamp.apk" download>

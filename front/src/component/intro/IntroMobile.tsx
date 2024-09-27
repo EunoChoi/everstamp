@@ -119,8 +119,8 @@ const IntroMobile = () => {
         <span>everstamp</span>
       </Logo>
       <Text>
-        <span>감정 일기를 적고 목표 습관을 실천하세요.</span>
-        <span>당신의 변화와 성장을 응원합니다.</span>
+        <span>내일 더 나은 나로 나아가기 위해</span>
+        <span>감정 일기와 습관 만들기를 시작하세요.</span>
       </Text>
       <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
       <DownLoadButtons>
