@@ -114,6 +114,10 @@ const Wrapper = styled.div`
   display: flex;
   overflow-x: scroll;
   height: 100%;
+
+  background-color: #f9f9f9;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
 `
 const SquareBox = styled.div`
   position: relative;

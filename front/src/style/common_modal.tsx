@@ -147,13 +147,11 @@ const $Modal = {
   DiaryInputTextarea: styled.div`
     width: 100%;
     height: 220px;
-    border : 2px solid whitesmoke;
   `,
   DiaryInputImages: styled.div`
     width: 100%;
     height: 120px;
-    border : 2px solid whitesmoke;
-    border-radius: 8px;
+
     overflow: hidden;
   `
 }

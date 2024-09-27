@@ -39,7 +39,13 @@ export default DiaryInputTextArea;
 const InputWrapper = styled.div`
   width : 100%;
   height: 100%;
+
+  background-color: #f9f9f9;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+
   textarea{
+    background-color: #f9f9f9;
     font-size: 16px;
     font-weight: 500;
     width: 100%;
