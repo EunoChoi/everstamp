@@ -13,10 +13,7 @@ const router = express.Router();
 
 const db = require("../models/index.js");
 const tokenCheck = require('../middleware/tokenCheck.js');
-const Op = db.Sequelize.Op;
-
-const Image = db.Image;
-const Diary = db.Diary;
+const { v4: uuidv4 } = require('uuid');
 
 
 //AWS 권한 획득
@@ -44,8 +41,8 @@ const upload = multer({
     s3: s3,
     bucket: 'everstamp',
     key(req, file, cb) {
-      file.originalname = Buffer.from(file.originalname, 'ascii').toString('utf8');
-      cb(null, `img/${Date.now()}_${path.basename(file.originalname).toString('utf8').split(' ').join('')}`)
+      const extension = path.extname(file.originalname);
+      cb(null, `img/${Date.now()}_${uuidv4()}${extension}`);
     }
   }),
   limits: {
