@@ -95,65 +95,73 @@
 #### front
 
 ```
-.
+front
 ├── public/
-│   ├── index.html
-│   └── favicon.ico
-├── src/
-│   ├── components/
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── ...
-│   ├── pages/
-│   │   ├── index.tsx
-│   │   ├── diary/
-│   │   │   ├── index.tsx
-│   │   │   └── [id].tsx
-│   │   └── habit/
-│   │       └── index.tsx
-│   ├── lib/
-│   │   ├── db.ts
-│   │   └── ...
-│   └── styles/
-│       ├── globals.css
-│       └── ...
-├── prisma/
-│   └── schema.prisma
-├── next.config.js
-├── package.json
-└── README.md
+├── src
+│   ├── Axios/
+│   ├── app
+│   │   ├── (error)/
+│   │   ├── api/
+│   │   ├── app
+│   │   │   ├── (afterLogin)
+│   │   │   │   ├── @modal/
+│   │   │   │   ├── calendar/
+│   │   │   │   ├── habit/
+│   │   │   │   ├── layout.tsx
+│   │   │   │   ├── list/
+│   │   │   │   └── setting/
+│   │   │   │   ├── inter
+│   │   │   │   │   ├── habitInfo/
+│   │   │   │   │   ├── habitOrder/
+│   │   │   │   │   ├── input
+│   │   │   │   │   │   ├── addDiary/
+│   │   │   │   │   │   ├── addHabit/
+│   │   │   │   │   │   ├── editDiary/
+│   │   │   │   │   │   └── editHabit/
+│   │   │   │   │   └── zoom/
+│   │   │   └── page.tsx
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── not-found.tsx
+│   │   ├── offline/
+│   │   └── page.tsx
+│   ├── auth.ts
+│   ├── component/
+│   ├── fonts/
+│   ├── function/
+│   ├── middleware.ts
+│   └── style/
+├── README.md
+└── package.json
 ```
 
 #### back
 
 ```
-.
-├── public/
-│   ├── index.html
-│   └── favicon.ico
-├── src/
-│   ├── components/
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── ...
-│   ├── pages/
-│   │   ├── index.tsx
-│   │   ├── diary/
-│   │   │   ├── index.tsx
-│   │   │   └── [id].tsx
-│   │   └── habit/
-│   │       └── index.tsx
-│   ├── lib/
-│   │   ├── db.ts
-│   │   └── ...
-│   └── styles/
-│       ├── globals.css
-│       └── ...
-├── prisma/
-│   └── schema.prisma
-├── next.config.js
+back
+├── app.js
+├── config
+│   └── config.js
+├── function
+│   ├── decrypt.js
+│   └── encrypt.js
+├── middleware
+│   └── tokenCheck.js
+├── migrations/
+├── models
+│   ├── diary.js
+│   ├── habit.js
+│   ├── image.js
+│   ├── index.js
+│   └── user.js
 ├── package.json
-└── README.md
+├── pnpm-lock.yaml
+├── routes
+│   ├── diary.js
+│   ├── habit.js
+│   ├── image.js
+│   └── user.js
+└── seeders
 ```
 
 <br>
