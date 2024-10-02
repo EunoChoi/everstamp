@@ -4,7 +4,7 @@
 
 <img width="1080" alt="everstamp_main" src="https://github.com/user-attachments/assets/bc58345a-7225-447e-a057-0a64c7b988ba">
 
-### 프로젝트 개요
+### 1. 프로젝트 개요
 
 - **프로젝트명**
 
@@ -41,7 +41,7 @@
 
 <br>
 
-### 프로젝트 기술 스택
+### 2. 프로젝트 기술 스택
 
 - **Front-End**
 
@@ -74,7 +74,7 @@
 <br>
 
 
-### 프로젝트 미리보기
+### 3. 프로젝트 미리보기
 <br>
 <img width="1080" alt="es_readme_1" src="https://github.com/user-attachments/assets/03ddfb91-6cde-4fd3-85ad-9060acd778bc">
 <!--<img width="1080" alt="mobile" src="https://github.com/user-attachments/assets/e8333d9f-881a-44e8-80e5-47e867bf97a9">-->
@@ -88,7 +88,7 @@
 <br>
 
 
-### 프로젝트 구조
+### 4. 프로젝트 구조
 
 <img width="1080" alt="everstamp 구조" src="https://github.com/user-attachments/assets/acd9fbd5-621b-4981-b8f6-edce5240fcb4">
 
@@ -168,7 +168,7 @@ back
 
 
 
-### 개선 예정 사항
+### 5. 개선 예정 사항
 
 - [ ] 앱 환경 구축
   - [x] PWA(웹앱) 기능 추가
