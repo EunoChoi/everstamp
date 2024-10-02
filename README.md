@@ -11,7 +11,7 @@
 	습관 관리와 감정일기를 한번에, <b>Everstamp</b>
 
 - **서비스 제공**
-  - 웹사이트 :  [Everstamp 🔗](https://everstamp.site/)
+  - 웹사이트 :  [everstamp.site 🔗](https://everstamp.site/)
   - 안드로이드 : [APK 설치 파일 제공 🗂️](https://everstamp.site/download/Everstamp.apk)
   - PWA(Progressive Web Apps) 지원
 - **기획 동기**
@@ -24,20 +24,24 @@
 
 - **프로젝트 설명**
 
-  이 프로젝트는 일기 작성과 습관 관리를 동시에 할 수 있는 웹 애플리케이션입니다. 관계형 데이터베이스를 활용하여 일기와 습관 정보를 효율적으로 관리하고, 달력 보기, 리스트 보기, 필터링 등 다양한 방법을 이용하여 사용자에게 가공된 정보를 제공합니다.
+  이 프로젝트는 일기 작성과 습관 관리를 동시에 할 수 있는 웹 애플리케이션입니다. 관계형 데이터베이스를 활용하여 일기와 습관 정보를 효율적으로 관리하고, 달력 형태, 목록 형태, 필터링 등 다양한 방법을 이용하여 사용자에게 가공된 정보를 제공합니다.
 
-  - **일기 작성** : 텍스트, 사진, 감정, 완료 습관 등으로 이루어진 정보로 일기가 작성됩니다.
-  - **일기 보기**
-    - **달력** : 날짜별 일기 감정, 완료한 습관 개수를 유저가 한눈에 파악할 수 있도록 보여줍니다.
-    - **리스트** : 감정별, 월별 모아보기 기능과 정렬 기능을 지원합니다.
-  - **습관 관리** : 최대 18개까지 목표 습관을 추가 가능하며 최근 4일 동안의 습관 수행 여부를 체크 가능합니다.
-  - **멀티 플랫폼 지원** : 회원가입(카카오, 네이버, 구글) 및 로그인 이후 웹, 모바일 등 다양한 환겨에서 싱행 가능합니다.
+  - **회원가입&로그인** : SNS 회원가입 및 로그인 기능을 지원 (카카오, 네이버, 구글)
+  - **일기 작성** : 텍스트, 사진, 감정 표현, 완료된 습관 항목 등으로 이루어진 정보로 일기 작성
+  - **일기 표현 방식**
+    - **달력 형태** : 한 달 동안의 감정 변화와 습관 수행 정도를 직관적으로 파악가능한 달력 형태의 보기 기능
+    - **목록 형태** : 순차적으로 일기 확인이 가능한 목록 형태의 보기 기능 (+필터링(감정, 월), 정렬 기능 지원)
+  - **습관 관리** : 최근 4일 동안의 습관 수행 여부를 체크 (최대 18개까지 목표 습관 추가 가능)
+  - **습관 정보 전달** : 차트, 그래프 보기 정보 보기 
+  - **멀티 플랫폼 지원** : 데스크탑, 태블릿, 모바일 등 다양한 환경에서 실행 가능
+  - **기타 편의 기능**
+    - 습관 목록 순서 개인화
+    - 테마 색상 설정 
 
 
-- **개발 회고**
-<!--	- 블로그글 1
-	- 블로그글 2
-  - 블로그글 3 -->
+- **개발 회고(velog)**
+	- .
+ 	- .
 
 <br>
 
@@ -63,13 +67,14 @@
 	![reactquery](https://img.shields.io/badge/ReactQuery-f73e51?style=flat&logo=reactquery&logoColor=white)
 	![local](https://img.shields.io/badge/LocalStorage-grey?style=flat&logo=&logoColor=white)
 
-<!--
+
 - **Server**
   
 	![amazonec2](https://img.shields.io/badge/EC2-ed8233?style=flat&logo=amazonec2&logoColor=white)
 	![amazons3](https://img.shields.io/badge/S3-da5141?style=flat&logo=amazons3&logoColor=white)
-	![awslambda](https://img.shields.io/badge/Lambda-d26214?style=flat&logo=awslambda&logoColor=white)
- -->
+	![NginX](https://img.shields.io/badge/NginX-da5141?style=flat&logo=amazons3&logoColor=white)
+	![Certbot](https://img.shields.io/badge/Certbot-da5141?style=flat&logo=amazons3&logoColor=white)
+
 
 <br>
 
@@ -77,7 +82,6 @@
 ### 3. 프로젝트 미리보기
 <br>
 <img width="1080" alt="es_readme_1" src="https://github.com/user-attachments/assets/03ddfb91-6cde-4fd3-85ad-9060acd778bc">
-<!--<img width="1080" alt="mobile" src="https://github.com/user-attachments/assets/e8333d9f-881a-44e8-80e5-47e867bf97a9">-->
 <h4 align=center > Mobile</h4>
 <img width="1080" alt="tablet desktop" src="https://github.com/user-attachments/assets/f9e2eb3b-cf13-4c24-ac13-3232b4659d87">
 <h4 align=center > Tablet & Desktop</h4>
