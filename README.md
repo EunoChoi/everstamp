@@ -16,27 +16,27 @@
   - PWA(Progressive Web Apps) 지원
 - **기획 동기**
 
-  일기 앱과 습관 관리 앱을 별도로 사용할 때 발생하는 불편함을 해소하기 위해 기획되었습니다.
-  일기 작성과 습관 관리 기능을 통합하고 멀티 플랫폼을 지원하여 사용자 편의성을 높이고자 하였습니다.
+  일기 앱과 습관 관리 앱을 별도로 사용할 때 발생하는 불편함을 해소하기 위해 기획하였습니다.
+  프로젝트의 주된 목표는 일기 작성과 습관 관리 기능을 통합하고 멀티 플랫폼을 지원하여 사용자 편의성을 높이는 것 입니다.
   부가적으로 프로젝트를 진행하며 Next.js 13의 서버 컴포넌트를 활용하여 개발 역량을 강화하고, 외부 라이브러리 사용을 최소화하여 의존도를 낮추는 것을 목표로 하였습니다.
 
   
 
 - **프로젝트 설명**
 
-  이 프로젝트는 일기 작성과 습관 관리를 동시에 할 수 있는 웹 애플리케이션입니다. 관계형 데이터베이스를 활용하여 일기와 습관 정보를 효율적으로 관리하고, 달력 형태, 목록 형태, 필터링 등 다양한 방법을 이용하여 사용자에게 가공된 정보를 제공합니다.
+  이 프로젝트는 일기 작성과 습관 관리를 동시에 할 수 있는 웹 애플리케이션입니다. 관계형 데이터베이스를 활용하여 일기와 습관 정보를 효율적으로 관리하고, 달력 형태, 목록 형태, 필터링, 그래프 등 다양한 방법을 이용하여 사용자에게 가공된 정보를 제공합니다.
 
   - **회원가입&로그인** : SNS 회원가입 및 로그인 기능을 지원 (카카오, 네이버, 구글)
   - **일기 작성** : 텍스트, 사진, 감정 표현, 완료된 습관 항목 등으로 이루어진 정보로 일기 작성
-  - **일기 표현 방식**
-    - **달력 형태** : 한 달 동안의 감정 변화와 습관 수행 정도를 직관적으로 파악가능한 달력 형태의 보기 기능
+  - **일기 표현 형태**
+    - **달력 형태** : 한 달 동안의 감정 변화와 습관 수행 정도를 한눈에 파악 가능한 달력 형태의 보기 기능
     - **목록 형태** : 순차적으로 일기 확인이 가능한 목록 형태의 보기 기능 (+필터링(감정, 월), 정렬 기능 지원)
   - **습관 관리** : 최근 4일 동안의 습관 수행 여부를 체크 (최대 18개까지 목표 습관 추가 가능)
-  - **습관 정보 전달** : 차트, 그래프 보기 정보 보기 
-  - **멀티 플랫폼 지원** : 데스크탑, 태블릿, 모바일 등 다양한 환경에서 실행 가능
+  - **습관 실천 정보** : 연/월간 성취 파악을 위한 달력, 그래프 형태로 습관 실천 정보 제공 
+  - **멀티 플랫폼 지원** : 데스크탑, 태블릿, 모바일 등 다양한 환경에서 UI 최적화 및 실행 가능
   - **기타 편의 기능**
-    - 습관 목록 순서 개인화
-    - 테마 색상 설정 
+    - 자유로운 습관 목록 순서 변경 기능
+    - 테마 색상 변경 기능 
 
 <!--
 - **개발 회고(velog)**
@@ -68,12 +68,12 @@
 	![local](https://img.shields.io/badge/LocalStorage-grey?style=flat&logo=&logoColor=white)
 
 
-- **Server**
+- **Server & Security**
   
 	![amazonec2](https://img.shields.io/badge/EC2-ed8233?style=flat&logo=amazonec2&logoColor=white)
 	![amazons3](https://img.shields.io/badge/S3-da5141?style=flat&logo=amazons3&logoColor=white)
-	![NginX](https://img.shields.io/badge/NginX-da5141?style=flat&logo=amazons3&logoColor=white)
-	![Certbot](https://img.shields.io/badge/Certbot-da5141?style=flat&logo=amazons3&logoColor=white)
+	![NginX](https://img.shields.io/badge/NginX-green?style=flat&logo=nginx&logoColor=white)
+	![letsEncrypt](https://img.shields.io/badge/Let's_Encrypt-blue.svg?logo=let%E2%80%99s-encrypt)
 
 
 <br>
@@ -87,7 +87,9 @@
 <h4 align=center > Tablet & Desktop</h4>
 
 
+<!-- 
 - 더 많은 이미지 및 프로젝트 정보는 노션 페이지 참조  [everstamp notion 🔗](https://./)
+-->
 
 <br>
 
