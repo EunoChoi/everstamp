@@ -72,6 +72,7 @@
   
 	![amazonec2](https://img.shields.io/badge/EC2-ed8233?style=flat&logo=amazonec2&logoColor=white)
 	![amazons3](https://img.shields.io/badge/S3-da5141?style=flat&logo=amazons3&logoColor=white)
+	![awslambda](https://img.shields.io/badge/Lambda-d26214?style=flat&logo=awslambda&logoColor=white)
 	![NginX](https://img.shields.io/badge/NginX-green?style=flat&logo=nginx&logoColor=white)
 	![letsEncrypt](https://img.shields.io/badge/Let's_Encrypt-blue.svg?logo=let%E2%80%99s-encrypt)
 
