@@ -17,7 +17,7 @@ export const handler = async (event) => {
     const format = key.split('.').pop().toLowerCase(); // 확장자 추출
 
     // 이미지 크기 확인
-    if (metadata.width < 1080 && metadata.height < 1080) {
+    if (metadata.width < 1200 && metadata.height < 1200) {
       console.log(`image size is ${metadata.width}x${metadata.height}`);
       return {
         statusCode: 200,
@@ -27,7 +27,7 @@ export const handler = async (event) => {
 
     // 이미지 리사이즈 (비율 유지)
     const resizedImage = await sharp(imageBuffer)
-      .resize(1080, 1080, { fit: 'inside' }) // 비율 유지하면서 리사이즈
+      .resize(1200, 1200, { fit: 'inside' }) // 비율 유지하면서 리사이즈
       .toFormat(metadata.format) // 원본 포맷 유지
       .toBuffer();
 
