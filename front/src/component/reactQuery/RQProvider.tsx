@@ -11,7 +11,7 @@ type Props = {
 
 
 /**
- * [Client Component] react query provider
+ * [Client] reactQuery provider component
  */
 function RQProvider({ children }: Props) {
   const queryClient = new QueryClient({

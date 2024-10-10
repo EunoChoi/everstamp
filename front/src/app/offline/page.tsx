@@ -5,6 +5,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCustomRouter } from "@/function/customRouter";
 
+/**
+ * [Client] offline page
+ */
 export default function OfflinePage() {
   const router = useCustomRouter();
   useEffect(() => {
