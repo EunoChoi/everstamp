@@ -21,7 +21,9 @@ import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
 
 
-
+/**
+ * [Client] login page, url : 'everstamp.site/app/'
+ */
 const Page = () => {
   const router = useRouter();
 

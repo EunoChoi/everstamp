@@ -17,6 +17,9 @@ interface Props {
   modal: ReactNode;
 }
 
+/**
+ * [Client] afterLogin pages layout
+ */
 const AppLayout = ({ children, modal }: Props) => {
 
   const isMobile = IsMobile()
