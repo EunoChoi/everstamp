@@ -43,6 +43,7 @@ const HabitOrderModal = () => {
   const router = useCustomRouter();
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const listsWrapperRef = useRef<HTMLDivElement>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [dragItemIndex, setDragItemIndex] = useState<number>();
 
@@ -99,9 +100,11 @@ const HabitOrderModal = () => {
     }
   };
 
-  const dragStart = (e: React.PointerEvent<HTMLButtonElement>, index: number) => {
+  const dragStart = (e: React.PointerEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement>, index: number) => {
 
     setDragItemIndex(index);
+
+    if (listsWrapperRef.current) listsWrapperRef.current.style.overflowY = 'hidden';
 
     const fromIndex: number = index;
     let toIndex: number = fromIndex;
@@ -141,13 +144,15 @@ const HabitOrderModal = () => {
     container.appendChild(emptyDiv);
 
     //drag start cursor point
-    const originY = e.clientY;
-
+    const originY = e.type.includes('touch')
+      ? (e as React.TouchEvent<HTMLButtonElement>).touches[0].clientY
+      : (e as React.PointerEvent<HTMLButtonElement>).clientY;
 
 
     const handleDragMove = (e: PointerEvent | TouchEvent) => dragMove(e, fromIndex);
     const dragMove = (e: PointerEvent | TouchEvent, fromIndex: number) => {
-      const dragY = e instanceof TouchEvent ? e.touches[0].clientY : e.clientY;
+      const dragY = e.type.includes('touch') ? (e as TouchEvent).touches[0].clientY : (e as PointerEvent).clientY;
+
       const posY = dragY - originY;
       if (containterInfo.top < dragY && dragY < containterInfo.bottom) {
         dragItemEl.style.transform = `translateY(${posY}px)`;
@@ -188,6 +193,7 @@ const HabitOrderModal = () => {
       otherHabitsData.splice(toIndex, 0, habits[fromIndex]);
       setHabits(otherHabitsData);
 
+      if (listsWrapperRef.current) listsWrapperRef.current.style.overflowY = 'scroll';
       window.removeEventListener('pointermove', handleDragMove);
       window.removeEventListener('touchmove', handleDragMove);
       window.removeEventListener('pointerup', dragEnd);
@@ -211,7 +217,7 @@ const HabitOrderModal = () => {
         <button onClick={onSubmit}>완료</button>
       </$Modal.Top>
 
-      <ListsWrapper >
+      <ListsWrapper ref={listsWrapperRef}>
         <$Common.Empty />
         <Lists ref={containerRef}>
           {habits && habits?.map((habit: any, i: number) =>
