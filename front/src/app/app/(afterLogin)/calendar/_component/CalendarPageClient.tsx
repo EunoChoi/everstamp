@@ -16,7 +16,7 @@ import $Common from "@/style/common";
 //component
 import ContentArea from "@/component/common/ContentArea";
 import Diary from "@/component/diary/Diary";
-import CalendarSelector from "@/component/calendar/CalendarSelector";
+import Calendar from "@/component/calendar/Calendar";
 import Header from "@/component/common/Header";
 import { useCustomRouter } from "@/function/customRouter";
 
@@ -48,7 +48,7 @@ const CalendarPageClient = ({ date }: Props) => {
           {isMobile === true &&
             <>
               <CalendarWrapper>
-                <CalendarSelector />
+                <Calendar />
               </CalendarWrapper>
               <Diary diaryData={diaryData} position="calendar" />
             </>}

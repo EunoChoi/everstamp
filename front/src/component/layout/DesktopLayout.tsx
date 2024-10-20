@@ -10,7 +10,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode } from "react";
-import CalendarSelector from "../calendar/CalendarSelector";
+import Calendar from "../calendar/Calendar";
 
 interface Props {
   children: ReactNode;
@@ -32,7 +32,7 @@ const DesktopLayout = ({ modal, children }: Props) => {
         <Menus>
           <Menu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
           <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
-            <CalendarSelector />
+            <Calendar />
           </MonthWrapper>
           <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
           <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
