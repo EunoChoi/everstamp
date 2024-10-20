@@ -26,7 +26,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getHabit_status_month } from "@/function/fetch/habit";
 import { useCustomRouter } from "@/function/customRouter";
 
-const CalendarSelector = () => {
+const Calendar = () => {
   const router = useCustomRouter();
   const params = useSearchParams();
   const date = Number(params.get('date'));
@@ -172,7 +172,7 @@ const CalendarSelector = () => {
   );
 }
 
-export default CalendarSelector;
+export default Calendar;
 
 const Wrapper = styled.div`
   width: 100%;
