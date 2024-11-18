@@ -24,6 +24,7 @@ import EmotionSelection from "@/component/list/EmotionSelection";
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import MonthSelector from "@/component/list/MonthSelector";
 import ScrollToTopButton from "@/component/list/ScrollToTopButton";
+import { useRouter } from "next/navigation";
 
 
 
@@ -58,6 +59,7 @@ interface User {
 
 const ListPageClient = () => {
 
+  const router = useRouter();
   const { ref, inView } = useInView({
     threshold: 0,
     delay: 0
@@ -125,6 +127,13 @@ const ListPageClient = () => {
   useEffect(() => {
     if (user && !isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching])
+
+  //production mode에서만 동작, 정적 자료만 prefetch
+  useEffect(() => {
+    router.prefetch('/app/calendar');
+    router.prefetch('/app/habit');
+    router.prefetch('/app/setting');
+  }, [])
 
 
   return (

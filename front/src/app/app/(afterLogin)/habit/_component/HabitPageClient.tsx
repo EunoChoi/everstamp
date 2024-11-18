@@ -91,7 +91,12 @@ const HabitPageClient = () => {
   }, [userEmail, sortToggle])
 
 
-
+  //production mode에서만 동작, 정적 자료만 prefetch
+  useEffect(() => {
+    router.prefetch('/app/calendar');
+    router.prefetch('/app/list');
+    router.prefetch('/app/setting');
+  }, [])
 
   return (
     <$Common.Wrapper className="habit">

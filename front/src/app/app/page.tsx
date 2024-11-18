@@ -46,6 +46,13 @@ const Page = () => {
     });
   }
 
+  useEffect(() => {
+    router.prefetch('/app/calendar');
+    router.prefetch('/app/list');
+    router.prefetch('/app/habit');
+    router.prefetch('/app/setting');
+  }, [])
+
   const options = { callbackUrl: '/app' };
   return (
     <Wrapper>
