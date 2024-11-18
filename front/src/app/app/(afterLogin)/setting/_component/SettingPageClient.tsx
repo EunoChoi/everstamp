@@ -18,7 +18,7 @@ import { getCurrentUser } from "@/function/fetch/user";
 //component
 import Header from "@/component/common/Header";
 import ContentArea from "@/component/common/ContentArea";
-import React from "react";
+import React, { useEffect } from "react";
 
 
 import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
@@ -85,6 +85,13 @@ const SettingPageClient = () => {
   const themeColorUpdate = (themeColor: string) => {
     themeColorUpdateMutation.mutate(themeColor);
   }
+
+  //production mode에서만 동작, 정적 자료만 prefetch
+  useEffect(() => {
+    router.prefetch('/app/calendar');
+    router.prefetch('/app/list');
+    router.prefetch('/app/habit');
+  }, [])
 
   return (
     <$Common.Wrapper>
