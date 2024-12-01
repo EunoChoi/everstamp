@@ -11,9 +11,9 @@
 	습관 관리와 감정일기를 한번에, <b>Everstamp</b>
 
 - **서비스 제공**
-  - 웹사이트 :  [everstamp.site 🔗](https://everstamp.site/)
-  - 안드로이드 : [APK 설치 파일 제공 🗂️](https://everstamp.site/download/Everstamp.apk)
-  - PWA(Progressive Web Apps) 지원
+  - 웹사이트 :  [https://everstamp.site 🔗](https://everstamp.site/)
+  - 안드로이드 : [Google Play Store 🔗](https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share)
+  - Other OS : PWA(Progressive Web Apps) 지원
 - **기획 동기**
 
   일기 앱과 습관 관리 앱을 별도로 사용할 때 발생하는 불편함을 해소하기 위해 기획하였습니다.
