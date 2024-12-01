@@ -94,6 +94,9 @@ const IntroMobile = () => {
       <p style={{ fontSize: '15px', color: '#DC7889' }}>원할한 이용을 위해 앱을 설치해주세요.</p>
     </div>
   );
+  const goToPlayStore = () => {
+    router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share');
+  }
   const startInWeb = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
@@ -124,9 +127,12 @@ const IntroMobile = () => {
       </Text>
       <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
       <DownLoadButtons>
-        <a href="/download/Everstamp.apk" download>
+        {/* <a href="/download/Everstamp.apk" download>
           <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
-        </a>
+        </a> */}
+        <Button onClick={goToPlayStore}>
+          <AndroidIcon className="icon" fontSize="small" />Android
+        </Button>
         <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
       </DownLoadButtons>
 
@@ -230,9 +236,12 @@ const IntroMobile = () => {
     </Mobile_Section>
     <Mobile_Section className="outro">
       <DownLoadButtons>
-        <a href="/download/Everstamp.apk" download>
+        {/* <a href="/download/Everstamp.apk" download>
           <Button className="outro"><AndroidIcon className="icon" fontSize="small" />APK</Button>
-        </a>
+        </a> */}
+        <Button className="outro" onClick={goToPlayStore}>
+          <AndroidIcon className="icon" fontSize="small" />Android
+        </Button>
         <Button className="outro" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
         {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </DownLoadButtons>
