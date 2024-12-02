@@ -40,7 +40,7 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
             setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
-          <Img src={e} alt={emotionName[i]} width={140} height={140} />
+          <Img className="icon" src={e} alt={emotionName[i]} width={140} height={140} />
         </EmotionWrapper>)
       }
     </ScrollWrapper>
@@ -65,15 +65,19 @@ const EmotionWrapper = styled.div`
     height: 96px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
   }
   @media (min-width:1024px) { //desktop
     width: 120px;
     height: 120px;
   }
-  border-radius: 8px;
+  .icon{
+    width: 85%;
+    height: 85%;
+  }
 
+  border-radius: 8px;
   margin-right: 8px;
   &:last-child{
     margin-right: 0;
