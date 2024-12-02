@@ -1,6 +1,6 @@
 'use client'
 
-import { redirect } from 'next/navigation'
+import { redirect, usePathname } from 'next/navigation'
 import { ReactNode, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,6 +10,7 @@ import { getCurrentUser } from "@/function/fetch/user";
 
 import MobileLayout from "@/component/layout/MobileLayout";
 import DesktopLayout from "@/component/layout/DesktopLayout";
+import { useSnackbar } from 'notistack';
 
 interface Props {
   children: ReactNode;
@@ -33,6 +34,15 @@ const AppLayout = ({ children, modal }: Props) => {
     retry: 3,
     retryDelay: 1000,
   })
+
+  const pathname = usePathname();
+  const { closeSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (pathname) {
+      closeSnackbar();
+    }
+  }, [pathname, closeSnackbar]);
 
   useEffect(() => {
     console.log('get user info failureCount : ', failureCount);
