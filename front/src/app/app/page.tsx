@@ -146,7 +146,7 @@ const TextContent = styled.div`
     line-height: 130%;    
   }
   @media (max-width: 479px) { //mobile port
-    span{ font-size: 16px; }
+    span{ font-size: 20px; }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     span{ font-size: 14px; }

@@ -90,7 +90,10 @@ const EmotionWrapper = styled.div`
     }
   }
   &:not(.selected){
-    opacity: 0.75;
+    opacity: 0.67;
+  }
+  &.selected{
+    filter: saturate(130%);
   }
 
 `
