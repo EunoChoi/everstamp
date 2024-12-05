@@ -65,8 +65,8 @@ const Page = () => {
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
 
       <TextContent>
-        <span>감정 일기를 적고 습관을 실천하세요.</span>
-        <span>당신의 긍정적 변화와 성장을 응원합니다.</span>
+        <span>좋은 습관을 만들고 나를 돌아보며</span>
+        <span>매일 매일 함께 성장해요!</span>
       </TextContent>
       {isSuccess ?
         <LoggedInButtonWrapper >
@@ -142,7 +142,7 @@ const TextContent = styled.div`
   span{
     text-align: center;
     color: rgb(var(--greyTitle));
-    font-weight: 600;
+    font-weight: 500;
     line-height: 130%;    
   }
   @media (max-width: 479px) { //mobile port

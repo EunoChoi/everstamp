@@ -21,11 +21,11 @@ interface Props {
 const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
 
   const emotions =
-    [<Image priority src={emotion0} alt="angry" width={28} height={28} />,
-    <Image priority src={emotion1} alt="sad" width={28} height={28} />,
-    <Image priority src={emotion2} alt="common" width={28} height={28} />,
-    <Image priority src={emotion3} alt="happy" width={28} height={28} />,
-    <Image priority src={emotion4} alt="Joyful" width={28} height={28} />];
+    [<Image priority src={emotion0} alt="angry" width={36} height={36} />,
+    <Image priority src={emotion1} alt="sad" width={36} height={36} />,
+    <Image priority src={emotion2} alt="common" width={36} height={36} />,
+    <Image priority src={emotion3} alt="happy" width={36} height={36} />,
+    <Image priority src={emotion4} alt="Joyful" width={36} height={36} />];
 
 
   return (<Wrapper>
