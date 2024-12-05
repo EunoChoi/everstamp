@@ -20,6 +20,7 @@ import emotion1 from '/public/img/emotion/emotion1.png'
 import emotion2 from '/public/img/emotion/emotion2.png'
 import emotion3 from '/public/img/emotion/emotion3.png'
 import emotion4 from '/public/img/emotion/emotion4.png'
+import empty from '/public/img/emotion/empty.png'
 
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 import { useQuery } from "@tanstack/react-query";
@@ -84,9 +85,10 @@ const Calendar = () => {
       </DateValue_Diary>}
 
       {/* only habit count */}
-      {!isDiaryExist && habitCount > 0 && <DateValue_Count>
-        {habitCount}
-      </DateValue_Count>}
+      {!isDiaryExist && habitCount > 0 && <DateValue_Diary>
+        <Image priority src={empty} alt={emotionNames[emotionIdx]} width={56} height={56} />
+        <div className="count">{habitCount}</div>
+      </DateValue_Diary>}
 
       {/* none */}
       {!isDiaryExist && !habitCount && <DateValue_Date>{formattedDate}</DateValue_Date>}
@@ -201,7 +203,7 @@ const DateValue = styled.div`
   align-items: center;
 `
 const DateValue_Date = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 
   margin: 6px 0px;
@@ -209,10 +211,8 @@ const DateValue_Date = styled.div`
 const DateValue_Diary = styled.div`
   position: relative;
 
-  width: 36px;
+  width: 80%;
   height: auto;
-  /* padding-top: 6px; */
-
   @media (min-width:1024px) { //desktop
     width: 30px;
   }
@@ -224,7 +224,7 @@ const DateValue_Diary = styled.div`
     align-items: center;
 
     top: -11px;
-    right: -8px;
+    right: -6px;
   
     width: 22px;
     height: 22px;
@@ -244,30 +244,6 @@ const DateValue_Diary = styled.div`
       height: 20px;
       border-color: #f6f6f6;
     }
-  }
-`
-const DateValue_Count = styled.div`
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 32px;
-  height: 32px;
-  border-radius: 32px;
-  /* margin-top: 6px; */
-
-  font-size: 17px;
-  font-weight: 500;
-  color: white;
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-
-  @media (min-width:1024px) { //desktop
-    width: 26px;
-    height: 26px;
-    font-size: 15px;
-    border-radius: 26px;
   }
 `
 
@@ -328,27 +304,20 @@ const CalWeekTitle = styled.div`
 
 const CalDate = styled.button`
   width: 14%;
-  height: 95%;
+  height: 85%;
 
   color: #666565;
-  border : 3px solid rgba(0,0,0,0);
+
+  transition: border 400ms ease-in-out;
+
+  border-top: 4px solid rgba(0,0,0,0);
+  border-bottom: 4px solid rgba(0,0,0,0);
+
   &.today{
-    background-color: #f1f1f1;
-    border-radius: 8px;
-    .count{
-      border-color: #f1f1f1;
-      @media (min-width:1024px) { //desktop
-        border-color: #e4e4e4;
-      }
-    }
-    @media (min-width:1024px) { //desktop
-      background-color: #e4e4e4;
-    }
+    border-bottom-color: grey;
   }
-  &.selected{
-    border : 2px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-    border-radius: 8px;
-    overflow: hidden;
+  &.selected{     
+    border-bottom-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
   }
   &.notCurrentMonth{
     color: #c8c8c8;

@@ -142,7 +142,7 @@ const MonthWrapper = styled.div`
   width: 100%;
   margin-top: 12px;
   margin-bottom: 12px;
-  height:340px;
+  height:380px;
   *{
     transition: color ease-in-out 0.3s !important;
   }
