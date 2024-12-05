@@ -40,7 +40,7 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
             setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
-          <Img className="icon" src={e} alt={emotionName[i]} width={140} height={140} />
+          <Img className="icon" src={e} alt={emotionName[i]} width={128} height={128} />
         </EmotionWrapper>)
       }
     </ScrollWrapper>

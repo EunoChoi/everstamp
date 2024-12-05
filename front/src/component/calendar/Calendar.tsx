@@ -86,7 +86,7 @@ const Calendar = () => {
 
       {/* only habit count */}
       {!isDiaryExist && habitCount > 0 && <DateValue_Diary>
-        <Image priority src={empty} alt={emotionNames[emotionIdx]} width={56} height={56} />
+        <Image className="empty" priority src={empty} alt={emotionNames[emotionIdx]} width={56} height={56} />
         <div className="count">{habitCount}</div>
       </DateValue_Diary>}
 
@@ -216,7 +216,11 @@ const DateValue_Diary = styled.div`
   @media (min-width:1024px) { //desktop
     width: 30px;
   }
-
+  .empty{
+    @media (max-width: 479px) { //mobile port
+      opacity: 0.55;
+    }
+  }
   .count{
     position: absolute;
     display: flex;
@@ -226,10 +230,10 @@ const DateValue_Diary = styled.div`
     top: -11px;
     right: -6px;
   
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
 
-    border-radius: 30px;
+    border-radius: 24px;
     border : 2px solid white;
     
     font-size: 13px;
