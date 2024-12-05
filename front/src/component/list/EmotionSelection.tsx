@@ -50,8 +50,6 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
 export default EmotionSelection;
 
 const EmotionWrapper = styled.div`
-  transition: border-radius 250ms ease-in-out;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,61 +57,47 @@ const EmotionWrapper = styled.div`
 
   box-sizing: border-box;
 
+  transition: opacity ease-in-out 200ms;
 
-  @media (max-width: 479px) { //mobile port
-    width: 96px;
-    height: 96px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 110px;
-    height: 110px;
-  }
-  @media (min-width:1024px) { //desktop
-    width: 120px;
-    height: 120px;
-  }
-  .icon{
-    width: 85%;
-    height: 85%;
-  }
-
-  border-radius: 8px;
+  width: 81px;
+  width: 21%;
+  height: auto;
   margin-right: 8px;
+
   &:last-child{
     margin-right: 0;
   }
-  padding: 8xp 0;
-  border: 3px solid rgba(0, 0, 0, 0.05);
-
   &.all{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
 
+    border-radius: 72px;
+
     text-transform: capitalize;
-    font-size: 32px;
+    font-size: 24px;
     color : rgb(var(--greyTitle));
 
+    border: 2px solid rgba(0,0,0,0.05);
     background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-  }
-  &.upset{ background-color: #FC978E;}
-  &.sad{ background-color: #A3CDFA;}
-  &.common{ background-color: #DADADA;}
-  &.happy{ background-color: #99E8C7;}
-  &.joyful{ background-color: #FAE278;}
 
-
-  &.selected{
-    /* border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    border-color: rgba(0, 0, 0, 0.2); */
-    border-radius: 100px;
+    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      font-size: 26px;
+    }
+    @media (min-width:1024px) { //desktop
+      font-size: 32px;
+    }
   }
+  &:not(.selected){
+    opacity: 0.75;
+  }
+
 `
 
 const Img = styled(Image)`
-  flex-shrink: 0;
-  clip-path: inset(12px 12px 12px 12px);
+  /* flex-shrink: 0;
+  clip-path: inset(12px 12px 12px 12px); */
 `
 const Wrapper = styled.div`
   display: flex;

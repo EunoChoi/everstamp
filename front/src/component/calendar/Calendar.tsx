@@ -74,12 +74,12 @@ const Calendar = () => {
     return <DateValue>
       {/* only emotion */}
       {isDiaryExist && habitCount === 0 && <DateValue_Diary>
-        <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
+        <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={56} height={56} />
       </DateValue_Diary>}
 
       {/* emotion + habit count */}
       {isDiaryExist && habitCount > 0 && <DateValue_Diary>
-        <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={44} height={44} />
+        <Image priority src={emotions[emotionIdx]} alt={emotionNames[emotionIdx]} width={56} height={56} />
         <div className="count">{habitCount}</div>
       </DateValue_Diary>}
 
@@ -209,12 +209,12 @@ const DateValue_Date = styled.div`
 const DateValue_Diary = styled.div`
   position: relative;
 
-  width: 30px;
+  width: 36px;
   height: auto;
   /* padding-top: 6px; */
 
   @media (min-width:1024px) { //desktop
-    width: 24px;
+    width: 30px;
   }
 
   .count{
@@ -223,7 +223,7 @@ const DateValue_Diary = styled.div`
     justify-content: center;
     align-items: center;
 
-    top: -10px;
+    top: -11px;
     right: -8px;
   
     width: 22px;
@@ -237,6 +237,8 @@ const DateValue_Diary = styled.div`
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     @media (min-width:1024px) { //desktop
+      top: -8px;
+      right: -8px;
       font-size: 12px;
       width: 20px;
       height: 20px;
@@ -251,21 +253,21 @@ const DateValue_Count = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 30px;
-  height: 29px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
   /* margin-top: 6px; */
 
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   color: white;
   background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 
   @media (min-width:1024px) { //desktop
-    width: 24px;
-    height: 23.5px;
-    font-size: 13px;
-    border-radius: 6px;
+    width: 26px;
+    height: 26px;
+    font-size: 15px;
+    border-radius: 26px;
   }
 `
 
@@ -346,6 +348,7 @@ const CalDate = styled.button`
   &.selected{
     border : 2px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
     border-radius: 8px;
+    overflow: hidden;
   }
   &.notCurrentMonth{
     color: #c8c8c8;
