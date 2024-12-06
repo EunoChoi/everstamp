@@ -240,6 +240,7 @@ const DateValue_Diary = styled.div`
     font-weight: 500;
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    filter: brightness(115%) saturate(50%);
     @media (min-width:1024px) { //desktop
       top: -8px;
       right: -8px;
@@ -318,10 +319,10 @@ const CalDate = styled.button`
   border-bottom: 4px solid rgba(0,0,0,0);
 
   &.today{
-    border-bottom-color: grey;
+    border-bottom-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
   &.selected{     
-    border-bottom-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
+    border-bottom-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
   &.notCurrentMonth{
     color: #c8c8c8;
