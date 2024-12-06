@@ -35,7 +35,7 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
       {emotions.map((e, i) =>
         <EmotionWrapper
           key={emotionName[i]}
-          className={`${emotionName[i]} ${emotionToggle === (4 - i) ? 'selected' : ''}`}
+          className={`${emotionName[i]} ${emotionToggle === (4 - i) || emotionToggle === 5 ? 'selected' : ''}`}
           onClick={() => {
             setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
@@ -93,7 +93,7 @@ const EmotionWrapper = styled.div`
     opacity: 0.67;
   }
   &.selected{
-    filter: saturate(130%);
+    filter: saturate(115%);
   }
 
 `
