@@ -180,7 +180,6 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 `
@@ -211,7 +210,7 @@ const DateValue_Date = styled.div`
 const DateValue_Diary = styled.div`
   position: relative;
 
-  width: 80%;
+  width: 75%;
   height: auto;
   @media (min-width:1024px) { //desktop
     width: 30px;
@@ -227,8 +226,8 @@ const DateValue_Diary = styled.div`
     justify-content: center;
     align-items: center;
 
-    top: -11px;
-    right: -6px;
+    top: -10px;
+    right: -10px;
   
     width: 24px;
     height: 24px;
@@ -236,11 +235,11 @@ const DateValue_Diary = styled.div`
     border-radius: 24px;
     border : 2px solid white;
     
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: brightness(115%) saturate(50%);
+    filter: brightness(110%) saturate(50%);
     @media (min-width:1024px) { //desktop
       top: -8px;
       right: -8px;
