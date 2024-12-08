@@ -14,7 +14,7 @@ import habitinfo2 from '/public/img/intro/habitinfo2.png';
 import setting from '/public/img/intro/setting.png';
 import habitorder from '/public/img/intro/habitorder.png';
 
-import emotions2 from '/public/img/intro/emotions2.png';
+import emotions from '/public/img/emotion/emotions.png';
 import habitbox from '/public/img/intro/habitbox.png';
 import otherinfo1 from '/public/img/intro/otherinfo1.png';
 import otherinfo2 from '/public/img/intro/otherinfo2.png';
@@ -154,7 +154,7 @@ const IntroMobile = () => {
         <span>감정을 정리하고 기록하세요.</span>
         <span>긍정적 변화가 시작됩니다.</span>
       </Text>
-      <Img className="emotionImg" src={emotions2} alt="emotions2" width={700} height={700}></Img>
+      <Img className="emotionImg" src={emotions} alt="emotions" width={700} height={700}></Img>
       <ColWrapper>
         <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
         <SubText>5가지 감정 선택을 지원합니다.</SubText>
