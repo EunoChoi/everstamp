@@ -209,9 +209,12 @@ const DateValue_Date = styled.div`
 `
 const DateValue_Diary = styled.div`
   position: relative;
-
   width: 75%;
   height: auto;
+  display: flex;
+  justify-content: center;
+
+
   @media (min-width:1024px) { //desktop
     width: 30px;
   }
@@ -246,7 +249,8 @@ const DateValue_Diary = styled.div`
       font-size: 12px;
       width: 20px;
       height: 20px;
-      border-color: #f6f6f6;
+      border : none;
+      /* border-color: #f6f6f6; */
     }
   }
 `

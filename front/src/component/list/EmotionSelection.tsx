@@ -72,6 +72,7 @@ const EmotionWrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
+    height: auto;
 
     border-radius: 72px;
 

@@ -64,10 +64,9 @@ const Page = () => {
 
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
 
-      <TextContent>
-        <span>좋은 습관을 만들고 나를 돌아보며</span>
+      {/* <TextContent>
         <span>매일 매일 함께 성장해요!</span>
-      </TextContent>
+      </TextContent> */}
       {isSuccess ?
         <LoggedInButtonWrapper >
           <LoggedInButtonStart className={user?.provider} onClick={start}>
@@ -126,14 +125,16 @@ const Wrapper = styled.div`
 const Img = styled(Image)`
   object-fit: contain;
   width: 350px;
-  margin: 24px 0;
   @media (max-width: 479px) { //mobile port
-    margin: 56px 0;
+    margin: 32px 0;
     width: 70dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     width: auto;
-    height: 80px;
+    height: 156px;
+  }
+  @media (min-width:1024px) { //desktop
+    margin: 30px 0;
   }
 `;
 const TextContent = styled.div`
@@ -143,7 +144,7 @@ const TextContent = styled.div`
     text-align: center;
     color: rgb(var(--greyTitle));
     font-weight: 500;
-    line-height: 130%;    
+    line-height: 100%;    
   }
   @media (max-width: 479px) { //mobile port
     span{ font-size: 20px; }
@@ -169,7 +170,7 @@ const Logo = styled.div`
       margin: 0 4px;
       font-weight: 700;
       text-transform: uppercase;
-      text-transform: capitalize;
+      /* text-transform: capitalize; */
       line-height: 100%;
       text-align: center;
       color: rgb(var(--greyTitle));
@@ -188,7 +189,7 @@ const Logo = styled.div`
   @media (max-width: 479px) { //mobile port
     .main{
       span{
-        font-size: 42px;
+        font-size: 36px;
       }
     }
     .sub{
@@ -209,7 +210,7 @@ const Logo = styled.div`
   @media (min-width:1024px) { //desktop
     .main{
       span{
-        font-size: 56px;
+        font-size: 48px;
       }
     }
     .sub{
