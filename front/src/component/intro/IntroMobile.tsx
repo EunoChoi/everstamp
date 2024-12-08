@@ -412,7 +412,6 @@ const Logo = styled.div`
     font-size: 32px;
     font-weight: 700;
     text-transform: uppercase;
-    text-transform: capitalize;
     margin: 0 4px;
     color: rgb(var(--greyTitle));
 
