@@ -24,20 +24,13 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
       <span className="type">#{emotionToggle === 5 ? 'all' : emotionName[4 - emotionToggle]}</span>
     </Title>
     <ScrollWrapper>
-      <EmotionWrapper
-        className={`all ${emotionToggle == 5 ? 'selected' : ''}`}
-        onClick={() => {
-          setEmotionToggle(5);
-          contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
-        }}>
-        All
-      </EmotionWrapper>
       {emotions.map((e, i) =>
         <EmotionWrapper
           key={emotionName[i]}
           className={`${emotionName[i]} ${emotionToggle === (4 - i) || emotionToggle === 5 ? 'selected' : ''}`}
           onClick={() => {
-            setEmotionToggle(4 - i);
+            if (emotionToggle === 4 - i) setEmotionToggle(5);
+            else setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
           <Img className="icon" src={e} alt={emotionName[i]} width={128} height={128} />
@@ -66,29 +59,6 @@ const EmotionWrapper = styled.div`
 
   &:last-child{
     margin-right: 0;
-  }
-  &.all{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    height: auto;
-
-    border-radius: 72px;
-
-    text-transform: capitalize;
-    font-size: 24px;
-    color : rgb(var(--greyTitle));
-
-    border: 2px solid rgba(0,0,0,0.05);
-    background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-      font-size: 26px;
-    }
-    @media (min-width:1024px) { //desktop
-      font-size: 32px;
-    }
   }
   &:not(.selected){
     opacity: 0.67;
@@ -143,7 +113,6 @@ const ScrollWrapper = styled.div`
 
   width: 100dvw;
   width: inherit;
-
   
   @media (max-width: 479px) { //mobile port
     padding: 8px 5vw;
