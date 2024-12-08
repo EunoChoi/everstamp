@@ -33,7 +33,7 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
             else setEmotionToggle(4 - i);
             contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
           }}>
-          <Img className="icon" src={e} alt={emotionName[i]} width={128} height={128} />
+          <Image className="icon" src={e} alt={emotionName[i]} width={128} height={128} />
         </EmotionWrapper>)
       }
     </ScrollWrapper>
@@ -42,37 +42,6 @@ const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props
 
 export default EmotionSelection;
 
-const EmotionWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-
-  box-sizing: border-box;
-
-  transition: opacity ease-in-out 200ms;
-
-  width: 81px;
-  width: 21%;
-  height: auto;
-  margin-right: 8px;
-
-  &:last-child{
-    margin-right: 0;
-  }
-  &:not(.selected){
-    opacity: 0.67;
-  }
-  &.selected{
-    filter: saturate(115%);
-  }
-
-`
-
-const Img = styled(Image)`
-  /* flex-shrink: 0;
-  clip-path: inset(12px 12px 12px 12px); */
-`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,6 +53,27 @@ const Wrapper = styled.div`
   background-color: white;
 
   max-width: 600px;
+`
+const EmotionWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+  transition: opacity ease-in-out 200ms;
+
+  width: 81px;
+  width: 19%;
+  height: auto;
+
+  &:not(.selected){
+    opacity: 0.67;
+  }
+  &.selected{
+    filter: saturate(115%);
+  }
+
 `
 const Title = styled.h1`
   span{
@@ -98,30 +88,19 @@ const Title = styled.h1`
       color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
-
   @media (max-width: 479px) { //mobile port
     padding: 0 5vw;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-  }
-  @media (min-width:1024px) { //desktop
   }
 `
 const ScrollWrapper = styled.div`
   display: flex;
-  overflow-x: scroll;
-
   width: 100dvw;
   width: inherit;
-  
+  justify-content: space-between;
+
+  padding: 8px 0;
   @media (max-width: 479px) { //mobile port
     padding: 8px 5vw;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 8px 0;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 8px 0;
   }
 `
 
