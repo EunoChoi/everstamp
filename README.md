@@ -82,9 +82,9 @@
 
 ### 3. 프로젝트 미리보기
 <br>
-<img width="1080" alt="es_readme_1" src="https://github.com/user-attachments/assets/03ddfb91-6cde-4fd3-85ad-9060acd778bc">
+<img width="1080" alt="everstamp_Preview1" src="https://github.com/user-attachments/assets/0524ecea-597e-4d25-b0b6-8c708504c46c" />
 <h4 align=center > Mobile</h4>
-<img width="1080" alt="tablet desktop" src="https://github.com/user-attachments/assets/f9e2eb3b-cf13-4c24-ac13-3232b4659d87">
+<img width="1080" alt="everstamp_Preview2" src="https://github.com/user-attachments/assets/dc48a8ed-a6fd-459c-b7b0-09f7bc1ad95d" />
 <h4 align=center > Tablet & Desktop</h4>
 
 
