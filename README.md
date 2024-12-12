@@ -88,8 +88,11 @@
 <h4 align=center > Tablet & Desktop</h4>
 
 
+<!-- 
 - 더 많은 프로젝트 정보 및 이미지는 [노션 페이지](https://eunonote.notion.site/FE-Developer-7fe46851557d45038a8b756146d98929?pvs=4)
  참조
+-->
+
 
 <br>
 
