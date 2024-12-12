@@ -1,8 +1,8 @@
 
 <!-- <h1 align=center>Everstamp</h1> -->
 
+<img width="1024" alt="main2" src="https://github.com/user-attachments/assets/b0584c8d-a51d-40a6-b3d3-7d1d4b1ba80b" />
 
-<img width="1080" alt="everstamp_main" src="https://github.com/user-attachments/assets/bc58345a-7225-447e-a057-0a64c7b988ba">
 
 ### 1. 프로젝트 개요
 
