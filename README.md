@@ -81,7 +81,13 @@
 
 
 ### 3. 프로젝트 미리보기
+
+- **소개 페이지 이미지**
+<img width="1080" alt="Screenshot 2024-12-13 at 12 34 08 AM" src="https://github.com/user-attachments/assets/6a787f4d-e3e6-4290-ab11-8382e48ae06b" />
+
 <br>
+
+- **실행 이미지**
 <img width="1080" alt="everstamp_Preview1" src="https://github.com/user-attachments/assets/0524ecea-597e-4d25-b0b6-8c708504c46c" />
 <h4 align=center > Mobile</h4>
 <img width="1080" alt="everstamp_Preview2" src="https://github.com/user-attachments/assets/dc48a8ed-a6fd-459c-b7b0-09f7bc1ad95d" />
