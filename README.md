@@ -1,8 +1,8 @@
 
 <!-- <h1 align=center>Everstamp</h1> -->
 
+<img width="1024" alt="main2" src="https://github.com/user-attachments/assets/b0584c8d-a51d-40a6-b3d3-7d1d4b1ba80b" />
 
-<img width="1080" alt="everstamp_main" src="https://github.com/user-attachments/assets/bc58345a-7225-447e-a057-0a64c7b988ba">
 
 ### 1. 프로젝트 개요
 
@@ -81,15 +81,24 @@
 
 
 ### 3. 프로젝트 미리보기
+
+- **소개 페이지 이미지**
+<img width="1080" alt="Screenshot 2024-12-13 at 12 34 08 AM" src="https://github.com/user-attachments/assets/6a787f4d-e3e6-4290-ab11-8382e48ae06b" />
+
 <br>
-<img width="1080" alt="es_readme_1" src="https://github.com/user-attachments/assets/03ddfb91-6cde-4fd3-85ad-9060acd778bc">
+
+- **실행 이미지**
+<img width="1080" alt="everstamp_Preview1" src="https://github.com/user-attachments/assets/0524ecea-597e-4d25-b0b6-8c708504c46c" />
 <h4 align=center > Mobile</h4>
-<img width="1080" alt="tablet desktop" src="https://github.com/user-attachments/assets/f9e2eb3b-cf13-4c24-ac13-3232b4659d87">
+<img width="1080" alt="everstamp_Preview2" src="https://github.com/user-attachments/assets/dc48a8ed-a6fd-459c-b7b0-09f7bc1ad95d" />
 <h4 align=center > Tablet & Desktop</h4>
 
 
+<!-- 
 - 더 많은 프로젝트 정보 및 이미지는 [노션 페이지](https://eunonote.notion.site/FE-Developer-7fe46851557d45038a8b756146d98929?pvs=4)
  참조
+-->
+
 
 <br>
 
