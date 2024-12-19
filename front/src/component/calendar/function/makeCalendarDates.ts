@@ -1,6 +1,6 @@
 import { addDays, endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 
-const makeCalendarDate = (displayDate: Date) => {
+const makeCalendarDates = (displayDate: Date) => {
 
   //displayDate를 기준으로 달력 날짜 정의
   const startDateOfMonth = startOfMonth(displayDate); //1~31
@@ -10,22 +10,20 @@ const makeCalendarDate = (displayDate: Date) => {
 
 
   let day = startDateOfWeek;
-  const calendarDate: Array<Array<Date>> = [[]];
-  // console.log(startDateOfWeek, endDateOfWeek);
-  // console.log(calendarDate);
+  const calendarDates: Array<Array<Date>> = [[]];
 
-  //make calendar date value array
+
   while (day <= endDateOfWeek) {
-    const weeksIndex = calendarDate.length - 1;
-    calendarDate[weeksIndex].push(day);
-    if (calendarDate[weeksIndex].length === 7) {
-      calendarDate.push([]);
+    const weeksIndex = calendarDates.length - 1;
+    calendarDates[weeksIndex].push(day);
+    if (calendarDates[weeksIndex].length === 7) {
+      calendarDates.push([]);
     }
     day = addDays(day, 1);
   }
-  calendarDate.pop();
+  calendarDates.pop();
 
-  return { calendarDate };
+  return { calendarDates };
 }
 
-export default makeCalendarDate;
+export default makeCalendarDates;

@@ -1,7 +1,7 @@
 'use client';
 
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useEffect } from "react";
@@ -19,6 +19,9 @@ import Diary from "@/component/diary/Diary";
 import Calendar from "@/component/calendar/Calendar";
 import Header from "@/component/common/Header";
 import { useCustomRouter } from "@/function/customRouter";
+import CalendarLayout from "@/component/calendar/CalendarLayout";
+import CalendarPageValue from "@/component/calendar/CalendarPageValue";
+import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 interface Props {
   date: number;
@@ -27,11 +30,16 @@ interface Props {
 const CalendarPageClient = ({ date }: Props) => {
   const isMobile = IsMobile();
   const router = useCustomRouter();
+  const path = usePathname();
 
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
     queryFn: () => getDiary_date({ date }),
   });
+
+  const todayRouterPushAction = () => {
+    router.push(`${path}?date=${getCleanTodayTime()}`);
+  }
 
   //production mode에서만 동작, 정적 자료만 prefetch
   useEffect(() => {
@@ -48,7 +56,12 @@ const CalendarPageClient = ({ date }: Props) => {
           {isMobile === true &&
             <>
               <CalendarWrapper>
-                <Calendar />
+                <CalendarLayout
+                  Value={CalendarPageValue}
+                  todayRouterPushAction={todayRouterPushAction}
+                  isTouchGestureEnabled={true}
+                  isDateSelectionEnabled={true}
+                />
               </CalendarWrapper>
               <Diary diaryData={diaryData} position="calendar" />
             </>}
