@@ -3,7 +3,6 @@
 
 <img width="1024" alt="main2" src="https://github.com/user-attachments/assets/b0584c8d-a51d-40a6-b3d3-7d1d4b1ba80b" />
 
-
 ### 1. 프로젝트 개요
 
 - **프로젝트명**
@@ -83,7 +82,7 @@
 ### 3. 프로젝트 미리보기
 
 - **소개 페이지 이미지**
-<img width="1080" alt="Screenshot 2024-12-13 at 12 34 08 AM" src="https://github.com/user-attachments/assets/6a787f4d-e3e6-4290-ab11-8382e48ae06b" />
+<img width="1080" alt="Screenshot 2024-12-16 at 8 43 39 AM" src="https://github.com/user-attachments/assets/f76be45d-13bb-453f-bf9f-68abfc21308e" />
 
 <br>
 
