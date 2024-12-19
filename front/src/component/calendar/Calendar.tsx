@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useSearchParams } from "next/navigation"
 
 import { format, addMonths, subMonths } from 'date-fns';
@@ -107,6 +107,9 @@ const Calendar = () => {
   let sumOfWeek = [];
   let day = startDate;
 
+  const path = usePathname();
+  console.log(path);
+
   while (day <= endDate) {
     const key = day.getTime();
     const cellDay = day;
@@ -117,14 +120,16 @@ const Calendar = () => {
         key={key}
         onClick={() => {
           if (cellMonth < realCurrentMonth) subCurrentMonth();
-          else if (cellMonth > realCurrentMonth) addCurrentMonth();
-          else router.push(`/app/calendar?date=${cellDay.getTime()}`);
+          else if (cellMonth > realCurrentMonth) addCurrentMonth();//이 부분 잘못 만들었네;
+          // else router.push(`/app/calendar?date=${cellDay.getTime()}`);
+          else router.push(`${path}?date=${cellDay.getTime()}`);
         }}
         className={`
           ${isSameDay(cellDay, today) ? 'today' : ''}
           ${isSameMonth(cellDay, currentMonth) ? 'currentMonth' : 'notCurrentMonth'}
           ${isSameDay(cellDay, selectedDate) ? 'selected' : ''}
-        `}>
+        `}
+      >
         {dateValue(cellDay)}
       </CalDate>);
     if (week.length === 7) {
@@ -185,7 +190,7 @@ const Wrapper = styled.div`
 `
 
 const DateValue = styled.div`
-  @keyframes fadeIn {
+  /* @keyframes fadeIn {
     0% {
       opacity:0;
     }
@@ -193,7 +198,7 @@ const DateValue = styled.div`
       opacity:1;
     }
   }
-  animation: fadeIn 300ms ease-in-out;
+  animation: fadeIn 300ms ease-in-out; */
 
   display: flex;
   flex-shrink: 0;

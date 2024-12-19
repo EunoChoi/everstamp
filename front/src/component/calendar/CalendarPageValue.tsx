@@ -9,53 +9,61 @@ import emotion3 from '/public/img/emotion/emotion3.png'
 import emotion4 from '/public/img/emotion/emotion4.png'
 import empty from '/public/img/emotion/empty.png'
 import styled from "styled-components";
-import { usePathname, useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getHabit_status_month } from "@/function/fetch/habit";
 
 interface monthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
 }
-interface Props {
-  dateData: Date;
-  monthHabitResult: monthHabitsType;
-}
 
-const ValueAtCalendarPage = ({ dateData, monthHabitResult }: Props) => {
-
-  //emotions
+const CalendarPageValue = ({ dateData }: { dateData: Date }) => {
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
-  const emotionNames = ['upset', 'sad', 'common', 'happy', 'joyful'];
+  const EMOTION_NAME_ENG = ['upset', 'sad', 'common', 'happy', 'joyful'];
+
+  const { data } = useQuery({
+    queryKey: ['habit', 'month', format(dateData, 'MM')],
+    queryFn: () => getHabit_status_month({ date: dateData }),
+    //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
+    select: (data) => {
+      const monthHabitResult: monthHabitsType = {};
+      data.forEach((e: any) => {
+        monthHabitResult[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
+      });
+      return { ...data, monthHabitResult };
+    }
+  });
 
   const key = format(dateData, 'yyMMdd');
-  const result = monthHabitResult[key];
+  const result = data?.monthHabitResult[key];
   const habitsCount = result && result.habitsCount;
   const isVisible = result && result.isVisible;
   const emotionType = result && result.emotionType;
   const formattedDate = format(dateData, 'd');
 
-  return <DateCell>
+  return <DateValue>
     {/* only emotion */}
     {isVisible && habitsCount === 0 && <DateValue_Diary>
-      <Image priority src={emotions[emotionType]} alt={emotionNames[emotionType]} width={56} height={56} />
+      <Image priority src={emotions[emotionType]} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
     </DateValue_Diary>}
 
     {/* emotion + habit count */}
     {isVisible && habitsCount > 0 && <DateValue_Diary>
-      <Image priority src={emotions[emotionType]} alt={emotionNames[emotionType]} width={56} height={56} />
+      <Image priority src={emotions[emotionType]} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
       <div className="count" > {habitsCount} </div>
     </DateValue_Diary>}
 
     {/* only habit count */}
     {!isVisible && habitsCount > 0 && <DateValue_Diary>
-      <Image className="empty" priority src={empty} alt={emotionNames[emotionType]} width={56} height={56} />
+      <Image className="empty" priority src={empty} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
       <div className="count" > {habitsCount} </div>
     </DateValue_Diary>}
 
     {/* none */}
     {!isVisible && !habitsCount && <DateValue_Date>{formattedDate} </DateValue_Date>}
-  </DateCell>;
+  </DateValue>;
 };
 
-export default ValueAtCalendarPage;
+export default CalendarPageValue;
 
 const DateValue_Date = styled.div`
   font-size: 14px;
@@ -110,7 +118,7 @@ const DateValue_Diary = styled.div`
     }
   }
 `
-const DateCell = styled.button`
+const DateValue = styled.button`
   @keyframes fadeIn {
     0% {
       opacity:0;
@@ -120,6 +128,7 @@ const DateCell = styled.button`
     }
   }
   animation: fadeIn 300ms ease-in-out;
+  transition: border 400ms ease-in-out;
 
   display: flex;
   flex-shrink: 0;
@@ -129,21 +138,5 @@ const DateCell = styled.button`
   width: 100%;
   height: 100%;
 
-
-  color: #666565;
-
-  transition: border 400ms ease-in-out;
-
-  border-top: 4px solid rgba(0,0,0,0);
-  border-bottom: 4px solid rgba(0,0,0,0);
-
-  &.today{
-    border-bottom-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
-  &.selected{     
-    border-bottom-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-  }
-  &.notCurrentMonth{
-    color: #c8c8c8;
-  }
+  color: #525252;
 `
