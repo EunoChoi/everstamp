@@ -1,7 +1,7 @@
 'use client';
 
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { addMonths, subMonths } from 'date-fns';
 
 //function
@@ -11,14 +11,15 @@ import CalendarHeader from "./CalendarHeader";
 import CalendarBody from "./CalendarBody";
 
 interface Props {
-  Value: ({ dateData }: { dateData: Date }) => JSX.Element;
+  displayDate: Date;
+  setDisplayDate: Dispatch<SetStateAction<Date>>;
+  FormattedValue: ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => JSX.Element;
   todayRouterPushAction?: () => void;
   isTouchGestureEnabled?: boolean;
   isDateSelectionEnabled?: boolean;
 }
 
-const CalendarLayout = ({ Value, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
-  const [displayDate, setDisplayDate] = useState(new Date());
+const CalendarLayout = ({ displayDate, setDisplayDate, FormattedValue, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
   const { calendarDates } = makeCalendarDates(displayDate);
 
   const nextDisplayMonth = useCallback(() => {
@@ -38,7 +39,7 @@ const CalendarLayout = ({ Value, todayRouterPushAction, isTouchGestureEnabled, i
         nextDisplayMonth={nextDisplayMonth}
       />
       <CalendarBody
-        Value={Value}
+        FormattedValue={FormattedValue}
         calendarDates={calendarDates}
         displayDate={displayDate}
         nextDisplayMonth={nextDisplayMonth}
