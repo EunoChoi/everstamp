@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { usePathname, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 //function
 import IsMobile from "@/function/IsMobile";
@@ -16,7 +16,6 @@ import $Common from "@/style/common";
 //component
 import ContentArea from "@/component/common/ContentArea";
 import Diary from "@/component/diary/Diary";
-import Calendar from "@/component/calendar/Calendar";
 import Header from "@/component/common/Header";
 import { useCustomRouter } from "@/function/customRouter";
 import CalendarLayout from "@/component/calendar/CalendarLayout";
@@ -32,6 +31,8 @@ const CalendarPageClient = ({ date }: Props) => {
   const router = useCustomRouter();
   const path = usePathname();
 
+  const [displayDate, setDisplayDate] = useState(new Date());
+  //get diary data by date
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
     queryFn: () => getDiary_date({ date }),
@@ -57,7 +58,9 @@ const CalendarPageClient = ({ date }: Props) => {
             <>
               <CalendarWrapper>
                 <CalendarLayout
-                  Value={CalendarPageValue}
+                  displayDate={displayDate}
+                  setDisplayDate={setDisplayDate}
+                  FormattedValue={CalendarPageValue}
                   todayRouterPushAction={todayRouterPushAction}
                   isTouchGestureEnabled={true}
                   isDateSelectionEnabled={true}
