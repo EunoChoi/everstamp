@@ -1,4 +1,4 @@
-import { format, isSameDay, isSameMonth } from "date-fns";
+import { format } from "date-fns";
 import Image from "next/image";
 
 //images
@@ -16,13 +16,13 @@ interface monthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
 }
 
-const CalendarPageValue = ({ displayDate, dateData }: { displayDate?: Date, dateData: Date }) => {
+const CalendarPageValue = ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => {
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
   const EMOTION_NAME_ENG = ['upset', 'sad', 'common', 'happy', 'joyful'];
 
   const { data } = useQuery({
-    queryKey: ['habit', 'month', format(dateData, 'MM')],
-    queryFn: () => getHabit_status_month({ date: dateData }),
+    queryKey: ['habit', 'month', format(displayDate, 'MM')],
+    queryFn: () => getHabit_status_month({ date: displayDate }),
     //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
     select: (data) => {
       const monthHabitResult: monthHabitsType = {};
@@ -45,19 +45,16 @@ const CalendarPageValue = ({ displayDate, dateData }: { displayDate?: Date, date
     {isVisible && habitsCount === 0 && <DateValue_Diary>
       <Image priority src={emotions[emotionType]} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
     </DateValue_Diary>}
-
     {/* emotion + habit count */}
     {isVisible && habitsCount > 0 && <DateValue_Diary>
       <Image priority src={emotions[emotionType]} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
       <div className="count" > {habitsCount} </div>
     </DateValue_Diary>}
-
     {/* only habit count */}
     {!isVisible && habitsCount > 0 && <DateValue_Diary>
       <Image className="empty" priority src={empty} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
       <div className="count" > {habitsCount} </div>
     </DateValue_Diary>}
-
     {/* none */}
     {!isVisible && !habitsCount && <DateValue_Date>{formattedDate} </DateValue_Date>}
   </DateValue>;
@@ -95,10 +92,8 @@ const DateValue_Diary = styled.div`
 
     top: -10px;
     right: -10px;
-  
     width: 24px;
     height: 24px;
-
     border-radius: 24px;
     border : 2px solid white;
     
@@ -114,18 +109,13 @@ const DateValue_Diary = styled.div`
       width: 20px;
       height: 20px;
       border : none;
-      /* border-color: #f6f6f6; */
     }
   }
 `
 const DateValue = styled.button`
   @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
+    0% {opacity:0;}
+    100% {opacity:1;}
   }
   animation: fadeIn 300ms ease-in-out;
   transition: border 400ms ease-in-out;
