@@ -35,12 +35,8 @@ export default HabitInfoPageValue;
 
 const Wrapper = styled.button`
   @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
+    0% {opacity:0;}
+    100% {opacity:1;}
   }
   animation: fadeIn 300ms ease-in-out;
   transition: border 400ms ease-in-out;

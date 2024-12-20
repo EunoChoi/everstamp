@@ -9,8 +9,10 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { ReactNode } from "react";
-import Calendar from "../calendar/Calendar";
+import { ReactNode, useState } from "react";
+import CalendarLayout from "../calendar/CalendarLayout";
+import CalendarPageValue from "../calendar/CalendarPageValue";
+// import Calendar from "../calendar/Calendar";
 
 interface Props {
   children: ReactNode;
@@ -22,6 +24,12 @@ const DesktopLayout = ({ modal, children }: Props) => {
   const router = useCustomRouter();
   const current = useSelectedLayoutSegment();
 
+  const [displayDate, setDisplayDate] = useState(new Date());
+
+  function todayRouterPushAction(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Desktop_Layout>
       <Desktop_Sidebar>
@@ -32,7 +40,14 @@ const DesktopLayout = ({ modal, children }: Props) => {
         <Menus>
           <Menu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
           <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
-            <Calendar />
+            <CalendarLayout
+              displayDate={displayDate}
+              setDisplayDate={setDisplayDate}
+              FormattedValue={CalendarPageValue}
+              todayRouterPushAction={todayRouterPushAction}
+              isTouchGestureEnabled={true}
+              isDateSelectionEnabled={true}
+            />
           </MonthWrapper>
           <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
           <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
