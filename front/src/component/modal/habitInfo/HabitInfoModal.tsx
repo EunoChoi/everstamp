@@ -1,23 +1,22 @@
 'use client';
 
-import { format, lastDayOfMonth } from "date-fns";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { format } from "date-fns";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
-import HabitInfoCalendar from "../../calendar/HabitInfoCalendar";
-import { getHabit } from "@/function/fetch/habit";
+import { getHabit, getHabit_single_status_month } from "@/function/fetch/habit";
 import HabitInfoChart from "../../habit/HabitInfoChart";
 import Indicator from "../../common/indicator";
-import BottomButtonArea from "../../common/BottomButtonArea";
 
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { useCustomRouter } from "@/function/customRouter";
 import $Modal from "@/style/common_modal";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { notFound } from 'next/navigation';
+import CalendarLayout from "@/component/calendar/CalendarLayout";
+import HabitInfoPageValue from "@/component/calendar/HabitInfoPageValue";
+import HabitInfoCount from "@/component/habit/HabitInfoCount";
 
 
 
@@ -28,17 +27,20 @@ interface Props {
 const HabitInfoModal = ({ habitId }: Props) => {
   const router = useCustomRouter();
 
-  const [habitCount, setHabitCount] = useState<number>(0);
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [displayDate, setDisplayDate] = useState<Date>(new Date());
+
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);
 
-  const { data: habitData, isError } = useQuery({
+  const { data: habitDataById, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
     queryFn: () => getHabit({ id: habitId }),
     enabled: habitId !== null
   });
-
+  const { data: habitDataByMonth } = useQuery({
+    queryKey: ['habit', 'id', habitId, 'month', format(displayDate, 'MM')],
+    queryFn: () => getHabit_single_status_month({ id: habitId, date: displayDate })
+  });
 
   useEffect(() => {
     if (isError) notFound();
@@ -56,10 +58,9 @@ const HabitInfoModal = ({ habitId }: Props) => {
         <button></button>
       </$Modal.Top>
       <Name>
-        {habitData?.name ? habitData?.name : '-'}
+        {habitDataById?.name ?? '-'}
       </Name>
       <Content>
-
         <SlideWrapper>
           <Slide
             ref={slideWrapperRef}
@@ -68,15 +69,18 @@ const HabitInfoModal = ({ habitId }: Props) => {
             }}
           >
             <CalendarWrapper className="slideChild">
-              <Info>
-                <span className="name"> {habitData?.name ? habitData?.name : '-'}</span>
-                <div className="infoText">
-                  <span>{format(currentMonth, 'yyyy년 M월')}</span>
-                  <span>실천 횟수</span>
-                </div>
-                <div className="infoCount">{habitCount} / {format(lastDayOfMonth(currentMonth), 'dd')}</div>
-              </Info>
-              <HabitInfoCalendar setHabitCount={setHabitCount} currentMonth={currentMonth} setCurrentMonth={setCurrentMonth} />
+              <HabitInfoCount
+                displayDate={displayDate}
+                habitName={habitDataById?.name ?? '-'}
+                habitCount={habitDataByMonth?.length ?? 0}
+              />
+              <CalendarLayout
+                displayDate={displayDate}
+                setDisplayDate={setDisplayDate}
+                FormattedValue={HabitInfoPageValue}
+                isTouchGestureEnabled={false}
+                isDateSelectionEnabled={false}
+              />
             </CalendarWrapper>
 
             <ChartWrapper className="slideChild">
@@ -116,71 +120,7 @@ const Content = styled.div`
   @media (min-width:1024px) { //desktop
   }
 `
-const Info = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* text-transform:lowercase; */
 
-  padding: 32px 8px; 
-
-  width: 100%;
-  text-align: start;
-  
-  color: rgb(var(--greyTitle));
-  font-weight: 500;
-  .name{
-    display: none;
-  }
-  .infoText{
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    color: #5c5c5c;
-    span{
-      line-height: 150%;
-    }
-  }
-  .infoCount{
-    line-height: 100%;
-    font-weight: 700;
-    font-size: 32px;
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
-  }
-  
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 50%;
-    height: 100%;
-    border-right: 2px solid whitesmoke;
-    margin-right: 12px;
-    flex-direction: column;
-    justify-content: space-evenly;
-
-    .name{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      margin: 24px 0;
-      width: 90%;
-     
-      font-weight: 600;
-      font-size: 32px;
-      word-break: keep-all;
-    } 
-    .infoText{
-      text-align: center;
-    }
-    .infoCount{
-      margin: 24px 0;
-    }
-  }
-  @media (min-width:1024px) { //desktop
-    .infoText{
-      font-size: 20px;
-    }
-  }
-`
 
 const CalendarWrapper = styled.div`
   width: 100%;
