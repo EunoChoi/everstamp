@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
-  Value: ({ dateData }: { dateData: Date }) => JSX.Element;
+  FormattedValue: ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => JSX.Element;
   calendarDates: Date[][];
   displayDate: Date;
   beforeDisplayMonth: () => void;
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const CalendarBody = ({
-  Value,
+  FormattedValue,
   calendarDates,
   displayDate,
   beforeDisplayMonth,
@@ -58,26 +58,26 @@ const CalendarBody = ({
     >
       {calendarDates.map((weekRow, i) =>
         <CalRow key={'weeks' + i} className="cal_week_row">
-          {weekRow?.map(dateValue => {
-            const key = format(dateValue, 'yyMMdd');
+          {weekRow?.map(dateData => {
+            const key = format(dateData, 'yyMMdd');
             return (<CellWrapper
               key={key}
               onClick={() => {
                 // console.log(cellMonth, displayMonth);
                 if (isDateSelectionEnabled) {
-                  const cellMonth = format(dateValue, 'yyyyM');
+                  const cellMonth = format(dateData, 'yyyyM');
                   if (cellMonth < displayMonth) beforeDisplayMonth();
                   else if (cellMonth > displayMonth) nextDisplayMonth();
-                  else router.push(`${path}?date=${dateValue.getTime()}`);
+                  else router.push(`${path}?date=${dateData.getTime()}`);
                 }
               }}
               className={`
-              ${isSameDay(dateValue, today) ? 'today' : ''}
-              ${isSameMonth(dateValue, displayDate) ? 'currentMonth' : 'notCurrentMonth'}
-              ${isSameDay(dateValue, selectedDate) ? 'selected' : ''}
+              ${isSameDay(dateData, today) ? 'today' : ''}
+              ${isSameMonth(dateData, displayDate) ? 'currentMonth' : 'notCurrentMonth'}
+              ${isSameDay(dateData, selectedDate) ? 'selected' : ''}
             `}
             >
-              <Value dateData={dateValue} />
+              <FormattedValue displayDate={displayDate} dateData={dateData} />
             </CellWrapper>);
           })}
         </CalRow>)

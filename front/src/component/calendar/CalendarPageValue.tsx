@@ -16,7 +16,7 @@ interface monthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
 }
 
-const CalendarPageValue = ({ dateData }: { dateData: Date }) => {
+const CalendarPageValue = ({ displayDate, dateData }: { displayDate?: Date, dateData: Date }) => {
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
   const EMOTION_NAME_ENG = ['upset', 'sad', 'common', 'happy', 'joyful'];
 
