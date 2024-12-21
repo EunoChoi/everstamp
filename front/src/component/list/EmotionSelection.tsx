@@ -14,30 +14,29 @@ interface Props {
 }
 
 const EmotionSelection = ({ contentRef, setEmotionToggle, emotionToggle }: Props) => {
-
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4].reverse();
-  const emotionName = ['upset', 'sad', 'common', 'happy', 'joyful'].reverse();
+  const EMOTION_NAME_ENG = ['upset', 'sad', 'common', 'happy', 'joyful'].reverse();
 
-  return (<Wrapper>
-    <Title>
-      <span>Emotion</span>
-      <span className="type">#{emotionToggle === 5 ? 'all' : emotionName[4 - emotionToggle]}</span>
-    </Title>
-    <ScrollWrapper>
-      {emotions.map((e, i) =>
-        <EmotionWrapper
-          key={emotionName[i]}
-          className={`${emotionName[i]} ${emotionToggle === (4 - i) || emotionToggle === 5 ? 'selected' : ''}`}
-          onClick={() => {
-            if (emotionToggle === 4 - i) setEmotionToggle(5);
-            else setEmotionToggle(4 - i);
-            contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
-          }}>
-          <Image className="icon" src={e} alt={emotionName[i]} width={128} height={128} />
-        </EmotionWrapper>)
-      }
-    </ScrollWrapper>
-  </Wrapper>);
+  return (
+    <Wrapper>
+      <TitleWrapper>
+        <Title>Emotion</Title>
+        <Title className="emotionType">#{emotionToggle === 5 ? 'all' : EMOTION_NAME_ENG[4 - emotionToggle]}</Title>
+      </TitleWrapper>
+      <EmotionlWrapper>
+        {emotions.map((e, i) =>
+          <EmotionImage
+            key={EMOTION_NAME_ENG[i]}
+            className={`icon ${EMOTION_NAME_ENG[i]} ${emotionToggle === (4 - i) || emotionToggle === 5 ? 'selected' : ''}`}
+            onClick={() => {
+              if (emotionToggle === 4 - i) setEmotionToggle(5);
+              else setEmotionToggle(4 - i);
+              contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
+            src={e} alt={EMOTION_NAME_ENG[i]} width={128} height={128} />
+        )}
+      </EmotionlWrapper>
+    </Wrapper>);
 }
 
 export default EmotionSelection;
@@ -45,62 +44,61 @@ export default EmotionSelection;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: start;
-
-  width: inherit;
-
-  padding : 20px 0;
-  background-color: white;
-
-  max-width: 600px;
-`
-const EmotionWrapper = styled.div`
-  display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   flex-shrink: 0;
 
   box-sizing: border-box;
-  transition: opacity ease-in-out 200ms;
-
-  width: 81px;
-  width: 19%;
+  padding : 4px 0;
   height: auto;
-
-  &:not(.selected){
-    opacity: 0.67;
-  }
-  &.selected{
-    filter: saturate(115%);
-  }
-
+  width: inherit;
+  max-width: 600px;
+  overflow: hidden;
+ 
+  background-color: white;
 `
-const Title = styled.h1`
-  span{
-    font-size: 22px;
-    font-weight: 700;
-    text-transform: capitalize;
-    margin-right: 8px;
-    color : rgb(var(--greyTitle));
-    
-    &.type{
-      font-weight: 500;
-      color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    }
-  }
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
   @media (max-width: 479px) { //mobile port
     padding: 0 5vw;
   }
 `
-const ScrollWrapper = styled.div`
-  display: flex;
-  width: 100dvw;
-  width: inherit;
-  justify-content: space-between;
+const Title = styled.div`
+  margin-right: 8px;
+  
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: capitalize;
+  color : rgb(var(--greyTitle));
 
-  padding: 8px 0;
-  @media (max-width: 479px) { //mobile port
-    padding: 8px 5vw;
+  &.emotionType{
+    font-weight: 500;
+    color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
+`
+const EmotionlWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: inherit;
+  padding: 4px 0;
+
+  @media (max-width: 479px) { //mobile port
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+`
+const EmotionImage = styled(Image)`
+   box-sizing: border-box;
+   transition: opacity ease-in-out 200ms;
+
+   width: 19%;
+   max-width: 100px;
+   flex-shrink: 0;
+
+   &:not(.selected){ opacity: 0.65;}
+   &.selected{filter: saturate(115%);}
 `
 
