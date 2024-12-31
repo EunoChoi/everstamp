@@ -5,12 +5,13 @@ import { ReactNode, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //function
-import IsMobile from "@/function/IsMobile";
-import { getCurrentUser } from "@/function/fetch/user";
+import IsMobile from "@/common/function/IsMobile";
+import { getCurrentUser } from "@/common/function/fetch/user";
 
-import MobileLayout from "@/component/layout/MobileLayout";
-import DesktopLayout from "@/component/layout/DesktopLayout";
+
 import { useSnackbar } from 'notistack';
+import DesktopLayout from '@/common/component/layout/DesktopLayout';
+import MobileLayout from '@/common/component/layout/MobileLayout';
 
 interface Props {
   children: ReactNode;

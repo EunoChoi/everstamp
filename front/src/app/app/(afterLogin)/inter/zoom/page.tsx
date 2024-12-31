@@ -1,5 +1,6 @@
-import ZoomModal from "@/component/modal/zoom/ZoomModal";
-import { getDiary_fetch } from "@/function/fetch/diary_ssr";
+
+import ZoomModal from "@/common/component/modal/zoom/ZoomModal";
+import { getDiary_fetch } from "@/common/function/fetch/diary_ssr";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 interface Props {

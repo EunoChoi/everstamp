@@ -1,4 +1,5 @@
-import HabitOrderModal from "@/component/habit/HabitOrderModal";
+
+import HabitOrderModal from "@/common/component/habit/HabitOrderModal";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 const Page = async () => {

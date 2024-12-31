@@ -7,20 +7,20 @@ import { format } from "date-fns";
 import { useEffect, useState } from "react";
 
 //function
-import IsMobile from "@/function/IsMobile";
-import { getDiary_date } from "@/function/fetch/diary";
+import IsMobile from "@/common/function/IsMobile";
+import { getDiary_date } from "@/common/function/fetch/diary";
 
 //styledComponent
-import $Common from "@/style/common";
+import $Common from "@/common/style/common";
 
 //component
-import ContentArea from "@/component/common/ContentArea";
-import Diary from "@/component/diary/Diary";
-import Header from "@/component/common/Header";
-import { useCustomRouter } from "@/function/customRouter";
-import CalendarLayout from "@/component/calendar/CalendarLayout";
+import ContentArea from "@/common/component/ContentArea";
+import Diary from "@/common/component/diary/Diary";
+import Header from "@/common/component/Header";
+import { useCustomRouter } from "@/common/function/customRouter";
+import CalendarLayout from "@/common/component/calendar/CalendarLayout";
 import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
 
 interface Props {
   date: number;

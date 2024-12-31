@@ -8,9 +8,10 @@ import { SessionProvider } from "next-auth/react";
 
 
 import { headers } from 'next/headers'
-import RQProvider from "@/component/reactQuery/RQProvider";
-import ClientComponentProvider from "@/component/ClientComponentProvider";
-import PrefetchLayout from "@/component/layout/PrefetchLayout";
+import ClientComponentProvider from "@/common/component/ClientComponentProvider";
+import PrefetchLayout from "@/common/component/layout/PrefetchLayout";
+import RQProvider from "@/common/component/reactQuery/RQProvider";
+
 
 export const metadata: Metadata = {
   title: "EverStamp",

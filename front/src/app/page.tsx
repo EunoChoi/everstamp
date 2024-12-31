@@ -1,8 +1,9 @@
 'use client';
 
-import IsMobile from "@/function/IsMobile";
-import IntroMobile from "@/component/intro/IntroMobile";
-import IntroDesktop from "@/component/intro/IntroDesktop";
+import IntroDesktop from "@/common/component/intro/IntroDesktop";
+import IntroMobile from "@/common/component/intro/IntroMobile";
+import IsMobile from "@/common/function/IsMobile";
+
 
 /**
  * [Client] intro page , url : 'everstamp.site/'
