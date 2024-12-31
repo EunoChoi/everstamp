@@ -19,7 +19,7 @@ import Diary from "@/component/diary/Diary";
 import Header from "@/component/common/Header";
 import { useCustomRouter } from "@/function/customRouter";
 import CalendarLayout from "@/component/calendar/CalendarLayout";
-import CalendarPageValue from "@/component/calendar/CalendarPageValue";
+import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
 import { getCleanTodayTime } from "@/function/getCleanTodayTime";
 
 interface Props {
