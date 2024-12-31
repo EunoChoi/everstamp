@@ -10,20 +10,20 @@ import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import emotion4 from '/public/img/emotion/emotion4.png'
 
 //style
-import $Common from "@/style/common";
+import $Common from "@/common/style/common";
 
 //function
-import { getCurrentUser } from "@/function/fetch/user";
+import { getCurrentUser } from "@/common/function/fetch/user";
 
 //component
-import Header from "@/component/common/Header";
-import ContentArea from "@/component/common/ContentArea";
+import Header from "@/common/component/Header";
+import ContentArea from "@/common/component/ContentArea";
 import React, { useEffect } from "react";
 
 
 import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
 import Image from "next/image";
-import { useCustomRouter } from "@/function/customRouter";
+import { useCustomRouter } from "@/common/function/customRouter";
 
 const SettingPageClient = () => {
   const router = useCustomRouter();

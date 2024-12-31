@@ -1,6 +1,6 @@
 import ListPageClient from "./_component/ListPageClient";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaries_fetch } from "../../../../function/fetch/diary_ssr";
+import { getDiaries_fetch } from "../../../../common/function/fetch/diary_ssr";
 
 const Page = async () => {
   //server prefetch

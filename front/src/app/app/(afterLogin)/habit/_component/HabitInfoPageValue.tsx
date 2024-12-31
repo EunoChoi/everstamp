@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_single_status_month } from "@/function/fetch/habit";
+import { getHabit_single_status_month } from "@/common/function/fetch/habit";
 import { useSearchParams } from "next/navigation";
 
 const HabitInfoPageValue = ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => {

@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import HabitPageClient from "./_component/HabitPageClient";
-import { getHabits_fetch } from "../../../../function/fetch/habit_ssr";
+import { getHabits_fetch } from "../../../../common/function/fetch/habit_ssr";
 
 const Page = async ({ searchParams }: any) => {
   //server prefetch

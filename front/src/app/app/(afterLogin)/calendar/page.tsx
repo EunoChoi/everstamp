@@ -1,13 +1,13 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { getDiary_date_fetch } from "../../../../function/fetch/diary_ssr";
-import { getHabit_status_month_fetch } from "../../../../function/fetch/habit_ssr";
+import { getDiary_date_fetch } from "../../../../common/function/fetch/diary_ssr";
+import { getHabit_status_month_fetch } from "../../../../common/function/fetch/habit_ssr";
 
 //component
 import CalendarPageClient from "./_component/CalendarPageClient";
 
 //function
-import { getCleanTodayTime } from "@/function/getCleanTodayTime";
+import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
 import { useEffect } from "react";
 
 

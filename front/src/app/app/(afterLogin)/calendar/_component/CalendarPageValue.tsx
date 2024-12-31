@@ -10,7 +10,7 @@ import emotion4 from '/public/img/emotion/emotion4.png'
 import empty from '/public/img/emotion/empty.png'
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_status_month } from "@/function/fetch/habit";
+import { getHabit_status_month } from "@/common/function/fetch/habit";
 
 interface monthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
