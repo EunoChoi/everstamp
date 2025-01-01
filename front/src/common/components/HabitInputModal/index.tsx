@@ -10,7 +10,7 @@ import $Common from "@/common/style/common";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import useSubmitHabit from "./utils/submitHabit";
+import useSubmitHabit from "./utils/useSubmitHabit";
 import { enqueueSnackbar } from "notistack";
 import { getHabit } from "@/common/function/fetch/habit";
 import { notFound } from "next/navigation";

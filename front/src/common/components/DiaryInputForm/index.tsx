@@ -18,7 +18,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import DiaryInputDate from "./Date";
 
-import useSubmitDiary from './utils/submitDiary';
+import useSubmitDiary from './utils/useSubmitDiary';
 import styled from "styled-components";
 import DiaryInputImages from "./Images";
 import { getDiary } from "@/common/function/fetch/diary";
