@@ -6,17 +6,17 @@ import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 
 import { getHabit, getHabit_single_status_month } from "@/common/function/fetch/habit";
-import HabitInfoChart from "../../habit/HabitInfoChart";
-import Indicator from "../../indicator";
+import HabitInfoChart from "./HabitInfoChart";
+import Indicator from "../indicator";
 
 import { useCustomRouter } from "@/common/function/customRouter";
 import $Modal from "@/common/style/common_modal";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { notFound } from 'next/navigation';
-import Calendar from "../../Calendar";
+import Calendar from "../Calendar";
 import HabitInfoPageValue from "@/app/app/(afterLogin)/habit/_component/HabitInfoPageValue";
-import HabitInfoCount from "../../habit/HabitInfoCount";
+import HabitInfoCount from "./HabitInfoCount";
 
 
 interface Props {
