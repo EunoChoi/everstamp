@@ -1,4 +1,4 @@
-import Indicator from "./indicator";
+import Indicator from "../Indicator";
 
 import { useRef, useState } from "react";
 import styled from "styled-components";
