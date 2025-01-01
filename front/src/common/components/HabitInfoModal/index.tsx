@@ -15,7 +15,7 @@ import $Modal from "@/common/style/common_modal";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { notFound } from 'next/navigation';
 import Calendar from "../Calendar";
-import HabitInfoPageValue from "@/app/app/(afterLogin)/habit/_component/HabitInfoPageValue";
+import HabitInfoPageValue from "@/common/components/Calendar/HabitInfoPageValue";
 import HabitInfoCount from "./HabitInfoCount";
 
 

@@ -23,8 +23,8 @@ import ContentArea from "@/common/components/ContentArea";
 import Diary from "@/common/components/Diary";
 import Header from "@/common/components/Header";
 import EmotionSelection from "@/common/components/EmotionSelectorAtList";
-import MonthSelector from "@/common/components/list/MonthSelector";
-import ScrollToTopButton from "@/common/components/list/ScrollToTopButton";
+import MonthSelector from "@/common/components/MonthSelectorAtList";
+import ScrollToTopButton from "@/common/components/ScrollToTopButton";
 
 
 
