@@ -16,8 +16,8 @@ import $Common from "@/common/style/common";
 import { getCurrentUser } from "@/common/function/fetch/user";
 
 //component
-import Header from "@/common/component/Header";
-import ContentArea from "@/common/component/ContentArea";
+import Header from "@/common/components/Header";
+import ContentArea from "@/common/components/ContentArea";
 import React, { useEffect } from "react";
 
 

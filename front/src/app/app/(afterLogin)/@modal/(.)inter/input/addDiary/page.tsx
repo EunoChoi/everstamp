@@ -1,10 +1,10 @@
-import AddDiaryModal from "@/common/component/modal/diary/AddDiaryModal";
+import DiaryInputForm from "@/common/components/DiaryInputForm";
 
 
 const Page = () => {
   return (
     <>
-      <AddDiaryModal />
+      <DiaryInputForm isEdit={false} />
     </>
   );
 }

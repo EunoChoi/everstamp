@@ -8,9 +8,9 @@ import { SessionProvider } from "next-auth/react";
 
 
 import { headers } from 'next/headers'
-import ClientComponentProvider from "@/common/component/ClientComponentProvider";
-import PrefetchLayout from "@/common/component/layout/PrefetchLayout";
-import RQProvider from "@/common/component/reactQuery/RQProvider";
+import ClientComponentProvider from "@/common/components/ClientComponentProvider";
+import PrefetchLayout from "@/common/components/layout/PrefetchLayout";
+import RQProvider from "@/common/components/reactQuery/RQProvider";
 
 
 export const metadata: Metadata = {

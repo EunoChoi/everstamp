@@ -19,12 +19,12 @@ import { getDiaries } from "@/common/function/fetch/diary";
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 import { useRouter } from "next/navigation";
-import ContentArea from "@/common/component/ContentArea";
-import Diary from "@/common/component/diary/Diary";
-import Header from "@/common/component/Header";
-import EmotionSelection from "@/common/component/list/EmotionSelection";
-import MonthSelector from "@/common/component/list/MonthSelector";
-import ScrollToTopButton from "@/common/component/list/ScrollToTopButton";
+import ContentArea from "@/common/components/ContentArea";
+import Diary from "@/common/components/Diary";
+import Header from "@/common/components/Header";
+import EmotionSelection from "@/common/components/list/EmotionSelection";
+import MonthSelector from "@/common/components/list/MonthSelector";
+import ScrollToTopButton from "@/common/components/list/ScrollToTopButton";
 
 
 

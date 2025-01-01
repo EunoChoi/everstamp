@@ -8,8 +8,8 @@ import { format } from 'date-fns';
 
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
-import DiaryHabits from "./Diary_Habits";
-import DiarySlide from "./Diary_Slide";
+import DiaryHabits from "./DiaryHabits";
+import DiarySlide from "./DiarySlide";
 import IsMobile from "@/common/function/IsMobile";
 import { useCustomRouter } from "@/common/function/customRouter";
 
