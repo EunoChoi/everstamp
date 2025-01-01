@@ -10,7 +10,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode, useState } from "react";
-import CalendarLayout from "../Calendar";
+import Calendar from "../Calendar";
 import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
 
 // import Calendar from "../calendar/Calendar";
@@ -41,7 +41,7 @@ const DesktopLayout = ({ modal, children }: Props) => {
         <Menus>
           <Menu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
           <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
-            <CalendarLayout
+            <Calendar
               displayDate={displayDate}
               setDisplayDate={setDisplayDate}
               FormattedValue={CalendarPageValue}

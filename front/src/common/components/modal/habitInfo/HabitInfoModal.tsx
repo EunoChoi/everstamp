@@ -14,7 +14,7 @@ import $Modal from "@/common/style/common_modal";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { notFound } from 'next/navigation';
-import CalendarLayout from "../../Calendar";
+import Calendar from "../../Calendar";
 import HabitInfoPageValue from "@/app/app/(afterLogin)/habit/_component/HabitInfoPageValue";
 import HabitInfoCount from "../../habit/HabitInfoCount";
 
@@ -73,7 +73,7 @@ const HabitInfoModal = ({ habitId }: Props) => {
                 habitName={habitDataById?.name ?? '-'}
                 habitCount={habitDataByMonth?.length ?? 0}
               />
-              <CalendarLayout
+              <Calendar
                 displayDate={displayDate}
                 setDisplayDate={setDisplayDate}
                 FormattedValue={HabitInfoPageValue}
