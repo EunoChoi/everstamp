@@ -19,7 +19,7 @@ interface Props {
   isDateSelectionEnabled?: boolean;
 }
 
-const CalendarLayout = ({ displayDate, setDisplayDate, FormattedValue, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
+const Calendar = ({ displayDate, setDisplayDate, FormattedValue, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
   const { calendarDates } = makeCalendarDates(displayDate);
 
   const nextDisplayMonth = useCallback(() => {
@@ -51,7 +51,7 @@ const CalendarLayout = ({ displayDate, setDisplayDate, FormattedValue, todayRout
   );
 }
 
-export default CalendarLayout;
+export default Calendar;
 
 const Wrapper = styled.div`
   width: 100%;
