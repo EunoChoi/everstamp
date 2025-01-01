@@ -15,8 +15,8 @@ import { useCustomRouter } from "@/common/function/customRouter";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import $Modal from "@/common/style/common_modal";
-import DiaryInputDate from "../../DiaryInputForm/Date";
-import Indicator from "../../indicator";
+import DiaryInputDate from "../DiaryInputForm/Date";
+import Indicator from "../indicator";
 
 
 

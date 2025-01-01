@@ -4,40 +4,29 @@ import styled from "styled-components";
 
 
 import { subDays, format } from "date-fns";
-import { useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
-import Axios from "@/Axios/axios";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHabit_status_4day } from "@/common/function/fetch/habit";
 import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
 
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import $Common from "@/common/style/common";
 import { useCustomRouter } from "@/common/function/customRouter";
+import useHabitAction from "./utils/useHabitAction";
 
 interface Props {
   name: string;
   id: number;
   priority: number;
 }
-interface Err {
-  response: {
-    data: string;
-  }
-}
-interface CheckHabitProps {
-  habitId: number;
-  date: number;
-}
 
 const HabitBox = ({ name, id, priority }: Props) => {
-  const queryClient = useQueryClient();
 
   const router = useCustomRouter();
+  const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
 
   const currentCleanDateTime = getCleanTodayTime()
   const currentDate = new Date();
@@ -49,74 +38,26 @@ const HabitBox = ({ name, id, priority }: Props) => {
     queryFn: () => getHabit_status_4day({ id, date: currentCleanDateTime }),
   });
 
-
-
-  const checkHabitMutation = useMutation({
-    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.post('/habit/check', { habitId, date }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['habit', name, 'recent'] });
-
-      console.log('chack habit success');
-    },
-    onError: (e: Err) => {
-      enqueueSnackbar(e?.response?.data, { variant: 'error' })
-      // alert(e?.response?.data);
-      console.log('uncheck habit error');
-    },
-  });
-  const uncheckHabitMutation = useMutation({
-    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.delete('/habit/check', { data: { habitId, date } }), //delete method data
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['habit', name, 'recent'] });
-      console.log('unchack habit success');
-    },
-    onError: (e: Err) => {
-      // alert(e?.response?.data);
-      enqueueSnackbar(e?.response?.data, { variant: 'error' });
-      console.log('uncheck habit error');
-    },
-  });
-  const deleteHabitMutation = useMutation({
-    mutationFn: async ({ habitId }: { habitId: number }) => await Axios.delete(`habit?habitId=${habitId}`),
-    onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll().forEach(cache => {
-        queryClient.invalidateQueries({ queryKey: cache.queryKey });
-      });
-
-      console.log('delete habit success');
-      enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
-    },
-    onError: (e: Err) => {
-      enqueueSnackbar(e?.response?.data, { variant: 'error' });
-      console.log('delete habit error');
-    },
-  });
-
-
-
   const onDeleteHabit = () => {
     const action = (snackbarId: SnackbarKey) => (
       <>
-        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('deleteHabit'); }}>
-          No
-        </$Common.YesOrNo>
-        <$Common.YesOrNo className="yes" onClick={() => {
-          deleteHabitMutation.mutate({ habitId: id });
+        <$Common.YesOrNo className="no" onClick={() => {
           closeSnackbar('deleteHabit');
-        }}>
-          Yes
-        </$Common.YesOrNo>
+        }}>No</$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
+          deleteHabit.mutate({ habitId: id });
+          closeSnackbar('deleteHabit');
+        }}>Yes</$Common.YesOrNo>
       </>
     );
     enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
   }
   const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
     if (e.currentTarget.checked === true) {
-      checkHabitMutation.mutate({ habitId: id, date });
+      checkHabit.mutate({ habitId: id, date });
     }
     else {
-      uncheckHabitMutation.mutate({ habitId: id, date });
+      uncheckHabit.mutate({ habitId: id, date });
     }
   }
 

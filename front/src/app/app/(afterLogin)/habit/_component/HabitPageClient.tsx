@@ -17,7 +17,7 @@ import { getCurrentUser } from "@/common/function/fetch/user";
 import AddIcon from '@mui/icons-material/Add';
 import { useCustomRouter } from "@/common/function/customRouter";
 import ContentArea from "@/common/components/ContentArea";
-import HabitBox from "@/common/components/habit/HabitBox";
+import HabitBox from "@/common/components/HabitBox";
 import Header from "@/common/components/Header";
 import Indicator from "@/common/components/indicator";
 
