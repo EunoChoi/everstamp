@@ -10,8 +10,8 @@ import { getCurrentUser } from "@/common/function/fetch/user";
 
 
 import { useSnackbar } from 'notistack';
-import DesktopLayout from '@/common/component/layout/DesktopLayout';
-import MobileLayout from '@/common/component/layout/MobileLayout';
+import DesktopLayout from '@/common/components/layout/DesktopLayout';
+import MobileLayout from '@/common/components/layout/MobileLayout';
 
 interface Props {
   children: ReactNode;

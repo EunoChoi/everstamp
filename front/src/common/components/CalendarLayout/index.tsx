@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { addMonths, subMonths } from 'date-fns';
 
 //function
-import makeCalendarDates from "./function/makeCalendarDates";
+import makeCalendarDates from "./utils/makeCalendarDates";
 import React from "react";
 import CalendarHeader from "./CalendarHeader";
 import CalendarBody from "./CalendarBody";

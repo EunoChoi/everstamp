@@ -2,7 +2,7 @@ import Axios from "@/Axios/axios";
 import { redirect } from "next/navigation";
 
 interface IdProps {
-  id: string | number | null;
+  id: string | number | null | undefined;
 }
 
 interface DateProps {

@@ -14,11 +14,11 @@ import { getDiary_date } from "@/common/function/fetch/diary";
 import $Common from "@/common/style/common";
 
 //component
-import ContentArea from "@/common/component/ContentArea";
-import Diary from "@/common/component/diary/Diary";
-import Header from "@/common/component/Header";
+import ContentArea from "@/common/components/ContentArea";
+import Diary from "@/common/components/Diary";
+import Header from "@/common/components/Header";
 import { useCustomRouter } from "@/common/function/customRouter";
-import CalendarLayout from "@/common/component/calendar/CalendarLayout";
+import CalendarLayout from "@/common/components/CalendarLayout";
 import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
 import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
 

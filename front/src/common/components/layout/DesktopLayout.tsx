@@ -10,7 +10,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode, useState } from "react";
-import CalendarLayout from "../calendar/CalendarLayout";
+import CalendarLayout from "../CalendarLayout";
 import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
 
 // import Calendar from "../calendar/Calendar";

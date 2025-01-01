@@ -1,4 +1,4 @@
-import EditDiaryModal from "@/common/component/modal/diary/EditDiaryModal";
+import DiaryInputForm from "@/common/components/DiaryInputForm";
 import { getDiary_fetch } from "@/common/function/fetch/diary_ssr";
 
 
@@ -26,7 +26,7 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <EditDiaryModal diaryId={diaryId} />
+      <DiaryInputForm isEdit={true} diaryId={diaryId} />
     </HydrationBoundary>
   );
 }

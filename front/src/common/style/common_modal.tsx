@@ -116,43 +116,6 @@ const $Modal = {
         align-items: center;
       }
     }
-  `,
-  DiaryInputSection: styled.section`
-    display: flex;
-    flex-direction: column;
-
-    /* scroll-snap-align: start;
-    scroll-margin-top: var(--mobileHeader);
-    scroll-snap-stop: normal; */
-
-    width: 100%;
-    padding: 18px 5vw;
-    flex-shrink: 0;
-  `,
-  DiaryInputTitle: styled.section`
-    text-transform: capitalize;
-    font-size: 22px;
-    font-weight: 500;
-    color: rgb(var(--greyTitle));
-    margin-bottom: 16px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `,
-  DiaryInputEmotions: styled.div`
-    width: 100%;
-    height: 100%;
-  `,
-  DiaryInputTextarea: styled.div`
-    width: 100%;
-    height: 220px;
-  `,
-  DiaryInputImages: styled.div`
-    width: 100%;
-    height: 120px;
-
-    overflow: hidden;
   `
 }
 

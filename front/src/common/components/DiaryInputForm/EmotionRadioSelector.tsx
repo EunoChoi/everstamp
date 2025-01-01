@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-// import emotion0 from '/public/img/emotion/circle_emotion0.png'
-// import emotion1 from '/public/img/emotion/circle_emotion1.png'
-// import emotion2 from '/public/img/emotion/circle_emotion2.png'
-// import emotion3 from '/public/img/emotion/circle_emotion3.png'
-// import emotion4 from '/public/img/emotion/circle_emotion4.png'
-
 import emotion0 from '/public/img/emotion/emotion0.png'
 import emotion1 from '/public/img/emotion/emotion1.png'
 import emotion2 from '/public/img/emotion/emotion2.png'
