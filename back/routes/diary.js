@@ -199,6 +199,7 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
       where: [{
         email,
         id: diaryId,
+        visible: true
       }],
       include: [{
         model: Image//이미지
