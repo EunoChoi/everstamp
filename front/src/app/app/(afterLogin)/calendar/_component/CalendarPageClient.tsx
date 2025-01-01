@@ -18,7 +18,7 @@ import ContentArea from "@/common/components/ContentArea";
 import Diary from "@/common/components/Diary";
 import Header from "@/common/components/Header";
 import { useCustomRouter } from "@/common/function/customRouter";
-import CalendarLayout from "@/common/components/CalendarLayout";
+import CalendarLayout from "@/common/components/Calendar";
 import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
 import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
 
