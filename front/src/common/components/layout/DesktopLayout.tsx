@@ -11,7 +11,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode, useState } from "react";
 import Calendar from "../Calendar";
-import CalendarPageValue from "@/app/app/(afterLogin)/calendar/_component/CalendarPageValue";
+import CalendarPageValue from "@/common/components/Calendar/CalendarPageValue";
 
 // import Calendar from "../calendar/Calendar";
 

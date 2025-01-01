@@ -1,7 +1,7 @@
 'use client';
 
-import IntroDesktop from "@/common/components/intro/IntroDesktop";
-import IntroMobile from "@/common/components/intro/IntroMobile";
+import IntroDesktop from "@/common/components/IntroPage/IntroDesktop";
+import IntroMobile from "@/common/components/IntroPage/IntroMobile";
 import IsMobile from "@/common/function/IsMobile";
 
 
