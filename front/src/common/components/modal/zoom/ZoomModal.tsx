@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getDiary } from "@/common/function/fetch/diary";
 
@@ -32,7 +32,7 @@ interface ImageProps {
 const ZoomModal = ({ diaryId }: Props) => {
   const router = useCustomRouter();
 
-  const { data: diaryData } = useQuery({
+  const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => getDiary({ id: diaryId }),
     enabled: diaryId !== null
@@ -65,6 +65,10 @@ const ZoomModal = ({ diaryId }: Props) => {
   useEffect(() => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [diaryData])
+
+  useEffect(() => {
+    if (isError) notFound();
+  }, [isError])
 
   return (
     <$Modal.Background onClick={() => router.back()}>
