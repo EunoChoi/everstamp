@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 import ContentArea from "@/common/components/ContentArea";
 import Diary from "@/common/components/Diary";
 import Header from "@/common/components/Header";
-import EmotionSelection from "@/common/components/list/EmotionSelection";
+import EmotionSelection from "@/common/components/EmotionSelectorAtList";
 import MonthSelector from "@/common/components/list/MonthSelector";
 import ScrollToTopButton from "@/common/components/list/ScrollToTopButton";
 
