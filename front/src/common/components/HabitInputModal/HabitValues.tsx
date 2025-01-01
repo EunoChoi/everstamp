@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
-import { RefObject } from "react";
 
 interface Props {
   habitName: string;
@@ -20,7 +19,7 @@ const NStart = (n: number) => {
   );
 }
 
-const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Props) => {
+const HabitValues = ({ habitName, setHabitName, priority, setPriority }: Props) => {
 
 
   return (
@@ -49,7 +48,7 @@ const HabitInputValues = ({ habitName, setHabitName, priority, setPriority }: Pr
   );
 }
 
-export default HabitInputValues;
+export default HabitValues;
 
 const Wrapper = styled.div`
   width: 100%;
