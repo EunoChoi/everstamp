@@ -19,7 +19,7 @@ import { useCustomRouter } from "@/common/function/customRouter";
 import ContentArea from "@/common/components/ContentArea";
 import HabitBox from "@/common/components/HabitBox";
 import Header from "@/common/components/Header";
-import Indicator from "@/common/components/indicator";
+import Indicator from "@/common/components/Indicator";
 
 
 

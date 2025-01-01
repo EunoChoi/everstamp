@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getHabit, getHabit_single_status_month } from "@/common/function/fetch/habit";
 import HabitInfoChart from "./HabitInfoChart";
-import Indicator from "../indicator";
+import Indicator from "../Indicator";
 
 import { useCustomRouter } from "@/common/function/customRouter";
 import $Modal from "@/common/style/common_modal";
