@@ -1,9 +1,9 @@
-import AddHabitModal from "@/common/components/modal/habit/AddHabitModal";
+import HabitInputModal from "@/common/components/HabitInputModal";
 
 const Page = () => {
   return (
     <>
-      <AddHabitModal />
+      <HabitInputModal isEdit={false} />
     </>
   );
 }

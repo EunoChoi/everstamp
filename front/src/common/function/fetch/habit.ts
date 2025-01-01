@@ -1,7 +1,7 @@
 import Axios from "@/Axios/axios";
 
 interface IdProps {
-  id: string | null;
+  id: string | null | undefined;
 }
 interface ListProps {
   sort: string;

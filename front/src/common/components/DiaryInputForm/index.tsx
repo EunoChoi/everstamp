@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { notFound, useSearchParams } from "next/navigation";
 import { useRef } from "react";
 
 import DiaryInputTextArea from "./TextArea";
@@ -23,6 +23,7 @@ import styled from "styled-components";
 import DiaryInputImages from "./Images";
 import { getDiary } from "@/common/function/fetch/diary";
 import { useQuery } from "@tanstack/react-query";
+import router from "next/router";
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -43,7 +44,7 @@ interface ServerImageProps {
   src: string;
 }
 
-const DiaryInputForm = ({ isEdit = true, diaryId }: DiaryInputProps) => {
+const DiaryInputForm = ({ isEdit, diaryId }: DiaryInputProps) => {
 
   const { addDiary, editDiary } = useSubmitDiary();
   const onMutation = isEdit ? editDiary : addDiary;
@@ -51,7 +52,7 @@ const DiaryInputForm = ({ isEdit = true, diaryId }: DiaryInputProps) => {
 
   const router = useCustomRouter();
   const param = useSearchParams();
-  const date = new Date(Number(param.get('date')));
+
 
   const contentsRef = useRef<HTMLElement>(null);
   const imageUploadRef = useRef<HTMLInputElement>(null);
@@ -62,9 +63,12 @@ const DiaryInputForm = ({ isEdit = true, diaryId }: DiaryInputProps) => {
     enabled: diaryId !== null && isEdit === true
   });
 
-  const [text, setText] = useState<string>(diaryData?.text ? diaryData?.text : "");
-  const [images, setImages] = useState<Array<string>>(diaryData?.Images ? diaryData.Images?.map((e: ServerImageProps) => e.src) : []);
-  const [emotion, setEmotion] = useState<number>(diaryData?.emotion ? diaryData.emotion : 2);
+  //add에선 url 쿼리 파라미터로 edit에선 불러온 diary 데이터로 date 값을 가져오다.
+  const date = diaryData?.date ?? new Date(Number(param.get('date')));
+
+  const [text, setText] = useState<string>(diaryData?.text ?? "");
+  const [images, setImages] = useState<Array<string>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);
+  const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 2);
 
   const [emotionOpen, setEmotionOpen] = useState(true);
   const [contentsOpen, setContentsOpen] = useState(true);
@@ -80,6 +84,9 @@ const DiaryInputForm = ({ isEdit = true, diaryId }: DiaryInputProps) => {
     else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
   };
 
+  useEffect(() => {
+    if (isError) notFound();
+  }, [isError])
 
   return (
     <$Modal.Background onClick={() => router.back()}>

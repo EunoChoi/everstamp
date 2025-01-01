@@ -2,7 +2,7 @@
 
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { getHabit_fetch } from "@/common/function/fetch/habit_ssr";
-import EditHabitModal from "@/common/components/modal/habit/EditHabitModal";
+import HabitInputModal from "@/common/components/HabitInputModal";
 
 interface Props {
   searchParams: {
@@ -24,7 +24,7 @@ const Page = async ({ searchParams }: Props) => {
   const dehydratedState = dehydrate(queryClient)
   return (
     <HydrationBoundary state={dehydratedState}>
-      <EditHabitModal habitId={habitId} />
+      <HabitInputModal isEdit={true} habitId={habitId} />
     </HydrationBoundary>
   );
 }
