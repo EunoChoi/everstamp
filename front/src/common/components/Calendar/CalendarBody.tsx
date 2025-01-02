@@ -68,7 +68,8 @@ const CalendarBody = ({
                   const cellMonth = format(dateData, 'yyyyM');
                   if (cellMonth < displayMonth) beforeDisplayMonth();
                   else if (cellMonth > displayMonth) nextDisplayMonth();
-                  else router.push(`${path}?date=${dateData.getTime()}`);
+                  // else router.push(`${path}?date=${dateData.getTime()}`);
+                  else router.push(`calendar?date=${dateData.getTime()}`);
                 }
               }}
               className={`
