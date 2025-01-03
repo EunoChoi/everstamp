@@ -1,5 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getHabits_fetch } from "../../../../../common/function/fetch/habit_ssr";
+import { getHabits_fetch } from "../../../../../common/fetchers/habit_ssr";
 import HabitView from "./_components/HabitView";
 
 

@@ -1,7 +1,6 @@
 'use client';
 
-import { useCustomRouter } from "@/common/function/customRouter";
-import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
+import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import { useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
@@ -10,8 +9,9 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode, useState } from "react";
-import Calendar from "../Calendar";
-import CalendarPageValue from "@/common/components/Calendar/CalendarPageValue";
+import Calendar from "../ui/Calendar";
+import CalendarPageValue from "@/common/components/ui/Calendar/CalendarPageValue";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 
 // import Calendar from "../calendar/Calendar";
 

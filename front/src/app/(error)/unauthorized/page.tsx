@@ -6,7 +6,8 @@ import { Suspense } from "react";
 
 //icon
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
-import { useCustomRouter } from "@/common/function/customRouter";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
+
 
 const Page = () => {
   const router = useCustomRouter();
@@ -53,10 +54,8 @@ const Icon = styled.div`
 `
 const Text = styled.span`
   text-align: center;
-  text-wrap: balance;
   font-weight: 500;
   
-
   @media (max-width: 479px) { //mobile port
     font-size: 18px;
     margin: 24px 0;

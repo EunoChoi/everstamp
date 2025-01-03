@@ -1,5 +1,5 @@
-import DiaryInputForm from "@/common/components/DiaryInputForm";
-import { getDiary_fetch } from "@/common/function/fetch/diary_ssr";
+import DiaryInputModal from "@/app/(routes)/main/(withLayout)/calendar/_components/DiaryInputModal";
+import { getDiary_fetch } from "@/common/fetchers/diary_ssr";
 
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -25,7 +25,7 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <DiaryInputForm isEdit={true} diaryId={diaryId} />
+      <DiaryInputModal isEdit={true} diaryId={diaryId} />
     </HydrationBoundary>
   );
 }

@@ -8,23 +8,23 @@ import { useInView } from "react-intersection-observer";
 import { format, getYear } from "date-fns";
 
 //style
-import $Common from "@/common/style/common";
+import $Common from "@/common/styles/common";
 
 //function
-import { getCurrentUser } from "@/common/function/fetch/user";
-import { getDiaries } from "@/common/function/fetch/diary";
+import { getCurrentUser } from "@/common/fetchers/user";
+import { getDiaries } from "@/common/fetchers/diary";
 
 
 //icon
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
 import { useRouter } from "next/navigation";
-import ContentArea from "@/common/components/ContentArea";
-import Diary from "@/common/components/Diary";
-import Header from "@/common/components/Header";
-import EmotionSelection from "@/common/components/EmotionSelectorAtList";
-import MonthSelector from "@/common/components/MonthSelectorAtList";
-import ScrollToTopButton from "@/common/components/ScrollToTopButton";
+import ContentArea from "@/common/components/layout/ContentArea";
+import Diary from "@/common/components/ui/Diary";
+import Header from "@/common/components/layout/Header";
+import EmotionSelection from "@/app/(routes)/main/(withLayout)/list/_components/EmotionSelectorAtList";
+import MonthSelector from "@/app/(routes)/main/(withLayout)/list/_components/MonthSelectorAtList";
+import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 
 
 

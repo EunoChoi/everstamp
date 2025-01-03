@@ -8,9 +8,9 @@ import { SessionProvider } from "next-auth/react";
 
 
 import { headers } from 'next/headers'
-import ClientComponentProvider from "@/common/components/ClientComponentProvider";
-import PrefetchLayout from "@/common/components/layout/PrefetchLayout";
-import RQProvider from "@/common/components/reactQuery/RQProvider";
+import UtilProvider from "@/common/components/util/UtilProvider";
+import PrefetchUserDataProvider from "@/common/components/util/PrefetchUserDataProvider";
+import RQProvider from "@/common/components/util/RQProvider";
 import StyledComponentsRegistry from "../../lib/registry";
 
 
@@ -31,7 +31,7 @@ export const viewport: Viewport = {
 }
 
 const pretendard = localFont({
-  src: '../fonts/PretendardVariable.woff2',
+  src: '../common/fonts/PretendardVariable.woff2',
   display: "swap",
   weight: "45 920",
 });
@@ -105,11 +105,11 @@ export default function RootLayout({
         <StyledComponentsRegistry>
           <body className={pretendard.className}>
             <RQProvider>
-              <PrefetchLayout>
-                <ClientComponentProvider>
+              <PrefetchUserDataProvider>
+                <UtilProvider>
                   {children}
-                </ClientComponentProvider>
-              </PrefetchLayout>
+                </UtilProvider>
+              </PrefetchUserDataProvider>
             </RQProvider>
           </body>
         </StyledComponentsRegistry>

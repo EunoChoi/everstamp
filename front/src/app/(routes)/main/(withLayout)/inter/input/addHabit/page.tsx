@@ -1,4 +1,4 @@
-import HabitInputModal from "@/common/components/HabitInputModal";
+import HabitInputModal from "@/app/(routes)/main/(withLayout)/habit/_components/HabitInputModal";
 
 const Page = () => {
   return (
