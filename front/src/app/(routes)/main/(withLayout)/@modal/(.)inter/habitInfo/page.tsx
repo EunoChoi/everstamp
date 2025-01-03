@@ -1,6 +1,6 @@
-import HabitInfoModal from "@/common/components/HabitInfoModal";
+import HabitInfoModal from "@/app/(routes)/main/(withLayout)/habit/_components/HabitInfoModal";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { getHabit_fetch } from "@/common/function/fetch/habit_ssr";
+import { getHabit_fetch } from "@/common/fetchers/habit_ssr";
 
 interface Props {
   searchParams: {

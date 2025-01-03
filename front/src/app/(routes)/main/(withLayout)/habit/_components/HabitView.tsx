@@ -7,19 +7,19 @@ import { useQuery } from "@tanstack/react-query";
 import { enqueueSnackbar } from 'notistack'
 
 //style
-import $Common from "@/common/style/common";
+import $Common from "@/common/styles/common";
 
 
 //function
-import { getHabits } from "@/common/function/fetch/habit";
-import { getCurrentUser } from "@/common/function/fetch/user";
+import { getHabits } from "@/common/fetchers/habit";
+import { getCurrentUser } from "@/common/fetchers/user";
 //icon
 import AddIcon from '@mui/icons-material/Add';
-import { useCustomRouter } from "@/common/function/customRouter";
-import ContentArea from "@/common/components/ContentArea";
-import HabitBox from "@/common/components/HabitBox";
-import Header from "@/common/components/Header";
-import Indicator from "@/common/components/Indicator";
+import ContentArea from "@/common/components/layout/ContentArea";
+import HabitBox from "@/app/(routes)/main/(withLayout)/habit/_components/HabitBox";
+import Header from "@/common/components/layout/Header";
+import Indicator from "@/common/components/ui/Indicator";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 
 
 

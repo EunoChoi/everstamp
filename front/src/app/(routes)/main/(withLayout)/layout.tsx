@@ -5,8 +5,8 @@ import { ReactNode, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 //function
-import IsMobile from "@/common/function/IsMobile";
-import { getCurrentUser } from "@/common/function/fetch/user";
+import IsMobile from "@/common/functions/IsMobile";
+import { getCurrentUser } from "@/common/fetchers/user";
 
 
 import { useSnackbar } from 'notistack';

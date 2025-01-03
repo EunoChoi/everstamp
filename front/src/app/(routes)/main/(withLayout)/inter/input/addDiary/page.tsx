@@ -1,9 +1,9 @@
-import DiaryInputForm from "@/common/components/DiaryInputForm";
+import DiaryInputModal from "@/app/(routes)/main/(withLayout)/calendar/_components/DiaryInputModal";
 
 const Page = () => {
   return (
     <>
-      <DiaryInputForm isEdit={false} />
+      <DiaryInputModal isEdit={false} />
     </>
   );
 }

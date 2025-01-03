@@ -10,8 +10,8 @@ import { useEffect } from "react";
 
 
 //function
-import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
-import { getCurrentUser } from "@/common/function/fetch/user";
+import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
+import { getCurrentUser } from "@/common/fetchers/user";
 
 
 //images

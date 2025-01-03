@@ -1,7 +1,6 @@
 'use client'
 
-import { useCustomRouter } from "@/common/function/customRouter";
-import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
+import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import { useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
@@ -11,6 +10,7 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode } from "react";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 
 interface Props {
   children: ReactNode;

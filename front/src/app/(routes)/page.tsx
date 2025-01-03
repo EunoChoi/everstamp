@@ -1,4 +1,4 @@
-import IntroPage from "@/common/components/IntroPage";
+import IntroPage from "./_components/IntroPage";
 
 const Page = () => {
   return <IntroPage />

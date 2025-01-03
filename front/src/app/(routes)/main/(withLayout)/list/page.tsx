@@ -1,5 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaries_fetch } from "../../../../../common/function/fetch/diary_ssr";
+import { getDiaries_fetch } from "../../../../../common/fetchers/diary_ssr";
 import { ReactNode } from "react";
 import ListView from "./_components/ListView";
 
