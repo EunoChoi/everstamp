@@ -78,7 +78,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
     });
   }
   const onEditDiary = () => {
-    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+    router.push(`/main/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
   };
   const onDeleteDiary = () => {
     const action = (snackbarId: SnackbarKey) => (
@@ -111,7 +111,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
 
         <TextWrapper
-          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+          onClick={() => router.push(`/main/inter/zoom?id=${diaryData.id}`, { scroll: false })}
           className={`slideChild`}>
           <Text className={`${position}`}>
             {diaryData.text}
@@ -120,7 +120,7 @@ const DiarySlide = ({ diaryData, position }: Props) => {
 
         {images.map(e =>
           <Img
-            onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+            onClick={() => router.push(`/main/inter/zoom?id=${diaryData.id}`, { scroll: false })}
             key={e.id}
             className="slideChild"
             src={e.src}

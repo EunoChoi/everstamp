@@ -15,7 +15,7 @@ const NetworkStatus = () => {
 
     const onOnline = () => {
       // if (navigator.onLine && window.location.pathname === '/offline') {
-      //   router.push('/app');
+      //   router.push('/main');
       // }
     };
 

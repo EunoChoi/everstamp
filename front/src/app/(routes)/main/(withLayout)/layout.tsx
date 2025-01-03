@@ -48,9 +48,11 @@ const AppLayout = ({ children, modal }: Props) => {
   useEffect(() => {
     console.log('get user info failureCount : ', failureCount);
     if (failureCount >= 2) {
-      redirect('/app');
+      redirect('/main');
     }
   }, [failureCount]);
+
+  console.log(modal);
 
 
   if (isMobile === null) return <></>;

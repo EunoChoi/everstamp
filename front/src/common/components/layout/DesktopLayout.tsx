@@ -39,7 +39,7 @@ const DesktopLayout = ({ modal, children }: Props) => {
           <span>stamp</span>
         </SideBarLogo>
         <Menus>
-          <Menu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
+          <Menu onClick={() => router.push(`/main/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
           <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
             <Calendar
               displayDate={displayDate}
@@ -50,9 +50,9 @@ const DesktopLayout = ({ modal, children }: Props) => {
               isDateSelectionEnabled={true}
             />
           </MonthWrapper>
-          <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
-          <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
-          <Menu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
+          <Menu onClick={() => router.push('/main/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
+          <Menu onClick={() => router.push('/main/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
+          <Menu onClick={() => router.push('/main/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
         </Menus>
         <div></div>
       </Desktop_Sidebar>

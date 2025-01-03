@@ -1,16 +1,16 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getHabits_fetch } from "../../../../common/function/fetch/habit_ssr";
-import { ReactNode } from "react";
+import { getHabits_fetch } from "../../../../../common/function/fetch/habit_ssr";
+import HabitView from "./_components/HabitView";
+
 
 interface Props {
-  children: ReactNode;
   searchParams: {
     date: string
   };
 }
 
-const Layout = async ({ children, searchParams }: Props) => {
-  //server prefetch
+//page for data prefetch
+const DataPrefetchingPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -26,9 +26,9 @@ const Layout = async ({ children, searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      {children}
+      <HabitView />
     </HydrationBoundary>
   );
 }
 
-export default Layout;
+export default DataPrefetchingPage;

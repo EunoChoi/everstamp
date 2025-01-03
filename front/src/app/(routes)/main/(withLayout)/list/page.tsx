@@ -1,9 +1,10 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaries_fetch } from "../../../../common/function/fetch/diary_ssr";
+import { getDiaries_fetch } from "../../../../../common/function/fetch/diary_ssr";
 import { ReactNode } from "react";
+import ListView from "./_components/ListView";
 
-const Layout = async ({ children }: { children: ReactNode }) => {
-  //server prefetch
+//page for data prefetch
+const DataPrefetchingPage = async ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
   const selectedYear = new Date().getFullYear();
   const limit = 10;
@@ -41,9 +42,9 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      {children}
+      <ListView />
     </HydrationBoundary>
   );
 }
 
-export default Layout;
+export default DataPrefetchingPage;

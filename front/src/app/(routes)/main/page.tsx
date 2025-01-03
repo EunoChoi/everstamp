@@ -22,7 +22,7 @@ import naver from '/public/img/loginIcon/naver.png';
 
 
 /**
- * [Client] login page, url : 'everstamp.site/app/'
+ * [Client] login page, url : 'everstamp.site/main/'
  */
 const Page = () => {
   const router = useRouter();
@@ -38,7 +38,7 @@ const Page = () => {
   })
 
   const start = () => {
-    router.push(`app/calendar?date=${getCleanTodayTime()}`);
+    router.push(`/main/calendar?date=${getCleanTodayTime()}`);
   }
   const logout = () => {
     Axios.get('user/logout').then(() => {
@@ -47,13 +47,13 @@ const Page = () => {
   }
 
   useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
+    router.prefetch('/main/calendar');
+    router.prefetch('/main/list');
+    router.prefetch('/main/habit');
+    router.prefetch('/main/setting');
   }, [])
 
-  const options = { callbackUrl: '/app' };
+  const options = { callbackUrl: '/main' };
   return (
     <Wrapper>
       <Logo>

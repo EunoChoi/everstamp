@@ -8,11 +8,11 @@ export async function middleware(request: NextRequest) {
 
   if (!session) {
     console.log('need login, redirect to login page');
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_FRONT_URL}/app`);
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_FRONT_URL}/main`);
   }
 }
 
 //미들웨어가 동작할 페이지들
 export const config = {
-  matcher: ['/app/calendar', '/app/list', '/app/habit', '/app/setting', '/app/inter/zoom', '/app/inter/habitInfo', '/app/inter/input/:path*'],
+  matcher: ['/main/calendar', '/main/list', '/main/habit', '/main/setting', '/main/inter/zoom', '/main/inter/habitInfo', '/main/inter/input/:path*'],
 }

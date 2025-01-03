@@ -88,9 +88,9 @@ const SettingPage = () => {
 
   //production mode에서만 동작, 정적 자료만 prefetch
   useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
+    router.prefetch('/main/calendar');
+    router.prefetch('/main/list');
+    router.prefetch('/main/habit');
   }, [])
 
   return (
@@ -131,14 +131,14 @@ const SettingPage = () => {
           <SubTitle>others</SubTitle>
           <FlexRow className="between">
             <span>목표 습관 리스트 정렬</span>
-            <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
+            <button onClick={() => { router.push('/main/inter/habitOrder', { scroll: false }) }}>
               <LowPriorityRoundedIcon className="icon" fontSize="small" />
             </button>
           </FlexRow>
           <FlexRow className="between">
             <span>감정 아이콘 이미지</span>
             <button onClick={() => {
-              // router.push('/app/inter/habitOrder', { scroll: false })
+              // router.push('/main/inter/habitOrder', { scroll: false })
             }}>
               <Image src={emotion4} alt="emotion icon" width={28} height={28} />
             </button>

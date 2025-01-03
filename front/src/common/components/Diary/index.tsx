@@ -56,7 +56,7 @@ const Diary = ({ diaryData, position }: Props) => {
 
 
   const onAddDiary = () => {
-    router.push(`/app/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
+    router.push(`/main/inter/input/addDiary?date=${diaryDate.getTime()}`, { scroll: false })
   }
 
 

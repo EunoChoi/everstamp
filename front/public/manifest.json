@@ -8,7 +8,7 @@
         "fullscreen"
     ],
     "scope": "/",
-    "start_url": "/app",
+    "start_url": "/main",
     "name": "Everstamp",
     "short_name": "Everstamp",
     "orientation": "portrait",
