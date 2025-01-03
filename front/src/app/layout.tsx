@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { Viewport } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
-import StyledComponentsRegistry from "../../lib/registry";
+
 import { SessionProvider } from "next-auth/react";
 
 
@@ -11,6 +11,7 @@ import { headers } from 'next/headers'
 import ClientComponentProvider from "@/common/components/ClientComponentProvider";
 import PrefetchLayout from "@/common/components/layout/PrefetchLayout";
 import RQProvider from "@/common/components/reactQuery/RQProvider";
+import StyledComponentsRegistry from "../../lib/registry";
 
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ export const viewport: Viewport = {
 }
 
 const pretendard = localFont({
-  src: "../fonts/PretendardVariable.woff2",
+  src: '../fonts/PretendardVariable.woff2',
   display: "swap",
   weight: "45 920",
 });

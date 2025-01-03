@@ -82,10 +82,10 @@ const HabitBox = ({ name, id, priority }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
-      <button onClick={() => router.push(`/app/inter/habitInfo?id=${id}`, { scroll: false })}>
+      <button onClick={() => router.push(`/main/inter/habitInfo?id=${id}`, { scroll: false })}>
         <InsertChartOutlinedIcon fontSize="small" />
       </button>
-      <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
+      <button onClick={() => router.push(`/main/inter/input/editHabit?id=${id}`, { scroll: false })}>
         <EditOutlinedIcon fontSize="small" />
       </button>
       <button onClick={onDeleteHabit}>

@@ -7,11 +7,6 @@ import styled from 'styled-components';
 
 
 import DragIndicatorRoundedIcon from '@mui/icons-material/DragIndicatorRounded';
-import BottomButtonArea from '../BottomButtonArea';
-
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-
 import { getCurrentUser } from '@/common/function/fetch/user';
 import { enqueueSnackbar } from 'notistack';
 

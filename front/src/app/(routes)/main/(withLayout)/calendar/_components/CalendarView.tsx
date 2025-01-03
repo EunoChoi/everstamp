@@ -26,7 +26,7 @@ interface Props {
   date: number;
 }
 
-const CalendarPage = ({ date }: Props) => {
+const CalendarView = ({ date }: Props) => {
   const isMobile = IsMobile();
   const router = useCustomRouter();
   const path = usePathname();
@@ -44,9 +44,9 @@ const CalendarPage = ({ date }: Props) => {
 
   //production mode에서만 동작, 정적 자료만 prefetch
   useEffect(() => {
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
+    router.prefetch('/main/list');
+    router.prefetch('/main/habit');
+    router.prefetch('/main/setting');
   }, [])
 
   return (
@@ -77,7 +77,7 @@ const CalendarPage = ({ date }: Props) => {
   );
 }
 
-export default CalendarPage;
+export default CalendarView;
 const CalendarContainer = styled.div`
   width: 100%;
   height: 100%;

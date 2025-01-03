@@ -21,7 +21,7 @@ const Page = () => {
         <Text>
           {message}
         </Text>
-        <Button onClick={() => router.push(`/app`)}>돌아가기</Button>
+        <Button onClick={() => router.push(`/main`)}>돌아가기</Button>
       </Wrapper>
     </Suspense>
   );

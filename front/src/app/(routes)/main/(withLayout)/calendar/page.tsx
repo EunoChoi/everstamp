@@ -1,11 +1,11 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { getDiary_date_fetch } from "../../../../common/function/fetch/diary_ssr";
-import { getHabit_status_month_fetch } from "../../../../common/function/fetch/habit_ssr";
+import { getDiary_date_fetch } from "../../../../../common/function/fetch/diary_ssr";
+import { getHabit_status_month_fetch } from "../../../../../common/function/fetch/habit_ssr";
 
 //function
 import { getCleanTodayTime } from "@/common/function/getCleanTodayTime";
-import CalendarPage from "./page";
+import CalendarView from "./_components/CalendarView";
 
 
 interface Props {
@@ -14,8 +14,8 @@ interface Props {
   };
 }
 
-
-const Page = async ({ searchParams }: Props) => {
+//page for data prefetching 
+const DataPrefetchingPage = async ({ searchParams }: Props) => {
 
   const params = searchParams;
   const date = Number(params?.date) ? Number(params?.date) : getCleanTodayTime();
@@ -36,9 +36,9 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <CalendarPage date={date} />
+      <CalendarView date={date} />
     </HydrationBoundary>
   );
 }
 
-export default Page;
+export default DataPrefetchingPage;

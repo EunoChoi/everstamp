@@ -23,7 +23,7 @@ import Indicator from "@/common/components/Indicator";
 
 
 
-const HabitPage = () => {
+const HabitView = () => {
   const router = useCustomRouter();
 
   const SORT_TEXT = {
@@ -69,7 +69,7 @@ const HabitPage = () => {
 
   const onAddHabit = () => {
     if (habits && habits.length >= 18) enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
-    else router.push('/app/inter/input/addHabit', { scroll: false })
+    else router.push('/main/inter/input/addHabit', { scroll: false })
   }
   const sortChage = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
@@ -91,9 +91,9 @@ const HabitPage = () => {
 
   //production mode에서만 동작, 정적 자료만 prefetch
   useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/setting');
+    router.prefetch('/main/calendar');
+    router.prefetch('/main/list');
+    router.prefetch('/main/setting');
   }, [])
 
   return (
@@ -146,7 +146,7 @@ const HabitPage = () => {
   );
 }
 
-export default HabitPage;
+export default HabitView;
 
 const EmtpyBox = styled.div` //for align center
   flex: 1;

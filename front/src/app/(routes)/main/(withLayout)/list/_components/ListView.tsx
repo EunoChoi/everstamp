@@ -57,7 +57,7 @@ interface User {
   email: string;
 }
 
-const ListPage = () => {
+const ListView = () => {
 
   const router = useRouter();
   const { ref, inView } = useInView({
@@ -130,9 +130,9 @@ const ListPage = () => {
 
   //production mode에서만 동작, 정적 자료만 prefetch
   useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
+    router.prefetch('/main/calendar');
+    router.prefetch('/main/habit');
+    router.prefetch('/main/setting');
   }, [])
 
 
@@ -193,7 +193,7 @@ const ListPage = () => {
   );
 }
 
-export default ListPage;
+export default ListView;
 
 const MonthInfo = styled.span`
   margin-top: 32px;

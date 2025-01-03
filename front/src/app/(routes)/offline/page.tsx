@@ -13,7 +13,7 @@ export default function OfflinePage() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const onOnline = () => {
-      router.push('/app');
+      router.push('/main');
     }
 
     window.addEventListener('online', onOnline);
