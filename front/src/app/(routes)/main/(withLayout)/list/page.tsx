@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import ListView from "./_components/ListView";
 
 //page for data prefetch
-const DataPrefetchingPage = async ({ children }: { children: ReactNode }) => {
+const DataPrefetchingPage = async () => {
   const queryClient = new QueryClient();
   const selectedYear = new Date().getFullYear();
   const limit = 10;

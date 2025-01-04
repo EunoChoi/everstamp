@@ -124,12 +124,13 @@ const Mobile_Nav = styled.nav`
   width: 100vw;
   height: var(--mobileNav);
 
-  /* background-color: rgba(var(--whitesmoke), 0.7); */
-  background-color: #f8f8f8;
+
   backdrop-filter: blur(12px);
 
   color: rgba(0,0,0,0.3);
-  border-top: 2px solid rgba(0,0,0,0.05); 
+  border-top: 2px solid rgb(var(--lightGrey2));
+  background-color: rgb(var(--lightGrey1));
+  background-color: #fff;
 
 
   > *{

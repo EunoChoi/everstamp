@@ -42,7 +42,7 @@ const $Common = {
       padding: 0 20px;  
     }
     @media (min-width:1024px) { //desktop
-      max-width: 700px;
+      max-width: 600px;
       padding: 0 20px;  
       &.habit{
         max-width: 100dvw;

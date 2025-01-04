@@ -80,7 +80,7 @@ const Desktop_Sidebar = styled.div`
   padding: 32px 24px;
   padding-bottom: 12px;
 
-  border-right : 1px solid rgba(0,0,0,0.03);
+  border-right: 2px solid rgb(var(--lightGrey2));
   background-color: rgb(var(--lightGrey1));
 
   display: flex;
