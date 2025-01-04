@@ -29,13 +29,15 @@ const CalendarHeader = ({
     <>
       <CalTitle>
         <CalHeaderButtons className="start">
-          <button
-            onClick={() => {
-              todayRouterPushAction && todayRouterPushAction();
-              setDisplayDate(new Date());
-            }}>
-            <TodayIcon fontSize="small" />
-          </button>
+          {todayRouterPushAction &&
+            <button
+              onClick={() => {
+                todayRouterPushAction();
+                setDisplayDate(new Date());
+              }}>
+              <TodayIcon fontSize="small" />
+            </button>
+          }
         </CalHeaderButtons>
         <CalTitleText>
           <span className="month">{format(displayDate, 'yyyy.MM')}</span>
