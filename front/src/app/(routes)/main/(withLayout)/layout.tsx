@@ -52,9 +52,6 @@ const AppLayout = ({ children, modal }: Props) => {
     }
   }, [failureCount]);
 
-  console.log(modal);
-
-
   if (isMobile === null) return <></>;
   return (
     <>

@@ -9,11 +9,9 @@ import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ReactNode, useState } from "react";
-import Calendar from "../ui/Calendar";
+import Calendar from "../../ui/Calendar";
 import CalendarPageValue from "@/common/components/ui/Calendar/CalendarPageValue";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-
-// import Calendar from "../calendar/Calendar";
 
 interface Props {
   children: ReactNode;
@@ -40,16 +38,19 @@ const DesktopLayout = ({ modal, children }: Props) => {
         </SideBarLogo>
         <Menus>
           <Menu onClick={() => router.push(`/main/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span></Menu>
-          <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
-            <Calendar
-              displayDate={displayDate}
-              setDisplayDate={setDisplayDate}
-              FormattedValue={CalendarPageValue}
-              todayRouterPushAction={todayRouterPushAction}
-              isTouchGestureEnabled={true}
-              isDateSelectionEnabled={true}
-            />
-          </MonthWrapper>
+
+          {current === 'calendar' &&
+            <MonthWrapper className={current === 'calendar' ? '' : 'inActive'}>
+              <Calendar
+                displayDate={displayDate}
+                setDisplayDate={setDisplayDate}
+                FormattedValue={CalendarPageValue}
+                todayRouterPushAction={todayRouterPushAction}
+                isTouchGestureEnabled={true}
+                isDateSelectionEnabled={true}
+              />
+            </MonthWrapper>}
+
           <Menu onClick={() => router.push('/main/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
           <Menu onClick={() => router.push('/main/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
           <Menu onClick={() => router.push('/main/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
