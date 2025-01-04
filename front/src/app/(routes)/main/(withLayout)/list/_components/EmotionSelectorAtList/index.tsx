@@ -54,6 +54,7 @@ const Wrapper = styled.div`
   width: inherit;
   max-width: 600px;
   overflow: hidden;
+  margin: 12px 0;
  
   background-color: white;
 `

@@ -115,7 +115,7 @@ const Menu = styled.span`
   }
   &.current{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: saturate(70%);
+    filter: saturate(80%);
   }
 `
 
