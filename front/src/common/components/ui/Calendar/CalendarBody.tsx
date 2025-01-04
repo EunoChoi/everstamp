@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 
 interface Props {
   FormattedValue: ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => JSX.Element;
@@ -25,7 +26,7 @@ const CalendarBody = ({
   isTouchGestureEnabled,
   isDateSelectionEnabled }: Props) => {
 
-  const router = useRouter();
+  const router = useCustomRouter();
   const path = usePathname();
   const params = useSearchParams();
 
