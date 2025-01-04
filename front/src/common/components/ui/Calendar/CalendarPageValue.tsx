@@ -10,7 +10,7 @@ import emotion4 from '/public/img/emotion/emotion4.png'
 import empty from '/public/img/emotion/empty.png'
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_status_month } from "@/common/fetchers/habit";
+import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
 
 interface monthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
@@ -22,7 +22,7 @@ const CalendarPageValue = ({ displayDate, dateData }: { displayDate: Date, dateD
 
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(displayDate, 'MM')],
-    queryFn: () => getHabit_status_month({ date: displayDate }),
+    queryFn: () => getAllHabitsMonthInfo({ date: displayDate }),
     //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
     select: (data) => {
       const monthHabitResult: monthHabitsType = {};

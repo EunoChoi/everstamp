@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { notFound } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getDiary } from "@/common/fetchers/diary";
+import { getDiaryById } from "@/common/fetchers/diary";
 
 import IsMobile from "@/common/functions/IsMobile";
 import DesktopZoomModal from "./DesktopZoomModal";
@@ -15,7 +15,7 @@ interface Props {
 const ZoomModal = ({ diaryId }: Props) => {
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiary({ id: diaryId }),
+    queryFn: () => getDiaryById({ id: diaryId }),
     enabled: diaryId !== null
   });
 
