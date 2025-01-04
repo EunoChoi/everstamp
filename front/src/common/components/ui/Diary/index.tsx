@@ -142,18 +142,18 @@ const Wrapper = styled.div`
 
   width: 100%;
   max-width: 600px;
-  height: 250px;
+  height: 225px;
   /* margin-top: 28px; */
 
   &.list{
-    margin : 18px 0;
+    margin : 12px 0;
   }
 
   @media (min-width: 1024px) {//desktop
     margin-top: 30px;
-    height: 300px;
+    height: 265px;
     &.calendar{
-      height: 550px;
+      height: 500px;
     }
   }
 `
