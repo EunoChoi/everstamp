@@ -109,8 +109,7 @@ const Menu = styled.span`
   text-transform: capitalize;
 
   margin: 12px 0%;
-  color: #a5a5a5;
-  color: rgb(var(--greyTitle));
+  color: #696969;
   > *:first-child{
     margin-right: 8px;
   }
