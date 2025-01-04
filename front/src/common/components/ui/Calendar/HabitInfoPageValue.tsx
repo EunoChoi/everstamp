@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
-import { getHabit_single_status_month } from "@/common/fetchers/habit";
+import { getSingleHabitMonthInfo } from "@/common/fetchers/habit";
 import { useSearchParams } from "next/navigation";
 
 const HabitInfoPageValue = ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => {
@@ -10,7 +10,7 @@ const HabitInfoPageValue = ({ displayDate, dateData }: { displayDate: Date, date
 
   const { data } = useQuery({
     queryKey: ['habit', 'id', habitId, 'month', format(displayDate, 'MM')],
-    queryFn: () => getHabit_single_status_month({ id: habitId, date: displayDate }),
+    queryFn: () => getSingleHabitMonthInfo({ id: habitId, date: displayDate }),
     select: (data) => {
       const monthSingleHabitResult: { [key: string]: boolean } = {};
       data?.forEach((e: any) => {

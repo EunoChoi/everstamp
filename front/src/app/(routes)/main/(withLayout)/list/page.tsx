@@ -1,5 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import { getDiaries_fetch } from "../../../../../common/fetchers/diary_ssr";
+import { getDiariesAtList_Prefetch } from "../../../../../common/fetchers/diaryPrefetch";
 import { ReactNode } from "react";
 import ListView from "./_components/ListView";
 
@@ -13,7 +13,7 @@ const DataPrefetchingPage = async () => {
   for (let i = 0; i <= 5; i++) {
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'momth', 0],
-      queryFn: ({ pageParam }) => getDiaries_fetch({
+      queryFn: ({ pageParam }) => getDiariesAtList_Prefetch({
         sort: 'ASC',
         search: i,
         pageParam,
@@ -25,7 +25,7 @@ const DataPrefetchingPage = async () => {
     })
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'momth', 0],
-      queryFn: ({ pageParam }) => getDiaries_fetch({
+      queryFn: ({ pageParam }) => getDiariesAtList_Prefetch({
         sort: 'DESC',
         search: i,
         pageParam,

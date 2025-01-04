@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 //function
 import IsMobile from "@/common/functions/IsMobile";
-import { getDiary_date } from "@/common/fetchers/diary";
+import { getDiaryByDate } from "@/common/fetchers/diary";
 
 //styledComponent
 import $Common from "@/common/styles/common";
@@ -35,7 +35,7 @@ const CalendarView = ({ date }: Props) => {
   //get diary data by date
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiary_date({ date }),
+    queryFn: () => getDiaryByDate({ date }),
   });
 
   const todayRouterPushAction = () => {

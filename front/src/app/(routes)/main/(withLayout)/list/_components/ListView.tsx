@@ -12,7 +12,7 @@ import $Common from "@/common/styles/common";
 
 //function
 import { getCurrentUser } from "@/common/fetchers/user";
-import { getDiaries } from "@/common/fetchers/diary";
+import { getDiariesAtList } from "@/common/fetchers/diary";
 
 
 //icon
@@ -93,7 +93,7 @@ const ListView = () => {
 
   const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortToggle, 'year', selectedYear, 'momth', selectedMonth],
-    queryFn: ({ pageParam }) => getDiaries({
+    queryFn: ({ pageParam }) => getDiariesAtList({
       sort: sortToggle,
       search: emotionToggle,
       pageParam,

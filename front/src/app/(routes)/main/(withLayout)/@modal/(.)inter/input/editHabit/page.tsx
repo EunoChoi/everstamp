@@ -1,7 +1,7 @@
 
 
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { getHabit_fetch } from "@/common/fetchers/habit_ssr";
+import { getHabitById_Prefetch } from "@/common/fetchers/habitPrefetch";
 import HabitInputModal from "@/app/(routes)/main/(withLayout)/habit/_components/HabitInputModal";
 
 interface Props {
@@ -18,7 +18,7 @@ const Page = async ({ searchParams }: Props) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabit_fetch({ id: habitId }),
+    queryFn: () => getHabitById_Prefetch({ id: habitId }),
   });
 
   const dehydratedState = dehydrate(queryClient)

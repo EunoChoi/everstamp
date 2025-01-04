@@ -20,7 +20,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import useSubmitDiary from './utils/useSubmitDiary';
 import styled from "styled-components";
 import DiaryInputImages from "./Images";
-import { getDiary } from "@/common/fetchers/diary";
+import { getDiaryById } from "@/common/fetchers/diary";
 import { useQuery } from "@tanstack/react-query";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import DiaryDate from "@/common/components/ui/DiaryDate";
@@ -59,7 +59,7 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
 
   const { data: diaryData, isError } = useQuery<DiaryProps>({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiary({ id: diaryId }),
+    queryFn: () => getDiaryById({ id: diaryId }),
     enabled: diaryId !== null && isEdit === true
   });
 

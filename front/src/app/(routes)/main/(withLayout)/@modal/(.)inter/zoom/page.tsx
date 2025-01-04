@@ -1,5 +1,5 @@
 import ZoomModal from "@/common/components/modal/ZoomModal";
-import { getDiary_fetch } from "@/common/fetchers/diary_ssr";
+import { getDiaryById_Prefetch } from "@/common/fetchers/diaryPrefetch";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 interface Props {
@@ -17,7 +17,7 @@ const Page = async ({ searchParams }: Props) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiary_fetch({ id: diaryId }),
+    queryFn: () => getDiaryById_Prefetch({ id: diaryId }),
   });
 
   const dehydratedState = dehydrate(queryClient)

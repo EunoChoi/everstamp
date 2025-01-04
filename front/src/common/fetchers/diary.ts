@@ -18,7 +18,7 @@ interface ListProps {
   selectedYear: number;
 }
 
-export async function getDiary({ id }: IdProps) {
+export async function getDiaryById({ id }: IdProps) {
   try {
     if (!id) return null;
     const { data } = await Axios.get(`/diary/id/${id}`);
@@ -29,7 +29,7 @@ export async function getDiary({ id }: IdProps) {
   }
 }
 
-export async function getDiary_date({ date }: DateProps) {
+export async function getDiaryByDate({ date }: DateProps) {
   try {
     const { data } = await Axios.get(`/diary/calendar?date=${date}`);
     return data;
@@ -39,7 +39,7 @@ export async function getDiary_date({ date }: DateProps) {
   }
 }
 
-export async function getDiaries({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
+export async function getDiariesAtList({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
   try {
     const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}&selectedMonth=${selectedMonth}&selectedYear=${selectedYear}`)
     return data;

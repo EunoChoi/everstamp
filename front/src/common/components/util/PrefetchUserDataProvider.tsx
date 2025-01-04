@@ -1,4 +1,4 @@
-import { getCurrentUser_fetch } from "@/common/fetchers/user_ssr";
+import { getCurrentUser_Prefetch } from "@/common/fetchers/userPrefetch";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
 
@@ -14,7 +14,7 @@ const PrefetchUserDataProvider = async ({ children }: Props) => {
   //for login status check
   await queryClient.prefetchQuery({
     queryKey: ['user'],
-    queryFn: getCurrentUser_fetch,
+    queryFn: getCurrentUser_Prefetch,
   })
   const dehydratedState = dehydrate(queryClient)
 

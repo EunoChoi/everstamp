@@ -13,7 +13,7 @@ interface DateProps {
 }
 
 
-export async function getHabit_fetch({ id }: IdProps) {
+export async function getHabitById_Prefetch({ id }: IdProps) {
   try {
     const { data } = await Axios.get(`habit?id=${id}`, {
       headers: {
@@ -29,7 +29,7 @@ export async function getHabit_fetch({ id }: IdProps) {
 }
 
 
-export async function getHabits_fetch({ sort }: Props) {
+export async function getHabits_Prefetch({ sort }: Props) {
   try {
     const { data } = await Axios.get(`/habit/list?sort=${sort}`, {
       headers: {
@@ -43,7 +43,7 @@ export async function getHabits_fetch({ sort }: Props) {
     throw new Error('Failed to get habits(list) data!!');
   }
 }
-export async function getHabit_status_month_fetch({ date }: DateProps) {
+export async function getAllHabitsMonthInfo_Prefetch({ date }: DateProps) {
   try {
     const { data } = await Axios.get(`/habit/month?date=${date.getTime()}`, {
       headers: {

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { subDays, format } from "date-fns";
 import { ChangeEvent } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getHabit_status_4day } from "@/common/fetchers/habit";
+import { getSingleHabitFourDayInfo } from "@/common/fetchers/habit";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
@@ -36,7 +36,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
 
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
-    queryFn: () => getHabit_status_4day({ id, date: currentCleanDateTime }),
+    queryFn: () => getSingleHabitFourDayInfo({ id, date: currentCleanDateTime }),
   });
 
   const onDeleteHabit = () => {

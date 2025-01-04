@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import useSubmitHabit from "./utils/useSubmitHabit";
 import { enqueueSnackbar } from "notistack";
-import { getHabit } from "@/common/fetchers/habit";
+import { getHabitById } from "@/common/fetchers/habit";
 import { notFound } from "next/navigation";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 
@@ -26,7 +26,7 @@ const HabitInputModal = ({ isEdit, habitId }: habitInputProps) => {
 
   const { data: habitData, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabit({ id: habitId }),
+    queryFn: () => getHabitById({ id: habitId }),
     enabled: isEdit === true && habitId !== null
   });
 

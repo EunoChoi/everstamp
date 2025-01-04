@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 
-import { getHabit, getHabit_single_status_month } from "@/common/fetchers/habit";
+import { getHabitById, getSingleHabitMonthInfo } from "@/common/fetchers/habit";
 import HabitInfoChart from "./HabitInfoChart";
 import Indicator from "../../../../../../../common/components/ui/Indicator";
 
@@ -33,12 +33,12 @@ const HabitInfoModal = ({ habitId }: Props) => {
 
   const { data: habitDataById, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabit({ id: habitId }),
+    queryFn: () => getHabitById({ id: habitId }),
     enabled: habitId !== null
   });
   const { data: habitDataByMonth } = useQuery({
     queryKey: ['habit', 'id', habitId, 'month', format(displayDate, 'MM')],
-    queryFn: () => getHabit_single_status_month({ id: habitId, date: displayDate })
+    queryFn: () => getSingleHabitMonthInfo({ id: habitId, date: displayDate })
   });
 
   useEffect(() => {

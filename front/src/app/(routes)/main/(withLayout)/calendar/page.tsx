@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { getDiary_date_fetch } from "../../../../../common/fetchers/diary_ssr";
-import { getHabit_status_month_fetch } from "../../../../../common/fetchers/habit_ssr";
+import { getDiaryByDate_Prefetch } from "../../../../../common/fetchers/diaryPrefetch";
+import { getAllHabitsMonthInfo_Prefetch } from "../../../../../common/fetchers/habitPrefetch";
 
 //function
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
@@ -24,11 +24,11 @@ const DataPrefetchingPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiary_date_fetch({ date }),
+    queryFn: () => getDiaryByDate_Prefetch({ date }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habit', 'month', format(date, 'MM')],
-    queryFn: () => getHabit_status_month_fetch({ date: new Date(date) }),
+    queryFn: () => getAllHabitsMonthInfo_Prefetch({ date: new Date(date) }),
   })
 
 
