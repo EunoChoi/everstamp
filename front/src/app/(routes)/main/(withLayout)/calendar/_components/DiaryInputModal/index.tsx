@@ -16,7 +16,6 @@ import $Common from "@/common/styles/common";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import DiaryInputDate from "./Date";
 
 import useSubmitDiary from './utils/useSubmitDiary';
 import styled from "styled-components";
@@ -24,6 +23,7 @@ import DiaryInputImages from "./Images";
 import { getDiary } from "@/common/fetchers/diary";
 import { useQuery } from "@tanstack/react-query";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import DiaryDate from "@/common/components/ui/DiaryDate";
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -93,7 +93,7 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
       <$Modal.Wrapper onClick={(e) => e.stopPropagation()}>
         <$Modal.Top>
           <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
-          <DiaryInputDate date={date} />
+          <DiaryDate date={date} />
           <button onClick={onSubmit} disabled={onMutation.isPending}>{submitText}</button>
         </$Modal.Top>
         <$Common.Empty />

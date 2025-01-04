@@ -1,4 +1,4 @@
-const Page = () => {
+const Default = () => {
   return null;
 }
-export default Page;
+export default Default;
