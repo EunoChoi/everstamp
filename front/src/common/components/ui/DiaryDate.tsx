@@ -5,20 +5,20 @@ interface Props {
   date: Date | undefined;
 }
 
-const DiaryInputDate = ({ date }: Props) => {
+const DiaryDate = ({ date }: Props) => {
   if (!date) return <></>;
   return (
-    <DiaryDate>
+    <Wrapper>
       <span>{format(date, 'yyyy. M. dd')}</span>
       <span className="week">{format(date, '(eee)')}</span>
-    </DiaryDate>
+    </Wrapper>
   );
 }
 
-export default DiaryInputDate;
+export default DiaryDate;
 
 
-const DiaryDate = styled.div`
+const Wrapper = styled.div`
   color: rgb(var(--greyTitle));
   font-weight: 600;
   font-size: 20px;
@@ -36,6 +36,6 @@ const DiaryDate = styled.div`
     /* display: none; */
   }
   @media (min-width:1024px) { //desktop
-    font-size: 24px;
+    font-size: 20px;
   }
 `
