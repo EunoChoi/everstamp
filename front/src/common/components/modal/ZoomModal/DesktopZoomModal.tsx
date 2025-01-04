@@ -48,7 +48,7 @@ const DesktopZoomModal = ({ diaryData }: any) => {
 
 
   return (<$Modal.Background onClick={() => router.back()}>
-    <ZoomModalWrapper onClick={(e) => e.stopPropagation()}>
+    <ZoomModalWrapper className={indicatorLength === 0 ? 'full' : ''} onClick={(e) => e.stopPropagation()}>
       <ZoomContent>
         <ZoomContentLeft className={indicatorLength === 0 ? 'full' : ''} >
           <div className="date"><DiaryDate date={date} /></div>
@@ -84,9 +84,11 @@ export default DesktopZoomModal;
 const BackButton = styled.button``
 const ZoomModalWrapper = styled($Modal.Wrapper)`
   background-color: #fff;
-  @media (min-width:1024px) { //desktop
-    width: 85%;
-    height: 85%;
+  width: 85%;
+  height: 85%;
+
+  &.full{
+    width: 55%;
   }
 `
 const ZoomContent = styled.div`
@@ -106,7 +108,7 @@ const ZoomContentRight = styled.div`
 `
 const ZoomContentLeft = styled.div`
   height: 100%;
-  width: 350px;
+  width: 400px;
   flex-shrink: 0;
   
   padding: 32px;
