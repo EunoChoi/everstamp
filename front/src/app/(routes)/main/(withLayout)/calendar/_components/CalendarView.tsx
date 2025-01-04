@@ -39,7 +39,7 @@ const CalendarView = ({ date }: Props) => {
   });
 
   const todayRouterPushAction = () => {
-    router.push(`${path}?date=${getCleanTodayTime()}`);
+    router.push(`/main/calendar?date=${getCleanTodayTime()}`);
   }
 
   //production mode에서만 동작, 정적 자료만 prefetch
