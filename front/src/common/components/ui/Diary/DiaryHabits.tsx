@@ -9,7 +9,6 @@ interface HabitProps {
   id: number;
   email: string;
   name: string;
-  // themeColor: string;
   priority: number;
 }
 
@@ -17,7 +16,7 @@ const DiaryHabits = ({ habits }: Props) => {
   const router = useCustomRouter();
 
   return (
-    <Habits className="habits">
+    <Habits>
       <Habit>
         <span> {habits?.length ? habits?.length : 0} habits</span>
       </Habit>
@@ -36,82 +35,56 @@ export default DiaryHabits;
 
 
 const Habits = styled.div`
-  width: 100%;
-  height: auto;
-  padding : 10px 0;
-  /* margin: 8px 0; */
-
-  @media (max-width: 479px) { //mobile port
-    padding-left : 5dvw;
-    padding-right: 5dvw;
-  }
-  
-  @media (min-width:1024px) { //desktop
-    padding : 14px 0;
-  }
-  
-  display: flex;
-  justify-content: start;
-  overflow-x : scroll;
-  flex-shrink: 0;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   &::-webkit-scrollbar{
     display: none;
   }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  width: 100%;
+  height: auto;
+  padding : 12px 14px;
+  
+  display: flex;
+  flex-shrink: 0;
+  justify-content: start;
+  gap: 8px;
+
+  overflow-x : scroll;
+  flex-wrap: nowrap;
 `
 const Habit = styled.span`
   cursor: pointer;
-  flex-shrink: 0;
-  
-
-  
-
-
-  background-color: ${(props) => props.theme.point ? props.theme.point + '40' : '#979FC7'};
-  &.priority1{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '65' : '#979FC7'};
-  }
-  &.priority2{
-    background-color : ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-  }
-
-  border-radius: 24px;
-  margin-right: 12px;
-
-  white-space: nowrap;
-  text-transform: capitalize;
-
 
   display: flex;
   align-items: center;
   justify-content: center;
-
   box-sizing: border-box;
+  flex-shrink: 0;
 
-  &:first-child{
-    background-color: rgba(0,0,0,0);
-    border : solid 2px ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-  }
-  &:last-child{
-    margin-right: 0px;
-  }
-
-
+  padding : 2px 12px;
+  border-radius: 24px;
+  line-height: 1.4;
+  white-space: nowrap;
   
-  padding : 1px 16px;
-  span{
-    color: rgb(var(--greyTitle));
-    font-size: 16px;
-    font-weight: 500;
-  }
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  border: 2px solid rgba(0,0,0,0.07);
+  filter: brightness(130%) saturate(50%);
 
-  @media (max-width: 479px) { //mobile port
-    padding : 1px 12px;
-    margin-right: 8px;
+
+
+  span{
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    
+    text-transform: capitalize;
+  }
+  &:first-child{
+    border: 2px solid ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    background-color: white;
     span{
-      font-size: 14px;
+      font-weight: 600;
     }
   }
 `

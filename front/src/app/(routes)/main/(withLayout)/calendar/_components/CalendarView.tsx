@@ -14,13 +14,14 @@ import { getDiaryByDate } from "@/common/fetchers/diary";
 import $Common from "@/common/styles/common";
 
 //component
-import ContentArea from "@/common/components/layout/ContentArea";
-import Diary from "@/common/components/ui/Diary";
+import CommonBody from "@/common/components/layout/CommonBody";
 import Header from "@/common/components/layout/Header";
 import Calendar from "@/common/components/ui/Calendar";
 import CalendarPageValue from "@/common/components/ui/Calendar/CalendarPageValue";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import Diary from "@/common/components/ui/Diary";
+
 
 interface Props {
   date: number;
@@ -52,61 +53,46 @@ const CalendarView = ({ date }: Props) => {
   return (
     <$Common.Wrapper>
       <Header title='calendar' />
-      <ContentArea>
-        <CalendarContainer>
-          {isMobile === true &&
-            <>
-              <CalendarWrapper>
-                <Calendar
-                  displayDate={displayDate}
-                  setDisplayDate={setDisplayDate}
-                  FormattedValue={CalendarPageValue}
-                  todayRouterPushAction={todayRouterPushAction}
-                  isTouchGestureEnabled={true}
-                  isDateSelectionEnabled={true}
-                />
-              </CalendarWrapper>
-              <Diary diaryData={diaryData} position="calendar" />
-            </>}
-          {isMobile === false &&
-            <Diary diaryData={diaryData} position="calendar" />
-          }
-        </CalendarContainer>
-      </ContentArea>
+      <CommonBody>
+        {isMobile === true &&
+          <CalendarBody>
+            <Calendar
+              displayDate={displayDate}
+              setDisplayDate={setDisplayDate}
+              FormattedValue={CalendarPageValue}
+              todayRouterPushAction={todayRouterPushAction}
+              isTouchGestureEnabled={true}
+              isDateSelectionEnabled={true}
+            />
+            <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
+          </CalendarBody>}
+        {isMobile === false &&
+          <CalendarBody>
+            <Diary type="large" diaryData={diaryData ? diaryData : { date: date }} />
+          </CalendarBody>
+        }
+      </CommonBody>
     </$Common.Wrapper>
   );
 }
 
 export default CalendarView;
-const CalendarContainer = styled.div`
+
+const CalendarBody = styled(CommonBody)`
   width: 100%;
   height: 100%;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   @media (max-width: 479px) { //mobile port
+    gap: 6px;
+    padding: 12px 4dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
      justify-content: start;
   }
   @media (min-width:1024px) { //desktop
-  }
-`
-const CalendarWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin-top: 24px;
-  margin-top: 12px;
-  margin-bottom: 12px;
-
-  @media (max-width: 479px) { //mobile port
-    padding: 0 5dvw;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    max-width: 600px;
-    min-height : 360px;
   }
 `

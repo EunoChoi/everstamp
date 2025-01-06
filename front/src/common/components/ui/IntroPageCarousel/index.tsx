@@ -17,7 +17,7 @@ interface Props {
   className?: string;
 }
 
-const ImageCarousel = ({ images, keyValue, type, height, width, borderRadius, className }: Props) => {
+const IntroPageCarousel = ({ images, keyValue, type, height, width, borderRadius, className }: Props) => {
 
 
   const slideRef = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ const ImageCarousel = ({ images, keyValue, type, height, width, borderRadius, cl
   );
 }
 
-export default ImageCarousel;
+export default IntroPageCarousel;
 
 const Wrapper = styled.div <{ $height: string, $width: string }> `
   height: ${props => props.$height};

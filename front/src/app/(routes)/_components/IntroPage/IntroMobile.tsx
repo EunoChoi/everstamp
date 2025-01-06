@@ -1,18 +1,17 @@
 import Image from "next/image";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import styled from "styled-components";
 
 import calendar from '/public/img/intro/calendar.png';
-import list from '/public/img/intro/list.png';
-import list2 from '/public/img/intro/list2.png';
-import zoom1 from '/public/img/intro/zoom1.png';
-import zoom2 from '/public/img/intro/zoom2.png';
 import habit from '/public/img/intro/habit.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
-import setting from '/public/img/intro/setting.png';
 import habitorder from '/public/img/intro/habitorder.png';
+import list from '/public/img/intro/list.png';
+import list2 from '/public/img/intro/list2.png';
+import setting from '/public/img/intro/setting.png';
+import zoom1 from '/public/img/intro/zoom1.png';
+import zoom2 from '/public/img/intro/zoom2.png';
 
 import emotions from '/public/img/emotion/emotions.png';
 import habitbox from '/public/img/intro/habitbox.png';
@@ -20,6 +19,7 @@ import otherinfo1 from '/public/img/intro/otherinfo1.png';
 import otherinfo2 from '/public/img/intro/otherinfo2.png';
 import otherinfo3 from '/public/img/intro/otherinfo3.png';
 
+import login from '/public/img/intro/login.png';
 import pc_addHabit from '/public/img/intro/pc_addHabit.png';
 import pc_calendar from '/public/img/intro/pc_calendar.png';
 import pc_habit from '/public/img/intro/pc_habit.png';
@@ -30,7 +30,6 @@ import pc_list2 from '/public/img/intro/pc_list2.png';
 import pc_login from '/public/img/intro/pc_login.png';
 import pc_setting from '/public/img/intro/pc_setting.png';
 import pc_zoom1 from '/public/img/intro/pc_zoom1.png';
-import login from '/public/img/intro/login.png';
 
 import ipad_calendar from '/public/img/intro/ipad_calendar.png';
 import ipad_list from '/public/img/intro/ipad_list.png';
@@ -38,15 +37,15 @@ import ipad_list2 from '/public/img/intro/ipad_list2.png';
 import ipad_login from '/public/img/intro/ipad_login.png';
 
 
-import LockIcon from '@mui/icons-material/Lock';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import PhonelinkIcon from '@mui/icons-material/Phonelink';
-import AndroidIcon from '@mui/icons-material/Android';
-import InstallMobileIcon from '@mui/icons-material/InstallMobile';
-import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
-import $Common from "@/common/styles/common";
-import ImageCarousel from "@/common/components/ui/ImageCarousel";
+import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import $Common from "@/common/styles/common";
+import AndroidIcon from '@mui/icons-material/Android';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import InstallMobileIcon from '@mui/icons-material/InstallMobile';
+import LockIcon from '@mui/icons-material/Lock';
+import PhonelinkIcon from '@mui/icons-material/Phonelink';
+import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 
 
 const IntroMobile = () => {
@@ -126,7 +125,7 @@ const IntroMobile = () => {
         <span>내일 더 나은 나로 나아가기 위해</span>
         <span>감정 일기와 습관 만들기를 시작하세요.</span>
       </Text>
-      <ImageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
+      <IntroPageCarousel images={introImages} keyValue="mobileIntro" type="fullWidth" width="100dvw" height="80dvh" borderRadius="28px" />
       <DownLoadButtons>
         {/* <a href="/download/Everstamp.apk" download>
           <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
@@ -167,7 +166,7 @@ const IntroMobile = () => {
         <span>일기, 감정, 습관 목록을 한눈에!</span>
         <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
       </Text>
-      <ImageCarousel images={viewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
+      <IntroPageCarousel images={viewImages} keyValue="mobileView" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
 
       <ColWrapper>
         <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
@@ -193,7 +192,7 @@ const IntroMobile = () => {
         <span>습관이 형성되는 시간 21일!</span>
         <span>실천 결과를 확인하고 점검하세요.</span>
       </Text>
-      <ImageCarousel images={habitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
+      <IntroPageCarousel images={habitImages} keyValue="mobileHabit" type="fullWidth" width="100%" height="80dvh" borderRadius="28px" />
       <ColWrapper>
         <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
         <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
@@ -233,7 +232,7 @@ const IntroMobile = () => {
           <span>멀티 플랫폼</span>
         </ColWrapper>
       </RowWrapper>
-      <ImageCarousel className='otherinfo' images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
+      <IntroPageCarousel className='otherinfo' images={otherInfoImages} keyValue="mobileOtherInfo" type="fullWidth" width="100%" height="50dvh" borderRadius="16px" />
     </Mobile_Section>
     <Mobile_Section className="outro">
       <DownLoadButtons>
@@ -313,11 +312,11 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
-  background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#d7daeb'};
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#d7daeb'};
 
   &.outro{
     background-color: rgba(255,255,255,0.8);
-    border-color:${(props) => props.theme.point ? props.theme.point + '90' : '#d7daeb'};
+    border-color:${(props) => props.theme.point ? props.theme.point : '#d7daeb'};
   }
 
   .icon{
@@ -336,7 +335,7 @@ const Mobile_Section = styled.div`
 
   &.intro, &.emotion, &.view, &.ui, &.habit, &.others, &.outro{
     background-color: #EFF0F6;
-    background-color: ${(props) => props.theme.point ? props.theme.point + '18' : '#EFF0F6'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#EFF0F6'};
     width: 100%;
     height: auto;
     padding: 56px 0;

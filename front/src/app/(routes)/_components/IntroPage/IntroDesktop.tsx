@@ -6,22 +6,22 @@
 import Image from "next/image";
 import styled from "styled-components";
 
+import emotions from '/public/img/emotion/emotions.png';
 import calendar from '/public/img/intro/calendar.png';
-import list from '/public/img/intro/list.png';
-import list2 from '/public/img/intro/list2.png';
-import zoom1 from '/public/img/intro/zoom1.png';
-import zoom2 from '/public/img/intro/zoom2.png';
 import habit from '/public/img/intro/habit.png';
+import habitbox from '/public/img/intro/habitbox.png';
 import habitinfo1 from '/public/img/intro/habitinfo1.png';
 import habitinfo2 from '/public/img/intro/habitinfo2.png';
-import setting from '/public/img/intro/setting.png';
 import habitorder from '/public/img/intro/habitorder.png';
-import emotions from '/public/img/emotion/emotions.png';
-import habitbox from '/public/img/intro/habitbox.png';
+import list from '/public/img/intro/list.png';
+import list2 from '/public/img/intro/list2.png';
+import login from '/public/img/intro/login.png';
 import otherinfo1 from '/public/img/intro/otherinfo1.png';
 import otherinfo2 from '/public/img/intro/otherinfo2.png';
 import otherinfo3 from '/public/img/intro/otherinfo3.png';
-import login from '/public/img/intro/login.png';
+import setting from '/public/img/intro/setting.png';
+import zoom1 from '/public/img/intro/zoom1.png';
+import zoom2 from '/public/img/intro/zoom2.png';
 
 import pc_addHabit from '/public/img/intro/pc_addHabit.png';
 import pc_calendar from '/public/img/intro/pc_calendar.png';
@@ -42,14 +42,14 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 
 
+import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
+import $Common from "@/common/styles/common";
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
-import { useEffect, useState } from "react";
-import nProgress from "nprogress";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
-import $Common from "@/common/styles/common";
-import ImageCarousel from "@/common/components/ui/ImageCarousel";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import nProgress from "nprogress";
+import { useEffect, useState } from "react";
 
 
 const IntroDesktop = () => {
@@ -155,7 +155,7 @@ const IntroDesktop = () => {
         </ColWrapper>
       </section>
       <section>
-        <ImageCarousel images={introImages} keyValue="intro" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
+        <IntroPageCarousel images={introImages} keyValue="intro" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
       </section>
     </Desktop_Section>
     <Desktop_Section className="emotion">
@@ -188,7 +188,7 @@ const IntroDesktop = () => {
         </ColWrapper>
       </section>
       <section>
-        <ImageCarousel images={viewImages} keyValue="view" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
+        <IntroPageCarousel images={viewImages} keyValue="view" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
       </section>
     </Desktop_Section>
     <Desktop_Section className="habit small">
@@ -209,7 +209,7 @@ const IntroDesktop = () => {
     </Desktop_Section>
     <Desktop_Section className="habit">
       <section>
-        <ImageCarousel images={habitImages} keyValue="habit" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
+        <IntroPageCarousel images={habitImages} keyValue="habit" type="fullWidth" width="100%" height="85%" borderRadius="28px" />
       </section>
       <section>
         <Title>#habit view feature</Title>
@@ -286,19 +286,19 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
-  background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#d7daeb'};
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#d7daeb'};
 
 
   &.web{
     padding: 6px 32px;
     background-color: rgba(0,0,0,0);
     border-color: #c1c5db;
-    border-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#c1c5db'};
+    border-color: ${(props) => props.theme.point ? props.theme.point : '#c1c5db'};
   }
   &.bottom{
     background-color: rgba(255,255,255,0.8);
     background-color: white;
-    border-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#c1c5db'};
+    border-color: ${(props) => props.theme.point ? props.theme.point : '#c1c5db'};
     color: rgb(var(--greyTitle));
   }
   .icon{
@@ -320,7 +320,7 @@ const Desktop_Section = styled.section`
   }
   &.emotion, &.habit,  &.others{
     background-color: #EFF0F6;
-    background-color : ${(props) => props.theme.point ? props.theme.point + '20' : '#EFF0F6'};
+    background-color : ${(props) => props.theme.point ? props.theme.point : '#EFF0F6'};
   }
   &.outro{
     height: 50dvh;

@@ -278,7 +278,7 @@ const ButtonArea = styled.div`
     border-radius: 32px;
     border: 2px solid rgba(0,0,0,0.08);
 
-    background-color:  ${(props) => props.theme.point ? props.theme.point + '45' : '#979FC7'};
+    background-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     color: rgb(var(--greyTitle));
   }
 `
@@ -302,7 +302,7 @@ const Month = styled.button`
   }
 
   &.selectedMonth{
-    background-color:  ${(props) => props.theme.point ? props.theme.point + '45' : '#979FC7'};
+    background-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     border-radius: 12px;
   }
 `

@@ -55,15 +55,10 @@ const Wrapper = styled.div`
   max-width: 600px;
   overflow: hidden;
   margin: 12px 0;
- 
-  background-color: white;
 `
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  @media (max-width: 479px) { //mobile port
-    padding: 0 5vw;
-  }
 `
 const Title = styled.div`
   margin-right: 8px;
@@ -85,17 +80,12 @@ const EmotionlWrapper = styled.div`
 
   width: inherit;
   padding: 4px 0;
-
-  @media (max-width: 479px) { //mobile port
-    padding-left: 5vw;
-    padding-right: 5vw;
-  }
 `
 const EmotionImage = styled(Image)`
    box-sizing: border-box;
    transition: opacity ease-in-out 200ms;
 
-   width: 19%;
+   width: 17%;
    max-width: 100px;
    flex-shrink: 0;
 

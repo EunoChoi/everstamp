@@ -15,7 +15,7 @@ import { getHabits } from "@/common/fetchers/habit";
 import { getCurrentUser } from "@/common/fetchers/user";
 //icon
 import AddIcon from '@mui/icons-material/Add';
-import ContentArea from "@/common/components/layout/ContentArea";
+import CommonBody from "@/common/components/layout/CommonBody";
 import HabitBox from "@/app/(routes)/main/(withLayout)/habit/_components/HabitBox";
 import Header from "@/common/components/layout/Header";
 import Indicator from "@/common/components/ui/Indicator";
@@ -108,7 +108,7 @@ const HabitView = () => {
           </button>
         </$Common.Options>
       </Header>
-      <ContentArea>
+      <CommonBody>
         {(habits === undefined || habits?.length === 0) ?
           <>
             <EmtpyBox />
@@ -141,7 +141,7 @@ const HabitView = () => {
             {habits?.length > 1 && <Indicator slideWrapperRef={gridListScrollRef} page={page} indicatorLength={habits?.length} />}
             <EmtpyBox />
           </>}
-      </ContentArea>
+      </CommonBody>
     </$Common.Wrapper>
   );
 }
@@ -152,8 +152,9 @@ const EmtpyBox = styled.div` //for align center
   flex: 1;
 `
 const EmptyHabitBox = styled.div`
+  background-color: white;
   border-radius: 16px;
-  border: 2px solid rgba(0,0,0,0.05);
+  border: 2px solid rgba(0,0,0,0.07);
 
   display: flex;
   justify-content: center;

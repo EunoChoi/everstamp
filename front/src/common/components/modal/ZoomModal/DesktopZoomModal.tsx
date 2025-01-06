@@ -54,7 +54,7 @@ const DesktopZoomModal = ({ diaryData }: any) => {
           <div className="date"><DiaryDate date={date} /></div>
           <div className="info">
             <div>{emotions[diaryData?.emotion]}</div>
-            <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
+            <div className="info_habits">{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}</div>
           </div>
           <div className="text">{text}</div>
           <BackButton onClick={() => router.back()}><CloseIcon color="inherit" /></BackButton>
@@ -81,12 +81,13 @@ const DesktopZoomModal = ({ diaryData }: any) => {
 
 export default DesktopZoomModal;
 
-const BackButton = styled.button``
+const BackButton = styled.button`
+margin-top: 16px;
+`
 const ZoomModalWrapper = styled($Modal.Wrapper)`
   background-color: #fff;
   width: 85%;
   height: 85%;
-
   &.full{
     width: 55%;
   }
@@ -104,7 +105,7 @@ const ZoomContentRight = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color : ${(props) => props.theme.point ? props.theme.point + '50' : '#EFF0F6'};
+  background-color : ${(props) => props.theme.point ? props.theme.point + '40' : '#EFF0F6'};
 `
 const ZoomContentLeft = styled.div`
   height: 100%;
@@ -130,6 +131,15 @@ const ZoomContentLeft = styled.div`
     font-size: 18px;
     font-weight: 500;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    .info_habits{
+      display: flex;
+      flex-flow: wrap;
+      span{
+        flex-shrink: 0;
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+    }
   }
   .text{
     overflow-y: scroll;

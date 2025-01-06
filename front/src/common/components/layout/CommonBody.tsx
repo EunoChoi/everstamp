@@ -9,7 +9,7 @@ interface Props {
 }
 
 //custom for ios pwa
-const ContentArea = ({ children, className, _ref }: Props) => {
+const CommonBody = ({ children, className, _ref }: Props) => {
 
   const iosPwa = isIosPwa();
 
@@ -18,7 +18,7 @@ const ContentArea = ({ children, className, _ref }: Props) => {
   </Wrapper>);
 }
 
-export default ContentArea;
+export default CommonBody;
 
 const Wrapper = styled.div`
   scrollbar-width: none;
@@ -38,8 +38,8 @@ const Wrapper = styled.div`
   
   @media (max-width: 479px) { //mobile portrait
     height: 100dvh;
-    padding-left : 0;
-    padding-right: 0;
+    /* padding-left : 4dvw;
+    padding-right: 4dvw; */
     padding-bottom: var(--mobileNav);
 
     &.iosPwa{

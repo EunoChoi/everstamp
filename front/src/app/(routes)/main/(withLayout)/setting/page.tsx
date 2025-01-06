@@ -17,7 +17,7 @@ import { getCurrentUser } from "@/common/fetchers/user";
 
 //component
 import Header from "@/common/components/layout/Header";
-import ContentArea from "@/common/components/layout/ContentArea";
+import CommonBody from "@/common/components/layout/CommonBody";
 import React, { useEffect } from "react";
 
 
@@ -96,7 +96,7 @@ const SettingPage = () => {
   return (
     <$Common.Wrapper>
       <Header title='setting' />
-      <ContentArea>
+      <CommonBody>
         <EmtpyBox />
         <Section>
           <Title>account</Title>
@@ -151,7 +151,7 @@ const SettingPage = () => {
           </Buttons>
         </Section>
         <EmtpyBox />
-      </ContentArea>
+      </CommonBody>
     </$Common.Wrapper>
   );
 }
@@ -290,7 +290,7 @@ const Button = styled.button`
   text-transform: capitalize;
   
   &:hover{
-    background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#979FC7'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
 const Color = styled.div`

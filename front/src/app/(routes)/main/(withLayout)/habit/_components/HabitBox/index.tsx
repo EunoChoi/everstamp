@@ -116,12 +116,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   
-  border-radius: 16px;
+  border-radius: 20px;
   background-color: #f9f9f9;
   border: 2px solid rgba(0,0,0,0.075);
 
   @media (max-width: 479px) { //mobile port
-    width: calc(45dvw - 3px);
+    width: calc(46dvw - 3px);
     aspect-ratio: 1;
   }
   @media (min-width:480px) and (max-width:1023px) { //tablet
@@ -136,16 +136,6 @@ const Wrapper = styled.div`
   @media (min-width:1024px) { //desktop
     width: 200px;
     aspect-ratio: 1;
-  }
-
-
-  &.priority1{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '28' : '#979FC7'};
-    border: 2px solid rgba(0,0,0,0.075);  
-  }
-  &.priority2{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '43' : '#979FC7'};
-    border: 2px solid rgba(0,0,0,0.075);  
   }
 `
 const Name = styled.span`

@@ -32,22 +32,25 @@ const IndicatorWrapper = styled.div`
   display: flex;
   margin: 4px 0;
   height: auto;
-  
+  @media (max-width: 479px) { //mobile port
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  }
 `
 const Dot = styled.div`
-  width: 12px;
-  height: 12px;
-  border-radius: 12px;
   background-color: white;
-  border: 2px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC790'};
+  border: 2px solid ${(props) => props.theme.point ? props.theme.point : '#979FC790'};
 
-  margin: 4px;
- 
+  margin: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+
   &.diary{
    &:last-child{
     border-radius: 2px;
     border-width: 2px;
-    border-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#979FC7'};
+    border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
    }
   }
   &.current {
