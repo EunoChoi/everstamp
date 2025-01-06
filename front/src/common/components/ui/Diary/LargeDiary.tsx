@@ -99,6 +99,12 @@ const Text = styled.div`
   &.hasImages{
     -webkit-line-clamp: 4;
   }
+  @media (max-width: 479px) { //mobile port
+    -webkit-line-clamp: 3;
+    &.hasImages{
+      -webkit-line-clamp: 3;
+    }
+  }
 `
 const CarouselImage = styled(Image)`
   width: 100%;
@@ -116,7 +122,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   height: auto;
-  min-height: 400px;
+  min-height: 250px;
   overflow: hidden;
 
   gap: 12px;
@@ -126,4 +132,10 @@ const Wrapper = styled.div`
   border: 2px solid rgba(0,0,0,0.07);
   border-radius: 16px;
   background-color: white;
+
+  @media (max-width: 479px) { //mobile port
+    min-height: 200px;
+    padding: 4px 0;
+    gap: 4px;
+  }
 `

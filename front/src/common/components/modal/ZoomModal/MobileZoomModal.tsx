@@ -1,14 +1,14 @@
 'use client';
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 import $Modal from "@/common/styles/common_modal";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DiaryDate from "../../ui/DiaryDate";
 import Indicator from "../../ui/Indicator";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 
 
 interface ImageProps {
@@ -62,7 +62,7 @@ const MobileZoomModal = ({ diaryData }: any) => {
         <TextWrapper className="slideChild">
           <div className="info">
             <div>{emotions[diaryData?.emotion]}</div>
-            <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
+            <div className="info_habits" >{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
           </div>
           <div className="text">
             {text}
@@ -105,6 +105,16 @@ const TextWrapper = styled.div`
     font-size: 18px;
     font-weight: 500;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+
+    .info_habits{
+      display: flex;
+      flex-flow: wrap;
+      span{
+        flex-shrink: 0;
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+    }
   }
 
   .text{

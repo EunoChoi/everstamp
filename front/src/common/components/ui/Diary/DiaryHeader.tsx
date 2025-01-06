@@ -89,6 +89,9 @@ const DateInfo = styled.div`
   &.large{
     span{
       font-size : 24px;
+      @media (max-width: 479px) { //mobile port
+        font-size: 20px;
+      }
     }
   }
   .week{

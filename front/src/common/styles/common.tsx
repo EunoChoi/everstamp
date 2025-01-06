@@ -56,7 +56,7 @@ const $Common = {
 
     margin: 8px 0;
     border-radius : 48px;
-    /* background-color: white; */
+    background-color: white;
     gap: 6px;
 
     .calIcon{
@@ -90,8 +90,7 @@ const $Common = {
       text-transform: capitalize;
       
       color: rgba(0,0,0,0.6);
-      background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-      filter: brightness(130%) saturate(50%);
+      background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
       border: 2px solid rgba(0,0,0,0.07);
       border-radius : 48px;
 

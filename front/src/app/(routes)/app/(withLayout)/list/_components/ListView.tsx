@@ -168,10 +168,10 @@ const ListView = () => {
               temmDate = diaryDate;
               return <React.Fragment key={'listNote' + i}>
                 <MonthInfo className={`Month${i}`}><span>{diaryDate}</span></MonthInfo>
-                <DiaryWrapper><Diary type="small" diaryData={data} /></DiaryWrapper>
+                <DiaryWrapper><Diary type="large" diaryData={data} /></DiaryWrapper>
               </React.Fragment>
             }
-            else return <DiaryWrapper key={'listNote' + i}><Diary type="small" diaryData={data} /></DiaryWrapper>
+            else return <DiaryWrapper key={'listNote' + i}><Diary type="large" diaryData={data} /></DiaryWrapper>
           })))
           :
           <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
@@ -207,9 +207,7 @@ const MonthInfo = styled.span`
   align-items: center;
   width: 100%;
   max-width: 600px;
-  height: 1px;
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  filter: brightness(110%) saturate(50%);
+  background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#979FC7'};
 
   &.Month0{
     display:none;
@@ -221,7 +219,7 @@ const MonthInfo = styled.span`
     padding: 0 8px;
     color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 300;
   }
 
   
