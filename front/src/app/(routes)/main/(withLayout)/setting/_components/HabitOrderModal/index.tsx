@@ -289,7 +289,7 @@ const List = styled.div`
   height: 85%;
 
   &.dragItem{
-   border-color:  ${(props) => props.theme.point ? props.theme.point + '80' : '#979FC7'};
+   border-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
    background-color: #fff;
   }
 

@@ -58,6 +58,7 @@ const Desktop_Sidebar = styled.div`
 
   border-right: 2px solid rgb(var(--lightGrey2));
   background-color: rgb(var(--lightGrey1));
+  background-color: #fff;
 
   display: flex;
   flex-direction: column;
@@ -115,19 +116,12 @@ const Menu = styled.span`
   }
   &.current{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: saturate(80%);
+    /* filter: saturate(80%); */
   }
 `
 
 const MonthWrapper = styled.div`
-  /* transition: all 200ms linear; */
   width: 100%;
   height:350px;
   overflow: hidden;
-  opacity: 0.85;
-  &.inActive {
-    /* opacity: 0; */
-    /* pointer-events: none; */
-    /* height: 0px; */
-  }
 `

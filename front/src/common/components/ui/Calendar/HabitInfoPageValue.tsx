@@ -61,7 +61,7 @@ const DateValue = styled.div`
   height: 28px;
   border-radius: 28px;
   &.done{
-    background-color: ${(props) => props.theme.point ? props.theme.point + 'c0' : '#979FC7'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     color: white;
   }
 `

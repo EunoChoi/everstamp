@@ -26,7 +26,8 @@ const CalendarBody = ({
   isTouchGestureEnabled,
   isDateSelectionEnabled }: Props) => {
 
-  const router = useCustomRouter();
+  // const router = useCustomRouter();
+  const router = useRouter();
   const path = usePathname();
   const params = useSearchParams();
 
@@ -104,8 +105,8 @@ const CellWrapper = styled.div`
   &.today{
     border-bottom-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
-  &.selected{     
-    border-bottom-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  &.selected{
+    border-bottom-color: ${(props) => props.theme.point ? props.theme.point + 90 : '#979FC7'};
   }
   &.notCurrentMonth{
     opacity: 0.3;

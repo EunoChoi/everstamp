@@ -89,7 +89,7 @@ const Wrapper = styled.button`
 
 
   background-color: white;
-  background-color: ${(props) => props.theme.point ? props.theme.point + 'd0' : '#979FC7'};
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   background-color: whitesmoke;
   color: rgb(var(--greyTitle));
   border: 2px solid rgba(0,0,0,0.05);

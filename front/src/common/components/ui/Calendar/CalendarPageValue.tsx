@@ -48,7 +48,7 @@ const CalendarPageValue = ({ displayDate, dateData }: { displayDate: Date, dateD
     {/* emotion + habit count */}
     {isVisible && habitsCount > 0 && <DateValue_Diary>
       <Image priority src={emotions[emotionType]} alt={EMOTION_NAME_ENG[emotionType]} width={56} height={56} />
-      <div className="count" > {habitsCount} </div>
+      <div className="count" >{habitsCount}</div>
     </DateValue_Diary>}
     {/* only habit count */}
     {!isVisible && habitsCount > 0 && <DateValue_Diary>
@@ -79,10 +79,9 @@ const DateValue_Diary = styled.div`
   @media (min-width:1024px) { //desktop
     width: 30px;
   }
-  .empty{
-    @media (max-width: 479px) { //mobile port
-      opacity: 0.55;
-    }
+  img, .empty{
+    background-color: white;
+    border-radius: 16px;
   }
   .count{
     position: absolute;
@@ -95,20 +94,19 @@ const DateValue_Diary = styled.div`
     width: 24px;
     height: 24px;
     border-radius: 24px;
-    border : 2px solid white;
+    border : 0.5px solid white;
     
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: brightness(110%) saturate(50%);
+    
     @media (min-width:1024px) { //desktop
       top: -8px;
       right: -8px;
       font-size: 12px;
       width: 20px;
       height: 20px;
-      border : none;
     }
   }
 `

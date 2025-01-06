@@ -1,30 +1,29 @@
 'use client';
 
-import styled from "styled-components";
-import React, { useCallback, useEffect, useState } from "react";
-import { useRef } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { useInView } from "react-intersection-observer";
 import { format, getYear } from "date-fns";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import styled from "styled-components";
 
 //style
 import $Common from "@/common/styles/common";
 
 //function
-import { getCurrentUser } from "@/common/fetchers/user";
 import { getDiariesAtList } from "@/common/fetchers/diary";
+import { getCurrentUser } from "@/common/fetchers/user";
 
 
 //icon
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 
-import { useRouter } from "next/navigation";
-import ContentArea from "@/common/components/layout/ContentArea";
-import Diary from "@/common/components/ui/Diary";
-import Header from "@/common/components/layout/Header";
 import EmotionSelection from "@/app/(routes)/main/(withLayout)/list/_components/EmotionSelectorAtList";
 import MonthSelector from "@/app/(routes)/main/(withLayout)/list/_components/MonthSelectorAtList";
+import CommonBody from "@/common/components/layout/CommonBody";
+import Header from "@/common/components/layout/Header";
+import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
+import { useRouter } from "next/navigation";
 
 
 
@@ -145,12 +144,11 @@ const ListView = () => {
               ? <span>{selectedYear}.{selectedMonth}</span> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
           </button>
           <button onClick={sortToggleChange} className='type2'>
-            {/* <span><SortIcon fontSize="small" /></span> */}
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>
         </$Common.Options>
       </Header>
-      <ContentArea className="scroll" _ref={contentRef}>
+      <Listbody _ref={contentRef}>
         <MonthSelector
           contentRef={contentRef}
           monthSelectorOpen={monthSelectorOpen}
@@ -165,29 +163,20 @@ const ListView = () => {
           setEmotionToggle={setEmotionToggle} />
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
-            const diaryDate = format(data.date, 'MMMM yyyy');
+            const diaryDate = format(data.date, 'yy. MM');
             if (temmDate !== diaryDate) {
               temmDate = diaryDate;
               return <React.Fragment key={'listNote' + i}>
                 <MonthInfo className={`Month${i}`}><span>{diaryDate}</span></MonthInfo>
-                <Diary
-                  position="list"
-                  diaryData={data}
-                />
+                <DiaryWrapper><Diary type="small" diaryData={data} /></DiaryWrapper>
               </React.Fragment>
             }
-            else {
-              return <Diary
-                key={'listNote' + i}
-                position="list"
-                diaryData={data}
-              />
-            }
+            else return <DiaryWrapper key={'listNote' + i}><Diary type="small" diaryData={data} /></DiaryWrapper>
           })))
           :
           <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
         <Observer ref={ref} />
-      </ContentArea>
+      </Listbody>
       <ScrollToTopButton contentRef={contentRef} />
     </$Common.Wrapper>
   );
@@ -195,6 +184,19 @@ const ListView = () => {
 
 export default ListView;
 
+const DiaryWrapper = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 0;
+`
+const Listbody = styled(CommonBody)`
+  @media (max-width: 479px) { //mobile port
+    padding : 0 4dvw;
+  }
+`
 const MonthInfo = styled.span`
   margin-top: 32px;
   margin-bottom: 32px;
@@ -205,17 +207,19 @@ const MonthInfo = styled.span`
   align-items: center;
   width: 100%;
   max-width: 600px;
-  height: 2px;
-  background-color:  ${(props) => props.theme.point ? props.theme.point + '35' : '#979FC7'};
+  height: 1px;
+  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  filter: brightness(110%) saturate(50%);
 
   &.Month0{
     display:none;
   }
 
   span{
-    padding: 0 8px;
     background-color: white;
-    color:  ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
+    line-height: 1px;
+    padding: 0 8px;
+    color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     font-size: 16px;
     font-weight: 500;
   }
@@ -227,8 +231,8 @@ const MonthInfo = styled.span`
 
   @media (min-width:1024px) { //desktop
     font-size: 22px;
-    margin-top: 60px;
-    margin-bottom: 30px;
+    margin-top: 45px;
+    margin-bottom: 45px;
   }
 `
 

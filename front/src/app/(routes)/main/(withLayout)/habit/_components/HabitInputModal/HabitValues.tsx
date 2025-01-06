@@ -90,7 +90,8 @@ const RadioButton = styled.label`
     font-size: 14px;
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    filter: brightness(120%) saturate(50%);
   }
 `;
 

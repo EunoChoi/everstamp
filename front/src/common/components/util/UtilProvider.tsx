@@ -8,7 +8,7 @@ import { ReactNode } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import ServiceWorkerRegister from "./ServiceWorkerRegister";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-
+import { ScrollProvider } from "./ScrollProvider";
 
 type Props = {
   children: ReactNode;
@@ -76,7 +76,9 @@ const UtilProvider = ({ children }: Props) => {
         autoHideDuration={2000}
         preventDuplicate={true}
       >
-        {children}
+        <ScrollProvider>
+          {children}
+        </ScrollProvider>
       </SnackbarProvider>
     </ThemeProvider>
   );

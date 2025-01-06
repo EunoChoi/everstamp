@@ -55,6 +55,9 @@ const $Common = {
     justify-content: center;
 
     margin: 8px 0;
+    border-radius : 48px;
+    /* background-color: white; */
+    gap: 6px;
 
     .calIcon{
       font-size: 19px;
@@ -65,7 +68,7 @@ const $Common = {
       justify-content: center;
       align-items: center;
 
-      margin-left: 6px;
+      
       padding: 2px 12px;
       height: 28px;
 
@@ -86,10 +89,13 @@ const $Common = {
       transition: all ease-in-out 200ms;
       text-transform: capitalize;
       
-      color: rgb(var(--greyTitle));
-      background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#979FC7'};
-      border: 2px solid rgba(0,0,0,0.05);
+      color: rgba(0,0,0,0.6);
+      background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+      filter: brightness(130%) saturate(50%);
+      border: 2px solid rgba(0,0,0,0.07);
       border-radius : 48px;
+
+
 
       @media (min-width:1024px) { //desktop
         padding: 4px 12px;
