@@ -23,7 +23,7 @@ const DiaryHabits = ({ habits }: Props) => {
       {habits?.map((habit: HabitProps, i: number) =>
         <Habit
           className={`${habit.priority ? 'priority' + habit.priority : ''}`}
-          onClick={() => router.push(`/main/inter/habitInfo?id=${habit.id}`, { scroll: false })}
+          onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
           key={habit.name + i}>
           <span>{habit.name}</span>
         </Habit>)}

@@ -49,7 +49,7 @@ const LargeDiary = ({ diaryData }: Props) => {
     <Wrapper>
       <DiaryHeader diaryData={diaryData} type='large' />
       {diaryData?.visible ?
-        <Content onClick={() => router.push(`/main/inter/zoom?id=${diaryData.id}`, { scroll: false })} >
+        <Content onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })} >
           {images.length >= 1 &&
             <CommonCarousel height="300px" >
               {images.map(img =>

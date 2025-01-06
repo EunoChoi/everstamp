@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
+import Axios from "@/Axios/axios";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
+import $Common from "@/common/styles/common";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Axios from "@/Axios/axios";
-import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
-import $Common from "@/common/styles/common";
 import { format } from "date-fns";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 
 interface Props {
@@ -94,7 +94,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
     closeMenu();
   }
   const onClickEdit = () => {
-    router.push(`/main/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
     closeMenu();
   };
 

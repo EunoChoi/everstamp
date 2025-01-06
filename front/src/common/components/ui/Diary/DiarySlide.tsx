@@ -38,7 +38,7 @@ const DiarySlide = ({ diaryData, height }: Props) => {
     <Wrapper $height={height}>
       <SlideWrapper>
         <TextWrapper
-          onClick={() => router.push(`/main/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+          onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
           className='slideChild' >
           <Text>
             {diaryData.text}
@@ -48,7 +48,7 @@ const DiarySlide = ({ diaryData, height }: Props) => {
 
         {images.map(e =>
           <Img
-            onClick={() => router.push(`/main/inter/zoom?id=${diaryData.id}`, { scroll: false })}
+            onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
             key={e.id}
             className="slideChild"
             src={e.src}

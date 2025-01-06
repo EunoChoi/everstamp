@@ -1,15 +1,15 @@
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
-import styled from "styled-components";
-import Calendar from "../../ui/Calendar";
-import CalendarPageValue from "../../ui/Calendar/CalendarPageValue";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { useState } from "react";
+import styled from "styled-components";
+import Calendar from "../../ui/Calendar";
+import CalendarPageValue from "../../ui/Calendar/CalendarPageValue";
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import ViewListIcon from '@mui/icons-material/ViewList';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
+import ViewListIcon from '@mui/icons-material/ViewList';
 
 const SideBar = () => {
   const router = useCustomRouter();
@@ -17,7 +17,7 @@ const SideBar = () => {
 
   const [displayDate, setDisplayDate] = useState(new Date());
   const todayRouterPushAction = () => {
-    router.push(`/main/calendar?date=${getCleanTodayTime()}`);
+    router.push(`/app/calendar?date=${getCleanTodayTime()}`);
   }
 
   return (<Desktop_Sidebar>
@@ -27,7 +27,7 @@ const SideBar = () => {
     </SideBarLogo>
     <Menus>
       <Menu
-        onClick={() => router.push(`/main/calendar?date=${getCleanTodayTime()}`, {})}
+        onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})}
         className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" /> <span>calendar</span>
       </Menu>
       <MonthWrapper
@@ -41,9 +41,9 @@ const SideBar = () => {
           isDateSelectionEnabled={true}
         />
       </MonthWrapper>
-      <Menu onClick={() => router.push('/main/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
-      <Menu onClick={() => router.push('/main/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
-      <Menu onClick={() => router.push('/main/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
+      <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" /> <span>list</span></Menu>
+      <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
+      <Menu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
     </Menus>
   </Desktop_Sidebar>);
 }

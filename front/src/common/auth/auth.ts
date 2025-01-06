@@ -1,10 +1,9 @@
 import NextAuth from "next-auth"
-import axios from "axios"
 
-import Kakao from "next-auth/providers/kakao"
-import Google from "next-auth/providers/google"
-import Naver from "next-auth/providers/naver"
 import Axios from "@/Axios/axios"
+import Google from "next-auth/providers/google"
+import Kakao from "next-auth/providers/kakao"
+import Naver from "next-auth/providers/naver"
 import { cookies } from "next/headers"
 
 
@@ -59,6 +58,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // },
   },
   pages: {
-    error: '/main',
+    error: '/app',
   }
 })

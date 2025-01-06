@@ -1,6 +1,6 @@
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-import styled from "styled-components";
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import styled from "styled-components";
 
 
 interface Props {
@@ -12,7 +12,7 @@ const DiaryAddButton = ({ date, height }: Props) => {
 
   const router = useCustomRouter();
   const onAddDiary = () => {
-    router.push(`/main/inter/input/addDiary?date=${date}`, { scroll: false })
+    router.push(`/app/inter/input/addDiary?date=${date}`, { scroll: false })
   }
 
   return (<Wrapper $height={height}>

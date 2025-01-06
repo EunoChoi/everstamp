@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(error)/main",
+    "src/app/(error)/app",
   ],
   "exclude": [
     "node_modules"

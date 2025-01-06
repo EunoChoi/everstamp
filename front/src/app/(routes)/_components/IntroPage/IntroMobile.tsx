@@ -107,7 +107,7 @@ const IntroMobile = () => {
         </$Common.YesOrNo>
         <$Common.YesOrNo className="yes" onClick={() => {
           closeSnackbar('startInWeb');
-          router.push('/main')
+          router.push('/app')
         }}>
           Yes
         </$Common.YesOrNo>
@@ -243,7 +243,7 @@ const IntroMobile = () => {
           <AndroidIcon className="icon" fontSize="small" />Android
         </Button>
         <Button className="outro" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
-        {/* <Button onClick={() => (router.push('/main'))}>실행하기</Button> */}
+        {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </DownLoadButtons>
       <StartInWeb
         className="outro"
