@@ -124,14 +124,14 @@ const Wrapper = styled.div<{ $position: number | undefined }>`
 
   height: auto;
   width: auto;
-  padding: 8px 20px;
+  padding: 12px 24px;
 
   display: flex;
   align-items : center;
   position: absolute;
   top: ${props => props.$position ? `${props.$position}px` : '50px'};
   right: 12px;
-  gap: 16px;
+  gap: 24px;
 
   background-color : white;
   border: 2px solid rgba(0,0,0,0.09);
@@ -139,14 +139,14 @@ const Wrapper = styled.div<{ $position: number | undefined }>`
 
   button{
     .icon{
-      font-size: 16px;
-      margin-right: 2px;
+      font-size: 18px;
+      margin-right: 4px;
       line-height: 0;
     }
     display:flex;
     align-items: center;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     color: rgb(var(--greyTitle));
 
     &:last-child{

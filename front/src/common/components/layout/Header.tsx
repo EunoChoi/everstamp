@@ -55,10 +55,6 @@ const Wrapper = styled.div`
   flex-shrink: 0;
 
   background-color: white;
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-  background-size: 10px 10px;
 
   @media (max-width: 479px) { //mobile port
     justify-content: space-between;

@@ -125,13 +125,13 @@ const Mobile_Nav = styled.nav`
   height: var(--mobileNav);
 
 
-  backdrop-filter: blur(12px);
 
-  color: rgba(0,0,0,0.3);
+
+
   border-top: 2px solid rgb(var(--lightGrey2));
-  background-color: rgb(var(--lightGrey1));
-  background-color: #fff;
-
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(16px);
+  color: rgba(0,0,0,0.3);
 
   > *{
     padding : 0 12px;
