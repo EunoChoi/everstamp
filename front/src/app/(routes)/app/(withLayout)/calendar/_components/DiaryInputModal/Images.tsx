@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import Image from "next/image";
 import Axios from "@/Axios/axios";
 import { useMutation } from "@tanstack/react-query";
+import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
+import styled from "styled-components";
 import loading from '/public/img/loading.gif';
 
 import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
@@ -150,8 +150,7 @@ const ImageDeleteButton = styled.button`
   border-radius: 18px;
   font-size: 26px;
   background-color: rgb(var(--greyTitle));
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  filter: brightness(120%) saturate(50%);
+  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
 `
 
 const UploadButton = styled.button`
@@ -164,8 +163,7 @@ const UploadButton = styled.button`
   width: 85%;
   border-radius: 8px;
   border: 2px solid rgba(0,0,0,0.2);
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  filter: brightness(120%) saturate(50%);
+  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   span{
     margin-top: 4px;
     font-size: 14px;

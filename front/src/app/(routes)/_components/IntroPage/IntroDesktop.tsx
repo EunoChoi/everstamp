@@ -40,8 +40,6 @@ import ipad_list2 from '/public/img/intro/ipad_list2.png';
 import ipad_login from '/public/img/intro/ipad_login.png';
 
 
-
-
 import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import $Common from "@/common/styles/common";
@@ -286,19 +284,19 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#d7daeb'};
+  background-color: ${(props) => props.theme.point ? props.theme.point + '55' : '#d7daeb'};
 
 
   &.web{
     padding: 6px 32px;
     background-color: rgba(0,0,0,0);
     border-color: #c1c5db;
-    border-color: ${(props) => props.theme.point ? props.theme.point : '#c1c5db'};
+    border-color: ${(props) => props.theme.point ? props.theme.point + '55' : '#c1c5db'};
   }
   &.bottom{
     background-color: rgba(255,255,255,0.8);
     background-color: white;
-    border-color: ${(props) => props.theme.point ? props.theme.point : '#c1c5db'};
+    border-color: ${(props) => props.theme.point ? props.theme.point + '55' : '#c1c5db'};
     color: rgb(var(--greyTitle));
   }
   .icon{
@@ -320,12 +318,12 @@ const Desktop_Section = styled.section`
   }
   &.emotion, &.habit,  &.others{
     background-color: #EFF0F6;
-    background-color : ${(props) => props.theme.point ? props.theme.point : '#EFF0F6'};
+    background-color : ${(props) => props.theme.point ? props.theme.point + '55' : '#EFF0F6'};
   }
   &.outro{
     height: 50dvh;
     background-color: #979FC7;
-    background-color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    background-color : ${(props) => props.theme.point ? props.theme.point + '55' : '#979FC7'};
   }
   &.small{
     height: 60dvh;
@@ -357,6 +355,8 @@ const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
   overflow-y: scroll;
+
+  background-color: #fff;
 `
 
 const ColWrapper = styled.div`
@@ -383,14 +383,6 @@ const Logo = styled.div`
     &::first-letter{
       color: #979FC7;
       color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    }
-  }
-
-  &.outro{
-    span{
-      &::first-letter{
-        color: white;
-      }
     }
   }
 `

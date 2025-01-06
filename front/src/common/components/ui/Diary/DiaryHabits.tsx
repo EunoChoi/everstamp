@@ -67,11 +67,8 @@ const Habit = styled.span`
   line-height: 1.4;
   white-space: nowrap;
   
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   border: 2px solid rgba(0,0,0,0.07);
-  filter: brightness(130%) saturate(50%);
-
-
 
   span{
     font-size: 14px;
@@ -81,7 +78,7 @@ const Habit = styled.span`
     text-transform: capitalize;
   }
   &:first-child{
-    border: 2px solid ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    border: 2px solid ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
     background-color: white;
     span{
       font-weight: 600;

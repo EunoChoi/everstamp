@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+import styled from "styled-components";
 
 interface Props {
   habitName: string;
@@ -90,11 +90,9 @@ const RadioButton = styled.label`
     font-size: 14px;
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: brightness(120%) saturate(50%);
+    background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
 `;
-
 const Value = styled.div`
   display: flex;
   flex-direction: column;

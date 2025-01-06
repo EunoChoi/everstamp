@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import emotion0 from '/public/img/emotion/emotion0.png'
-import emotion1 from '/public/img/emotion/emotion1.png'
-import emotion2 from '/public/img/emotion/emotion2.png'
-import emotion3 from '/public/img/emotion/emotion3.png'
-import emotion4 from '/public/img/emotion/emotion4.png'
 import Image from "next/image";
+import emotion0 from '/public/img/emotion/emotion0.png';
+import emotion1 from '/public/img/emotion/emotion1.png';
+import emotion2 from '/public/img/emotion/emotion2.png';
+import emotion3 from '/public/img/emotion/emotion3.png';
+import emotion4 from '/public/img/emotion/emotion4.png';
 
 interface Props {
   emotion: number;
@@ -98,8 +98,7 @@ const RadioButton = styled.label`
   input:checked ~ .checkmark{
     span{
       border-color: rgba(0,0,0,0.1);
-      background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-      filter: brightness(120%) saturate(50%);
+      background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
     }
   }
 `;
