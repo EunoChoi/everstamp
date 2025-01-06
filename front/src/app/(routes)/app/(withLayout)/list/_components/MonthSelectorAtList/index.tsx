@@ -147,7 +147,7 @@ const Wrapper = styled.div`
   overflow: hidden;
   position: fixed;
   top: var(--mobileHeader);
-  top: 0;
+  top: -3px;
 
   flex-shrink: 0;
   
@@ -176,10 +176,7 @@ const Wrapper = styled.div`
 
     transition: transform 0.3s ease-in-out;
 
-    background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-    background-size: 10px 10px;
+    background-color: white;
     
     &.open{
       transform: scaleY(1);

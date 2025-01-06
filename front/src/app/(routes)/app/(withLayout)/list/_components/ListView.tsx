@@ -163,7 +163,7 @@ const ListView = () => {
           setEmotionToggle={setEmotionToggle} />
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
-            const diaryDate = format(data.date, 'yy. MM');
+            const diaryDate = format(data.date, 'yy.MM');
             if (temmDate !== diaryDate) {
               temmDate = diaryDate;
               return <React.Fragment key={'listNote' + i}>
@@ -218,8 +218,7 @@ const MonthInfo = styled.span`
     line-height: 1px;
     padding: 0 8px;
     color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 14px;
   }
 
   
