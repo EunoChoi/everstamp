@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
+import { isIosPwa } from "@/common/functions/isIosPwa";
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import { useEffect, useRef, useState } from "react";
-import { isIosPwa } from "@/common/functions/isIosPwa";
 
 
 interface Props {
@@ -85,12 +85,8 @@ const Wrapper = styled.button`
   width: 36px;
   height: 36px;
   border-radius: 100px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.07);
 
-
-  background-color: white;
-  background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  background-color: whitesmoke;
-  color: rgb(var(--greyTitle));
+  background-color: rgba(255,255,255,0.7);
+  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   border: 2px solid rgba(0,0,0,0.05);
 `

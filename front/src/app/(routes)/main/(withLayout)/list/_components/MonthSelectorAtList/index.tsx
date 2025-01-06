@@ -148,8 +148,10 @@ const Wrapper = styled.div`
   padding: 0 24px;
 
   background-color: white;
-  
-
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+  background-size: 10px 10px;
 
   display: flex;
   flex-direction: column;
