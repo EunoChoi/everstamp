@@ -1,12 +1,12 @@
 'use client';
 
-import { useRouter, useSearchParams } from "next/navigation";
-import styled from "styled-components";
+import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import styled from "styled-components";
 
 //icon
-import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 
 
 const Page = () => {
@@ -22,7 +22,7 @@ const Page = () => {
         <Text>
           {message}
         </Text>
-        <Button onClick={() => router.push(`/main`)}>돌아가기</Button>
+        <Button onClick={() => router.push(`/app`)}>돌아가기</Button>
       </Wrapper>
     </Suspense>
   );

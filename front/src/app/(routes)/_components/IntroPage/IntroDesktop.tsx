@@ -118,7 +118,7 @@ const IntroDesktop = () => {
         </$Common.YesOrNo>
         <$Common.YesOrNo className="yes" onClick={() => {
           closeSnackbar('startInWeb');
-          router.push('/main')
+          router.push('/app')
         }}>
           Yes
         </$Common.YesOrNo>

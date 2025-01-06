@@ -1,8 +1,8 @@
 'use client'
-import styled from "styled-components";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 import SignalWifiConnectedNoInternet4RoundedIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4Rounded';
 import { useEffect } from "react";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import styled from "styled-components";
 
 /**
  * [Client] offline page
@@ -12,7 +12,7 @@ export default function OfflinePage() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const onOnline = () => {
-      router.push('/main');
+      router.push('/app');
     }
 
     window.addEventListener('online', onOnline);
