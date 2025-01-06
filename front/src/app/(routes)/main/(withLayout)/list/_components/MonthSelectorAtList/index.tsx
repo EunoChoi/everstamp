@@ -1,6 +1,6 @@
-import styled from "styled-components";
 import { getYear } from "date-fns";
 import { useState } from "react";
+import styled from "styled-components";
 
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -279,6 +279,7 @@ const ButtonArea = styled.div`
     border: 2px solid rgba(0,0,0,0.08);
 
     background-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    filter: brightness(130%) saturate(50%);
     color: rgb(var(--greyTitle));
   }
 `
@@ -298,11 +299,13 @@ const Month = styled.button`
   .eng{
     font-size: 14px;
     text-transform: capitalize;
-    color: #999999;
+    font-weight: 300;
+    color: rgb(var(--greyTitle));
   }
 
   &.selectedMonth{
     background-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    filter: brightness(130%) saturate(50%);
     border-radius: 12px;
   }
 `
