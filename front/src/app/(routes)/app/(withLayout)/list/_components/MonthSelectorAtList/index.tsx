@@ -45,6 +45,12 @@ const MonthSelector = ({
   const goToCurrentDate = () => {
     setTempYear(getYear(new Date()));
   };
+  const selectMonth = (n: number) => {
+    if (tempMonth !== 0) {
+      setTempMonth(0)
+    }
+    else setTempMonth(n)
+  }
   const calcelSelectMonth = () => {
     setTempYear(getYear(new Date()));
     setTempMonth(0)
@@ -76,7 +82,7 @@ const MonthSelector = ({
             <Month
               className={tempMonth === i + 1 ? 'selectedMonth' : ''}
               key={'month' + i + 1}
-              onClick={() => setTempMonth(i + 1)}>
+              onClick={() => selectMonth(i + 1)}>
               <span className="num">{e}</span>
               <span className="eng">{monthsTopEng[i]}</span>
             </Month>)}
@@ -85,7 +91,7 @@ const MonthSelector = ({
             <Month
               className={tempMonth === i + 7 ? 'selectedMonth' : ''}
               key={'month' + i + 6}
-              onClick={() => setTempMonth(i + 7)}>
+              onClick={() => selectMonth(i + 7)}>
               <span className="num">{e}</span>
               <span className="eng">{monthsBottomEng[i]}</span>
             </Month>)}
@@ -148,10 +154,6 @@ const Wrapper = styled.div`
   padding: 0 24px;
 
   background-color: white;
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.025) 1px, transparent 1px);
-  background-size: 10px 10px;
 
   display: flex;
   flex-direction: column;
@@ -173,10 +175,14 @@ const Wrapper = styled.div`
     border-end-end-radius: 24px;
 
     transition: transform 0.3s ease-in-out;
+
+    background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: 10px 10px;
     
     &.open{
       transform: scaleY(1);
-      /* height: 400px; */
     }
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
@@ -280,8 +286,7 @@ const ButtonArea = styled.div`
     border-radius: 32px;
     border: 2px solid rgba(0,0,0,0.08);
 
-    background-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: brightness(130%) saturate(50%);
+    background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
     color: rgb(var(--greyTitle));
   }
 `
@@ -306,8 +311,8 @@ const Month = styled.button`
   }
 
   &.selectedMonth{
-    background-color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    filter: brightness(130%) saturate(50%);
+    background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+    border: 2px solid rgba(0,0,0,0.07);
     border-radius: 12px;
   }
 `
