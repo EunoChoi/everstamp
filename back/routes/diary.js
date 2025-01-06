@@ -338,7 +338,7 @@ router.get("/calendar", tokenCheck, async (req, res) => {
       return res.status(201).json(diary);
     }
 
-    else return res.status(200).json('다이어리가 존재하지 않습니다.');
+    else return res.status(400).json('다이어리가 존재하지 않습니다.');
   } catch (e) {
     console.error(e);
   }
