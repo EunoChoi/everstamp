@@ -62,7 +62,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
     }
   }
 
-  return (<Wrapper className={`${priority ? 'priority' + priority : ''}`}>
+  return (<Wrapper>
     <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {
@@ -140,7 +140,6 @@ const Wrapper = styled.div`
 `
 const Name = styled.span`
   width: 100%;
-  height: 30%;
   height: auto;
   
   font-weight: 600;
@@ -177,7 +176,6 @@ const Name = styled.span`
 `
 const Days = styled.div`
   width: 100%;
-  height: 40%;
   height: auto;
   
   display: flex;
@@ -198,7 +196,7 @@ const Check = styled.div`
     }
   }
   .date{
-    margin: 6px 0;
+    margin: 4px 0;
     @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
       margin: 3px 0;
     }

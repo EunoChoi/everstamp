@@ -100,6 +100,7 @@ const Text = styled.div`
     -webkit-line-clamp: 4;
   }
   @media (max-width: 479px) { //mobile port
+    line-height: 1.6;
     -webkit-line-clamp: 3;
     &.hasImages{
       -webkit-line-clamp: 3;

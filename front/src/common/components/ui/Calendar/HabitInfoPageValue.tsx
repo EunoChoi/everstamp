@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { format } from "date-fns";
-import { useQuery } from "@tanstack/react-query";
 import { getSingleHabitMonthInfo } from "@/common/fetchers/habit";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { useSearchParams } from "next/navigation";
+import styled from "styled-components";
 
 const HabitInfoPageValue = ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => {
   const params = useSearchParams();
@@ -54,7 +54,7 @@ const DateValue = styled.div`
   justify-content: center;
   align-items: center;
 
-  font-size: 16px;
+  font-size: 14px;
   color: #525252;
 
   width: 28px;

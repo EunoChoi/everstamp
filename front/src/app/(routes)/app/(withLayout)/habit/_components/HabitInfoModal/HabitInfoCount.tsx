@@ -13,7 +13,7 @@ const HabitInfoCount = ({ displayDate, habitName, habitCount }: Props) => {
       <span className="name">{habitName}</span>
       <div className="infoText">
         <span>{format(displayDate, 'yyyy년 M월')}</span>
-        <span>실천 횟수</span>
+        <span>습관 실천 횟수</span>
       </div>
       <div className="infoCount">{habitCount} / {format(lastDayOfMonth(displayDate), 'dd')}</div>
     </Info>
