@@ -14,15 +14,20 @@ import { getDiariesAtList } from "@/common/fetchers/diary";
 import { getCurrentUser } from "@/common/fetchers/user";
 
 
-//icon
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import EventIcon from '@mui/icons-material/Event';
+import emotion0 from '/public/img/emotion/emotion0.png';
+import emotion1 from '/public/img/emotion/emotion1.png';
+import emotion2 from '/public/img/emotion/emotion2.png';
+import emotion3 from '/public/img/emotion/emotion3.png';
+import emotion4 from '/public/img/emotion/emotion4.png';
 
-import EmotionSelection from "@/app/(routes)/app/(withLayout)/list/_components/EmotionSelectorAtList";
-import MonthSelector from "@/app/(routes)/app/(withLayout)/list/_components/MonthSelectorAtList";
+import ListFilter from "@/app/(routes)/app/(withLayout)/list/_components/ListFilter";
 import CommonBody from "@/common/components/layout/CommonBody";
 import Header from "@/common/components/layout/Header";
 import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 
@@ -59,6 +64,9 @@ interface User {
 const ListView = () => {
 
   const router = useRouter();
+  const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
+  const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
+
   const { ref, inView } = useInView({
     threshold: 0,
     delay: 0
@@ -77,7 +85,7 @@ const ListView = () => {
 
   const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
-  const [monthSelectorOpen, setMonthSelectorOpen] = useState<boolean>(false);
+  const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
 
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>(() => {
     const localData = localStorage.getItem(userEmail)
@@ -139,28 +147,29 @@ const ListView = () => {
     <$Common.Wrapper>
       <Header title='list'>
         <$Common.Options>
-          <button onClick={() => { setMonthSelectorOpen(c => !c); }}>
-            {(selectedMonth !== 0)
-              ? <span>{selectedYear}.{selectedMonth}</span> : <CalendarMonthRoundedIcon className="calIcon" fontSize="inherit" />}
+          <button onClick={() => { setFilterOpen(c => !c); }}>
+            <FilterAltOutlinedIcon className="calIcon" fontSize="inherit" />
           </button>
           <button onClick={sortToggleChange} className='type2'>
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>
         </$Common.Options>
       </Header>
+      <FilterResult>
+        {selectedMonth !== 0 && <span><EventIcon fontSize="medium" />{selectedYear}.{selectedMonth}</span>}
+        {emotionToggle !== 5 && <span><Image src={emotions[emotionToggle]} alt='emotion image' width={28} height={28} />{EMOTION_NAME_ENG[emotionToggle]}</span>}
+      </FilterResult>
       <Listbody _ref={contentRef}>
-        <MonthSelector
+        <ListFilter
           contentRef={contentRef}
-          monthSelectorOpen={monthSelectorOpen}
-          selectedMonth={selectedMonth}
-          setMonthSelectorOpen={setMonthSelectorOpen}
+          isFilterOpen={isFilterOpen}
+          setFilterOpen={setFilterOpen}
+
           setSelectedYear={setSelectedYear}
           setSelectedMonth={setSelectedMonth}
+          setEmotionToggle={setEmotionToggle}
         />
-        <EmotionSelection
-          contentRef={contentRef}
-          emotionToggle={emotionToggle}
-          setEmotionToggle={setEmotionToggle} />
+
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
             const diaryDate = format(data.date, 'yy.MM');
@@ -184,6 +193,24 @@ const ListView = () => {
 
 export default ListView;
 
+const FilterResult = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 8px;
+  gap : 16px;
+  span{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 18px;
+    font-weight: 600;
+    color:${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    text-transform: capitalize;
+  }
+`
 const DiaryWrapper = styled.div`
   width: 100%;
 
