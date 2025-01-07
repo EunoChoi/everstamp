@@ -2,15 +2,15 @@ import { format } from "date-fns";
 import Image from "next/image";
 
 //images
-import emotion0 from '/public/img/emotion/emotion0.png'
-import emotion1 from '/public/img/emotion/emotion1.png'
-import emotion2 from '/public/img/emotion/emotion2.png'
-import emotion3 from '/public/img/emotion/emotion3.png'
-import emotion4 from '/public/img/emotion/emotion4.png'
-import empty from '/public/img/emotion/empty.png'
-import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
 import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
+import { useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
+import emotion0 from '/public/img/emotion/emotion0.png';
+import emotion1 from '/public/img/emotion/emotion1.png';
+import emotion2 from '/public/img/emotion/emotion2.png';
+import emotion3 from '/public/img/emotion/emotion3.png';
+import emotion4 from '/public/img/emotion/emotion4.png';
+import empty from '/public/img/emotion/empty.png';
 
 interface monthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
@@ -18,7 +18,7 @@ interface monthHabitsType {
 
 const CalendarPageValue = ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => {
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
-  const EMOTION_NAME_ENG = ['upset', 'sad', 'common', 'happy', 'joyful'];
+  const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
 
   const { data } = useQuery({
     queryKey: ['habit', 'month', format(displayDate, 'MM')],
