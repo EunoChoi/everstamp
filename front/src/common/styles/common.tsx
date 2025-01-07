@@ -59,7 +59,7 @@ const $Common = {
     background-color: white;
     gap: 6px;
 
-    .calIcon{
+    .icon{
       font-size: 19px;
     }
 
@@ -90,7 +90,7 @@ const $Common = {
       text-transform: capitalize;
       
       color: rgba(0,0,0,0.6);
-      background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+      background-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
       border: 2px solid rgba(0,0,0,0.07);
       border-radius : 48px;
 
