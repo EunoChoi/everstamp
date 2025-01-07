@@ -86,7 +86,8 @@ const Wrapper = styled.button`
   height: 36px;
   border-radius: 100px;
 
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
   color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   border: 2px solid rgba(0,0,0,0.05);
 `
