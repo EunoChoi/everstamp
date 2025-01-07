@@ -1,22 +1,24 @@
 'use client';
 
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
 
 import { getHabitById, getSingleHabitMonthInfo } from "@/common/fetchers/habit";
-import HabitInfoChart from "./HabitInfoChart";
 import Indicator from "../../../../../../../common/components/ui/Indicator";
+import HabitInfoChart from "./HabitInfoChart";
 
 import $Modal from "@/common/styles/common_modal";
 
+import HabitInfoPageValue from "@/common/components/ui/Calendar/HabitInfoPageValue";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
 import { notFound } from 'next/navigation';
 import Calendar from "../../../../../../../common/components/ui/Calendar";
-import HabitInfoPageValue from "@/common/components/ui/Calendar/HabitInfoPageValue";
 import HabitInfoCount from "./HabitInfoCount";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+
 
 
 interface Props {
@@ -59,6 +61,11 @@ const HabitInfoModal = ({ habitId }: Props) => {
       <Name>
         {habitDataById?.name ?? '-'}
       </Name>
+      <PriorityStar>
+        {Array(habitDataById.priority + 1).fill(0).map((_, i) => (
+          <StarPurple500OutlinedIcon key={'star' + i} fontSize="inherit" color="inherit" />
+        ))}
+      </PriorityStar>
       <Content>
         <SlideWrapper>
           <Slide
@@ -95,6 +102,13 @@ const HabitInfoModal = ({ habitId }: Props) => {
 
 export default HabitInfoModal;
 
+const PriorityStar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+`
 const ModalWrapper = styled($Modal.Wrapper)`
   padding-bottom: 16px;
 `

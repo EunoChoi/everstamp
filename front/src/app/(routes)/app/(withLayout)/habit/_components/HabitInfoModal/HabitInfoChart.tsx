@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
+import { getSingleHabitYearInfo } from "@/common/fetchers/habit";
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-import { useState } from "react";
-import { subYears, addYears, format, isLeapYear } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
+import { addYears, format, isLeapYear, subYears } from "date-fns";
 import { useSearchParams } from "next/navigation";
-import { getSingleHabitYearInfo } from "@/common/fetchers/habit";
+import { useState } from "react";
 
 const HabitInfoChart = () => {
   const params = useSearchParams(); //for habit id
@@ -41,7 +41,7 @@ const HabitInfoChart = () => {
       <Info>
         <div className="text">
           <span>{year}년 연간</span>
-          <span>실천 횟수</span>
+          <span>습관 실천 횟수</span>
         </div>
         <div className="count">
           {count} / {isLeapYear(year) ? 366 : 365}
