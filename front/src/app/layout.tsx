@@ -4,11 +4,8 @@ import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
 
-
-
 import PrefetchUserDataProvider from "@/common/components/util/PrefetchUserDataProvider";
 import RQProvider from "@/common/components/util/RQProvider";
-import UtilProvider from "@/common/components/util/UtilProvider";
 import { headers } from 'next/headers';
 import StyledComponentsRegistry from "../../lib/registry";
 
@@ -105,9 +102,7 @@ export default function RootLayout({
           <body className={pretendard.className}>
             <RQProvider>
               <PrefetchUserDataProvider>
-                <UtilProvider>
-                  {children}
-                </UtilProvider>
+                {children}
               </PrefetchUserDataProvider>
             </RQProvider>
           </body>
