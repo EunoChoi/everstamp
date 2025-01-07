@@ -38,8 +38,6 @@ const Wrapper = styled.div`
   
   @media (max-width: 479px) { //mobile portrait
     height: 100dvh;
-    /* padding-left : 4dvw;
-    padding-right: 4dvw; */
     padding-bottom: var(--mobileNav);
 
     &.iosPwa{

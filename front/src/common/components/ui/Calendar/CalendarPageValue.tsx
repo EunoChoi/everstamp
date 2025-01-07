@@ -71,6 +71,7 @@ const DateValue_Date = styled.div`
 const DateValue_Diary = styled.div`
   position: relative;
   width: 75%;
+  max-width:36px;
   height: auto;
   display: flex;
   justify-content: center;
