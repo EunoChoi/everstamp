@@ -1,16 +1,15 @@
-import type { Metadata } from "next";
-import type { Viewport } from "next";
-import "./globals.css";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
 
 
 
-import { headers } from 'next/headers'
-import UtilProvider from "@/common/components/util/UtilProvider";
 import PrefetchUserDataProvider from "@/common/components/util/PrefetchUserDataProvider";
 import RQProvider from "@/common/components/util/RQProvider";
+import UtilProvider from "@/common/components/util/UtilProvider";
+import { headers } from 'next/headers';
 import StyledComponentsRegistry from "../../lib/registry";
 
 

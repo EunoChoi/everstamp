@@ -78,7 +78,7 @@ const Button = styled.button`
   font-size: 14px;
   font-weight: 600;
 
-  padding: 4px 24px;
+  padding: 4px 20px;
   border-radius: 32px;
   border: 2px solid rgba(0,0,0,0.08);
 
@@ -88,6 +88,10 @@ const Button = styled.button`
   &.type1{
     background-color: white;
     border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 12px;
+    padding: 2px 16px;
   }
 `
 const EmotionWrapper = styled.div`
@@ -144,9 +148,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-
-
-
   @media (max-width: 479px) { //mobile port
     box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
     width: 100%;
@@ -176,8 +177,8 @@ const Wrapper = styled.div`
     left: 50dvw;
     transform: translate(-50%, -50%);
 
-    gap: 24px;
-    padding: 24px 24px;
+    gap: 16px;
+    padding: 16px 24px;
     width: 350px;
     border-radius: 24px;
 

@@ -53,9 +53,9 @@ const CalendarView = ({ date }: Props) => {
   return (
     <$Common.Wrapper>
       <Header title='calendar' />
-      <CommonBody>
+      <CalendarBody>
         {isMobile === true &&
-          <CalendarBody>
+          <CalendarWrapper>
             <Calendar
               displayDate={displayDate}
               setDisplayDate={setDisplayDate}
@@ -65,13 +65,13 @@ const CalendarView = ({ date }: Props) => {
               isDateSelectionEnabled={true}
             />
             <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
-          </CalendarBody>}
+          </CalendarWrapper>}
         {isMobile === false &&
-          <CalendarBody>
+          <CalendarWrapper>
             <Diary type="large" diaryData={diaryData ? diaryData : { date: date }} />
-          </CalendarBody>
+          </CalendarWrapper>
         }
-      </CommonBody>
+      </CalendarBody>
     </$Common.Wrapper>
   );
 }
@@ -79,6 +79,12 @@ const CalendarView = ({ date }: Props) => {
 export default CalendarView;
 
 const CalendarBody = styled(CommonBody)`
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+   padding: 24px 0;
+  }
+  
+`
+const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;
   
@@ -86,12 +92,15 @@ const CalendarBody = styled(CommonBody)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   @media (max-width: 479px) { //mobile port
-    gap: 6px;
+    gap: 12px;
     padding: 12px 4dvw;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-     justify-content: start;
+    justify-content: start;
+    gap: 24px;
+    height: 150dvh;
   }
   @media (min-width:1024px) { //desktop
   }

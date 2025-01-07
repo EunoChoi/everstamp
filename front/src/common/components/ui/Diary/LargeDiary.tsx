@@ -123,7 +123,7 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 600px;
   height: auto;
-  min-height: 250px;
+  min-height: 350px;
   overflow: hidden;
 
   gap: 12px;
