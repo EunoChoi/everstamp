@@ -148,17 +148,21 @@ const ListView = () => {
       <Header title='list'>
         <$Common.Options>
           <button onClick={() => { setFilterOpen(c => !c); }}>
-            <FilterAltOutlinedIcon className="calIcon" fontSize="inherit" />
+            <FilterAltOutlinedIcon className="icon" fontSize="inherit" />
           </button>
           <button onClick={sortToggleChange} className='type2'>
             <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
           </button>
         </$Common.Options>
       </Header>
-      <FilterResult>
-        {selectedMonth !== 0 && <span><EventIcon fontSize="medium" />{selectedYear}.{selectedMonth}</span>}
-        {emotionToggle !== 5 && <span><Image src={emotions[emotionToggle]} alt='emotion image' width={28} height={28} />{EMOTION_NAME_ENG[emotionToggle]}</span>}
-      </FilterResult>
+
+      {((selectedMonth !== 0) || (emotionToggle !== 5)) &&
+        <FilterResult>
+          <span>Filtering : </span>
+          {selectedMonth !== 0 && <span><EventIcon fontSize="small" color="inherit" />{selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}</span>}
+          {emotionToggle !== 5 && <span><Image src={emotions[emotionToggle]} alt='emotion image' width={24} height={24} />{EMOTION_NAME_ENG[emotionToggle]}</span>}
+        </FilterResult>}
+
       <Listbody _ref={contentRef}>
         <ListFilter
           contentRef={contentRef}
@@ -198,16 +202,18 @@ const FilterResult = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 8px;
-  gap : 16px;
+  padding : 6px 0;
+  gap : 12px;
+  background-color:${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
+  color:${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  filter: saturate(150%) contrast(95%);
+
   span{
     display: flex;
     align-items: center;
     gap: 8px;
-
-    font-size: 18px;
-    font-weight: 600;
-    color:${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    font-size: 16px;
+    font-weight: 500;
     text-transform: capitalize;
   }
 `
@@ -221,7 +227,7 @@ const DiaryWrapper = styled.div`
 `
 const Listbody = styled(CommonBody)`
   @media (max-width: 479px) { //mobile port
-    padding : 0 4dvw;
+    padding : 14px 4dvw;
   }
 `
 const MonthInfo = styled.span`
