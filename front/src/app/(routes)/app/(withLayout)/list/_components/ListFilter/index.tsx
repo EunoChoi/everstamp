@@ -31,6 +31,11 @@ const ListFilter = ({
   const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
   const [tempMonth, setTempMonth] = useState<number>(0);
 
+  const onInitialize = () => {
+    setTempEmotion(5);
+    setTempYear(getYear(new Date()));
+    setTempMonth(0);
+  }
   const onSubmit = () => {
     setEmotionToggle(tempEmotion);
     setSelectedYear(tempYear);
@@ -53,7 +58,10 @@ const ListFilter = ({
         <MonthWrapper>
           <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
         </MonthWrapper>
-        <SubmitButton onClick={onSubmit}>확인</SubmitButton>
+        <ButtonWrapper>
+          <Button className="type1" onClick={onInitialize}>초기화</Button>
+          <Button onClick={onSubmit}>확인</Button>
+        </ButtonWrapper>
       </Wrapper>
     </BG>
   );
@@ -61,10 +69,14 @@ const ListFilter = ({
 
 export default ListFilter;
 
-const SubmitButton = styled.button`
+const ButtonWrapper = styled.div`
+  display : flex;
+  align-items: center;
+  gap: 12px;
+`
+const Button = styled.button`
   font-size: 14px;
   font-weight: 600;
-
 
   padding: 4px 24px;
   border-radius: 32px;
@@ -72,6 +84,11 @@ const SubmitButton = styled.button`
 
   background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   color: rgb(var(--greyTitle));
+
+  &.type1{
+    background-color: white;
+    border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  }
 `
 const EmotionWrapper = styled.div`
   width: 100%;

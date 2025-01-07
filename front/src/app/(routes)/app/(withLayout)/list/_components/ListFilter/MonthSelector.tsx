@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 import { getYear } from "date-fns";
 
@@ -23,9 +22,11 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
 
   const goToNextYear = () => {
     setSelectedYear(c => c + 1);
+    setSelectedMonth(0);
   }
   const goToPreYear = () => {
     setSelectedYear(c => c - 1);
+    setSelectedMonth(0);
   }
   const goToCurrentDate = () => {
     setSelectedYear(getYear(new Date()));
@@ -36,23 +37,11 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
     }
     else setSelectedMonth(n)
   }
-  const calcelSelectMonth = () => {
-    setSelectedYear(getYear(new Date()));
-    setSelectedMonth(0)
-  }
-
   return (<Wrapper>
     <YearArea>
-      <div className="left">
-      </div>
-      <div className="center">
-        <button className="arrow" onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
-        <span onClick={goToCurrentDate}>{selectedYear}</span>
-        <button className="arrow" onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
-      </div>
-      <div className="right">
-        <button onClick={calcelSelectMonth}><RefreshIcon fontSize="small" /></button>
-      </div>
+      <button className="arrow" onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
+      <span onClick={goToCurrentDate}>{selectedYear}</span>
+      <button className="arrow" onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
     </YearArea>
     <MonthsArea>
       <Section>{monthsTopNum.map((e, i) =>
@@ -86,7 +75,7 @@ const YearArea = styled.div`
   width: 100%;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   span{
