@@ -83,7 +83,7 @@ export default MobileZoomModal;
 const ZoomModalWrapper = styled($Modal.Wrapper)`
   padding-bottom: 16px;
 
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     width: 85%;
     height: 85%;
   }
@@ -134,13 +134,13 @@ const TextWrapper = styled.div`
       font-size: 18px;
     }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     padding: 24px;
     .text{
       font-size: 18px;
     }
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     padding: 48px;
     .text{
       font-size: 20px;

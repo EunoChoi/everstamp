@@ -45,10 +45,10 @@ const $Modal = {
       height: 99.5%; 
       padding-top: var(--mobileHeader);
     }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
       padding-top: var(--mobileHeader);
     }
-    @media (min-width:1024px) { //desktop
+    @media (min-width:1025px) { //desktop
       width: 600px;
       height: 90%;
       border-radius: 24px;
@@ -70,11 +70,11 @@ const $Modal = {
       position: fixed;
       top: 0;
     }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
       position: fixed;
       top: 0;
     }
-    @media (min-width:1024px) { //desktop
+    @media (min-width:1025px) { //desktop
       height: var(--desktopHeader);
       padding: 0 28px;
     }
@@ -91,10 +91,10 @@ const $Modal = {
       span{
         padding: 4px;
       }
-      @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
         /* display: none; */
       }
-      @media (min-width:1024px) { //desktop
+      @media (min-width:1025px) { //desktop
         font-size: 24px;
       }
     }

@@ -114,7 +114,7 @@ const Text = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     -webkit-line-clamp: 5;
     line-height: 1.8;
   }

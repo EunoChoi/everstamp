@@ -18,10 +18,10 @@ const NProgressStyles = createGlobalStyle<{ barColor: string }>`
       bottom: 0;
       height: 6px;
     }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
       height: 4px;
     }
-    @media (min-width:1024px) { //desktop
+    @media (min-width:1025px) { //desktop
       height: 8px;
     }
   }

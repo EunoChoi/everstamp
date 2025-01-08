@@ -54,7 +54,7 @@ const Info = styled.div`
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
   
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     width: 50%;
     height: 100%;
     border-right: 2px solid whitesmoke;
@@ -81,7 +81,7 @@ const Info = styled.div`
       margin: 24px 0;
     }
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     .infoText{
       font-size: 20px;
     }

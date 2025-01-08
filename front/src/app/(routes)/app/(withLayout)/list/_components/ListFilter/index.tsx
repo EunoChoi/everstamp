@@ -89,7 +89,7 @@ const Button = styled.button`
     background-color: white;
     border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     font-size: 12px;
     padding: 2px 16px;
   }
@@ -121,11 +121,11 @@ const BG = styled.div`
     top: var(--mobileHeader);
     z-index: 98;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     top: 0px;
     z-index: 105;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     top: 0px;
     z-index: 105;
   }
@@ -170,7 +170,7 @@ const Wrapper = styled.div`
       transform: scaleY(1);
     }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
     z-index: 999;
     top: 50dvh;
@@ -191,7 +191,7 @@ const Wrapper = styled.div`
       visibility: visible;
     }
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
 
     top: 50dvh;

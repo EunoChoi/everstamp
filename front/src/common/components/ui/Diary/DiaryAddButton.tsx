@@ -36,7 +36,7 @@ const Wrapper = styled.div<{ $height: string }>`
     line-height: 0;
     font-size: 40px;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    @media (min-width:1024px) { //desktop
+    @media (min-width:1025px) { //desktop
       font-size: 56px;
     }
   }

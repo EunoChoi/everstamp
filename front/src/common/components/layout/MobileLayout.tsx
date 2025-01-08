@@ -49,7 +49,7 @@ export default MobileLayout;
 
 const Logo = styled.span`
   display: none;
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     display: inline-block;
     margin-bottom: 32px;
     color: rgb(var(--greyTitle));
@@ -86,7 +86,7 @@ const NavMenu = styled.button`
       text-transform: capitalize;
     }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -108,7 +108,7 @@ const Mobile_Layout = styled.div`
   justify-content: start;
   align-items: center;
 
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     width: 75dvw;
     margin-left: 25dvw;
   }
@@ -153,7 +153,7 @@ const Mobile_Nav = styled.nav`
   }
 
 
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     left: 0;
     width: 25dvw;
     /* min-width: 130px; */

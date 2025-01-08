@@ -69,7 +69,7 @@ const HabitInputModal = ({ isEdit, habitId }: habitInputProps) => {
 export default HabitInputModal;
 
 const HabitModalWrapper = styled($Modal.Wrapper)`
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     height: 600px;
   }
 `

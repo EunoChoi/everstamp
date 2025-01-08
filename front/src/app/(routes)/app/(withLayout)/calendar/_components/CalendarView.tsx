@@ -92,7 +92,7 @@ const Content = styled.div`
     gap: 12px;
     padding: 12px 4dvw;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     justify-content: start;
     padding: 24px 0;
     gap: 24px;

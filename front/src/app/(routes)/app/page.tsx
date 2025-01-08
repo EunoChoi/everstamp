@@ -115,10 +115,10 @@ const Wrapper = styled.div`
   @media (max-width: 479px) { //mobile port
     >*{ margin: 28px  0; }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     >*{ margin: 12px  0; }
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     >*{ margin: 32px  0; }
   }
 `
@@ -129,11 +129,11 @@ const Img = styled(Image)`
     margin: 32px 0;
     width: 70dvw;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     width: auto;
     height: 156px;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     margin: 30px 0;
   }
 `;
@@ -149,10 +149,10 @@ const TextContent = styled.div`
   @media (max-width: 479px) { //mobile port
     span{ font-size: 20px; }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     span{ font-size: 14px; }
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     span{ font-size: 20px; }
   }
 `
@@ -196,7 +196,7 @@ const Logo = styled.div`
       font-size: 16px;
     }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     .main{
       flex-direction: row;
       span{
@@ -207,7 +207,7 @@ const Logo = styled.div`
       font-size: 18px;
     }
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     .main{
       span{
         font-size: 48px;
@@ -263,7 +263,7 @@ const LoggedInButtonStart = styled.button`
   }
 
 
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     height: 48px;
     /* margin: 6px; */
   }
@@ -286,7 +286,7 @@ const LoginButton = styled.button`
   border : 2px solid rgba(0,0,0,0.1);
   margin: 4px;
 
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     width : 56px;
     height: 56px;
     margin: 6px;

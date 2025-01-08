@@ -45,10 +45,10 @@ const Icon = styled.div`
   @media (max-width: 479px) { //mobile port
     font-size: 84px;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     font-size: 84px;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     font-size: 124px;
   }
 `
@@ -60,11 +60,11 @@ const Text = styled.span`
     font-size: 18px;
     margin: 24px 0;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     font-size: 18px;
     margin: 32px 0;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     font-size: 22px;
     margin: 48px 0;
   }
@@ -78,9 +78,9 @@ const Button = styled.button`
   @media (max-width: 479px) { //mobile port
     font-size: 18px;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     font-size: 22px;
   }
 `

@@ -63,13 +63,13 @@ const Wrapper = styled.div`
     height: var(--mobileHeader);
     padding: 0 4%;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     justify-content: end;
     align-items: center;
     width: 75dvw;
     padding: 0 20px;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     align-items: center;
     justify-content: space-between;
     width: calc(100dvw - var(--sidebarWidth));
@@ -94,10 +94,10 @@ const Title = styled.span`
     &:first-letter{
     }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     display: none;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     font-size: 36px;
   }
 `

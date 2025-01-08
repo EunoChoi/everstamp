@@ -259,7 +259,7 @@ const MonthInfo = styled.span`
     width: 90dvw;
   }
 
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     font-size: 22px;
     margin-top: 45px;
     margin-bottom: 45px;
@@ -280,7 +280,7 @@ const NoDiaries = styled.div`
   font-weight: 500;
   color: rgb(var(--greyTitle));
 
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     font-size: 22px;
   }
 `

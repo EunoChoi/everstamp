@@ -71,10 +71,10 @@ const Wrapper = styled.button`
       bottom : calc(var(--mobileNav) + 36px);
     }
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     bottom : 32px;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     bottom : 48px;
   }
 
