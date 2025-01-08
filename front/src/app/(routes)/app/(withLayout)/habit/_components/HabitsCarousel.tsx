@@ -30,7 +30,7 @@ const GridCarousel = ({ habits, onAddHabit }: Props) => {
   const wrapper = useRef<HTMLDivElement>(null);
   const slideWrapperRef = useRef<HTMLDivElement>(null);
 
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [row, setRow] = useState<number>(1);
   const [col, setCol] = useState<number>(1);
   const pageArray = habits && new Array(Math.ceil(habits.length / (col * row))).fill(0);
