@@ -1,29 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { notFound, useSearchParams } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import DiaryInputTextArea from "./TextArea";
 
 import { enqueueSnackbar } from "notistack";
 import DiaryInputEmotion from "./EmotionRadioSelector";
 
-import $Modal from "@/common/styles/common_modal";
 import $Common from "@/common/styles/common";
+import $Modal from "@/common/styles/common_modal";
 
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import useSubmitDiary from './utils/useSubmitDiary';
+import DiaryDate from "@/common/components/ui/DiaryDate";
+import { getDiaryById } from "@/common/fetchers/diary";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import DiaryInputImages from "./Images";
-import { getDiaryById } from "@/common/fetchers/diary";
-import { useQuery } from "@tanstack/react-query";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
-import DiaryDate from "@/common/components/ui/DiaryDate";
+import useSubmitDiary from './utils/useSubmitDiary';
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -47,7 +46,7 @@ interface ServerImageProps {
 const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
 
   const { addDiary, editDiary } = useSubmitDiary();
-  const onMutation = isEdit ? editDiary : addDiary;
+  const submitAction = isEdit ? editDiary : addDiary;
   const submitText = isEdit ? '수정' : '추가';
 
   const router = useCustomRouter();
@@ -78,8 +77,8 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
   //submit
   const onSubmit = () => {
     if (text.length !== 0) {
-      if (isEdit && diaryId) onMutation.mutate({ text, images, diaryId, emotion })
-      else onMutation.mutate({ date, text, images, emotion });
+      if (isEdit && diaryId) submitAction.mutate({ text, images, diaryId, emotion })
+      else submitAction.mutate({ date, text, images, emotion });
     }
     else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
   };
@@ -94,7 +93,7 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
         <$Modal.Top>
           <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
           <DiaryDate date={date} />
-          <button onClick={onSubmit} disabled={onMutation.isPending}>{submitText}</button>
+          <button onClick={onSubmit} disabled={submitAction.isPending}>{submitText}</button>
         </$Modal.Top>
         <$Common.Empty />
         <DiaryInputSection>
@@ -132,7 +131,7 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
           </DiaryInputTitle>
           {imagesOpen &&
             <DiaryInputImagesWrapper>
-              <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={onMutation.isPending} />
+              <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={submitAction.isPending} />
             </DiaryInputImagesWrapper>
           }
         </DiaryInputSection>

@@ -1,19 +1,20 @@
+
 'use client';
 
 import styled from "styled-components";
 
-import HabitValues from "./HabitValues";
-import $Modal from "@/common/styles/common_modal";
 import $Common from "@/common/styles/common";
+import $Modal from "@/common/styles/common_modal";
+import HabitValues from "./HabitValues";
 
+import { getHabitById } from "@/common/fetchers/habit";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useQuery } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import useSubmitHabit from "./utils/useSubmitHabit";
-import { enqueueSnackbar } from "notistack";
-import { getHabitById } from "@/common/fetchers/habit";
-import { notFound } from "next/navigation";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 
 interface habitInputProps {
   isEdit: boolean;
