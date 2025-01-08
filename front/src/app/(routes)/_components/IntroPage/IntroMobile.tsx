@@ -342,7 +342,7 @@ const Mobile_Section = styled.div`
     > *{
       margin: 24px 0;
     }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
       padding: 64px 0;
       > *{
         margin: 28px 0;
@@ -394,7 +394,7 @@ const ColWrapper = styled.div`
       font-size: 14px;
       font-weight: 500;
       margin-top: 8px;
-      @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+      @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
         font-size: 16px;
       }
     }
@@ -423,7 +423,7 @@ const Logo = styled.div`
     }
   }
 
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     >span{ 
       font-size: 46px;
    }
@@ -438,7 +438,7 @@ const Title = styled.span`
   font-weight: 500;
   text-transform: capitalize;
 
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     font-size: 22px;
   }
 `
@@ -460,7 +460,7 @@ const Text = styled.div`
     color: rgb(var(--greyTitle));
     line-height: 1.4;
 
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
       font-size: 28px;
     }
   }
@@ -468,7 +468,7 @@ const Text = styled.div`
 const SubText = styled.span`
   color: grey;
   font-size: 14px;
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     font-size: 16px;
   }
 `

@@ -169,13 +169,13 @@ const Check = styled.div`
   }
   .date{
     margin: 4px 0;
-    @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+    @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
       margin: 3px 0;
     }
   }
   .week{
     color: grey !important;
-    @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+    @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
       font-size: 13px;
     }
   }
@@ -214,7 +214,7 @@ const Check = styled.div`
         height: 12px; 
         border-radius: 20px;
 
-        @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+        @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
           height: 8px;
           width: 8px;
         }
@@ -224,7 +224,7 @@ const Check = styled.div`
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
-      @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
+      @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
         height: 16px;
         width: 16px;
       }

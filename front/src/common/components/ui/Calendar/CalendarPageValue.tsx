@@ -79,7 +79,7 @@ const DateValue_Diary = styled.div`
   justify-content: center;
 
 
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1025px) { //desktop
     width: 30px;
   }
   img, .empty{
@@ -104,7 +104,7 @@ const DateValue_Diary = styled.div`
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     
-    @media (min-width:1024px) { //desktop
+    @media (min-width:1025px) { //desktop
       top: -8px;
       right: -8px;
       font-size: 12px;

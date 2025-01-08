@@ -34,7 +34,7 @@ const IndicatorWrapper = styled.div`
   height: auto;
   @media (max-width: 479px) { //mobile port
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
   }
 `
 const Dot = styled.div`

@@ -37,11 +37,11 @@ const $Common = {
       min-width: 90%;
       padding: 0;
     }
-    @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
       max-width: 75dvw;
       padding: 0 20px;  
     }
-    @media (min-width:1024px) { //desktop
+    @media (min-width:1025px) { //desktop
       max-width: 600px;
       padding: 0 20px;  
       &.habit{
@@ -96,7 +96,7 @@ const $Common = {
 
 
 
-      @media (min-width:1024px) { //desktop
+      @media (min-width:1025px) { //desktop
         padding: 4px 12px;
         height: 32px;
       }
