@@ -86,13 +86,12 @@ router.get("/list", tokenCheck, async (req, res) => {
         ],
       });
     }
-
-
     if (habits) {
-      while (habits.length > 0) {
-        result.push(habits.splice(0, 6));
-      }
-      return res.status(200).json(result);
+      // while (habits.length > 0) {
+      //   result.push(habits.splice(0, 6));
+      // }
+      // return res.status(200).json(result);
+      return res.status(200).json(habits);
     }
     else return res.status(400).json('습관 목록을 불러오지 못하였습니다.');
   } catch (e) {
