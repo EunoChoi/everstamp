@@ -3,7 +3,6 @@
 import styled from "styled-components";
 
 
-import IsMobile from "@/common/functions/IsMobile";
 
 import DiaryAddButton from "./DiaryAddButton";
 import DiaryHabits from "./DiaryHabits";
@@ -39,8 +38,7 @@ interface Props {
 
 const SmallDiary = ({ diaryData }: Props) => {
   const date = new Date(diaryData.date).getTime();
-  const isMobile = IsMobile();
-  let defaultHeight = isMobile ? '110px' : '200px';
+  let defaultHeight = '110px';
 
   return (
     <Wrapper>
@@ -56,16 +54,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  justify-content: space-between;
   align-items: start;
   flex-shrink: 0;
 
   width: 100%;
   max-width: 600px;
-  height: auto;
+  height: 215px;
   overflow: hidden;
-
-  /* padding-top: 12px; */
-  /* padding-bottom: 4px; */
 
   border: 2px solid rgba(0,0,0,0.07);
   border-radius: 16px;
