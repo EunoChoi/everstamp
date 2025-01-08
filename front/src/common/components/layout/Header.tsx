@@ -73,8 +73,10 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     width: calc(100dvw - var(--sidebarWidth));
-    height: var(--desktopHeader);
+    /* width: 100%;
+    max-width: 500px; */
     padding: 0 48px;
+    height: var(--desktopHeader);
   }
 `
 const Title = styled.span`
@@ -98,6 +100,7 @@ const Title = styled.span`
     display: none;
   }
   @media (min-width:1025px) { //desktop
-    font-size: 36px;
+    /* font-size: 36px; */
+    opacity: 0;
   }
 `

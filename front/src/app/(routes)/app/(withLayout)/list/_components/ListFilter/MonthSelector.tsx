@@ -78,6 +78,8 @@ const YearArea = styled.div`
   justify-content: center;
   align-items: center;
 
+  padding: 12px;
+
   span{
     font-size: 20px;
     font-weight: 600;
@@ -93,20 +95,13 @@ const YearArea = styled.div`
   .left, .right{
     width: 16%;
   }
-  .right{
-    display: flex;
-    justify-content: end;
-    justify-content: center;
-    align-items: center;
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
   .arrow{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 `
 const MonthsArea = styled.div`
   width: 100%;
-  height: 170px;
+  height: 150px;
 
   display: flex;
   flex-direction: column;
