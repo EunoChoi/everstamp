@@ -19,12 +19,15 @@ import useHabitAction from "./utils/useHabitAction";
 
 
 interface Props {
+  isEmpty?: boolean;
   name: string;
   id: number;
   priority: number;
 }
 
-const HabitBox = ({ name, id, priority }: Props) => {
+const HabitBox = ({ name, id, priority, isEmpty }: Props) => {
+
+  if (isEmpty) return <Wrapper>d</Wrapper>
 
   const router = useCustomRouter();
   const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
@@ -120,32 +123,17 @@ const Wrapper = styled.div`
   background-color: #f9f9f9;
   border: 2px solid rgba(0,0,0,0.075);
 
-  @media (max-width: 479px) { //mobile port
-    width: calc(46dvw - 3px);
-    aspect-ratio: 1;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //tablet
-    width: 160px;
-    aspect-ratio: 1;
-  }
-  @media (min-width:480px) and (max-width:1023px) and (max-height:480px){ //mobile land only
-    width: auto;
-    height: 37dvh;
-    aspect-ratio: 1;
-  }
-  @media (min-width:1024px) { //desktop
-    width: 200px;
-    aspect-ratio: 1;
-  }
+  width: 100%;
+  aspect-ratio: 1;
+  margin: 4px;
 `
 const Name = styled.span`
   width: 100%;
   height: auto;
   
   font-weight: 600;
+  font-size: 16px;
   color: rgb(var(--greyTitle));
-
-  /* text-transform: capitalize; */
   text-align: center;
 
   display: flex;
@@ -156,22 +144,6 @@ const Name = styled.span`
     white-space: nowrap;
     overflow: scroll;
     max-width: 90%;
-  }
-
-  @media (max-width: 479px) { //mobile port
-    font-size: 16px;
-  }
-  @media (min-width:480px) and (max-width:1023px) { // tablet
-    font-size: 16px;
-  }
-  @media ((max-height: 479px) and (min-width:480px) and (max-width:1023px)) { //only mobild land
-    font-size: 14px;
-  }
-  @media (min-width:1024px) { //desktop
-    font-size: 18px;
-    span{
-      max-width: 180px;
-    }
   }
 `
 const Days = styled.div`
