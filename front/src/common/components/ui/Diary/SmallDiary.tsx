@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   flex-shrink: 0;
 
   width: 100%;
-  max-width: 600px;
+  /* max-width: 600px; */
   height: 215px;
   overflow: hidden;
 

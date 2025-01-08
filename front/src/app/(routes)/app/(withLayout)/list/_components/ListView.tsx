@@ -226,6 +226,7 @@ const DiaryWrapper = styled.div`
   margin: 14px 0;
 `
 const Listbody = styled(CommonBody)`
+  max-width: 500px;
   @media (max-width: 479px) { //mobile port
     padding : 14px 4dvw;
   }

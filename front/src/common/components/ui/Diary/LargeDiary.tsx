@@ -71,7 +71,7 @@ const LargeDiary = ({ diaryData }: Props) => {
 export default LargeDiary;
 
 const Content = styled.div`
-   width: 100%;
+  width: 100%;
   height: 100%;
 
   display: flex;
@@ -121,7 +121,7 @@ const Wrapper = styled.div`
   flex-shrink: 0;
 
   width: 100%;
-  max-width: 600px;
+  /* max-width: 600px; */
   height: auto;
   min-height: 350px;
   overflow: hidden;

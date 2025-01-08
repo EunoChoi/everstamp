@@ -99,5 +99,5 @@ const Content = styled.div`
   }
 `
 const CalendarBody = styled(CommonBody)`
-  max-width: 600px;
+  max-width: 500px;
 `
