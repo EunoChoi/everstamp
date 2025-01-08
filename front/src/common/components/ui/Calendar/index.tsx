@@ -1,14 +1,13 @@
 'use client';
 
-import styled from "styled-components";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { addMonths, subMonths } from 'date-fns';
+import { Dispatch, SetStateAction, useCallback } from "react";
+import styled from "styled-components";
 
 //function
-import makeCalendarDates from "./utils/makeCalendarDates";
-import React from "react";
-import CalendarHeader from "./CalendarHeader";
 import CalendarBody from "./CalendarBody";
+import CalendarHeader from "./CalendarHeader";
+import makeCalendarDates from "./utils/makeCalendarDates";
 
 interface Props {
   displayDate: Date;
@@ -55,8 +54,9 @@ export default Calendar;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
 
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 `

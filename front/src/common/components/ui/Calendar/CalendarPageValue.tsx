@@ -71,9 +71,11 @@ const DateValue_Date = styled.div`
 const DateValue_Diary = styled.div`
   position: relative;
   width: 75%;
-  max-width:36px;
+  max-width: 40px;
+  max-height: 80%;
   height: auto;
   display: flex;
+  aspect-ratio: 1;
   justify-content: center;
 
 
@@ -81,8 +83,8 @@ const DateValue_Diary = styled.div`
     width: 30px;
   }
   img, .empty{
-    background-color: white;
     border-radius: 16px;
+    object-fit: contain;
   }
   .count{
     position: absolute;

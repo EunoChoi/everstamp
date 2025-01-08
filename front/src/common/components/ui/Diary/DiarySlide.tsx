@@ -71,7 +71,6 @@ const MoreImagesText = styled.button`
   color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 `
 const Wrapper = styled.div<{ $height: string }>`
-   height: 110px;
    height: ${props => props.$height};
    width: 100%;
 
@@ -89,10 +88,7 @@ const SlideWrapper = styled.div`
   display: flex;
   justify-content: start;
   width: 100%;
-  height: calc(100% - 22px);
   height: 100%;
-  /* flex-shrink: 0;
-  flex-grow: 1; */
 
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
@@ -138,6 +134,5 @@ const Img = styled(Image)`
   width: 100%;
   height: 100%;
 
-  /* padding : 0 16px; */
   object-fit: cover;
 `

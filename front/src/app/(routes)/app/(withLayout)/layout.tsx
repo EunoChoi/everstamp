@@ -115,6 +115,7 @@ const AppLayout = ({ children, modal }: Props) => {
         preventDuplicate={true}
       >
         <ScrollProvider>
+          {/* {data.theme.point} */}
           <NProgressStyles barColor={data.theme?.point ? data.theme?.point : '#979FC7'} />
           {isMobile ?
             <MobileLayout>
