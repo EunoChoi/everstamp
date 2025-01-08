@@ -14,72 +14,67 @@ interface Props {
   onAddHabit: () => void;
 }
 
-const GridCarousel = ({ habits, onAddHabit }: Props) => {
+//custom order의 경우 data prefetch 안하기 때문에 기본값 []로 설정해야 에러 방지 가능
+const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
+
+  // console.log('habits :', habits);
 
   const INDICATOR_HEIGHT = 30;
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [boxWidth, setBoxWidth] = useState(() => {
-    if (windowWidth < 480) return windowWidth * 0.45;
-    else if (windowHeight < 480) return 145;
-    else return 210;
-  });
-
-
   const wrapper = useRef<HTMLDivElement>(null);
   const slideWrapperRef = useRef<HTMLDivElement>(null);
-
   const [page, setPage] = useState<number>(0);
-  const [row, setRow] = useState<number>(1);
-  const [col, setCol] = useState<number>(1);
-  const pageArray = habits && new Array(Math.ceil(habits.length / (col * row))).fill(0);
-  const emptyBoxArray = pageArray && new Array(pageArray?.length * row * col - habits.length).fill(0);
+
+  const [boxWidth, setBoxWidth] = useState<number>();
+  const [row, setRow] = useState<number>();
+  const [col, setCol] = useState<number>();
+
+  const pageArray = (row !== undefined && col !== undefined && habits.length > 0) ?
+    Array.from({ length: Math.ceil(habits.length / (col * row)) })
+    : [1];
+  const emptyBoxArray = (row !== undefined && col !== undefined) ?
+    Array.from({ length: pageArray.length * row * col - habits.length })
+    : [];
 
   useEffect(() => {
-    const resize = () => {
-      setBoxWidth(
-        () => {
-          if (window.innerWidth < 480) return window.innerWidth * 0.45;
-          else if (window.innerHeight < 480) return 145;
-          else return 210;
-        }
-      );
+    const updateLengthState = () => {
+      let tempBoxWidth;
+      if (window.innerWidth < 480) tempBoxWidth = window.innerWidth * 0.45;
+      else if (window.innerHeight < 480) tempBoxWidth = 145;
+      else tempBoxWidth = 210;
+      setBoxWidth(tempBoxWidth);
 
       if (wrapper.current?.offsetWidth) {
-        const rowNumber = Math.floor((wrapper.current?.offsetHeight - INDICATOR_HEIGHT) / boxWidth);
-        const colNumber = Math.floor(wrapper.current?.offsetWidth / boxWidth);
-
+        const rowNumber = Math.floor((wrapper.current.offsetHeight - INDICATOR_HEIGHT) / tempBoxWidth);
+        const colNumber = Math.floor(wrapper.current.offsetWidth / tempBoxWidth);
         setRow(Math.max(1, Math.min(3, rowNumber)));
         setCol(Math.max(1, Math.min(3, colNumber)));
       }
     }
-    resize();
-    window.addEventListener('resize', resize);
+    updateLengthState();
+    window.addEventListener('resize', updateLengthState);
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', updateLengthState);
     };
-  }, [boxWidth])
-
+  }, [])
 
   return <Wrapper ref={wrapper}>
-    {(row && col) ? <>
+    {(row && col) &&
       <CarouselWrapper
         ref={slideWrapperRef}
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
-        {pageArray && pageArray.map((_, pageIndex) =>
+        {pageArray && pageArray.map((_, pageIndex: number) =>
           <CarouselPage key={'page' + pageIndex}>
             <HabitsWrapper $row={row} $col={col} >
-              {habits
-                .slice(pageIndex * (col * row), (pageIndex + 1) * (col * row))
+              {habits.slice(pageIndex * (col * row), (pageIndex + 1) * (col * row))
                 .map((e: Habit) =>
                   <HabitWrapper key={'box' + e.id} $boxWidth={boxWidth ?? 0}>
                     <HabitBox id={e.id} name={e.name} priority={e.priority} />
                   </HabitWrapper>
                 )}
-              {pageArray.length - 1 === pageIndex &&
+              {(pageArray.length - 1 === pageIndex && emptyBoxArray) &&
                 emptyBoxArray.map((_, i) =>
                   <HabitWrapper key={'empty' + i} $boxWidth={boxWidth ?? 0}>
                     <EmptyBox onClick={onAddHabit}>
@@ -87,12 +82,9 @@ const GridCarousel = ({ habits, onAddHabit }: Props) => {
                     </EmptyBox>
                   </HabitWrapper>)}
             </HabitsWrapper>
-          </CarouselPage>
-        )}
-      </CarouselWrapper>
-      {pageArray && pageArray?.length > 1 && <IndicatorWrapper $height={INDICATOR_HEIGHT}><Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={pageArray.length} /></IndicatorWrapper>}
-    </> : <></>
-    }
+          </CarouselPage>)}
+      </CarouselWrapper>}
+    {pageArray && pageArray.length > 1 && <IndicatorWrapper $height={INDICATOR_HEIGHT}><Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={pageArray.length} /></IndicatorWrapper>}
   </Wrapper >;
 }
 
@@ -122,6 +114,12 @@ const IndicatorWrapper = styled.div<{ $height: number }>`
   height: ${props => props.$height}+'px' !important;
 `
 const Wrapper = styled.div`
+  /* @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  animation: fadeIn 500ms ease-in-out; */
+
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -62,6 +62,10 @@ const HabitView = () => {
     queryFn: () => getHabits({ sort: sortToggle, customOrder }),
   });
 
+  // useEffect(() => {
+  //   console.log('habits fetch')
+  // }, [habits])
+
 
   const onAddHabit = () => {
     if (habits && habits.length >= 18) enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
@@ -91,6 +95,7 @@ const HabitView = () => {
     router.prefetch('/app/list');
     router.prefetch('/app/setting');
   }, [])
+
 
   return (
     <$Common.Wrapper className="habit">
