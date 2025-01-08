@@ -1,15 +1,10 @@
 'use client';
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import styled from "styled-components";
-import Image, { ImageProps } from "next/image";
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import $Modal from "@/common/styles/common_modal";
-import DiaryDate from "../DiaryDate";
-import Indicator from "../Indicator";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import React from "react";
+import Indicator from "../Indicator";
 
 interface Props {
   children: ReactNode;

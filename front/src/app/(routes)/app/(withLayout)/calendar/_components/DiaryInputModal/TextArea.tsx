@@ -1,6 +1,5 @@
+import { ChangeEvent, RefObject, useCallback, useRef } from "react";
 import styled from "styled-components";
-import { RefObject, useCallback, useRef } from "react";
-import { ChangeEvent } from "react";
 
 
 interface Props {
