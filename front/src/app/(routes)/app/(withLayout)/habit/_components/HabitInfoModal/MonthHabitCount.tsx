@@ -1,13 +1,28 @@
+import { getSingleHabitMonthInfo } from "@/common/fetchers/habit";
+import { useQuery } from "@tanstack/react-query";
 import { format, lastDayOfMonth } from "date-fns";
+import { notFound } from "next/navigation";
+import { useEffect } from "react";
 import styled from "styled-components";
 
 interface Props {
   displayDate: Date;
+  habitId: string;
   habitName: string;
-  habitCount: number;
 }
 
-const HabitInfoCount = ({ displayDate, habitName, habitCount }: Props) => {
+const MonthHabitCount = ({ displayDate, habitId, habitName }: Props) => {
+
+  //only habit data by month, not include habit name or priority
+  const { data, isError } = useQuery({
+    queryKey: ['habit', 'id', habitId, 'month', format(displayDate, 'MM')],
+    queryFn: () => getSingleHabitMonthInfo({ id: habitId, date: displayDate })
+  });
+
+  useEffect(() => {
+    if (isError) notFound();
+  }, [isError])
+
   return (
     <Info>
       <span className="name">{habitName}</span>
@@ -15,12 +30,12 @@ const HabitInfoCount = ({ displayDate, habitName, habitCount }: Props) => {
         <span>{format(displayDate, 'yyyy년 M월')}</span>
         <span>습관 실천 횟수</span>
       </div>
-      <div className="infoCount">{habitCount} / {format(lastDayOfMonth(displayDate), 'dd')}</div>
+      <div className="infoCount">{data?.length} / {format(lastDayOfMonth(displayDate), 'dd')}</div>
     </Info>
   );
 }
 
-export default HabitInfoCount;
+export default MonthHabitCount;
 
 const Info = styled.div`
   display: flex;
@@ -57,8 +72,6 @@ const Info = styled.div`
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     width: 50%;
     height: 100%;
-    border-right: 2px solid whitesmoke;
-    margin-right: 12px;
     flex-direction: column;
     justify-content: space-evenly;
 
