@@ -57,11 +57,17 @@ const DateValue = styled.div`
   font-size: 14px;
   color: #525252;
 
-  width: 28px;
-  height: 28px;
-  border-radius: 28px;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
   &.done{
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     color: white;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 18px;
   }
 `
