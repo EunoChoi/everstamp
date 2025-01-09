@@ -59,8 +59,4 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    min-height: 350px;
-  }
 `
