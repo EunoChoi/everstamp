@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Axios from "@/Axios/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 
 interface Err {
@@ -20,7 +20,7 @@ const useHabitAction = () => {
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll()
-        .filter(cache => Array.isArray(cache.queryKey) && cache.queryKey[2] === 'recent')
+        .filter(cache => Array.isArray(cache.queryKey) && cache.queryKey[0] === 'habit')
         .forEach(cache => {
           queryClient.invalidateQueries({ queryKey: cache.queryKey });
         });
@@ -36,7 +36,7 @@ const useHabitAction = () => {
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll()
-        .filter(cache => Array.isArray(cache.queryKey) && cache.queryKey[2] === 'recent')
+        .filter(cache => Array.isArray(cache.queryKey) && cache.queryKey[0] === 'habit')
         .forEach(cache => {
           queryClient.invalidateQueries({ queryKey: cache.queryKey });
         });
