@@ -1,29 +1,20 @@
 'use client';
 
 import Axios from "@/Axios/axios";
+import CommonBody from "@/common/components/layout/CommonBody";
+import Header from "@/common/components/layout/Header";
+import { getCurrentUser } from "@/common/fetchers/user";
+import useCustomRouter from "@/common/hooks/useCustomRouter";
+import $Common from "@/common/styles/common";
+import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { signOut } from "next-auth/react";
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
-import styled from "styled-components";
-
-import emotion4 from '/public/img/emotion/emotion4.png';
-
-//style
-import $Common from "@/common/styles/common";
-
-//function
-import { getCurrentUser } from "@/common/fetchers/user";
-
-//component
-import CommonBody from "@/common/components/layout/CommonBody";
-import Header from "@/common/components/layout/Header";
-import { useEffect } from "react";
-
-
-import useCustomRouter from "@/common/hooks/useCustomRouter";
-import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
 import Image from "next/image";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { useEffect } from "react";
+import styled from "styled-components";
+import emotion4 from '/public/img/emotion/emotion4.png';
 
 const SettingPage = () => {
   const router = useCustomRouter();
@@ -96,62 +87,67 @@ const SettingPage = () => {
   return (
     <$Common.Wrapper>
       <Header title='setting' />
-      <CommonBody>
-        <EmtpyBox />
-        <Section>
+      <SettingPageBody>
+        <Emtpy />
+        <MainSection>
           <Title>account</Title>
-          <Value>
-            <span className="key">이메일</span>
-            <span className="value email">{data?.email}</span>
-          </Value>
-          <Value>
-            <span className="key">계정 타입</span>
-            <span className="value">{data?.provider}</span>
-          </Value>
-          <Value>
-            <span className="key">가입일</span>
-            <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
-          </Value>
-        </Section>
-        <Section>
+          <SubSection>
+            <Value>
+              <span className="key">이메일</span>
+              <span className="value email">{data?.email}</span>
+            </Value>
+            <Value>
+              <span className="key">계정 타입</span>
+              <span className="value">{data?.provider}</span>
+            </Value>
+            <Value>
+              <span className="key">가입일</span>
+              <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
+            </Value>
+          </SubSection>
+        </MainSection>
+        <MainSection>
           <Title>customize</Title>
-          <SubTitle>theme color</SubTitle>
-          <FlexRow>
-            <Color className="selected" />
-            <FlexRow className="end">
-              {colorValue.map((e, i) =>
-                <Color
-                  key={colorName[i] + 'Color'}
-                  className={colorName[i]}
-                  onClick={() => themeColorUpdate(e)}
-                />)}
+          <SubSection>
+            <SubTitle>theme color</SubTitle>
+            <FlexRow>
+              <Color className="selected" />
+              <FlexRow className="end">
+                {colorValue.map((e, i) =>
+                  <Color
+                    key={colorName[i] + 'Color'}
+                    className={colorName[i]}
+                    onClick={() => themeColorUpdate(e)}
+                  />)}
+              </FlexRow>
             </FlexRow>
-          </FlexRow>
-          <EmptyBar />
-          <SubTitle>others</SubTitle>
-          <FlexRow className="between">
-            <span>목표 습관 리스트 정렬</span>
-            <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
-              <LowPriorityRoundedIcon className="icon" fontSize="small" />
-            </button>
-          </FlexRow>
-          <FlexRow className="between">
-            <span>감정 아이콘 이미지</span>
-            <button onClick={() => {
-              // router.push('/app/inter/habitOrder', { scroll: false })
-            }}>
-              <Image src={emotion4} alt="emotion icon" width={28} height={28} />
-            </button>
-          </FlexRow>
-        </Section>
-        <Section>
+          </SubSection>
+          <SubSection>
+            <SubTitle>other options</SubTitle>
+            <FlexRow className="between">
+              <span>목표 습관 리스트 정렬</span>
+              <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
+                <LowPriorityRoundedIcon className="icon" fontSize="small" />
+              </button>
+            </FlexRow>
+            <FlexRow className="between">
+              <span>감정 아이콘 이미지</span>
+              <button onClick={() => {
+                // router.push('/app/inter/habitOrder', { scroll: false })
+              }}>
+                <Image src={emotion4} alt="emotion icon" width={28} height={28} />
+              </button>
+            </FlexRow>
+          </SubSection>
+        </MainSection>
+        <MainSection>
           <Buttons className="center">
             <Button onClick={onLogout}>로그아웃</Button>
             <Button onClick={onDeleteAccount}>계정 삭제</Button>
           </Buttons>
-        </Section>
-        <EmtpyBox />
-      </CommonBody>
+        </MainSection>
+        <Emtpy />
+      </SettingPageBody>
     </$Common.Wrapper>
   );
 }
@@ -159,17 +155,17 @@ const SettingPage = () => {
 export default SettingPage;
 
 
-const EmtpyBox = styled.div` //for align center
+const SettingPageBody = styled(CommonBody)`
+  max-width: 500px;
+`
+const Emtpy = styled.div` //for align center
   flex: 1;
 `
-const EmptyBar = styled.div`
-  width: 100%;
-  height: 20px;
-`
-const Section = styled.div`
+const MainSection = styled.div`
   width: 100%;
   height: auto;
   padding: 28px 0;
+  gap: 16px;
 
   display: flex;
   flex-direction: column;
@@ -180,11 +176,10 @@ const Section = styled.div`
     padding-left : 5dvw;
     padding-right: 5dvw;
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    max-width: 600px;
-  }
-  @media (min-width:1025px) { //desktop
-  }
+`
+const SubSection = styled.section`
+  width: 100%;
+  height: 100%;
 `
 const Title = styled.span`
   font-size: 28px;
@@ -192,7 +187,6 @@ const Title = styled.span`
   color: rgb(var(--greyTitle));
 
   text-transform: capitalize;
-  padding-bottom: 16px;
 `
 const SubTitle = styled.span`
   font-size: 18px;

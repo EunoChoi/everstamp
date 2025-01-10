@@ -59,7 +59,7 @@ const ListFilter = ({
           <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
         </MonthWrapper>
         <ButtonWrapper>
-          <Button className="type1" onClick={onInitialize}>초기화</Button>
+          <Button className="init" onClick={onInitialize}>초기화</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
@@ -85,7 +85,7 @@ const Button = styled.button`
   background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   color: rgb(var(--greyTitle));
 
-  &.type1{
+  &.init{
     background-color: white;
     border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }

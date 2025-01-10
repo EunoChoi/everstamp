@@ -55,10 +55,7 @@ const $Common = {
     justify-content: center;
 
     margin: 8px 0;
-    border-radius : 48px;
-    background-color: white;
     gap: 6px;
-
     .icon{
       font-size: 19px;
     }
@@ -76,13 +73,13 @@ const $Common = {
       font-weight: 500;
       
      
-      &.type1{
+      &.small{
         width: 47px;
       }
-      &.type2{
+      &.normal{
         width: 60px;
       }
-      &.type3{
+      &.large{
         width: 80px;
       }
       
@@ -94,15 +91,13 @@ const $Common = {
       border: 2px solid rgba(0,0,0,0.07);
       border-radius : 48px;
 
-
-
       @media (min-width:1025px) { //desktop
         padding: 4px 12px;
         height: 32px;
       }
-      *:nth-child(2){
+      /* *:nth-child(2){
         margin-left: 3px;
-      }
+      } */
     }
   `,
   Empty: styled.div`
