@@ -101,10 +101,10 @@ const HabitView = () => {
     <$Common.Wrapper className="habit">
       <Header title='habit' classname="habit" >
         <$Common.Options>
-          <button onClick={onAddHabit} className="type1">
+          <button onClick={onAddHabit} className="small">
             <AddIcon fontSize="small" />
           </button>
-          <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'type3' : 'type2'}>
+          <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
             <span>{SORT_TEXT[sortToggle]}</span>
           </button>
         </$Common.Options>

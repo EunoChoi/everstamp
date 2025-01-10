@@ -145,16 +145,19 @@ const ListView = () => {
 
   return (
     <$Common.Wrapper>
-      <Header title='list'>
-        <$Common.Options>
-          <button onClick={() => { setFilterOpen(c => !c); }}>
-            <FilterAltOutlinedIcon className="icon" fontSize="inherit" />
-          </button>
-          <button onClick={sortToggleChange} className='type2'>
-            <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
-          </button>
-        </$Common.Options>
-      </Header>
+      <HeaderWrapper>
+        <Header title='list'>
+          <$Common.Options>
+            <button onClick={() => { setFilterOpen(c => !c); }} className='small'>
+              <FilterAltOutlinedIcon className="icon" fontSize="inherit" />
+            </button>
+            <button onClick={sortToggleChange} className='normal'>
+              <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
+            </button>
+          </$Common.Options>
+        </Header>
+      </HeaderWrapper>
+
 
       {((selectedMonth !== 0) || (emotionToggle !== 5)) &&
         <FilterResult>
@@ -197,6 +200,16 @@ const ListView = () => {
 
 export default ListView;
 
+const HeaderWrapper = styled.div`
+  width: auto;
+  @media (max-width: 479px) { //mobile port
+    width: 100%;
+  }
+  @media (min-width:1024px) { //desktop
+    position: fixed;
+    top: 0;
+  }
+`
 const FilterResult = styled.div`
   width: 100%;
   display: flex;
@@ -229,6 +242,9 @@ const Listbody = styled(CommonBody)`
   max-width: 500px;
   @media (max-width: 479px) { //mobile port
     padding : 14px 4dvw;
+  }
+  @media (min-width:1024px) { //desktop
+    padding-top: 72px;
   }
 `
 const MonthInfo = styled.span`

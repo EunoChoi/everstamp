@@ -59,6 +59,8 @@ const Desktop_Sidebar = styled.div`
   border-right: 2px solid rgb(var(--lightGrey2));
   background-color: rgb(var(--lightGrey1));
   background-color: #fff;
+  background-color: ${(props) => props.theme.point ? props.theme.point + 15 : '#979FC7'};;
+
 
   display: flex;
   flex-direction: column;
