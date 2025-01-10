@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
 
+import CustomSnackbarProvider from "@/common/components/util/CustomSnackbarProvider";
 import PrefetchUserDataProvider from "@/common/components/util/PrefetchUserDataProvider";
 import RQProvider from "@/common/components/util/RQProvider";
 import { headers } from 'next/headers';
@@ -96,13 +97,14 @@ export default function RootLayout({
         <meta property="og:description" content="감정 일기를 적고 습관을 실천하세요. 당신의 긍정적 변화와 성장을 응원합니다. :)" />
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
       </head>
-
       <SessionProvider>
         <StyledComponentsRegistry>
           <body className={pretendard.className}>
             <RQProvider>
               <PrefetchUserDataProvider>
-                {children}
+                <CustomSnackbarProvider>
+                  {children}
+                </CustomSnackbarProvider>
               </PrefetchUserDataProvider>
             </RQProvider>
           </body>
