@@ -221,6 +221,11 @@ const FilterResult = styled.div`
   color:${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   filter: saturate(150%) contrast(95%);
 
+  @media (min-width:1024px) { //desktop
+    background-color: white;
+    filter: none;
+  }
+
   span{
     display: flex;
     align-items: center;

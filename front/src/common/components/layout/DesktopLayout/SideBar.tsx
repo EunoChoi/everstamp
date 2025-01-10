@@ -20,7 +20,7 @@ const SideBar = () => {
     router.push(`/app/calendar?date=${getCleanTodayTime()}`);
   }
 
-  return (<Desktop_Sidebar>
+  return (<Wrapper>
     <SideBarLogo>
       <span>ever</span>
       <span>stamp</span>
@@ -45,32 +45,28 @@ const SideBar = () => {
       <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" /> <span>habit</span></Menu>
       <Menu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" /> <span>setting</span></Menu>
     </Menus>
-  </Desktop_Sidebar>);
+  </Wrapper>);
 }
 
 export default SideBar;
 
-const Desktop_Sidebar = styled.div`
+const Wrapper = styled.div`
+  transition: all ease-in-out 0.3s;
+
   width: var(--sidebarWidth);
   height: 100dvh;
-  padding: 32px 24px;
+  padding: 32px 16px;
   padding-bottom: 12px;
 
   border-right: 2px solid rgb(var(--lightGrey2));
-  background-color: rgb(var(--lightGrey1));
-  background-color: #fff;
-  background-color: ${(props) => props.theme.point ? props.theme.point + 15 : '#979FC7'};;
-
+  background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#979FC7'};;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* justify-content: space-between; */
+
   gap: 64px;
-
   overflow-y : scroll;
-
-  transition: all ease-in-out 0.3s;
 `
 const SideBarLogo = styled.div`
   display: flex;
@@ -111,7 +107,7 @@ const Menu = styled.span`
   font-weight: 500;
   text-transform: capitalize;
 
-  margin: 12px 0%;
+  margin: 8px 0%;
   color: #696969;
   > *:first-child{
     margin-right: 8px;

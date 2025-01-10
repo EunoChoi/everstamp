@@ -129,9 +129,8 @@ const Mobile_Nav = styled.nav`
 
 
   border-top: 2px solid rgb(var(--lightGrey2));
-  background-color: rgba(255,255,255,0.7);
-  background-color: ${(props) => props.theme.point ? props.theme.point + 20 : '#979FC7'};;
-  backdrop-filter: blur(24px);
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
   color: rgba(0,0,0,0.3);
 
   > *{
