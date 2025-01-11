@@ -26,9 +26,10 @@ import CommonBody from "@/common/components/layout/CommonBody";
 import Header from "@/common/components/layout/Header";
 import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 
@@ -61,9 +62,11 @@ interface User {
   email: string;
 }
 
-const ListView = () => {
+const ListView = (props: any) => {
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
   const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
 
@@ -77,7 +80,7 @@ const ListView = () => {
     queryFn: getCurrentUser,
   })
 
-  let temmDate = '';
+  let tempDate = '';
   const limit = 10; //get diary limit
 
   const userEmail: string = user.email ? user.email : '';
@@ -85,8 +88,22 @@ const ListView = () => {
 
   const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
-  const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
+  const [emotionToggle, setEmotionToggle] = useState<number>(5);
 
+
+  const queryParamsYear = searchParams.get('year');
+  const queryParamsMonth = searchParams.get('month');
+  const queryParamsEmotion = searchParams.get('emotion');
+
+  useEffect(() => {
+    // console.log(year, month, emotion);
+    if (queryParamsYear) setSelectedYear(Number(queryParamsYear));
+    if (queryParamsMonth) setSelectedMonth(Number(queryParamsMonth));
+    if (queryParamsEmotion) setEmotionToggle(Number(queryParamsEmotion));
+  }, [queryParamsYear, queryParamsMonth, queryParamsEmotion])
+
+
+  const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
   const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>(() => {
     const localData = localStorage.getItem(userEmail)
     if (localData) {
@@ -95,7 +112,6 @@ const ListView = () => {
     }
     else return 'DESC';
   });
-  const [emotionToggle, setEmotionToggle] = useState<number>(5);
 
 
   const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
@@ -142,14 +158,13 @@ const ListView = () => {
     router.prefetch('/app/setting');
   }, [])
 
-
   return (
     <$Common.Wrapper>
       <HeaderWrapper>
         <Header title='list'>
           <$Common.Options>
             <button onClick={() => { setFilterOpen(c => !c); }} className='small'>
-              <FilterAltOutlinedIcon className="icon" fontSize="inherit" />
+              {((selectedMonth !== 0) || (emotionToggle !== 5)) ? <FilterListIcon className="icon" fontSize="inherit" /> : <FilterListOffIcon className="icon" fontSize="inherit" />}
             </button>
             <button onClick={sortToggleChange} className='normal'>
               <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
@@ -161,7 +176,8 @@ const ListView = () => {
 
       {((selectedMonth !== 0) || (emotionToggle !== 5)) &&
         <FilterResult>
-          <span>Filtering : </span>
+          <span>filtering</span>
+          <span>:</span>
           {selectedMonth !== 0 && <span><EventIcon fontSize="small" color="inherit" />{selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}</span>}
           {emotionToggle !== 5 && <span><Image src={emotions[emotionToggle]} alt='emotion image' width={24} height={24} />{EMOTION_NAME_ENG[emotionToggle]}</span>}
         </FilterResult>}
@@ -180,8 +196,8 @@ const ListView = () => {
         {diaries?.pages[0]?.length > 0 ?
           diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
             const diaryDate = format(data.date, 'yy.MM');
-            if (temmDate !== diaryDate) {
-              temmDate = diaryDate;
+            if (tempDate !== diaryDate) {
+              tempDate = diaryDate;
               return <React.Fragment key={'listNote' + i}>
                 <MonthInfo className={`Month${i}`}><span>{diaryDate}</span></MonthInfo>
                 <DiaryWrapper><Diary type="large" diaryData={data} /></DiaryWrapper>
@@ -225,6 +241,9 @@ const FilterResult = styled.div`
     background-color: white;
     filter: none;
   }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    width: 75dvw;
+  }
 
   span{
     display: flex;
@@ -233,6 +252,7 @@ const FilterResult = styled.div`
     font-size: 16px;
     font-weight: 500;
     text-transform: capitalize;
+    line-height: 0;
   }
 `
 const DiaryWrapper = styled.div`

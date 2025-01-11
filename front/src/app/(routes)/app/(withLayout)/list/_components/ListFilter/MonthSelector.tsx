@@ -75,15 +75,13 @@ const YearArea = styled.div`
   width: 100%;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-
-  padding: 12px;
+  padding: 10px;
 
   span{
     font-size: 20px;
     font-weight: 600;
-    margin: 0 36px;
     line-height: 0;
   }
   .center{
@@ -98,6 +96,9 @@ const YearArea = styled.div`
   .arrow{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 6px;
+  }
 `
 const MonthsArea = styled.div`
   width: 100%;
@@ -107,6 +108,10 @@ const MonthsArea = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+   height: 120px;
+  }
 `
 const Month = styled.button`
   width : 16%;

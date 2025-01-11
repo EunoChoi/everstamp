@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 
 import { getYear } from "date-fns";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import EmotionSelector from "./EmotionSelector";
 import MonthSelector from "./MonthSelector";
 
@@ -27,9 +28,23 @@ const ListFilter = ({
   setEmotionToggle
 }: Props) => {
 
+  const router = useRouter();
+  const searchParams = useSearchParams()
+  const pathname = usePathname();
+
   const [tempEmotion, setTempEmotion] = useState<number>(5);
   const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
   const [tempMonth, setTempMonth] = useState<number>(0);
+
+  const year = searchParams.get('year');
+  const month = searchParams.get('month');
+  const emotion = searchParams.get('emotion');
+  useEffect(() => {
+    // console.log(year, month, emotion);
+    if (year) setTempYear(Number(year));
+    if (month) setTempMonth(Number(month));
+    if (emotion) setTempEmotion(Number(emotion));
+  }, [year, month, emotion])
 
   const onInitialize = () => {
     setTempEmotion(5);
@@ -37,6 +52,8 @@ const ListFilter = ({
     setTempMonth(0);
   }
   const onSubmit = () => {
+    router.push(`${pathname}?emotion=${tempEmotion}&year=${tempYear}&month=${tempMonth}`);
+
     setEmotionToggle(tempEmotion);
     setSelectedYear(tempYear);
     setSelectedMonth(tempMonth);
@@ -69,42 +86,10 @@ const ListFilter = ({
 
 export default ListFilter;
 
-const ButtonWrapper = styled.div`
-  display : flex;
-  align-items: center;
-  gap: 12px;
-`
-const Button = styled.button`
-  font-size: 14px;
-  font-weight: 600;
-
-  padding: 4px 20px;
-  border-radius: 32px;
-  border: 2px solid rgba(0,0,0,0.08);
-
-  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-  color: rgb(var(--greyTitle));
-
-  &.init{
-    background-color: white;
-    border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    font-size: 12px;
-    padding: 2px 16px;
-  }
-`
-const EmotionWrapper = styled.div`
-  width: 100%;
-`
-const MonthWrapper = styled.div`
-  width: 100%;
-`
 const BG = styled.div`
   position: fixed; 
   left: 0px;
   
-
   width: 100dvw;
   height: 100dvh;
   backdrop-filter: blur(4px);
@@ -137,16 +122,12 @@ const Wrapper = styled.div`
   top: var(--mobileHeader);
   top: -3px;
 
-  flex-shrink: 0;
-  
-  
-
-  background-color: white;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
+  background-color: rgb(252, 252, 252);
 
   @media (max-width: 479px) { //mobile port
     box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
@@ -162,10 +143,7 @@ const Wrapper = styled.div`
     border-end-start-radius: 24px;
     border-end-end-radius: 24px;
 
-    transition: transform 0.3s ease-in-out;
-
-    background-color: white;
-    
+    transition: transform 0.3s ease-in-out;    
     &.open{
       transform: scaleY(1);
     }
@@ -177,8 +155,8 @@ const Wrapper = styled.div`
     left: 50dvw;
     transform: translate(-50%, -50%);
 
-    gap: 16px;
-    padding: 16px 24px;
+    gap: 24px;
+    padding: 24px;
     width: 350px;
     border-radius: 24px;
 
@@ -211,5 +189,36 @@ const Wrapper = styled.div`
       opacity: 1;
       visibility: visible;
     }
+  }
+`
+const EmotionWrapper = styled.div`
+  width: 100%;
+`
+const MonthWrapper = styled.div`
+  width: 100%;
+`
+const ButtonWrapper = styled.div`
+  display : flex;
+  align-items: center;
+  gap: 12px;
+`
+const Button = styled.button`
+  font-size: 14px;
+  font-weight: 600;
+
+  padding: 4px 20px;
+  border-radius: 32px;
+  border: 2px solid rgba(0,0,0,0.08);
+
+  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  color: rgb(var(--greyTitle));
+
+  &.init{
+    background-color: white;
+    border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  }
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+    font-size: 12px;
+    padding: 2px 16px;
   }
 `
