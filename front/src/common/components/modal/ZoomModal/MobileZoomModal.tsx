@@ -10,6 +10,12 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DiaryDate from "../../ui/DiaryDate";
 import Indicator from "../../ui/Indicator";
 
+import emotion0 from '/public/img/emotion/emotion0.png';
+import emotion1 from '/public/img/emotion/emotion1.png';
+import emotion2 from '/public/img/emotion/emotion2.png';
+import emotion3 from '/public/img/emotion/emotion3.png';
+import emotion4 from '/public/img/emotion/emotion4.png';
+
 
 interface ImageProps {
   id: number;
@@ -19,7 +25,8 @@ interface ImageProps {
 const MobileZoomModal = ({ diaryData }: any) => {
   const router = useCustomRouter();
 
-  const emotions = [
+  const emotionImages = [emotion0, emotion1, emotion2, emotion3, emotion4];
+  const emotionNames = [
     <span className="emotion0">#Angry</span>,
     <span className="emotion1">#Sad</span>,
     <span className="emotion2">#Common</span>,
@@ -59,15 +66,21 @@ const MobileZoomModal = ({ diaryData }: any) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}
       >
-        <TextWrapper className="slideChild">
-          <div className="info">
-            <div>{emotions[diaryData?.emotion]}</div>
-            <div className="info_habits" >{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name} </span>)}</div>
-          </div>
-          <div className="text">
-            {text}
-          </div>
-        </TextWrapper>
+        <TextContentWrapper className="slideChild">
+          <EmotionImageWrapper>
+            <Image
+              width={64}
+              height={64}
+              src={emotionImages[diaryData?.emotion]}
+              alt={`${emotionNames[diaryData?.emotion]}`} />
+          </EmotionImageWrapper>
+          {diaryData?.Habits.length > 0 &&
+            <HabitWrapper>
+              <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}</div>
+            </HabitWrapper>}
+          <Text>{text}</Text>
+
+        </TextContentWrapper>
         {images?.map((e: ImageProps) =>
           <ImageWrapper key={e.id} className="slideChild">
             <Img onClick={zoomToggle} className={zoomState} src={e.src} alt="zoomImage" width={400} height={400} placeholder="blur" blurDataURL={e.src} />
@@ -80,6 +93,18 @@ const MobileZoomModal = ({ diaryData }: any) => {
 
 export default MobileZoomModal;
 
+const EmotionImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    img{
+      width: 48px;
+      height: 48px;
+    }
+  }
+`
+
 const ZoomModalWrapper = styled($Modal.Wrapper)`
   padding-bottom: 16px;
 
@@ -89,7 +114,7 @@ const ZoomModalWrapper = styled($Modal.Wrapper)`
   }
 `
 
-const TextWrapper = styled.div`
+const TextContentWrapper = styled.div`
   width: 100%;
   height: 100%;
   flex-shrink: 0;
@@ -98,54 +123,40 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  .info{
+  padding: 28px;
+  gap: 32px;
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    padding: 12px 5dvw;
+    gap: 12px;
+  }
+`
+const HabitWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 500;
+  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+
+  >div{
     display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    font-size: 18px;
-    font-weight: 500;
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-
-    .info_habits{
-      display: flex;
-      flex-flow: wrap;
-      span{
-        flex-shrink: 0;
-        margin-right: 8px;
-        white-space: nowrap;
-      }
+    flex-flow: wrap;
+    span{
+      flex-shrink: 0;
+      margin-right: 8px;
+      white-space: nowrap;
     }
   }
+`
+const Text = styled.div`
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
 
-  .text{
-    overflow-y: scroll;
-    width: 100%;
-    height: 100%;
+  font-size: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-
-    color: rgb(var(--greyTitle));
-  }
-
-  @media (max-width: 479px) { //mobile port
-    padding: 24px;
-    .text{
-      font-size: 18px;
-    }
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    padding: 24px;
-    .text{
-      font-size: 18px;
-    }
-  }
-  @media (min-width:1025px) { //desktop
-    padding: 48px;
-    .text{
-      font-size: 20px;
-    }
-  }
+  color: rgb(var(--greyTitle));
 `
 const ImageWrapper = styled.div`
   width: 100%;
