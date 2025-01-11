@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -21,6 +20,7 @@ import CalendarPageValue from "@/common/components/ui/Calendar/CalendarPageValue
 import Diary from "@/common/components/ui/Diary";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
 
 interface Props {
@@ -30,7 +30,31 @@ interface Props {
 const CalendarView = ({ date }: Props) => {
   const isMobile = IsMobile();
   const router = useCustomRouter();
-  const path = usePathname();
+
+  const GoIntroText = () => (
+    <div>
+      <p>소개 페이지로 이동하시겠습니까?</p>
+      <p style={{ fontSize: '15px', marginTop: '8px', color: '#DC7889' }}>🚨 소개 페이지 내부 '웹에서 실행하기' 버튼을 눌러 앱 화면으로 돌아올 수 있습니다.</p>
+    </div>
+  );
+  const goIntro = () => {
+    const action = (snackbarId: SnackbarKey) => (
+      <>
+        <$Common.YesOrNo className="no" onClick={() => {
+          closeSnackbar('goIntro');
+        }}>
+          No
+        </$Common.YesOrNo>
+        <$Common.YesOrNo className="yes" onClick={() => {
+          closeSnackbar('goIntro');
+          router.push('/')
+        }}>
+          Yes
+        </$Common.YesOrNo>
+      </>
+    );
+    enqueueSnackbar(<GoIntroText />, { key: 'goIntro', persist: true, action, autoHideDuration: 6000 });
+  }
 
   const [displayDate, setDisplayDate] = useState(new Date());
   //get diary data by date
@@ -52,7 +76,11 @@ const CalendarView = ({ date }: Props) => {
 
   return (
     <$Common.Wrapper>
-      <Header title='calendar' />
+      <Header title='calendar' >
+        <$Common.Options>
+          <button onClick={goIntro}>intro</button>
+        </$Common.Options>
+      </Header>
       <CalendarBody>
         {isMobile === true &&
           <Content>

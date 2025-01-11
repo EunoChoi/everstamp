@@ -116,7 +116,6 @@ const Text = styled.div`
   -webkit-line-clamp: 3;
   @media (min-width:1025px) { //desktop
     -webkit-line-clamp: 5;
-    line-height: 1.8;
   }
 
   overflow: hidden;
@@ -126,6 +125,7 @@ const Text = styled.div`
 
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.8;
   color: rgb(var(--greyTitle));
 `
 const Img = styled(Image)`

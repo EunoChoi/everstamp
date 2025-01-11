@@ -22,8 +22,7 @@ const SideBar = () => {
 
   return (<Wrapper>
     <SideBarLogo>
-      <span>ever</span>
-      <span>stamp</span>
+      <span>everstamp</span>
     </SideBarLogo>
     <Menus>
       <Menu
@@ -55,12 +54,10 @@ const Wrapper = styled.div`
 
   width: var(--sidebarWidth);
   height: 100dvh;
-  padding: 32px 16px;
-  padding-bottom: 12px;
+  padding: 0 16px;
 
   border-right: 2px solid rgb(var(--lightGrey2));
   background-color: white;
-  /* background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#979FC7'};; */
 
   display: flex;
   flex-direction: column;
@@ -75,16 +72,12 @@ const SideBarLogo = styled.div`
   align-items: start;
 
   span{
-    font-size: 42px;
+    font-size: 36px;
     font-weight: 700;
     text-transform: uppercase;
     line-height: 100%;
 
     color: rgb(var(--greyTitle));
-  }
-  span:last-child{
-    border-bottom: 8px solid ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    line-height: 120%;
   }
   span::first-letter{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};

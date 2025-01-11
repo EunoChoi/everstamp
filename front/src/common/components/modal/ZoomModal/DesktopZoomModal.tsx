@@ -121,6 +121,7 @@ const Text = styled.div`
   font-size: 16px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  line-height: 1.8;
 
   color: rgb(var(--greyTitle));
 `
