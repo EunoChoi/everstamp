@@ -400,7 +400,7 @@ const ColWrapper = styled.div`
     }
   }
 `
-const Logo = styled.div`
+const Logo = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -422,14 +422,17 @@ const Logo = styled.div`
       color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
+  &.outro{
+    span::first-letter{
+      color: white;
+    }
+  }
 
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     >span{ 
       font-size: 46px;
    }
   }
-
-
 `
 const Title = styled.span`
   color: #989FC4;

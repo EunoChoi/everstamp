@@ -238,6 +238,7 @@ const FilterResult = styled.div`
   filter: saturate(150%) contrast(95%);
 
   @media (min-width:1024px) { //desktop
+    padding: 12px 0;
     background-color: rgb(252, 252, 252);
     filter: none;
   }

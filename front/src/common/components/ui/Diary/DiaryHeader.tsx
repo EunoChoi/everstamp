@@ -18,7 +18,7 @@ interface Props {
 }
 const DiaryHeader = ({ diaryData, type }: Props) => {
   const emotions = ['#Angry', '#Sad', '#Common', '#Happy', '#Joyful'];
-  const date = format(diaryData?.date, 'yy. M. d');
+  const date = format(diaryData?.date, 'yy.MM.dd');
   const day = format(diaryData?.date, 'eee');
   const isVisible = diaryData?.visible;
 
@@ -54,21 +54,6 @@ const DiaryHeader = ({ diaryData, type }: Props) => {
 
 export default DiaryHeader;
 
-
-
-const ActionButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: grey;
-  border-radius: 12px;
-  font-size: 14px;
-  color: white;
-
-  padding: 2px 12px;
-  margin: 4px;
-`
 const Wrapper = styled.div`
   width: 100%;
   padding : 8px 16px;

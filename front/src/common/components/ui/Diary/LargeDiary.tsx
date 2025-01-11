@@ -81,26 +81,25 @@ const Content = styled.div`
 const Text = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 8;
+  -webkit-line-clamp: 6;
   white-space: pre-wrap;
   overflow-wrap: break-word;
 
   flex-shrink: 0;
-  line-height: 1.8;
   overflow: hidden;
 
   padding: 0 16px;
-  margin-top: 12px;
-
+  margin: 16px 0;
+  
   font-size: 16px;
   font-weight: 500;
+  line-height: 1.8;
   color: rgb(var(--greyTitle));
 
   &.hasImages{
     -webkit-line-clamp: 4;
   }
   @media (max-width: 479px) { //mobile port
-    line-height: 1.6;
     -webkit-line-clamp: 3;
     &.hasImages{
       -webkit-line-clamp: 3;
@@ -121,9 +120,8 @@ const Wrapper = styled.div`
   flex-shrink: 0;
 
   width: 100%;
-  /* max-width: 600px; */
   height: auto;
-  min-height: 350px;
+  min-height: 250px;
   overflow: hidden;
 
   gap: 12px;

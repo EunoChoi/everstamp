@@ -44,6 +44,7 @@ const Habits = styled.div`
   width: 100%;
   height: auto;
   padding : 12px 14px;
+  padding-top: 0;
   
   display: flex;
   flex-shrink: 0;
@@ -72,7 +73,7 @@ const Habit = styled.span`
 
   span{
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(0,0,0,0.6);
     
     text-transform: capitalize;

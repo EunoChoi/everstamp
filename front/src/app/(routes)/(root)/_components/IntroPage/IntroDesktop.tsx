@@ -385,6 +385,11 @@ const Logo = styled.div`
       color : ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     }
   }
+  &.outro{
+    span::first-letter{
+      color: white;
+    }
+  }
 `
 const Title = styled.span`
   color: #989FC4;

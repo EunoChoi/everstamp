@@ -153,6 +153,7 @@ const Text = styled.div`
   height: 100%;
 
   font-size: 16px;
+  line-height: 1.8;
   white-space: pre-wrap;
   overflow-wrap: break-word;
 
