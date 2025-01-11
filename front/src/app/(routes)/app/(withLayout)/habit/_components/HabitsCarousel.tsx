@@ -97,7 +97,6 @@ const EmptyBox = styled.div`
   align-items : center;
   
   border-radius: 20px;
-  background-color: white;
   border: 2px solid rgba(0,0,0,0.075);
 
   width: 100%;

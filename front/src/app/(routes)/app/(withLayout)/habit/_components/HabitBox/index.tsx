@@ -27,8 +27,6 @@ interface Props {
 
 const HabitBox = ({ name, id, priority, isEmpty }: Props) => {
 
-  if (isEmpty) return <Wrapper>d</Wrapper>
-
   const router = useCustomRouter();
   const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
 
@@ -65,7 +63,7 @@ const HabitBox = ({ name, id, priority, isEmpty }: Props) => {
     }
   }
 
-  return (<Wrapper>
+  return (<Wrapper className={`priority-${priority}`}>
     <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {
@@ -120,12 +118,22 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   
   border-radius: 20px;
-  background-color: #f9f9f9;
-  border: 2px solid rgba(0,0,0,0.075);
+  background-color: rgb(255, 255, 255);
+  border: 2px solid ${(props) => props.theme.point ? props.theme.point + 40 : '#979FC7'};
 
   width: 100%;
   aspect-ratio: 1;
   margin: 4px;
+
+  &.priority-0{
+    border-color: rgba(0,0,0,0.08);
+  }
+  &.priority-1{
+    border-color: ${(props) => props.theme.point ? props.theme.point + 60 : '#979FC7'};
+  }
+  &.priority-2{
+    border-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
+  }
 `
 const Name = styled.span`
   width: 100%;
