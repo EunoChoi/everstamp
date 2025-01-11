@@ -59,7 +59,8 @@ const Wrapper = styled.div`
   padding-bottom: 12px;
 
   border-right: 2px solid rgb(var(--lightGrey2));
-  background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#979FC7'};;
+  background-color: white;
+  /* background-color: ${(props) => props.theme.point ? props.theme.point + '30' : '#979FC7'};; */
 
   display: flex;
   flex-direction: column;

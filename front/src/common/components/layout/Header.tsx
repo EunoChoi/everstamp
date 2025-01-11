@@ -53,9 +53,6 @@ export default Header;
 const Wrapper = styled.div`
   display: flex;
   flex-shrink: 0;
-
-  /* background-color: white; */
-
   @media (max-width: 479px) { //mobile port
     justify-content: space-between;
     align-items: center;
@@ -73,8 +70,6 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: space-between;
     width: calc(100dvw - var(--sidebarWidth));
-    /* width: 100%;
-    max-width: 500px; */
     padding: 0 48px;
     height: var(--desktopHeader);
   }
