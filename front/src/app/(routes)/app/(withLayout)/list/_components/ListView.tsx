@@ -238,7 +238,7 @@ const FilterResult = styled.div`
   filter: saturate(150%) contrast(95%);
 
   @media (min-width:1024px) { //desktop
-    background-color: white;
+    background-color: rgb(252, 252, 252);
     filter: none;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
