@@ -77,6 +77,9 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  gap: 16px;
+  margin: 16px 0;
 `
 const Text = styled.div`
   display: -webkit-box;
@@ -89,9 +92,8 @@ const Text = styled.div`
   overflow: hidden;
 
   padding: 0 16px;
-  margin: 16px 0;
   
-  font-size: 16px;
+  font-size: var(--font-size-base);
   font-weight: 500;
   line-height: 1.8;
   color: rgb(var(--greyTitle));
@@ -124,17 +126,15 @@ const Wrapper = styled.div`
   min-height: 250px;
   overflow: hidden;
 
-  gap: 12px;
-  padding: 8px 0;
   box-sizing: border-box;
 
   border: 2px solid rgba(0,0,0,0.07);
   border-radius: 16px;
   background-color: white;
 
+  padding: 4px 0;
   @media (max-width: 479px) { //mobile port
     min-height: 200px;
-    padding: 4px 0;
-    gap: 4px;
+    padding: 2px 0;
   }
 `

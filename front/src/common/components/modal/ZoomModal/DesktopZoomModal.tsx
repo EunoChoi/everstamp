@@ -67,7 +67,7 @@ const DesktopZoomModal = ({ diaryData }: any) => {
           </EmotionImageWrapper>
           {diaryData?.Habits.length > 0 &&
             <HabitWrapper>
-              <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}</div>
+              {diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}
             </HabitWrapper>}
           <Text>{text}</Text>
 
@@ -96,21 +96,16 @@ export default DesktopZoomModal;
 
 const HabitWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  font-size: 16px;
-  font-weight: 500;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-
+  flex-flow: wrap;
   width: 100%;
 
-  >div{
-    display: flex;
-    flex-flow: wrap;
-    span{
-      flex-shrink: 0;
-      margin-right: 8px;
-      white-space: nowrap;
-    }
+  span{
+    font-size: 16px;
+    font-weight: 500;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    flex-shrink: 0;
+    margin-right: 8px;
+    white-space: nowrap;
   }
 `
 const Text = styled.div`
@@ -118,10 +113,10 @@ const Text = styled.div`
   width: 100%;
   height: 100%;
 
-  font-size: 16px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
   line-height: 1.8;
+  font-size: var(--font-size-base);
 
   color: rgb(var(--greyTitle));
 `

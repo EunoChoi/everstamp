@@ -140,7 +140,7 @@ const Name = styled.span`
   height: auto;
   
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--font-size-base);
   color: rgb(var(--greyTitle));
   text-align: center;
 

@@ -60,7 +60,7 @@ const Wrapper = styled.div`
 
   width: 100%;
   /* max-width: 600px; */
-  height: 215px;
+  height: 200px;
   overflow: hidden;
 
   border: 2px solid rgba(0,0,0,0.07);
