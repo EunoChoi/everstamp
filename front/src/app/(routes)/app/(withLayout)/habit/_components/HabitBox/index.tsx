@@ -132,7 +132,7 @@ const Wrapper = styled.div`
     border-color: ${(props) => props.theme.point ? props.theme.point + 60 : '#979FC7'};
   }
   &.priority-2{
-    border-color: ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
+    border-color: ${(props) => props.theme.point ? props.theme.point + 90 : '#979FC7'};
   }
 `
 const Name = styled.span`
