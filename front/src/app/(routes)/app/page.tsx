@@ -56,17 +56,8 @@ const Page = () => {
   const options = { callbackUrl: '/app' };
   return (
     <Wrapper>
-      <Logo>
-        <div className="main">
-          <span>everstamp</span>
-        </div>
-      </Logo>
-
+      <Logo>everstamp</Logo>
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
-
-      {/* <TextContent>
-        <span>매일 매일 함께 성장해요!</span>
-      </TextContent> */}
       {isSuccess ?
         <LoggedInButtonWrapper >
           <LoggedInButtonStart className={user?.provider} onClick={start}>
@@ -111,111 +102,51 @@ const Wrapper = styled.div`
 
   background-color: #EFF0F6;
 
- 
   @media (max-width: 479px) { //mobile port
-    >*{ margin: 28px  0; }
+    gap: 28px;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    >*{ margin: 12px  0; }
+    gap: 20px;
   }
   @media (min-width:1025px) { //desktop
-    >*{ margin: 32px  0; }
+    gap: 32px;
   }
 `
 const Img = styled(Image)`
   object-fit: contain;
-  width: 350px;
+  
   @media (max-width: 479px) { //mobile port
     margin: 32px 0;
     width: 70dvw;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     width: auto;
-    height: 156px;
+    height: 128px;
   }
   @media (min-width:1025px) { //desktop
+    width: 300px;
     margin: 30px 0;
   }
 `;
-const TextContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  span{
-    text-align: center;
-    color: rgb(var(--greyTitle));
-    font-weight: 500;
-    line-height: 100%;    
-  }
-  @media (max-width: 479px) { //mobile port
-    span{ font-size: 20px; }
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    span{ font-size: 14px; }
-  }
-  @media (min-width:1025px) { //desktop
-    span{ font-size: 20px; }
-  }
-`
-const Logo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink : 0;
 
-  .main{
-    display: flex;
-    flex-direction: column;
+const Logo = styled.span`
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 100%;
+  color: rgb(var(--greyTitle));
 
-    span {
-      margin: 0 4px;
-      font-weight: 700;
-      text-transform: uppercase;
-      /* text-transform: capitalize; */
-      line-height: 100%;
-      text-align: center;
-      color: rgb(var(--greyTitle));
-    }
-    span::first-letter{
-      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    }
-  }
-  
-  .sub{
-    font-weight: 600;
-    color: #EF9C92;
-    text-transform: capitalize;
+  &:first-letter{
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
 
   @media (max-width: 479px) { //mobile port
-    .main{
-      span{
-        font-size: 36px;
-      }
-    }
-    .sub{
-      font-size: 16px;
-    }
+    font-size: 36px;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    .main{
-      flex-direction: row;
-      span{
-        font-size: 32px;
-      }
-    }
-    .sub{
-      font-size: 18px;
-    }
+    font-size: 32px;
   }
   @media (min-width:1025px) { //desktop
-    .main{
-      span{
-        font-size: 48px;
-      }
-    }
-    .sub{
-      font-size: 20px;
-    }
+    font-size: 48px;
   }
 `
 const LoggedInButtonWrapper = styled.div`
@@ -265,7 +196,6 @@ const LoggedInButtonStart = styled.button`
 
   @media (min-width:1025px) { //desktop
     height: 48px;
-    /* margin: 6px; */
   }
 `
 const LoggedInButtonLogout = styled.button`
