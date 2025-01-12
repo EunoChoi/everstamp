@@ -76,7 +76,7 @@ const MobileZoomModal = ({ diaryData }: any) => {
           </EmotionImageWrapper>
           {diaryData?.Habits.length > 0 &&
             <HabitWrapper>
-              <div>{diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}</div>
+              {diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}
             </HabitWrapper>}
           <Text>{text}</Text>
 
@@ -123,28 +123,23 @@ const TextContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  padding: 28px;
+  padding: 24px;
   gap: 32px;
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px 5dvw;
+    padding: 12px 4dvw;
     gap: 12px;
   }
 `
 const HabitWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  font-size: 16px;
-  font-weight: 500;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-
-  >div{
-    display: flex;
-    flex-flow: wrap;
-    span{
-      flex-shrink: 0;
-      margin-right: 8px;
-      white-space: nowrap;
-    }
+  flex-flow: wrap;
+  span{
+    font-weight: 500;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    font-size: var(--font-size-base);
+    flex-shrink: 0;
+    margin-right: 8px;
+    white-space: nowrap;
   }
 `
 const Text = styled.div`
@@ -152,7 +147,7 @@ const Text = styled.div`
   width: 100%;
   height: 100%;
 
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 1.8;
   white-space: pre-wrap;
   overflow-wrap: break-word;

@@ -40,9 +40,7 @@ const DiarySlide = ({ diaryData, height }: Props) => {
         <TextWrapper
           onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
           className='slideChild' >
-          <Text>
-            {diaryData.text}
-          </Text>
+          <Text>{diaryData.text}</Text>
           {images.length > 0 && <MoreImagesText>{images.length} images ➝</MoreImagesText>}
         </TextWrapper>
 
@@ -123,9 +121,9 @@ const Text = styled.div`
   white-space: pre-wrap;
   overflow-wrap: break-word;
 
-  font-size: 16px;
+  line-height: 1.6;
+  font-size: var(--font-size-base);
   font-weight: 500;
-  line-height: 1.8;
   color: rgb(var(--greyTitle));
 `
 const Img = styled(Image)`

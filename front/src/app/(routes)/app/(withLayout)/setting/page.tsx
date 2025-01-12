@@ -10,15 +10,18 @@ import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { signOut } from "next-auth/react";
-import Image from "next/image";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import { useEffect } from "react";
 import styled from "styled-components";
-import emotion4 from '/public/img/emotion/emotion4.png';
+
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const SettingPage = () => {
   const router = useCustomRouter();
   const queryClient = useQueryClient();
+
+  const FONT_SIZE_LIST = ['13px', '15px', '17px'];
 
   const { data } = useQuery({
     queryKey: ['user'],
@@ -39,6 +42,20 @@ const SettingPage = () => {
       console.log('theme update error')
     },
   })
+
+  const fontSizeUpdate = (type: 'Up' | 'Down') => {
+    const savedFontSize = localStorage.getItem('fontSize') ?? '15px';
+    const currentIndex = FONT_SIZE_LIST.findIndex((v) => v === savedFontSize);
+    const afterIndex = type === 'Up' ? currentIndex + 1 : currentIndex - 1;
+    const afterFontSize = FONT_SIZE_LIST[afterIndex];
+
+    console.log(afterIndex, afterFontSize);
+
+    if (afterIndex >= 0 && afterIndex < FONT_SIZE_LIST.length) {
+      localStorage.setItem('fontSize', afterFontSize);
+      document.documentElement.style.setProperty('--font-size-base', afterFontSize);
+    }
+  }
 
   const onLogout = () => {
     const logoutAction = (snackbarId: SnackbarKey) => (
@@ -72,7 +89,6 @@ const SettingPage = () => {
     );
     enqueueSnackbar('회원탈퇴 하시겠습니까?', { key: 'userDelete', persist: true, action: userDeleteAction, autoHideDuration: 6000 });
   }
-
   const themeColorUpdate = (themeColor: string) => {
     themeColorUpdateMutation.mutate(themeColor);
   }
@@ -125,17 +141,21 @@ const SettingPage = () => {
           <SubSection>
             <SubTitle>other options</SubTitle>
             <FlexRow className="between">
-              <span>목표 습관 리스트 정렬</span>
-              <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
-                <LowPriorityRoundedIcon className="icon" fontSize="small" />
-              </button>
+              <span>폰트 사이즈</span>
+              <FontSizeWrapper>
+                <button onClick={() => fontSizeUpdate('Down')}>
+                  <RemoveIcon fontSize="small" />
+                </button>
+                <span className="fontSize">가나다</span>
+                <button onClick={() => fontSizeUpdate('Up')}>
+                  <AddIcon fontSize="small" />
+                </button>
+              </FontSizeWrapper>
             </FlexRow>
             <FlexRow className="between">
-              <span>감정 아이콘 이미지</span>
-              <button onClick={() => {
-                // router.push('/app/inter/habitOrder', { scroll: false })
-              }}>
-                <Image src={emotion4} alt="emotion icon" width={28} height={28} />
+              <span>목표 습관 리스트 정렬</span>
+              <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
+                <LowPriorityRoundedIcon fontSize="small" />
               </button>
             </FlexRow>
           </SubSection>
@@ -154,6 +174,21 @@ const SettingPage = () => {
 
 export default SettingPage;
 
+
+const FontSizeWrapper = styled.div`
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  span{
+    &.fontSize {
+      text-align: center;
+      width: 60px;
+      font-size: var(--font-size-base);
+    }
+  }
+`
 
 const SettingPageBody = styled(CommonBody)`
   max-width: 500px;
@@ -254,16 +289,11 @@ const FlexRow = styled.div`
     justify-content: space-between
   }
 
-  span{
+  span, button{
     color: darkgrey;
     /* font-size: 18px; */
     font-size: 16px;
     font-weight: 500;
-  }
-  .icon{
-    color: darkgrey;
-    width: 28px;
-    height: 28px;
   }
 `
 const Button = styled.button`

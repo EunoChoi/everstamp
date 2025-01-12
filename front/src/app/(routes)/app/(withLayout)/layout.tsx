@@ -54,6 +54,12 @@ const AppLayout = ({ children, modal }: Props) => {
   const { closeSnackbar } = useSnackbar();
 
   useEffect(() => {
+    const savedFontSize = localStorage.getItem('fontSize') ?? '15px';
+    console.log(savedFontSize);
+    document.documentElement.style.setProperty('--font-size-base', savedFontSize);
+  }, []);
+
+  useEffect(() => {
     if (pathname) {
       closeSnackbar();
     }
