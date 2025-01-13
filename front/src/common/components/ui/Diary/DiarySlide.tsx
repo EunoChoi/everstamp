@@ -85,7 +85,7 @@ const SlideWrapper = styled.div`
 
   display: flex;
   justify-content: start;
-  width: 100%;
+  width: 101%;
   height: 100%;
 
   overflow-x: scroll;

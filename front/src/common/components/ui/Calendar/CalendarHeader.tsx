@@ -4,7 +4,6 @@ import { format } from "date-fns";
 //icons
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import TodayIcon from '@mui/icons-material/Today';
 import styled from "styled-components";
 
 interface CalendarHeaderProps {
@@ -29,21 +28,15 @@ const CalendarHeader = ({
     <>
       <CalTitle>
         <CalHeaderButtons className="start">
-          {todayRouterPushAction &&
-            <button
-              onClick={() => {
-                todayRouterPushAction();
-                setDisplayDate(new Date());
-              }}>
-              <TodayIcon fontSize="small" />
-            </button>
-          }
+          <button onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
         </CalHeaderButtons>
-        <CalTitleText>
+        <CalTitleText onClick={() => {
+          todayRouterPushAction && todayRouterPushAction();
+          setDisplayDate(new Date());
+        }}>
           <span className="month">{format(displayDate, 'yyyy.MM')}</span>
         </CalTitleText>
         <CalHeaderButtons className="end">
-          <button onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
           <button onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
         </CalHeaderButtons>
       </CalTitle>
@@ -82,7 +75,7 @@ const CalWeeks = styled.div`
   }
 `
 
-const CalTitleText = styled.div`  
+const CalTitleText = styled.button`  
   text-align: center;
   text-transform: capitalize;
 

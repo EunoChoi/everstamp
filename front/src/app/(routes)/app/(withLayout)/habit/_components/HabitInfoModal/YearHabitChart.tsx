@@ -115,8 +115,10 @@ const Title = styled.span`
   margin: 12px 0;
 `
 const YearInfo = styled.div`
+  width: 100%;
   margin: 4px 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
   font-size: 20px;
@@ -124,7 +126,6 @@ const YearInfo = styled.div`
   font-weight: 600;
   
   button{
-    line-height: 0;
-    margin : 0 12px;
+    padding: 0 8px;
   }
 `
