@@ -137,4 +137,7 @@ const Wrapper = styled.div`
     min-height: 200px;
     padding: 2px 0;
   }
+  @media (min-width:1024px) { //desktop
+    min-height: 350px;
+  }
 `
