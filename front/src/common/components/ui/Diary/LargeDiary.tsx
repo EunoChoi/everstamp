@@ -138,6 +138,6 @@ const Wrapper = styled.div`
     padding: 2px 0;
   }
   @media (min-width:1024px) { //desktop
-    min-height: 350px;
+    min-height: 300px;
   }
 `

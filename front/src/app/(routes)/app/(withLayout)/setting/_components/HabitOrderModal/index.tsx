@@ -6,16 +6,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 
-import DragIndicatorRoundedIcon from '@mui/icons-material/DragIndicatorRounded';
 import { getCurrentUser } from '@/common/fetchers/user';
+import DragIndicatorRoundedIcon from '@mui/icons-material/DragIndicatorRounded';
 import { enqueueSnackbar } from 'notistack';
 
-import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
 import $Modal from '@/common/styles/common_modal';
+import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import $Common from '@/common/styles/common';
 import useCustomRouter from '@/common/hooks/useCustomRouter';
+import $Common from '@/common/styles/common';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
 interface Habit {
@@ -324,7 +324,5 @@ const InitButton = styled.button`
   text-transform: capitalize;
   color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   font-size: 16px;
-  padding-top: 8px;
-  margin-bottom: 24px;
-  
+  margin-top: 24px
 `
