@@ -40,14 +40,16 @@ const EmotionlWrapper = styled.div`
   width: inherit;
 `
 const EmotionImage = styled(Image)`
-   box-sizing: border-box;
-   transition: opacity ease-in-out 200ms;
+  cursor: pointer;
 
-   width: 17%;
-   max-width: 100px;
-   flex-shrink: 0;
+  box-sizing: border-box;
+  transition: opacity ease-in-out 200ms;
 
-   &:not(.selected){ opacity: 0.5;}
-   &.selected{filter: saturate(115%);}
+  width: 17%;
+  max-width: 100px;
+  flex-shrink: 0;
+
+  &:not(.selected){ opacity: 0.5;}
+  &.selected{filter: saturate(115%);}
 `
 

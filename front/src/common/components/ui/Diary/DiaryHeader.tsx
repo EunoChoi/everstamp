@@ -92,6 +92,8 @@ const DateInfo = styled.div`
   }
 `
 const Edit = styled.div`
+  cursor: pointer;
+
   display: flex;
   align-items: center;
   gap: 8px;

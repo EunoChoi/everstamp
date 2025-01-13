@@ -59,6 +59,7 @@ const RadioWrapper = styled.div`
   display: flex;
 `
 const RadioButton = styled.label`
+  cursor: pointer;
   position: relative;
   width: 100%;
   height: 100%;
