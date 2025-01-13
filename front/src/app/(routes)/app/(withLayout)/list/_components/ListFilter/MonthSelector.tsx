@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { getYear } from "date-fns";
+import { useState } from "react";
 
 interface Props {
   selectedYear: number;
@@ -18,6 +19,8 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
   const monthsTopEng = ['jan', 'feb', 'mar', 'apr', 'may', 'jun'];
   const monthsBottomNum = [7, 8, 9, 10, 11, 12];
   const monthsBottomEng = ['jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
+  const [touchStartX, setTouchStartX] = useState<number>(0);   //for touch gesture
 
 
   const goToNextYear = () => {
@@ -39,11 +42,20 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
   }
   return (<Wrapper>
     <YearArea>
-      <button className="arrow" onClick={goToPreYear}><ArrowBackIosNewIcon fontSize="small" /></button>
-      <span onClick={goToCurrentDate}>{selectedYear}</span>
-      <button className="arrow" onClick={goToNextYear}><ArrowForwardIosIcon fontSize="small" /></button>
+      <button onClick={goToPreYear}><KeyboardArrowLeftIcon fontSize="small" color="inherit" /></button>
+      <button onClick={goToCurrentDate}>{selectedYear}</button>
+      <button onClick={goToNextYear}><KeyboardArrowRightIcon fontSize="small" color="inherit" /></button>
     </YearArea>
-    <MonthsArea>
+    <MonthsArea
+      onTouchStart={(e: any) => {
+        setTouchStartX(e.changedTouches[0].clientX);
+      }}
+      onTouchEnd={(e: any) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        if (touchEndX - touchStartX > 100) goToPreYear();
+        else if (touchStartX - touchEndX > 100) goToNextYear();
+      }}
+    >
       <Section>{monthsTopNum.map((e, i) =>
         <Month
           className={selectedMonth === i + 1 ? 'selectedMonth' : ''}
@@ -75,29 +87,18 @@ const YearArea = styled.div`
   width: 100%;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   padding: 10px;
 
-  span{
+  button{
     font-size: 20px;
     font-weight: 600;
-    line-height: 0;
-  }
-  .center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-  }
-  .left, .right{
-    width: 16%;
-  }
-  .arrow{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color: rgb(var(--greyTitle));
+    padding: 3px 8px;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 6px;
+    padding: 6px 0;
   }
 `
 const MonthsArea = styled.div`
@@ -130,9 +131,8 @@ const Month = styled.button`
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 300;
-    color: rgb(var(--greyTitle));
+    color: grey;
   }
-
   &.selectedMonth{
     background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
     border: 2px solid rgba(0,0,0,0.07);
