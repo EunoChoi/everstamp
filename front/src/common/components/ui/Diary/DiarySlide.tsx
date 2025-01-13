@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 //icon
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { useEffect, useRef } from "react";
 
 
 interface ImageProps {
@@ -32,11 +33,15 @@ interface Props {
 const DiarySlide = ({ diaryData, height }: Props) => {
   const router = useCustomRouter();
   const images = diaryData?.Images;
+  const slideWrapperRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    slideWrapperRef.current?.scrollTo({ left: 0 });
+  }, [diaryData])
 
   return (
     <Wrapper $height={height}>
-      <SlideWrapper>
+      <SlideWrapper ref={slideWrapperRef}>
         <TextWrapper
           onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })}
           className='slideChild' >
