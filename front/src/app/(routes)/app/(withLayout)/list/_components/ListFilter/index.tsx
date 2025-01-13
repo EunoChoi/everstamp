@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 
+import RefreshIcon from '@mui/icons-material/Refresh';
 import { getYear } from "date-fns";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import EmotionSelector from "./EmotionSelector";
 import MonthSelector from "./MonthSelector";
-
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -64,6 +64,12 @@ const ListFilter = ({
     }, 200);
   }
 
+  useEffect(() => {
+    setTempEmotion(5);
+    setTempYear(getYear(new Date()));
+    setTempMonth(0)
+  }, [isFilterOpen]);
+
   return (
     <BG className={isFilterOpen ? 'open' : ''} onClick={() => setFilterOpen(false)} >
       <Wrapper
@@ -75,8 +81,9 @@ const ListFilter = ({
         <MonthWrapper>
           <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
         </MonthWrapper>
+        <InitButton onClick={onInitialize}><RefreshIcon fontSize="small" />선택 초기화</InitButton>
         <ButtonWrapper>
-          <Button className="init" onClick={onInitialize}>초기화</Button>
+          <Button className="cancel" onClick={() => setFilterOpen(false)}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
@@ -133,8 +140,8 @@ const Wrapper = styled.div`
     box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
     width: 100%;
     height: auto;
-    padding: 48px 24px;
-    gap: 32px;
+    padding: 36px 24px;
+    gap: 24px;
 
     will-change: height;
     transform: scaleY(0);
@@ -155,8 +162,8 @@ const Wrapper = styled.div`
     left: 50dvw;
     transform: translate(-50%, -50%);
 
-    gap: 24px;
-    padding: 24px;
+    gap: 16px;
+    padding: 16px 24px;
     width: 350px;
     border-radius: 24px;
 
@@ -177,7 +184,7 @@ const Wrapper = styled.div`
     transform: translate(-50%, -50%);
 
     width: 500px;
-    gap: 56px;
+    gap: 32px;
     padding: 48px 36px;
     border-radius: 24px;
 
@@ -213,7 +220,7 @@ const Button = styled.button`
   background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   color: rgb(var(--greyTitle));
 
-  &.init{
+  &.cancel{
     background-color: white;
     border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
   }
@@ -221,4 +228,14 @@ const Button = styled.button`
     font-size: 12px;
     padding: 2px 16px;
   }
+`
+
+const InitButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 16px;
+  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 `
