@@ -251,7 +251,7 @@ const FilterResult = styled.div`
     align-items: center;
     gap: 8px;
     font-size: 16px;
-    font-weight: 500;
+    /* font-weight: 500; */
     text-transform: capitalize;
     line-height: 0;
   }
@@ -320,7 +320,7 @@ const NoDiaries = styled.div`
 
   padding-top: 30dvh;
   font-size: 18px;  
-  font-weight: 500;
+  /* font-weight: 500; */
   color: rgb(var(--greyTitle));
 
   @media (min-width:1025px) { //desktop

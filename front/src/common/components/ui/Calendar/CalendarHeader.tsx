@@ -66,7 +66,7 @@ const CalWeeks = styled.div`
   text-transform: capitalize;
   padding: 6px 0;
   font-size: 16px;
-  font-weight: 600;
+  /* font-weight: 600; */
   color: rgb(var(--greyTitle));
 
   span{
@@ -83,10 +83,10 @@ const CalTitleText = styled.button`
   color: rgb(var(--greyTitle));
 
   .month{
-    font-weight: 600;
+    /* font-weight: 600; */
   }
   .year{
-    font-weight: 500;
+    /* font-weight: 500; */
     margin-left: 8px;
   }
 `

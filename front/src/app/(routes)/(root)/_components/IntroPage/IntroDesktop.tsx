@@ -280,7 +280,7 @@ const Button = styled.button`
   border-radius: 32px;
 
   font-size: 14px;
-  font-weight: 600;
+  /* font-weight: 600; */
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
@@ -376,7 +376,7 @@ const Logo = styled.div`
   >span{
     display: inline-block;
     font-size: 56px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     margin: 0 4px;
     color: rgb(var(--greyTitle));
@@ -395,7 +395,7 @@ const Title = styled.span`
   color: #989FC4;
   color : ${(props) => props.theme.point ? props.theme.point : '#989FC4'};
   font-size: 28px;
-  font-weight: 500;
+  /* font-weight: 500; */
   text-transform: capitalize;
 `
 const Text = styled.div`
@@ -405,7 +405,7 @@ const Text = styled.div`
 
   span{
     font-size: 34px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
     color: #5f5f5f;
     line-height: 1.4;

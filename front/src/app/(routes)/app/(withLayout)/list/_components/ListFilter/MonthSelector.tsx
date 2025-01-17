@@ -93,7 +93,7 @@ const YearArea = styled.div`
 
   button{
     font-size: 20px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
     padding: 3px 8px;
   }
@@ -124,13 +124,13 @@ const Month = styled.button`
 
   .num{
     font-size: 16px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
   }
   .eng{
     font-size: 14px;
     text-transform: capitalize;
-    font-weight: 300;
+    /* font-weight: 300; */
     color: grey;
   }
   &.selectedMonth{

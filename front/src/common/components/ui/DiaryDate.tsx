@@ -20,7 +20,7 @@ export default DiaryDate;
 
 const Wrapper = styled.div`
   color: rgb(var(--greyTitle));
-  font-weight: 600;
+  /* font-weight: 600; */
   font-size: 20px;
   height: auto;
   display: flex;

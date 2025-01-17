@@ -1,7 +1,7 @@
 'use client'
-import styled from "styled-components";
-import emotion1 from '/public/img/emotion/emotion1.png'
 import Image from "next/image";
+import styled from "styled-components";
+import emotion1 from '/public/img/emotion/emotion1.png';
 
 export default function NotFound() {
   return (
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
   }
   .title{
     font-size: 36px;
-    font-weight: 500;
+    /* font-weight: 500; */
     margin: 32px 0;
   }
   p{

@@ -45,17 +45,14 @@ const InputWrapper = styled.div`
 
   textarea{
     background-color: #f9f9f9;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: var(--font-size-base);
     width: 100%;
     height: 100%;
     resize: none;
     &::placeholder{
       padding-top: 70px;
       text-align: center;
-
-      color: rgba(0,0,0,0.25);
-      font-weight: 500;
+      color: grey;
       font-size: 1.0em;
     }
   }

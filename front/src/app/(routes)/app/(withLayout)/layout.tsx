@@ -55,7 +55,7 @@ const AppLayout = ({ children, modal }: Props) => {
 
   useEffect(() => {
     const savedFontSize = localStorage.getItem('fontSize') ?? '15px';
-    console.log(savedFontSize);
+    console.log('font size : ', savedFontSize);
     document.documentElement.style.setProperty('--font-size-base', savedFontSize);
   }, []);
 

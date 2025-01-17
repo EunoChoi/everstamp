@@ -131,7 +131,7 @@ const Img = styled(Image)`
 
 const Logo = styled.span`
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 100%;
   color: rgb(var(--greyTitle));
 
@@ -174,7 +174,7 @@ const LoggedInButtonStart = styled.button`
   color: rgb(var(--greyTitle));
   text-transform: lowercase;
   font-size: 16px;
-  font-weight: 500;
+  /* font-weight: 500; */
 
   span{
     margin-left : 8px;

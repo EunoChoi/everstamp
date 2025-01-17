@@ -218,22 +218,23 @@ const SubSection = styled.section`
 `
 const Title = styled.span`
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 500;
   color: rgb(var(--greyTitle));
 
   text-transform: capitalize;
 `
 const SubTitle = styled.span`
+  display : block;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: capitalize;
-  margin : 6px 12px;
-
+  margin : 0 12px;
+  margin-bottom: 10px;
   color: grey;
 `
 const Value = styled.span`
   font-size: 16px;
-  font-weight: 500;
+  /* font-weight: 500; */
   width: 100%;
   width: inherit;
   padding: 4px 12px;
@@ -246,10 +247,8 @@ const Value = styled.span`
     overflow-x: scroll;
   }
   .key{
-    font-weight: 600;
     text-transform: capitalize;
     color :grey;
-    /* color: darkgrey */
   }
   .value{
     color: grey;
@@ -293,7 +292,7 @@ const FlexRow = styled.div`
     color: darkgrey;
     /* font-size: 18px; */
     font-size: 16px;
-    font-weight: 500;
+    /* font-weight: 500; */
   }
 `
 const Button = styled.button`
@@ -310,7 +309,7 @@ const Button = styled.button`
  
 
   margin-right: 8px;
-  font-weight: 500;
+  /* font-weight: 500; */
   text-transform: capitalize;
   
   &:hover{

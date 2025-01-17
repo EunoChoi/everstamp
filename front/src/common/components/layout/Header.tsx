@@ -46,7 +46,7 @@ const Wrapper = styled.div`
 `
 const Title = styled.span`
   color: rgb(var(--greyTitle));
-  font-weight: 700;
+  font-weight: 500;
 
   text-transform: uppercase;
   

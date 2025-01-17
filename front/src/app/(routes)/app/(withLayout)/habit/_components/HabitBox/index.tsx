@@ -132,14 +132,14 @@ const Wrapper = styled.div`
     border-color: ${(props) => props.theme.point ? props.theme.point + 60 : '#979FC7'};
   }
   &.priority-2{
-    border-color: ${(props) => props.theme.point ? props.theme.point + 90 : '#979FC7'};
+    border-color: ${(props) => props.theme.point ? props.theme.point + 80 : '#979FC7'};
   }
 `
 const Name = styled.span`
   width: 100%;
   height: auto;
   
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--font-size-base);
   color: rgb(var(--greyTitle));
   text-align: center;
@@ -171,8 +171,7 @@ const Check = styled.div`
 
   &:first-child{
     .week{
-      color: rgb(var(--greyTitle)) !important;
-      font-weight: 700;
+      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
     }
   }
   .date{
@@ -182,7 +181,8 @@ const Check = styled.div`
     }
   }
   .week{
-    color: grey !important;
+    font-weight: 500;
+    color: rgb(var(--greyTitle)) !important;
     @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
       font-size: 13px;
     }
@@ -243,7 +243,6 @@ const Check = styled.div`
       }    
     }
     span:first-child{
-      font-weight: 600;
       color: rgb(var(--greyTitle));
     }
   }

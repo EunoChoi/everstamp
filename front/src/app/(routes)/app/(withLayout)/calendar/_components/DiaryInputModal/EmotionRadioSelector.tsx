@@ -86,7 +86,7 @@ const RadioButton = styled.label`
     align-items: center;
 
     font-size: 12px;
-    font-weight: 600;
+    /* font-weight: 600; */
     text-transform: capitalize;
 
     span{

@@ -73,7 +73,7 @@ const SideBarLogo = styled.div`
 
   span{
     font-size: 36px;
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
     line-height: 100%;
 
@@ -102,7 +102,7 @@ const Menu = styled.span`
   text-transform: capitalize;
 
   margin: 8px 0%;
-  color: #696969;
+  color: grey;
   > *:first-child{
     margin-right: 8px;
   }

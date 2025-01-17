@@ -54,7 +54,7 @@ const Icon = styled.div`
 `
 const Text = styled.span`
   text-align: center;
-  font-weight: 500;
+  /* font-weight: 500; */
   
   @media (max-width: 479px) { //mobile port
     font-size: 18px;
