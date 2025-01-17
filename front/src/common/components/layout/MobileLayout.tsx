@@ -54,7 +54,7 @@ const Logo = styled.span`
     margin-bottom: 32px;
     color: rgb(var(--greyTitle));
     font-size: 32px;
-    font-weight: 700;
+    /* font-weight: 700; */
     text-transform: uppercase;
     text-transform: capitalize;
     span {
@@ -82,7 +82,7 @@ const NavMenu = styled.button`
       margin-top: 4px;
       line-height: 1;
       font-size: 12px;
-      font-weight: 500;
+      /* font-weight: 500; */
       text-transform: capitalize;
     }
   }
@@ -93,7 +93,7 @@ const NavMenu = styled.button`
     width: 90%;
 
     span{
-      font-weight: 500;
+      /* font-weight: 500; */
       font-size: 18px;
       text-transform: capitalize;
       display: flex;
@@ -131,7 +131,7 @@ const Mobile_Nav = styled.nav`
   border-top: 2px solid rgb(var(--lightGrey2));
   background-color: rgba(255,255,255,0.8);
   backdrop-filter: blur(20px);
-  color: rgba(0,0,0,0.3);
+  color: #c3c3c3;
 
   > *{
     padding : 0 12px;

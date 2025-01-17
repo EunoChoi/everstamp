@@ -103,14 +103,14 @@ const BarWrapper = styled.div<{ $count: number }>`
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};  
   }
   .month{
-    font-weight: 500;
+    /* font-weight: 500; */
     padding: 8px 0;
   }
 `
 const Title = styled.span`
   line-height: 100%;
   font-size: 18px;
-  font-weight: 500;
+  /* font-weight: 500; */
   color: grey;
   margin: 12px 0;
 `
@@ -123,7 +123,7 @@ const YearInfo = styled.div`
 
   font-size: 20px;
   color: rgb(var(--greyTitle));
-  font-weight: 600;
+  /* font-weight: 600; */
   
   button{
     padding: 0 8px;

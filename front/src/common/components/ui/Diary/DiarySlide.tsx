@@ -77,6 +77,8 @@ const Wrapper = styled.div<{ $height: string }>`
    height: ${props => props.$height};
    width: 100%;
 
+   margin: 6px 0;
+
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -128,7 +130,7 @@ const Text = styled.div`
 
   line-height: 1.6;
   font-size: var(--font-size-base);
-  font-weight: 500;
+  /* font-weight: 500; */
   color: rgb(var(--greyTitle));
 `
 const Img = styled(Image)`

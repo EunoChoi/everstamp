@@ -70,18 +70,10 @@ const DateInfo = styled.div`
   align-items: center;
   gap: 12px;
   span{
+    font-weight:500;
     font-size : 20px;
   }
-  &.large{
-    span{
-      font-size : 24px;
-      @media (max-width: 479px) { //mobile port
-        font-size: 20px;
-      }
-    }
-  }
   .week{
-    font-weight: 600;
     color: rgb(var(--greyTitle));
   }
   .date{

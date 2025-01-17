@@ -126,7 +126,7 @@ const MobilePortNameWrapper = styled.div`
 `
 const Name = styled.div`
   color: rgb(var(--greyTitle));
-  font-weight: 600;
+  /* font-weight: 600; */
   font-size: 28px;
   height: auto;
   display: flex;

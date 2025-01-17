@@ -264,7 +264,7 @@ const StartInWeb = styled.button`
   font-size: 15px;
   border-bottom: solid 2px ${(props) => props.theme.point ? props.theme.point + '55' : '#979FC7'};
   padding: 0 4px;
-  font-weight: 500;
+  /* font-weight: 500; */
   color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   &.outro{
     color: rgb(var(--greyTitle));
@@ -308,7 +308,7 @@ const Button = styled.button`
   border-radius: 32px;
 
   font-size: 14px;
-  font-weight: 600;
+  /* font-weight: 600; */
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
@@ -392,7 +392,7 @@ const ColWrapper = styled.div`
     margin: 0 12px;
     span{
       font-size: 14px;
-      font-weight: 500;
+      /* font-weight: 500; */
       margin-top: 8px;
       @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
         font-size: 16px;
@@ -412,7 +412,7 @@ const Logo = styled.span`
     line-height: 120%;
 
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     margin: 0 4px;
     color: rgb(var(--greyTitle));
@@ -459,7 +459,7 @@ const Text = styled.div`
 
   span{
     font-size: 20px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
     line-height: 1.4;
 

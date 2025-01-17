@@ -101,7 +101,7 @@ const HabitWrapper = styled.div`
 
   span{
     font-size: 16px;
-    font-weight: 500;
+    /* font-weight: 500; */
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     flex-shrink: 0;
     margin-right: 8px;

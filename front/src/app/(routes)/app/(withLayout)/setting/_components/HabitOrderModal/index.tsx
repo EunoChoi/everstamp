@@ -277,7 +277,7 @@ const List = styled.div`
   align-items: center;
 
   padding: 4px 18px;
-  font-weight: 500;
+  /* font-weight: 500; */
   font-size: 16px;
 
   background-color: #f9f9f9;
@@ -308,7 +308,7 @@ const List = styled.div`
   }
   button{
     width: 20%;
-    color: rgba(0,0,0,0.4);
+    color: darkgrey;
   }
   .icon{
     display: flex;
@@ -318,9 +318,6 @@ const List = styled.div`
 `
 
 const InitButton = styled.button`
-  color: rgba(0,0,0,0.3);
-  font-weight: 500;
-
   text-transform: capitalize;
   color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   font-size: 16px;

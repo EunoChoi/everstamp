@@ -134,7 +134,7 @@ const HabitWrapper = styled.div`
   display: flex;
   flex-flow: wrap;
   span{
-    font-weight: 500;
+    /* font-weight: 500; */
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     font-size: var(--font-size-base);
     flex-shrink: 0;

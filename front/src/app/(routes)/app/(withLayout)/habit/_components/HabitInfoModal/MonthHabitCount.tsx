@@ -49,7 +49,7 @@ const Info = styled.div`
   text-align: start;
   
   color: rgb(var(--greyTitle));
-  font-weight: 500;
+  /* font-weight: 500; */
   .name{
     display: none;
   }
@@ -64,7 +64,7 @@ const Info = styled.div`
   }
   .infoCount{
     line-height: 100%;
-    font-weight: 700;
+    /* font-weight: 700; */
     font-size: 32px;
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
   }
@@ -83,7 +83,7 @@ const Info = styled.div`
       margin: 24px 0;
       width: 90%;
      
-      font-weight: 600;
+      /* font-weight: 600; */
       font-size: 32px;
       word-break: keep-all;
     } 

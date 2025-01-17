@@ -65,14 +65,19 @@ const $Common = {
       justify-content: center;
       align-items: center;
 
-      
       padding: 2px 12px;
       height: 28px;
 
+      transition: all ease-in-out 200ms;
+      text-transform: capitalize;
+      
       font-size: 14px;
       font-weight: 500;
-      
-     
+      color: rgb(var(--greyTitle));
+      background-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
+      border: 2px solid rgba(0,0,0,0.07);
+      border-radius : 48px;
+
       &.small{
         width: 47px;
       }
@@ -83,21 +88,10 @@ const $Common = {
         width: 80px;
       }
       
-      transition: all ease-in-out 200ms;
-      text-transform: capitalize;
-      
-      color: rgba(0,0,0,0.6);
-      background-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
-      border: 2px solid rgba(0,0,0,0.07);
-      border-radius : 48px;
-
       @media (min-width:1025px) { //desktop
         padding: 4px 12px;
         height: 32px;
       }
-      /* *:nth-child(2){
-        margin-left: 3px;
-      } */
     }
   `,
   Empty: styled.div`

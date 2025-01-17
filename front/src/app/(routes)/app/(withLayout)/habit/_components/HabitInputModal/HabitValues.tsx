@@ -108,7 +108,7 @@ const Value = styled.div`
   span{
     text-transform: capitalize;
     font-size: 18px;
-    font-weight: 500;
+    /* font-weight: 500; */
     color: rgba(var(--greyTitle), 0.8);
   }
   input{
@@ -118,7 +118,7 @@ const Value = styled.div`
     margin: 8px 0;
     padding: 4px 8px;
     flex-grow: 1;
-    font-weight: 500;
+    /* font-weight: 500; */
 
 
     border : 2px solid rgba(0,0,0,0.1);

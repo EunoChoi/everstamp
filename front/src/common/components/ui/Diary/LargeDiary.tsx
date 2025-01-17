@@ -94,7 +94,7 @@ const Text = styled.div`
   padding: 0 16px;
   
   font-size: var(--font-size-base);
-  font-weight: 500;
+  /* font-weight: 500; */
   line-height: 1.8;
   color: rgb(var(--greyTitle));
 

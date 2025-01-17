@@ -167,7 +167,7 @@ const UploadButton = styled.button`
   span{
     margin-top: 4px;
     font-size: 14px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
   }
   &:disabled{

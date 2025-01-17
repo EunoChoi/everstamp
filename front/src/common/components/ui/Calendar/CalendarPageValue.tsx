@@ -64,7 +64,7 @@ export default CalendarPageValue;
 
 const DateValue_Date = styled.div`
   font-size: 14px;
-  font-weight: 500;
+  /* font-weight: 500; */
 
   margin: 6px 0px;
 `
@@ -100,7 +100,7 @@ const DateValue_Diary = styled.div`
     border : 0.5px solid white;
     
     font-size: 14px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
     

@@ -211,7 +211,7 @@ const ButtonWrapper = styled.div`
 `
 const Button = styled.button`
   font-size: 14px;
-  font-weight: 600;
+  /* font-weight: 600; */
 
   padding: 4px 20px;
   border-radius: 32px;

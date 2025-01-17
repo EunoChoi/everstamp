@@ -80,7 +80,7 @@ const $Modal = {
     }
     .title{
       color: rgb(var(--greyTitle));
-      font-weight: 600;
+      /* font-weight: 600; */
       font-size: 20px;
       height: auto;
 
@@ -101,7 +101,7 @@ const $Modal = {
     button{
       width: 15%;
       color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-      font-weight: 600;
+      /* font-weight: 600; */
       &:disabled{
         opacity: 0.4;
       }

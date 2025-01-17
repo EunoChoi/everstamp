@@ -154,7 +154,7 @@ const DiaryInputSection = styled.section`
 const DiaryInputTitle = styled.section`
   text-transform: capitalize;
   font-size: 22px;
-  font-weight: 500;
+  /* font-weight: 500; */
   color: rgb(var(--greyTitle));
   margin-bottom: 16px;
 

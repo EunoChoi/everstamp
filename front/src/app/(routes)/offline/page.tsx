@@ -51,7 +51,7 @@ const Wrapper = styled.div`
   }
   .title{
     font-size: 36px;
-    font-weight: 500;
+    /* font-weight: 500; */
     margin: 32px 0;
   }
   p{

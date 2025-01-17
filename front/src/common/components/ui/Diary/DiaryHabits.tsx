@@ -73,16 +73,15 @@ const Habit = styled.span`
 
   span{
     font-size: 14px;
-    font-weight: 600;
-    color: rgba(0,0,0,0.6);
-    
+    font-weight: 500;
+    color: rgb(var(--greyTitle));
     text-transform: capitalize;
   }
   &:first-child{
     border: 2px solid ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
     background-color: white;
     span{
-      font-weight: 600;
+      /* font-weight: 600; */
     }
   }
 `
