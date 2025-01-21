@@ -267,7 +267,7 @@ const DiaryWrapper = styled.div`
 const Listbody = styled(CommonBody)`
   max-width: 500px;
   @media (max-width: 479px) { //mobile port
-    padding : 14px 4dvw;
+    padding : 14px 5dvw;
   }
   @media (min-width:1024px) { //desktop
     padding-top: 72px;
