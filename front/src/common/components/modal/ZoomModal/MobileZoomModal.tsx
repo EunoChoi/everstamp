@@ -126,7 +126,7 @@ const TextContentWrapper = styled.div`
   padding: 24px;
   gap: 32px;
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px 4dvw;
+    padding: 12px 5dvw;
     gap: 12px;
   }
 `

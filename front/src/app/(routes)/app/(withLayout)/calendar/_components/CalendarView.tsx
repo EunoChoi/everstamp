@@ -113,7 +113,7 @@ const Content = styled.div`
 
   @media (max-width: 479px) { //mobile port
     gap: 12px;
-    padding: 12px 4dvw;
+    padding: 12px 5dvw;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     justify-content: start;
