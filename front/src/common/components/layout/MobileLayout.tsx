@@ -56,8 +56,8 @@ const Logo = styled.span`
     font-size: 32px;
     /* font-weight: 700; */
     text-transform: uppercase;
-    text-transform: capitalize;
     span {
+      font-family: BMJUA;
       display: inline-block;
       &::first-letter{
         color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;  

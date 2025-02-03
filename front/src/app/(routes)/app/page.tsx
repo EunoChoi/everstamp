@@ -131,9 +131,9 @@ const Img = styled(Image)`
 
 const Logo = styled.span`
   text-transform: uppercase;
-  font-weight: 600;
   line-height: 100%;
   color: rgb(var(--greyTitle));
+  font-family: BMJUA;
 
   &:first-letter{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};

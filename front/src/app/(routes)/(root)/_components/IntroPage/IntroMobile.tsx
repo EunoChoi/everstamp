@@ -407,12 +407,12 @@ const Logo = styled.span`
   align-items: center;
 
   >span{
+    font-family: BMJUA;
     display: inline-block;
 
     line-height: 120%;
 
     font-size: 32px;
-    font-weight: 600;
     text-transform: uppercase;
     margin: 0 4px;
     color: rgb(var(--greyTitle));

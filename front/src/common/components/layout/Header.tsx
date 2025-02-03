@@ -44,19 +44,21 @@ const Wrapper = styled.div`
     height: var(--desktopHeader);
   }
 `
+
 const Title = styled.span`
+
   color: rgb(var(--greyTitle));
-  font-weight: 500;
+  /* font-weight: 400; */
+  font-family: BMJUA;
 
   text-transform: uppercase;
-  
 
   &:first-letter{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
   }
   @media (max-width: 479px) { //mobile port
     line-height: 0.9;
-    font-size: 28px;
+    font-size: 24px;
     /* border-bottom: 2px ${(props) => props.theme.point ? props.theme.point : '#979FC7'} solid; */
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
