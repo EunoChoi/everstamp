@@ -38,7 +38,7 @@ interface Props {
 
 const SmallDiary = ({ diaryData }: Props) => {
   const date = new Date(diaryData.date).getTime();
-  let defaultHeight = '110px';
+  let defaultHeight = '100px';
 
   return (
     <Wrapper>
