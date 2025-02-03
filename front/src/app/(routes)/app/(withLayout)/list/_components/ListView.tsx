@@ -27,7 +27,6 @@ import Header from "@/common/components/layout/Header";
 import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import FilterListOffIcon from '@mui/icons-material/FilterListOff';
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -164,7 +163,7 @@ const ListView = (props: any) => {
         <Header title='list'>
           <$Common.Options>
             <button onClick={() => { setFilterOpen(c => !c); }} className='small'>
-              {((selectedMonth !== 0) || (emotionToggle !== 5)) ? <FilterListIcon className="icon" fontSize="inherit" /> : <FilterListOffIcon className="icon" fontSize="inherit" />}
+              <FilterListIcon className="icon" fontSize="inherit" />
             </button>
             <button onClick={sortToggleChange} className='normal'>
               <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>

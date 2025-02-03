@@ -40,11 +40,13 @@ const ListFilter = ({
   const month = searchParams.get('month');
   const emotion = searchParams.get('emotion');
   useEffect(() => {
-    // console.log(year, month, emotion);
-    if (year) setTempYear(Number(year));
-    if (month) setTempMonth(Number(month));
-    if (emotion) setTempEmotion(Number(emotion));
-  }, [year, month, emotion])
+    if (isFilterOpen) {
+      console.log(year, month, emotion);
+      if (year) setTempYear(Number(year));
+      if (month) setTempMonth(Number(month));
+      if (emotion) setTempEmotion(Number(emotion));
+    }
+  }, [isFilterOpen])
 
   const onInitialize = () => {
     setTempEmotion(5);
@@ -63,12 +65,6 @@ const ListFilter = ({
       contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
     }, 200);
   }
-
-  useEffect(() => {
-    setTempEmotion(5);
-    setTempYear(getYear(new Date()));
-    setTempMonth(0)
-  }, [isFilterOpen]);
 
   return (
     <BG className={isFilterOpen ? 'open' : ''} onClick={() => setFilterOpen(false)} >
