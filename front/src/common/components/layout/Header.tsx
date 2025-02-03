@@ -28,7 +28,7 @@ const Wrapper = styled.div`
     align-items: center;
     width: 100%;
     height: var(--mobileHeader);
-    padding: 0 4%;
+    padding: 0 5%;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     justify-content: end;
