@@ -72,12 +72,12 @@ const AppLayout = ({ children, modal }: Props) => {
     }
   }, [failureCount]);
 
-  if (isMobile === null) return <></>;
+  if (isMobile === null || !data) return <></>;
   return (
-    <ThemeProvider theme={data.theme}>
+    <ThemeProvider theme={data?.theme ?? {}}>
       <ServiceWorkerRegister />
       <ScrollProvider>
-        <NProgressStyles barColor={data.theme?.point ? data.theme?.point : '#979FC7'} />
+        <NProgressStyles barColor={data?.theme?.point ? data?.theme?.point : '#979FC7'} />
         {isMobile ?
           <MobileLayout>
             {modal}
