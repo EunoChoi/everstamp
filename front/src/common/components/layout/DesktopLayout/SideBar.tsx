@@ -73,9 +73,9 @@ const SideBarLogo = styled.div`
 
   span{
     font-size: 36px;
-    font-weight: 500;
     text-transform: uppercase;
     line-height: 100%;
+    font-family: BMJUA;
 
     color: rgb(var(--greyTitle));
   }

@@ -374,9 +374,10 @@ const Logo = styled.div`
   align-items: center;
 
   >span{
+    font-family: BMJUA;
+    
     display: inline-block;
     font-size: 56px;
-    font-weight: 600;
     text-transform: uppercase;
     margin: 0 4px;
     color: rgb(var(--greyTitle));
