@@ -18,7 +18,7 @@ const DiaryHabits = ({ habits }: Props) => {
   return (
     <Habits>
       <Habit>
-        <span> {habits?.length ? habits?.length : 0} habits</span>
+        <span> {habits?.length ? habits?.length : 0}개 완료</span>
       </Habit>
       {habits?.map((habit: HabitProps, i: number) =>
         <Habit

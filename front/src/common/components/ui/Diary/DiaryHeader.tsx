@@ -41,8 +41,8 @@ const DiaryHeader = ({ diaryData, type }: Props) => {
 
   return (<Wrapper ref={wrapperRef}>
     <DateInfo className={type}>
-      <span className="week">{day}</span>
       <span className="date">{date}</span>
+      <span className="week">{day}</span>
       <span className="emotion">{isVisible && emotions[diaryData?.emotion]}</span>
     </DateInfo>
     <Edit onClick={onOpenMenu} >
@@ -74,10 +74,10 @@ const DateInfo = styled.div`
     font-size : 20px;
   }
   .week{
-    color: rgb(var(--greyTitle));
+    color: grey;
   }
   .date{
-    color: grey;
+    color: rgb(var(--greyTitle));
   }
   .emotion{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
