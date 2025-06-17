@@ -7,7 +7,6 @@ import styled from "styled-components";
 
 //function
 import { getDiaryByDate } from "@/common/fetchers/diary";
-import IsMobile from "@/common/functions/IsMobile";
 
 //styledComponent
 import $Common from "@/common/styles/common";
@@ -26,7 +25,6 @@ interface Props {
 }
 
 const CalendarView = ({ date }: Props) => {
-  const isMobile = IsMobile();
   const router = useCustomRouter();
 
   // const GoIntroText = () => (
@@ -74,26 +72,18 @@ const CalendarView = ({ date }: Props) => {
 
   return (
     <$Common.Wrapper>
-      {/* <Header title='calendar' /> */}
       <CalendarBody>
-        {isMobile === true &&
-          <Content>
-            <Calendar
-              displayDate={displayDate}
-              setDisplayDate={setDisplayDate}
-              FormattedValue={CalendarPageValue}
-              todayRouterPushAction={todayRouterPushAction}
-              isTouchGestureEnabled={true}
-              isDateSelectionEnabled={true}
-            />
-            <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
-          </Content>
-        }
-        {isMobile === false &&
-          <Content>
-            <Diary type="large" diaryData={diaryData ? diaryData : { date: date }} />
-          </Content>
-        }
+        <Content>
+          <Calendar
+            displayDate={displayDate}
+            setDisplayDate={setDisplayDate}
+            FormattedValue={CalendarPageValue}
+            todayRouterPushAction={todayRouterPushAction}
+            isTouchGestureEnabled={true}
+            isDateSelectionEnabled={true}
+          />
+          <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
+        </Content>
       </CalendarBody>
     </$Common.Wrapper>
   );
@@ -116,6 +106,10 @@ const Content = styled.div`
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     justify-content: start;
+    padding: 24px 0;
+    gap: 24px;
+  }
+  @media (min-width:1024px) { //desktop
     padding: 24px 0;
     gap: 24px;
   }

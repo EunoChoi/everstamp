@@ -255,7 +255,7 @@ const MonthSeparator = styled.span`
 
   text-transform: capitalize;
   color: rgb(var(--greyTitle));
-  font-size: 28px;
+  font-size: 32px;
   font-family: 'BMJUA';
   width: 100%;
 

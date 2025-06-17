@@ -27,18 +27,16 @@ const CalendarHeader = ({
   return (
     <>
       <CalTitle>
-        <CalHeaderButtons className="start">
-          <button onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
-        </CalHeaderButtons>
         <CalTitleText onClick={() => {
           todayRouterPushAction && todayRouterPushAction();
           setDisplayDate(new Date());
         }}>
-          <span className="month">{format(displayDate, 'yyyy.MM')}</span>
+          <span className="title">{format(displayDate, 'MMMM. yyyy')}</span>
         </CalTitleText>
-        <CalHeaderButtons className="end">
-          <button onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
-        </CalHeaderButtons>
+        <ArrowButtonWrapper>
+          <button onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" color='inherit' /></button>
+          <button onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" color='inherit' /></button>
+        </ArrowButtonWrapper>
       </CalTitle>
       <CalWeeks>
         {WEEK_TITLE_ENG.map(e => <span key={e}>{e}</span>)}
@@ -53,11 +51,8 @@ const CalTitle = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-  padding: 2px 0px;
-  >*{
-    width: 30%;
-  }
+
+  padding: 24px 0;
 `
 const CalWeeks = styled.div`
   width: 100%;
@@ -66,7 +61,6 @@ const CalWeeks = styled.div`
   text-transform: capitalize;
   padding: 6px 0;
   font-size: 16px;
-  /* font-weight: 600; */
   color: rgb(var(--greyTitle));
 
   span{
@@ -76,30 +70,26 @@ const CalWeeks = styled.div`
 `
 
 const CalTitleText = styled.button`  
-  text-align: center;
-  text-transform: capitalize;
+  .title{
+    text-transform: capitalize;
+    color: rgb(var(--greyTitle));
+    font-size: 32px;
+    font-family: 'BMJUA';
 
-  font-size: 20px;
-  color: rgb(var(--greyTitle));
-
-  .month{
-    /* font-weight: 600; */
-  }
-  .year{
-    /* font-weight: 500; */
-    margin-left: 8px;
+    @media (min-width:1025px) { //desktop
+      font-size: 36px;
+    }
   }
 `
-const CalHeaderButtons = styled.div`
-  color: rgb(var(--greyTitle));
+const ArrowButtonWrapper = styled.div`
   display: flex;
-  &.start{
-    justify-content: start;
-  }
-  &.end{
-    justify-content: end;
-  }
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
   button{
-    padding: 0 8px;
+    color: grey;
+    display: flex;
+    padding: 12px;
   }
 `
