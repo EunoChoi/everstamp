@@ -110,7 +110,7 @@ const Content = styled.div`
     gap: 24px;
   }
   @media (min-width:1024px) { //desktop
-    padding: 24px 0;
+    padding: 32px 0;
     gap: 24px;
   }
 `
