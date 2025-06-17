@@ -14,15 +14,10 @@ import { getDiariesAtList } from "@/common/fetchers/diary";
 import { getCurrentUser } from "@/common/fetchers/user";
 
 
-import emotion0 from '/public/img/emotion/emotion0.png';
-import emotion1 from '/public/img/emotion/emotion1.png';
-import emotion2 from '/public/img/emotion/emotion2.png';
-import emotion3 from '/public/img/emotion/emotion3.png';
-import emotion4 from '/public/img/emotion/emotion4.png';
 
 import ListFilter from "@/app/(routes)/app/(withLayout)/list/_components/ListFilter";
 import CommonBody from "@/common/components/layout/CommonBody";
-import Header from "@/common/components/layout/Header";
+import TopButtons from "@/common/components/layout/TopButtons";
 import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -64,7 +59,6 @@ const ListView = (props: any) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4];
   const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
 
   const { ref, inView } = useInView({
@@ -77,7 +71,6 @@ const ListView = (props: any) => {
     queryFn: getCurrentUser,
   })
 
-  let tempDate = '';
   const limit = 10; //get diary limit
 
   const userEmail: string = user.email ? user.email : '';
@@ -163,7 +156,7 @@ const ListView = (props: any) => {
   return (
     <$Common.Wrapper>
       <HeaderWrapper>
-        <Header>
+        <TopButtons>
           <$Common.Options>
             <button onClick={() => { setFilterOpen(c => !c); }} className='auto'>
               {hasFilter ? <>
@@ -178,7 +171,7 @@ const ListView = (props: any) => {
               <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
             </button>
           </$Common.Options>
-        </Header>
+        </TopButtons>
       </HeaderWrapper>
 
       <Listbody _ref={contentRef}>

@@ -13,7 +13,7 @@ import $Common from "@/common/styles/common";
 import { getCurrentUser } from "@/common/fetchers/user";
 //icon
 import CommonBody from "@/common/components/layout/CommonBody";
-import Header from "@/common/components/layout/Header";
+import TopButtons from "@/common/components/layout/TopButtons";
 import { getHabits } from "@/common/fetchers/habit";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import AddIcon from '@mui/icons-material/Add';
@@ -99,7 +99,7 @@ const HabitView = () => {
 
   return (
     <$Common.Wrapper className="habit">
-      <Header classname="habit" >
+      <TopButtons classname="habit" >
         <$Common.Options>
           <button onClick={onAddHabit} className="small">
             <AddIcon fontSize="small" />
@@ -108,7 +108,7 @@ const HabitView = () => {
             <span>{SORT_TEXT[sortToggle]}</span>
           </button>
         </$Common.Options>
-      </Header>
+      </TopButtons>
       <HabitBody>
         <HabitsCarousel habits={habits} onAddHabit={onAddHabit} />
       </HabitBody>

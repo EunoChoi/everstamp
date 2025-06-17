@@ -8,7 +8,7 @@ interface Props {
   classname?: string;
 }
 
-const Header = ({ children, classname }: Props) => {
+const TopButtons = ({ children, classname }: Props) => {
   return (
     <Wrapper className={classname}>
       {children}
@@ -16,7 +16,7 @@ const Header = ({ children, classname }: Props) => {
   );
 }
 
-export default Header;
+export default TopButtons;
 
 const Wrapper = styled.div`
   display: flex;
