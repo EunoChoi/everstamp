@@ -2,7 +2,6 @@
 
 import Axios from "@/Axios/axios";
 import CommonBody from "@/common/components/layout/CommonBody";
-import Header from "@/common/components/layout/Header";
 import { getCurrentUser } from "@/common/fetchers/user";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import $Common from "@/common/styles/common";
@@ -102,7 +101,7 @@ const SettingPage = () => {
 
   return (
     <$Common.Wrapper>
-      <Header title='setting' />
+      {/* <Header title='setting' /> */}
       <SettingPageBody>
         <Emtpy />
         <MainSection>

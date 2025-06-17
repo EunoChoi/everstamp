@@ -14,7 +14,6 @@ import { getDiariesAtList } from "@/common/fetchers/diary";
 import { getCurrentUser } from "@/common/fetchers/user";
 
 
-import EventIcon from '@mui/icons-material/Event';
 import emotion0 from '/public/img/emotion/emotion0.png';
 import emotion1 from '/public/img/emotion/emotion1.png';
 import emotion2 from '/public/img/emotion/emotion2.png';
@@ -27,7 +26,6 @@ import Header from "@/common/components/layout/Header";
 import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
 
@@ -94,8 +92,8 @@ const ListView = (props: any) => {
   const queryParamsMonth = searchParams.get('month');
   const queryParamsEmotion = searchParams.get('emotion');
 
+  //query params로 year, month, emotion이 존재하면 해당 값으로 초기화, hook으로 분리하자
   useEffect(() => {
-    // console.log(year, month, emotion);
     if (queryParamsYear) setSelectedYear(Number(queryParamsYear));
     if (queryParamsMonth) setSelectedMonth(Number(queryParamsMonth));
     if (queryParamsEmotion) setEmotionToggle(Number(queryParamsEmotion));
@@ -126,6 +124,11 @@ const ListView = (props: any) => {
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
+
+  const hasDiaries = diaries?.pages[0]?.length > 0;
+  const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
+  const flatDiaries = diaries?.pages.flat();
+
 
   const sortToggleChange = useCallback(() => {
     contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -160,10 +163,16 @@ const ListView = (props: any) => {
   return (
     <$Common.Wrapper>
       <HeaderWrapper>
-        <Header title='list'>
+        <Header>
           <$Common.Options>
-            <button onClick={() => { setFilterOpen(c => !c); }} className='small'>
-              <FilterListIcon className="icon" fontSize="inherit" />
+            <button onClick={() => { setFilterOpen(c => !c); }} className='auto'>
+              {hasFilter ? <>
+                <span>filtered : </span>
+                {selectedMonth !== 0 && <span> {selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}
+                  {emotionToggle !== 5 && <span>,</span>}
+                </span>}
+                {emotionToggle !== 5 && <span> {EMOTION_NAME_ENG[emotionToggle]} </span>}
+              </> : <FilterListIcon className="icon" fontSize="inherit" />}
             </button>
             <button onClick={sortToggleChange} className='normal'>
               <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
@@ -171,15 +180,6 @@ const ListView = (props: any) => {
           </$Common.Options>
         </Header>
       </HeaderWrapper>
-
-
-      {((selectedMonth !== 0) || (emotionToggle !== 5)) &&
-        <FilterResult>
-          <span>filtering</span>
-          <span>:</span>
-          {selectedMonth !== 0 && <span><EventIcon fontSize="small" color="inherit" />{selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}</span>}
-          {emotionToggle !== 5 && <span><Image src={emotions[emotionToggle]} alt='emotion image' width={24} height={24} />{EMOTION_NAME_ENG[emotionToggle]}</span>}
-        </FilterResult>}
 
       <Listbody _ref={contentRef}>
         <ListFilter
@@ -192,18 +192,25 @@ const ListView = (props: any) => {
           setEmotionToggle={setEmotionToggle}
         />
 
-        {diaries?.pages[0]?.length > 0 ?
-          diaries?.pages?.map((page: Array<diaryData>, i: number) => (page?.map((data, i) => {
-            const diaryDate = format(data.date, 'yy.MM');
-            if (tempDate !== diaryDate) {
-              tempDate = diaryDate;
+        {hasDiaries ?
+          flatDiaries?.map((data, i) => {
+            const currentDiaryDate = format(data.date, 'MMMM. yyyy');
+            const previousDiaryDate = i > 0 ? format(flatDiaries[i - 1].date, 'MMMM. yyyy') : '';
+
+            if (currentDiaryDate !== previousDiaryDate) {
               return <React.Fragment key={'listNote' + i}>
-                <MonthInfo className={`Month${i}`}><span>{diaryDate}</span></MonthInfo>
-                <DiaryWrapper><Diary type="large" diaryData={data} /></DiaryWrapper>
+                <MonthSeparator>{currentDiaryDate}</MonthSeparator>
+                <DiaryWrapper>
+                  <Diary type="large" diaryData={data} />
+                </DiaryWrapper>
               </React.Fragment>
             }
-            else return <DiaryWrapper key={'listNote' + i}><Diary type="large" diaryData={data} /></DiaryWrapper>
-          })))
+            else {
+              return <DiaryWrapper key={'listNote' + i}>
+                <Diary type="large" diaryData={data} />
+              </DiaryWrapper>
+            }
+          })
           :
           <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
         <Observer ref={ref} />
@@ -225,36 +232,7 @@ const HeaderWrapper = styled.div`
     top: 0;
   }
 `
-const FilterResult = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding : 6px 0;
-  gap : 12px;
-  background-color:${(props) => props.theme.point ? props.theme.point + '25' : '#979FC7'};
-  color:${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  filter: saturate(150%) contrast(95%);
 
-  @media (min-width:1024px) { //desktop
-    padding: 12px 0;
-    background-color: rgb(252, 252, 252);
-    filter: none;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    width: 75dvw;
-  }
-
-  span{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    /* font-weight: 500; */
-    text-transform: capitalize;
-    line-height: 0;
-  }
-`
 const DiaryWrapper = styled.div`
   width: 100%;
 
@@ -263,49 +241,40 @@ const DiaryWrapper = styled.div`
   align-items: center;
   margin: 14px 0;
 `
+
 const Listbody = styled(CommonBody)`
   max-width: 500px;
+  padding-top: var(--mobileHeader);
   @media (max-width: 479px) { //mobile port
-    padding : 14px 5dvw;
+    padding : 0 5dvw;
+    padding-top: var(--mobileHeader);
   }
   @media (min-width:1024px) { //desktop
     padding-top: 72px;
   }
 `
-const MonthInfo = styled.span`
-  margin-top: 32px;
-  margin-bottom: 32px;
-  
+const MonthSeparator = styled.span`
+  margin: 16px 0;
 
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+
+  text-transform: capitalize;
+  color: rgb(var(--greyTitle));
+  font-size: 28px;
+  font-family: 'BMJUA';
   width: 100%;
-  max-width: 600px;
-  background-color: ${(props) => props.theme.point ? props.theme.point + '50' : '#979FC7'};
 
-  &.Month0{
-    display:none;
-  }
-
-  span{
-    background-color: white;
-    line-height: 1px;
-    padding: 0 8px;
-    color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    font-size: 14px;
-  }
-
-  
   @media (max-width: 479px) { //mobile port
     width: 90dvw;
   }
 
   @media (min-width:1025px) { //desktop
-    font-size: 22px;
-    margin-top: 45px;
-    margin-bottom: 45px;
+    font-size: 42px;
+    margin : 48px 0;
   }
+
 `
 
 const Observer = styled.div`

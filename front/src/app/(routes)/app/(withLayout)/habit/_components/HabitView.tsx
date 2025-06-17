@@ -99,7 +99,7 @@ const HabitView = () => {
 
   return (
     <$Common.Wrapper className="habit">
-      <Header title='habit' classname="habit" >
+      <Header classname="habit" >
         <$Common.Options>
           <button onClick={onAddHabit} className="small">
             <AddIcon fontSize="small" />
@@ -121,4 +121,6 @@ export default HabitView;
 const HabitBody = styled(CommonBody)`
   width: 100%;
   height: 100%;
+
+  padding-top: var(--mobileHeader);
 `

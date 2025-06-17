@@ -14,7 +14,6 @@ import $Common from "@/common/styles/common";
 
 //component
 import CommonBody from "@/common/components/layout/CommonBody";
-import Header from "@/common/components/layout/Header";
 import Calendar from "@/common/components/ui/Calendar";
 import CalendarPageValue from "@/common/components/ui/Calendar/CalendarPageValue";
 import Diary from "@/common/components/ui/Diary";
@@ -75,7 +74,7 @@ const CalendarView = ({ date }: Props) => {
 
   return (
     <$Common.Wrapper>
-      <Header title='calendar' />
+      {/* <Header title='calendar' /> */}
       <CalendarBody>
         {isMobile === true &&
           <Content>

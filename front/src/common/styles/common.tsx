@@ -65,7 +65,6 @@ const $Common = {
       justify-content: center;
       align-items: center;
 
-      padding: 2px 12px;
       height: 28px;
 
       transition: all ease-in-out 200ms;
@@ -74,7 +73,11 @@ const $Common = {
       font-size: 14px;
       font-weight: 500;
       color: rgb(var(--greyTitle));
-      background-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
+      font-weight: 500;
+      color: white;
+      background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+      /* filter: brightness(130%) saturate(100%) contrast(80%); */
+      /* backdrop-filter: blur(4px); */
       border: 2px solid rgba(0,0,0,0.07);
       border-radius : 48px;
 
@@ -86,6 +89,11 @@ const $Common = {
       }
       &.large{
         width: 80px;
+      }
+      &.auto{
+        width: auto;
+        padding: 0 12px;
+        gap: 12px;
       }
       
       @media (min-width:1025px) { //desktop
