@@ -65,9 +65,12 @@ const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
     };
   }, [])
 
+
   return <Wrapper ref={wrapper}>
-    <HabitPageText className='title'>{createdHabits !== 0 ? Math.round((todayDoneHabits / createdHabits) * 100) : '-'}% 실천 달성</HabitPageText>
-    <HabitPageText className='sub'>오늘의 목표 습관 {createdHabits}개중 {todayDoneHabits}개를 실천하셨습니다!</HabitPageText>
+    <HabitPageTextWrapper $boxWidth={boxWidth ?? 0} $col={col ?? 0} >
+      <HabitPageText className='title'>{createdHabits !== 0 ? Math.round((todayDoneHabits / createdHabits) * 100) : '-'}% 완료!!!</HabitPageText>
+      <HabitPageText className='sub'>오늘의 목표 습관 {createdHabits}개중 {todayDoneHabits}개를 실천하셨습니다 :)</HabitPageText>
+    </HabitPageTextWrapper>
     {(row && col) &&
       <CarouselWrapper
         ref={slideWrapperRef}
@@ -100,22 +103,25 @@ const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
 
 export default GridCarousel;
 
+const HabitPageTextWrapper = styled.div<{ $boxWidth: number, $col: number }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  padding-left: calc((100% - ${props => props.$boxWidth * props.$col}px) / 2);
+`
 const HabitPageText = styled.span`
-  padding: 0 5dvw;
-  
   display: flex;
   justify-content: start;
   align-items: center;
-
   text-transform: capitalize;
 
 
   &.title{
-    margin-top: 16px;
     margin-bottom: 4px;
     color: rgb(var(--greyTitle));
     width: 100%;
-    
 
     font-size: 32px;
     font-family: 'BMJUA';
@@ -124,7 +130,7 @@ const HabitPageText = styled.span`
     }
   }
   &.sub{
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     font-size: 18px;
     color: grey;
   }
@@ -155,7 +161,7 @@ const IndicatorWrapper = styled.div<{ $height: number }>`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
 
   width: 100%;
   height: 100%;
@@ -165,7 +171,7 @@ const CarouselWrapper = styled.div`
 
   width: 100%;
   height: auto;
-  padding-bottom: 12px;
+  padding-bottom: 8px;
 
   display: flex;
   overflow-x: scroll;
