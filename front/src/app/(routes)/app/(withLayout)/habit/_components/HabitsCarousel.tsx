@@ -1,5 +1,7 @@
 import Indicator from '@/common/components/ui/Indicator';
+import { getTodayHabitStat } from '@/common/fetchers/habit';
 import AddIcon from '@mui/icons-material/Add';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import HabitBox from "./HabitBox";
@@ -25,6 +27,14 @@ const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
   const [boxWidth, setBoxWidth] = useState<number>();
   const [row, setRow] = useState<number>();
   const [col, setCol] = useState<number>();
+
+  const { data: todayInfo } = useQuery({
+    queryKey: ['habit', 'today', 'stat'],
+    queryFn: getTodayHabitStat,
+  })
+
+  const todayDoneHabits = todayInfo?.todayDoneHabits ?? 0;
+  const createdHabits = todayInfo?.createdHabits ?? 0;
 
   const pageArray = (row !== undefined && col !== undefined && habits.length > 0) ?
     Array.from({ length: Math.ceil(habits.length / (col * row)) })
@@ -56,8 +66,8 @@ const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
   }, [])
 
   return <Wrapper ref={wrapper}>
-    <HabitPageText className='title'>80% 실천 달성</HabitPageText>
-    <HabitPageText className='sub'>오늘의 목표 습관 12개중 5개를 실천하셨습니다!</HabitPageText>
+    <HabitPageText className='title'>{createdHabits !== 0 ? Math.round((todayDoneHabits / createdHabits) * 100) : '-'}% 실천 달성</HabitPageText>
+    <HabitPageText className='sub'>오늘의 목표 습관 {createdHabits}개중 {todayDoneHabits}개를 실천하셨습니다!</HabitPageText>
     {(row && col) &&
       <CarouselWrapper
         ref={slideWrapperRef}
