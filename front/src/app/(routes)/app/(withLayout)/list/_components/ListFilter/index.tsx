@@ -106,7 +106,7 @@ const BG = styled.div`
   }
 
   @media (max-width: 479px) { //mobile port
-    top: var(--mobileHeader);
+    top: 0px;
     z-index: 98;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
@@ -130,13 +130,14 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  background-color: rgb(252, 252, 252);
+  background-color: white;
 
   @media (max-width: 479px) { //mobile port
     box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
     width: 100%;
     height: auto;
     padding: 36px 24px;
+    padding-top: calc((var(--mobileHeader) + 36px));
     gap: 24px;
 
     will-change: height;

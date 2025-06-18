@@ -121,9 +121,4 @@ export default HabitView;
 const HabitBody = styled(CommonBody)`
   width: 100%;
   height: 100%;
-
-  padding-top: var(--mobileHeader);
-  @media (min-width:1024px) { //desktop
-    padding-top: var(--desktopHeader);
-  }
 `
