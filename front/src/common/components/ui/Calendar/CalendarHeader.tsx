@@ -52,7 +52,7 @@ const CalTitle = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  padding: 24px 0;
+  padding: 18px 0;
 `
 const CalWeeks = styled.div`
   width: 100%;

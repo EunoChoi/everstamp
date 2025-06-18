@@ -13,7 +13,9 @@ import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import { useEffect } from "react";
 import styled from "styled-components";
 
+import TopButtons from "@/common/components/layout/TopButtons";
 import AddIcon from '@mui/icons-material/Add';
+import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 const SettingPage = () => {
@@ -101,9 +103,31 @@ const SettingPage = () => {
 
   return (
     <$Common.Wrapper>
-      {/* <Header title='setting' /> */}
+      <TopButtons>
+        <$Common.Options>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="auto">
+              <AndroidRoundedIcon fontSize="small" />
+            </button>
+          </a>
+          <a
+            href="https://everstamp.site"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="normal">
+              intro
+            </button>
+          </a>
+
+
+        </$Common.Options>
+      </TopButtons>
       <SettingPageBody>
-        <Emtpy />
         <MainSection>
           <Title>account</Title>
           <SubSection>
@@ -165,7 +189,6 @@ const SettingPage = () => {
             <Button onClick={onDeleteAccount}>계정 삭제</Button>
           </Buttons>
         </MainSection>
-        <Emtpy />
       </SettingPageBody>
     </$Common.Wrapper>
   );
@@ -191,14 +214,16 @@ const FontSizeWrapper = styled.div`
 
 const SettingPageBody = styled(CommonBody)`
   max-width: 500px;
-`
-const Emtpy = styled.div` //for align center
-  flex: 1;
+  padding-top: var(--mobileHeader);
+    
+  @media (min-width:1024px) { //desktop
+    padding-top: var(--desktopHeader);
+  }
 `
 const MainSection = styled.div`
   width: 100%;
   height: auto;
-  padding: 28px 0;
+  padding: 16px 0;
   gap: 16px;
 
   display: flex;
@@ -216,11 +241,14 @@ const SubSection = styled.section`
   height: 100%;
 `
 const Title = styled.span`
-  font-size: 28px;
-  font-weight: 500;
   color: rgb(var(--greyTitle));
-
   text-transform: capitalize;
+  font-size: 32px;
+  font-family: 'BMJUA';
+  
+  @media (min-width:1025px) { //desktop
+    font-size: 36px;
+  }
 `
 const SubTitle = styled.span`
   display : block;

@@ -155,24 +155,22 @@ const ListView = (props: any) => {
 
   return (
     <$Common.Wrapper>
-      <HeaderWrapper>
-        <TopButtons>
-          <$Common.Options>
-            <button onClick={() => { setFilterOpen(c => !c); }} className='auto'>
-              {hasFilter ? <>
-                <span>filtered : </span>
-                {selectedMonth !== 0 && <span> {selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}
-                  {emotionToggle !== 5 && <span>,</span>}
-                </span>}
-                {emotionToggle !== 5 && <span> {EMOTION_NAME_ENG[emotionToggle]} </span>}
-              </> : <FilterListIcon className="icon" fontSize="inherit" />}
-            </button>
-            <button onClick={sortToggleChange} className='normal'>
-              <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
-            </button>
-          </$Common.Options>
-        </TopButtons>
-      </HeaderWrapper>
+      <TopButtons>
+        <$Common.Options>
+          <button onClick={() => { setFilterOpen(c => !c); }} className='auto'>
+            {hasFilter ? <>
+              <span>filtered : </span>
+              {selectedMonth !== 0 && <span> {selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}
+                {emotionToggle !== 5 && <span>,</span>}
+              </span>}
+              {emotionToggle !== 5 && <span> {EMOTION_NAME_ENG[emotionToggle]} </span>}
+            </> : <FilterListIcon className="icon" fontSize="inherit" />}
+          </button>
+          <button onClick={sortToggleChange} className='normal'>
+            <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
+          </button>
+        </$Common.Options>
+      </TopButtons>
 
       <Listbody _ref={contentRef}>
         <ListFilter
@@ -215,17 +213,6 @@ const ListView = (props: any) => {
 
 export default ListView;
 
-const HeaderWrapper = styled.div`
-  width: auto;
-  @media (max-width: 479px) { //mobile port
-    width: 100%;
-  }
-  @media (min-width:1024px) { //desktop
-    position: fixed;
-    top: 0;
-  }
-`
-
 const DiaryWrapper = styled.div`
   width: 100%;
 
@@ -243,7 +230,7 @@ const Listbody = styled(CommonBody)`
     padding-top: var(--mobileHeader);
   }
   @media (min-width:1024px) { //desktop
-    padding-top: 72px;
+    padding-top: var(--desktopHeader);
   }
 `
 const MonthSeparator = styled.span`
@@ -264,8 +251,8 @@ const MonthSeparator = styled.span`
   }
 
   @media (min-width:1025px) { //desktop
-    font-size: 42px;
-    margin : 48px 0;
+    font-size: 36px;
+    margin : 28px 0;
   }
 
 `
