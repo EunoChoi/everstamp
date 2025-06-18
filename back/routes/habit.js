@@ -14,6 +14,47 @@ const Diary = db.Diary;
 const Image = db.Image;
 const Habit = db.Habit;
 
+//today habit status
+router.get("/today", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /habit/today -----');
+
+  const email = req.currentUserEmail;
+  const todayDate = new Date().setHours(0, 0, 0, 0); // 오늘 날짜의 시작 시간으로 설정;
+
+  console.log('email : ', email);
+  console.log('todayDate : ', todayDate);
+  try {
+    const createdHabits = await Habit.findAll({
+      where: [{
+        email,
+      }],
+    });
+    // console.log('-----------------createdHabits---------------- : ', createdHabits.length);
+    const todayDiary = await Diary.findOne({
+      where: [{
+        email,
+        date: todayDate
+      }],
+      include: [{
+        model: Habit,//습관
+      }]
+    });
+    // console.log('-----------------todayDiary---------------- : ', todayDiary);
+
+    // return res.status(200).json({ createdHabits, todayDiary });
+    if (createdHabits && todayDiary) {
+      const result = {
+        createdHabits: createdHabits.length,
+        todayDoneHabits: todayDiary.Habits.length,
+      }
+      return res.status(200).json(result);
+    }
+    else return res.status(400).json('오늘의 습관 정보를 불러오지 못하였습니다.');
+  } catch (e) {
+    console.error(e);
+  }
+})
+
 //load habit info by id
 router.get("/", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit?id -----');

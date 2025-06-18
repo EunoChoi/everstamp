@@ -15,6 +15,16 @@ interface MonthProps {
   date: Date;
 }
 
+export async function getTodayHabitStat() {
+  try {
+    const { data } = await Axios.get(`habit/today`);
+    return data;
+  }
+  catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get today habit status data!!');
+  }
+}
 
 export async function getHabitById({ id }: IdProps) {
   try {
