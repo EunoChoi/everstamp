@@ -123,4 +123,7 @@ const HabitBody = styled(CommonBody)`
   height: 100%;
 
   padding-top: var(--mobileHeader);
+  @media (min-width:1024px) { //desktop
+    padding-top: var(--desktopHeader);
+  }
 `

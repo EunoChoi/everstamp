@@ -16,9 +16,6 @@ interface Props {
 
 //custom order의 경우 data prefetch 안하기 때문에 기본값 []로 설정해야 에러 방지 가능
 const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
-
-  // console.log('habits :', habits);
-
   const INDICATOR_HEIGHT = 30;
 
   const wrapper = useRef<HTMLDivElement>(null);
@@ -59,12 +56,15 @@ const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
   }, [])
 
   return <Wrapper ref={wrapper}>
+    <HabitPageText className='title'>80% 실천 달성</HabitPageText>
+    <HabitPageText className='sub'>오늘의 목표 습관 12개중 5개를 실천하셨습니다!</HabitPageText>
     {(row && col) &&
       <CarouselWrapper
         ref={slideWrapperRef}
         onScroll={(e) => {
           setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
         }}>
+
         {pageArray && pageArray.map((_, pageIndex: number) =>
           <CarouselPage key={'page' + pageIndex}>
             <HabitsWrapper $row={row} $col={col} >
@@ -90,6 +90,36 @@ const GridCarousel = ({ habits = [], onAddHabit }: Props) => {
 
 export default GridCarousel;
 
+const HabitPageText = styled.span`
+  padding: 0 5dvw;
+  
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  text-transform: capitalize;
+
+
+  &.title{
+    margin-top: 16px;
+    margin-bottom: 4px;
+    color: rgb(var(--greyTitle));
+    width: 100%;
+    
+
+    font-size: 32px;
+    font-family: 'BMJUA';
+    @media (min-width:1025px) { //desktop
+      font-size: 36px;
+    }
+  }
+  &.sub{
+    margin-bottom: 32px;
+    font-size: 18px;
+    color: grey;
+  }
+
+`
 
 const EmptyBox = styled.div`
   display: flex;
@@ -113,15 +143,9 @@ const IndicatorWrapper = styled.div<{ $height: number }>`
   height: ${props => props.$height}+'px' !important;
 `
 const Wrapper = styled.div`
-  /* @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
-  }
-  animation: fadeIn 500ms ease-in-out; */
-
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
 
   width: 100%;
   height: 100%;
@@ -131,10 +155,12 @@ const CarouselWrapper = styled.div`
 
   width: 100%;
   height: auto;
+  padding-bottom: 12px;
 
   display: flex;
   overflow-x: scroll;
   flex-shrink: 0;
+
 `
 const CarouselPage = styled.div`
   scroll-snap-align: center;

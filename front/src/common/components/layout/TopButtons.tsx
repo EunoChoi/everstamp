@@ -39,6 +39,7 @@ const Wrapper = styled.div`
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     width: 75dvw;
+    height: var(--mobileHeader);
     padding: 0 20px;
     right: 0;
   }
