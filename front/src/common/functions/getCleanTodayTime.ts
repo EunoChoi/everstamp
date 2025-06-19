@@ -1,4 +1,4 @@
 export function getCleanTodayTime() {
-  const tempDate = new Date();
-  return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
+  return new Date().setHours(0, 0, 0, 0);
+  // return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()).getTime();
 }
