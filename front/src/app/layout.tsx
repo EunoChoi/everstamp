@@ -92,7 +92,7 @@ export default function RootLayout({
         {isIosDevice && <meta name="apple-mobile-web-app-capable" content="yes" />}
         <meta name="mobile-web-app-capable" content="yes" />
 
-        <meta name="theme-color" content="#fcfcfc" />
+        <meta name="theme-color" content="#ffffff" />
         <meta property="og:title" content="Everstamp" />
         <meta property="og:description" content="감정 일기를 적고 습관을 실천하세요. 당신의 긍정적 변화와 성장을 응원합니다. :)" />
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
