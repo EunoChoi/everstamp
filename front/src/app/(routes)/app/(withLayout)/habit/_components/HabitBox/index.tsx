@@ -15,17 +15,17 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { PriorityStar } from "./PriorityStar";
 import useHabitAction from "./utils/useHabitAction";
 
 
 interface Props {
-  isEmpty?: boolean;
   name: string;
   id: number;
   priority: number;
 }
 
-const HabitBox = ({ name, id, priority, isEmpty }: Props) => {
+const HabitBox = ({ name, id, priority }: Props) => {
 
   const router = useCustomRouter();
   const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
@@ -63,7 +63,8 @@ const HabitBox = ({ name, id, priority, isEmpty }: Props) => {
     }
   }
 
-  return (<Wrapper className={`priority-${priority}`}>
+  return (<Wrapper>
+    <PriorityStar priority={priority + 1} />
     <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {
@@ -115,27 +116,18 @@ const ButtonWrapper = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
   
   border-radius: 20px;
   background-color: rgb(255, 255, 255);
-  border: 2px solid ${(props) => props.theme.point ? props.theme.point + 40 : '#979FC7'};
+  border: 2px solid ${(props) => props.theme.point ? props.theme.point + 70 : '#979FC7'};
 
   width: 100%;
-  aspect-ratio: 1;
-  margin: 4px;
-
-  &.priority-0{
-    border-color: rgba(0,0,0,0.08);
-  }
-  &.priority-1{
-    border-color: ${(props) => props.theme.point ? props.theme.point + 60 : '#979FC7'};
-  }
-  &.priority-2{
-    border-color: ${(props) => props.theme.point ? props.theme.point + 80 : '#979FC7'};
-  }
+  aspect-ratio: 0.85;
+  gap: 12px;
 `
-const Name = styled.span`
+const Name = styled.div`
   width: 100%;
   height: auto;
   
@@ -175,9 +167,9 @@ const Check = styled.div`
     }
   }
   .date{
-    margin: 4px 0;
+    margin: 2px 0;
     @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
-      margin: 3px 0;
+      margin: 2px 0;
     }
   }
   .week{
