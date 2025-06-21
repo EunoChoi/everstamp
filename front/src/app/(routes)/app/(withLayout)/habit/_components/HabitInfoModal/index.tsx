@@ -10,7 +10,7 @@ import YearHabitChart from "./YearHabitChart";
 
 import $Modal from "@/common/styles/common_modal";
 
-import HabitInfoPageValue from "@/app/(routes)/app/(withLayout)/habit/_components/HabitInfoPageValue";
+import HabitInfoPageValue from "@/app/(routes)/app/(withLayout)/habit/_components/HabitInfoModal/HabitInfoPageValue";
 import Calendar from "@/common/components/ui/Calendar";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';

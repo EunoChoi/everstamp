@@ -2,70 +2,46 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { enqueueSnackbar } from 'notistack';
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useRef } from "react";
 import styled from "styled-components";
 
-//style
-import $Common from "@/common/styles/common";
 
 
-//function
-import { getCurrentUser } from "@/common/fetchers/user";
-//icon
-import CommonBody from "@/common/components/layout/CommonBody";
+import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/layout/TopButtons";
 import { getHabits } from "@/common/fetchers/habit";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import AddIcon from '@mui/icons-material/Add';
-import HabitsCarousel from "./HabitsCarousel";
+import { useHabitSortOrder } from "../_hooks/useHabitSortOrder";
+import { useTodayHabitRate } from "../_hooks/useTodayHabitRate";
+import HabitBox from "./HabitBox";
 
+interface Habit {
+  id: number;
+  name: string;
+  priority: number;
+}
 
+const SORT_TEXT = {
+  'ASC': 'Old',
+  'DESC': 'New',
+  'CUSTOM': 'Custom'
+}
 
 const HabitView = () => {
+  usePrefetchPage();
+
   const router = useCustomRouter();
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const SORT_TEXT = {
-    'ASC': 'Old',
-    'DESC': 'New',
-    'CUSTOM': 'Custom'
-  }
-
-  const { data: user = { email: '' } } = useQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
-  })
-
-  const userEmail: string = user.email ? user.email : '';
-
-
-  const [customOrder, setCustomOrder] = useState<number[]>(() => {
-    const localData = localStorage.getItem(userEmail)
-    if (localData) {
-      const jsonLocalData = JSON.parse(localData);
-      return jsonLocalData['habitCustomOrder'] ? jsonLocalData['habitCustomOrder'] : [];
-    }
-    else return [];
-  });
-
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC' | 'CUSTOM'>(() => {
-    const localData = localStorage.getItem(userEmail)
-    if (localData) {
-      const jsonLocalData = JSON.parse(localData);
-      return jsonLocalData['habitSortType'] ? jsonLocalData['habitSortType'] : 'DESC';
-    }
-    else return 'DESC';
-  }
-  );
+  const { todayDoneHabitCount, createdHabitCount, todayDoneHabitRate } = useTodayHabitRate();
+  const { customOrder, sortToggle, setSortToggle } = useHabitSortOrder();
 
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', sortToggle],
     queryFn: () => getHabits({ sort: sortToggle, customOrder }),
   });
-
-  // useEffect(() => {
-  //   console.log('habits fetch')
-  // }, [habits])
-
 
   const onAddHabit = () => {
     if (habits && habits.length >= 18) enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
@@ -77,48 +53,100 @@ const HabitView = () => {
     else if (sortToggle === 'CUSTOM') setSortToggle('DESC');
   }, [sortToggle])
 
-
-  useEffect(() => {
-    const localData = localStorage.getItem(userEmail)
-    let jsonLocalData;
-    if (localData) {
-      jsonLocalData = JSON.parse(localData);
-    }
-
-    localStorage.setItem(userEmail, JSON.stringify({ ...jsonLocalData, habitSortType: sortToggle }));
-  }, [userEmail, sortToggle])
-
-
-  //production mode에서만 동작, 정적 자료만 prefetch
-  useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/setting');
-  }, [])
-
-
   return (
-    <$Common.Wrapper className="habit">
-      <TopButtons classname="habit" >
-        <$Common.Options>
-          <button onClick={onAddHabit} className="small">
-            <AddIcon fontSize="small" />
-          </button>
-          <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
-            <span>{SORT_TEXT[sortToggle]}</span>
-          </button>
-        </$Common.Options>
+    <HabitPageWrapper ref={wrapperRef}>
+      <TopButtons>
+        <button onClick={onAddHabit} className="small">
+          <AddIcon fontSize="small" />
+        </button>
+        <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
+          <span>{SORT_TEXT[sortToggle]}</span>
+        </button>
       </TopButtons>
-      <HabitBody>
-        <HabitsCarousel habits={habits} onAddHabit={onAddHabit} />
-      </HabitBody>
-    </$Common.Wrapper>
+
+      <HabitPageTextWrapper>
+        <HabitPageText className='title'>{todayDoneHabitRate}% Done, Today</HabitPageText>
+        <HabitPageText className='sub'>오늘의 목표 습관 {createdHabitCount}개중 {todayDoneHabitCount}개를 실천하셨습니다 :</HabitPageText>
+      </HabitPageTextWrapper>
+
+      <HabitBoxs>
+        {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
+        <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>
+      </HabitBoxs>
+    </HabitPageWrapper>
   );
 }
 
 export default HabitView;
 
-const HabitBody = styled(CommonBody)`
+
+const HabitPageWrapper = styled(PageWrapper)`
   width: 100%;
-  height: 100%;
+  height: 100dvh;
+
+  align-items: start;
+
+  padding-top: var(--mobileHeader);
+  padding-left: 5dvw;
+  padding-right: 5dvw;
+  overflow-y: scroll;
+
+  @media (min-width:1024px) { //desktop
+    padding-top: var(--desktopHeader);
+  }
+`
+
+const HabitPageTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  margin-top: 16px;
+  margin-bottom: 28px;
+  gap: 8px;
+`
+const HabitPageText = styled.span`
+  &.title{
+    color: rgb(var(--greyTitle));
+    width: 100%;
+
+    font-size: 32px;
+    font-family: 'BMJUA';
+    @media (min-width:1025px) { //desktop
+      font-size: 36px;
+    }
+  }
+  &.sub{
+    font-size: 18px;
+    color: grey;
+  }
+`
+
+
+const HabitBoxs = styled.div`
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+
+  display : grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 8px;
+  row-gap: 8px;
+`
+const EmptyBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+  width: 100%;
+  aspect-ratio: 0.85;
+  
+  border-radius: 20px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid ${(props) => props.theme.point ? props.theme.point + 70 : '#979FC7'};
+  color: ${(props) => props.theme.point ? props.theme.point + 70 : '#979FC7'};
+  font-size: 48px;
 `
