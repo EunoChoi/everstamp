@@ -19,36 +19,74 @@ const TopButtons = ({ children, classname }: Props) => {
 export default TopButtons;
 
 const Wrapper = styled.div`
+  z-index: 999;
   display: flex;
-  flex-shrink: 0;
-
   justify-content: end;
   align-items: center;
+  flex-shrink: 0;
+  gap: 6px;
 
+  width: auto;
   position: fixed;
+  width: 100%;
   top: 0;
+  right: 0;
 
-  z-index: 999;
-  /* background-color: rgba(255,255,255,0.6);
-  backdrop-filter: blur(8px); */
+  background-color: rgba(255,255,255,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
   @media (max-width: 479px) { //mobile port
-    width: 100%;
     height: var(--mobileHeader);
-    padding: 0 5%;
+    padding: 0 5dvw;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    width: 75dvw;
     height: var(--mobileHeader);
     padding: 0 20px;
-    right: 0;
   }
   @media (min-width:1025px) { //desktop
-    width: calc(100dvw - var(--sidebarWidth));
     padding: 0 48px;
-    height: var(--desktopHeader);
-    /* background-color: transparent;
-    backdrop-filter: none; */
-    right: 0;
+    padding: var(--desktopHeader);
+  }
+
+  button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 28px;
+
+    transition: all ease-in-out 200ms;
+    text-transform: capitalize;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(var(--greyTitle));
+    font-weight: 500;
+    color: white;
+    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    /* filter: brightness(130%) saturate(100%) contrast(80%); */
+    /* backdrop-filter: blur(4px); */
+    border: 2px solid rgba(0,0,0,0.07);
+    border-radius : 48px;
+
+    &.small{
+      width: 47px;
+    }
+    &.normal{
+      width: 60px;
+    }
+    &.large{
+      width: 80px;
+    }
+    &.auto{
+      width: auto;
+      padding: 0 12px;
+      gap: 12px;
+    }
+    @media (min-width:1025px) { //desktop
+      padding: 4px 12px;
+      height: 32px;
+    }
   }
 `
