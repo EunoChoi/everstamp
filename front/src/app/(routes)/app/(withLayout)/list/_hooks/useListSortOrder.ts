@@ -14,7 +14,7 @@ export const useListSortOrder = ({ ref }: { ref: MutableRefObject<HTMLDivElement
     else return 'DESC';
   });
 
-  const listSortOrderChange = useCallback(() => {
+  const sortOrderChange = useCallback(() => {
     ref.current?.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
       if (sortToggle === 'DESC') setSortToggle('ASC');
@@ -32,5 +32,5 @@ export const useListSortOrder = ({ ref }: { ref: MutableRefObject<HTMLDivElement
     localStorage.setItem(currentUserEmail, JSON.stringify({ ...jsonLocalData, listSortType: sortToggle }));
   }, [currentUserEmail, sortToggle])
 
-  return { sortToggle, setSortToggle, listSortOrderChange }
+  return { sortToggle, setSortToggle, sortOrderChange };
 }

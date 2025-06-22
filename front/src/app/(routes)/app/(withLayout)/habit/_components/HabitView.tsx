@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { enqueueSnackbar } from 'notistack';
-import { useCallback } from "react";
 import styled from "styled-components";
 
 
@@ -34,11 +33,9 @@ const MAX_HABIT_COUNT = 20;
 
 const HabitView = () => {
   usePrefetchPage();
-
   const router = useCustomRouter();
-
   const { todayDoneHabitCount, createdHabitCount, todayDoneHabitRate } = useTodayHabitRate();
-  const { customOrder, sortToggle, setSortToggle } = useHabitSortOrder();
+  const { customOrder, sortToggle, sortOrderChange } = useHabitSortOrder();
 
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', sortToggle],
@@ -49,11 +46,7 @@ const HabitView = () => {
     if (habits && habits.length >= MAX_HABIT_COUNT) enqueueSnackbar(`습관은 최대 ${MAX_HABIT_COUNT}개 생성 가능합니다.`, { variant: 'info' })
     else router.push('/app/inter/input/addHabit', { scroll: false })
   }
-  const sortChange = useCallback(() => {
-    if (sortToggle === 'DESC') setSortToggle('ASC');
-    else if (sortToggle === 'ASC') setSortToggle('CUSTOM');
-    else if (sortToggle === 'CUSTOM') setSortToggle('DESC');
-  }, [sortToggle])
+
 
   return (
     <PageWrapper>
@@ -61,7 +54,7 @@ const HabitView = () => {
         <button onClick={onAddHabit} className="small">
           <AddIcon fontSize="small" />
         </button>
-        <button onClick={sortChange} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
+        <button onClick={sortOrderChange} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
           <span>{SORT_TEXT[sortToggle]}</span>
         </button>
       </TopButtons>

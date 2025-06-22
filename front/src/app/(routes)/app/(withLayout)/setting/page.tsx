@@ -10,27 +10,31 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { signOut } from "next-auth/react";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
-import { useEffect } from "react";
 import styled from "styled-components";
 
 import TopButtons from "@/common/components/layout/TopButtons";
+import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import AddIcon from '@mui/icons-material/Add';
 import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+const FONT_SIZE_LIST = ['13px', '15px', '17px'];
+const COLOR_NAME_ENG = ['purple', 'blue', 'green', 'pink', 'grey'];
+const COLOR_HEX_VALUE = ['#979FC7', '#8CADE2', '#83c6b6', '#eda5b1', '#8f8f8f'];
+
+
 const SettingPage = () => {
+  usePrefetchPage();
   const router = useCustomRouter();
   const queryClient = useQueryClient();
 
-  const FONT_SIZE_LIST = ['13px', '15px', '17px'];
+
 
   const { data } = useQuery({
     queryKey: ['user'],
     queryFn: getCurrentUser,
   })
 
-  const colorName = ['purple', 'blue', 'green', 'pink', 'grey'];
-  const colorValue = ['#979FC7', '#8CADE2', '#83c6b6', '#eda5b1', '#8f8f8f'];
 
 
   const themeColorUpdateMutation = useMutation({
@@ -94,13 +98,6 @@ const SettingPage = () => {
     themeColorUpdateMutation.mutate(themeColor);
   }
 
-  //production mode에서만 동작, 정적 자료만 prefetch
-  useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
-  }, [])
-
   return (
     <$Common.Wrapper>
       <TopButtons>
@@ -152,10 +149,10 @@ const SettingPage = () => {
             <FlexRow>
               <Color className="selected" />
               <FlexRow className="end">
-                {colorValue.map((e, i) =>
+                {COLOR_HEX_VALUE.map((e, i) =>
                   <Color
-                    key={colorName[i] + 'Color'}
-                    className={colorName[i]}
+                    key={COLOR_NAME_ENG[i] + 'Color'}
+                    className={COLOR_NAME_ENG[i]}
                     onClick={() => themeColorUpdate(e)}
                   />)}
               </FlexRow>

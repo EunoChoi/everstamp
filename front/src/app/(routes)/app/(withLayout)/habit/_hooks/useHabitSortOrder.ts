@@ -1,5 +1,5 @@
 import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useHabitSortOrder = () => {
   const { currentUserEmail } = useCurrentUserEmail();
@@ -21,6 +21,12 @@ export const useHabitSortOrder = () => {
     else return 'DESC';
   });
 
+  const sortOrderChange = useCallback(() => {
+    if (sortToggle === 'DESC') setSortToggle('ASC');
+    else if (sortToggle === 'ASC') setSortToggle('CUSTOM');
+    else if (sortToggle === 'CUSTOM') setSortToggle('DESC');
+  }, [sortToggle])
+
   //sort 변경되면 로컬 스토리지 값에 적용
   useEffect(() => {
     const localData = localStorage.getItem(currentUserEmail)
@@ -32,6 +38,6 @@ export const useHabitSortOrder = () => {
     localStorage.setItem(currentUserEmail, JSON.stringify({ ...jsonLocalData, habitSortType: sortToggle }));
   }, [currentUserEmail, sortToggle])
   return {
-    customOrder, sortToggle, setSortToggle
+    customOrder, sortToggle, setSortToggle, sortOrderChange
   };
 }
