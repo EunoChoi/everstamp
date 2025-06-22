@@ -30,7 +30,7 @@ const SORT_TEXT = {
   'CUSTOM': 'Custom'
 }
 
-const MAX_HABIT_COUNT = 16;
+const MAX_HABIT_COUNT = 20;
 
 const HabitView = () => {
   usePrefetchPage();

@@ -1,277 +1,109 @@
 'use client';
 
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { format, getYear } from "date-fns";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
-//style
-import $Common from "@/common/styles/common";
-
-//function
-import { getDiariesAtList } from "@/common/fetchers/diary";
-import { getCurrentUser } from "@/common/fetchers/user";
-
-
-
 import ListFilter from "@/app/(routes)/app/(withLayout)/list/_components/ListFilter";
-import CommonBody from "@/common/components/layout/CommonBody";
+import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
+import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/layout/TopButtons";
-import Diary from "@/common/components/ui/Diary";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
+import { getDiariesAtList } from "@/common/fetchers/diary";
+import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
+import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { useRouter, useSearchParams } from "next/navigation";
+import { useFilter } from "../_hooks/useFilter";
+import { useListSortOrder } from "../_hooks/useListSortOrder";
+import { diaryData } from "../_types/diaryData";
+import { Diaries } from "./Diaries";
 
+const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
+const DIDARY_FETCH_LIMIT = 10; //get diary limit
 
+const ListView = () => {
+  usePrefetchPage();
 
-interface ImageProps {
-  id: string;
-  src: string;
-}
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-interface Habit {
-  UserId: number;
-  id: number;
-  email: string;
-  name: string;
-  priority: number;
-}
-
-
-interface diaryData {
-  email: string;
-  id: number;
-  date: Date;
-  text: string;
-  emotion: number;
-  Images: Array<ImageProps>;
-  Habits: Array<Habit>;
-  visible: boolean;
-};
-
-interface User {
-  email: string;
-}
-
-const ListView = (props: any) => {
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
-
-  const { ref, inView } = useInView({
-    threshold: 0,
-    delay: 0
-  });
-
-  const { data: user = { email: '' } } = useQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
-  })
-
-  const limit = 10; //get diary limit
-
-  const userEmail: string = user.email ? user.email : '';
-  const contentRef = useRef<HTMLDivElement | null>(null);
-
-  const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
-  const [selectedMonth, setSelectedMonth] = useState<number>(0);
-  const [emotionToggle, setEmotionToggle] = useState<number>(5);
-
-
-  const queryParamsYear = searchParams.get('year');
-  const queryParamsMonth = searchParams.get('month');
-  const queryParamsEmotion = searchParams.get('emotion');
-
-  //query params로 year, month, emotion이 존재하면 해당 값으로 초기화, hook으로 분리하자
-  useEffect(() => {
-    if (queryParamsYear) setSelectedYear(Number(queryParamsYear));
-    if (queryParamsMonth) setSelectedMonth(Number(queryParamsMonth));
-    if (queryParamsEmotion) setEmotionToggle(Number(queryParamsEmotion));
-  }, [queryParamsYear, queryParamsMonth, queryParamsEmotion])
+  const { currentUserEmail } = useCurrentUserEmail();
+  const { ref: inViewRef, inView } = useInView({ threshold: 0, delay: 0 });
 
 
   const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
-  const [sortToggle, setSortToggle] = useState<'ASC' | 'DESC'>(() => {
-    const localData = localStorage.getItem(userEmail)
-    if (localData) {
-      const jsonLocalData = JSON.parse(localData);
-      return jsonLocalData['listSortType'] ? jsonLocalData['listSortType'] : 'DESC';
-    }
-    else return 'DESC';
-  });
+  const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
+  const diplayYearMonth = selectedYear % 100 + '.' + selectedMonth.toString().padStart(2, '0');
+  const { sortToggle, listSortOrderChange } = useListSortOrder({ ref: wrapperRef });
+  const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
 
-
-  const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
+  const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortToggle, 'year', selectedYear, 'momth', selectedMonth],
     queryFn: ({ pageParam }) => getDiariesAtList({
       sort: sortToggle,
       search: emotionToggle,
       pageParam,
-      limit,
+      limit: DIDARY_FETCH_LIMIT,
       selectedYear: selectedYear,
       selectedMonth: selectedMonth
     }),
     initialPageParam: 0,
+    select: (data) => data.pages.flat() as diaryData[],
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
-  const hasDiaries = diaries?.pages[0]?.length > 0;
-  const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
-  const flatDiaries = diaries?.pages.flat();
-
-
-  const sortToggleChange = useCallback(() => {
-    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => {
-      if (sortToggle === 'DESC') setSortToggle('ASC');
-      else setSortToggle('DESC');
-    }, 50);
-  }, [sortToggle])
-
-
   useEffect(() => {
-    const localData = localStorage.getItem(userEmail)
-    let jsonLocalData;
-    if (localData) {
-      jsonLocalData = JSON.parse(localData);
-    }
-
-    localStorage.setItem(userEmail, JSON.stringify({ ...jsonLocalData, listSortType: sortToggle }));
-  }, [userEmail, sortToggle])
-
-  useEffect(() => {
-    if (user && !isFetching && hasNextPage && inView) fetchNextPage();
+    if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching])
 
-  //production mode에서만 동작, 정적 자료만 prefetch
-  useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
-  }, [])
-
   return (
-    <$Common.Wrapper>
+    <PageWrapper ref={wrapperRef}>
       <TopButtons>
-        <$Common.Options>
-          <button onClick={() => { setFilterOpen(c => !c); }} className='auto'>
-            {hasFilter ? <>
-              <span>filtered : </span>
-              {selectedMonth !== 0 && <span> {selectedYear % 100}.{selectedMonth.toString().padStart(2, '0')}
-                {emotionToggle !== 5 && <span>,</span>}
-              </span>}
-              {emotionToggle !== 5 && <span> {EMOTION_NAME_ENG[emotionToggle]} </span>}
-            </> : <FilterListIcon className="icon" fontSize="inherit" />}
-          </button>
-          <button onClick={sortToggleChange} className='normal'>
-            <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
-          </button>
-        </$Common.Options>
+        <button
+          className='auto'
+          onClick={() => { setFilterOpen(c => !c); }} >
+          {hasFilter ? (
+            <span>
+              {selectedMonth !== 0 && diplayYearMonth}
+              {selectedMonth !== 0 && emotionToggle !== 5 && ' , '}
+              {emotionToggle !== 5 && EMOTION_NAME_ENG[emotionToggle]}
+            </span>
+          ) : (
+            <FilterListIcon fontSize="small" />
+          )}
+        </button>
+        <button
+          className='normal'
+          onClick={listSortOrderChange} >
+          <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
+        </button>
       </TopButtons>
 
-      <Listbody _ref={contentRef}>
+      <ListContentWrapper>
         <ListFilter
-          contentRef={contentRef}
+          contentRef={wrapperRef}
           isFilterOpen={isFilterOpen}
           setFilterOpen={setFilterOpen}
-
           setSelectedYear={setSelectedYear}
           setSelectedMonth={setSelectedMonth}
           setEmotionToggle={setEmotionToggle}
         />
-
-        {hasDiaries ?
-          flatDiaries?.map((data, i) => {
-            const currentDiaryDate = format(data.date, 'MMMM. yyyy');
-            const previousDiaryDate = i > 0 ? format(flatDiaries[i - 1].date, 'MMMM. yyyy') : '';
-
-            if (currentDiaryDate !== previousDiaryDate) {
-              return <React.Fragment key={'listNote' + i}>
-                <MonthSeparator>{currentDiaryDate}</MonthSeparator>
-                <DiaryWrapper>
-                  <Diary type="large" diaryData={data} />
-                </DiaryWrapper>
-              </React.Fragment>
-            }
-            else {
-              return <DiaryWrapper key={'listNote' + i}>
-                <Diary type="large" diaryData={data} />
-              </DiaryWrapper>
-            }
-          })
-          :
-          <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
-        <Observer ref={ref} />
-      </Listbody>
-      <ScrollToTopButton contentRef={contentRef} />
-    </$Common.Wrapper>
+        {flatDiaries && <Diaries diaries={flatDiaries} />}
+        <Observer ref={inViewRef} />
+      </ListContentWrapper>
+      <ScrollToTopButton contentRef={wrapperRef} />
+    </PageWrapper>
   );
 }
 
 export default ListView;
 
-const DiaryWrapper = styled.div`
-  width: 100%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 14px 0;
+const ListContentWrapper = styled(ContentWrapper)`
+  max-width: 600px;
 `
-
-const Listbody = styled(CommonBody)`
-  max-width: 500px;
-  padding-top: var(--mobileHeader);
-  @media (max-width: 479px) { //mobile port
-    padding : 0 5dvw;
-    padding-top: var(--mobileHeader);
-  }
-  @media (min-width:1024px) { //desktop
-    padding-top: var(--desktopHeader);
-  }
-`
-const MonthSeparator = styled.span`
-  margin: 16px 0;
-
-  display: flex;
-  justify-content: start;
-  align-items: center;
-
-  text-transform: capitalize;
-  color: rgb(var(--greyTitle));
-  font-size: 32px;
-  font-family: 'BMJUA';
-  width: 100%;
-
-  @media (max-width: 479px) { //mobile port
-    width: 90dvw;
-  }
-
-  @media (min-width:1025px) { //desktop
-    font-size: 36px;
-    margin : 28px 0;
-  }
-
-`
-
 const Observer = styled.div`
   flex-shrink: 0;
   width: 100%;
   height: 50px;
-`
-const NoDiaries = styled.div`
-  display: flex;
-  align-items: center;
-
-  padding-top: 30dvh;
-  font-size: 18px;  
-  /* font-weight: 500; */
-  color: rgb(var(--greyTitle));
-
-  @media (min-width:1025px) { //desktop
-    font-size: 22px;
-  }
 `

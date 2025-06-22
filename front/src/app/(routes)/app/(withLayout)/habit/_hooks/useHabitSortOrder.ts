@@ -1,5 +1,5 @@
+import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
 import { useEffect, useState } from "react";
-import { useCurrentUserEmail } from "./useCurrentUserEmail";
 
 export const useHabitSortOrder = () => {
   const { currentUserEmail } = useCurrentUserEmail();
