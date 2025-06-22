@@ -8,7 +8,7 @@ export const useTodayHabitRate = () => {
   })
   const todayDoneHabitCount = todayHabit?.todayDoneHabits ?? 0;
   const createdHabitCount = todayHabit?.createdHabits ?? 0;
-  const todayDoneHabitRate = createdHabitCount !== 0 ? Math.round((todayDoneHabitCount / createdHabitCount) * 100) : '';
+  const todayDoneHabitRate = createdHabitCount !== 0 ? Math.round((todayDoneHabitCount / createdHabitCount) * 100) : '0';
 
   return {
     todayDoneHabitCount,
