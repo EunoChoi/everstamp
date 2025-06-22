@@ -2,11 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { enqueueSnackbar } from 'notistack';
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 
 
+import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/layout/TopButtons";
 import { getHabits } from "@/common/fetchers/habit";
@@ -29,11 +30,12 @@ const SORT_TEXT = {
   'CUSTOM': 'Custom'
 }
 
+const MAX_HABIT_COUNT = 16;
+
 const HabitView = () => {
   usePrefetchPage();
 
   const router = useCustomRouter();
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const { todayDoneHabitCount, createdHabitCount, todayDoneHabitRate } = useTodayHabitRate();
   const { customOrder, sortToggle, setSortToggle } = useHabitSortOrder();
@@ -44,57 +46,42 @@ const HabitView = () => {
   });
 
   const onAddHabit = () => {
-    if (habits && habits.length >= 18) enqueueSnackbar('습관은 최대 18개 생성 가능합니다.', { variant: 'info' })
+    if (habits && habits.length >= MAX_HABIT_COUNT) enqueueSnackbar(`습관은 최대 ${MAX_HABIT_COUNT}개 생성 가능합니다.`, { variant: 'info' })
     else router.push('/app/inter/input/addHabit', { scroll: false })
   }
-  const sortChage = useCallback(() => {
+  const sortChange = useCallback(() => {
     if (sortToggle === 'DESC') setSortToggle('ASC');
     else if (sortToggle === 'ASC') setSortToggle('CUSTOM');
     else if (sortToggle === 'CUSTOM') setSortToggle('DESC');
   }, [sortToggle])
 
   return (
-    <HabitPageWrapper ref={wrapperRef}>
+    <PageWrapper>
       <TopButtons>
         <button onClick={onAddHabit} className="small">
           <AddIcon fontSize="small" />
         </button>
-        <button onClick={sortChage} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
+        <button onClick={sortChange} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
           <span>{SORT_TEXT[sortToggle]}</span>
         </button>
       </TopButtons>
 
-      <HabitPageTextWrapper>
-        <HabitPageText className='title'>{todayDoneHabitRate}% Done, Today</HabitPageText>
-        <HabitPageText className='sub'>오늘의 목표 습관 {createdHabitCount}개중 {todayDoneHabitCount}개를 실천하셨습니다 :</HabitPageText>
-      </HabitPageTextWrapper>
+      <ContentWrapper>
+        <HabitPageTextWrapper>
+          <HabitPageText className='title'>{todayDoneHabitRate}% Done, Today</HabitPageText>
+          <HabitPageText className='sub'>오늘의 목표 습관 {createdHabitCount}개중 {todayDoneHabitCount}개를 실천하셨습니다 :</HabitPageText>
+        </HabitPageTextWrapper>
 
-      <HabitBoxs>
-        {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-        <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>
-      </HabitBoxs>
-    </HabitPageWrapper>
+        <HabitBoxs>
+          {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
+          {habits.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>}
+        </HabitBoxs>
+      </ContentWrapper>
+    </PageWrapper >
   );
 }
 
 export default HabitView;
-
-
-const HabitPageWrapper = styled(PageWrapper)`
-  width: 100%;
-  height: 100dvh;
-
-  align-items: start;
-
-  padding-top: var(--mobileHeader);
-  padding-left: 5dvw;
-  padding-right: 5dvw;
-  overflow-y: scroll;
-
-  @media (min-width:1024px) { //desktop
-    padding-top: var(--desktopHeader);
-  }
-`
 
 const HabitPageTextWrapper = styled.div`
   display: flex;
@@ -130,10 +117,20 @@ const HabitBoxs = styled.div`
   flex-shrink: 0;
 
   display : grid;
-  grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
+  
   gap: 8px;
   row-gap: 8px;
+
+  @media (max-width: 720px) {
+    grid-template-columns: repeat(2, 1fr) ;
+  }
+  @media (min-width:721px) and (max-width:1023px) {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  @media (min-width:1024px) { 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
 `
 const EmptyBox = styled.div`
   display: flex;
