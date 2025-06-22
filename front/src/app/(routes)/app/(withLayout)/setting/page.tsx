@@ -1,243 +1,108 @@
 'use client';
 
-import Axios from "@/Axios/axios";
-import CommonBody from "@/common/components/layout/CommonBody";
-import { getCurrentUser } from "@/common/fetchers/user";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-import $Common from "@/common/styles/common";
 import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { format } from 'date-fns';
-import { signOut } from "next-auth/react";
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import styled from "styled-components";
 
+import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
+import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/layout/TopButtons";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import AddIcon from '@mui/icons-material/Add';
-import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
-import RemoveIcon from '@mui/icons-material/Remove';
 
-const FONT_SIZE_LIST = ['13px', '15px', '17px'];
-const COLOR_NAME_ENG = ['purple', 'blue', 'green', 'pink', 'grey'];
-const COLOR_HEX_VALUE = ['#979FC7', '#8CADE2', '#83c6b6', '#eda5b1', '#8f8f8f'];
+import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
+import { FontSizeSelector } from "./_components/FontSizeSelector";
+import { SettingItem } from "./_components/SettingItem";
+import { ThemeColorSelector } from "./_components/ThemeColorSelector";
+import { fontSizeUpdate } from "./_functions/fontSizeUpdate";
+import { onDeleteAccount } from "./_functions/onDeleteAccount";
+import { onLogout } from "./_functions/onLogout";
+import { useCurrentUserData } from "./_hooks/useCurrentUserData";
+import { useUpdateThemeColor } from "./_hooks/useUpdateThemeColor";
 
 
 const SettingPage = () => {
   usePrefetchPage();
   const router = useCustomRouter();
-  const queryClient = useQueryClient();
 
-
-
-  const { data } = useQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
-  })
-
-
-
-  const themeColorUpdateMutation = useMutation({
-    mutationFn: (themeColor: string) => Axios.patch('/user/theme', { themeColor }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-      console.log('theme update success');
-    },
-    onError: () => {
-      console.log('theme update error')
-    },
-  })
-
-  const fontSizeUpdate = (type: 'Up' | 'Down') => {
-    const savedFontSize = localStorage.getItem('fontSize') ?? '15px';
-    const currentIndex = FONT_SIZE_LIST.findIndex((v) => v === savedFontSize);
-    const afterIndex = type === 'Up' ? currentIndex + 1 : currentIndex - 1;
-    const afterFontSize = FONT_SIZE_LIST[afterIndex];
-
-    console.log(afterIndex, afterFontSize);
-
-    if (afterIndex >= 0 && afterIndex < FONT_SIZE_LIST.length) {
-      localStorage.setItem('fontSize', afterFontSize);
-      document.documentElement.style.setProperty('--font-size-base', afterFontSize);
-    }
-  }
-
-  const onLogout = () => {
-    const logoutAction = (snackbarId: SnackbarKey) => (
-      <>
-        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('logout'); }}>
-          No
-        </$Common.YesOrNo>
-        <$Common.YesOrNo className="yes" onClick={() => {
-          Axios.get('user/logout').then(() => { signOut(); });
-          closeSnackbar('logout');
-        }}>
-          Yes
-        </$Common.YesOrNo>
-      </>
-    );
-    enqueueSnackbar('로그아웃 하시겠습니까?', { key: 'logout', persist: true, action: logoutAction, autoHideDuration: 6000 });
-  }
-  const onDeleteAccount = () => {
-    const userDeleteAction = (snackbarId: SnackbarKey) => (
-      <>
-        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('userDelete'); }}>
-          No
-        </$Common.YesOrNo>
-        <$Common.YesOrNo className="yes" onClick={() => {
-          Axios.delete('user').then(() => { signOut(); });
-          closeSnackbar('userDelete');
-        }}>
-          Yes
-        </$Common.YesOrNo>
-      </>
-    );
-    enqueueSnackbar('회원탈퇴 하시겠습니까?', { key: 'userDelete', persist: true, action: userDeleteAction, autoHideDuration: 6000 });
-  }
-  const themeColorUpdate = (themeColor: string) => {
-    themeColorUpdateMutation.mutate(themeColor);
-  }
+  const { email, provider, createAt } = useCurrentUserData();
+  const { updateThemeColor } = useUpdateThemeColor();
 
   return (
-    <$Common.Wrapper>
+    <PageWrapper>
       <TopButtons>
-        <$Common.Options>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="auto">
-              <AndroidRoundedIcon fontSize="small" />
-            </button>
-          </a>
-          <a
-            href="https://everstamp.site"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button className="normal">
-              intro
-            </button>
-          </a>
-
-
-        </$Common.Options>
+        <a href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
+          target="_blank"
+          rel="noopener noreferrer" >
+          <button className="auto"><AndroidRoundedIcon fontSize="small" /></button>
+        </a>
+        <a href="https://everstamp.site"
+          target="_blank"
+          rel="noopener noreferrer" >
+          <button className="normal">intro</button>
+        </a>
       </TopButtons>
-      <SettingPageBody>
-        <MainSection>
+
+      <SettingContentWrapper>
+        <Section>
           <Title>account</Title>
           <SubSection>
-            <Value>
-              <span className="key">이메일</span>
-              <span className="value email">{data?.email}</span>
-            </Value>
-            <Value>
-              <span className="key">계정 타입</span>
-              <span className="value">{data?.provider}</span>
-            </Value>
-            <Value>
-              <span className="key">가입일</span>
-              <span className="value">{data?.createdAt && format(data?.createdAt, 'yyyy.MM.dd')}</span>
-            </Value>
+            <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
+            <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
+            <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
           </SubSection>
-        </MainSection>
-        <MainSection>
+        </Section>
+
+        <Section>
           <Title>customize</Title>
           <SubSection>
             <SubTitle>theme color</SubTitle>
-            <FlexRow>
-              <Color className="selected" />
-              <FlexRow className="end">
-                {COLOR_HEX_VALUE.map((e, i) =>
-                  <Color
-                    key={COLOR_NAME_ENG[i] + 'Color'}
-                    className={COLOR_NAME_ENG[i]}
-                    onClick={() => themeColorUpdate(e)}
-                  />)}
-              </FlexRow>
-            </FlexRow>
+            <ThemeColorSelector themeColorUpdate={updateThemeColor} />
           </SubSection>
           <SubSection>
             <SubTitle>other options</SubTitle>
-            <FlexRow className="between">
-              <span>폰트 사이즈</span>
-              <FontSizeWrapper>
-                <button onClick={() => fontSizeUpdate('Down')}>
-                  <RemoveIcon fontSize="small" />
-                </button>
-                <span className="fontSize">가나다</span>
-                <button onClick={() => fontSizeUpdate('Up')}>
-                  <AddIcon fontSize="small" />
-                </button>
-              </FontSizeWrapper>
-            </FlexRow>
-            <FlexRow className="between">
-              <span>목표 습관 리스트 정렬</span>
-              <button onClick={() => { router.push('/app/inter/habitOrder', { scroll: false }) }}>
-                <LowPriorityRoundedIcon fontSize="small" />
-              </button>
-            </FlexRow>
+            <SettingItem
+              settingItemKey="폰트 사이즈"
+              settingItemValue={<FontSizeSelector fontSizeUpdate={fontSizeUpdate} />} />
+            <SettingItem
+              settingItemKey="목표 습관 리스트 정렬"
+              settingItemValue={
+                <button onClick={() => {
+                  router.push('/app/inter/habitOrder', { scroll: false })
+                }}>
+                  <LowPriorityRoundedIcon fontSize="small" />
+                </button>} />
           </SubSection>
-        </MainSection>
-        <MainSection>
-          <Buttons className="center">
+        </Section>
+
+        <Section>
+          <BottomButtonWrapper className="center">
             <Button onClick={onLogout}>로그아웃</Button>
             <Button onClick={onDeleteAccount}>계정 삭제</Button>
-          </Buttons>
-        </MainSection>
-      </SettingPageBody>
-    </$Common.Wrapper>
+          </BottomButtonWrapper>
+        </Section>
+      </SettingContentWrapper>
+    </PageWrapper>
   );
 }
 
 export default SettingPage;
 
-
-const FontSizeWrapper = styled.div`
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-
-  span{
-    &.fontSize {
-      text-align: center;
-      width: 60px;
-      font-size: var(--font-size-base);
-    }
-  }
+const SettingContentWrapper = styled(ContentWrapper)`
+  max-width: 600px;
 `
-
-const SettingPageBody = styled(CommonBody)`
-  max-width: 500px;
-  padding-top: var(--mobileHeader);
-    
-  @media (min-width:1024px) { //desktop
-    padding-top: var(--desktopHeader);
-  }
-`
-const MainSection = styled.div`
-  width: 100%;
-  height: auto;
-  padding: 16px 0;
-  gap: 16px;
-
+const Section = styled.section`
+  margin: 16px 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: start;
-
-  @media (max-width: 479px) { //mobile port
-    padding-left : 5dvw;
-    padding-right: 5dvw;
-  }
 `
 const SubSection = styled.section`
-  width: 100%;
-  height: 100%;
+  margin: 16px 0;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
 `
 const Title = styled.span`
+  /* margin: 16px 0; */
   color: rgb(var(--greyTitle));
   text-transform: capitalize;
   font-size: 32px;
@@ -249,126 +114,27 @@ const Title = styled.span`
 `
 const SubTitle = styled.span`
   display : block;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
   text-transform: capitalize;
-  margin : 0 12px;
-  margin-bottom: 10px;
   color: grey;
 `
-const Value = styled.span`
-  font-size: 16px;
-  /* font-weight: 500; */
-  width: 100%;
-  width: inherit;
-  padding: 4px 12px;
-  box-sizing: border-box;
-
+const BottomButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  .email{
-    margin-left: 12px;
-    overflow-x: scroll;
-  }
-  .key{
-    text-transform: capitalize;
-    color :grey;
-  }
-  .value{
-    color: grey;
-    color: darkgrey
-  }
-`
-
-const Buttons = styled.div`
-  display: flex;
+  justify-content: center;
   align-items: center;
-  &.center{
-    width: 100%;
-    justify-content: center;
-  }
-`
-const FlexRow = styled.div`
-  display: flex;
-  align-items: center;
-  overflow-x: scroll;
-  width: 100%;
-  padding: 4px 12px;
-  
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar{
-    display: none;
-  }
-
-  &.end{
-    justify-content: end;
-    padding: 4px 0px;
-    *:last-child{
-      margin-right: 0;
-    }
-  }
-  &.between{
-    justify-content: space-between
-  }
-
-  span, button{
-    color: darkgrey;
-    /* font-size: 18px; */
-    font-size: 16px;
-    /* font-weight: 500; */
-  }
+  gap: 8px;
 `
 const Button = styled.button`
   cursor: pointer;
   transition: all ease-in-out 0.3s;
   padding: 4px 14px;
-  font-size: 14px;
 
+  text-transform: capitalize;
+  color: rgb(var(--greyTitle));
+  font-size: 14px;
 
   border-radius: 50px;
   border: 2px solid rgba(0,0,0,0.05);
   background-color: #f9f9f9;
-  color: rgb(var(--greyTitle));
- 
-
-  margin-right: 8px;
-  /* font-weight: 500; */
-  text-transform: capitalize;
-  
-  &:hover{
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
-`
-const Color = styled.div`
-  width: 36px;
-  height: 36px;
-  border: solid 2px rgba(0,0,0,0.2);
-  margin-right: 8px;
-  transition: all ease-in-out 0.3s;
-
-  flex-shrink: 0;
-
-  border-radius: 8px;
-
-
-  &.selected{
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-  }
-
-  &.purple{
-    background-color: #979FC7;
-  }
-  &.blue{
-    background-color: #8CADE2;
-  }
-  &.pink{
-    background-color: #eda5b1;
-  }
-  &.green{
-    background-color: #83c6b6;
-  }
-  &.grey{
-    background-color: #8f8f8f;
-  }
 `
