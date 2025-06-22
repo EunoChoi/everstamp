@@ -1,0 +1,30 @@
+import { useEffect } from "react";
+
+export const useInfiniteScrollDataFetch = () => {
+
+  const { data: diaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
+    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortToggle, 'year', selectedYear, 'momth', selectedMonth],
+    queryFn: ({ pageParam }) => getDiariesAtList({
+      sort: sortToggle,
+      search: emotionToggle,
+      pageParam,
+      limit: DIDARY_FETCH_LIMIT,
+      selectedYear: selectedYear,
+      selectedMonth: selectedMonth
+    }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
+  });
+
+
+  const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
+  const flatDiaries = diaries?.pages.flat() as diaryData[];
+
+
+
+
+  useEffect(() => {
+    if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
+  }, [inView, hasNextPage, isFetching])
+  return {};
+}
