@@ -34,7 +34,7 @@ const ListView = () => {
   const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
   const diplayYearMonth = selectedYear % 100 + '.' + selectedMonth.toString().padStart(2, '0');
-  const { sortToggle, listSortOrderChange } = useListSortOrder({ ref: wrapperRef });
+  const { sortToggle, sortOrderChange } = useListSortOrder({ ref: wrapperRef });
   const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
@@ -74,7 +74,7 @@ const ListView = () => {
         </button>
         <button
           className='normal'
-          onClick={listSortOrderChange} >
+          onClick={sortOrderChange} >
           <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
         </button>
       </TopButtons>
