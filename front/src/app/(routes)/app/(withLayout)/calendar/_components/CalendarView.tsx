@@ -62,7 +62,8 @@ export default CalendarView;
 
 const CalendarContentWrapper = styled(ContentWrapper)`
   max-width: 600px;
-  
+  height: 100%;
+
   @media (max-width: 479px) { //mobile port
     gap: 12px;
   }
