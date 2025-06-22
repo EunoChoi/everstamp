@@ -15,24 +15,15 @@ export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ child
 
 const Wrapper = styled.div`
   width: 100%;
-  min-width: 400px;
   height: 100dvh;
+
+  border: none;
+  outline: none;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: start;
+  align-items: center;
 
-  @media (max-width: 479px) { //mobile port
-    min-width: 90%;
-    padding-bottom: calc(var(--mobileNav) + 24px);
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    max-width: 75dvw;
-    padding: 0 20px;  
-  }
-  @media (min-width:1025px) { //desktop
-    max-width: 600px;
-    padding: 0 20px;  
-  }
+  overflow-y: scroll;
 `

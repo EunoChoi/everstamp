@@ -27,11 +27,13 @@ const Wrapper = styled.div`
   gap: 6px;
 
   width: auto;
-  position: fixed;
+  position: sticky;
   width: 100%;
   top: 0;
+  left: 0;
   right: 0;
 
+  /* background-color: transparent; */
   background-color: rgba(255,255,255,0.5);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -45,11 +47,12 @@ const Wrapper = styled.div`
     padding: 0 20px;
   }
   @media (min-width:1025px) { //desktop
+    height: var(--desktopHeader);
     padding: 0 48px;
-    padding: var(--desktopHeader);
   }
 
   button{
+    box-shadow: 0px 0px 6px white, 0px 0px 6px whitesmoke, 0px 0px 6px white;
     display: flex;
     justify-content: center;
     align-items: center;
