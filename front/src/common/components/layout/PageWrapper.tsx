@@ -13,6 +13,8 @@ export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ child
   </Wrapper>
 });
 
+PageWrapper.displayName = 'PageWrapper';
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100dvh;
