@@ -26,12 +26,7 @@ const MobileZoomModal = ({ diaryData }: any) => {
   const router = useCustomRouter();
 
   const emotionImages = [emotion0, emotion1, emotion2, emotion3, emotion4];
-  const emotionNames = [
-    <span className="emotion0">#Angry</span>,
-    <span className="emotion1">#Sad</span>,
-    <span className="emotion2">#Common</span>,
-    <span className="emotion3">#Happy</span>,
-    <span className="emotion4">#Joyful</span>];
+  const emotionNames = ['Angry', 'Sad', 'Common', 'Happy', 'Joyful'];
 
   const date: Date = diaryData?.date;
   const images = diaryData?.Images;
