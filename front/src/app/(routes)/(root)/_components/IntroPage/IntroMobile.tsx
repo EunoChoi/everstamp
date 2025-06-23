@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -156,7 +158,8 @@ const IntroMobile = () => {
       </Text>
       <Img className="emotionImg" src={emotions} alt="emotions" width={700} height={700}></Img>
       <ColWrapper>
-        <SubText>'기쁨', '행복', '무난한 감정', '슬픔', '분노'</SubText>
+        {/* ✅ 여기가 수정된 부분! */}
+        <SubText>&apos;기쁨&apos;, &apos;행복&apos;, &apos;무난한 감정&apos;, &apos;슬픔&apos;, &apos;분노&apos;</SubText>
         <SubText>5가지 감정 선택을 지원합니다.</SubText>
       </ColWrapper>
     </Mobile_Section>
@@ -492,8 +495,3 @@ const Img = styled(Image)`
     margin: 0 4px;
   }
 `
-
-
-
-
-
