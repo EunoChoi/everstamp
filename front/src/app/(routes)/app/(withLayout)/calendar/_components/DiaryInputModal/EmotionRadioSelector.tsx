@@ -1,6 +1,8 @@
-import styled from "styled-components";
+'use client';
 
 import Image from "next/image";
+import styled from "styled-components";
+
 import emotion0 from '/public/img/emotion/emotion0.png';
 import emotion1 from '/public/img/emotion/emotion1.png';
 import emotion2 from '/public/img/emotion/emotion2.png';
@@ -12,39 +14,42 @@ interface Props {
   setEmotion: (n: number) => void;
 }
 
-const DiaryInputEmotion = ({ emotion, setEmotion }: Props) => {
+const emotionData = [
+  { id: 4, src: emotion4, alt: 'Joyful' },
+  { id: 3, src: emotion3, alt: 'happy' },
+  { id: 2, src: emotion2, alt: 'common' },
+  { id: 1, src: emotion1, alt: 'sad' },
+  { id: 0, src: emotion0, alt: 'angry' },
+];
 
-  const emotions =
-    [<Image priority src={emotion0} alt="angry" width={36} height={36} />,
-    <Image priority src={emotion1} alt="sad" width={36} height={36} />,
-    <Image priority src={emotion2} alt="common" width={36} height={36} />,
-    <Image priority src={emotion3} alt="happy" width={36} height={36} />,
-    <Image priority src={emotion4} alt="Joyful" width={36} height={36} />];
-
-
+const EmotionRadioSelector = ({ emotion, setEmotion }: Props) => {
   return (<Wrapper>
     <RadioWrapper>
-      {emotions.map((e: JSX.Element, i: number) =>
-        <RadioButton key={'radio' + i}>
+      {emotionData.map((data) =>
+        <RadioButton key={`emotion-radio-${data.id}`}>
+
           <input
             type="radio"
-            checked={i === emotion}
+            checked={data.id === emotion}
             name="diaryEmotion"
-            value={i}
+            value={data.id}
             onChange={(e) => {
               if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
             }}
           />
-          <div className="emotion">{e}</div>
+          <div className="emotion">
+            <Image priority src={data.src} alt={data.alt} width={36} height={36} />
+          </div>
           <div className="checkmark">
-            <span>{e.props.alt}</span>
+            <span>{data.alt}</span>
           </div>
         </RadioButton>)}
     </RadioWrapper>
   </Wrapper>);
 }
 
-export default DiaryInputEmotion;
+export default EmotionRadioSelector;
+
 
 const Wrapper = styled.div`
   width: 100%;
