@@ -26,8 +26,7 @@ interface Props {
 
 const AppLayout = ({ children, modal }: Props) => {
 
-  const router = useCustomRouter();
-  router.setup();
+  useCustomRouter();
 
   const isMobile = IsMobile()
   const { data, failureCount } = useQuery({

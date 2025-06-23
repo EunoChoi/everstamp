@@ -1,13 +1,18 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect } from "react";
-import { getTimerId, setTimerId } from "../functions/timerId";
 import nProgress from "nprogress";
+import { useCallback, useEffect } from "react";
+
+let timerId: NodeJS.Timeout | null = null;
+const getTimerId = () => timerId;
+const setTimerId = (id: NodeJS.Timeout) => { timerId = id; };
 
 
 const useCustomRouter = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const loadingDelay = 700; //ms
 
   nProgress.configure({
@@ -17,43 +22,32 @@ const useCustomRouter = () => {
     minimum: 0.3
   });
 
-  const back = router.back;
-  const refresh = router.refresh;
-  const prefetch = router.prefetch;
-  const push = useCallback((url: string, options?: object) => {
-    const pathAndQuery = window.location.pathname + window.location.search;
-    // console.log('from : ', pathAndQuery)
-    // console.log('to : ', url)
-    if (pathAndQuery === url) { //same url
-      // console.log('same url - refresh')
-      router.refresh();
+  useEffect(() => {
+    const currentTimerId = getTimerId();
+    if (currentTimerId) {
+      clearTimeout(currentTimerId);
     }
-    else {
-      // nProgress.start();
-      router.push(url, options);
+    nProgress.done();
+  }, [pathname, searchParams]);
+
+
+  const push = useCallback((url: string, options?: object) => {
+    const currentPath = pathname + (searchParams.toString() ? `?${searchParams.toString()}` : '');
+
+    if (currentPath === url) { // 같은 URL로 이동 시
+      router.refresh();
+    } else {
       const tempTimerId = setTimeout(() => {
         nProgress.start();
       }, loadingDelay);
       setTimerId(tempTimerId);
+      router.push(url, options);
     }
-  }, [router]);
+  }, [router, pathname, searchParams]);
 
-  const setup = () => {
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+  const { back, refresh, prefetch } = router;
 
-    useEffect(() => {
-      const timer = getTimerId();
-      if (timer) {
-        // console.log(timer)
-        clearTimeout(timer);
-      }
-      nProgress.done();
-    }, [pathname, searchParams]);
-  }
-
-  return { push, back, refresh, prefetch, setup };
+  return { push, back, refresh, prefetch };
 };
-
 
 export default useCustomRouter;
