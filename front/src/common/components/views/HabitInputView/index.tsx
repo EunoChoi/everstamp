@@ -21,7 +21,7 @@ interface habitInputProps {
   habitId?: string;
 }
 
-const HabitInputModal = ({ isEdit, habitId }: habitInputProps) => {
+const HabitInputView = ({ isEdit, habitId }: habitInputProps) => {
 
   const router = useCustomRouter();
 
@@ -66,7 +66,7 @@ const HabitInputModal = ({ isEdit, habitId }: habitInputProps) => {
       </HabitModalWrapper>
     </$Modal.Background>);
 }
-export default HabitInputModal;
+export default HabitInputView;
 
 const HabitModalWrapper = styled($Modal.Wrapper)`
   @media (min-width:1025px) { //desktop

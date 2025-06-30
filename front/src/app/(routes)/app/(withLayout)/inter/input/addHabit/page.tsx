@@ -1,9 +1,9 @@
-import HabitInputModal from "@/app/(routes)/app/(withLayout)/habit/_components/HabitInputModal";
+import HabitInputView from "@/common/components/views/HabitInputView";
 
 const Page = () => {
   return (
     <>
-      <HabitInputModal isEdit={false} />
+      <HabitInputView isEdit={false} />
     </>
   );
 }

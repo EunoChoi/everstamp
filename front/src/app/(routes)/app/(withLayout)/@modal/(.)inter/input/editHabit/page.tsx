@@ -1,6 +1,6 @@
 
 
-import HabitInputModal from "@/app/(routes)/app/(withLayout)/habit/_components/HabitInputModal";
+import HabitInputView from "@/common/components/views/HabitInputView";
 import { getHabitById_Prefetch } from "@/common/fetchers/habitPrefetch";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -24,7 +24,7 @@ const Page = async ({ searchParams }: Props) => {
   const dehydratedState = dehydrate(queryClient)
   return (
     <HydrationBoundary state={dehydratedState}>
-      <HabitInputModal isEdit={true} habitId={habitId} />
+      <HabitInputView isEdit={true} habitId={habitId} />
     </HydrationBoundary>
   );
 }

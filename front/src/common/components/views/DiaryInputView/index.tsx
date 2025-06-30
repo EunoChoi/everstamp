@@ -43,7 +43,7 @@ interface ServerImageProps {
   src: string;
 }
 
-const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
+const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
 
   const { addDiary, editDiary } = useSubmitDiary();
   const submitAction = isEdit ? editDiary : addDiary;
@@ -141,7 +141,7 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
   );
 }
 
-export default DiaryInputModal;
+export default DiaryInputView;
 
 const DiaryInputSection = styled.section`
   display: flex;

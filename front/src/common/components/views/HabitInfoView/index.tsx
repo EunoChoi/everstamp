@@ -9,9 +9,9 @@ import YearHabitChart from "./YearHabitChart";
 
 import $Modal from "@/common/styles/common_modal";
 
-import HabitInfoPageValue from "@/app/(routes)/app/(withLayout)/habit/_components/HabitInfoModal/HabitInfoPageValue";
 import Calendar from "@/common/components/ui/Calendar";
 import Indicator from "@/common/components/ui/Indicator";
+import HabitInfoPageValue from "@/common/components/views/HabitInfoView/HabitInfoPageValue";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
@@ -25,7 +25,7 @@ interface Props {
   habitId: string;
 }
 
-const HabitInfoModal = ({ habitId }: Props) => {
+const HabitInfoView = ({ habitId }: Props) => {
   const router = useCustomRouter();
 
   const slideWrapperRef = useRef<HTMLDivElement>(null);
@@ -109,7 +109,7 @@ const HabitInfoModal = ({ habitId }: Props) => {
   </$Modal.Background>);
 }
 
-export default HabitInfoModal;
+export default HabitInfoView;
 
 const CalendarWrapper = styled.div`
   width: 100%;
