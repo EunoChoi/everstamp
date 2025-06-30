@@ -10,6 +10,9 @@ import CalendarHeader from "./CalendarHeader";
 import makeCalendarDates from "./utils/makeCalendarDates";
 
 interface Props {
+  className?: string;
+  headerSize?: 'small' | 'middle' | 'large';
+  headerTitlePosition?: 'center' | 'start';
   displayDate: Date;
   setDisplayDate: Dispatch<SetStateAction<Date>>;
   FormattedValue: ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => JSX.Element;
@@ -18,7 +21,7 @@ interface Props {
   isDateSelectionEnabled?: boolean;
 }
 
-const Calendar = ({ displayDate, setDisplayDate, FormattedValue, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
+const Calendar = ({ className, headerSize = 'large', headerTitlePosition = 'start', displayDate, setDisplayDate, FormattedValue, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
   const { calendarDates } = makeCalendarDates(displayDate);
 
   const nextDisplayMonth = useCallback(() => {
@@ -29,8 +32,10 @@ const Calendar = ({ displayDate, setDisplayDate, FormattedValue, todayRouterPush
   }, [displayDate]);
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <CalendarHeader
+        headerSize={headerSize}
+        headerTitlePosition={headerTitlePosition}
         todayRouterPushAction={todayRouterPushAction}
         displayDate={displayDate}
         setDisplayDate={setDisplayDate}
@@ -54,19 +59,8 @@ export default Calendar;
 
 const Wrapper = styled.div`
   width: 100%;
-  min-height: 500px;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
-
-  @media (max-width: 479px) { //mobile port
-    flex-grow: 1;
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-  @media (min-width:1025px) { //desktop
-    flex-grow: 1;
-  }
 `
