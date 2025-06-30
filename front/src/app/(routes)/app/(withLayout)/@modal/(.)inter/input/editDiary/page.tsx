@@ -1,4 +1,4 @@
-import DiaryInputModal from "@/app/(routes)/app/(withLayout)/calendar/_components/DiaryInputModal";
+import DiaryInputView from "@/common/components/views/DiaryInputView";
 import { getDiaryById_Prefetch } from "@/common/fetchers/diaryPrefetch";
 
 
@@ -26,7 +26,7 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <DiaryInputModal isEdit={true} diaryId={diaryId} />
+      <DiaryInputView isEdit={true} diaryId={diaryId} />
     </HydrationBoundary>
   );
 }
