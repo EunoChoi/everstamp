@@ -22,19 +22,11 @@ const MobileLayout = ({ modal, children }: Props) => {
   const router = useCustomRouter();
   const current = useSelectedLayoutSegment();
 
-  // Detects if device is on iOS 
-  const isIos = () => {
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    return /iphone|ipad|ipod/.test(userAgent);
-  }
-  // Detects if device is in standalone mode
-  const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-
   return (
     <Mobile_Layout>
       {modal}
       {children}
-      <Mobile_Nav className={(isInStandaloneMode() && isIos()) ? 'iosPwa' : ''}>
+      <Mobile_Nav>
         <Logo><span>everstamp</span></Logo>
         <NavMenu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
@@ -54,7 +46,6 @@ const Logo = styled.span`
     margin-bottom: 32px;
     color: rgb(var(--greyTitle));
     font-size: 32px;
-    /* font-weight: 700; */
     text-transform: uppercase;
     span {
       font-family: BMJUA;
@@ -82,7 +73,6 @@ const NavMenu = styled.button`
       margin-top: 4px;
       line-height: 1;
       font-size: 12px;
-      /* font-weight: 500; */
       text-transform: capitalize;
     }
   }
@@ -93,7 +83,6 @@ const NavMenu = styled.button`
     width: 90%;
 
     span{
-      /* font-weight: 500; */
       font-size: 18px;
       text-transform: capitalize;
       display: flex;
@@ -124,10 +113,6 @@ const Mobile_Nav = styled.nav`
   width: 100vw;
   height: var(--mobileNav);
 
-
-
-
-
   border-top: 2px solid rgb(var(--lightGrey2));
   background-color: rgba(255,255,255,0.8);
   backdrop-filter: blur(20px);
@@ -142,21 +127,12 @@ const Mobile_Nav = styled.nav`
   }
   .current{
     color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};;
+    /* filter: brightness(100%) saturate(110%) contrast(110%); */
   }
   
- 
-  @media (max-width: 479px) { //mobile port
-    &.iosPwa{
-      height: calc(var(--mobileNav) + 20px);
-      padding-bottom: 20px;
-    }
-  }
-
-
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     left: 0;
     width: 25dvw;
-    /* min-width: 130px; */
     height: 100dvh;
 
     border: none;
