@@ -44,7 +44,9 @@ const CalendarView = ({ date }: Props) => {
   return (
     <PageWrapper>
       <CalendarContentWrapper>
-        <Calendar
+        <CalendarPageCalendar
+          headerTitlePosition="start"
+          headerSize="large"
           displayDate={displayDate}
           setDisplayDate={setDisplayDate}
           FormattedValue={CalendarPageValue}
@@ -60,6 +62,19 @@ const CalendarView = ({ date }: Props) => {
 
 export default CalendarView;
 
+const CalendarPageCalendar = styled(Calendar)`
+  min-height: 500px;
+  @media (max-width: 479px) { //mobile port
+    flex-grow: 1;
+  }
+  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+  @media (min-width:1025px) { //desktop
+    flex-grow: 1;
+  }
+`
 const CalendarContentWrapper = styled(ContentWrapper)`
   max-width: 600px;
   height: 100%;
