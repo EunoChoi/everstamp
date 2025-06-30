@@ -3,26 +3,23 @@
 import { notFound, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import DiaryInputTextArea from "./TextArea";
 
 import { enqueueSnackbar } from "notistack";
-import EmotionRadioSelector from "./EmotionRadioSelector";
-
-import $Common from "@/common/styles/common";
-import $Modal from "@/common/styles/common_modal";
 
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import DiaryDate from "@/common/components/views/ZoomView/DiaryDate";
+
 import { getDiaryById } from "@/common/fetchers/diary";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 import styled from "styled-components";
-import DiaryInputImages from "./Images";
-import useSubmitDiary from './utils/useSubmitDiary';
+import { Modal } from "../../ui/Modal";
+import DiaryInputImages from "./DiaryInputImages";
+import { DiaryInputSection } from "./DiaryInputSection";
+import DiaryInputTextArea from "./DiaryInputTextarea";
+import EmotionRadioSelector from "./EmotionRadioSelector";
+import useSubmitDiary from './hooks/useSubmitDiary';
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -64,14 +61,15 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
 
   //add에선 url 쿼리 파라미터로 edit에선 불러온 diary 데이터로 date 값을 가져오다.
   const date = diaryData?.date ?? new Date(Number(param.get('date')));
+  const headerTitle = format(date, 'yyyy.M.dd (eee)');
 
   const [text, setText] = useState<string>(diaryData?.text ?? "");
   const [images, setImages] = useState<Array<string>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);
   const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 2);
 
-  const [emotionOpen, setEmotionOpen] = useState(true);
-  const [contentsOpen, setContentsOpen] = useState(true);
-  const [imagesOpen, setImagesOpen] = useState(true);
+  const [emotionSectionToggle, setEmotionSectionToggle] = useState(true);
+  const [contentSectionToggle, setContentSectionToggle] = useState(true);
+  const [imageSectionToggle, setImageSectionToggle] = useState(true);
 
 
   //submit
@@ -87,81 +85,36 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     if (isError) notFound();
   }, [isError])
 
+
   return (
-    <$Modal.Background onClick={() => router.back()}>
-      <$Modal.Wrapper onClick={(e) => e.stopPropagation()}>
-        <$Modal.Top>
-          <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
-          <DiaryDate date={date} />
-          <button onClick={onSubmit} disabled={submitAction.isPending}>{submitText}</button>
-        </$Modal.Top>
-        <$Common.Empty />
-        <DiaryInputSection>
-          <DiaryInputTitle>
-            <span>emotion</span>
-            <button onClick={() => { setEmotionOpen(c => !c) }}>
-              {emotionOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </button>
-          </DiaryInputTitle>
-          {emotionOpen &&
-            <EmotionRadioSelectors>
-              <EmotionRadioSelector emotion={emotion} setEmotion={setEmotion} />
-            </EmotionRadioSelectors>
-          }
+    <Modal>
+      <Modal.Header headerTitleText={headerTitle} headerConfirmText={submitText} onConfirm={onSubmit} />
+      <DiaryInputContent>
+        <DiaryInputSection sectorTitle="emotion" visibleToggle={emotionSectionToggle} setVisibleToggle={setEmotionSectionToggle}>
+          <EmotionRadioSelectors>
+            <EmotionRadioSelector emotion={emotion} setEmotion={setEmotion} />
+          </EmotionRadioSelectors>
         </DiaryInputSection>
-        <DiaryInputSection ref={contentsRef}>
-          <DiaryInputTitle>
-            <span>contents</span>
-            <button onClick={() => { setContentsOpen(c => !c) }}>
-              {contentsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </button>
-          </DiaryInputTitle>
-          {contentsOpen &&
-            <DiaryInputTextarea>
-              <DiaryInputTextArea text={text} setText={setText} contentsRef={contentsRef} />
-            </DiaryInputTextarea>
-          }
+        <DiaryInputSection sectorTitle="contents" visibleToggle={contentSectionToggle} setVisibleToggle={setContentSectionToggle}>
+          <DiaryInputTextarea>
+            <DiaryInputTextArea text={text} setText={setText} contentsRef={contentsRef} />
+          </DiaryInputTextarea>
         </DiaryInputSection>
-        <DiaryInputSection>
-          <DiaryInputTitle>
-            <span>images</span>
-            <button onClick={() => { setImagesOpen(c => !c) }}>
-              {imagesOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </button>
-          </DiaryInputTitle>
-          {imagesOpen &&
-            <DiaryInputImagesWrapper>
-              <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={submitAction.isPending} />
-            </DiaryInputImagesWrapper>
-          }
+        <DiaryInputSection sectorTitle="images" visibleToggle={imageSectionToggle} setVisibleToggle={setImageSectionToggle}>
+          <DiaryInputImagesWrapper>
+            <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={submitAction.isPending} />
+          </DiaryInputImagesWrapper>
         </DiaryInputSection>
-        <$Common.Empty />
-      </$Modal.Wrapper>
-    </$Modal.Background>
+      </DiaryInputContent>
+    </Modal>
   );
 }
 
 export default DiaryInputView;
 
-const DiaryInputSection = styled.section`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-  padding: 18px 5vw;
-  flex-shrink: 0;
-`;
-const DiaryInputTitle = styled.section`
-  text-transform: capitalize;
-  font-size: 22px;
-  /* font-weight: 500; */
-  color: rgb(var(--greyTitle));
-  margin-bottom: 16px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+const DiaryInputContent = styled(Modal.Content)`
+  gap: 42px;
+`
 const EmotionRadioSelectors = styled.div`
   width: 100%;
   height: 100%;
