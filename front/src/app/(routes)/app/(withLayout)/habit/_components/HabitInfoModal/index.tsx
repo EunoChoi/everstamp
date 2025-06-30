@@ -5,13 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { getHabitById } from "@/common/fetchers/habit";
-import Indicator from "../../../../../../../common/components/ui/Indicator";
 import YearHabitChart from "./YearHabitChart";
 
 import $Modal from "@/common/styles/common_modal";
 
 import HabitInfoPageValue from "@/app/(routes)/app/(withLayout)/habit/_components/HabitInfoModal/HabitInfoPageValue";
 import Calendar from "@/common/components/ui/Calendar";
+import Indicator from "@/common/components/ui/Indicator";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';

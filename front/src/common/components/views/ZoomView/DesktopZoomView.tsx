@@ -7,8 +7,8 @@ import styled from "styled-components";
 
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import $Modal from "@/common/styles/common_modal";
-import DiaryDate from "../../ui/DiaryDate";
 import Indicator from "../../ui/Indicator";
+import DiaryDate from "./DiaryDate";
 
 import emotion0 from '/public/img/emotion/emotion0.png';
 import emotion1 from '/public/img/emotion/emotion1.png';
@@ -22,7 +22,7 @@ interface ImageProps {
 }
 
 
-const DesktopZoomModal = ({ diaryData }: any) => {
+export const DesktopZoomView = ({ diaryData }: any) => {
   const router = useCustomRouter();
 
   const emotionImages = [emotion0, emotion1, emotion2, emotion3, emotion4];
@@ -86,8 +86,6 @@ const DesktopZoomModal = ({ diaryData }: any) => {
     </ZoomModalWrapper>
   </$Modal.Background>);
 }
-
-export default DesktopZoomModal;
 
 const HabitWrapper = styled.div`
   display: flex;

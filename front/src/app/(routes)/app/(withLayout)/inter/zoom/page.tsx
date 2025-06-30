@@ -1,5 +1,5 @@
 
-import ZoomModal from "@/common/components/modal/ZoomModal";
+import { ZoomView } from "@/common/components/views/ZoomView";
 import { getDiaryById_Prefetch } from "@/common/fetchers/diaryPrefetch";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -25,7 +25,7 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ZoomModal diaryId={diaryId} />
+      <ZoomView diaryId={diaryId} />
     </HydrationBoundary>
   );
 }

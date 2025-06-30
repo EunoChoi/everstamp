@@ -1,18 +1,19 @@
 'use client';
-import { useEffect } from "react";
-import { notFound } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { getDiaryById } from "@/common/fetchers/diary";
+import { useQuery } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
+import { useEffect } from "react";
 
 import IsMobile from "@/common/functions/IsMobile";
-import DesktopZoomModal from "./DesktopZoomModal";
-import MobileZoomModal from "./MobileZoomModal";
+import { DesktopZoomView } from "./DesktopZoomView";
+import { MobileZoomView } from "./MobileZoomView";
+
 
 interface Props {
   diaryId: string;
 }
 
-const ZoomModal = ({ diaryId }: Props) => {
+export const ZoomView = ({ diaryId }: Props) => {
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => getDiaryById({ id: diaryId }),
@@ -26,8 +27,6 @@ const ZoomModal = ({ diaryId }: Props) => {
   const isMobile = IsMobile();
 
   if (isMobile === undefined || isMobile === null) return <></>;
-  else if (isMobile) return <MobileZoomModal diaryData={diaryData} />;
-  else return <DesktopZoomModal diaryData={diaryData} />;
+  else if (isMobile) return <MobileZoomView diaryData={diaryData} />;
+  else return <DesktopZoomView diaryData={diaryData} />;
 }
-
-export default ZoomModal;

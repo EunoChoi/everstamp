@@ -9,13 +9,13 @@ import { useQuery } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
 import { ChangeEvent } from "react";
 
+import { StarRating } from "@/common/components/ui/StarRating";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import $Common from "@/common/styles/common";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
-import { PriorityStar } from "./PriorityStar";
 import useHabitAction from "./utils/useHabitAction";
 
 
@@ -64,7 +64,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
   }
 
   return (<Wrapper>
-    <PriorityStar priority={priority + 1} />
+    <StarRating rating={priority + 1} />
     <Name><span>{name}</span></Name>
     <Days>
       {recentDateArray.map((date, i: number) => {

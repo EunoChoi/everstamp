@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import TopButtons from "@/common/components/layout/TopButtons";
+import TopButtons from "@/common/components/ui/TopButtons";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
 import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';

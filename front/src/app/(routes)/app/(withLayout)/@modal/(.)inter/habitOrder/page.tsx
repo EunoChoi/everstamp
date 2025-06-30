@@ -1,5 +1,5 @@
 
-import HabitOrderModal from "@/app/(routes)/app/(withLayout)/setting/_components/HabitOrderModal";
+import { HabitOrderView } from "@/common/components/views/HabitOrderView";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 const Page = async () => {
@@ -8,7 +8,7 @@ const Page = async () => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <HabitOrderModal />
+      <HabitOrderView />
     </HydrationBoundary>
   );
 }
