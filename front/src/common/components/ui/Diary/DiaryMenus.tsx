@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import Axios from "@/Axios/axios";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-import $Common from "@/common/styles/common";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -10,6 +9,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { SnackBarAction } from "../../util/snackBar/SnackBarAction";
 
 interface Props {
   isMenuOpen: boolean;
@@ -72,17 +72,14 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
   }
   const onClickDeleteButton = () => {
     const action = (snackbarId: SnackbarKey) => (
-      <>
-        <$Common.YesOrNo className="no" onClick={() => { closeSnackbar('diaryDelete'); }}>
-          No
-        </$Common.YesOrNo>
-        <$Common.YesOrNo className="yes" onClick={() => {
+      <SnackBarAction
+        yesAction={() => {
           deleteDiaryMutation.mutate({ id: diaryData.id });
           closeSnackbar('diaryDelete');
-        }}>
-          Yes
-        </$Common.YesOrNo>
-      </>
+        }}
+        noAction={() => {
+          closeSnackbar('diaryDelete');
+        }} />
     );
     enqueueSnackbar(`${format(diaryData.date, 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: true, action, autoHideDuration: 6000 });
     closeMenu();

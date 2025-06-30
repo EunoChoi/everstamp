@@ -38,8 +38,8 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 
 import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
+import { SnackBarAction } from "@/common/components/util/snackBar/SnackBarAction";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-import $Common from "@/common/styles/common";
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
@@ -105,19 +105,15 @@ const IntroDesktop = () => {
   }
   const startInWeb = () => {
     const action = (snackbarId: SnackbarKey) => (
-      <>
-        <$Common.YesOrNo className="no" onClick={() => {
-          closeSnackbar('startInWeb');
-        }}>
-          No
-        </$Common.YesOrNo>
-        <$Common.YesOrNo className="yes" onClick={() => {
+      <SnackBarAction
+        yesAction={() => {
           closeSnackbar('startInWeb');
           router.push('/app')
-        }}>
-          Yes
-        </$Common.YesOrNo>
-      </>
+        }}
+        noAction={() => {
+          closeSnackbar('startInWeb');
+        }}
+      />
     );
     enqueueSnackbar(<StartInWebText />, { key: 'startInWeb', persist: true, action, autoHideDuration: 6000 });
   }

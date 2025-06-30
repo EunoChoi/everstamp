@@ -10,8 +10,8 @@ import { format, subDays } from "date-fns";
 import { ChangeEvent } from "react";
 
 import { StarRating } from "@/common/components/ui/StarRating";
+import { SnackBarAction } from "@/common/components/util/snackBar/SnackBarAction";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
-import $Common from "@/common/styles/common";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
@@ -42,15 +42,14 @@ const HabitBox = ({ name, id, priority }: Props) => {
 
   const onDeleteHabit = () => {
     const action = (snackbarId: SnackbarKey) => (
-      <>
-        <$Common.YesOrNo className="no" onClick={() => {
-          closeSnackbar('deleteHabit');
-        }}>No</$Common.YesOrNo>
-        <$Common.YesOrNo className="yes" onClick={() => {
+      <SnackBarAction
+        yesAction={() => {
           deleteHabit.mutate({ habitId: id });
           closeSnackbar('deleteHabit');
-        }}>Yes</$Common.YesOrNo>
-      </>
+        }}
+        noAction={() => {
+          closeSnackbar('deleteHabit');
+        }} />
     );
     enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
   }
