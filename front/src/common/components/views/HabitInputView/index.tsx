@@ -3,17 +3,15 @@
 
 import styled from "styled-components";
 
-import $Common from "@/common/styles/common";
-import $Modal from "@/common/styles/common_modal";
-import HabitValues from "./HabitValues";
 
 import { getHabitById } from "@/common/fetchers/habit";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useState } from "react";
+import { Modal } from "../../ui/Modal";
+import { HabitName } from "./HabitName";
+import { HabitRating } from "./HabitRating";
 import useSubmitHabit from "./utils/useSubmitHabit";
 
 interface habitInputProps {
@@ -22,9 +20,6 @@ interface habitInputProps {
 }
 
 const HabitInputView = ({ isEdit, habitId }: habitInputProps) => {
-
-  const router = useCustomRouter();
-
   const { data: habitData, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
     queryFn: () => getHabitById({ id: habitId }),
@@ -52,26 +47,20 @@ const HabitInputView = ({ isEdit, habitId }: habitInputProps) => {
   }, [isError])
 
   return (
-    <$Modal.Background onClick={() => router.back()}>
-      <HabitModalWrapper onClick={(e) => e.stopPropagation()}>
-        <$Modal.Top>
-          <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
-          <span className="title">목표 습관</span>
-          <button onClick={onSubmit} disabled={onMutation.isPending}>{submitText}</button>
-        </$Modal.Top>
-        <$Common.Empty />
-        <HabitValues habitName={habitName} setHabitName={setHabitName} priority={priority} setPriority={setPriority} />
+    <Modal>
+      <Modal.Header headerTitleText={`목표 습관 ${submitText}`} headerConfirmText='확인' onConfirm={onSubmit} />
+      <HabitInputViewContent>
+        <HabitName habitName={habitName} setHabitName={setHabitName} />
+        <HabitRating priority={priority} setPriority={setPriority} />
         <SubText>*최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</SubText>
-        <$Common.Empty />
-      </HabitModalWrapper>
-    </$Modal.Background>);
+      </HabitInputViewContent>
+    </Modal>
+  );
 }
 export default HabitInputView;
 
-const HabitModalWrapper = styled($Modal.Wrapper)`
-  @media (min-width:1025px) { //desktop
-    height: 600px;
-  }
+const HabitInputViewContent = styled(Modal.Content)`
+  gap: 36px;
 `
 const SubText = styled.span`
   display: flex;
