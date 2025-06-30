@@ -4,9 +4,9 @@ import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
 
-import CustomSnackbarProvider from "@/common/components/util/CustomSnackbarProvider";
 import PrefetchUserDataProvider from "@/common/components/util/PrefetchUserDataProvider";
-import RQProvider from "@/common/components/util/RQProvider";
+import RQProvider from "@/common/components/util/reactQueryProvider";
+import CustomSnackbarProvider from "@/common/components/util/snackBar/CustomSnackbarProvider";
 import { headers } from 'next/headers';
 import StyledComponentsRegistry from "../../lib/registry";
 
