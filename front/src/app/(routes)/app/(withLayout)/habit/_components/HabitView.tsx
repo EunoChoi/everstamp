@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import TopButtons from "@/common/components/layout/TopButtons";
+import TopButtons from "@/common/components/ui/TopButtons";
 import { getHabits } from "@/common/fetchers/habit";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -67,7 +67,7 @@ const HabitView = () => {
 
         <HabitBoxs>
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-          {habits.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>}
+          {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>}
         </HabitBoxs>
       </ContentWrapper>
     </PageWrapper >

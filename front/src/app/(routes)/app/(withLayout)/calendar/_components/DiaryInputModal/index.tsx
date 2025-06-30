@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import DiaryInputTextArea from "./TextArea";
 
 import { enqueueSnackbar } from "notistack";
-import DiaryInputEmotion from "./EmotionRadioSelector";
+import EmotionRadioSelector from "./EmotionRadioSelector";
 
 import $Common from "@/common/styles/common";
 import $Modal from "@/common/styles/common_modal";
@@ -16,7 +16,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import DiaryDate from "@/common/components/ui/DiaryDate";
+import DiaryDate from "@/common/components/views/ZoomView/DiaryDate";
 import { getDiaryById } from "@/common/fetchers/diary";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { useQuery } from "@tanstack/react-query";
@@ -104,9 +104,9 @@ const DiaryInputModal = ({ isEdit, diaryId }: DiaryInputProps) => {
             </button>
           </DiaryInputTitle>
           {emotionOpen &&
-            <DiaryInputEmotions>
-              <DiaryInputEmotion emotion={emotion} setEmotion={setEmotion} />
-            </DiaryInputEmotions>
+            <EmotionRadioSelectors>
+              <EmotionRadioSelector emotion={emotion} setEmotion={setEmotion} />
+            </EmotionRadioSelectors>
           }
         </DiaryInputSection>
         <DiaryInputSection ref={contentsRef}>
@@ -162,7 +162,7 @@ const DiaryInputTitle = styled.section`
   justify-content: space-between;
   align-items: center;
 `;
-const DiaryInputEmotions = styled.div`
+const EmotionRadioSelectors = styled.div`
   width: 100%;
   height: 100%;
 `;

@@ -52,7 +52,6 @@ const Wrapper = styled.div`
   }
 
   button{
-    box-shadow: 0px 0px 6px white, 0px 0px 6px whitesmoke, 0px 0px 6px white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,8 +67,6 @@ const Wrapper = styled.div`
     font-weight: 500;
     color: white;
     background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    /* filter: brightness(130%) saturate(100%) contrast(80%); */
-    /* backdrop-filter: blur(4px); */
     border: 2px solid rgba(0,0,0,0.07);
     border-radius : 48px;
 
