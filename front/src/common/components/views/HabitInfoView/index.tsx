@@ -5,18 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { getHabitById } from "@/common/fetchers/habit";
-import YearHabitChart from "./YearHabitChart";
-
-import $Modal from "@/common/styles/common_modal";
-
-import Calendar from "@/common/components/ui/Calendar";
-import Indicator from "@/common/components/ui/Indicator";
-import HabitInfoPageValue from "@/common/components/views/HabitInfoView/HabitInfoPageValue";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+
+import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { notFound } from 'next/navigation';
+import Calendar from "../../ui/Calendar";
+import Indicator from "../../ui/Indicator";
+import { Modal } from "../../ui/Modal";
+import HabitInfoPageValue from "./HabitInfoPageValue";
 import MonthHabitCount from "./MonthHabitCount";
+import YearHabitChart from "./YearHabitChart";
 import YearHabitCount from "./YearHabitCount";
 
 
@@ -51,75 +49,77 @@ const HabitInfoView = ({ habitId }: Props) => {
     slideWrapperRef.current?.scrollTo({ left: 0 });
   }, [])
 
-  return (<$Modal.Background onClick={() => router.back()}>
-    <HabitInfoModalWrapper onClick={(e) => e.stopPropagation()}>
-      <$Modal.Top>
-        <button onClick={() => router.back()}><ArrowBackIosIcon color="inherit" /></button>
-        <span className="title">습관 정보</span>
-        <button></button>
-      </$Modal.Top>
+  return (
+    <Modal>
+      <Modal.Header headerTitleText='습관 정보' />
+      <HabitInfoContent>
+        <MobilePortNameWrapper>
+          <Name>{habitDataById?.name ?? '-'}</Name>
+          <PriorityStar>
+            {Array(habitDataById.priority + 1).fill(0).map((_, i) => (
+              <StarPurple500OutlinedIcon key={'star' + i} fontSize="inherit" color="inherit" />
+            ))}
+          </PriorityStar>
+        </MobilePortNameWrapper>
 
-      <MobilePortNameWrapper>
-        <Name>{habitDataById?.name ?? '-'}</Name>
-        <PriorityStar>
-          {Array(habitDataById.priority + 1).fill(0).map((_, i) => (
-            <StarPurple500OutlinedIcon key={'star' + i} fontSize="inherit" color="inherit" />
-          ))}
-        </PriorityStar>
-      </MobilePortNameWrapper>
-
-
-      <CarouselWrapper>
-        <CarouselSlideWrapper
-          ref={slideWrapperRef}
-          onScroll={(e) => {
-            setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-          }}
-        >
-          <CarouselPage className="slideChild">
-            <MonthHabitCount
-              displayDate={calendarDate}
-              habitId={habitId}
-              habitName={habitDataById?.name ?? '-'}
-            />
-            <CalendarWrapper>
-              <Calendar
+        <CarouselWrapper>
+          <CarouselSlideWrapper
+            ref={slideWrapperRef}
+            onScroll={(e) => {
+              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
+            }}
+          >
+            <CarouselPage className="slideChild">
+              <MonthHabitCount
                 displayDate={calendarDate}
-                setDisplayDate={setCalendarDate}
-                FormattedValue={HabitInfoPageValue}
-                todayRouterPushAction={() => setCalendarDate(new Date())}
-                isTouchGestureEnabled={false}
-                isDateSelectionEnabled={false}
+                habitId={habitId}
+                habitName={habitDataById?.name ?? '-'}
               />
-            </CalendarWrapper>
-          </CarouselPage>
-          <CarouselPage className="slideChild">
-            <YearHabitCount
-              displayDate={chartDate}
-              habitName={habitDataById?.name ?? '-'}
-            />
-            <YearHabitChart
-              displayDate={chartDate}
-              setDisplayDate={setChartDate} />
-          </CarouselPage>
-        </CarouselSlideWrapper>
-        <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={2} />
-      </CarouselWrapper>
-    </HabitInfoModalWrapper>
-  </$Modal.Background>);
+              <CalendarWrapper>
+                <Calendar
+                  headerTitlePosition="center"
+                  headerSize="small"
+                  displayDate={calendarDate}
+                  setDisplayDate={setCalendarDate}
+                  FormattedValue={HabitInfoPageValue}
+                  todayRouterPushAction={() => setCalendarDate(new Date())}
+                  isTouchGestureEnabled={false}
+                  isDateSelectionEnabled={false}
+                />
+              </CalendarWrapper>
+            </CarouselPage>
+            <CarouselPage className="slideChild">
+              <YearHabitCount
+                displayDate={chartDate}
+                habitName={habitDataById?.name ?? '-'}
+              />
+              <YearHabitChart
+                displayDate={chartDate}
+                setDisplayDate={setChartDate} />
+            </CarouselPage>
+          </CarouselSlideWrapper>
+          <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={2} />
+        </CarouselWrapper>
+      </HabitInfoContent>
+    </Modal>
+  );
 }
 
 export default HabitInfoView;
 
+const HabitInfoContent = styled(Modal.Content)`
+  padding: 0;
+`
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;
 
   border : 2px rgb(var(--lightGrey2)) solid;
   border-radius: 16px;
-  padding: 16px;
+  padding: 12px;
 `
 const MobilePortNameWrapper = styled.div`
+  width: 100%;
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     display: none;
   }
@@ -144,15 +144,20 @@ const PriorityStar = styled.div`
   font-size: 18px;
   color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
 `
-const HabitInfoModalWrapper = styled($Modal.Wrapper)`
-  padding-bottom: 16px;
-`
 
 const CarouselWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
+
+  @media (max-width: 479px) { //mobile port
+    padding: 16px 0;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+  }
+  @media (min-width:1024px) { //desktop
+  }
 `
 const CarouselSlideWrapper = styled.div`
   scroll-snap-type: x mandatory;
@@ -163,7 +168,7 @@ const CarouselSlideWrapper = styled.div`
   flex-grow: 1;
   overflow-x: scroll;
 
-  padding : 12px;
+  padding : 0 12px;
 
   .slideChild{
     scroll-snap-align: center;
