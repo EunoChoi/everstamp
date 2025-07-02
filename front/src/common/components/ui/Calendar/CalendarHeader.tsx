@@ -52,11 +52,9 @@ const CalendarHeader = ({
             }}>
             {format(displayDate, 'MMMM. yyyy')}
           </CalTitleText>
-          <ArrowButtonWrapper
-            className={headerSize}
-          >
-            <button onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" color='inherit' /></button>
-            <button onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" color='inherit' /></button>
+          <ArrowButtonWrapper>
+            <button className={headerSize} onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" color='inherit' /></button>
+            <button className={headerSize} onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" color='inherit' /></button>
           </ArrowButtonWrapper>
         </CalTitle>}
       <CalWeeks>
@@ -95,15 +93,9 @@ const CalTitleText = styled.button`
   color: rgb(var(--greyTitle));
   font-family: 'BMJUA';
   
-  &.small{   
-      font-size: 20px;
-  }
-  &.middle{   
-      font-size: 26px;
-  }
-  &.large{   
-      font-size: 32px;
-  }
+  &.small{   font-size: 20px;}
+  &.middle{   font-size: 26px;}
+  &.large{    font-size: 32px;}
 `
 const ArrowButtonWrapper = styled.div`
   display: flex;
@@ -114,22 +106,9 @@ const ArrowButtonWrapper = styled.div`
   button{
     color: grey;
     display: flex;
-    padding: 12px;
-    padding: 6px;
-  }
-  &.small{   
-    .button{
-      padding: 6px;
-    } 
-  }
-  &.middle{   
-    .button{
-      padding: 9px;
-    } 
-  }
-  &.large{   
-    .button{
-      padding: 12px;
-    } 
+
+    &.small{   padding: 6px; }
+    &.middle{    padding: 9px;  }
+    &.large{      padding: 12px; }
   }
 `
