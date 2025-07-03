@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   @media (max-width: 479px) { //mobile port
-    padding : 0 5dvw calc(var(--mobileNav) + 5dvw) 5dvw;
+    padding : 0 4dvw calc(var(--mobileNav) + 4dvw) 4dvw;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet  
     min-height: 100%; 
