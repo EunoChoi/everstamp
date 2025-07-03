@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 
   @media (max-width: 479px) { //mobile port
     height: var(--mobileHeader);
-    padding: 0 5dvw;
+    padding: 0 4dvw;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     height: var(--mobileHeader);

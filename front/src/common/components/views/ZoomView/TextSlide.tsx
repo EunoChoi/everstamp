@@ -60,7 +60,7 @@ const Wrapper = styled.div`
   padding: 24px;
   gap: 32px;
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 12px 5dvw;
+    padding: 12px 4dvw;
     gap: 12px;
   }
 `
