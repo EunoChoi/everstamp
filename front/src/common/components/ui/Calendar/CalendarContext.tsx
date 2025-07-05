@@ -14,7 +14,7 @@ interface CalendarContextValue<T> {
 
   onClickMonthTitle?: () => void;
   onClickDate?: (date: Date) => void;
-  renderDateContent: ({ cellDate }: {
+  renderDateContent?: ({ cellDate }: {
     cellDate: Date;
   }) => JSX.Element
 
@@ -36,7 +36,7 @@ interface CalendarProviderProps<T> {
   monthlyData: T;
   displayDate: Date;
   setDisplayDate: Dispatch<SetStateAction<Date>>;
-  renderDateContent: ({ cellDate }: {
+  renderDateContent?: ({ cellDate }: {
     cellDate: Date;
   }) => JSX.Element
   isTouchGestureEnabled?: boolean;

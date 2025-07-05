@@ -1,4 +1,4 @@
-import { endOfMonth, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
+import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
 import { useRouter } from "next/navigation";
 import { memo } from "react";
 import styled from "styled-components";
@@ -42,7 +42,10 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
         ${(isCurrentMonth && isSelectedDate) ? 'selected' : ''}
       `}
     >
-      {renderDateContent({ cellDate: cellDate })}
+      {renderDateContent ?
+        renderDateContent({ cellDate: cellDate })
+        : format(cellDate, 'd')
+      }
     </CellWrapper >
   );
 });
@@ -70,5 +73,8 @@ const CellWrapper = styled.div`
   }
   &.notCurrentMonth{
     opacity: 0.3;
+  }
+  span{
+    font-size: 16px;
   }
 `

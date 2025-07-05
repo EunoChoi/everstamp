@@ -18,7 +18,7 @@ interface CalendarProps<T> {
   monthlyData?: T;
   onClickMonthTitle?: () => void;
   onClickDate?: (date: Date) => void;
-  renderDateContent: ({ cellDate }: {
+  renderDateContent?: ({ cellDate }: {
     cellDate: Date;
   }) => JSX.Element
   // renderDate: ({ cellDate, monthlyData }: { cellDate: Date, monthlyData: T }) => JSX.Element;
