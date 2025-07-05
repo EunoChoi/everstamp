@@ -30,6 +30,7 @@ const SORT_TEXT = {
 }
 
 const MAX_HABIT_COUNT = 20;
+const DUMMY_COUNT = 12;
 
 const HabitView = () => {
   usePrefetchPage();
@@ -68,6 +69,7 @@ const HabitView = () => {
         <HabitBoxs>
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
           {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>}
+          {Array.from({ length: DUMMY_COUNT }).map((_, index) => (<div key={index}></div>))}
         </HabitBoxs>
       </ContentWrapper>
     </PageWrapper >
