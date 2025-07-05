@@ -74,6 +74,7 @@ const CellWrapper = styled.div`
   &.notCurrentMonth{
     opacity: 0.3;
   }
+  font-size: 16px;
   span{
     font-size: 16px;
   }
