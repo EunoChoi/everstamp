@@ -102,11 +102,10 @@ export default function RootLayout({
           <body className={pretendard.className}>
             <RQProvider>
               <PrefetchUserDataProvider>
-                <CustomSnackbarProvider>
-                  {children}
-                </CustomSnackbarProvider>
+                {children}
               </PrefetchUserDataProvider>
             </RQProvider>
+            <CustomSnackbarProvider />
           </body>
         </StyledComponentsRegistry>
       </SessionProvider>
