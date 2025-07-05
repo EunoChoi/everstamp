@@ -4,18 +4,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { getHabitById } from "@/common/fetchers/habit";
-import StarPurple500OutlinedIcon from '@mui/icons-material/StarPurple500Outlined';
+import { getHabitById, getSingleHabitMonthInfo } from "@/common/fetchers/habit";
 
 import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { format } from 'date-fns';
 import { notFound } from 'next/navigation';
 import Calendar from "../../ui/Calendar";
 import Indicator from "../../ui/Indicator";
 import { Modal } from "../../ui/Modal";
-import HabitInfoPageValue from "./HabitInfoPageValue";
+import { StarRating } from "../../ui/StarRating";
 import MonthHabitCount from "./MonthHabitCount";
 import YearHabitChart from "./YearHabitChart";
 import YearHabitCount from "./YearHabitCount";
+import { renderDateContent } from "./_utils/renderDateContent";
 
 
 
@@ -39,7 +40,24 @@ const HabitInfoView = ({ habitId }: Props) => {
     queryFn: () => getHabitById({ id: habitId }),
     enabled: habitId !== null
   });
+  const { data: singleHabitMonthlyData } = useQuery({
+    queryKey: ['habit', 'id', habitId, 'month', format(calendarDate, 'MM')],
+    queryFn: () => getSingleHabitMonthInfo({ id: habitId, date: calendarDate }),
+    select: (data) => {
+      const singleHabitMonthlyData: { [key: string]: boolean } = {};
+      data?.forEach((e: any) => {
+        singleHabitMonthlyData[format(e.date, 'yyMMdd')] = e?.Habits && true;
+      });
+      return singleHabitMonthlyData;
+    }
+  });
 
+  console.log(singleHabitMonthlyData);
+
+
+  const onClickMonthTitle = () => {
+    setCalendarDate(new Date);
+  }
 
   useEffect(() => {
     if (isError) notFound();
@@ -55,11 +73,7 @@ const HabitInfoView = ({ habitId }: Props) => {
       <HabitInfoContent>
         <MobilePortNameWrapper>
           <Name>{habitDataById?.name ?? '-'}</Name>
-          <PriorityStar>
-            {Array(habitDataById.priority + 1).fill(0).map((_, i) => (
-              <StarPurple500OutlinedIcon key={'star' + i} fontSize="inherit" color="inherit" />
-            ))}
-          </PriorityStar>
+          <PriorityStar rating={habitDataById?.priority + 1} />
         </MobilePortNameWrapper>
 
         <CarouselWrapper>
@@ -75,16 +89,20 @@ const HabitInfoView = ({ habitId }: Props) => {
                 habitId={habitId}
                 habitName={habitDataById?.name ?? '-'}
               />
+
               <CalendarWrapper>
                 <Calendar
-                  headerTitlePosition="center"
-                  headerSize="small"
-                  displayDate={calendarDate}
-                  setDisplayDate={setCalendarDate}
-                  FormattedValue={HabitInfoPageValue}
-                  todayRouterPushAction={() => setCalendarDate(new Date())}
                   isTouchGestureEnabled={false}
                   isDateSelectionEnabled={false}
+                  headerTitlePosition="center"
+                  headerSize="small"
+
+                  displayDate={calendarDate}
+                  setDisplayDate={setCalendarDate}
+                  monthlyData={singleHabitMonthlyData}
+                  renderDateContent={renderDateContent}
+
+                  onClickMonthTitle={onClickMonthTitle}
                 />
               </CalendarWrapper>
             </CarouselPage>
@@ -137,12 +155,15 @@ const Name = styled.div`
     font-size: 28px;
   }
 `
-const PriorityStar = styled.div`
+const PriorityStar = styled(StarRating)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+
+  .star{
+    font-size: 18px;
+    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  }
 `
 
 const CarouselWrapper = styled.div`
