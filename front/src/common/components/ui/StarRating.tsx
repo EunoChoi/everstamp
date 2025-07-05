@@ -8,9 +8,9 @@ interface StarRatingProps {
 }
 
 export const StarRating = ({ rating, className }: StarRatingProps) => {
-  return <Wrapper className="className">
+  return <Wrapper className={className}>
     {Array.from({ length: rating }, (_, index) => (
-      <span key={index}>★</span>
+      <span className="star" key={index}>★</span>
     ))}
   </Wrapper>
 }

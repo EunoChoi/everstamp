@@ -35,7 +35,7 @@ export const renderDateContent = ({ cellDate }: { cellDate: Date }) => {
   } = monthlyData?.[key] || {};
   const hasHabit = habitsCount > 0;
   const date = format(cellDate, 'd');
-  const emotion = (emotionType >= 1 && emotionType < EMOTION_DATA.length) ? EMOTION_DATA[emotionType] : undefined;
+  const emotion = (emotionType >= 0 && emotionType < EMOTION_DATA.length) ? EMOTION_DATA[emotionType] : undefined;
 
   const renderContent = () => {
     if (hasDiary && emotion) {
