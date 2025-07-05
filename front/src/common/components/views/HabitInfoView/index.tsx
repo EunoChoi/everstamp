@@ -16,7 +16,7 @@ import { StarRating } from "../../ui/StarRating";
 import MonthHabitCount from "./MonthHabitCount";
 import YearHabitChart from "./YearHabitChart";
 import YearHabitCount from "./YearHabitCount";
-import { RenderDateContent } from "./_utils/RenderDateContent";
+import { RenderDateContent } from "./_utils/HabitInfoDateContent";
 
 
 
