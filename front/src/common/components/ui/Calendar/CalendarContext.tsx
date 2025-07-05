@@ -95,20 +95,6 @@ export const CalendarProvider = <T,>({
   </CalendarContext.Provider>);
 }
 
-
-
-
-/**
- * 자식 컴포넌트에서 CalendarContext 값에 접근하기 위함
- * 
- * displayDate: Date;
- * 
- * calendarDates: Date[][];
- * 
- * nextMonth: () => void;
- * 
- * prevMonth: () => void;
- */
 export const useCalendar = <T,>() => {
   const context = useContext(CalendarContext) as CalendarContextValue<T>;
   if (!context) {
