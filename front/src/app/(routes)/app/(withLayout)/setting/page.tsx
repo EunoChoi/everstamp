@@ -19,6 +19,8 @@ import { onLogout } from "./_functions/onLogout";
 import { useCurrentUserData } from "./_hooks/useCurrentUserData";
 import { useUpdateThemeColor } from "./_hooks/useUpdateThemeColor";
 
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const SettingPage = () => {
   usePrefetchPage();
@@ -44,7 +46,7 @@ const SettingPage = () => {
 
       <SettingContentWrapper>
         <Section>
-          <Title>account</Title>
+          <Title>user info</Title>
           <SubSection>
             <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
             <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
@@ -59,12 +61,15 @@ const SettingPage = () => {
             <ThemeColorSelector themeColorUpdate={updateThemeColor} />
           </SubSection>
           <SubSection>
-            <SubTitle>other options</SubTitle>
+            <SubTitle>font</SubTitle>
             <SettingItem
-              settingItemKey="폰트 사이즈"
+              settingItemKey="다이어리 글씨 크기"
               settingItemValue={<FontSizeSelector fontSizeUpdate={fontSizeUpdate} />} />
+          </SubSection>
+          <SubSection>
+            <SubTitle>habit order</SubTitle>
             <SettingItem
-              settingItemKey="목표 습관 리스트 정렬"
+              settingItemKey="습관 순서 커스텀"
               settingItemValue={
                 <button onClick={() => {
                   router.push('/app/inter/habitOrder', { scroll: false })
@@ -75,13 +80,24 @@ const SettingPage = () => {
         </Section>
 
         <Section>
-          <BottomButtonWrapper className="center">
-            <Button onClick={onLogout}>로그아웃</Button>
-            <Button onClick={onDeleteAccount}>계정 삭제</Button>
-          </BottomButtonWrapper>
+          <Title>Account</Title>
+          <SubSection>
+            <SettingItem
+              settingItemKey="로그아웃"
+              settingItemValue={
+                <button onClick={onLogout}>
+                  <LogoutIcon fontSize="small" />
+                </button>} />
+            <SettingItem
+              settingItemKey="회원 탈퇴"
+              settingItemValue={
+                <button onClick={onDeleteAccount}>
+                  <DeleteForeverIcon fontSize="small" />
+                </button>} />
+          </SubSection>
         </Section>
       </SettingContentWrapper>
-    </PageWrapper>
+    </PageWrapper >
   );
 }
 
@@ -94,15 +110,15 @@ const Section = styled.section`
   margin: 16px 0;
   display: flex;
   flex-direction: column;
+
+  gap: 24px;
 `
 const SubSection = styled.section`
-  margin: 16px 0;
   padding: 0 12px;
   display: flex;
   flex-direction: column;
 `
 const Title = styled.span`
-  /* margin: 16px 0; */
   color: rgb(var(--greyTitle));
   text-transform: capitalize;
   font-size: 32px;
@@ -118,23 +134,4 @@ const SubTitle = styled.span`
   font-weight: 500;
   text-transform: capitalize;
   color: grey;
-`
-const BottomButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-`
-const Button = styled.button`
-  cursor: pointer;
-  transition: all ease-in-out 0.3s;
-  padding: 4px 14px;
-
-  text-transform: capitalize;
-  color: rgb(var(--greyTitle));
-  font-size: 14px;
-
-  border-radius: 50px;
-  border: 2px solid rgba(0,0,0,0.05);
-  background-color: #f9f9f9;
 `
