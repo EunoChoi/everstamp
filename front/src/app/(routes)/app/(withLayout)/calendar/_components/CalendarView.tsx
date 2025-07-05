@@ -86,11 +86,11 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 export default CalendarView;
 
 const CalendarPageCalendar = styled(Calendar)`
-  min-height: 500px;
   @media (max-width: 479px) { //mobile port
     flex-grow: 1;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+    min-height: 500px;
     flex-grow: 1;
     flex-shrink: 0;
   }
