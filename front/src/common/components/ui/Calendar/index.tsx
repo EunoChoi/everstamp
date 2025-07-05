@@ -18,10 +18,9 @@ interface CalendarProps<T> {
   monthlyData?: T;
   onClickMonthTitle?: () => void;
   onClickDate?: (date: Date) => void;
-  renderDateContent?: ({ cellDate }: {
+  RenderDateContent?: ({ cellDate }: {
     cellDate: Date;
   }) => JSX.Element
-  // renderDate: ({ cellDate, monthlyData }: { cellDate: Date, monthlyData: T }) => JSX.Element;
 
   isTouchGestureEnabled?: boolean;
   isDateSelectionEnabled?: boolean;
@@ -39,7 +38,7 @@ const Calendar = <T,>({
   onClickMonthTitle,
   onClickDate,
 
-  renderDateContent,
+  RenderDateContent,
   isTouchGestureEnabled,
   isDateSelectionEnabled
 }: CalendarProps<T>) => {
@@ -53,7 +52,7 @@ const Calendar = <T,>({
       onClickMonthTitle={onClickMonthTitle}
       onClickDate={onClickDate}
 
-      renderDateContent={renderDateContent}
+      RenderDateContent={RenderDateContent}
       isTouchGestureEnabled={isTouchGestureEnabled}
       isDateSelectionEnabled={isDateSelectionEnabled}
     >

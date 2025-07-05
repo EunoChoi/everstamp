@@ -11,7 +11,7 @@ import { useGetSelectedDate } from "./hooks/useGetSelectedDate";
 export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
   const router = useRouter();
 
-  const { displayDate, prevMonth, nextMonth, renderDateContent, onClickDate } = useCalendar();
+  const { displayDate, prevMonth, nextMonth, RenderDateContent, onClickDate } = useCalendar();
   const { selectedDate } = useGetSelectedDate();
   const today = new Date();
 
@@ -42,13 +42,15 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
         ${(isCurrentMonth && isSelectedDate) ? 'selected' : ''}
       `}
     >
-      {renderDateContent ?
-        renderDateContent({ cellDate: cellDate })
+      {RenderDateContent ?
+        <RenderDateContent cellDate={cellDate} />
         : format(cellDate, 'd')
       }
     </CellWrapper >
   );
 });
+
+CalendarCell.displayName = 'CalendarCell';
 
 const CellWrapper = styled.div`
   transition: background-color 300ms ease-in-out;

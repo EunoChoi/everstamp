@@ -19,7 +19,7 @@ import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { renderDateContent } from "../_utils/renderDateContent";
+import { RenderDateContent } from "../_utils/RenderDateContent";
 
 
 interface CalendarViewProps {
@@ -72,7 +72,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           displayDate={displayDate}
           setDisplayDate={setDisplayDate}
           monthlyData={monthHabits}
-          renderDateContent={renderDateContent}
+          RenderDateContent={RenderDateContent}
 
           onClickMonthTitle={onClickMonthTitle}
           onClickDate={onClickDate}

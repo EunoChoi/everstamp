@@ -16,7 +16,7 @@ import { StarRating } from "../../ui/StarRating";
 import MonthHabitCount from "./MonthHabitCount";
 import YearHabitChart from "./YearHabitChart";
 import YearHabitCount from "./YearHabitCount";
-import { renderDateContent } from "./_utils/renderDateContent";
+import { RenderDateContent } from "./_utils/RenderDateContent";
 
 
 
@@ -51,8 +51,6 @@ const HabitInfoView = ({ habitId }: Props) => {
       return singleHabitMonthlyData;
     }
   });
-
-  console.log(singleHabitMonthlyData);
 
 
   const onClickMonthTitle = () => {
@@ -100,7 +98,7 @@ const HabitInfoView = ({ habitId }: Props) => {
                   displayDate={calendarDate}
                   setDisplayDate={setCalendarDate}
                   monthlyData={singleHabitMonthlyData}
-                  renderDateContent={renderDateContent}
+                  RenderDateContent={RenderDateContent}
 
                   onClickMonthTitle={onClickMonthTitle}
                 />
