@@ -111,7 +111,7 @@ router.get("/list", tokenCheck, async (req, res) => {
           email,
         }],
         order: [
-          ['priority', 'DESC'],
+          // ['priority', 'DESC'],
           ['createdAt', sort], //ASC DESC
         ],
       });
