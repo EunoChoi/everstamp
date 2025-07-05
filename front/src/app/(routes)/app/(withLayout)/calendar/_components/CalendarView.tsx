@@ -19,7 +19,7 @@ import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { RenderDateContent } from "../_utils/RenderDateContent";
+import { RenderDateContent } from "../_utils/CalendarInfoDateContent";
 
 
 interface CalendarViewProps {
