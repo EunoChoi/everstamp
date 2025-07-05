@@ -1,66 +1,79 @@
 'use client';
 
-import { addMonths, subMonths } from 'date-fns';
-import { Dispatch, SetStateAction, useCallback } from "react";
 import styled from "styled-components";
 
 //function
+import { Dispatch, SetStateAction } from "react";
 import CalendarBody from "./CalendarBody";
+import { CalendarProvider } from './CalendarContext';
 import CalendarHeader from "./CalendarHeader";
-import makeCalendarDates from "./utils/makeCalendarDates";
 
-interface Props {
+interface CalendarProps<T> {
   className?: string;
   headerSize?: 'small' | 'middle' | 'large';
   headerTitlePosition?: 'center' | 'start';
+
   displayDate: Date;
   setDisplayDate: Dispatch<SetStateAction<Date>>;
-  FormattedValue: ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => JSX.Element;
-  todayRouterPushAction?: () => void;
+  monthlyData?: T;
+  onClickMonthTitle?: () => void;
+  onClickDate?: (date: Date) => void;
+  renderDateContent: ({ cellDate }: {
+    cellDate: Date;
+  }) => JSX.Element
+  // renderDate: ({ cellDate, monthlyData }: { cellDate: Date, monthlyData: T }) => JSX.Element;
+
   isTouchGestureEnabled?: boolean;
   isDateSelectionEnabled?: boolean;
 }
 
-const Calendar = ({ className, headerSize = 'large', headerTitlePosition = 'start', displayDate, setDisplayDate, FormattedValue, todayRouterPushAction, isTouchGestureEnabled, isDateSelectionEnabled }: Props) => {
-  const { calendarDates } = makeCalendarDates(displayDate);
+const Calendar = <T,>({
+  className,
+  headerSize = 'large',
+  headerTitlePosition = 'start',
 
-  const nextDisplayMonth = useCallback(() => {
-    setDisplayDate(addMonths(displayDate, 1));
-  }, [displayDate]);
-  const beforeDisplayMonth = useCallback(() => {
-    setDisplayDate(subMonths(displayDate, 1));
-  }, [displayDate]);
+  monthlyData,
+  displayDate,
+  setDisplayDate,
+
+  onClickMonthTitle,
+  onClickDate,
+
+  renderDateContent,
+  isTouchGestureEnabled,
+  isDateSelectionEnabled
+}: CalendarProps<T>) => {
 
   return (
-    <Wrapper className={className}>
-      <CalendarHeader
-        headerSize={headerSize}
-        headerTitlePosition={headerTitlePosition}
-        todayRouterPushAction={todayRouterPushAction}
-        displayDate={displayDate}
-        setDisplayDate={setDisplayDate}
-        beforeDisplayMonth={beforeDisplayMonth}
-        nextDisplayMonth={nextDisplayMonth}
-      />
-      <CalendarBody
-        FormattedValue={FormattedValue}
-        calendarDates={calendarDates}
-        displayDate={displayDate}
-        nextDisplayMonth={nextDisplayMonth}
-        beforeDisplayMonth={beforeDisplayMonth}
-        isTouchGestureEnabled={isTouchGestureEnabled}
-        isDateSelectionEnabled={isDateSelectionEnabled}
-      />
-    </Wrapper>
+    <CalendarProvider
+      monthlyData={monthlyData}
+      displayDate={displayDate}
+      setDisplayDate={setDisplayDate}
+
+      onClickMonthTitle={onClickMonthTitle}
+      onClickDate={onClickDate}
+
+      renderDateContent={renderDateContent}
+      isTouchGestureEnabled={isTouchGestureEnabled}
+      isDateSelectionEnabled={isDateSelectionEnabled}
+    >
+      <Wrapper className={className}>
+        <CalendarHeader
+          headerSize={headerSize}
+          headerTitlePosition={headerTitlePosition}
+        />
+        <CalendarBody />
+      </Wrapper>
+    </CalendarProvider>
   );
 }
 
 export default Calendar;
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 
-  display: flex;
-  flex-direction: column;
-`
+    display: flex;
+    flex-direction: column;
+    `

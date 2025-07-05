@@ -5,16 +5,11 @@ import { format } from "date-fns";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import styled from "styled-components";
+import { useCalendar } from "./CalendarContext";
 
 interface CalendarHeaderProps {
   headerSize: 'small' | 'middle' | 'large';
   headerTitlePosition: 'center' | 'start';
-
-  todayRouterPushAction?: () => void;
-  displayDate: Date;
-  setDisplayDate: React.Dispatch<React.SetStateAction<Date>>;
-  beforeDisplayMonth: () => void;
-  nextDisplayMonth: () => void
 }
 
 const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -22,39 +17,36 @@ const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const CalendarHeader = ({
   headerSize,
   headerTitlePosition,
-  todayRouterPushAction,
-  displayDate,
-  setDisplayDate,
-  beforeDisplayMonth,
-  nextDisplayMonth }: CalendarHeaderProps) => {
+}: CalendarHeaderProps) => {
+
+  const {
+    displayDate,
+    prevMonth,
+    nextMonth,
+    goToday,
+  } = useCalendar();
 
   return (
     <>
       {headerTitlePosition === 'center' &&
         <CalTitle className={`${headerSize} ${headerTitlePosition}`} >
-          <button onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
-          <button onClick={() => {
-            todayRouterPushAction && todayRouterPushAction();
-            setDisplayDate(new Date());
-          }}>
+          <button onClick={prevMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
+          <button onClick={goToday}>
             {format(displayDate, 'MMMM. yyyy')}
           </button>
-          <button onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
+          <button onClick={nextMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
         </CalTitle>
       }
       {headerTitlePosition === 'start' &&
         <CalTitle className={`${headerSize} ${headerTitlePosition}`}>
           <CalTitleText
             className={headerSize}
-            onClick={() => {
-              todayRouterPushAction && todayRouterPushAction();
-              setDisplayDate(new Date());
-            }}>
+            onClick={goToday}>
             {format(displayDate, 'MMMM. yyyy')}
           </CalTitleText>
           <ArrowButtonWrapper>
-            <button className={headerSize} onClick={beforeDisplayMonth}><KeyboardArrowLeftIcon fontSize="small" color='inherit' /></button>
-            <button className={headerSize} onClick={nextDisplayMonth}><KeyboardArrowRightIcon fontSize="small" color='inherit' /></button>
+            <button className={headerSize} onClick={prevMonth}><KeyboardArrowLeftIcon fontSize="small" color='inherit' /></button>
+            <button className={headerSize} onClick={nextMonth}><KeyboardArrowRightIcon fontSize="small" color='inherit' /></button>
           </ArrowButtonWrapper>
         </CalTitle>}
       <CalWeeks>
@@ -101,14 +93,14 @@ const ArrowButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 
   button{
     color: grey;
     display: flex;
 
-    &.small{   padding: 6px; }
-    &.middle{    padding: 9px;  }
-    &.large{      padding: 12px; }
+    &.small{   padding: 3px; }
+    &.middle{    padding: 4px;  }
+    &.large{      padding: 6px; }
   }
 `
