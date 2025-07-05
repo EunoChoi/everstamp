@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 
 //function
@@ -14,45 +14,68 @@ import { getDiaryByDate } from "@/common/fetchers/diary";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import Calendar from "@/common/components/ui/Calendar";
-import CalendarPageValue from "@/common/components/ui/Calendar/CalendarPageValue";
 import Diary from "@/common/components/ui/Diary";
+import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { renderDateContent } from "../_utils/renderDateContent";
 
 
-interface Props {
+interface CalendarViewProps {
   date: number;
 }
+interface MonthHabitsType {
+  [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
+}
 
-const CalendarView = ({ date }: Props) => {
+const CalendarView = ({ date }: CalendarViewProps) => {
   usePrefetchPage();
   const router = useCustomRouter();
 
   const [displayDate, setDisplayDate] = useState(new Date());
 
-  //get diary data by date
+  //get date diary data
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
     queryFn: () => getDiaryByDate({ date }),
   });
 
-  const todayRouterPushAction = () => {
+  const { data: monthHabits } = useQuery({
+    queryKey: ['habit', 'month', format(displayDate, 'MM')],
+    queryFn: () => getAllHabitsMonthInfo({ date: displayDate }),
+    select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
+      const monthHabits: MonthHabitsType = {};
+      data.forEach((e: any) => {
+        monthHabits[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
+      });
+      return monthHabits;
+    }
+  });
+
+  const onClickMonthTitle = () => {
     router.push(`/app/calendar?date=${getCleanTodayTime()}`);
   }
-  1
+  const onClickDate = useCallback((date: Date) => {
+    router.push(`calendar?date=${date.getTime()}`);
+  }, []);
+
   return (
     <PageWrapper>
       <CalendarContentWrapper>
         <CalendarPageCalendar
-          headerTitlePosition="start"
-          headerSize="large"
-          displayDate={displayDate}
-          setDisplayDate={setDisplayDate}
-          FormattedValue={CalendarPageValue}
-          todayRouterPushAction={todayRouterPushAction}
           isTouchGestureEnabled={true}
           isDateSelectionEnabled={true}
+          headerTitlePosition="start"
+          headerSize="large"
+
+          displayDate={displayDate}
+          setDisplayDate={setDisplayDate}
+          monthlyData={monthHabits}
+          renderDateContent={renderDateContent}
+
+          onClickMonthTitle={onClickMonthTitle}
+          onClickDate={onClickDate}
         />
         <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
       </CalendarContentWrapper>
