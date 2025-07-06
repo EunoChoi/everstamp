@@ -6,6 +6,9 @@ import React from "react";
 import styled from "styled-components";
 import { diaryData } from "../_types/diaryData";
 
+import Image from "next/image";
+import sadEmotion from '/public/img/emotion/emotion1.png';
+
 
 interface DiariesProps {
   diaries: diaryData[];
@@ -13,7 +16,7 @@ interface DiariesProps {
 
 export const Diaries = ({ diaries }: DiariesProps) => {
   return (<>
-    {diaries ?
+    {diaries?.length > 0 ?
       diaries?.map((data: diaryData, i: number) => {
         const currentDiaryDate = format(data.date, 'MMMM. yyyy');
         const previousDiaryDate = i > 0 ? format(diaries[i - 1].date, 'MMMM. yyyy') : '';
@@ -31,7 +34,10 @@ export const Diaries = ({ diaries }: DiariesProps) => {
         }
       })
       :
-      <NoDiaries>일기 목록이 존재하지 않습니다. 🥹</NoDiaries>}
+      <NoDiaries>
+        <Image src={sadEmotion} alt="sad-emotion-icon" width={128} height={128} />
+        <span>작성된 일기가 존재하지 않습니다. :(</span>
+      </NoDiaries>}
   </>);
 }
 
@@ -70,13 +76,24 @@ const MonthSeparator = styled.span`
 `
 const NoDiaries = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap : 32px;
 
-  padding-top: 30dvh;
-  font-size: 18px;  
+
   color: rgb(var(--greyTitle));
 
-  @media (min-width:1025px) { 
+  @media (max-width: 479px) { //mobile port
+    font-size: 18px;  
+    padding-top: 25dvh;
+  }
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    font-size: 18px;
+    padding-top: 32px;
+  }
+  @media (min-width:1024px) { //desktop
     font-size: 22px;
+    padding-top: 25dvh;
   }
 `

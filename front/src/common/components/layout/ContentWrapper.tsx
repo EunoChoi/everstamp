@@ -22,11 +22,10 @@ const Wrapper = styled.div`
     padding : 0 4dvw calc(var(--mobileNav) + 4dvw) 4dvw;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet  
-    min-height: 100%; 
     overflow: scroll;
-    padding : 36px 36px 36px 36px;  
+    padding : 36px;  
   }
   @media (min-width:1025px) { //desktop
-    padding: 36px 36px 36px 36px;  
+    padding: 36px;  
   }
 `
