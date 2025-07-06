@@ -92,6 +92,14 @@ const Page = () => {
 export default Page;
 
 const Wrapper = styled.div`
+  @keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:1; }
+  }
+  >*{
+    animation: fadeIn 1000ms ease-in-out;
+  }
+
   width: 100dvw;
   height: 100dvh;
 
