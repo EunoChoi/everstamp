@@ -17,8 +17,8 @@ import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
 import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { useRouter } from "next/navigation";
 import { RenderDateContent } from "../_utils/CalendarInfoDateContent";
 
 
@@ -31,7 +31,7 @@ interface MonthHabitsType {
 
 const CalendarView = ({ date }: CalendarViewProps) => {
   usePrefetchPage();
-  const router = useCustomRouter();
+  const router = useRouter();
 
   const [displayDate, setDisplayDate] = useState(new Date());
 

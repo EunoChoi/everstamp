@@ -10,26 +10,24 @@ interface Props {
 
 const CustomSnackbarProvider = ({ children }: Props) => {
   return (
-    <>
+    <SnackbarProvider
+      Components={{
+        default: StyledMaterialDesignContent,
+        info: StyledMaterialDesignContent,
+        success: StyledMaterialDesignContent,
+        error: StyledMaterialDesignContent,
+      }}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      maxSnack={1}
+      autoHideDuration={2000}
+      preventDuplicate={true}
+    >
       <GlobalSnackbarStyle />
-      <SnackbarProvider
-        Components={{
-          default: StyledMaterialDesignContent,
-          info: StyledMaterialDesignContent,
-          success: StyledMaterialDesignContent,
-          error: StyledMaterialDesignContent,
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        maxSnack={1}
-        autoHideDuration={2000}
-        preventDuplicate={true}
-      >
-        {children}
-      </SnackbarProvider>
-    </>
+      {children}
+    </SnackbarProvider>
   );
 }
 

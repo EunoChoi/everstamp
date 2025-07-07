@@ -1,7 +1,7 @@
 'use client';
 
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
+import { useRouter } from 'next/navigation';
 import styled from "styled-components";
 
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
@@ -24,7 +24,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const SettingPage = () => {
   usePrefetchPage();
-  const router = useCustomRouter();
+  const router = useRouter();
 
   const { email, provider, createAt } = useCurrentUserData();
   const { updateThemeColor } = useUpdateThemeColor();

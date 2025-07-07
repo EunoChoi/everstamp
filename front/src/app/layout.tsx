@@ -2,13 +2,11 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { SessionProvider } from "next-auth/react";
 
-import PrefetchUserDataProvider from "@/common/components/util/PrefetchUserDataProvider";
-import RQProvider from "@/common/components/util/reactQueryProvider";
-import CustomSnackbarProvider from "@/common/components/util/snackBar/CustomSnackbarProvider";
+import { getCurrentUser_Prefetch } from "@/common/fetchers/userPrefetch";
+import { AppProviders } from "@/common/utils/AppProviders";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { headers } from 'next/headers';
-import StyledComponentsRegistry from "../../lib/registry";
 
 
 export const metadata: Metadata = {
@@ -33,7 +31,7 @@ const pretendard = localFont({
   weight: "45 920",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -43,6 +41,15 @@ export default function RootLayout({
   let userAgent = get('user-agent')
   userAgent = userAgent ? userAgent.toLowerCase() : '';
   const isIosDevice = userAgent?.includes('iphone') || userAgent?.includes('macintosh');
+
+  const queryClient = new QueryClient();
+
+  //for login status check
+  await queryClient.prefetchQuery({
+    queryKey: ['user'],
+    queryFn: getCurrentUser_Prefetch,
+  })
+  const dehydratedState = dehydrate(queryClient)
 
   return (
     <html lang="en">
@@ -97,18 +104,12 @@ export default function RootLayout({
         <meta property="og:description" content="감정 일기를 적고 습관을 실천하세요. 당신의 긍정적 변화와 성장을 응원합니다. :)" />
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
       </head>
-      <SessionProvider>
-        <StyledComponentsRegistry>
-          <body className={pretendard.className}>
-            <RQProvider>
-              <PrefetchUserDataProvider>
-                {children}
-              </PrefetchUserDataProvider>
-            </RQProvider>
-            <CustomSnackbarProvider />
-          </body>
-        </StyledComponentsRegistry>
-      </SessionProvider>
+
+      <body className={pretendard.className}>
+        <AppProviders dehydratedState={dehydratedState}>
+          {children}
+        </AppProviders>
+      </body>
     </html>
   );
 }

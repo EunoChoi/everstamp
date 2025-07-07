@@ -10,9 +10,9 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getHabits } from "@/common/fetchers/habit";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import AddIcon from '@mui/icons-material/Add';
+import { useRouter } from "next/navigation";
 import { useHabitSortOrder } from "../_hooks/useHabitSortOrder";
 import { useTodayHabitRate } from "../_hooks/useTodayHabitRate";
 import HabitBox from "./HabitBox";
@@ -34,7 +34,7 @@ const DUMMY_COUNT = 12;
 
 const HabitView = () => {
   usePrefetchPage();
-  const router = useCustomRouter();
+  const router = useRouter();
   const { todayDoneHabitCount, createdHabitCount, todayDoneHabitRate } = useTodayHabitRate();
   const { customOrder, sortToggle, sortOrderChange } = useHabitSortOrder();
 

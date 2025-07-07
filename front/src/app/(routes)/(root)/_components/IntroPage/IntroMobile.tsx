@@ -40,18 +40,18 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 
 import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
-import { SnackBarAction } from "@/common/components/util/snackBar/SnackBarAction";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import AndroidIcon from '@mui/icons-material/Android';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import LockIcon from '@mui/icons-material/Lock';
 import PhonelinkIcon from '@mui/icons-material/Phonelink';
+import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 
 
 const IntroMobile = () => {
-  const router = useCustomRouter();
+  const router = useRouter();
 
   const introImages = [calendar, list, list2, zoom1, zoom2, habit, habitinfo1, habitinfo2, setting, habitorder];
   const viewImages = [calendar, list, list2, zoom1];

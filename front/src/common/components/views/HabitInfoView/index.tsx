@@ -6,9 +6,8 @@ import styled from "styled-components";
 
 import { getHabitById, getSingleHabitMonthInfo } from "@/common/fetchers/habit";
 
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { format } from 'date-fns';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from "next/navigation";
 import Calendar from "../../ui/Calendar";
 import Indicator from "../../ui/Indicator";
 import { Modal } from "../../ui/Modal";
@@ -25,7 +24,7 @@ interface Props {
 }
 
 const HabitInfoView = ({ habitId }: Props) => {
-  const router = useCustomRouter();
+  const router = useRouter();
 
   const slideWrapperRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState<number>(0);

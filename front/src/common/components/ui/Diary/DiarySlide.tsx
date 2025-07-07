@@ -2,7 +2,7 @@ import Image from "next/image";
 import styled from "styled-components";
 
 //icon
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 
@@ -31,7 +31,7 @@ interface Props {
 }
 
 const DiarySlide = ({ diaryData, height }: Props) => {
-  const router = useCustomRouter();
+  const router = useRouter();
   const images = diaryData?.Images;
   const slideWrapperRef = useRef<HTMLDivElement>(null);
 

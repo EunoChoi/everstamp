@@ -5,11 +5,11 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
 
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ViewListIcon from '@mui/icons-material/ViewList';
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 
 
 const MobileLayout = ({ modal, children }: Props) => {
-  const router = useCustomRouter();
+  const router = useRouter();
   const current = useSelectedLayoutSegment();
 
   return (

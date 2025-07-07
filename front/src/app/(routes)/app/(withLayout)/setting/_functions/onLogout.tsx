@@ -1,5 +1,5 @@
 import Axios from "@/Axios/axios";
-import { SnackBarAction } from "@/common/components/util/snackBar/SnackBarAction";
+import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { signOut } from "next-auth/react";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 
