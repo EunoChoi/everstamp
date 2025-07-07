@@ -1,18 +1,11 @@
 "use client";
 
-import { notFound, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-
-
-import { enqueueSnackbar } from "notistack";
-
-
-
-
 import { getDiaryById } from "@/common/fetchers/diary";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { notFound, useSearchParams } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Modal } from "../../ui/Modal";
 import DiaryInputImages from "./DiaryInputImages";
@@ -46,7 +39,6 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   const submitAction = isEdit ? editDiary : addDiary;
   const submitText = isEdit ? '수정' : '추가';
 
-  const router = useCustomRouter();
   const param = useSearchParams();
 
 

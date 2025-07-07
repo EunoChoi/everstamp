@@ -38,12 +38,11 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 
 import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
-import { SnackBarAction } from "@/common/components/util/snackBar/SnackBarAction";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import AndroidIcon from '@mui/icons-material/Android';
 import InstallMobileIcon from '@mui/icons-material/InstallMobile';
+import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
-import nProgress from "nprogress";
 import { useEffect, useState } from "react";
 
 
@@ -55,14 +54,7 @@ const IntroDesktop = () => {
   const otherInfoImages = [otherinfo1, otherinfo2, otherinfo3];
   const uiImages = [calendar, pc_calendar, ipad_calendar, list, pc_list, ipad_list, list2, pc_list2, ipad_list2, zoom1, pc_zoom1, zoom2, habit, pc_habit, pc_addHabit, habitinfo1, pc_habitinfo1, habitinfo2, pc_habitinfo2, login, pc_login, ipad_login, setting, pc_setting];
 
-  const router = useCustomRouter();
-
-  nProgress.configure({
-    showSpinner: true,
-    easing: 'ease',
-    speed: 500,
-    minimum: 0.3
-  });
+  const router = useRouter();
 
   //pwa
   const [pwa, setPwa] = useState<any>(null);

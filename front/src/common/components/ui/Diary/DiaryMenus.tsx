@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 import Axios from "@/Axios/axios";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
-import { SnackBarAction } from "../../util/snackBar/SnackBarAction";
+import { SnackBarAction } from "../../../utils/snackBar/SnackBarAction";
 
 interface Props {
   isMenuOpen: boolean;
@@ -32,7 +32,7 @@ interface Err {
 
 const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => {
   const queryClient = useQueryClient();
-  const router = useCustomRouter();
+  const router = useRouter();
 
   const timer = useRef<number | null>(null);
   useEffect(() => {

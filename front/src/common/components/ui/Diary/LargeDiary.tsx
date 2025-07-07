@@ -3,9 +3,8 @@
 import styled from "styled-components";
 
 
-import useCustomRouter from "@/common/hooks/useCustomRouter";
-
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import CommonCarousel from "../CommonCarousel";
 import DiaryAddButton from "./DiaryAddButton";
 import DiaryHabits from "./DiaryHabits";
@@ -43,7 +42,7 @@ const LargeDiary = ({ diaryData }: Props) => {
   let defaultHeight = '100%';
   const date = new Date(diaryData.date).getTime();
   const images = diaryData.Images;
-  const router = useCustomRouter();
+  const router = useRouter();
 
   return (
     <Wrapper>

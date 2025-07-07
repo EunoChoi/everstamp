@@ -5,12 +5,12 @@ import { Suspense } from "react";
 import styled from "styled-components";
 
 //icon
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
+import { useRouter } from "next/navigation";
 
 
 const Page = () => {
-  const router = useCustomRouter();
+  const router = useRouter();
   const params = useSearchParams();
   const message = params.get('message');
   return (

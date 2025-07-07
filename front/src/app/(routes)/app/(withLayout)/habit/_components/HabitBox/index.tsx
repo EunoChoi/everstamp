@@ -10,11 +10,11 @@ import { format, subDays } from "date-fns";
 import { ChangeEvent } from "react";
 
 import { StarRating } from "@/common/components/ui/StarRating";
-import { SnackBarAction } from "@/common/components/util/snackBar/SnackBarAction";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
+import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import { useRouter } from "next/navigation";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import useHabitAction from "./utils/useHabitAction";
 
@@ -27,7 +27,7 @@ interface Props {
 
 const HabitBox = ({ name, id, priority }: Props) => {
 
-  const router = useCustomRouter();
+  const router = useRouter();
   const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
 
   const currentCleanDateTime = getCleanTodayTime()

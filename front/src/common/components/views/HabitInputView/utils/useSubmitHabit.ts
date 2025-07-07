@@ -1,6 +1,6 @@
 import Axios from "@/Axios/axios";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 
 interface HabitProps {
@@ -16,7 +16,7 @@ interface Err {
 }
 
 const useSubmitHabit = () => {
-  const router = useCustomRouter();
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const handleSuccess = (message: string) => {

@@ -1,6 +1,5 @@
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
-import useCustomRouter from "@/common/hooks/useCustomRouter";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -10,7 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ViewListIcon from '@mui/icons-material/ViewList';
 
 const SideBar = () => {
-  const router = useCustomRouter();
+  const router = useRouter();
   const current = useSelectedLayoutSegment();
 
   return (<Wrapper>
