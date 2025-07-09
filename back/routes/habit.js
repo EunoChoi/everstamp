@@ -76,69 +76,57 @@ router.get("/", tokenCheck, async (req, res) => {
 //load habit list
 router.get("/list", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/list -----');
-  const { sort } = req.query;
-  let { customOrder } = req.query;
-  const email = req.currentUserEmail;
-  const result = [];
-  customOrder = customOrder?.map(e => Number(e));
-
-  let habits;
-
   try {
-    if (sort === 'CUSTOM' && customOrder) {
-      let otherHabits = await Habit.findAll({
-        where: [{
-          email,
-          id: {
-            [Op.notIn]: customOrder // excludedIds에 포함되지 않는 ID로 필터링
-          }
-        }]
-      });
-      otherHabits = otherHabits.map(e => e.id);
-      customOrder = [...customOrder, ...otherHabits];
-      habits = await Habit.findAll({
-        where: [{
-          id: customOrder
-        }],
-        order: [
-          [sequelize.literal(`FIELD(id, ${customOrder.join(',')})`), 'ASC']
-        ]
-      });
+    const { sort } = req.query;
+    let { customOrder } = req.query;
+    const email = req.currentUserEmail;
+
+    //customOrder 처리
+    if (typeof customOrder === 'string' && customOrder) {
+      customOrder = customOrder.split(',').map(e => Number(e.trim()));
+    } else if (!Array.isArray(customOrder)) {
+      customOrder = [];
     }
-    else if (sort === 'ASC' || sort === 'DESC') {
-      habits = await Habit.findAll({
-        where: [{
-          email,
-        }],
-        order: [
-          // ['priority', 'DESC'],
-          ['createdAt', sort], //ASC DESC
-        ],
-      });
+
+    const findOptions = {
+      where: { email }
+    };
+
+    //조건문 거치면서 findOptions 변경
+    if (sort === 'ASC' || sort === 'DESC') {
+      findOptions.order = [['createdAt', sort]];
+    } else if (sort === 'CUSTOM') {
+      if (customOrder && customOrder.length > 0) {
+        findOptions.order = [
+          //customOrder에 포함되면 0 아니면 1로 값 변경 후 ASC로 정렬 이러면 두타입이 구분되서 정렬됨
+          [sequelize.literal(`CASE WHEN id IN (${customOrder.join(',')}) THEN 0 ELSE 1 END`), 'ASC'],
+          //customOrder 즉 0을 값으로 가진 값들을 field가 1,2,3... 등으로 순차적인 숫자를 부여 이값으로 asc 정렬
+          [sequelize.literal(`FIELD(id, ${customOrder.join(',')})`), 'ASC'],
+          //전체적으로 createdAt', 'ASC'로 정렬해서 나머지 customOrder가 asc로 정렬
+          ['createdAt', 'ASC']
+        ];
+      } else {
+        findOptions.order = [['createdAt', 'ASC']];
+      }
+    } else if (sort === 'PRIORITY') {
+      findOptions.order = [
+        ['priority', 'DESC'],
+        ['createdAt', 'ASC'],
+      ]
     }
-    else {
-      habits = await Habit.findAll({
-        where: [{
-          email,
-        }],
-        order: [
-          ['priority', 'DESC'],
-          ['createdAt', 'ASC'], //ASC DESC
-        ],
-      });
-    }
+
+    const habits = await Habit.findAll(findOptions);
+
     if (habits) {
-      // while (habits.length > 0) {
-      //   result.push(habits.splice(0, 6));
-      // }
-      // return res.status(200).json(result);
       return res.status(200).json(habits);
+    } else {
+      return res.status(404).json('습관 목록을 찾을 수 없습니다.');
     }
-    else return res.status(400).json('습관 목록을 불러오지 못하였습니다.');
   } catch (e) {
     console.error(e);
+    return res.status(500).json('서버 에러가 발생했습니다.');
   }
-})
+});
 //load recent habit status
 router.get("/recent", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/recent -----');
