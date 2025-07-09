@@ -80,7 +80,7 @@ const DateInfo = styled.div`
     color: rgb(var(--greyTitle));
   }
   .emotion{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
 `
 const Edit = styled.div`

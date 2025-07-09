@@ -15,7 +15,7 @@ import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useFilter } from "../_hooks/useFilter";
-import { useListSortOrder } from "../_hooks/useListSortOrder";
+import { useListToggle } from "../_hooks/useListToggle";
 import { diaryData } from "../_types/diaryData";
 import { Diaries } from "./Diaries";
 
@@ -34,13 +34,13 @@ const ListView = () => {
   const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
   const diplayYearMonth = selectedYear % 100 + '.' + selectedMonth.toString().padStart(2, '0');
-  const { sortToggle, sortOrderChange } = useListSortOrder({ ref: wrapperRef });
+  const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
   const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
-    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortToggle, 'year', selectedYear, 'momth', selectedMonth],
+    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'momth', selectedMonth],
     queryFn: ({ pageParam }) => getDiariesAtList({
-      sort: sortToggle,
+      sort: toggleValue,
       search: emotionToggle,
       pageParam,
       limit: DIDARY_FETCH_LIMIT,
@@ -75,7 +75,7 @@ const ListView = () => {
         <button
           className='normal'
           onClick={sortOrderChange} >
-          <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
+          <span>{toggleValue === 'DESC' ? 'New' : 'Old'}</span>
         </button>
       </TopButtons>
 

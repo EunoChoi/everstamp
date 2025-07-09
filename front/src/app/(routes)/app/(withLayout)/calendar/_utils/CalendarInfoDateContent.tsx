@@ -82,7 +82,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    background-color: ${(props) => props.theme.point || '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor || '#979FC7'};
     color: white;
   }
 `;

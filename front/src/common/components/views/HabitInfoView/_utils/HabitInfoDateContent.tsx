@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   height: 26px;
   border-radius: 26px;
   &.done{
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
     color: white;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet

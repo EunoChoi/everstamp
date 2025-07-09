@@ -12,6 +12,8 @@ export const ContentWrapper = ({ children, className }: ContentWrapper) => {
 }
 
 const Wrapper = styled.div`
+  background-color: calc(#c1c5db + '') ;
+
   width: 100%;
   height: auto;
 

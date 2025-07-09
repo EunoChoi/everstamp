@@ -88,6 +88,6 @@ const Wrapper = styled.button`
 
   background-color: rgba(255,255,255,0.6);
   backdrop-filter: blur(12px);
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   border: 2px solid rgba(0,0,0,0.05);
 `

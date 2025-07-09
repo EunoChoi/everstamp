@@ -1,23 +1,22 @@
 'use client';
 
+import { THEME_COLORS, THEME_COLORS_NAME } from "@/common/utils/settingsContext/SettingsContext";
+import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
 import styled from "styled-components";
 
-const COLOR_HEX_VALUE = ['#979FC7', '#8CADE2', '#83c6b6', '#eda5b1', '#8f8f8f'];
-const COLOR_NAME_ENG = ['purple', 'blue', 'green', 'pink', 'grey'];
+export const ThemeColorSelector = () => {
+  const { setThemeColor } = useSettingsContext();
 
-interface ThemeColorSelectorProps {
-  themeColorUpdate: (themeColor: string) => void;
-}
-
-export const ThemeColorSelector = ({ themeColorUpdate }: ThemeColorSelectorProps) => {
   return (<Wrapper>
     <Color className="selected" />
     <Colors className="end">
-      {COLOR_HEX_VALUE.map((e, i) =>
+      {THEME_COLORS.map((e, i) =>
         <Color
-          key={COLOR_NAME_ENG[i] + 'Color'}
-          className={COLOR_NAME_ENG[i]}
-          onClick={() => themeColorUpdate(e)}
+          key={THEME_COLORS_NAME[i] + 'Color'}
+          className={THEME_COLORS_NAME[i]}
+          onClick={() => {
+            setThemeColor(THEME_COLORS[i]);
+          }}
         />)}
     </Colors>
   </Wrapper>);
@@ -46,7 +45,7 @@ const Color = styled.div`
   border-radius: 8px;
 
   &.selected{
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
   &.purple{
     background-color: #979FC7;

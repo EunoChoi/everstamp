@@ -71,7 +71,7 @@ export default DiarySlide;
 const MoreImagesText = styled.button`
   text-align: right;
   font-size: 14px;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
 `
 const Wrapper = styled.div<{ $height: string }>`
    height: ${props => props.$height};
@@ -129,7 +129,7 @@ const Text = styled.div`
   overflow-wrap: break-word;
 
   line-height: 1.6;
-  font-size: var(--font-size-base);
+  font-size: ${(props) => props.theme.fontSize ?? '15px'};
   /* font-weight: 500; */
   color: rgb(var(--greyTitle));
 `

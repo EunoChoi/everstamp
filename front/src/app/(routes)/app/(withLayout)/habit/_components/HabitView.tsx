@@ -13,7 +13,8 @@ import { getHabits } from "@/common/fetchers/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from "next/navigation";
-import { useHabitSortOrder } from "../_hooks/useHabitSortOrder";
+import { useCustomHabitOrder } from "../_hooks/useCustomHabitOrder";
+import { useHabitToggle } from "../_hooks/useHabitToggle";
 import { useTodayHabitRate } from "../_hooks/useTodayHabitRate";
 import HabitBox from "./HabitBox";
 
@@ -23,24 +24,27 @@ interface Habit {
   priority: number;
 }
 
-const SORT_TEXT = {
-  'ASC': 'Old',
-  'DESC': 'New',
-  'CUSTOM': 'Custom'
-}
-
 const MAX_HABIT_COUNT = 20;
 const DUMMY_COUNT = 12;
+
+type SORT = 'ASC' | 'DESC' | 'PRIORITY' | 'CUSTOM';
+const SORT_TEXT: Record<SORT, string> = {
+  ASC: 'old',
+  DESC: 'new',
+  PRIORITY: '★',
+  CUSTOM: 'custom'
+}
 
 const HabitView = () => {
   usePrefetchPage();
   const router = useRouter();
   const { todayDoneHabitCount, createdHabitCount, todayDoneHabitRate } = useTodayHabitRate();
-  const { customOrder, sortToggle, sortOrderChange } = useHabitSortOrder();
+  const { toggleValue, onToggle } = useHabitToggle();
+  const { customOrder } = useCustomHabitOrder();
 
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'list', sortToggle],
-    queryFn: () => getHabits({ sort: sortToggle, customOrder }),
+    queryKey: ['habits', 'list', toggleValue],
+    queryFn: () => getHabits({ sort: toggleValue, customOrder }),
   });
 
   const onAddHabit = () => {
@@ -55,8 +59,8 @@ const HabitView = () => {
         <button onClick={onAddHabit} className="small">
           <AddIcon fontSize="small" />
         </button>
-        <button onClick={sortOrderChange} className={sortToggle === 'CUSTOM' ? 'large' : 'normal'}>
-          <span>{SORT_TEXT[sortToggle]}</span>
+        <button onClick={onToggle} className={toggleValue === 'CUSTOM' ? 'large' : 'normal'} >
+          <span>{SORT_TEXT[toggleValue]}</span>
         </button>
       </TopButtons>
 
@@ -138,7 +142,7 @@ const EmptyBox = styled.div`
   
   border-radius: 20px;
   background-color: rgb(255, 255, 255);
-  border: 2px solid ${(props) => props.theme.point ? props.theme.point + 70 : '#979FC7'};
-  color: ${(props) => props.theme.point ? props.theme.point + 70 : '#979FC7'};
+  border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 70 : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 70 : '#979FC7'};
   font-size: 48px;
 `

@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 //function
 import IsMobile from "@/common/functions/IsMobile";
@@ -8,7 +8,6 @@ import IsMobile from "@/common/functions/IsMobile";
 
 import DesktopLayout from '@/common/components/layout/DesktopLayout';
 import MobileLayout from '@/common/components/layout/MobileLayout';
-import { useLocalStorage } from "@/common/hooks/useLocalStorage";
 import { useProtectedRoute } from "@/common/hooks/useProtectedRoute";
 import styled from "styled-components";
 
@@ -24,12 +23,6 @@ interface Props {
 const AppLayout = ({ children, modal }: Props) => {
   const isMobile = IsMobile()
   const { user, isLoading } = useProtectedRoute();
-  const { storedValue: fontSize } = useLocalStorage('fontSize', '15px');
-
-  useEffect(() => {
-    console.log('font size : ', fontSize)
-    document.documentElement.style.setProperty('--font-size-base', fontSize);
-  }, [fontSize])
 
   if (isMobile === null) return (<></>);
   if (isLoading || !user) {

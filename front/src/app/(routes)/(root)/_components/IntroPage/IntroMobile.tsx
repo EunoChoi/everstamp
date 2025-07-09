@@ -261,10 +261,10 @@ export default IntroMobile;
 
 const StartInWeb = styled.button`
   font-size: 15px;
-  border-bottom: solid 2px ${(props) => props.theme.point ? props.theme.point + '55' : '#979FC7'};
+  border-bottom: solid 2px ${(props) => props.theme.themeColor ? props.theme.themeColor + '55' : '#979FC7'};
   padding: 0 4px;
   /* font-weight: 500; */
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   &.outro{
     color: rgb(var(--greyTitle));
     border-color : rgb(var(--greyTitle));
@@ -311,11 +311,11 @@ const Button = styled.button`
 
   color: rgb(var(--greyTitle));
   background-color: #d7daeb;
-  background-color: ${(props) => props.theme.point ? props.theme.point + '55' : '#d7daeb'};
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '55' : '#d7daeb'};
 
   &.outro{
     background-color: rgba(255,255,255,0.8);
-    border-color:${(props) => props.theme.point ? props.theme.point + '55' : '#d7daeb'};
+    border-color:${(props) => props.theme.themeColor ? props.theme.themeColor + '55' : '#d7daeb'};
   }
 
   .icon{
@@ -334,7 +334,7 @@ const Mobile_Section = styled.div`
 
   &.intro, &.emotion, &.view, &.ui, &.habit, &.others, &.outro{
     background-color: #EFF0F6;
-    background-color: ${(props) => props.theme.point ? props.theme.point + '55' : '#EFF0F6'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '55' : '#EFF0F6'};
     width: 100%;
     height: auto;
     padding: 56px 0;
@@ -353,7 +353,7 @@ const Mobile_Section = styled.div`
   }
   &.outro{
     background-color: #979FC7;
-    background-color: ${(props) => props.theme.point ? props.theme.point + '55' : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '55' : '#979FC7'};
   }
 `
 //common
@@ -418,7 +418,7 @@ const Logo = styled.span`
 
     &::first-letter{
       color: #979FC7;
-      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+      color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
     }
   }
   &.outro{
@@ -435,7 +435,7 @@ const Logo = styled.span`
 `
 const Title = styled.span`
   color: #989FC4;
-  color: ${(props) => props.theme.point ? props.theme.point : '#989FC4'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#989FC4'};
   font-size: 20px;
   font-weight: 500;
   text-transform: capitalize;

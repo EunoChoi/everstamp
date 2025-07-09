@@ -159,7 +159,7 @@ const PriorityStar = styled(StarRating)`
 
   .star{
     font-size: 18px;
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
 `
 

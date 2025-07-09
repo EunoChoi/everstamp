@@ -45,7 +45,7 @@ const InputWrapper = styled.div`
 
   textarea{
     background-color: #f9f9f9;
-    font-size: var(--font-size-base);
+    font-size: ${(props) => props.theme.fontSize ?? '15px'};
     width: 100%;
     height: 100%;
     resize: none;

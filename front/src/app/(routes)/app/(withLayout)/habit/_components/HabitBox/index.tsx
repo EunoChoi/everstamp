@@ -120,7 +120,7 @@ const Wrapper = styled.div`
   
   border-radius: 20px;
   background-color: rgb(255, 255, 255);
-  border: 2px solid ${(props) => props.theme.point ? props.theme.point + 70 : '#979FC7'};
+  border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 70 : '#979FC7'};
 
   width: 100%;
   aspect-ratio: 0.85;
@@ -131,7 +131,7 @@ const Name = styled.div`
   height: auto;
   
   font-weight: 500;
-  font-size: var(--font-size-base);
+  font-size: ${(props) => props.theme.fontSize ?? '15px'};
   color: rgb(var(--greyTitle));
   text-align: center;
 
@@ -162,7 +162,7 @@ const Check = styled.div`
 
   &:first-child{
     .week{
-      color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
+      color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'} !important;
     }
   }
   .date{
@@ -230,7 +230,7 @@ const Check = styled.div`
     }
     input:checked ~ .checkmark{
       div{
-        background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+        background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
       }    
     }
     span:first-child{
