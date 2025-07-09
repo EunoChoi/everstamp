@@ -16,7 +16,6 @@ import emotion2 from '/public/img/emotion/emotion2.png';
 
 interface Props {
   children: ReactNode;
-  isMobile?: boolean;
   modal: ReactNode;
 }
 
