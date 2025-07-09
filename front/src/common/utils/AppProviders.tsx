@@ -4,10 +4,10 @@ import { HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import StyledComponentsRegistry from "../../../lib/registry";
-import { DynamicThemeProvider } from "./DynamicThemeProvider";
 import { GlobalEffectInjection } from "./GlobalEffectInjection";
 import RQProvider from "./ReactQueryProvider";
 import ServiceWorkerRegister from "./ServiceWorkerRegister";
+import { SettingsProvider } from "./settingsContext/SettingsProvider";
 import CustomSnackbarProvider from "./snackBar/CustomSnackbarProvider";
 
 interface AppProvidersProps {
@@ -22,11 +22,11 @@ export const AppProviders = ({ children, dehydratedState }: AppProvidersProps) =
       <RQProvider> {/*reactQuery*/}
         <CustomSnackbarProvider> {/*snackBar*/}
           <HydrationBoundary state={dehydratedState}>
-            <DynamicThemeProvider> {/*theme*/}
+            <SettingsProvider> {/*settings - themeColor, fontSize*/}
               <ServiceWorkerRegister /> {/*service worker*/}
               <GlobalEffectInjection />
               {children}
-            </DynamicThemeProvider>
+            </SettingsProvider>
           </HydrationBoundary>
         </CustomSnackbarProvider>
       </RQProvider>

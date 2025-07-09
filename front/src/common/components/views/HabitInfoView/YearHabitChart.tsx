@@ -100,7 +100,7 @@ const BarWrapper = styled.div<{ $count: number }>`
   .bar{
     height: ${(props) => props.$count + '%'};
     border-radius: 8px;
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};  
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};  
   }
   .month{
     /* font-weight: 500; */

@@ -150,7 +150,7 @@ const ImageDeleteButton = styled.button`
   border-radius: 18px;
   font-size: 26px;
   background-color: rgb(var(--greyTitle));
-  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
 `
 
 const UploadButton = styled.button`
@@ -163,7 +163,7 @@ const UploadButton = styled.button`
   width: 85%;
   border-radius: 8px;
   border: 2px solid rgba(0,0,0,0.2);
-  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
   span{
     margin-top: 4px;
     font-size: 14px;

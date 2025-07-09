@@ -39,7 +39,7 @@ const IndicatorWrapper = styled.div`
 `
 const Dot = styled.div`
   background-color: white;
-  border: 2px solid ${(props) => props.theme.point ? props.theme.point : '#979FC790'};
+  border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC790'};
 
   margin: 2px;
   width: 10px;
@@ -50,11 +50,11 @@ const Dot = styled.div`
    &:last-child{
     border-radius: 2px;
     border-width: 2px;
-    border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    border-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
    }
   }
   &.current {
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
-    border-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+    border-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'} !important;
   }
 `

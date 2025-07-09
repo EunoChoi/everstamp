@@ -104,7 +104,7 @@ const RadioButton = styled.label`
   input:checked ~ .checkmark{
     span{
       border-color: rgba(0,0,0,0.1);
-      background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+      background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
     }
   }
 `;

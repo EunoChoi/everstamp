@@ -66,7 +66,7 @@ const Wrapper = styled.div<{ $isDragging: boolean }>`
 
   background-color: ${(props) => (props.$isDragging ? '#fff' : '#f9f9f9')};
   color: rgb(var(--greyTitle));
-  border: solid 2px ${(props) => (props.$isDragging && props.theme.point ? props.theme.point : 'rgba(0, 0, 0, 0.1)')};
+  border: solid 2px ${(props) => (props.$isDragging && props.theme.themeColor ? props.theme.themeColor : 'rgba(0, 0, 0, 0.1)')};
   box-shadow: ${(props) => (props.$isDragging ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none')};
 
   .star, .name, button{
@@ -76,7 +76,7 @@ const Wrapper = styled.div<{ $isDragging: boolean }>`
   .star{
     width: 20%;
     font-size: 16px;
-    color:  ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color:  ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
   .name{
     width: 60%;

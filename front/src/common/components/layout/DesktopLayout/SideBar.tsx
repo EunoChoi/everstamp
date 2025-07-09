@@ -54,7 +54,7 @@ const Wrapper = styled.div`
   padding: 0 16px;
 
   border-right: 2px solid rgb(var(--lightGrey2));
-  background-color: ${(props) => props.theme.point ? props.theme.point + '10' : '#979FC7'};;
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '10' : '#979FC7'};;
 
   display: flex;
   flex-direction: column;
@@ -78,7 +78,7 @@ const SideBarLogo = styled.div`
     color: rgb(var(--greyTitle));
   }
   span::first-letter{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
 `
 const Menus = styled.div`
@@ -107,13 +107,13 @@ const Menu = styled.span`
   color: grey;
 
   &.current{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
 `
 const BottomText = styled.span`
   font-size: 14px;
   color: grey;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   text-align: center;
   width: 100%;
 

@@ -51,7 +51,7 @@ const Logo = styled.span`
       font-family: BMJUA;
       display: inline-block;
       &::first-letter{
-        color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;  
+        color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'} !important;  
       }
       padding: 0 3px;
     }
@@ -126,7 +126,7 @@ const Mobile_Nav = styled.nav`
     vertical-align: center;
   }
   .current{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};;
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};;
     /* filter: brightness(100%) saturate(110%) contrast(110%); */
   }
   

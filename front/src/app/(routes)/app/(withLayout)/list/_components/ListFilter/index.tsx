@@ -214,12 +214,12 @@ const Button = styled.button`
   border-radius: 32px;
   border: 2px solid rgba(0,0,0,0.08);
 
-  background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
   color: rgb(var(--greyTitle));
 
   &.cancel{
     background-color: white;
-    border : 2px solid  ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+    border : 2px solid  ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     font-size: 12px;
@@ -234,5 +234,5 @@ const InitButton = styled.button`
   gap: 8px;
 
   font-size: 16px;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
 `

@@ -13,11 +13,9 @@ import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
 import { FontSizeSelector } from "./_components/FontSizeSelector";
 import { SettingItem } from "./_components/SettingItem";
 import { ThemeColorSelector } from "./_components/ThemeColorSelector";
-import { fontSizeUpdate } from "./_functions/fontSizeUpdate";
 import { onDeleteAccount } from "./_functions/onDeleteAccount";
 import { onLogout } from "./_functions/onLogout";
 import { useCurrentUserData } from "./_hooks/useCurrentUserData";
-import { useUpdateThemeColor } from "./_hooks/useUpdateThemeColor";
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -27,7 +25,6 @@ const SettingPage = () => {
   const router = useRouter();
 
   const { email, provider, createAt } = useCurrentUserData();
-  const { updateThemeColor } = useUpdateThemeColor();
 
   return (
     <PageWrapper>
@@ -58,13 +55,13 @@ const SettingPage = () => {
           <Title>customize</Title>
           <SubSection>
             <SubTitle>theme color</SubTitle>
-            <ThemeColorSelector themeColorUpdate={updateThemeColor} />
+            <ThemeColorSelector />
           </SubSection>
           <SubSection>
             <SubTitle>font</SubTitle>
             <SettingItem
               settingItemKey="다이어리 글씨 크기"
-              settingItemValue={<FontSizeSelector fontSizeUpdate={fontSizeUpdate} />} />
+              settingItemValue={<FontSizeSelector />} />
           </SubSection>
           <SubSection>
             <SubTitle>habit order</SubTitle>

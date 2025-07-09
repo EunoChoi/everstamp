@@ -134,7 +134,7 @@ const Month = styled.button`
     color: grey;
   }
   &.selectedMonth{
-    background-color: ${(props) => props.theme.point ? props.theme.point + '90' : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
     border: 2px solid rgba(0,0,0,0.07);
     border-radius: 12px;
   }

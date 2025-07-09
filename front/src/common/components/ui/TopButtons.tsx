@@ -66,7 +66,7 @@ const Wrapper = styled.div`
     color: rgb(var(--greyTitle));
     font-weight: 500;
     color: white;
-    background-color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
     border: 2px solid rgba(0,0,0,0.07);
     border-radius : 48px;
 

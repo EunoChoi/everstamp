@@ -92,7 +92,7 @@ const Text = styled.div`
 
   padding: 0 16px;
   
-  font-size: var(--font-size-base);
+  font-size: ${(props) => props.theme.fontSize ?? '15px'};
   /* font-weight: 500; */
   line-height: 1.8;
   color: rgb(var(--greyTitle));

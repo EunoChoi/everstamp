@@ -63,7 +63,7 @@ const Info = styled.div`
     line-height: 100%;
     /* font-weight: 700; */
     font-size: 32px;
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'} !important;
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'} !important;
   }
   
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet

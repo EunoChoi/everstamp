@@ -68,7 +68,7 @@ const Habit = styled.span`
   line-height: 1.4;
   white-space: nowrap;
   
-  background-color: ${(props) => props.theme.point ? props.theme.point + '70' : '#979FC7'};
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '70' : '#979FC7'};
   border: 2px solid rgba(0,0,0,0.07);
 
   span{
@@ -78,7 +78,7 @@ const Habit = styled.span`
     text-transform: capitalize;
   }
   &:first-child{
-    border: 2px solid ${(props) => props.theme.point ? props.theme.point + 'a0' : '#979FC7'};
+    border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 'a0' : '#979FC7'};
     background-color: white;
     span{
       /* font-weight: 600; */

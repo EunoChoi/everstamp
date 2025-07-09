@@ -19,5 +19,5 @@ const Wrapper = styled.div`
   display: flex;
   font-size: 12px;
   gap: 4px;
-  color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
 `

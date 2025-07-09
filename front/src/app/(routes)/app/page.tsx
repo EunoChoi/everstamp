@@ -144,7 +144,7 @@ const Logo = styled.span`
   font-family: BMJUA;
 
   &:first-letter{
-    color: ${(props) => props.theme.point ? props.theme.point : '#979FC7'};
+    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
 
   @media (max-width: 479px) { //mobile port
