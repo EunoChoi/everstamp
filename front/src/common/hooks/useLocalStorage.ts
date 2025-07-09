@@ -1,12 +1,14 @@
-// src/hooks/useLocalStorage.js
+import { useEffect, useState } from 'react';
 
-import { useState } from 'react';
-
-export function useLocalStorage<T,>(key: string, initialValue: T) {
-  const [storedValue, setStoredValue] = useState(() => {
-    if (typeof window === 'undefined') {
+export function useLocalStorage<T>(
+  key: string | null | undefined,
+  initialValue: T
+) {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    if (!key || typeof window === 'undefined') {
       return initialValue;
     }
+
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
@@ -16,21 +18,20 @@ export function useLocalStorage<T,>(key: string, initialValue: T) {
     }
   });
 
-  //local에 값 업데이트 및 저장
-  const setValue = (value: T) => {
+  useEffect(() => {
     try {
-      //value가 함수인 경우 처리
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-
-      setStoredValue(valueToStore);
-      //로컬 저장
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      if (key && typeof window !== 'undefined') {
+        window.localStorage.setItem(key, JSON.stringify(storedValue));
       }
     } catch (error) {
       console.error(error);
     }
+  }, [key, storedValue]);
+
+  const setValue = (value: T | ((val: T) => T)) => {
+    const valueToStore =
+      value instanceof Function ? value(storedValue) : value;
+    setStoredValue(valueToStore);
   };
 
   return { storedValue, setValue };
