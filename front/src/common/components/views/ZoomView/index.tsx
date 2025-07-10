@@ -17,7 +17,7 @@ interface ZoomViewProps {
   diaryId: string;
 }
 
-export const ZoomView = ({ diaryId }: ZoomViewProps) => {
+const ZoomView = ({ diaryId }: ZoomViewProps) => {
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => getDiaryById({ id: diaryId }),
@@ -67,6 +67,8 @@ export const ZoomView = ({ diaryId }: ZoomViewProps) => {
     </MobileZoomViewContent>
   </Modal>;
 }
+
+export default ZoomView;
 
 
 const MobileZoomViewContent = styled(Modal.Content)`

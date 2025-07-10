@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { getDiaryByDate } from "@/common/fetchers/diary";
 import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
 import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
-import CalendarView from "./_components/CalendarView";
+import CalendarView from "./CalendarView.client";
 
 
 interface Props {
@@ -14,8 +14,7 @@ interface Props {
   };
 }
 
-//page for data prefetching 
-const DataPrefetchingPage = async ({ searchParams }: Props) => {
+const CalendarPage = async ({ searchParams }: Props) => {
 
   const params = searchParams;
   const date = Number(params?.date) ? Number(params?.date) : getCleanTodayTime();
@@ -41,4 +40,4 @@ const DataPrefetchingPage = async ({ searchParams }: Props) => {
   );
 }
 
-export default DataPrefetchingPage;
+export default CalendarPage;

@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-const Page = async ({ searchParams }: Props) => {
+const EditHabitPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
 
   const params = searchParams;
@@ -29,4 +29,4 @@ const Page = async ({ searchParams }: Props) => {
   );
 }
 
-export default Page;
+export default EditHabitPage;

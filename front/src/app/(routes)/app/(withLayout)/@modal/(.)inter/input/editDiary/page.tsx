@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-const Page = async ({ searchParams }: Props) => {
+const EditDiaryPage = async ({ searchParams }: Props) => {
 
   const queryClient = new QueryClient();
 
@@ -31,4 +31,4 @@ const Page = async ({ searchParams }: Props) => {
   );
 }
 
-export default Page;
+export default EditDiaryPage;

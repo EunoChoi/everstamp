@@ -1,6 +1,6 @@
 import HabitInputView from "@/common/components/views/HabitInputView";
 
-const Page = () => {
+const AddHabitPage = () => {
   return (
     <>
       <HabitInputView isEdit={false} />
@@ -8,4 +8,4 @@ const Page = () => {
   );
 }
 
-export default Page;
+export default AddHabitPage;

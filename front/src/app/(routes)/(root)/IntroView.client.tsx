@@ -1,10 +1,10 @@
 'use client';
 
 import IsMobile from "@/common/functions/IsMobile";
-import IntroDesktop from "./IntroDesktop";
-import IntroMobile from "./IntroMobile";
+import IntroDesktop from "./_components/IntroDesktop";
+import IntroMobile from "./_components/IntroMobile";
 
-const IntroPage = () => {
+const IntroView = () => {
   const isMobile = IsMobile();
 
   if (isMobile == null) return <></>;
@@ -12,4 +12,4 @@ const IntroPage = () => {
   else return <IntroDesktop />;
 }
 
-export default IntroPage;
+export default IntroView;

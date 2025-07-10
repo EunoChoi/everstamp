@@ -1,6 +1,6 @@
 import { getHabits } from "@/common/fetchers/habit";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import HabitView from "./_components/HabitView";
+import HabitView from "./HabitView.client";
 
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 }
 
 //page for data prefetch
-const DataPrefetchingPage = async ({ searchParams }: Props) => {
+const HabitPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -31,4 +31,4 @@ const DataPrefetchingPage = async ({ searchParams }: Props) => {
   );
 }
 
-export default DataPrefetchingPage;
+export default HabitPage;

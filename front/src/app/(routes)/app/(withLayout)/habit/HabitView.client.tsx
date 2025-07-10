@@ -13,10 +13,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
-import { useCustomHabitOrder } from "../_hooks/useCustomHabitOrder";
-import { useHabitToggle } from "../_hooks/useHabitToggle";
-import { useTodayHabitRate } from "../_hooks/useTodayHabitRate";
-import HabitBox from "./HabitBox";
+import HabitBox from "./_components/HabitBox";
+import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
+import { useHabitToggle } from "./_hooks/useHabitToggle";
+import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
 interface Habit {
   id: number;

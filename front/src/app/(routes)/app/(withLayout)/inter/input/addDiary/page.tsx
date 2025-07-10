@@ -1,6 +1,6 @@
 import DiaryInputView from "@/common/components/views/DiaryInputView";
 
-const Page = () => {
+const AddDiaryPage = () => {
   return (
     <>
       <DiaryInputView isEdit={false} />
@@ -8,4 +8,4 @@ const Page = () => {
   );
 }
 
-export default Page;
+export default AddDiaryPage;
