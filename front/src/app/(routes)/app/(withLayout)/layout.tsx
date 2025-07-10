@@ -23,8 +23,14 @@ const AppLayout = ({ children, modal }: Props) => {
   const isMobile = IsMobile()
   const { user, isLoading } = useProtectedRoute();
 
-  if (isMobile === null) return (<></>);
-  if (isLoading || !user) {
+  // if (isMobile === null) return (<></>);
+  // if (isLoading || !user) {
+  //   return (<NoUser>
+  //     <Image src={emotion2} alt='loading' width={128} height={128} />
+  //     <span>loading...</span>
+  //   </NoUser>);
+  // }
+  if (isMobile === null || isLoading || !user) {
     return (<NoUser>
       <Image src={emotion2} alt='loading' width={128} height={128} />
       <span>loading...</span>

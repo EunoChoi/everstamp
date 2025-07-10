@@ -1,4 +1,4 @@
-import Axios from "@/Axios/axios";
+import Api from "@/api/Api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
 
@@ -16,7 +16,7 @@ interface CheckHabitProps {
 const useHabitAction = () => {
   const queryClient = useQueryClient();
   const checkHabit = useMutation({
-    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.post('/habit/check', { habitId, date }),
+    mutationFn: ({ habitId, date }: CheckHabitProps) => Api.post('/habit/check', { habitId, date }),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll()
@@ -32,7 +32,7 @@ const useHabitAction = () => {
     },
   });
   const uncheckHabit = useMutation({
-    mutationFn: ({ habitId, date }: CheckHabitProps) => Axios.delete('/habit/check', { data: { habitId, date } }), //delete method data
+    mutationFn: ({ habitId, date }: CheckHabitProps) => Api.delete('/habit/check', { data: { habitId, date } }), //delete method data
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll()
@@ -48,7 +48,7 @@ const useHabitAction = () => {
     },
   });
   const deleteHabit = useMutation({
-    mutationFn: async ({ habitId }: { habitId: number }) => await Axios.delete(`habit?habitId=${habitId}`),
+    mutationFn: async ({ habitId }: { habitId: number }) => await Api.delete(`habit?habitId=${habitId}`),
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();
       queryCache.getAll().forEach(cache => {

@@ -1,6 +1,6 @@
+import Api from "@/api/Api"
 import NextAuth from "next-auth"
 
-import Axios from "@/Axios/axios"
 import Google from "next-auth/providers/google"
 import Kakao from "next-auth/providers/kakao"
 import Naver from "next-auth/providers/naver"
@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const profilePic = user.image;
 
       try {
-        const res = await Axios.post(`/user/register`,
+        const res = await Api.post(`/user/register`,
           {
             email, //primary key
             provider,

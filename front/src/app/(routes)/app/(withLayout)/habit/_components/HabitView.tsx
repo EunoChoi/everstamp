@@ -1,7 +1,5 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { enqueueSnackbar } from 'notistack';
 import styled from "styled-components";
 
 
@@ -12,7 +10,9 @@ import TopButtons from "@/common/components/ui/TopButtons";
 import { getHabits } from "@/common/fetchers/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import AddIcon from '@mui/icons-material/Add';
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 import { useCustomHabitOrder } from "../_hooks/useCustomHabitOrder";
 import { useHabitToggle } from "../_hooks/useHabitToggle";
 import { useTodayHabitRate } from "../_hooks/useTodayHabitRate";

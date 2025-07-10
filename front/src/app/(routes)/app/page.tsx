@@ -1,6 +1,5 @@
 'use client';
 
-import Axios from "@/Axios/axios";
 import { useQuery } from "@tanstack/react-query";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
@@ -15,6 +14,7 @@ import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 
 
 //images
+import Api from "@/api/Api";
 import emotions from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
@@ -41,7 +41,7 @@ const Page = () => {
     router.push(`/app/calendar?date=${getCleanTodayTime()}`);
   }
   const logout = () => {
-    Axios.get('user/logout').then(() => {
+    Api.get('user/logout').then(() => {
       signOut();
     });
   }
