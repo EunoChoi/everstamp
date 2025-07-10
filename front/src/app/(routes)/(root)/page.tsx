@@ -1,7 +1,7 @@
-import IntroPage from "./_components/IntroPage";
+import IntroView from "./IntroView.client";
 
 const Page = () => {
-  return <IntroPage />
+  return <IntroView />
 }
 
 export default Page;

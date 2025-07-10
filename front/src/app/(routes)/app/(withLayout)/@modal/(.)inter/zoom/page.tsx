@@ -1,4 +1,4 @@
-import { ZoomView } from "@/common/components/views/ZoomView";
+import ZoomView from "@/common/components/views/ZoomView";
 import { getDiaryById } from "@/common/fetchers/diary";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -8,7 +8,7 @@ interface Props {
   };
 }
 
-const Page = async ({ searchParams }: Props) => {
+const ZoomPage = async ({ searchParams }: Props) => {
 
   const queryClient = new QueryClient();
 
@@ -29,4 +29,4 @@ const Page = async ({ searchParams }: Props) => {
   );
 }
 
-export default Page;
+export default ZoomPage;

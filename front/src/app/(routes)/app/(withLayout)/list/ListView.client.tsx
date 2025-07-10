@@ -14,10 +14,11 @@ import { getDiariesAtList } from "@/common/fetchers/diary";
 import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { useFilter } from "../_hooks/useFilter";
-import { useListToggle } from "../_hooks/useListToggle";
-import { diaryData } from "../_types/diaryData";
-import { Diaries } from "./Diaries";
+import { Diaries } from "./_components/Diaries";
+import { useFilter } from "./_hooks/useFilter";
+import { useListToggle } from "./_hooks/useListToggle";
+import { diaryData } from "./_types/diaryData";
+
 
 const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
 const DIDARY_FETCH_LIMIT = 10; //get diary limit

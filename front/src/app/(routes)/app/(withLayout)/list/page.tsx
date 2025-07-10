@@ -1,9 +1,9 @@
 import { getDiariesAtList } from "@/common/fetchers/diary";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import ListView from "./_components/ListView";
+import ListView from "./ListView.client";
 
 //page for data prefetch
-const DataPrefetchingPage = async () => {
+const ListPage = async () => {
   const queryClient = new QueryClient();
   const selectedYear = new Date().getFullYear();
   const limit = 10;
@@ -46,4 +46,4 @@ const DataPrefetchingPage = async () => {
   );
 }
 
-export default DataPrefetchingPage;
+export default ListPage;

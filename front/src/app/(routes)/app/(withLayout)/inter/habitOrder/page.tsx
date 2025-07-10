@@ -2,7 +2,7 @@
 import { HabitOrderView } from "@/common/components/views/HabitOrderView";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
-const Page = async () => {
+const HabitOrderPage = async () => {
   const queryClient = new QueryClient();
   const dehydratedState = dehydrate(queryClient)
 
@@ -13,4 +13,4 @@ const Page = async () => {
   );
 }
 
-export default Page;
+export default HabitOrderPage;
