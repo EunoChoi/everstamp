@@ -1,4 +1,4 @@
-import Axios from "@/Axios/axios";
+import Api from "@/api/Api";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { signOut } from "next-auth/react";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
@@ -8,7 +8,7 @@ export const onLogout = () => {
     <>
       <SnackBarAction
         yesAction={() => {
-          Axios.get('user/logout').then(() => { signOut(); });
+          Api.get('user/logout').then(() => { signOut(); });
           closeSnackbar('logout');
         }}
         noAction={() => {

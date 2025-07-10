@@ -1,5 +1,4 @@
-import Axios from "@/Axios/axios";
-import { redirect } from "next/navigation";
+import Api from "@/api/Api";
 
 interface IdProps {
   id: string | number | null | undefined;
@@ -21,7 +20,7 @@ interface ListProps {
 export async function getDiaryById({ id }: IdProps) {
   try {
     if (!id) return null;
-    const { data } = await Axios.get(`/diary/id/${id}`);
+    const { data } = await Api.get(`/diary/id/${id}`);
     return data;
   } catch (e: any) {
     console.error(e.response.data);
@@ -31,7 +30,7 @@ export async function getDiaryById({ id }: IdProps) {
 
 export async function getDiaryByDate({ date }: DateProps) {
   try {
-    const { data } = await Axios.get(`/diary/calendar?date=${date}`);
+    const { data } = await Api.get(`/diary/calendar?date=${date}`);
     return data;
   } catch (e: any) {
     console.error(e.response.data);
@@ -41,7 +40,7 @@ export async function getDiaryByDate({ date }: DateProps) {
 
 export async function getDiariesAtList({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
   try {
-    const { data } = await Axios.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}&selectedMonth=${selectedMonth}&selectedYear=${selectedYear}`)
+    const { data } = await Api.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}&selectedMonth=${selectedMonth}&selectedYear=${selectedYear}`)
     return data;
   } catch (e: any) {
     console.error(e.response.data);

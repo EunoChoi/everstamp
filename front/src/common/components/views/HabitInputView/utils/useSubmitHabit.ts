@@ -1,4 +1,4 @@
-import Axios from "@/Axios/axios";
+import Api from "@/api/Api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
@@ -36,7 +36,7 @@ const useSubmitHabit = () => {
   }
 
   const addHabit = useMutation({
-    mutationFn: ({ habitName, priority }: HabitProps) => Axios.post('/habit', { habitName, priority }),
+    mutationFn: ({ habitName, priority }: HabitProps) => Api.post('/habit', { habitName, priority }),
     onSuccess: () => {
       handleSuccess('습관 항목 생성 완료');
     },
@@ -45,7 +45,7 @@ const useSubmitHabit = () => {
     },
   });
   const editHabit = useMutation({
-    mutationFn: ({ habitId, habitName, priority }: HabitProps) => Axios.patch('/habit', { habitId, habitName, priority }),
+    mutationFn: ({ habitId, habitName, priority }: HabitProps) => Api.patch('/habit', { habitId, habitName, priority }),
     onSuccess: () => {
       handleSuccess('습관 항목 수정 완료');
     },

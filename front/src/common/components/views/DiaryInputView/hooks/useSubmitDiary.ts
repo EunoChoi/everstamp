@@ -1,7 +1,7 @@
+import Api from "@/api/Api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Axios from "@/Axios/axios";
-import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 
 interface DiaryProps {
   date?: Date;
@@ -22,7 +22,7 @@ const useSubmitDiary = () => {
   const router = useRouter();
 
   const addDiary = useMutation({
-    mutationFn: ({ date, text, images, emotion }: DiaryProps) => Axios.post('/diary', { date, text, images, emotion }),
+    mutationFn: ({ date, text, images, emotion }: DiaryProps) => Api.post('/diary', { date, text, images, emotion }),
     onSuccess: () => {
       handleSuccess('일기 작성 완료');
     },
@@ -31,7 +31,7 @@ const useSubmitDiary = () => {
     }
   });
   const editDiary = useMutation({
-    mutationFn: ({ text, images, diaryId, emotion }: DiaryProps) => Axios.patch(`/diary?diaryId=${diaryId}`, { text, images, emotion }),
+    mutationFn: ({ text, images, diaryId, emotion }: DiaryProps) => Api.patch(`/diary?diaryId=${diaryId}`, { text, images, emotion }),
     onSuccess: () => {
       handleSuccess('일기 수정 완료');
     },

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Axios from "@/Axios/axios";
+import Api from "@/api/Api";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -51,7 +51,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
 
   const deleteDiaryMutation = useMutation({
     mutationFn: async ({ id }: { id: number }) => {
-      await Axios.delete(`diary?id=${id}`)
+      await Api.delete(`diary?id=${id}`)
     },
     onSuccess: () => {
       const queryCache = queryClient.getQueryCache();

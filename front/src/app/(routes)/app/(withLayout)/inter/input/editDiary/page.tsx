@@ -1,5 +1,5 @@
 import DiaryInputView from "@/common/components/views/DiaryInputView";
-import { getDiaryById_Prefetch } from "@/common/fetchers/diaryPrefetch";
+import { getDiaryById } from "@/common/fetchers/diary";
 
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -18,7 +18,7 @@ const Page = async ({ searchParams }: Props) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById_Prefetch({ id: diaryId }),
+    queryFn: () => getDiaryById({ id: diaryId }),
   });
 
   const dehydratedState = dehydrate(queryClient)

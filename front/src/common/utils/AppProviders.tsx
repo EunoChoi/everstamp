@@ -12,7 +12,7 @@ import CustomSnackbarProvider from "./snackBar/CustomSnackbarProvider";
 
 interface AppProvidersProps {
   children: ReactNode;
-  dehydratedState: unknown;
+  dehydratedState?: unknown;
 }
 
 export const AppProviders = ({ children, dehydratedState }: AppProvidersProps) => {

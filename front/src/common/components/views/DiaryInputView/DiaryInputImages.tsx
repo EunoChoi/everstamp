@@ -1,4 +1,3 @@
-import Axios from "@/Axios/axios";
 import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
@@ -9,6 +8,7 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { RefObject } from "react";
 
 
+import Api from "@/api/Api";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 
@@ -30,8 +30,7 @@ interface Err {
 const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Props) => {
 
   const ImageUploadMutation = useMutation({
-    // mutationFn: (imageFormData: FoamData) => Axios.post('/image', imageFormData).then((res) => { setImages([...images, ...res.data]); });,
-    mutationFn: (imageFormData: FormData) => Axios.post('/image', imageFormData),
+    mutationFn: (imageFormData: FormData) => Api.post('/image', imageFormData),
     onSuccess: (res) => {
       console.log(res);
       setImages([...images, ...res.data]);
