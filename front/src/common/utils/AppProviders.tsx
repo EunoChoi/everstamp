@@ -1,6 +1,6 @@
 'use client';
 
-import StyledComponentsRegistry from "@/lib/registry";
+import StyledComponentsRegistry from "@/common/utils/StyledComponentsRegistry";
 import { HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
