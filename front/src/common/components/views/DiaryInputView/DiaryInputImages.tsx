@@ -8,7 +8,7 @@ import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { RefObject } from "react";
 
 
-import Api from "@/api/Api";
+import Api from "@/common/api/Api";
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 

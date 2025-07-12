@@ -1,9 +1,9 @@
 'use client';
 
+import StyledComponentsRegistry from "@/lib/registry";
 import { HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import StyledComponentsRegistry from "../../../lib/registry";
 import { GlobalEffectInjection } from "./GlobalEffectInjection";
 import RQProvider from "./ReactQueryProvider";
 import ServiceWorkerRegister from "./ServiceWorkerRegister";

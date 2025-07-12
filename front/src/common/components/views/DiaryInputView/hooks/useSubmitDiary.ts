@@ -1,4 +1,4 @@
-import Api from "@/api/Api";
+import Api from "@/common/api/Api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";

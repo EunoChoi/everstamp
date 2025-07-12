@@ -1,4 +1,4 @@
-import Api from "@/api/Api";
+import Api from "@/common/api/Api";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { signOut } from "next-auth/react";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";

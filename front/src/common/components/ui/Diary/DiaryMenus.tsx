@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Api from "@/api/Api";
+import Api from "@/common/api/Api";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';

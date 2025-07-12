@@ -14,7 +14,7 @@ import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
 
 
 //images
-import Api from "@/api/Api";
+import Api from "@/common/api/Api";
 import emotions from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';

@@ -1,4 +1,4 @@
-import Api from "@/api/Api";
+import Api from "@/common/api/Api";
 
 export async function getCurrentUser() {
   try {

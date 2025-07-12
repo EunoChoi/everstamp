@@ -1,4 +1,4 @@
-import Api from "@/api/Api"
+import Api from "@/common/api/Api"
 import NextAuth from "next-auth"
 
 import Google from "next-auth/providers/google"
