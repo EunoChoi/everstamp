@@ -12,7 +12,7 @@ import { useProtectedRoute } from "@/common/hooks/useProtectedRoute";
 import styled from "styled-components";
 
 import Image from "next/image";
-import emotion2 from '/public/img/emotion/emotion2.png';
+import emotion4 from '/public/img/emotion/emotion4.png';
 
 interface Props {
   children: ReactNode;
@@ -32,7 +32,7 @@ const AppLayout = ({ children, modal }: Props) => {
   // }
   if (isMobile === null || isLoading || !user) {
     return (<NoUser>
-      <Image src={emotion2} alt='loading' width={128} height={128} />
+      <Image src={emotion4} alt='loading' width={128} height={128} />
       <span>loading...</span>
     </NoUser>);
   }
