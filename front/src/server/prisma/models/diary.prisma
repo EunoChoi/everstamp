@@ -1,0 +1,38 @@
+// prisma/diary.prisma
+
+model Diary {
+  //필드 이름    필드 타입    @추가 속성들
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  visible Boolean  @default(true)
+  emotion Int
+  text    String
+  date    DateTime
+
+  //User 모델과 관계 설정
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+
+  //Image 모델과 관계 설정
+  images Image[]
+
+  //Habit 모델과 관계 설정
+  completedHabits   Habit[]  @relation(fields: [completedHabitIds], references: [id])
+  completedHabitIds String[] @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 복합 고유 키: 한 유저는 같은 날짜에 하나의 다이어리만 가질 수 있다.
+  @@unique([userId, date])
+}
+
+model Image {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  src   String
+  order Int
+
+  // 관계: Image는 하나의 Diary에 속한다. (belongsTo)
+  diary   Diary  @relation(fields: [diaryId], references: [id])
+  diaryId String @db.ObjectId
+}

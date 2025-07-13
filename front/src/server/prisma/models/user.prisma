@@ -1,0 +1,13 @@
+// prisma/models/user.prisma
+
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String @unique
+  provider String
+
+  diaries Diary[]
+  habits  Habit[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

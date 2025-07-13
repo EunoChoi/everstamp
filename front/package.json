@@ -18,18 +18,21 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.19",
+    "@prisma/client": "6.11.1",
     "@tanstack/eslint-plugin-query": "^5.43.1",
     "@tanstack/react-query": "^5.45.1",
     "@tanstack/react-query-devtools": "^5.45.1",
     "axios": "^1.7.2",
     "babel-plugin-styled-components": "^2.1.4",
     "date-fns": "^3.6.0",
+    "mongoose": "^8.16.2",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.19",
     "next-pwa": "^5.6.0",
     "notistack": "^3.0.1",
     "nprogress": "^0.2.0",
     "pm2": "^5.4.1",
+    "prisma": "^6.11.1",
     "react": "^18",
     "react-dom": "^18",
     "react-intersection-observer": "^9.10.3",
@@ -54,5 +57,8 @@
     "overrides": {
       "oauth4webapi": "npm:@jacobkim/oauth4webapi@^2.10.4"
     }
+  },
+  "prisma": {
+    "schema": "src/server/prisma"
   }
 }
