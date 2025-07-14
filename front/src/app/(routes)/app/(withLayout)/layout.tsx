@@ -8,11 +8,8 @@ import IsMobile from "@/common/functions/IsMobile";
 
 import DesktopLayout from '@/common/components/layout/DesktopLayout';
 import MobileLayout from '@/common/components/layout/MobileLayout';
-import { useProtectedRoute } from "@/common/hooks/useProtectedRoute";
-import styled from "styled-components";
+import LoadingView from "@/common/components/views/LoadingView";
 
-import Image from "next/image";
-import emotion4 from '/public/img/emotion/emotion4.png';
 
 interface Props {
   children: ReactNode;
@@ -21,22 +18,11 @@ interface Props {
 
 const AppLayout = ({ children, modal }: Props) => {
   const isMobile = IsMobile()
-  const { user, isLoading } = useProtectedRoute();
 
-  // if (isMobile === null) return (<></>);
-  // if (isLoading || !user) {
-  //   return (<NoUser>
-  //     <Image src={emotion2} alt='loading' width={128} height={128} />
-  //     <span>loading...</span>
-  //   </NoUser>);
-  // }
-  if (isMobile === null || isLoading || !user) {
-    return (<NoUser>
-      <Image src={emotion4} alt='loading' width={128} height={128} />
-      <span>loading...</span>
-    </NoUser>);
+  if (isMobile === null) {
+    return (<LoadingView />);
   }
-  else return (
+  return (
     <>
       {isMobile ?
         <MobileLayout>
@@ -48,23 +34,7 @@ const AppLayout = ({ children, modal }: Props) => {
           {modal}
           {children}
         </DesktopLayout>}
-    </>
-  );
+    </>);
 }
 
 export default AppLayout;
-
-const NoUser = styled.div`
-  width: 100dvw;
-  height: 100dvh;
-
-  display:flex;
-  flex-direction: column;
-  justify-content:center;
-  align-items: center;
-  gap: 24px;
-  span{
-    font-size: 24px;
-    text-transform: uppercase;
-  }
-`
