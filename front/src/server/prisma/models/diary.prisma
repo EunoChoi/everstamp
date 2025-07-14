@@ -10,7 +10,7 @@ model Diary {
   date    DateTime
 
   //User 모델과 관계 설정
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @db.ObjectId
 
   //Image 모델과 관계 설정
@@ -33,6 +33,6 @@ model Image {
   order Int
 
   // 관계: Image는 하나의 Diary에 속한다. (belongsTo)
-  diary   Diary  @relation(fields: [diaryId], references: [id])
+  diary   Diary  @relation(fields: [diaryId], references: [id], onDelete: Cascade)
   diaryId String @db.ObjectId
 }
