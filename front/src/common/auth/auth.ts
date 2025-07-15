@@ -29,15 +29,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return `/login-error?message=${encodeURIComponent(result.message)}`;
       }
     },
-    async jwt({ token, account }) {
-      if (account) {
-        token.provider = account.provider;
+    async jwt({ user, token, account }) {
+      if (user && user.email && account?.provider) {
+        const result = await findOrCreateUser(user.email, account.provider);
+
+        token.provider = result.user?.provider;
+        token.id = result.user?.id;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         (session.user as any).provider = token.provider;
+        (session.user as any).id = token.id;
       }
       return session;
     },

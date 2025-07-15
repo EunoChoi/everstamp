@@ -15,19 +15,24 @@ export async function findOrCreateUser(
     });
 
     if (foundUser) {
-      if (foundUser.provider === provider) {
-        // 기존 유저, 로그인 성공
-        return { success: true, message: "로그인 성공" };
-      } else {
-        // 이메일은 있지만 프로바이더가 다름
+      if (foundUser.provider === provider) {  // 기존 유저, 로그인 성공
+        return {
+          success: true,
+          user: foundUser,
+          message: "로그인 성공"
+        };
+      } else { // 이메일은 있지만 프로바이더가 다른 경우
         return { success: false, message: "이미 다른 SNS로 가입된 이메일입니다." };
       }
-    } else {
-      // 신규 유저, 회원가입
+    } else { // 신규 유저, 회원가입
       await prisma.user.create({
         data: { email, provider },
       });
-      return { success: true, message: "회원가입 및 로그인 성공" };
+      return {
+        success: true,
+        user: foundUser,
+        message: "회원가입 및 로그인 성공"
+      };
     }
   } catch (error) {
     console.error(error);
@@ -39,7 +44,8 @@ export async function findOrCreateUser(
 export async function deleteUser() {
   try {
     const session = await auth(); //로그인 상태 확인
-    if (!session?.user?.id) {
+    if (!session?.user) {
+      console.log(session);
       return { success: false, message: '인증되지 않은 사용자입니다.' };
     }
 
