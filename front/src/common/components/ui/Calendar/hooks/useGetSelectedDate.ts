@@ -5,13 +5,17 @@ export const useGetSelectedDate = () => {
   const params = useSearchParams();
 
   const selectedDate = useMemo(() => {
-    const dateFromParams = params.get('date');
+    const dateString = params.get('date');
 
-    if (!dateFromParams || isNaN(Number(dateFromParams))) {
+    if (!dateString) {
       return new Date();
     }
-    const date = new Date(Number(dateFromParams));
-    return isNaN(date.getTime()) ? new Date() : date;
+    const selectedDate = new Date(dateString);
+    if (isNaN(selectedDate.getTime())) {
+      console.error(`URL의 날짜 값이 유효하지 않습니다. "${dateString}". 오늘 날짜로 대체합니다.`);
+      return new Date();
+    }
+    return selectedDate;
   }, [params]);
 
   return { selectedDate };
