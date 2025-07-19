@@ -35,6 +35,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         token.provider = result.user?.provider;
         token.id = result.user?.id;
+        token.createdAt = result.user?.createdAt;
       }
       return token;
     },
@@ -42,6 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (session.user) {
         (session.user as any).provider = token.provider;
         (session.user as any).id = token.id;
+        (session.user as any).createdAt = token.createdAt;
       }
       return session;
     },
