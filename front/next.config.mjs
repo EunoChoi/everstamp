@@ -14,10 +14,21 @@ const withPWA = nextPWA({
 const nextConfig = {
   swcMinify: true,
   images: {
-    domains: ['everstamp.s3.ap-northeast-2.amazonaws.com']
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.vercel-storage.com',  // Vercel Blob을 사용하는 경우
+      },
+    ],
   },
   compiler: {
     styledComponents: true,
+  },
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.devtool = 'eval-source-map';
+    }
+    return config;
   },
 };
 
