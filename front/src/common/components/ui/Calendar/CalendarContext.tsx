@@ -1,21 +1,22 @@
 import { addMonths, subMonths } from "date-fns";
 import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useContext, useMemo } from "react";
 import { useSwipe } from "./hooks/useSwipe";
-import makeCalendarDates from "./utils/makeCalendarDates";
+import makeCalendarDates, { CellDateValue } from "./utils/makeCalendarDates";
 
 
 interface CalendarContextValue<T> {
   monthlyData: T;
   displayDate: Date;
-  calendarDates: Date[][]; //displayDate가 변경되면서 생성된 보여질 날짜 목록
+  calendarDates: CellDateValue[][]; //displayDate가 변경되면서 생성된 보여질 날짜 목록
   nextMonth: () => void;
   prevMonth: () => void;
   goToday: () => void;
 
+  selectedDate: string;
   onClickMonthTitle?: () => void;
-  onClickDate?: (date: Date) => void;
+  onClickDate?: (date: CellDateValue) => void;
   RenderDateContent?: ({ cellDate }: {
-    cellDate: Date;
+    cellDate: CellDateValue;
   }) => JSX.Element
 
   isTouchGestureEnabled: boolean;
@@ -31,13 +32,14 @@ const CalendarContext = createContext<CalendarContextValue<any> | null>(null);
 interface CalendarProviderProps<T> {
   children: ReactNode;
   onClickMonthTitle?: () => void;
-  onClickDate?: (date: Date) => void
+  onClickDate?: (date: CellDateValue) => void
 
+  selectedDate: string;
   monthlyData: T;
   displayDate: Date;
   setDisplayDate: Dispatch<SetStateAction<Date>>;
   RenderDateContent?: ({ cellDate }: {
-    cellDate: Date;
+    cellDate: CellDateValue;
   }) => JSX.Element
   isTouchGestureEnabled?: boolean;
   isDateSelectionEnabled?: boolean;
@@ -50,6 +52,7 @@ export const CalendarProvider = <T,>({
   monthlyData,
   displayDate,
   setDisplayDate,
+  selectedDate,
 
   RenderDateContent,
   isTouchGestureEnabled = false,
@@ -81,6 +84,7 @@ export const CalendarProvider = <T,>({
     prevMonth,
     goToday,
 
+    selectedDate,
     onClickDate,
     onClickMonthTitle,
 

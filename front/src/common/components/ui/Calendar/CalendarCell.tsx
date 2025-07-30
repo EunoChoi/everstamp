@@ -1,25 +1,24 @@
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
-import { useRouter } from "next/navigation";
 import { memo } from "react";
 import styled from "styled-components";
 import { useCalendar } from "./CalendarContext";
-import { useGetSelectedDate } from "./hooks/useGetSelectedDate";
+import { CellDateValue } from "./utils/makeCalendarDates";
 
 
-// props로 받은 dateFormating 함수를 이용해 어떤 결과를 보여줄지를 결정한다. 
+// props로 받은 dateFormating 함수를 이용해 어떤 결과를 보여줄지를 결정
 // memo를 사용해서 자신의 prop(date)이 바뀌지 않으면 리렌더링되지 않도록 최적화
-export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
-  const router = useRouter();
-
-  const { displayDate, prevMonth, nextMonth, RenderDateContent, onClickDate } = useCalendar();
-  const { selectedDate } = useGetSelectedDate();
+export const CalendarCell = memo(({ cellDate }: { cellDate: CellDateValue }) => {
   const today = new Date();
 
-  const isToday = isSameDay(cellDate, today);
-  const isCurrentMonth = isSameMonth(cellDate, displayDate);
-  const isSelectedDate = isSameDay(cellDate, selectedDate);
-  const isPrevMonth = isBefore(cellDate, startOfMonth(displayDate));
-  const isNextMonth = isAfter(cellDate, endOfMonth(displayDate));
+  const { displayDate, prevMonth, nextMonth, RenderDateContent, onClickDate, selectedDate } = useCalendar();
+  const cellDateObject = cellDate.dateObject;
+  const cellDateString = cellDate.dateString;
+
+  const isToday = isSameDay(cellDateObject, today);
+  const isCurrentMonth = isSameMonth(cellDateObject, displayDate);
+  const isSelectedDate = isSameDay(cellDateObject, new Date(selectedDate));
+  const isPrevMonth = isBefore(cellDateObject, startOfMonth(displayDate));
+  const isNextMonth = isAfter(cellDateObject, endOfMonth(displayDate));
 
   const handleClick = () => {
     if (onClickDate) {
@@ -44,7 +43,7 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
     >
       {RenderDateContent ?
         <RenderDateContent cellDate={cellDate} />
-        : format(cellDate, 'd')
+        : format(cellDateObject, 'd')
       }
     </CellWrapper >
   );
@@ -53,7 +52,7 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
 CalendarCell.displayName = 'CalendarCell';
 
 const CellWrapper = styled.div`
-  transition: background-color 300ms ease-in-out;
+  transition: border-color 400ms ease-in-out;
 
   width: 14%;
   height: 98%;

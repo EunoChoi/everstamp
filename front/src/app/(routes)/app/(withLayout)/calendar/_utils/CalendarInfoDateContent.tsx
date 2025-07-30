@@ -3,6 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import styled from "styled-components";
 
 import { useCalendar } from "@/common/components/ui/Calendar/CalendarContext";
+import { CellDateValue } from "@/common/components/ui/Calendar/utils/makeCalendarDates";
 import emotion0 from '/public/img/emotion/emotion0.png';
 import emotion1 from '/public/img/emotion/emotion1.png';
 import emotion2 from '/public/img/emotion/emotion2.png';
@@ -23,17 +24,19 @@ const EMOTION_DATA: EmotionData[] = [
   { name: 'joyful', src: emotion4 },
 ];
 
-export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
+export const RenderDateContent = ({ cellDate }: { cellDate: CellDateValue }) => {
   const { monthlyData } = useCalendar<{ [key: string]: any }>();
 
-  const key = format(cellDate, 'yyMMdd');
+  const cellDateObject = cellDate.dateObject;
+  const cellDateString = cellDate.dateString;
+
   const {
     habitsCount = 0,
     isVisible: hasDiary = false,
     emotionType = -1,
-  } = monthlyData?.[key] || {};
+  } = monthlyData?.[cellDateString] || {};
   const hasHabit = habitsCount > 0;
-  const date = format(cellDate, 'd');
+  const date = format(cellDateObject, 'd');
   const emotion = (emotionType >= 0 && emotionType < EMOTION_DATA.length) ? EMOTION_DATA[emotionType] : undefined;
 
   const renderContent = () => {

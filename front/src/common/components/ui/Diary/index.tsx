@@ -1,41 +1,76 @@
-import SmallDiary from "./SmallDiary";
-import LargeDiary from "./LargeDiary";
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import { AnimatePresence, motion } from 'framer-motion';
+import styled from "styled-components";
+
+import { DiaryWithRelations } from '@/server/types';
+import { useRouter } from "next/navigation";
+import DiarySlide from './DiarySlide';
 
 
-interface ImageProps {
-  id: string;
-  src: string;
+
+interface DiaryProps {
+  selectedDate: string; //ISOString
+  diaryData?: DiaryWithRelations | null;
 }
 
-interface Habit {
-  UserId: number;
-  id: number;
-  email: string;
-  name: string;
-  priority: number;
-}
+const Diary = ({ selectedDate, diaryData }: DiaryProps) => {
+  const router = useRouter();
 
-interface Props {
-  type: 'small' | 'large';
-  diaryData: {
-    email: string;
-    id: number;
-    date: Date;
-    text: string;
-    emotion: number;
-    Images: Array<ImageProps>;
-    Habits: Array<Habit>;
-    visible: boolean;
-  };
-}
-
-const Diary = ({ diaryData, type }: Props) => {
-  if (type === 'small') {
-    return (<SmallDiary diaryData={diaryData} />);
+  const onAddDiary = () => {
+    router.push(`/app/inter/input/addDiary?date=${selectedDate}`, { scroll: false })
   }
-  else if (type == 'large') {
-    return (<LargeDiary diaryData={diaryData} />);
-  }
+
+  return (
+
+    <Wrapper>
+      <AnimatePresence mode="wait">
+        <Content
+          key={selectedDate ?? ''}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          {diaryData?.visible ?
+            <DiarySlide selectedDate={selectedDate} diaryData={diaryData} />
+            :
+            <AddButton onClick={onAddDiary}>
+              <AddCircleOutlinedIcon fontSize="inherit" />
+            </AddButton>}
+        </Content>
+      </AnimatePresence>
+    </Wrapper>
+  );
 }
 
 export default Diary;
+
+const AddButton = styled.button`
+  line-height: 0;
+  font-size: 56px;
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+`
+
+const Wrapper = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+
+  border: 2px solid rgba(0,0,0,0.07);
+  border-radius: 16px;
+  background-color: white;
+`
+const Content = styled(motion.div)`
+  width: 100%;
+  height: 100%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`

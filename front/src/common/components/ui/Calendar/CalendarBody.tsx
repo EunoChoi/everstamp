@@ -22,7 +22,7 @@ const CalendarBody = () => {
       {calendarDates.map((weekRow, i) =>
         <CalRow key={'weeks' + i} className="cal_week_row">
           {weekRow.map(date => (
-            <CalendarCell key={date.toString()} cellDate={date} />
+            <CalendarCell key={date.dateString} cellDate={date} />
           ))}
         </CalRow>)
       }

@@ -7,19 +7,21 @@ import { Dispatch, SetStateAction } from "react";
 import CalendarBody from "./CalendarBody";
 import { CalendarProvider } from './CalendarContext';
 import CalendarHeader from "./CalendarHeader";
+import { CellDateValue } from "./utils/makeCalendarDates";
 
 interface CalendarProps<T> {
   className?: string;
   headerSize?: 'small' | 'middle' | 'large';
   headerTitlePosition?: 'center' | 'start';
 
+  selectedDate: string;
   displayDate: Date;
   setDisplayDate: Dispatch<SetStateAction<Date>>;
   monthlyData?: T;
   onClickMonthTitle?: () => void;
-  onClickDate?: (date: Date) => void;
+  onClickDate?: (date: CellDateValue) => void;
   RenderDateContent?: ({ cellDate }: {
-    cellDate: Date;
+    cellDate: CellDateValue;
   }) => JSX.Element
 
   isTouchGestureEnabled?: boolean;
@@ -33,6 +35,8 @@ const Calendar = <T,>({
 
   monthlyData,
   displayDate,
+  selectedDate,
+
   setDisplayDate,
 
   onClickMonthTitle,
@@ -51,6 +55,7 @@ const Calendar = <T,>({
 
       onClickMonthTitle={onClickMonthTitle}
       onClickDate={onClickDate}
+      selectedDate={selectedDate}
 
       RenderDateContent={RenderDateContent}
       isTouchGestureEnabled={isTouchGestureEnabled}
