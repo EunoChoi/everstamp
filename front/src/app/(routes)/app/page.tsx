@@ -1,20 +1,15 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import styled from "styled-components";
 
 
-//function
-import { getCurrentUser } from "@/common/fetchers/user";
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
-
 
 //images
-import Api from "@/common/api/Api";
+import { getTodayString } from "@/common/functions/getTodayString";
+import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import emotions from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
@@ -22,43 +17,29 @@ import naver from '/public/img/loginIcon/naver.png';
 
 
 /**
- * [Client] login page, url : 'everstamp.site/app/'
+ * [Client] login page, url : 'everstamp.cloud/app/'
  */
 const Page = () => {
+  usePrefetchPage();
   const router = useRouter();
 
-  const { data: user, isSuccess } = useQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
-    refetchOnWindowFocus: "always",
-
-    staleTime: 0,
-    gcTime: 0,
-    retry: 1,
-  })
+  const session = useSession();
+  const user = session?.data?.user;
 
   const start = () => {
-    router.push(`/app/calendar?date=${getCleanTodayTime()}`);
+    router.push(`/app/calendar?date=${getTodayString()}`);
   }
   const logout = () => {
-    Api.get('user/logout').then(() => {
-      signOut();
-    });
+    signOut();
   }
 
-  useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
-  }, [])
 
   const options = { callbackUrl: '/app' };
   return (
     <Wrapper>
       <Logo>everstamp</Logo>
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
-      {isSuccess ?
+      {user ?
         <LoggedInButtonWrapper >
           <LoggedInButtonStart className={user?.provider} onClick={start}>
             {user?.provider === 'google' && <Image src={google} alt='google' width={24} height={24} />}
