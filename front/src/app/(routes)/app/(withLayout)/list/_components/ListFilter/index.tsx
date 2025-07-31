@@ -3,48 +3,30 @@ import styled from "styled-components";
 
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { getYear } from "date-fns";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useFilter } from "../../_hooks/useFilter";
 import EmotionSelector from "./EmotionSelector";
 import MonthSelector from "./MonthSelector";
 
-interface Props {
-  contentRef: React.MutableRefObject<HTMLDivElement | null>;
-  isFilterOpen: boolean;
-  setFilterOpen: (n: boolean) => void;
-
-  setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedMonth: (d: number) => void;
-  setEmotionToggle: (d: number) => void;
+interface ListFilterProps {
+  contentRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const ListFilter = ({
-  contentRef,
-  isFilterOpen,
-  setFilterOpen,
+const ListFilter = () => {
+  //real filter state
+  const { selectedMonth, selectedYear, emotionToggle, isFilterOpen, setFilterState } = useFilter()
 
-  setSelectedYear,
-  setSelectedMonth,
-  setEmotionToggle
-}: Props) => {
-
-  const router = useRouter();
-  const searchParams = useSearchParams()
-  const pathname = usePathname();
-
+  //temp filter state
   const [tempEmotion, setTempEmotion] = useState<number>(5);
   const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
   const [tempMonth, setTempMonth] = useState<number>(0);
 
-  const year = searchParams.get('year');
-  const month = searchParams.get('month');
-  const emotion = searchParams.get('emotion');
   useEffect(() => {
     if (isFilterOpen) {
-      console.log(year, month, emotion);
-      if (year) setTempYear(Number(year));
-      if (month) setTempMonth(Number(month));
-      if (emotion) setTempEmotion(Number(emotion));
+      if (selectedYear) setTempYear(Number(selectedYear));
+      if (selectedMonth) setTempMonth(Number(selectedMonth));
+      if (emotionToggle) setTempEmotion(Number(emotionToggle));
     }
   }, [isFilterOpen])
 
@@ -54,32 +36,31 @@ const ListFilter = ({
     setTempMonth(0);
   }
   const onSubmit = () => {
-    router.push(`${pathname}?emotion=${tempEmotion}&year=${tempYear}&month=${tempMonth}`);
-
-    setEmotionToggle(tempEmotion);
-    setSelectedYear(tempYear);
-    setSelectedMonth(tempMonth);
-
-    setFilterOpen(false);
-    setTimeout(() => {
-      contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
-    }, 200);
+    setFilterState({ emotion: tempEmotion, year: tempYear, month: tempMonth, isOpen: false })
   }
 
   return (
-    <BG className={isFilterOpen ? 'open' : ''} onClick={() => setFilterOpen(false)} >
+    <BG
+      onClick={() => setFilterState({ isOpen: false })}
+      key='list-filter-bg'
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <Wrapper
         onClick={(e) => e.stopPropagation()}
-        className={isFilterOpen ? 'open' : ''}>
-        <EmotionWrapper>
-          <EmotionSelector setEmotionToggle={setTempEmotion} emotionToggle={tempEmotion} />
-        </EmotionWrapper>
-        <MonthWrapper>
-          <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
-        </MonthWrapper>
+        key='list-filter'
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        exit={{ scaleY: 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+      >
+        <EmotionSelector setEmotionToggle={setTempEmotion} emotionToggle={tempEmotion} />
+        <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
         <InitButton onClick={onInitialize}><RefreshIcon fontSize="small" />선택 초기화</InitButton>
         <ButtonWrapper>
-          <Button className="cancel" onClick={() => setFilterOpen(false)}>취소</Button>
+          <Button className="cancel" onClick={() => setFilterState({ isOpen: false })}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
@@ -89,40 +70,22 @@ const ListFilter = ({
 
 export default ListFilter;
 
-const BG = styled.div`
+const BG = styled(motion.div)`
+  z-index: 9999;
   position: fixed; 
   left: 0px;
+   top: 0px;
   
   width: 100dvw;
   height: 100dvh;
   backdrop-filter: blur(4px);
-
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-  &.open{
-    opacity: 1;
-    visibility: visible;
-  }
-
-  @media (max-width: 479px) { //mobile port
-    top: 0px;
-    z-index: 98;
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    top: 0px;
-    z-index: 105;
-  }
-  @media (min-width:1025px) { //desktop
-    top: 0px;
-    z-index: 105;
-  }
 `
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
+  transform-origin: top;
+
   overflow: hidden;
   position: fixed;
-  top: var(--mobileHeader);
   top: -3px;
 
   display: flex;
@@ -136,71 +99,37 @@ const Wrapper = styled.div`
     box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
     width: 100%;
     height: auto;
-    padding: 36px 24px;
-    padding-top: calc((var(--mobileHeader) + 36px));
+    padding: 56px 24px;
     gap: 24px;
-
-    will-change: height;
-    transform: scaleY(0);
-    transform-origin: top;
 
     border-end-start-radius: 24px;
     border-end-end-radius: 24px;
-
-    transition: transform 0.3s ease-in-out;    
-    &.open{
-      transform: scaleY(1);
-    }
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
     box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
-    z-index: 999;
-    top: 50dvh;
-    left: 50dvw;
-    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
 
     gap: 16px;
     padding: 16px 24px;
     width: 350px;
     border-radius: 24px;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s linear, visibility 0.3s linear;
-
-    &.open{
-      opacity: 1;
-      visibility: visible;
-    }
   }
   @media (min-width:1025px) { //desktop
     box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
 
-    top: 50dvh;
-    left: 50dvw;
-    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
 
     width: 500px;
     gap: 32px;
     padding: 48px 36px;
     border-radius: 24px;
-
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s linear, visibility 0.3s linear;
-
-    &.open{
-      opacity: 1;
-      visibility: visible;
-    }
   }
 `
-const EmotionWrapper = styled.div`
-  width: 100%;
-`
-const MonthWrapper = styled.div`
-  width: 100%;
-`
+
 const ButtonWrapper = styled.div`
   display : flex;
   align-items: center;
@@ -208,7 +137,6 @@ const ButtonWrapper = styled.div`
 `
 const Button = styled.button`
   font-size: 14px;
-  /* font-weight: 600; */
 
   padding: 4px 20px;
   border-radius: 32px;

@@ -34,10 +34,11 @@ export default EmotionSelector;
 
 const EmotionlWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 
   width: inherit;
+  width: 100%;
 `
 const EmotionImage = styled(Image)`
   cursor: pointer;

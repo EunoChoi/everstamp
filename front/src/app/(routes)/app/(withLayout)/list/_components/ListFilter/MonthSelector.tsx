@@ -82,6 +82,7 @@ export default MonthSelector;
 
 
 const Wrapper = styled.div`
+  width: 100%;
 `
 const YearArea = styled.div`
   width: 100%;

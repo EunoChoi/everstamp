@@ -1,17 +1,26 @@
 'use client';
 
-import { ReactNode } from "react";
 import styled from "styled-components";
 
-interface Props {
-  children?: ReactNode;
-  classname?: string;
+export interface buttonOption {
+  content: JSX.Element;
+  className: string;
+  onClick: () => void;
+}
+interface TopButtonsProps {
+  buttons: buttonOption[];
 }
 
-const TopButtons = ({ children, classname }: Props) => {
+const TopButtons = ({ buttons }: TopButtonsProps) => {
   return (
-    <Wrapper className={classname}>
-      {children}
+    <Wrapper>
+      {buttons.map((button, index) =>
+        <button
+          className={button.className}
+          onClick={button.onClick}
+          key={index}>
+          {button.content}
+        </button>)}
     </Wrapper>
   );
 }
