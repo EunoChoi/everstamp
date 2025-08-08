@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 
-import DiaryDateAndEmotion from "./DiaryDateAndEmotion";
 import DiaryHabits from "./DiaryHabits";
 
 
@@ -19,19 +18,23 @@ import { format } from "date-fns";
 import { AnimatePresence } from "framer-motion";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import DiaryMenu from "./DiaryMenu";
+import DiaryTitleInfo from "./DiaryTitleInfo";
 
-interface Props {
-  selectedDate: string;
+interface DiarySlideProps {
   diaryData: DiaryWithRelations;
 }
 
-const DiarySlide = ({ selectedDate, diaryData }: Props) => {
+const DiarySlide = ({ diaryData }: DiarySlideProps) => {
   const router = useRouter();
-  const images = diaryData?.images;
   const slideWrapperRef = useRef<HTMLDivElement>(null);
+
+  const dateString = format(diaryData.date, 'yyyy-MM-dd');
+  const date = diaryData.date;
+  const images = diaryData?.images;
+  const habits = diaryData?.completedHabits?.map(e => e.name);
+
   const [diaryMenuOpen, setDiaryMenuOpen] = useState<boolean>(false);
 
-  const habits = diaryData?.completedHabits?.map(e => e.name);
 
   const onToggleDiaryMenu = () => {
     setDiaryMenuOpen(c => !c)
@@ -43,7 +46,7 @@ const DiarySlide = ({ selectedDate, diaryData }: Props) => {
     setTimeout(() => {
       setDiaryMenuOpen(false);
     }, 300);
-    router.push(`/app/inter/input/editDiary?date=${selectedDate}`, { scroll: false })
+    router.push(`/app/inter/input/editDiary?date=${dateString}`, { scroll: false })
   }
   const onDeleteDiary = () => {
     setTimeout(() => {
@@ -53,14 +56,14 @@ const DiarySlide = ({ selectedDate, diaryData }: Props) => {
     const action = (snackbarId: SnackbarKey) => (
       <SnackBarAction
         yesAction={() => {
-          deleteDiaryByDate({ date: selectedDate });
+          deleteDiaryByDate({ date: dateString });
           closeSnackbar('diaryDelete');
         }}
         noAction={() => {
           closeSnackbar('diaryDelete');
         }} />
     );
-    enqueueSnackbar(`${format(selectedDate, 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: true, action, autoHideDuration: 6000 });
+    enqueueSnackbar(`${dateString} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: true, action, autoHideDuration: 6000 });
   }
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const DiarySlide = ({ selectedDate, diaryData }: Props) => {
         </AnimatePresence>
 
         <DiaryTitle>
-          <DiaryDateAndEmotion selectedDate={selectedDate} emotion={diaryData?.emotion} />
+          <DiaryTitleInfo diaryData={diaryData} />
           <MoreButton onClick={onToggleDiaryMenu}>
             <MoreVertIcon fontSize="inherit" color='inherit' />
           </MoreButton>

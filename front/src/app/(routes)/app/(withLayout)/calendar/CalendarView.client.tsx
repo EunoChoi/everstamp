@@ -1,63 +1,39 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { startOfDay } from "date-fns";
 import { useCallback, useState } from "react";
 import styled from "styled-components";
 
-//function
-import { getDiaryByDate } from "@/common/fetchers/diary";
-
-//styledComponent
-
-//component
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import Calendar from "@/common/components/ui/Calendar";
+import { CellDateValue } from "@/common/components/ui/Calendar/utils/makeCalendarDates";
 import Diary from "@/common/components/ui/Diary";
-import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
-import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import EmptyDiary from "@/common/components/ui/EmtpyDiary";
+import { DiaryWithRelations } from "@/server/types";
 import { useRouter } from "next/navigation";
 import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
 
 
 interface CalendarViewProps {
-  date: number;
+  selectedDate: string;
+  diaryData?: DiaryWithRelations | null;
 }
 interface MonthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
 }
 
-const CalendarView = ({ date }: CalendarViewProps) => {
-  usePrefetchPage();
+const CalendarView = ({ selectedDate, diaryData = null }: CalendarViewProps) => {
   const router = useRouter();
-
   const [displayDate, setDisplayDate] = useState(new Date());
 
-  //get date diary data
-  const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
-    queryFn: () => getDiaryByDate({ date }),
-  });
-
-  const { data: monthHabits } = useQuery({
-    queryKey: ['habit', 'month', format(displayDate, 'MM')],
-    queryFn: () => getAllHabitsMonthInfo({ date: displayDate }),
-    select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
-      const monthHabits: MonthHabitsType = {};
-      data.forEach((e: any) => {
-        monthHabits[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
-      });
-      return monthHabits;
-    }
-  });
-
   const onClickMonthTitle = () => {
-    router.push(`/app/calendar?date=${getCleanTodayTime()}`);
+    const today = startOfDay(new Date());
+    const todayString = today.toISOString();
+    router.push(`calendar?date=${todayString}`);
   }
-  const onClickDate = useCallback((date: Date) => {
-    router.push(`calendar?date=${date.getTime()}`);
+  const onClickDate = useCallback((clickedDate: CellDateValue) => {
+    router.push(`calendar?date=${clickedDate.dateString}`);
   }, []);
 
   return (
@@ -69,15 +45,16 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           headerTitlePosition="start"
           headerSize="large"
 
+          selectedDate={selectedDate}
           displayDate={displayDate}
           setDisplayDate={setDisplayDate}
-          monthlyData={monthHabits}
+          // monthlyData={monthHabits}
           RenderDateContent={RenderDateContent}
 
           onClickMonthTitle={onClickMonthTitle}
           onClickDate={onClickDate}
         />
-        <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
+        {diaryData ? <Diary diaryData={diaryData} /> : <EmptyDiary selectedDate={selectedDate} />}
       </CalendarContentWrapper>
     </PageWrapper>
   );
