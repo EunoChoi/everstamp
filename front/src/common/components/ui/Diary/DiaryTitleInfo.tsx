@@ -1,3 +1,4 @@
+import { emotions } from '@/common/images/emotions';
 import { DiaryWithRelations } from '@/server/types';
 import { format } from 'date-fns';
 import styled from 'styled-components';
@@ -8,14 +9,13 @@ interface Props {
   diaryData: DiaryWithRelations;
 }
 const DiaryTitleInfo = ({ diaryData }: Props) => {
-  const emotions = ['Angry', 'Sad', 'Common', 'Happy', 'Joyful'];
   const date = format(diaryData.date, 'yy.MM.dd');
   const day = format(diaryData.date, 'eee');
 
   return (<Wrapper>
     <span className="date">{date}</span>
     <span className="week">{day}</span>
-    <span className="emotion">{diaryData.emotion !== undefined ? emotions[diaryData.emotion] : ''}</span>
+    <span className="emotion">{diaryData.emotion !== undefined ? emotions[diaryData.emotion]?.alt : ''}</span>
   </Wrapper>);
 }
 
