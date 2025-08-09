@@ -1,7 +1,7 @@
 'use client';
 
 import { format } from "date-fns";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
@@ -10,22 +10,21 @@ import Calendar from "@/common/components/ui/Calendar";
 import { CellDateValue } from "@/common/components/ui/Calendar/utils/makeCalendarDates";
 import Diary from "@/common/components/ui/Diary";
 import EmptyDiary from "@/common/components/ui/EmtpyDiary";
+import { CalendarDiaryValues, getCalendarDiaryValuesByMonth } from "@/server/actions/diary.actions";
 import { DiaryWithRelations } from "@/server/types";
 import { useRouter } from "next/navigation";
-import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
+import { calendarViewDateRender } from "./_utils/calendarViewDateRender";
 
 
 interface CalendarViewProps {
   selectedDate: string;
   diaryData?: DiaryWithRelations | null;
 }
-interface MonthHabitsType {
-  [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
-}
 
 const CalendarView = ({ selectedDate, diaryData = null }: CalendarViewProps) => {
   const router = useRouter();
   const [displayDate, setDisplayDate] = useState(new Date());
+  const [monthlyData, setMonthlyData] = useState<CalendarDiaryValues>();
 
   const onClickMonthTitle = () => {
     const todayString = format(new Date(), 'yyyy-MM-dd');
@@ -34,6 +33,23 @@ const CalendarView = ({ selectedDate, diaryData = null }: CalendarViewProps) => 
   const onClickDate = useCallback((clickedDate: CellDateValue) => {
     router.push(`calendar?date=${clickedDate.dateString}`);
   }, []);
+
+
+  useEffect(() => {
+    const loadCalendarDiaryValues = async () => {
+      try {
+        const { data: calendarDiaryValues } = await getCalendarDiaryValuesByMonth(displayDate);
+        if (calendarDiaryValues) {
+          setMonthlyData(calendarDiaryValues);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    loadCalendarDiaryValues();
+  }, [displayDate])
+
+  console.log(monthlyData);
 
   return (
     <PageWrapper>
@@ -47,8 +63,8 @@ const CalendarView = ({ selectedDate, diaryData = null }: CalendarViewProps) => 
           selectedDate={selectedDate}
           displayDate={displayDate}
           setDisplayDate={setDisplayDate}
-          // monthlyData={monthHabits}
-          RenderDateContent={RenderDateContent}
+          monthlyData={monthlyData}
+          RenderDateContent={calendarViewDateRender}
 
           onClickMonthTitle={onClickMonthTitle}
           onClickDate={onClickDate}

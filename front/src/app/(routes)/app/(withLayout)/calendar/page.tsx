@@ -27,6 +27,7 @@ const CalendarPage = async ({ searchParams }: Props) => {
   } catch (error) {
     throw error;
   }
+
   return (<CalendarView selectedDate={selectedDate} diaryData={diaryData} />);
 }
 
