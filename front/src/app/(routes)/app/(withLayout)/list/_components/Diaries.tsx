@@ -1,43 +1,35 @@
 'use client';
 
-import Diary from "@/common/components/ui/Diary";
 import { format } from "date-fns";
 import React from "react";
 import styled from "styled-components";
-import { diaryData } from "../_types/diaryData";
 
-import Image from "next/image";
-import sadEmotion from '/public/img/emotion/emotion1.png';
+import Diary from "@/common/components/ui/Diary";
+import { DiaryWithRelations } from "@/server/types";
 
 
 interface DiariesProps {
-  diaries: diaryData[];
+  diaries: DiaryWithRelations[];
 }
 
 export const Diaries = ({ diaries }: DiariesProps) => {
   return (<>
-    {diaries?.length > 0 ?
-      diaries?.map((data: diaryData, i: number) => {
-        const currentDiaryDate = format(data.date, 'MMMM. yyyy');
-        const previousDiaryDate = i > 0 ? format(diaries[i - 1].date, 'MMMM. yyyy') : '';
+    {diaries?.map((diary: DiaryWithRelations, i: number) => {
+      const currentDiaryDate = format(diary.date, 'MMMM. yyyy');
+      const previousDiaryDate = i > 0 ? format(diaries[i - 1].date, 'MMMM. yyyy') : '';
 
-        if (currentDiaryDate !== previousDiaryDate) {
-          return <React.Fragment key={'listNote' + i}>
-            <MonthSeparator>{currentDiaryDate}</MonthSeparator>
-            <DiaryWrapper><Diary type="large" diaryData={data} /></DiaryWrapper>
-          </React.Fragment>
-        }
-        else {
-          return <DiaryWrapper key={'listNote' + i}>
-            <Diary type="large" diaryData={data} />
-          </DiaryWrapper>
-        }
-      })
-      :
-      <NoDiaries>
-        <Image src={sadEmotion} alt="sad-emotion-icon" width={128} height={128} />
-        <span>작성된 일기가 존재하지 않습니다. :(</span>
-      </NoDiaries>}
+      if (currentDiaryDate !== previousDiaryDate) {
+        return <React.Fragment key={'listNote' + i}>
+          <MonthSeparator>{currentDiaryDate}</MonthSeparator>
+          <DiaryWrapper><Diary diaryData={diary} /></DiaryWrapper>
+        </React.Fragment>
+      }
+      else {
+        return <DiaryWrapper key={'listNote' + i}>
+          <Diary diaryData={diary} />
+        </DiaryWrapper>
+      }
+    })}
   </>);
 }
 
