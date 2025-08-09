@@ -1,7 +1,7 @@
 
 'use server';
 
-import { startOfDay } from 'date-fns';
+import { endOfMonth, startOfDay, startOfMonth } from 'date-fns';
 import { revalidatePath } from 'next/cache';
 
 import { auth } from '@/common/auth/auth';
@@ -18,6 +18,78 @@ const handleError = (error: unknown, defaultMessage: string) => {
   }
   return { success: false, message: defaultMessage };
 };
+
+export async function getDiariesByPage(data: {
+  page: number,
+  pageSize: number
+
+  sort: 'desc' | 'asc';
+  emotion?: number;
+  yearAndMonth?: string; //yyyy-MM
+}): Promise<ActionResponse<DiaryWithRelations[]>> {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error('인증되지 않은 사용자입니다.');
+  }
+
+  const page = data.page;
+  const PAGE_SIZE = data.pageSize;
+
+  const sort = data.sort;
+  const emotion = data.emotion;
+  const yearAndMonth = data.yearAndMonth;
+
+  const where: {
+    userId: string;
+    emotion?: number;
+    date?: {
+      gte: Date;
+      lte: Date;
+    };
+  } = {
+    userId: session.user.id,
+  };
+  if (emotion !== undefined && emotion >= 0 && emotion <= 4) {
+    where.emotion = emotion;
+  }
+  if (yearAndMonth) {
+    const targetMonthDate = new Date(yearAndMonth);
+
+    const startDate = startOfMonth(targetMonthDate);
+    const endDate = endOfMonth(targetMonthDate);
+
+    where.date = {
+      gte: startDate,
+      lte: endDate,
+    };
+  }
+
+
+  try {
+    const diaries = await prisma.diary.findMany({
+      where,
+      orderBy: { date: sort },
+      skip: (page - 1) * PAGE_SIZE,
+      take: PAGE_SIZE,
+      include: {
+        images: { orderBy: { order: 'asc' } },
+        completedHabits: { orderBy: { priority: 'desc' } }
+      },
+    });
+
+    const decryptedDiaries = diaries.map(diary => {
+      return {
+        ...diary,
+        text: decrypt(diary.text, process.env.DATA_SECRET_KEY!),
+      };
+    });
+
+    return { success: true, data: decryptedDiaries };
+  } catch (error) {
+    console.error("다이어리 목록 조회 실패:", error);
+    return handleError(error, '일기 조회 중 오류가 발생했습니다.');
+  }
+}
 export async function getDiaryByDate(
   date: string
 ): Promise<ActionResponse<DiaryWithRelations>> {
