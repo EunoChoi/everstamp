@@ -1,6 +1,6 @@
 'use client';
 
-import { startOfDay } from "date-fns";
+import { format } from "date-fns";
 import { useCallback, useState } from "react";
 import styled from "styled-components";
 
@@ -28,8 +28,7 @@ const CalendarView = ({ selectedDate, diaryData = null }: CalendarViewProps) => 
   const [displayDate, setDisplayDate] = useState(new Date());
 
   const onClickMonthTitle = () => {
-    const today = startOfDay(new Date());
-    const todayString = today.toISOString();
+    const todayString = format(new Date(), 'yyyy-MM-dd');
     router.push(`calendar?date=${todayString}`);
   }
   const onClickDate = useCallback((clickedDate: CellDateValue) => {
