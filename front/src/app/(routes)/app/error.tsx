@@ -74,4 +74,5 @@ const Button = styled.button`
   border-radius: 128px;
   font-size: 18px;
   text-transform: capitalize;
+  border: 2px solid rgba(0,0,0,0.07);
 `
