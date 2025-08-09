@@ -8,35 +8,33 @@ import { useState } from "react";
 
 interface Props {
   selectedYear: number;
-  selectedMonth: number;
+  selectedMonth: number | undefined;
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedMonth: (d: number) => void;
+  setSelectedMonth: (month: number | undefined) => void;
 }
 
+const monthsTopNum = [1, 2, 3, 4, 5, 6];
+const monthsTopEng = ['jan', 'feb', 'mar', 'apr', 'may', 'jun'];
+const monthsBottomNum = [7, 8, 9, 10, 11, 12];
+const monthsBottomEng = ['jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
 const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelectedMonth }: Props) => {
-
-  const monthsTopNum = [1, 2, 3, 4, 5, 6];
-  const monthsTopEng = ['jan', 'feb', 'mar', 'apr', 'may', 'jun'];
-  const monthsBottomNum = [7, 8, 9, 10, 11, 12];
-  const monthsBottomEng = ['jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-
   const [touchStartX, setTouchStartX] = useState<number>(0);   //for touch gesture
-
 
   const goToNextYear = () => {
     setSelectedYear(c => c + 1);
-    setSelectedMonth(0);
+    setSelectedMonth(undefined);
   }
   const goToPreYear = () => {
     setSelectedYear(c => c - 1);
-    setSelectedMonth(0);
+    setSelectedMonth(undefined);
   }
   const goToCurrentDate = () => {
     setSelectedYear(getYear(new Date()));
   };
   const selectMonth = (n: number) => {
     if (selectedMonth === n) {
-      setSelectedMonth(0)
+      setSelectedMonth(undefined)
     }
     else setSelectedMonth(n)
   }

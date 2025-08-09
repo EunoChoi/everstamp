@@ -5,43 +5,52 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { getYear } from "date-fns";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useFilter } from "../../_hooks/useFilter";
+import { useListFilter } from "../../_hooks/useListFilter";
+import { ListFilterState } from "../../ListView.client";
 import EmotionSelector from "./EmotionSelector";
 import MonthSelector from "./MonthSelector";
 
 interface ListFilterProps {
+  filterState: ListFilterState;
   contentRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const ListFilter = () => {
-  //real filter state
-  const { selectedMonth, selectedYear, emotionToggle, isFilterOpen, setFilterState } = useFilter()
+const ListFilter = ({ filterState, contentRef }: ListFilterProps) => {
+  const { sort, year, month, yearAndMonth, emotion, open } = filterState;
+  const {
+    setListFilter,
+  } = useListFilter()
 
   //temp filter state
-  const [tempEmotion, setTempEmotion] = useState<number>(5);
+  const [tempEmotion, setTempEmotion] = useState<number | undefined>(undefined);
   const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
-  const [tempMonth, setTempMonth] = useState<number>(0);
+  const [tempMonth, setTempMonth] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    if (isFilterOpen) {
-      if (selectedYear) setTempYear(Number(selectedYear));
-      if (selectedMonth) setTempMonth(Number(selectedMonth));
-      if (emotionToggle) setTempEmotion(Number(emotionToggle));
+    if (open) {
+      setTempEmotion(emotion);
+      setTempYear(year);
+      setTempMonth(month);
     }
-  }, [isFilterOpen])
+  }, [open])
 
   const onInitialize = () => {
-    setTempEmotion(5);
+    setTempEmotion(undefined);
     setTempYear(getYear(new Date()));
-    setTempMonth(0);
+    setTempMonth(undefined);
   }
   const onSubmit = () => {
-    setFilterState({ emotion: tempEmotion, year: tempYear, month: tempMonth, isOpen: false })
+    setListFilter({
+      emotion: tempEmotion,
+      year: tempMonth === undefined ? undefined : tempYear, //year이 선택되지 않은 경우 처리
+      month: tempMonth,
+      open: false
+    })
   }
 
   return (
     <BG
-      onClick={() => setFilterState({ isOpen: false })}
+      onClick={() => setListFilter({ open: false })}
       key='list-filter-bg'
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -56,11 +65,19 @@ const ListFilter = () => {
         exit={{ scaleY: 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
-        <EmotionSelector setEmotionToggle={setTempEmotion} emotionToggle={tempEmotion} />
-        <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
-        <InitButton onClick={onInitialize}><RefreshIcon fontSize="small" />선택 초기화</InitButton>
+        <EmotionSelector
+          setEmotion={setTempEmotion}
+          emotion={tempEmotion} />
+        <MonthSelector
+          selectedYear={tempYear}
+          setSelectedYear={setTempYear}
+          selectedMonth={tempMonth}
+          setSelectedMonth={setTempMonth} />
+        <InitButton onClick={onInitialize}>
+          <RefreshIcon fontSize="small" />선택 초기화
+        </InitButton>
         <ButtonWrapper>
-          <Button className="cancel" onClick={() => setFilterState({ isOpen: false })}>취소</Button>
+          <Button className="cancel" onClick={() => { setListFilter({ open: false }) }}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>

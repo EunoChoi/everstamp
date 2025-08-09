@@ -5,9 +5,9 @@ import emotion3 from '/public/img/emotion/emotion3.png';
 import emotion4 from '/public/img/emotion/emotion4.png';
 
 export const emotions = [
-  { id: 4, src: emotion4, alt: 'Joyful' },
-  { id: 3, src: emotion3, alt: 'happy' },
+  { id: 0, src: emotion4, alt: 'Joyful' },
+  { id: 1, src: emotion3, alt: 'happy' },
   { id: 2, src: emotion2, alt: 'common' },
-  { id: 1, src: emotion1, alt: 'sad' },
-  { id: 0, src: emotion0, alt: 'angry' },
+  { id: 3, src: emotion1, alt: 'sad' },
+  { id: 4, src: emotion0, alt: 'angry' },
 ];

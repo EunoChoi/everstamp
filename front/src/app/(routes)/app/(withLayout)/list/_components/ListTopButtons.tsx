@@ -1,34 +1,43 @@
 import TopButtons, { buttonOption } from "@/common/components/ui/TopButtons";
 import { emotions } from "@/common/images/emotions";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { useFilter } from "../_hooks/useFilter";
-import { useListToggle } from "../_hooks/useListToggle";
+import { ListFilterState } from "../ListView.client";
+import { useListFilter } from "../_hooks/useListFilter";
 
-const ListTopButtons = () => {
-  const { selectedYear, selectedMonth, emotionToggle, setFilterState, isFilterOpen } = useFilter();
-  const diplayYearMonth = selectedYear % 100 + '.' + selectedMonth.toString().padStart(2, '0');
-  const hasFilter = (selectedMonth !== 0 || (emotionToggle < 5 && emotionToggle >= 0));
-  const { toggleValue: sortToggle, sortOrderChange } = useListToggle();
+interface ListTopButtonsProps {
+  filterState: ListFilterState;
+}
+
+const ListTopButtons = ({ filterState }: ListTopButtonsProps) => {
+
+  const { setListFilter } = useListFilter();
+  const { sort, year, month, yearAndMonth, emotion, open } = filterState;
+  const hasFilter = month !== undefined || emotion !== undefined;
+
+  const filterOpenToggle = () => {
+    setListFilter({ open: !open });
+  };
+  const listSortToggle = () => {
+    setListFilter({ sort: sort === 'desc' ? 'asc' : 'desc' });
+  };
 
   //selected value data at top button
   const filterButtonContent = hasFilter ? (
     <span>
-      {selectedMonth !== 0 && diplayYearMonth}
-      {selectedMonth !== 0 && emotionToggle !== 5 && ' , '}
-      {emotionToggle !== 5 && emotions[emotionToggle].alt}
+      {emotion !== undefined && emotions[emotion].alt}
+      {(emotion !== undefined && month !== undefined) && ' + '}
+      {month !== undefined && yearAndMonth}
     </span>
   ) : (
     <FilterListIcon fontSize="small" />
   )
-  const sortButtonContent = <span>{sortToggle === 'DESC' ? 'New' : 'Old'}</span>
+  const sortButtonContent = <span>{sort === 'desc' ? 'New' : 'Old'}</span>
   const buttonsValue: buttonOption[] = [
     {
-      content: filterButtonContent, onClick: () => {
-        setFilterState({ isOpen: !isFilterOpen })
-      },
+      content: filterButtonContent, onClick: filterOpenToggle,
       className: 'auto'
     },
-    { content: sortButtonContent, onClick: sortOrderChange, className: 'normal' }
+    { content: sortButtonContent, onClick: listSortToggle, className: 'normal' }
   ];
 
   return <TopButtons buttons={buttonsValue} />;
