@@ -1,12 +1,13 @@
 import { format } from "date-fns";
-import Image from "next/image";
 import styled from "styled-components";
 
 import { useCalendar } from "@/common/components/ui/Calendar/CalendarContext";
 import { CellDateValue } from "@/common/components/ui/Calendar/utils/makeCalendarDates";
 import { emotions } from "@/common/images/emotions";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import emptyIcon from '/public/img/emotion/empty.png';
+
 
 
 export const calendarViewDateRender = ({ cellDate }: { cellDate: CellDateValue }) => {
@@ -30,45 +31,45 @@ export const calendarViewDateRender = ({ cellDate }: { cellDate: CellDateValue }
   const hasHabit = habitsCount > 0;
   const date = format(cellDateObject, 'd');
 
-  if (visible) {
-    return (
-      <AnimatePresence>
-        <Wrapper
-          key={cellDateString}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-        >
-          <Image src={emotions[emotion].src} alt={emotions[emotion].alt} />
-          {hasHabit && <div className="count">{habitsCount}</div>}
-        </Wrapper>
-      </AnimatePresence>
-    );
-  }
-  if (!visible && hasHabit) {
-    return (
-      <AnimatePresence>
-        <Wrapper
-          key={cellDateString}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-        >
-          <Image src={emptyIcon} alt="no emotion" />
-          {hasHabit && <div className="count">{habitsCount}</div>}
-        </Wrapper>
-      </AnimatePresence>
-    );
-  }
-  return (<span className="date">{date}</span>);
+  return <AnimatePresence mode="wait">
+    {visible && <Wrapper
+      key={cellDateString}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: 'easeInOut' }}
+    >
+      <Image src={emotions[emotion].src} alt={emotions[emotion].alt} />
+      {hasHabit && <div className="count">{habitsCount}</div>}
+    </Wrapper>}
+    {!visible && hasHabit && <Wrapper
+      key={cellDateString}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: 'easeInOut' }}
+    >
+      <Image src={emptyIcon} alt="no emotion" />
+      {hasHabit && <Wrapper
+        key={cellDateString}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}><div className="count">{habitsCount}</div>
+      </Wrapper>}
+    </Wrapper>}
+    {!visible && !hasHabit && <span className="date">{date}</span>}
+  </AnimatePresence>
 };
 
 
 const Wrapper = styled(motion.div)`
   position: relative; 
   width: 80%;
+
+  display : flex;
+  justify-content: center;
+  align-items: center;
 
   & > img {
     width: 100%; 
