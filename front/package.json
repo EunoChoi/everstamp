@@ -50,9 +50,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "pnpm": {
-    "overrides": {
-      "oauth4webapi": "npm:@jacobkim/oauth4webapi@^2.10.4"
-    }
+  "overrides": {
+    "oauth4webapi": "npm:@jacobkim/oauth4webapi@^2.10.4"
   }
 }
