@@ -1,6 +1,6 @@
 'use client';
 
-import { HydrationBoundary } from "@tanstack/react-query";
+import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import StyledComponentsRegistry from "../../../lib/registry";
@@ -12,7 +12,7 @@ import CustomSnackbarProvider from "./snackBar/CustomSnackbarProvider";
 
 interface AppProvidersProps {
   children: ReactNode;
-  dehydratedState?: unknown;
+  dehydratedState?: DehydratedState | null;
 }
 
 export const AppProviders = ({ children, dehydratedState }: AppProvidersProps) => {
