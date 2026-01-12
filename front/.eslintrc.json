@@ -1,6 +1,10 @@
 {
+  "root": true,
   "extends": [
-    "next",
     "next/core-web-vitals"
+  ],
+  "ignorePatterns": [
+    "*.mjs",
+    "next.config.mjs"
   ]
 }
