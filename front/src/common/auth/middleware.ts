@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   if (!session) {
     console.log('need login, redirect to login page');
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_FRONT_URL}/app`);
+    return NextResponse.redirect(`http://${process.env.NEXT_PUBLIC_DOMAIN}:${process.env.NEXT_PUBLIC_FRONT_PORT}/app`);
   }
 }
 

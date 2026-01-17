@@ -34,8 +34,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (result === true) {
             const accessToken = res.data.accessToken;
             const refreshToken = res.data.refreshToken;
-            cookies().set('accessToken', accessToken, { sameSite: 'lax', domain: `${process.env.NEXT_PUBLIC_DOMAIN}`, maxAge: 7 * 24 * 60 * 60 });
-            cookies().set('refreshToken', refreshToken, { sameSite: 'lax', domain: `${process.env.NEXT_PUBLIC_DOMAIN}`, maxAge: 7 * 24 * 60 * 60 });
+            cookies().set('accessToken', accessToken, { sameSite: 'lax', domain: `.${process.env.NEXT_PUBLIC_DOMAIN}`, maxAge: 7 * 24 * 60 * 60 });
+            cookies().set('refreshToken', refreshToken, { sameSite: 'lax', domain: `.${process.env.NEXT_PUBLIC_DOMAIN}`, maxAge: 7 * 24 * 60 * 60 });
             return true;
           }
           else return `/unauthorized?message=${encodeURI(message)}`;

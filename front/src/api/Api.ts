@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = process.env.NEXT_PUBLIC_BACK_URL;
+const baseURL = `http://${process.env.NEXT_PUBLIC_DOMAIN}:${process.env.NEXT_PUBLIC_BACK_PORT}`;
 
 const api = axios.create({
   baseURL,
