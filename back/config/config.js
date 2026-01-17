@@ -3,7 +3,7 @@ dotenv.config();
 
 module.exports = {
   "development": {
-    "username": "root",
+    "username": process.env.DBUSER,
     "password": process.env.DBPW,
     "database": "everstamp",
     "host": "127.0.0.1",
@@ -12,7 +12,7 @@ module.exports = {
     "timezone": "+09:00"
   },
   "test": {
-    "username": "root",
+    "username": process.env.DBUSER,
     "password": process.env.DBPW,
     "database": "everstamp",
     "host": "127.0.0.1",
@@ -21,7 +21,7 @@ module.exports = {
     "timezone": "+09:00"
   },
   "production": {
-    "username": "root",
+    "username": process.env.DBUSER,
     "password": process.env.DBPW,
     "database": "everstamp",
     "host": "127.0.0.1",
