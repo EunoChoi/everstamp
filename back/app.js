@@ -60,8 +60,8 @@ app.get("/", (req, res) => {
   res.status(200).json("server 실행중");
 });
 
-app.listen(4000, () => {
+app.listen(process.env.BACK_PORT, () => {
   console.log(
-    `app is listening on 4000 port`
+    `app is listening on ${process.env.BACK_PORT} port`
   );
 });
