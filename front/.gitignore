@@ -1,4 +1,9 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# PWA 관련 파일 (깃허브에 올리지 마!)
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+public/worker-*.js
 
 # dependencies
 /node_modules
