@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const baseURL = `http://${process.env.NEXT_PUBLIC_DOMAIN}:${process.env.NEXT_PUBLIC_BACK_PORT}`;
+const baseURL = `${process.env.NEXT_PUBLIC_DOMAIN}/api`;
 
 const api = axios.create({
   baseURL,
   responseType: "json",
-  withCredentials: true, //쿠키를 첨부해서 요청
-  timeout: 15000 //15000ms
+  withCredentials: true,
+  timeout: 15000
 });
 
 api.interceptors.request.use(
