@@ -2,7 +2,6 @@
 const express = require("express");
 const { subDays, startOfMonth, endOfMonth, getYear } = require("date-fns");
 const db = require("../models/index.js");
-const { promise } = require("bcrypt/promises.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
 const Op = db.Sequelize.Op;
 const sequelize = db.Sequelize;
