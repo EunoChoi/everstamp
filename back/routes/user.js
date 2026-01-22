@@ -1,7 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt")
 const db = require("../models/index.js");
-const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const tokenCheck = require("../middleware/tokenCheck.js");
 
