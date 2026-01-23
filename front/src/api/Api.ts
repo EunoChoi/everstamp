@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = `http://${process.env.NEXT_PUBLIC_DOMAIN}`;
+const baseURL = `https://${process.env.NEXT_PUBLIC_DOMAIN}`;
 
 const api = axios.create({
   baseURL,
