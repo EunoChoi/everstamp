@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import { getHabitById, getSingleHabitMonthInfo } from "@/common/fetchers/habit";
+import { getHabitById, getHabitMonthlyStatus } from "@/common/fetchers/habit";
 
 import { format } from 'date-fns';
 import { notFound, useRouter } from "next/navigation";
@@ -40,8 +40,8 @@ const HabitInfoView = ({ habitId }: Props) => {
     enabled: habitId !== null
   });
   const { data: singleHabitMonthlyData } = useQuery({
-    queryKey: ['habit', 'id', habitId, 'month', format(calendarDate, 'MM')],
-    queryFn: () => getSingleHabitMonthInfo({ id: habitId, date: calendarDate }),
+    queryKey: ['habit', 'id', habitId, 'month', format(calendarDate, 'yyyy-MM')],
+    queryFn: () => getHabitMonthlyStatus({ id: habitId, month: format(calendarDate, 'yyyy-MM') }),
     select: (data) => {
       const singleHabitMonthlyData: { [key: string]: boolean } = {};
       data?.forEach((e: any) => {
