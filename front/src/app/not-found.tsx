@@ -1,41 +1,55 @@
-'use client'
-
 import Image from "next/image";
-import styled from "styled-components";
 import emotion1 from '/public/img/emotion/emotion1.png';
 
+// 404 페이지 (inline style 사용 - 새로고침 시 스타일 깨짐 방지)
 export default function NotFound() {
   return (
-    <Wrapper>
+    <div
+      style={{
+        color: 'rgb(88, 88, 88)',
+        width: '100%',
+        height: '100dvh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#EFF0F6',
+      }}
+    >
       <Image priority src={emotion1} alt="sad" width={128} height={128} />
-      <span className="title">404 Error</span>
-      <p>요청하신 페이지를 찾을 수 없습니다.</p>
-    </Wrapper>
+      <span
+        style={{
+          fontSize: '36px',
+          margin: '32px 0 16px',
+        }}
+      >
+        404 Error
+      </span>
+      <p
+        style={{
+          width: '80%',
+          fontSize: '18px',
+          color: '#525252',
+          textAlign: 'center',
+          margin: 0,
+        }}
+      >
+        요청하신 페이지를 찾을 수 없습니다.
+      </p>
+      <a
+        href="/app"
+        style={{
+          marginTop: '24px',
+          padding: '10px 24px',
+          fontSize: '16px',
+          borderRadius: '24px',
+          backgroundColor: 'rgb(88, 88, 88)',
+          color: 'white',
+          textDecoration: 'none',
+        }}
+      >
+        홈으로
+      </a>
+    </div>
   );
 }
-
-const Wrapper = styled.div`
-  color: #3f3f3f;
-  width: 100%;
-  height: 95dvh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
-  .icon{
-    font-size: 96px;
-  }
-  .title{
-    font-size: 36px;
-    /* font-weight: 500; */
-    margin: 32px 0;
-  }
-  p{
-    width: 80%;
-    font-size: 18px;
-    color: #525252;
-    text-align: center;
-  }
-`
