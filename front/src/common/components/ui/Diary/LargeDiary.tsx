@@ -1,7 +1,7 @@
 'use client';
 
+import { format } from "date-fns";
 import styled from "styled-components";
-
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -40,7 +40,7 @@ interface Props {
 
 const LargeDiary = ({ diaryData }: Props) => {
   let defaultHeight = '100%';
-  const date = new Date(diaryData.date).getTime();
+  const date = format(new Date(diaryData.date), 'yyyy-MM-dd');
   const images = diaryData.Images;
   const router = useRouter();
 

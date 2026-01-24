@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 //function
 import { getCurrentUser } from "@/common/fetchers/user";
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
+import { getTodayString } from "@/common/functions/getTodayString";
 
 
 //images
@@ -38,7 +38,7 @@ const Page = () => {
   })
 
   const start = () => {
-    router.push(`/app/calendar?date=${getCleanTodayTime()}`);
+    router.push(`/app/calendar?date=${getTodayString()}`);
   }
   const logout = () => {
     Api.get('user/logout').then(() => {

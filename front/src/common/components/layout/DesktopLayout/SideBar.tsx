@@ -1,4 +1,4 @@
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
+import { getTodayString } from "@/common/functions/getTodayString";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
@@ -23,7 +23,7 @@ const SideBar = () => {
         <HomeIcon className="icon" />
         <span>home</span>
       </Menu>
-      <Menu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}>
+      <Menu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}>
         <CalendarMonthIcon className="icon" />
         <span>calendar</span>
       </Menu>
