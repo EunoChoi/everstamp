@@ -1,8 +1,9 @@
 
 const express = require("express");
-const { subDays, startOfMonth, endOfMonth, getYear } = require("date-fns");
+const { subDays, startOfMonth, endOfMonth } = require("date-fns");
 const db = require("../models/index.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
+const { parseDate, parseMonth, parseYear } = require('../function/parseDate.js');
 const Op = db.Sequelize.Op;
 const sequelize = db.Sequelize;
 const router = express.Router();
@@ -129,12 +130,12 @@ router.get("/list", tokenCheck, async (req, res) => {
 //load recent habit status
 router.get("/recent", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/recent -----');
-  const { id, date } = req.query;
+  const { id, date } = req.query; // date: 'yyyy-MM-dd' string
   const email = req.currentUserEmail;
   try {
 
     const result = [];
-    const d = new Date(Number(date))
+    const d = parseDate(date);
     const recentDate = [d,
       subDays(d, 1),
       subDays(d, 2),
@@ -164,10 +165,10 @@ router.get("/recent", tokenCheck, async (req, res) => {
 //load month habit status
 router.get("/month", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/month -----');
-  const { date } = req.query;
+  const { month } = req.query; // month: 'yyyy-MM' string
   const email = req.currentUserEmail;
   try {
-    const current = new Date(Number(date));
+    const current = parseMonth(month);
     const monthStart = startOfMonth(current);
     const monthEnd = endOfMonth(current);
 
@@ -195,10 +196,10 @@ router.get("/month", tokenCheck, async (req, res) => {
 //load month single habit status
 router.get("/month/single", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/month/single -----');
-  const { id, date } = req.query;
+  const { id, month } = req.query; // month: 'yyyy-MM' string
   const email = req.currentUserEmail;
   try {
-    const current = new Date(Number(date));
+    const current = parseMonth(month);
     const monthStart = startOfMonth(current);
     const monthEnd = endOfMonth(current);
 
@@ -227,14 +228,14 @@ router.get("/month/single", tokenCheck, async (req, res) => {
 //load year single habit status
 router.get("/year/single", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /habit/year/single -----');
-  const { id, date } = req.query;
+  const { id, year: yearParam } = req.query; // year: 'yyyy' string
   const email = req.currentUserEmail;
 
-  // console.log(id, date, email);
+  // console.log(id, yearParam, email);
 
   try {
     const result = [];
-    const year = getYear(Number(date));
+    const year = parseYear(yearParam);
     // console.log('year : ', year);
     const months = [];
     for (let i = 0; i < 12; i++) months.push(new Date(year, i + 1, 0));
@@ -394,8 +395,9 @@ router.delete("/", tokenCheck, async (req, res) => {
 //post - habit/check
 router.post("/check", tokenCheck, async (req, res) => {
   try {
-    const { habitId, date } = req.body;
+    const { habitId, date } = req.body; // date: 'yyyy-MM-dd' string
     const email = req.currentUserEmail;
+    const dateObj = parseDate(date);
 
     //유저 존재 확인
     const user = await User.findOne({
@@ -414,14 +416,14 @@ router.post("/check", tokenCheck, async (req, res) => {
     let [diary, created] = await Diary.findOrCreate({
       where: {
         email,
-        date: new Date(Number(date))
+        date: dateObj
       },
       defaults: {
         visible: false,
         UserId: user.id,
         email,
         emotion: 0,
-        date,
+        date: dateObj,
         text: '-',
       }
     });
@@ -435,8 +437,9 @@ router.post("/check", tokenCheck, async (req, res) => {
 //delete - babit/check
 router.delete("/check", tokenCheck, async (req, res) => {
   try {
-    const { habitId, date } = req.body;
+    const { habitId, date } = req.body; // date: 'yyyy-MM-dd' string
     const email = req.currentUserEmail;
+    const dateObj = parseDate(date);
 
     //유저 존재 확인
     const user = await User.findOne({
@@ -455,7 +458,7 @@ router.delete("/check", tokenCheck, async (req, res) => {
     const diary = await Diary.findOne({
       where: [{
         email,
-        date: new Date(Number(date))
+        date: dateObj
       }],
     });
     diary.removeHabit(habit);

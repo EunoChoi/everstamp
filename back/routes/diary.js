@@ -11,6 +11,7 @@ const tokenCheck = require("../middleware/tokenCheck.js");
 
 const encrypt = require('../function/encrypt.js');
 const decrypt = require('../function/decrypt.js');
+const { parseDate } = require('../function/parseDate.js');
 
 //model load
 const User = db.User;
@@ -24,6 +25,9 @@ router.post("/", tokenCheck, async (req, res) => {
   console.log('----- method : post, url : /diary -----');
   let { date, text, images, emotion } = req.body;
   const email = req.currentUserEmail;
+
+  // date: 'yyyy-MM-dd' string → Date 객체로 변환
+  const dateObj = parseDate(date);
 
   //encrypto text
   text = encrypt(text, process.env.DATA_SECRET_KEY);
@@ -39,7 +43,7 @@ router.post("/", tokenCheck, async (req, res) => {
 
       // 기존 일기 존재 확인
       const existingDiary = await Diary.findOne({
-        where: { email, date },
+        where: { email, date: dateObj },
         transaction: t
       });
 
@@ -62,7 +66,7 @@ router.post("/", tokenCheck, async (req, res) => {
           UserId: user.id,
           email,
           emotion,
-          date,
+          date: dateObj,
           text,
         }, { transaction: t });
       }
@@ -311,15 +315,16 @@ router.get("/list", tokenCheck, async (req, res) => {
 router.get("/calendar", tokenCheck, async (req, res) => {
 
   console.log('----- method : get, url :  /diary/calendar -----');
-  const { date } = req.query;
+  const { date } = req.query; // 'yyyy-MM-dd' string
   const email = req.currentUserEmail;
 
   try {
+    const dateObj = parseDate(date);
     const diary = await Diary.findOne({
       where: [{
         email,
         // visible: true,
-        date: new Date(Number(date))
+        date: dateObj
       }],
       include: [{
         model: Image,//이미지
