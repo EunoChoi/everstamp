@@ -14,11 +14,12 @@ const withPWA = nextPWA({
 const nextConfig = {
   swcMinify: true,
   images: {
-    domains: ['everstamp.s3.ap-northeast-2.amazonaws.com']
+    domains: [
+      'axajzftmwrmj.compat.objectstorage.ap-chuncheon-1.oraclecloud.com',
+    ],
   },
   compiler: {
     styledComponents: true,
   },
 };
-
 export default withPWA(nextConfig);
