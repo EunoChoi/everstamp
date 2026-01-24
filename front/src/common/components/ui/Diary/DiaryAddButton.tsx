@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 
 interface Props {
-  date: number;
+  date: string; // 'yyyy-MM-dd'
   height: string;
 }
 

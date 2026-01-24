@@ -9,7 +9,7 @@ interface Err {
 }
 interface CheckHabitProps {
   habitId: number;
-  date: number;
+  date: string; // 'yyyy-MM-dd'
 }
 
 

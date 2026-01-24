@@ -3,8 +3,8 @@
 import styled from "styled-components";
 
 
-import { getSingleHabitFourDayInfo } from "@/common/fetchers/habit";
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
+import { getHabitRecentStatus } from "@/common/fetchers/habit";
+import { getTodayString } from "@/common/functions/getTodayString";
 import { useQuery } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
 import { ChangeEvent } from "react";
@@ -30,14 +30,14 @@ const HabitBox = ({ name, id, priority }: Props) => {
   const router = useRouter();
   const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
 
-  const currentCleanDateTime = getCleanTodayTime()
+  const todayString = getTodayString(); // 'yyyy-MM-dd'
   const currentDate = new Date();
   let recentDateArray = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
   recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
 
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
-    queryFn: () => getSingleHabitFourDayInfo({ id, date: currentCleanDateTime }),
+    queryFn: () => getHabitRecentStatus({ id, date: todayString }),
   });
 
   const onDeleteHabit = () => {
@@ -53,12 +53,12 @@ const HabitBox = ({ name, id, priority }: Props) => {
     );
     enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
   }
-  const habitToggle = (e: ChangeEvent<HTMLInputElement>, date: number) => {
+  const habitToggle = (e: ChangeEvent<HTMLInputElement>, dateString: string) => {
     if (e.currentTarget.checked === true) {
-      checkHabit.mutate({ habitId: id, date });
+      checkHabit.mutate({ habitId: id, date: dateString });
     }
     else {
-      uncheckHabit.mutate({ habitId: id, date });
+      uncheckHabit.mutate({ habitId: id, date: dateString });
     }
   }
 
@@ -76,7 +76,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
               type="checkbox"
               checked={(recentDateStatus && recentDateStatus[i]) || ""}
               onChange={(e) => {
-                habitToggle(e, date.getTime());
+                habitToggle(e, format(date, 'yyyy-MM-dd'));
               }} />
             <div className="checkmark"><div></div></div>
           </label>
