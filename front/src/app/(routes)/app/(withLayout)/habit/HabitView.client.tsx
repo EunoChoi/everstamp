@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { getHabits } from "@/common/fetchers/habit";
+import { getHabitList } from "@/common/fetchers/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import AddIcon from '@mui/icons-material/Add';
 import { useQuery } from "@tanstack/react-query";
@@ -44,7 +44,7 @@ const HabitView = () => {
 
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', toggleValue],
-    queryFn: () => getHabits({ sort: toggleValue, customOrder }),
+    queryFn: () => getHabitList({ sort: toggleValue, customOrder }),
   });
 
   const onAddHabit = () => {

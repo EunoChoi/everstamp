@@ -1,4 +1,4 @@
-import { getDiariesAtList } from "@/common/fetchers/diary";
+import { getDiaryList } from "@/common/fetchers/diary";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import ListView from "./ListView.client";
 
@@ -12,7 +12,7 @@ const ListPage = async () => {
   for (let i = 0; i <= 5; i++) {
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'momth', 0],
-      queryFn: ({ pageParam }) => getDiariesAtList({
+      queryFn: ({ pageParam }) => getDiaryList({
         sort: 'ASC',
         search: i,
         pageParam,
@@ -24,7 +24,7 @@ const ListPage = async () => {
     })
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'momth', 0],
-      queryFn: ({ pageParam }) => getDiariesAtList({
+      queryFn: ({ pageParam }) => getDiaryList({
         sort: 'DESC',
         search: i,
         pageParam,

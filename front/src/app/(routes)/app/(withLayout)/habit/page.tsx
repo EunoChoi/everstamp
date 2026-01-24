@@ -1,4 +1,4 @@
-import { getHabits } from "@/common/fetchers/habit";
+import { getHabitList } from "@/common/fetchers/habit";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import HabitView from "./HabitView.client";
 
@@ -15,11 +15,11 @@ const HabitPage = async ({ searchParams }: Props) => {
 
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'list', 'ASC'],
-    queryFn: () => getHabits({ sort: 'ASC' }),
+    queryFn: () => getHabitList({ sort: 'ASC' }),
   })
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'list', 'DESC'],
-    queryFn: () => getHabits({ sort: 'DESC' }),
+    queryFn: () => getHabitList({ sort: 'DESC' }),
   })
 
   const dehydratedState = dehydrate(queryClient)

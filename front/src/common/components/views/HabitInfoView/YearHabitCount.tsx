@@ -1,4 +1,4 @@
-import { getSingleHabitYearInfo } from "@/common/fetchers/habit";
+import { getHabitYearlyStatus } from "@/common/fetchers/habit";
 import { useQuery } from "@tanstack/react-query";
 import { format, isLeapYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
@@ -15,7 +15,7 @@ const YearHabitCount = ({ displayDate, habitName }: Props) => {
 
   const { data } = useQuery({
     queryKey: ['habit', 'id', habitId, 'year', format(displayDate, 'yyyy')],
-    queryFn: () => getSingleHabitYearInfo({ id: habitId, date: displayDate }),
+    queryFn: () => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') }),
   });
 
   const year = format(displayDate, 'yyyy');

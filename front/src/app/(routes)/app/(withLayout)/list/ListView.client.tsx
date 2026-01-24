@@ -10,7 +10,7 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { getDiariesAtList } from "@/common/fetchers/diary";
+import { getDiaryList } from "@/common/fetchers/diary";
 import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -40,7 +40,7 @@ const ListView = () => {
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'momth', selectedMonth],
-    queryFn: ({ pageParam }) => getDiariesAtList({
+    queryFn: ({ pageParam }) => getDiaryList({
       sort: toggleValue,
       search: emotionToggle,
       pageParam,

@@ -5,7 +5,7 @@ interface IdProps {
 }
 
 interface DateProps {
-  date: number;
+  date: string; // 'yyyy-MM-dd'
 }
 
 interface ListProps {
@@ -38,12 +38,12 @@ export async function getDiaryByDate({ date }: DateProps) {
   }
 }
 
-export async function getDiariesAtList({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
+export async function getDiaryList({ sort, search, pageParam, limit, selectedMonth, selectedYear }: ListProps) {
   try {
     const { data } = await Api.get(`/diary/list?search=${search}&sort=${sort}&pageParam=${pageParam}&limit=${limit}&selectedMonth=${selectedMonth}&selectedYear=${selectedYear}`)
     return data;
   } catch (e: any) {
     console.error(e.response.data);
-    throw new Error('Failed to fetch diaries(list) data!!');
+    throw new Error('Failed to fetch diary list data!!');
   }
 }

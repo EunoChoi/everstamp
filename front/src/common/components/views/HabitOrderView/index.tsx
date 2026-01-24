@@ -1,6 +1,6 @@
 'use client';
 
-import { getHabits } from '@/common/fetchers/habit';
+import { getHabitList } from '@/common/fetchers/habit';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ export const HabitOrderView = () => {
   //custom habits data load
   const { data: customHabits } = useQuery({
     queryKey: ['habits', 'list', 'CUSTOM'],
-    queryFn: () => getHabits({ sort: 'CUSTOM', customOrder }),
+    queryFn: () => getHabitList({ sort: 'CUSTOM', customOrder }),
   });
 
   const [tempHabits, setTempHabits] = useState<Habit[]>([]);

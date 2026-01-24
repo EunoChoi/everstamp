@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { getSingleHabitYearInfo } from "@/common/fetchers/habit";
+import { getHabitYearlyStatus } from "@/common/fetchers/habit";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useQuery } from "@tanstack/react-query";
@@ -19,7 +19,7 @@ const YearHabitChart = ({ setDisplayDate, displayDate }: Props) => {
 
   const { data } = useQuery({
     queryKey: ['habit', 'id', habitId, 'year', format(displayDate, 'yyyy')],
-    queryFn: () => getSingleHabitYearInfo({ id: habitId, date: displayDate }),
+    queryFn: () => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') }),
   });
   const year = format(displayDate, 'yyyy');
 
