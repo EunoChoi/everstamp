@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 
+  새로고침 시 스타일 깨짐 방지 (FOUC)
+  - hydration 전까지 body 숨김
+  - registry.tsx에서 hydrated 클래스 추가함
+*/
+html:not(.hydrated) body {
+  visibility: hidden;
+}
+
+html.hydrated body {
+  visibility: visible;
+}
+
+/* 혹시 hydration 안되면 2초 후 강제로 보여줌 */
+@keyframes showBody {
+  to {
+    visibility: visible;
+  }
+}
+
+html:not(.hydrated) body {
+  animation: showBody 0s 2s forwards;
+}
+
 :root {
   --font-size-base: 16px;
   --whitesmoke: 245, 245, 245;
