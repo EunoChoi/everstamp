@@ -1,8 +1,7 @@
 'use client';
 
+import { format } from "date-fns";
 import styled from "styled-components";
-
-
 
 import DiaryAddButton from "./DiaryAddButton";
 import DiaryHabits from "./DiaryHabits";
@@ -37,7 +36,7 @@ interface Props {
 }
 
 const SmallDiary = ({ diaryData }: Props) => {
-  const date = new Date(diaryData.date).getTime();
+  const date = format(new Date(diaryData.date), 'yyyy-MM-dd');
   let defaultHeight = '100px';
 
   return (

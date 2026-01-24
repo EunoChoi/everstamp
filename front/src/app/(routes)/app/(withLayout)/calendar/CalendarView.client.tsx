@@ -15,15 +15,15 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
-import { getAllHabitsMonthInfo } from "@/common/fetchers/habit";
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
+import { getMonthlyHabitsStatus } from "@/common/fetchers/habit";
+import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useRouter } from "next/navigation";
 import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
 
 
 interface CalendarViewProps {
-  date: number;
+  date: string; // 'yyyy-MM-dd'
 }
 interface MonthHabitsType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
@@ -37,13 +37,13 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
   //get date diary data
   const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'calendar', format(date, 'yyMMdd')],
+    queryKey: ['diary', 'calendar', date], // date는 이미 'yyyy-MM-dd' string
     queryFn: () => getDiaryByDate({ date }),
   });
 
   const { data: monthHabits } = useQuery({
-    queryKey: ['habit', 'month', format(displayDate, 'MM')],
-    queryFn: () => getAllHabitsMonthInfo({ date: displayDate }),
+    queryKey: ['habit', 'month', format(displayDate, 'yyyy-MM')],
+    queryFn: () => getMonthlyHabitsStatus({ month: format(displayDate, 'yyyy-MM') }),
     select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
       const monthHabits: MonthHabitsType = {};
       data.forEach((e: any) => {
@@ -54,10 +54,10 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   });
 
   const onClickMonthTitle = () => {
-    router.push(`/app/calendar?date=${getCleanTodayTime()}`);
+    router.push(`/app/calendar?date=${getTodayString()}`);
   }
   const onClickDate = useCallback((date: Date) => {
-    router.push(`calendar?date=${date.getTime()}`);
+    router.push(`calendar?date=${format(date, 'yyyy-MM-dd')}`);
   }, []);
 
   return (

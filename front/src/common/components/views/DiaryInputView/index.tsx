@@ -21,12 +21,18 @@ interface DiaryInputProps {
 }
 interface DiaryProps {
   id: string;
-  date: Date;
+  date: Date; // 서버에서 오는 데이터는 Date 타입
   text: string;
   emotion: number;
   Images: Array<any>;
   diaryId: string | null;
   visible?: boolean;
+}
+
+// 'yyyy-MM-dd' string을 Date로 변환
+function parseLocalDate(dateString: string): Date {
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(year, month - 1, day);
 }
 interface ServerImageProps {
   id: string;
@@ -51,9 +57,17 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     enabled: diaryId !== null && isEdit === true
   });
 
-  //add에선 url 쿼리 파라미터로 edit에선 불러온 diary 데이터로 date 값을 가져오다.
-  const date = diaryData?.date ?? new Date(Number(param.get('date')));
-  const headerTitle = format(date, 'yyyy.M.dd (eee)');
+  //add에선 url 쿼리 파라미터로 edit에선 불러온 diary 데이터로 date 값을 가져온다.
+  // 새 일기: URL에서 'yyyy-MM-dd' string 가져옴
+  // 수정: diaryData.date (서버 Date) → string 변환
+  const dateFromParam = param.get('date'); // 'yyyy-MM-dd' string
+  const date: string = diaryData?.date 
+    ? format(diaryData.date, 'yyyy-MM-dd') 
+    : (dateFromParam || format(new Date(), 'yyyy-MM-dd'));
+  
+  // 헤더 타이틀용 Date (표시 목적)
+  const dateForDisplay = diaryData?.date ?? parseLocalDate(date);
+  const headerTitle = format(dateForDisplay, 'yyyy.M.dd (eee)');
 
   const [text, setText] = useState<string>(diaryData?.text ?? "");
   const [images, setImages] = useState<Array<string>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);

@@ -1,6 +1,6 @@
 'use client'
 
-import { getCleanTodayTime } from "@/common/functions/getCleanTodayTime";
+import { getTodayString } from "@/common/functions/getTodayString";
 import { useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
@@ -28,7 +28,7 @@ const MobileLayout = ({ modal, children }: Props) => {
       {children}
       <Mobile_Nav>
         <Logo><span>everstamp</span></Logo>
-        <NavMenu onClick={() => router.push(`/app/calendar?date=${getCleanTodayTime()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
+        <NavMenu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" fontSize="small" /> <span>habit</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" fontSize="small" /> <span>setting</span></NavMenu>

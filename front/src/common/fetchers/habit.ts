@@ -1,18 +1,26 @@
 import Api from "@/api/Api";
 
-interface IdProps {
+interface IdParams {
   id: string | null | undefined;
 }
-interface ListProps {
+interface ListParams {
   sort: string;
   customOrder?: number[];
 }
-interface RecentProps {
+interface HabitDateParams {
   id: number;
-  date: number;
+  date: string; // 'yyyy-MM-dd'
 }
-interface MonthProps {
-  date: Date;
+interface MonthParams {
+  month: string; // 'yyyy-MM'
+}
+interface HabitMonthParams {
+  id: string | null;
+  month: string; // 'yyyy-MM'
+}
+interface HabitYearParams {
+  id: string | null;
+  year: string; // 'yyyy'
 }
 
 export async function getTodayHabitStat() {
@@ -26,7 +34,7 @@ export async function getTodayHabitStat() {
   }
 }
 
-export async function getHabitById({ id }: IdProps) {
+export async function getHabitById({ id }: IdParams) {
   try {
     const { data } = await Api.get(`habit?id=${id}`);
     return data;
@@ -37,7 +45,7 @@ export async function getHabitById({ id }: IdProps) {
   }
 }
 
-export async function getHabits({ sort, customOrder }: ListProps) {
+export async function getHabitList({ sort, customOrder }: ListParams) {
   try {
     const params = {
       sort,
@@ -47,46 +55,46 @@ export async function getHabits({ sort, customOrder }: ListProps) {
     return data;
   } catch (e: any) {
     console.error(e.response.data);
-    throw new Error('Failed to get habits(list) data!!');
+    throw new Error('Failed to get habit list data!!');
   }
 }
 
-export async function getSingleHabitFourDayInfo({ id, date }: RecentProps) {
+export async function getHabitRecentStatus({ id, date }: HabitDateParams) {
   try {
     const { data } = await Api.get(`/habit/recent?id=${id}&date=${date}`);
     return data;
   } catch (e: any) {
     console.error(e.response.data);
-    throw new Error('Failed to get habits(4day) data!!');
-  }
-
-}
-export async function getAllHabitsMonthInfo({ date }: MonthProps) {
-  try {
-    const { data } = await Api.get(`/habit/month?date=${date.getTime()}`);
-    return data;
-  } catch (e: any) {
-    console.error(e.response.data);
-    throw new Error('Failed to get habits(all month) data!!');
+    throw new Error('Failed to get habit recent status!!');
   }
 }
 
-export async function getSingleHabitMonthInfo({ id, date }: { id: string | null, date: Date }) {
+export async function getMonthlyHabitsStatus({ month }: MonthParams) {
   try {
-    const { data } = await Api.get(`/habit/month/single?id=${id}&date=${date.getTime()}`);
+    const { data } = await Api.get(`/habit/month?month=${month}`);
     return data;
   } catch (e: any) {
     console.error(e.response.data);
-    throw new Error('Failed to get habits(info month) data!!');
+    throw new Error('Failed to get monthly habits status!!');
   }
 }
 
-export async function getSingleHabitYearInfo({ id, date }: { id: string | null, date: Date }) {
+export async function getHabitMonthlyStatus({ id, month }: HabitMonthParams) {
   try {
-    const { data } = await Api.get(`/habit/year/single?id=${id}&date=${date.getTime()}`);
+    const { data } = await Api.get(`/habit/month/single?id=${id}&month=${month}`);
     return data;
   } catch (e: any) {
     console.error(e.response.data);
-    throw new Error('Failed to get habits(info year) data!!');
+    throw new Error('Failed to get habit monthly status!!');
+  }
+}
+
+export async function getHabitYearlyStatus({ id, year }: HabitYearParams) {
+  try {
+    const { data } = await Api.get(`/habit/year/single?id=${id}&year=${year}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get habit yearly status!!');
   }
 }
