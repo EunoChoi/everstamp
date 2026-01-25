@@ -7,6 +7,7 @@ import styled from "styled-components";
 
 //function
 import { getDiaryByDate } from "@/common/fetchers/diary";
+import { createEmptyDiary } from "@/common/types/diary";
 
 //styledComponent
 
@@ -77,7 +78,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           onClickMonthTitle={onClickMonthTitle}
           onClickDate={onClickDate}
         />
-        <Diary type="small" diaryData={diaryData ? diaryData : { date: date }} />
+        <Diary type="small" diaryData={diaryData ?? createEmptyDiary(date)} />
       </CalendarContentWrapper>
     </PageWrapper>
   );

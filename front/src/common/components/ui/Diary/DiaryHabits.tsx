@@ -1,41 +1,42 @@
+import type { DiaryHabit } from '@/common/types/diary';
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
 interface Props {
-  habits: Array<HabitProps>;
-}
-interface HabitProps {
-  UserId: number;
-  id: number;
-  email: string;
-  name: string;
-  priority: number;
+  habits: DiaryHabit[];
 }
 
+// 완료한 습관 태그 목록
 const DiaryHabits = ({ habits }: Props) => {
   const router = useRouter();
+  const completedCount = habits?.length ?? 0;
+
+  const handleHabitClick = (habitId: number) => {
+    router.push(`/app/inter/habitInfo?id=${habitId}`, { scroll: false });
+  };
 
   return (
     <Habits>
       <Habit>
-        <span> {habits?.length ? habits?.length : 0}개 완료</span>
+        <span>{completedCount}개 완료</span>
       </Habit>
-      {habits?.map((habit: HabitProps, i: number) =>
+      {habits?.map((habit) => (
         <Habit
-          className={`${habit.priority ? 'priority' + habit.priority : ''}`}
-          onClick={() => router.push(`/app/inter/habitInfo?id=${habit.id}`, { scroll: false })}
-          key={habit.name + i}>
+          key={habit.id}
+          className={habit.priority ? `priority${habit.priority}` : ''}
+          onClick={() => handleHabitClick(habit.id)}
+        >
           <span>{habit.name}</span>
-        </Habit>)}
+        </Habit>
+      ))}
     </Habits>
   );
-}
+};
 
 export default DiaryHabits;
 
-
 const Habits = styled.div`
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
   scrollbar-width: none;
@@ -43,7 +44,7 @@ const Habits = styled.div`
 
   width: 100%;
   height: auto;
-  padding : 12px 14px;
+  padding: 14px;
   padding-top: 0;
   
   display: flex;
@@ -51,7 +52,7 @@ const Habits = styled.div`
   justify-content: start;
   gap: 8px;
 
-  overflow-x : scroll;
+  overflow-x: scroll;
   flex-wrap: nowrap;
 `
 const Habit = styled.span`
@@ -63,7 +64,7 @@ const Habit = styled.span`
   box-sizing: border-box;
   flex-shrink: 0;
 
-  padding : 2px 12px;
+  padding: 2px 12px;
   border-radius: 24px;
   line-height: 1.4;
   white-space: nowrap;
@@ -71,17 +72,14 @@ const Habit = styled.span`
   background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '70' : '#979FC7'};
   border: 2px solid rgba(0,0,0,0.07);
 
-  span{
+  span {
     font-size: 14px;
     font-weight: 500;
     color: rgb(var(--greyTitle));
     text-transform: capitalize;
   }
-  &:first-child{
+  &:first-child {
     border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 'a0' : '#979FC7'};
     background-color: white;
-    span{
-      /* font-weight: 600; */
-    }
   }
 `

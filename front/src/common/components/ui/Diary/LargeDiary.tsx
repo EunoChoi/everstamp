@@ -1,72 +1,53 @@
 'use client';
 
-import { format } from "date-fns";
-import styled from "styled-components";
-
+import type { DiaryData } from '@/common/types/diary';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import styled from "styled-components";
 import CommonCarousel from "../CommonCarousel";
-import DiaryAddButton from "./DiaryAddButton";
 import DiaryHabits from "./DiaryHabits";
 import DiaryHeader from "./DiaryHeader";
 
-
-
-interface ImageProps {
-  id: string;
-  src: string;
-}
-
-interface Habit {
-  UserId: number;
-  id: number;
-  email: string;
-  name: string;
-  priority: number;
-}
-
 interface Props {
-  diaryData: {
-    email: string;
-    id: number;
-    date: Date;
-    text: string;
-    emotion: number;
-    Images: Array<ImageProps>;
-    Habits: Array<Habit>;
-    visible: boolean;
-  };
+  diaryData: DiaryData;
 }
 
+// 리스트에서 사용하는 큰 일기 카드
 const LargeDiary = ({ diaryData }: Props) => {
-  let defaultHeight = '100%';
-  const date = format(new Date(diaryData.date), 'yyyy-MM-dd');
-  const images = diaryData.Images;
   const router = useRouter();
+  const { Images: images } = diaryData;
+  const hasImages = images.length >= 1;
+
+  const handleContentClick = () => {
+    router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false });
+  };
 
   return (
     <Wrapper>
-      <DiaryHeader diaryData={diaryData} type='large' />
-      {diaryData?.visible ?
-        <Content onClick={() => router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false })} >
-          {images.length >= 1 &&
-            <CommonCarousel height="300px" >
-              {images.map(img =>
-                <CarouselImage
-                  key={img.src}
-                  src={img.src}
-                  width={400} height={400}
-                  alt="images" />)}
-            </CommonCarousel>}
-          <Text className={images.length >= 1 ? 'hasImages' : ''}>
-            {diaryData.text}
-          </Text>
-        </Content> :
-        <DiaryAddButton date={date} height={defaultHeight} />
-      }
-      <DiaryHabits habits={diaryData?.Habits} />
-    </Wrapper >);
-}
+      <DiaryHeader diaryData={diaryData} type="large" />
+      <Content onClick={handleContentClick}>
+        {hasImages && (
+          <CommonCarousel height="300px">
+            {images.map((img) => (
+              <CarouselImage
+                key={img.id}
+                src={img.src}
+                width={400}
+                height={400}
+                alt="diary image"
+              />
+            ))}
+          </CommonCarousel>
+        )}
+        <Text className={hasImages ? 'hasImages' : ''}>
+          {diaryData.text}
+        </Text>
+      </Content>
+      <DiaryHabits habits={diaryData.Habits} />
+    </Wrapper>
+  );
+};
+
 export default LargeDiary;
 
 const Content = styled.div`
@@ -93,14 +74,13 @@ const Text = styled.div`
   padding: 0 16px;
   
   font-size: ${(props) => props.theme.fontSize ?? '15px'};
-  /* font-weight: 500; */
   line-height: 1.8;
   color: rgb(var(--greyTitle));
 
   &.hasImages{
     -webkit-line-clamp: 4;
   }
-  @media (max-width: 479px) { //mobile port
+  @media (max-width: 479px) {
     -webkit-line-clamp: 3;
     &.hasImages{
       -webkit-line-clamp: 3;
@@ -131,12 +111,11 @@ const Wrapper = styled.div`
   border-radius: 16px;
   background-color: white;
 
-  padding: 4px 0;
-  @media (max-width: 479px) { //mobile port
+  /* padding: 14px 14px; */
+  @media (max-width: 479px) {
     min-height: 200px;
-    padding: 2px 0;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1024px) {
     min-height: 300px;
   }
 `

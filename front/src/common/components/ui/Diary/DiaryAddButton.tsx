@@ -1,43 +1,45 @@
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
 import styled from "styled-components";
 
-
 interface Props {
   date: string; // 'yyyy-MM-dd'
-  height: string;
 }
 
-const DiaryAddButton = ({ date, height }: Props) => {
-
+const DiaryAddButton = ({ date }: Props) => {
   const router = useRouter();
-  const onAddDiary = () => {
-    router.push(`/app/inter/input/addDiary?date=${date}`, { scroll: false })
-  }
 
-  return (<Wrapper $height={height}>
-    <button onClick={onAddDiary}><AddCircleOutlinedIcon fontSize="inherit" /></button>
-  </Wrapper>);
-}
+  const onAddDiary = () => {
+    router.push(`/app/inter/input/addDiary?date=${date}`, { scroll: false });
+  };
+
+  return (
+    <Wrapper>
+      <AddButton onClick={onAddDiary}>
+        <span>새 일기 작성</span>
+        <AddIcon fontSize="inherit" />
+      </AddButton>
+    </Wrapper>
+  );
+};
 
 export default DiaryAddButton;
 
-const Wrapper = styled.div<{ $height: string }>`
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
 
   width: 100%;
-  height: ${props => props.$height};
-  border-radius: 8px;
+  height: 100%;
+`
 
-  button{
-    line-height: 0;
-    font-size: 40px;
-    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-    @media (min-width:1025px) { //desktop
-      font-size: 56px;
-    }
-  }
+const AddButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
 `

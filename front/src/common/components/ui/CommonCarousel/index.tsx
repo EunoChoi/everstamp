@@ -52,6 +52,8 @@ const Wrapper = styled.div<{ $height: string }>`
   height: 100%;
   height : ${props => props.$height};
 
+  padding: -14px;
+
   display: flex;
   flex-direction: column;
 `

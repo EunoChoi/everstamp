@@ -1,62 +1,65 @@
+import type { DiaryHeaderData } from '@/common/types/diary';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { format } from 'date-fns';
-import styled from 'styled-components';
-
-
 import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import DiaryMenus from './DiaryMenus';
 
 interface Props {
   type: 'small' | 'large';
-  diaryData: {
-    date: Date;
-    visible: boolean;
-    emotion: number;
-    text: string;
-    id: number;
-  }
+  diaryData: DiaryHeaderData;
 }
+
+const EMOTIONS = ['#Angry', '#Sad', '#Common', '#Happy', '#Joyful'] as const;
+
 const DiaryHeader = ({ diaryData, type }: Props) => {
-  const emotions = ['#Angry', '#Sad', '#Common', '#Happy', '#Joyful'];
-  const date = format(diaryData?.date, 'yy.MM.dd');
-  const day = format(diaryData?.date, 'eee');
-  const isVisible = diaryData?.visible;
+  const date = format(diaryData.date, 'yy.MM.dd');
+  const day = format(diaryData.date, 'eee');
 
-  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
-
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [wrapperHeight, setWrapperHeight] = useState<undefined | number>();
+  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>();
 
-  const onOpenMenu = () => {
-    setMenuOpen(c => !c);
-  }
+  const handleToggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
 
+  // 일기 변경시 메뉴 닫기
   useEffect(() => {
     setMenuOpen(false);
-  }, [diaryData])
+  }, [diaryData]);
+
   useEffect(() => {
     setWrapperHeight(wrapperRef.current?.offsetHeight);
-  }, [])
+  }, []);
 
-
-  return (<Wrapper ref={wrapperRef}>
-    <DateInfo className={type}>
-      <span className="date">{date}</span>
-      <span className="week">{day}</span>
-      <span className="emotion">{isVisible && emotions[diaryData?.emotion]}</span>
-    </DateInfo>
-    <Edit onClick={onOpenMenu} >
-      {diaryData.visible && <MoreVertIcon color="inherit" fontSize="inherit" />}
-    </Edit>
-    <DiaryMenus isMenuOpen={isMenuOpen} setMenuOpen={setMenuOpen} position={wrapperHeight} diaryData={diaryData} />
-  </Wrapper>);
-}
+  return (
+    <Wrapper ref={wrapperRef}>
+      <DateInfo className={type}>
+        <span className="date">{date}</span>
+        <span className="week">{day}</span>
+        <span className="emotion">
+          {diaryData.visible && EMOTIONS[diaryData.emotion]}
+        </span>
+      </DateInfo>
+      <Edit onClick={handleToggleMenu}>
+        {diaryData.visible && <MoreVertIcon color="inherit" fontSize="inherit" />}
+      </Edit>
+      <DiaryMenus
+        isMenuOpen={isMenuOpen}
+        setMenuOpen={setMenuOpen}
+        position={wrapperHeight}
+        diaryData={diaryData}
+      />
+    </Wrapper>
+  );
+};
 
 export default DiaryHeader;
 
 const Wrapper = styled.div`
   width: 100%;
-  padding : 12px 16px;
+  padding: 14px;
   padding-bottom: 0;
 
   display: flex;
@@ -69,17 +72,17 @@ const DateInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  span{
-    font-weight:500;
-    font-size : 20px;
+  span {
+    font-weight: 500;
+    font-size: 20px;
   }
-  .week{
+  .week {
     color: grey;
   }
-  .date{
+  .date {
     color: rgb(var(--greyTitle));
   }
-  .emotion{
+  .emotion {
     color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
 `
