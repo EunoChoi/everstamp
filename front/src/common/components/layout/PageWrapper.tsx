@@ -8,7 +8,7 @@ interface PageWrapperProps {
 }
 //React.forwardRef를 이용해서 ref 저달
 export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ children, className }, ref) => {
-  return <Wrapper ref={ref} className={className} >
+  return <Wrapper ref={ref} className={className} data-scroll-container>
     {children}
   </Wrapper>
 });

@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { useScroll } from "@/common/hooks/useScrollContext";
 
 interface Props {
   children?: ReactNode;
@@ -9,8 +10,10 @@ interface Props {
 }
 
 const TopButtons = ({ children, classname }: Props) => {
+  const { scrolled } = useScroll();
+
   return (
-    <Wrapper className={classname}>
+    <Wrapper className={`${classname || ''} ${scrolled ? 'scrolled' : ''}`}>
       {children}
     </Wrapper>
   );
@@ -33,10 +36,14 @@ const Wrapper = styled.div`
   left: 0;
   right: 0;
 
-  /* background-color: transparent; */
-  background-color: rgba(255,255,255,0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: transparent;
+  transition: background-color 0.2s, backdrop-filter 0.2s;
+
+  &.scrolled {
+    background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 
   @media (max-width: 479px) { //mobile port
     height: var(--mobileHeader);

@@ -7,6 +7,7 @@ import DesktopLayout from '@/common/components/layout/DesktopLayout';
 import MobileLayout from '@/common/components/layout/MobileLayout';
 import LoadingScreen from '@/common/components/ui/LoadingScreen';
 import { useProtectedRoute } from "@/common/hooks/useProtectedRoute";
+import { ScrollProvider } from "@/common/hooks/useScrollContext";
 
 interface Props {
   children: ReactNode;
@@ -35,10 +36,12 @@ const AppLayout = ({ children, modal }: Props) => {
   const Layout = isMobile ? MobileLayout : DesktopLayout;
   
   return (
-    <Layout>
-      {modal}
-      {children}
-    </Layout>
+    <ScrollProvider>
+      <Layout>
+        {modal}
+        {children}
+      </Layout>
+    </ScrollProvider>
   );
 }
 
