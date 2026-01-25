@@ -17,10 +17,10 @@ export const MobileSection = styled.div<{ $bg?: 'white' | 'theme' | 'themeDark' 
   justify-content: center;
   align-items: center;
 
-  background-color: ${({ $bg, theme }) => {
+  background-color: ${({ $bg }) => {
     if ($bg === 'white') return '#fff';
-    if ($bg === 'themeDark') return theme.themeColor ? theme.themeColor + '55' : '#979FC7';
-    return theme.themeColor ? theme.themeColor + '55' : '#EFF0F6';
+    if ($bg === 'themeDark') return '#8CADE255';
+    return '#8CADE233';
   }};
 
   width: 100%;
@@ -47,10 +47,10 @@ export const DesktopSection = styled.section<{ $bg?: 'white' | 'theme' | 'themeD
   justify-content: center;
   padding: 0 10dvw;
 
-  background-color: ${({ $bg, theme }) => {
+  background-color: ${({ $bg }) => {
     if ($bg === 'white') return '#fff';
-    if ($bg === 'themeDark') return theme.themeColor ? theme.themeColor + '55' : '#979FC7';
-    return theme.themeColor ? theme.themeColor + '55' : '#EFF0F6';
+    if ($bg === 'themeDark') return '#8CADE255';
+    return '#8CADE233';
   }};
 
   > section {
@@ -92,8 +92,7 @@ export const Logo = styled.div<{ $variant?: 'outro'; $desktop?: boolean }>`
     line-height: 120%;
 
     &::first-letter {
-      color: ${({ theme, $variant }) =>
-        $variant === 'outro' ? 'white' : theme.themeColor || '#979FC7'};
+      color: ${({ $variant }) => $variant === 'outro' ? 'white' : '#8CADE2'};
     }
   }
 
@@ -106,7 +105,7 @@ export const Logo = styled.div<{ $variant?: 'outro'; $desktop?: boolean }>`
 
 // 제목
 export const Title = styled.span<{ $desktop?: boolean }>`
-  color: ${({ theme }) => theme.themeColor || '#989FC4'};
+  color: #8CADE2;
   font-size: ${({ $desktop }) => ($desktop ? '28px' : '20px')};
   font-weight: 500;
   text-transform: capitalize;
@@ -168,25 +167,25 @@ export const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
   font-size: 14px;
   color: rgb(var(--greyTitle));
   border: 2px solid rgba(0, 0, 0, 0.1);
-  background-color: ${({ theme }) => theme.themeColor ? theme.themeColor + '55' : '#d7daeb'};
+  background-color: #8CADE255;
 
   .icon {
     margin-right: 8px;
   }
 
-  ${({ $variant, theme }) =>
+  ${({ $variant }) =>
     $variant === 'outline' &&
     `
     background-color: transparent;
-    border-color: ${theme.themeColor ? theme.themeColor + '55' : '#c1c5db'};
+    border-color: #8CADE255;
     padding: 6px 32px;
   `}
 
-  ${({ $variant, theme }) =>
+  ${({ $variant }) =>
     $variant === 'outro' &&
     `
     background-color: rgba(255, 255, 255, 0.8);
-    border-color: ${theme.themeColor ? theme.themeColor + '55' : '#d7daeb'};
+    border-color: #8CADE255;
   `}
 `;
 
@@ -194,8 +193,8 @@ export const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
 export const WebLink = styled.button<{ $variant?: 'outro' }>`
   font-size: 15px;
   padding: 0 4px;
-  border-bottom: solid 2px ${({ theme }) => theme.themeColor ? theme.themeColor + '55' : '#979FC7'};
-  color: ${({ theme }) => theme.themeColor || '#979FC7'};
+  border-bottom: solid 2px #8CADE255;
+  color: #8CADE2;
 
   ${({ $variant }) =>
     $variant === 'outro' &&
