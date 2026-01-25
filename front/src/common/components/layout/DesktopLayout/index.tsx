@@ -13,27 +13,27 @@ interface Props {
 
 const DesktopLayout = ({ modal, children }: Props) => {
   return (
-    <Desktop_Layout>
+    <DesktopLayoutWrapper>
       <SideBar />
-      <Desktop_Content>
+      <DesktopContent>
         {modal}
         {children}
-      </Desktop_Content>
-    </Desktop_Layout>
+      </DesktopContent>
+    </DesktopLayoutWrapper>
   );
 }
 
 export default DesktopLayout;
 
 
-const Desktop_Layout = styled.div`
+const DesktopLayoutWrapper = styled.div`
   width: 100vw;
   /* height: 100vh; */
   display: flex;
   justify-content: center;
 `;
 
-const Desktop_Content = styled.div`
+const DesktopContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;

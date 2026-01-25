@@ -67,7 +67,7 @@ const ListFilter = ({
   }
 
   return (
-    <BG className={isFilterOpen ? 'open' : ''} onClick={() => setFilterOpen(false)} >
+    <Overlay className={isFilterOpen ? 'open' : ''} onClick={() => setFilterOpen(false)} >
       <Wrapper
         onClick={(e) => e.stopPropagation()}
         className={isFilterOpen ? 'open' : ''}>
@@ -83,13 +83,13 @@ const ListFilter = ({
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
-    </BG>
+    </Overlay>
   );
 }
 
 export default ListFilter;
 
-const BG = styled.div`
+const Overlay = styled.div`
   position: fixed; 
   left: 0px;
   

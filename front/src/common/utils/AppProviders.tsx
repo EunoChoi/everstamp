@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import StyledComponentsRegistry from "../../../lib/registry";
 import { GlobalEffectInjection } from "./GlobalEffectInjection";
-import RQProvider from "./ReactQueryProvider";
+import RQProvider from "./reactQueryProvider";
 import ServiceWorkerRegister from "./ServiceWorkerRegister";
 import { SettingsProvider } from "./settingsContext/SettingsProvider";
 import CustomSnackbarProvider from "./snackBar/CustomSnackbarProvider";

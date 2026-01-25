@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 
-import IsMobile from "@/common/functions/IsMobile";
+import useIsMobile from "@/common/functions/useIsMobile";
 import DesktopLayout from '@/common/components/layout/DesktopLayout';
 import MobileLayout from '@/common/components/layout/MobileLayout';
 import LoadingScreen from '@/common/components/ui/LoadingScreen';
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const AppLayout = ({ children, modal }: Props) => {
-  const isMobile = IsMobile();
+  const isMobile = useIsMobile();
   const { user, isLoading } = useProtectedRoute();
 
   // 첫 방문일 때만 로딩
