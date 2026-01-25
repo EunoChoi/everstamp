@@ -3,31 +3,18 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-import emotion0 from '/public/img/emotion/emotion0.png';
-import emotion1 from '/public/img/emotion/emotion1.png';
-import emotion2 from '/public/img/emotion/emotion2.png';
-import emotion3 from '/public/img/emotion/emotion3.png';
-import emotion4 from '/public/img/emotion/emotion4.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 interface Props {
   emotion: number;
   setEmotion: (n: number) => void;
 }
 
-const emotionData = [
-  { id: 4, src: emotion4, alt: 'Joyful' },
-  { id: 3, src: emotion3, alt: 'happy' },
-  { id: 2, src: emotion2, alt: 'common' },
-  { id: 1, src: emotion1, alt: 'sad' },
-  { id: 0, src: emotion0, alt: 'angry' },
-];
-
 const EmotionRadioSelector = ({ emotion, setEmotion }: Props) => {
   return (<Wrapper>
     <RadioWrapper>
-      {emotionData.map((data) =>
+      {EMOTIONS.map((data) =>
         <RadioButton key={`emotion-radio-${data.id}`}>
-
           <input
             type="radio"
             checked={data.id === emotion}
@@ -38,10 +25,10 @@ const EmotionRadioSelector = ({ emotion, setEmotion }: Props) => {
             }}
           />
           <div className="emotion">
-            <Image priority src={data.src} alt={data.alt} width={36} height={36} />
+            <Image priority src={data.src} alt={data.name} width={36} height={36} />
           </div>
           <div className="checkmark">
-            <span>{data.alt}</span>
+            <span>{data.name}</span>
           </div>
         </RadioButton>)}
     </RadioWrapper>

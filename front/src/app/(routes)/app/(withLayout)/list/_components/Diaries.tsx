@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { diaryData } from "../_types/diaryData";
 
 import Image from "next/image";
-import sadEmotion from '/public/img/emotion/emotion1.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 
 interface DiariesProps {
@@ -35,7 +35,7 @@ export const Diaries = ({ diaries }: DiariesProps) => {
       })
       :
       <NoDiaries>
-        <Image src={sadEmotion} alt="sad-emotion-icon" width={128} height={128} />
+        <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].name} width={128} height={128} />
         <span>작성된 일기가 존재하지 않습니다. :(</span>
       </NoDiaries>}
   </>);

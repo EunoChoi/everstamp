@@ -4,29 +4,23 @@ import { diaryData } from "@/app/(routes)/app/(withLayout)/list/_types/diaryData
 import Image from "next/image";
 import styled from "styled-components";
 
-import emotion0 from '/public/img/emotion/emotion0.png';
-import emotion1 from '/public/img/emotion/emotion1.png';
-import emotion2 from '/public/img/emotion/emotion2.png';
-import emotion3 from '/public/img/emotion/emotion3.png';
-import emotion4 from '/public/img/emotion/emotion4.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 interface TextSlideProps {
   diaryData: diaryData;
 }
 
-const EMOTION_IMAGES = [emotion0, emotion1, emotion2, emotion3, emotion4];
-const EMOTION_NAME = ['Angry', 'Sad', 'Common', 'Happy', 'Joyful'];
-
 export const TextSlide = ({ diaryData }: TextSlideProps) => {
   const text = diaryData?.text;
+  const emotion = EMOTIONS[diaryData?.emotion];
 
   return (<Wrapper className="slideChild">
     <EmotionImageWrapper>
       <Image
         width={64}
         height={64}
-        src={EMOTION_IMAGES[diaryData?.emotion]}
-        alt={`${EMOTION_NAME[diaryData?.emotion]}`} />
+        src={emotion?.src}
+        alt={emotion?.name || 'emotion'} />
     </EmotionImageWrapper>
     {diaryData?.Habits.length > 0 &&
       <HabitWrapper>

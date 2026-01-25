@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect } from 'react';
-import emotion1 from '/public/img/emotion/emotion1.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -29,7 +29,7 @@ export default function Error({ error, reset }: ErrorProps) {
         color: 'rgb(88, 88, 88)',
       }}
     >
-      <Image src={emotion1} alt="error" width={128} height={128} priority />
+      <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].name} width={128} height={128} priority />
       <h2 style={{ fontSize: '24px', margin: '16px 0 8px' }}>
         문제가 발생했습니다
       </h2>

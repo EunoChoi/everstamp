@@ -1,27 +1,10 @@
 import { format } from "date-fns";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import styled from "styled-components";
 
 import { useCalendar } from "@/common/components/ui/Calendar/CalendarContext";
-import emotion0 from '/public/img/emotion/emotion0.png';
-import emotion1 from '/public/img/emotion/emotion1.png';
-import emotion2 from '/public/img/emotion/emotion2.png';
-import emotion3 from '/public/img/emotion/emotion3.png';
-import emotion4 from '/public/img/emotion/emotion4.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 import emptyIcon from '/public/img/emotion/empty.png';
-
-interface EmotionData {
-  name: string;
-  src: StaticImageData;
-}
-
-const EMOTION_DATA: EmotionData[] = [
-  { name: 'angry', src: emotion0 },
-  { name: 'sad', src: emotion1 },
-  { name: 'common', src: emotion2 },
-  { name: 'happy', src: emotion3 },
-  { name: 'joyful', src: emotion4 },
-];
 
 export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
   const { monthlyData } = useCalendar<{ [key: string]: any }>();
@@ -34,7 +17,7 @@ export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
   } = monthlyData?.[key] || {};
   const hasHabit = habitsCount > 0;
   const date = format(cellDate, 'd');
-  const emotion = (emotionType >= 0 && emotionType < EMOTION_DATA.length) ? EMOTION_DATA[emotionType] : undefined;
+  const emotion = EMOTIONS[emotionType];
 
   const renderContent = () => {
     if (hasDiary && emotion) {

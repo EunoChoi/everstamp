@@ -1,11 +1,7 @@
 import Image from "next/image";
 import styled from "styled-components";
 
-import emotion0 from '/public/img/emotion/emotion0.png';
-import emotion1 from '/public/img/emotion/emotion1.png';
-import emotion2 from '/public/img/emotion/emotion2.png';
-import emotion3 from '/public/img/emotion/emotion3.png';
-import emotion4 from '/public/img/emotion/emotion4.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 interface Props {
   setEmotionToggle: (n: number) => void;
@@ -13,19 +9,16 @@ interface Props {
 }
 
 const EmotionSelector = ({ setEmotionToggle, emotionToggle }: Props) => {
-  const emotions = [emotion0, emotion1, emotion2, emotion3, emotion4].reverse();
-  const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'].reverse();
-
   return (<EmotionlWrapper>
-    {emotions.map((e, i) =>
+    {EMOTIONS.map((e) =>
       <EmotionImage
-        key={EMOTION_NAME_ENG[i]}
-        className={`icon ${EMOTION_NAME_ENG[i]} ${emotionToggle === (4 - i) || emotionToggle === 5 ? 'selected' : ''}`}
+        key={e.name}
+        className={`icon ${e.name} ${emotionToggle === e.id || emotionToggle === 5 ? 'selected' : ''}`}
         onClick={() => {
-          if (emotionToggle === 4 - i) setEmotionToggle(5);
-          else setEmotionToggle(4 - i);
+          if (emotionToggle === e.id) setEmotionToggle(5);
+          else setEmotionToggle(e.id);
         }}
-        src={e} alt={EMOTION_NAME_ENG[i]} width={128} height={128} />
+        src={e.src} alt={e.name} width={128} height={128} />
     )}
   </EmotionlWrapper>);
 }
