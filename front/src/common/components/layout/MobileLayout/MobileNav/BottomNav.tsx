@@ -6,64 +6,94 @@ import { useNavItems } from "./useNavItems";
 const BottomNav = () => {
   const { items, current } = useNavItems();
 
+  // setting을 제외한 메인 메뉴
+  const mainItems = items.filter(item => item.key !== 'setting');
+  const settingItem = items.find(item => item.key === 'setting');
+
   return (
-    <Nav>
-      {items.map(({ key, icon: Icon, label, onClick }) => (
-        <NavMenu key={key} onClick={onClick} className={current === key ? 'current' : ''}>
-          <Icon className="icon" />
-          <span>{label}</span>
-        </NavMenu>
-      ))}
-    </Nav>
+    <NavWrapper>
+      <NavGroup>
+        {mainItems.map(({ key, icon: Icon, onClick }) => (
+          <NavMenu key={key} onClick={onClick} $active={current === key}>
+            <Icon />
+          </NavMenu>
+        ))}
+      </NavGroup>
+
+      {settingItem && (
+        <SettingButton onClick={settingItem.onClick} $active={current === 'setting'}>
+          <settingItem.icon />
+        </SettingButton>
+      )}
+    </NavWrapper>
   );
 };
 
 export default BottomNav;
 
-const Nav = styled.nav`
+const NavWrapper = styled.div`
   position: fixed;
   bottom: 0;
-
+  left: 0;
+  right: 0;
+  
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-
-  width: 100vw;
-  height: var(--mobileNav);
-
-  border-top: 2px solid rgb(var(--lightGrey2));
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(20px);
-  color: #c3c3c3;
-
-  > * {
-    padding: 0 12px;
-    padding-bottom: 2px;
-    font-size: 22px;
-    text-align: center;
-  }
-
-  .current {
-    color: ${(props) => props.theme.themeColor || '#979FC7'};
-  }
+  padding: 12px 4dvw;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  
+  pointer-events: none;
 `;
 
-const NavMenu = styled.button`
-  padding: 0;
-  width: 23%;
+const NavGroup = styled.nav`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  
+  padding: 6px 8px;
+  border-radius: 28px;
+  
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+  
+  pointer-events: auto;
+`;
+
+const NavMenu = styled.button<{ $active: boolean }>`
+  display: flex;
   align-items: center;
   justify-content: center;
+  
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  
+  font-size: 22px;
+  color: ${({ $active, theme }) => $active ? '#fff' : '#999'};
+  background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'transparent'};
+  
+  transition: all 0.2s ease;
+`;
 
-  .icon {
-    line-height: 0%;
-  }
-
-  span {
-    margin-top: 4px;
-    line-height: 1;
-    font-size: 12px;
-    text-transform: capitalize;
-  }
+const SettingButton = styled.button<{ $active: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  
+  font-size: 24px;
+  color: ${({ $active, theme }) => $active ? '#fff' : '#999'};
+  background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'rgba(255,255,255,0.8)'};
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+  
+  pointer-events: auto;
+  transition: all 0.2s ease;
 `;
