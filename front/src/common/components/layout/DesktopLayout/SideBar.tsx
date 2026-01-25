@@ -15,7 +15,7 @@ const SideBar = () => {
     <Menus>
       <Menu
         onClick={() => router.push(`/home`, {})}
-        className={current === 'home' ? 'home' : ''}>
+        className={current === 'home' ? 'current' : ''}>
         <MdHome className="icon" />
         <span>home</span>
       </Menu>
@@ -43,7 +43,10 @@ const SideBar = () => {
 export default SideBar;
 
 const Wrapper = styled.div`
-  transition: all ease-in-out 0.3s;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
 
   width: var(--sidebarWidth);
   height: 100dvh;
