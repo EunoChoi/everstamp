@@ -1,34 +1,64 @@
+'use client';
+
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import styled from "styled-components";
 
+import { FONT_SIZE_LIST } from "@/common/utils/settingsContext/SettingsContext";
 import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
-import { MdAdd, MdRemove } from 'react-icons/md';
-
 
 export const FontSizeSelector = () => {
-  const { fontSize, fontSizeUp, fontSizeDown } = useSettingsContext();
+  const { fontSize, setFontSize } = useSettingsContext();
 
-  return (<FontSizeWrapper>
-    <button onClick={fontSizeDown}>
-      <MdRemove />
-    </button>
-    <span className="fontSize">{fontSize}</span>
-    <button onClick={fontSizeUp}>
-      <MdAdd />
-    </button>
-  </FontSizeWrapper>);
-}
+  const currentIndex = FONT_SIZE_LIST.indexOf(fontSize);
 
-const FontSizeWrapper = styled.div`
-  display:flex;
+  const decrease = () => {
+    if (currentIndex > 0) {
+      setFontSize(FONT_SIZE_LIST[currentIndex - 1]);
+    }
+  };
+
+  const increase = () => {
+    if (currentIndex < FONT_SIZE_LIST.length - 1) {
+      setFontSize(FONT_SIZE_LIST[currentIndex + 1]);
+    }
+  };
+
+  return (
+    <Wrapper>
+      <ArrowButton onClick={decrease} disabled={currentIndex === 0}>
+        <MdChevronLeft />
+      </ArrowButton>
+      <SizeDisplay>{fontSize}</SizeDisplay>
+      <ArrowButton onClick={increase} disabled={currentIndex === FONT_SIZE_LIST.length - 1}>
+        <MdChevronRight />
+      </ArrowButton>
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+`;
 
-  span{
-    &.fontSize {
-      text-align: center;
-      width: 60px;
-      font-size: ${(props) => props.theme.fontSize ?? '15px'};
-    }
+const SizeDisplay = styled.span`
+  min-width: 48px;
+  text-align: center;
+  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  color: rgb(var(--greyTitle));
+`;
+
+const ArrowButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 24px;
+  color: rgb(var(--greyTitle));
+  
+  &:disabled {
+    opacity: 0.3;
   }
-`
+`;

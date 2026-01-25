@@ -15,23 +15,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const fontSize = settings?.fontSize ?? FONT_SIZE_LIST[1];
   const themeColor = settings?.themeColor ?? THEME_COLORS[0];
 
-  //이 부분 로직 수정 필요 
-  const changeFontSize = (type: 'Up' | 'Down') => {
-    const currentIndex = FONT_SIZE_LIST.findIndex((v) => v === settings.fontSize);
-    let nextIndex = type === 'Up' ? (currentIndex + 1) : (currentIndex - 1);
-
-    if (nextIndex >= FONT_SIZE_LIST.length) {
-      nextIndex = FONT_SIZE_LIST.length - 1;
+  const setFontSize = (size: string) => {
+    if (FONT_SIZE_LIST.includes(size)) {
+      setSettings((prev) => ({ ...prev, fontSize: size }));
     }
-    else if (nextIndex < 0) {
-      nextIndex = 0;
-    }
-
-    const nextFontSize = FONT_SIZE_LIST[nextIndex];
-    setSettings((prev) => ({ ...prev, fontSize: nextFontSize }));
   };
-  const fontSizeUp = () => changeFontSize('Up');
-  const fontSizeDown = () => changeFontSize('Down');
 
   const setThemeColor = (color: string) => {
     if (THEME_COLORS.includes(color)) {
@@ -64,8 +52,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const value = useMemo(() => ({
     fontSize,
     themeColor,
-    fontSizeUp,
-    fontSizeDown,
+    setFontSize,
     setThemeColor,
   }), [fontSize, themeColor]);
 
