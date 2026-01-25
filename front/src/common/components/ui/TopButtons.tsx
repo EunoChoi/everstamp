@@ -1,8 +1,8 @@
 'use client';
 
+import { useScroll } from "@/common/hooks/useScrollContext";
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { useScroll } from "@/common/hooks/useScrollContext";
 
 interface Props {
   children?: ReactNode;
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 120px;
     
     background: linear-gradient(
       to top,

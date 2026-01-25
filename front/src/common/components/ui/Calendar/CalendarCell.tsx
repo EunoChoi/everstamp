@@ -68,16 +68,17 @@ const CellWrapper = styled.div`
   border-radius: 8px;
   &.currentMonth{}
   &.today{
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 30 : '#979FC7'}; 
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 60 : '#979FC7'}; 
   }
   &.selected{
-    border-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 90 : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 30 : '#979FC7'}; 
+    /* border-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 90 : '#979FC7'}; */
   }
   &.notCurrentMonth{
     opacity: 0.3;
   }
-  font-size: 16px;
+  font-size: 14px;
   span{
-    font-size: 16px;
+    font-size: 14px;
   }
 `
