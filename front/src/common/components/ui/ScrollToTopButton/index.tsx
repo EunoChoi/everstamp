@@ -1,21 +1,16 @@
 import styled from "styled-components";
 
-import { isIosPwa } from "@/common/functions/isIosPwa";
 import { useEffect, useRef, useState } from "react";
 import { MdArrowUpward } from 'react-icons/md';
-
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
 const ScrollToTopButton = ({ contentRef }: Props) => {
-
   const scrollTimeoutRef = useRef<number | null>(null);
   const [buttonVisible, setButtonVisible] = useState<boolean>(false);
   const buttonVisibleHeight = 2000;
-  const iosPwa = isIosPwa();
-
 
   const goToTop = () => {
     contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
@@ -49,14 +44,12 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
     };
   }, [buttonVisible, buttonVisibleHeight]);
 
+  if (!buttonVisible) return null;
+
   return (
-    <>
-      {buttonVisible ?
-        <Wrapper onClick={goToTop} className={iosPwa ? 'iosPwa' : ''}>
-          <MdArrowUpward />
-        </Wrapper> :
-        <></>}
-    </>
+    <Wrapper onClick={goToTop}>
+      <MdArrowUpward />
+    </Wrapper>
   );
 }
 
@@ -65,22 +58,19 @@ export default ScrollToTopButton;
 const Wrapper = styled.button`
   position: fixed;
 
-  @media (max-width: 479px) { //mobile port
-    bottom : calc(var(--mobileNav) + 24px);
-    &.iosPwa{
-      bottom : calc(var(--mobileNav) + 36px);
-    }
+  @media (max-width: 479px) {
+    bottom: calc(var(--mobileNav) + 24px);
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    bottom : 32px;
+  @media (min-width:480px) and (max-width:1024px) {
+    bottom: 32px;
   }
-  @media (min-width:1025px) { //desktop
-    bottom : 48px;
+  @media (min-width:1025px) {
+    bottom: 48px;
   }
 
   display: flex;
-  justify-content : center;
-  align-items : center;
+  justify-content: center;
+  align-items: center;
 
   width: 36px;
   height: 36px;
