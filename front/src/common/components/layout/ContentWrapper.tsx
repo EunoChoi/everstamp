@@ -12,22 +12,20 @@ export const ContentWrapper = ({ children, className }: ContentWrapper) => {
 }
 
 const Wrapper = styled.div`
-  background-color: calc(#c1c5db + '') ;
-
   width: 100%;
   height: auto;
 
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 479px) { //mobile port
-    padding : 0 4dvw var(--mobileNav) 4dvw;
+  @media (max-width: 479px) {
+    padding: 8px 4dvw var(--mobileNav) 4dvw;
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet  
+  @media (min-width:480px) and (max-width:1024px) {
     overflow: scroll;
-    padding : 36px;  
+    padding: 36px;
   }
-  @media (min-width:1025px) { //desktop
-    padding: 36px;  
+  @media (min-width:1025px) {
+    padding: 36px;
   }
 `

@@ -116,9 +116,10 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 70 : '#979FC7'};
+  border-radius: 24px;
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 
   width: 100%;
   aspect-ratio: 0.85;
@@ -201,7 +202,7 @@ const Check = styled.div`
       height: 20px;
       width: 20px;
       border-radius: 25px;
-      border : solid darkgrey 2px;
+      background-color: rgba(0,0,0,0.06);
 
       div{
         transition: all ease-in-out 0.4s;

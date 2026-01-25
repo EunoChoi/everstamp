@@ -41,8 +41,8 @@ const Color = styled.div`
   width: 36px;
   height: 36px;
 
-  border: solid 2px rgba(0,0,0,0.2);
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 
   &.selected{
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};

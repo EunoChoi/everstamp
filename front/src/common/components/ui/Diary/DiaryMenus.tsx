@@ -119,18 +119,19 @@ const Wrapper = styled.div<{ $position: number | undefined }>`
 
   height: auto;
   width: auto;
-  padding: 12px 24px;
+  padding: 10px 20px;
 
   display: flex;
-  align-items : center;
+  align-items: center;
   position: absolute;
   top: ${props => props.$position ? `${props.$position}px` : '50px'};
   right: 12px;
-  gap: 24px;
+  gap: 20px;
 
-  background-color : white;
-  border: 2px solid rgba(0,0,0,0.09);
-  border-radius: 12px;
+  background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 90%, white);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
 
   button{
     .icon{
@@ -138,10 +139,9 @@ const Wrapper = styled.div<{ $position: number | undefined }>`
       margin-right: 4px;
       line-height: 0;
     }
-    display:flex;
+    display: flex;
     align-items: center;
     font-size: 14px;
-    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
 
     &:last-child{

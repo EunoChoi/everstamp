@@ -57,9 +57,10 @@ export default ScrollToTopButton;
 
 const Wrapper = styled.button`
   position: fixed;
+  right: 4dvw;
 
   @media (max-width: 479px) {
-    bottom: calc(var(--mobileNav) + 24px);
+    bottom: calc(var(--mobileNav) + 20px);
   }
   @media (min-width:480px) and (max-width:1024px) {
     bottom: 32px;
@@ -72,12 +73,13 @@ const Wrapper = styled.button`
   justify-content: center;
   align-items: center;
 
-  width: 36px;
-  height: 36px;
-  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 20px;
 
-  background-color: rgba(255,255,255,0.6);
-  backdrop-filter: blur(12px);
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
   color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-  border: 2px solid rgba(0,0,0,0.05);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
 `

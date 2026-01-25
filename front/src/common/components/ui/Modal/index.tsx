@@ -52,19 +52,19 @@ const Background = styled.div`
   backdrop-filter: blur(4px);
 `
 const ModalWrapper = styled.div`
-  transition : all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
 
   width: 100%;
   height: 100%;
   border-radius: 0px;
-  background-color: white;
+  background-color: var(--theme-bg, #f5f5fa);
 
   display: flex;
   flex-direction: column;
-  @media (min-width:1025px) { //desktop
+  @media (min-width:1025px) {
     width: 600px;
     height: 90%;
-    border-radius: 24px;
-    box-shadow: 0px 0px 64px rgba(0,0,0,0.25);
+    border-radius: 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   }
 `

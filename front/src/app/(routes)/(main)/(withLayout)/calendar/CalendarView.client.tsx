@@ -103,14 +103,15 @@ const CalendarContentWrapper = styled(ContentWrapper)`
   max-width: 600px;
   height: 100%;
 
-  @media (max-width: 479px) { //mobile port
+  @media (max-width: 479px) {
     gap: 12px;
+    padding-bottom: calc(var(--mobileNav) + 8px);
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) {
     padding-top: 24px;
     gap: 24px;
   }
-  @media (min-width:1024px) { //desktop
+  @media (min-width:1024px) {
     padding-top: 24px;
     gap: 24px;
   }

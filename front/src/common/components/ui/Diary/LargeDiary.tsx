@@ -107,11 +107,11 @@ const Wrapper = styled.div`
 
   box-sizing: border-box;
 
-  border: 2px solid rgba(0,0,0,0.07);
-  border-radius: 16px;
-  background-color: white;
+  border-radius: 20px;
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 
-  /* padding: 14px 14px; */
   @media (max-width: 479px) {
     min-height: 200px;
   }

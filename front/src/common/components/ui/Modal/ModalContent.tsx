@@ -29,15 +29,14 @@ const Wrapper = styled.div`
   .empty{
     flex-grow: 1;
   }
-  
 
-  @media (max-width: 479px) { //mobile port
-    padding: 0 4dvw;
+  @media (max-width: 479px) {
+    padding: 12px 4dvw;
   }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 0 24px;
+  @media (min-width:480px) and (max-width:1023px) {
+    padding: 12px 24px;
   }
-  @media (min-width:1024px) { //desktop
-    padding: 0 24px;
+  @media (min-width:1024px) {
+    padding: 16px 24px;
   }
 `

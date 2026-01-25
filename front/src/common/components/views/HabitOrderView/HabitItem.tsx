@@ -60,14 +60,10 @@ const Wrapper = styled.div<{ $isDragging: boolean }>`
   font-size: 16px;
 
   color: rgb(var(--greyTitle));
-  background-color: #f9f9f9;
-  border: solid 2px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-
-  background-color: ${(props) => (props.$isDragging ? '#fff' : '#f9f9f9')};
-  color: rgb(var(--greyTitle));
-  border: solid 2px ${(props) => (props.$isDragging && props.theme.themeColor ? props.theme.themeColor : 'rgba(0, 0, 0, 0.1)')};
-  box-shadow: ${(props) => (props.$isDragging ? '0 4px 12px rgba(0, 0, 0, 0.1)' : 'none')};
+  border-radius: 16px;
+  background-color: ${(props) => (props.$isDragging ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.5)')};
+  backdrop-filter: ${(props) => (props.$isDragging ? 'blur(12px)' : 'none')};
+  box-shadow: ${(props) => (props.$isDragging ? '0 4px 12px rgba(0,0,0,0.08)' : '0 1px 4px rgba(0,0,0,0.03)')};
 
   .star, .name, button{
     display: flex;

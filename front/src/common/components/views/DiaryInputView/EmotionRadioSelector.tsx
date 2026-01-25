@@ -83,15 +83,15 @@ const RadioButton = styled.label`
 
     span{
       transition: all 200ms ease-in-out;
-      border-radius: 56px;
-      padding: 0 8px;
-      border : 2px solid rgba(0,0,0,0);
+      border-radius: 12px;
+      padding: 2px 10px;
+      color: rgb(var(--greyTitle));
     }
   }
   input:checked ~ .checkmark{
     span{
-      border-color: rgba(0,0,0,0.1);
-      background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
+      background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+      color: white;
     }
   }
 `;

@@ -130,10 +130,11 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-  background-color: white;
+  background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 95%, transparent);
+  backdrop-filter: blur(24px);
 
-  @media (max-width: 479px) { //mobile port
-    box-shadow: 0px 12px 12px rgba(0,0,0,0.1);
+  @media (max-width: 479px) {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     width: 100%;
     height: auto;
     padding: 36px 24px;
@@ -144,25 +145,25 @@ const Wrapper = styled.div`
     transform: scaleY(0);
     transform-origin: top;
 
-    border-end-start-radius: 24px;
-    border-end-end-radius: 24px;
+    border-end-start-radius: 28px;
+    border-end-end-radius: 28px;
 
     transition: transform 0.3s ease-in-out;    
     &.open{
       transform: scaleY(1);
     }
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
+  @media (min-width:480px) and (max-width:1024px) {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
     z-index: 999;
     top: 50dvh;
     left: 50dvw;
     transform: translate(-50%, -50%);
 
     gap: 16px;
-    padding: 16px 24px;
+    padding: 20px 28px;
     width: 350px;
-    border-radius: 24px;
+    border-radius: 28px;
 
     opacity: 0;
     visibility: hidden;
@@ -173,8 +174,8 @@ const Wrapper = styled.div`
       visibility: visible;
     }
   }
-  @media (min-width:1025px) { //desktop
-    box-shadow: 0px 4px 24px rgba(0,0,0,0.15);
+  @media (min-width:1025px) {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 
     top: 50dvh;
     left: 50dvw;
@@ -182,8 +183,8 @@ const Wrapper = styled.div`
 
     width: 500px;
     gap: 32px;
-    padding: 48px 36px;
-    border-radius: 24px;
+    padding: 48px 40px;
+    border-radius: 28px;
 
     opacity: 0;
     visibility: hidden;
@@ -208,22 +209,21 @@ const ButtonWrapper = styled.div`
 `
 const Button = styled.button`
   font-size: 14px;
-  /* font-weight: 600; */
 
-  padding: 4px 20px;
-  border-radius: 32px;
-  border: 2px solid rgba(0,0,0,0.08);
+  padding: 6px 20px;
+  border-radius: 14px;
 
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
-  color: rgb(var(--greyTitle));
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+  color: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 
   &.cancel{
-    background-color: white;
-    border : 2px solid  ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
+    background-color: rgba(255,255,255,0.9);
+    color: rgb(var(--greyTitle));
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) {
     font-size: 12px;
-    padding: 2px 16px;
+    padding: 4px 16px;
   }
 `
 

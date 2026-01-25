@@ -64,22 +64,23 @@ const Habit = styled.span`
   box-sizing: border-box;
   flex-shrink: 0;
 
-  padding: 2px 12px;
-  border-radius: 24px;
+  padding: 4px 14px;
+  border-radius: 14px;
   line-height: 1.4;
   white-space: nowrap;
   
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '70' : '#979FC7'};
-  border: 2px solid rgba(0,0,0,0.07);
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '50' : '#979FC750'};
 
   span {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: rgb(var(--greyTitle));
     text-transform: capitalize;
   }
   &:first-child {
-    border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 'a0' : '#979FC7'};
-    background-color: white;
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+    span {
+      color: white;
+    }
   }
 `

@@ -20,6 +20,9 @@ const SettingPage = () => {
   usePrefetchPage();
   const router = useRouter();
 
+  const dev = process.env.NODE_ENV === 'development';
+  const protocol = dev ? 'http://' : 'https://';
+  const introURL = `${protocol}${process.env.NEXT_PUBLIC_DOMAIN}/intro`;
   const { email, provider, createAt } = useCurrentUserData();
 
   return (
@@ -30,7 +33,7 @@ const SettingPage = () => {
           rel="noopener noreferrer" >
           <button className="auto"><MdAndroid /></button>
         </a>
-        <a href="https://everstamp.site"
+        <a href={introURL}
           target="_blank"
           rel="noopener noreferrer" >
           <button className="normal">intro</button>
