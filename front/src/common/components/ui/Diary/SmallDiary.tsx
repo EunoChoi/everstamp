@@ -85,6 +85,9 @@ const Wrapper = styled.div`
   overflow: hidden;
   width: 100%;
   height: 180px;
+  @media (min-width:1025px) {
+    height: 230px;
+  }
 
   border-radius: 20px;
   background-color: rgba(255,255,255,0.7);
@@ -137,7 +140,7 @@ const Text = styled.div`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   @media (min-width:1025px) {
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
   }
 
   overflow: hidden;
