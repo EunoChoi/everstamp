@@ -1,65 +1,67 @@
 'use client';
 
-import { THEME_COLORS, THEME_COLORS_NAME } from "@/common/utils/settingsContext/SettingsContext";
-import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
+import { MdCheck } from 'react-icons/md';
 import styled from "styled-components";
 
-export const ThemeColorSelector = () => {
-  const { setThemeColor } = useSettingsContext();
+import { THEME_COLORS } from "@/common/utils/settingsContext/SettingsContext";
+import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
 
-  return (<Wrapper>
-    <Color className="selected" />
-    <Colors className="end">
-      {THEME_COLORS.map((e, i) =>
-        <Color
-          key={THEME_COLORS_NAME[i] + 'Color'}
-          className={THEME_COLORS_NAME[i]}
-          onClick={() => {
-            setThemeColor(THEME_COLORS[i]);
-          }}
-        />)}
-    </Colors>
-  </Wrapper>);
-}
+export const ThemeColorSelector = () => {
+  const { themeColor, setThemeColor } = useSettingsContext();
+
+  return (
+    <Wrapper>
+      <ColorGroup>
+        {THEME_COLORS.map((color) => (
+          <ColorButton
+            key={color}
+            $color={color}
+            $isSelected={themeColor === color}
+            onClick={() => setThemeColor(color)}
+          >
+            {themeColor === color && <MdCheck />}
+          </ColorButton>
+        ))}
+      </ColorGroup>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
-  width: 100%;
+  padding: 12px 0;
+`;
+
+const ColorGroup = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  width: 100%;
+`;
 
-  padding: 12px 0;
-`
-const Colors = styled.div`
+const ColorButton = styled.button<{ $color: string; $isSelected: boolean }>`
   display: flex;
-  gap: 8px;
-`
-const Color = styled.div`
-  transition: all ease-in-out 0.3s;
+  justify-content: center;
+  align-items: center;
 
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  
+  background-color: ${({ $color }) => $color};
+  /* box-shadow: ${({ $isSelected }) =>
+    $isSelected ? 'inset 0 0 0 2px rgba(255,255,255,0.9)' : 'none'}; */
+  
+  transform: ${({ $isSelected }) => $isSelected ? 'scale(1.15)' : 'scale(1)'};
+  transition: all 0.2s ease;
 
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  svg {
+    font-size: 18px;
+    color: white;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+  }
 
-  &.selected{
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+  &:hover {
+    transform: scale(1.2);
   }
-  &.purple{
-    background-color: #979FC7;
-  }
-  &.blue{
-    background-color: #8CADE2;
-  }
-  &.pink{
-    background-color: #eda5b1;
-  }
-  &.green{
-    background-color: #83c6b6;
-  }
-  &.grey{
-    background-color: #8f8f8f;
-  }
-`
+`;
