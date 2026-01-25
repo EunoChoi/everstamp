@@ -38,12 +38,13 @@ const Wrapper = styled.div`
   input{
     font-size: 16px;
     width: 100%;
-    height: 38px;
+    height: 44px;
     margin: 8px 0;
-    padding: 4px 8px;
+    padding: 4px 14px;
     flex-grow: 1;
 
-    border : 2px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
+    border-radius: 14px;
+    background-color: rgba(255,255,255,0.95);
+    border: 1px solid rgba(0,0,0,0.08);
   }
 `
