@@ -6,8 +6,10 @@ import styled from "styled-components";
 
 import Image, { StaticImageData } from "next/image";
 
+type ImageSource = string | StaticImageData;
+
 interface Props {
-  images: StaticImageData[];
+  images: ImageSource[];
   keyValue: string;
   type: 'fullWidth' | 'none';
 
