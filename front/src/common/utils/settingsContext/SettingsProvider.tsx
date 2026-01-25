@@ -4,9 +4,9 @@
 import { useCurrentUserEmail } from '@/common/hooks/useCurrentUserEmail';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
 import { LocalUserStorage } from '@/common/types';
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { FONT_SIZE_LIST, SettingsContext, THEME_COLORS } from './SettingsContext';
+import { FONT_SIZE_LIST, SettingsContext, THEME_BG_COLORS, THEME_COLORS } from './SettingsContext';
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const { currentUserEmail } = useCurrentUserEmail();
@@ -38,6 +38,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       setSettings((prev) => ({ ...prev, themeColor: color }));
     }
   };
+
+  // 배경색 동기화
+  useEffect(() => {
+    const bgColor = THEME_BG_COLORS[themeColor] || '#f5f5fa';
+    document.body.style.backgroundColor = bgColor;
+    document.documentElement.style.setProperty('--theme-bg', bgColor);
+  }, [themeColor]);
 
   const theme = useMemo(() => ({
     themeColor: themeColor,

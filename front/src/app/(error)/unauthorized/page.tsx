@@ -31,6 +31,7 @@ export default Page;
 const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
+  background-color: var(--theme-bg, #f5f5fa);
 
   display: flex;
   flex-direction: column;
