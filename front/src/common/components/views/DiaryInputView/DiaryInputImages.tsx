@@ -112,9 +112,9 @@ const Wrapper = styled.div`
   overflow-x: scroll;
   height: 100%;
 
-  background-color: #f9f9f9;
-  border: 2px solid rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+  background-color: rgba(255,255,255,0.95);
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
 `
 const SquareBox = styled.div`
   position: relative;
@@ -152,19 +152,18 @@ const ImageDeleteButton = styled.button`
 
 const UploadButton = styled.button`
   display: flex;
-  flex-direction : column;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
   height: 85%;
   width: 85%;
-  border-radius: 8px;
-  border: 2px solid rgba(0,0,0,0.2);
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
+  border-radius: 14px;
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '80' : '#979FC780'};
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   span{
     margin-top: 4px;
     font-size: 14px;
-    /* font-weight: 600; */
     color: rgb(var(--greyTitle));
   }
   &:disabled{
