@@ -9,7 +9,7 @@ interface Props {
 }
 
 const EmotionSelector = ({ setEmotionToggle, emotionToggle }: Props) => {
-  return (<EmotionlWrapper>
+  return (<EmotionWrapper>
     {EMOTIONS.map((e) =>
       <EmotionImage
         key={e.name}
@@ -20,12 +20,12 @@ const EmotionSelector = ({ setEmotionToggle, emotionToggle }: Props) => {
         }}
         src={e.src} alt={e.name} width={128} height={128} />
     )}
-  </EmotionlWrapper>);
+  </EmotionWrapper>);
 }
 
 export default EmotionSelector;
 
-const EmotionlWrapper = styled.div`
+const EmotionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

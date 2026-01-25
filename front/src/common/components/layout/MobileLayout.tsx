@@ -20,17 +20,17 @@ const MobileLayout = ({ modal, children }: Props) => {
   const current = useSelectedLayoutSegment();
 
   return (
-    <Mobile_Layout>
+    <MobileLayoutWrapper>
       {modal}
       {children}
-      <Mobile_Nav>
+      <MobileNav>
         <Logo><span>everstamp</span></Logo>
         <NavMenu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}><MdCalendarMonth className="icon" /> <span>calendar</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><MdViewList className="icon" /> <span>list</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><MdCheckBox className="icon" /> <span>habit</span></NavMenu>
         <NavMenu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><MdSettings className="icon" /> <span>setting</span></NavMenu>
-      </Mobile_Nav>
-    </Mobile_Layout>
+      </MobileNav>
+    </MobileLayoutWrapper>
   );
 }
 
@@ -87,7 +87,7 @@ const NavMenu = styled.button`
     }
   }
 `
-const Mobile_Layout = styled.div`
+const MobileLayoutWrapper = styled.div`
   width: 100dvw;
   display: flex;
   flex-direction: column;
@@ -99,7 +99,7 @@ const Mobile_Layout = styled.div`
     margin-left: 25dvw;
   }
 `;
-const Mobile_Nav = styled.nav`
+const MobileNav = styled.nav`
   position: fixed;
   bottom: 0;
 
