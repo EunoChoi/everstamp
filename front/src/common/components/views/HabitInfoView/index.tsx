@@ -123,15 +123,16 @@ const HabitInfoView = ({ habitId }: Props) => {
 export default HabitInfoView;
 
 const HabitInfoContent = styled(Modal.Content)`
-  padding: 0;
+  padding: 0 0 12px 0;
 `
 const CalendarWrapper = styled.div`
   width: 100%;
   height: 100%;
 
-  border : 2px rgb(var(--lightGrey2)) solid;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 12px;
+  background-color: rgba(255,255,255,0.6);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 `
 const MobilePortNameWrapper = styled.div`
   width: 100%;
@@ -186,7 +187,7 @@ const CarouselSlideWrapper = styled.div`
   flex-grow: 1;
   overflow-x: scroll;
 
-  padding : 0 12px;
+  padding: 8px 12px;
 
   .slideChild{
     scroll-snap-align: center;
@@ -205,8 +206,10 @@ const CarouselPage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 12px;
 
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) {
     flex-direction: row;
+    gap: 16px;
   }
 `

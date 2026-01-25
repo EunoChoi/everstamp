@@ -16,8 +16,8 @@ const DiaryAddButton = ({ date }: Props) => {
   return (
     <Wrapper>
       <AddButton onClick={onAddDiary}>
-        <span>새 일기 작성</span>
         <MdAdd />
+        <span>새 일기 작성</span>
       </AddButton>
     </Wrapper>
   );

@@ -39,12 +39,12 @@ const InputWrapper = styled.div`
   width : 100%;
   height: 100%;
 
-  background-color: #f9f9f9;
-  border: 2px solid rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
+  background-color: rgba(255,255,255,0.6);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
 
   textarea{
-    background-color: #f9f9f9;
+    background-color: transparent;
     font-size: ${(props) => props.theme.fontSize ?? '15px'};
     width: 100%;
     height: 100%;
@@ -56,13 +56,13 @@ const InputWrapper = styled.div`
       font-size: 1.0em;
     }
   }
-  @media (max-width: 479px) { //mobile port
-    padding: 12px;
+  @media (max-width: 479px) {
+    padding: 14px;
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    padding: 12px;
+  @media (min-width:480px) and (max-width:1024px) {
+    padding: 14px;
   }
-  @media (min-width:1025px) { //desktop
+  @media (min-width:1025px) {
     padding: 20px;
   }
 `

@@ -10,9 +10,9 @@ import TopButtons from "@/common/components/ui/TopButtons";
 import { getHabitList } from "@/common/fetchers/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
-import { MdAdd } from 'react-icons/md';
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
+import { MdAdd } from 'react-icons/md';
 import HabitBox from "./_components/HabitBox";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
 import { useHabitToggle } from "./_hooks/useHabitToggle";
@@ -66,7 +66,7 @@ const HabitView = () => {
 
       <ContentWrapper>
         <HabitPageTextWrapper>
-          <HabitPageText className='title'>{todayDoneHabitRate}% Done, Today</HabitPageText>
+          <HabitPageText className='title'>{todayDoneHabitRate}% Completed</HabitPageText>
           <HabitPageText className='sub'>오늘의 목표 습관 {createdHabitCount}개중 {todayDoneHabitCount}개를 실천하셨습니다 :)</HabitPageText>
         </HabitPageTextWrapper>
 
@@ -115,14 +115,14 @@ const HabitBoxs = styled.div`
   height: auto;
   flex-shrink: 0;
 
-  display : grid;
+  display: grid;
   grid-template-rows: auto;
   
-  gap: 8px;
-  row-gap: 8px;
+  gap: 12px;
+  padding-bottom: 8px;
 
   @media (max-width: 720px) {
-    grid-template-columns: repeat(2, 1fr) ;
+    grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width:721px) and (max-width:1023px) {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -140,9 +140,9 @@ const EmptyBox = styled.div`
   width: 100%;
   aspect-ratio: 0.85;
   
-  border-radius: 20px;
-  background-color: rgb(255, 255, 255);
-  border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 70 : '#979FC7'};
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor + 70 : '#979FC7'};
+  border-radius: 24px;
+  background-color: rgba(255,255,255,0.5);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   font-size: 48px;
 `

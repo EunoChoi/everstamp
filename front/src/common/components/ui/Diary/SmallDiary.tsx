@@ -86,9 +86,10 @@ const Wrapper = styled.div`
   width: 100%;
   height: 200px;
 
-  border: 2px solid rgba(0,0,0,0.07);
-  border-radius: 16px;
-  background-color: white;
+  border-radius: 20px;
+  background-color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
 
   /* 슬라이드 */
   overflow-x: scroll;

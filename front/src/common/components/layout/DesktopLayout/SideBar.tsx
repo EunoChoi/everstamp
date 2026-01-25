@@ -49,8 +49,9 @@ const Wrapper = styled.div`
   height: 100dvh;
   padding: 0 16px;
 
-  border-right: 2px solid rgb(var(--lightGrey2));
-  background-color: white;
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
+  box-shadow: 2px 0 20px rgba(0,0,0,0.04);
 
   display: flex;
   flex-direction: column;
@@ -58,7 +59,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   gap: 64px;
-  overflow-y : scroll;
+  overflow-y: scroll;
 `
 const SideBarLogo = styled.div`
   display: flex;

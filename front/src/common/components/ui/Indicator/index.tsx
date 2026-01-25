@@ -38,23 +38,21 @@ const IndicatorWrapper = styled.div`
   }
 `
 const Dot = styled.div`
-  background-color: white;
-  border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC790'};
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '30' : '#979FC730'};
 
-  margin: 2px;
-  width: 10px;
-  height: 10px;
-  border-radius: 10px;
+  margin: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 
   &.diary{
    &:last-child{
     border-radius: 2px;
-    border-width: 2px;
-    border-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
    }
   }
   &.current {
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-    border-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'} !important;
+    width: 20px;
   }
 `

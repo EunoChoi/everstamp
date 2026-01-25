@@ -29,31 +29,51 @@ const Wrapper = styled.div`
   flex-shrink: 0;
   gap: 6px;
 
-  width: auto;
   position: sticky;
   width: 100%;
   top: 0;
   left: 0;
   right: 0;
 
-  background-color: transparent;
-  transition: background-color 0.2s, backdrop-filter 0.2s;
-
-  &.scrolled {
-    background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    
+    background: linear-gradient(
+      to top,
+      transparent 0%,
+      color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 30%,
+      color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 60%,
+      var(--theme-bg, #f5f5fa) 100%
+    );
+    
+    mask-image: linear-gradient(to top, transparent 0%, black 100%);
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 100%);
+    
+    pointer-events: none;
+    z-index: -1;
+    
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  @media (max-width: 479px) { //mobile port
+  &.scrolled::after {
+    opacity: 1;
+  }
+
+  @media (max-width: 479px) {
     height: var(--mobileHeader);
     padding: 0 4dvw;
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+  @media (min-width:480px) and (max-width:1024px) {
     height: var(--mobileHeader);
     padding: 0 20px;
   }
-  @media (min-width:1025px) { //desktop
+  @media (min-width:1025px) {
     height: var(--desktopHeader);
     padding: 0 48px;
   }
@@ -63,37 +83,35 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
 
-    height: 28px;
+    height: 32px;
 
     transition: all ease-in-out 200ms;
     text-transform: capitalize;
 
     font-size: 14px;
     font-weight: 500;
-    color: rgb(var(--greyTitle));
-    font-weight: 500;
     color: white;
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-    border: 2px solid rgba(0,0,0,0.07);
-    border-radius : 48px;
+    border-radius: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 
     &.small{
-      width: 47px;
+      width: 48px;
     }
     &.normal{
-      width: 60px;
+      width: 64px;
     }
     &.large{
       width: 80px;
     }
     &.auto{
       width: auto;
-      padding: 0 12px;
-      gap: 12px;
+      padding: 0 14px;
+      gap: 8px;
     }
-    @media (min-width:1025px) { //desktop
-      padding: 4px 12px;
-      height: 32px;
+    @media (min-width:1025px) {
+      padding: 4px 14px;
+      height: 36px;
     }
   }
 `

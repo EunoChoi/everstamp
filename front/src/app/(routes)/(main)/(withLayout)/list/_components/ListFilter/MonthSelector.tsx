@@ -132,9 +132,11 @@ const Month = styled.button`
     color: grey;
   }
   &.selectedMonth{
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
-    border: 2px solid rgba(0,0,0,0.07);
-    border-radius: 12px;
+    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '80' : '#979FC780'};
+    border-radius: 14px;
+    .num, .eng {
+      color: white;
+    }
   }
 `
 const Section = styled.section`

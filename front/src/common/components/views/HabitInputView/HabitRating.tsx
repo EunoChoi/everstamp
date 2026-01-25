@@ -27,20 +27,17 @@ export const HabitRating = ({ priority, setPriority }: Props) => {
 
 const RadioWrapper = styled.div`
   width: 100%;
-  margin : 8px 0;
-  height: 38px;
-  border : 2px solid rgba(0,0,0,0.1);
-  border-radius: 8px;
+  margin: 8px 0;
+  height: 40px;
+  border-radius: 14px;
   overflow: hidden;
+  background-color: rgba(255,255,255,0.6);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
 `
 const RadioButton = styled.label`
   position: relative;
   width: 100%;
   height: 100%;
-  border-right : 2px solid rgba(0,0,0,0.1);
-  &:last-child{
-    border: none;
-  }
   input{
     position: absolute;
     opacity: 0;
@@ -87,12 +84,13 @@ const Wrapper = styled.div`
   input{
     font-size: 16px;
     width: 100%;
-    height: 38px;
+    height: 40px;
     margin: 8px 0;
-    padding: 4px 8px;
+    padding: 4px 12px;
     flex-grow: 1;
 
-    border : 2px solid rgba(0,0,0,0.1);
-    border-radius: 8px;
+    border-radius: 14px;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
   }
 `

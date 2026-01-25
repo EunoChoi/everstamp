@@ -44,6 +44,29 @@ const NavWrapper = styled.div`
   padding-bottom: max(12px, env(safe-area-inset-bottom));
   
   pointer-events: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 30%,
+      color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 60%,
+      var(--theme-bg, #f5f5fa) 100%
+    );
+    
+    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+    
+    pointer-events: none;
+    z-index: -1;
+  }
 `;
 
 const NavGroup = styled.nav`
@@ -57,7 +80,7 @@ const NavGroup = styled.nav`
   background-color: rgba(255,255,255,0.8);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   
   pointer-events: auto;
 `;
@@ -92,7 +115,7 @@ const SettingButton = styled.button<{ $active: boolean }>`
   background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'rgba(255,255,255,0.8)'};
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   
   pointer-events: auto;
   transition: all 0.2s ease;

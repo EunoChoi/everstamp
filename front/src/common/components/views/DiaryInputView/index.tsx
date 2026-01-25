@@ -132,6 +132,4 @@ const DiaryInputTextarea = styled.div`
 const DiaryInputImagesWrapper = styled.div`
   width: 100%;
   height: 120px;
-
-  overflow: hidden;
 `;

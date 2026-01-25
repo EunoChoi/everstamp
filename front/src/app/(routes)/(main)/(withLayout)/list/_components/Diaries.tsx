@@ -48,7 +48,14 @@ const DiaryWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 14px 0;
+  margin: 8px 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+  &:last-child {
+    margin-bottom: 8px;
+  }
 `
 
 const MonthSeparator = styled.span`
