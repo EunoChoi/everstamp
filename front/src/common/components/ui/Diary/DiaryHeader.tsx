@@ -1,6 +1,6 @@
 import type { DiaryHeaderData } from '@/common/types/diary';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { format } from 'date-fns';
+import { MdMoreVert } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import DiaryMenus from './DiaryMenus';
@@ -43,7 +43,7 @@ const DiaryHeader = ({ diaryData, type }: Props) => {
         </span>
       </DateInfo>
       <Edit onClick={handleToggleMenu}>
-        {diaryData.visible && <MoreVertIcon color="inherit" fontSize="inherit" />}
+        {diaryData.visible && <MdMoreVert />}
       </Edit>
       <DiaryMenus
         isMenuOpen={isMenuOpen}

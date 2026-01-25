@@ -9,8 +9,8 @@ import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getHabitList } from "@/common/fetchers/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import AddIcon from '@mui/icons-material/Add';
 import { useQuery } from "@tanstack/react-query";
+import { MdAdd } from 'react-icons/md';
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import HabitBox from "./_components/HabitBox";
@@ -57,7 +57,7 @@ const HabitView = () => {
     <PageWrapper>
       <TopButtons>
         <button onClick={onAddHabit} className="small">
-          <AddIcon fontSize="small" />
+          <MdAdd />
         </button>
         <button onClick={onToggle} className={toggleValue === 'CUSTOM' ? 'large' : 'normal'} >
           <span>{SORT_TEXT[toggleValue]}</span>
@@ -72,7 +72,7 @@ const HabitView = () => {
 
         <HabitBoxs>
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-          {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><AddIcon fontSize='inherit' color='inherit' /></EmptyBox>}
+          {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
           {Array.from({ length: DUMMY_COUNT }).map((_, index) => (<div key={index}></div>))}
         </HabitBoxs>
       </ContentWrapper>

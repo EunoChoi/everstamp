@@ -4,9 +4,8 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import styled from "styled-components";
 
-//icon
-import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined';
 import { useRouter } from "next/navigation";
+import { MdOutlineSentimentDissatisfied } from 'react-icons/md';
 
 
 const Page = () => {
@@ -17,7 +16,7 @@ const Page = () => {
     <Suspense>
       <Wrapper>
         <Icon>
-          <SentimentDissatisfiedOutlinedIcon fontSize="inherit" />
+          <MdOutlineSentimentDissatisfied />
         </Icon>
         <Text>
           {message}

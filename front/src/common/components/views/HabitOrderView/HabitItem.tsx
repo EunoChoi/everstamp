@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 
 
-import DragIndicatorRoundedIcon from '@mui/icons-material/DragIndicatorRounded';
+import { MdDragIndicator } from 'react-icons/md';
 //for dnd
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -40,7 +40,7 @@ export const HabitItem = ({ habit }: HabitItemProps) => {
         {...attributes}
         {...listeners}
       >
-        <DragIndicatorRoundedIcon className='icon' fontSize='inherit' />
+        <MdDragIndicator className='icon' />
       </button>
     </Wrapper>);
 }

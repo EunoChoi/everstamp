@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 
-import RefreshIcon from '@mui/icons-material/Refresh';
 import { getYear } from "date-fns";
+import { MdRefresh } from 'react-icons/md';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import EmotionSelector from "./EmotionSelector";
@@ -77,7 +77,7 @@ const ListFilter = ({
         <MonthWrapper>
           <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
         </MonthWrapper>
-        <InitButton onClick={onInitialize}><RefreshIcon fontSize="small" />선택 초기화</InitButton>
+        <InitButton onClick={onInitialize}><MdRefresh />선택 초기화</InitButton>
         <ButtonWrapper>
           <Button className="cancel" onClick={() => setFilterOpen(false)}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>

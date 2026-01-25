@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
 import Api from "@/api/Api";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
@@ -98,13 +96,13 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
 
   return <Wrapper className={isMenuOpen ? '' : 'hidden'} $position={position}>
     <button onClick={onClickCopy}>
-      <ContentCopyIcon className='icon' fontSize='inherit' color='inherit' />텍스트 복사
+      <MdContentCopy className='icon' />텍스트 복사
     </button>
     <button onClick={onClickEdit}>
-      <EditOutlinedIcon className='icon' fontSize='inherit' color='inherit' />수정
+      <MdOutlineEdit className='icon' />수정
     </button>
     <button onClick={onClickDeleteButton}>
-      <DeleteForeverOutlinedIcon className='icon' fontSize='inherit' color='inherit' />삭제
+      <MdOutlineDeleteForever className='icon' />삭제
     </button>
   </Wrapper>;
 }

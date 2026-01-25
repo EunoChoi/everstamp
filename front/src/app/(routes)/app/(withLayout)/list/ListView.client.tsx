@@ -13,7 +13,7 @@ import TopButtons from "@/common/components/ui/TopButtons";
 import { getDiaryList } from "@/common/fetchers/diary";
 import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import FilterListIcon from '@mui/icons-material/FilterList';
+import { MdFilterList } from 'react-icons/md';
 import { Diaries } from "./_components/Diaries";
 import { useFilter } from "./_hooks/useFilter";
 import { useListToggle } from "./_hooks/useListToggle";
@@ -70,7 +70,7 @@ const ListView = () => {
               {emotionToggle !== 5 && EMOTION_NAME_ENG[emotionToggle]}
             </span>
           ) : (
-            <FilterListIcon fontSize="small" />
+            <MdFilterList />
           )}
         </button>
         <button

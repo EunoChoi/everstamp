@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 import { isIosPwa } from "@/common/functions/isIosPwa";
-import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import { useEffect, useRef, useState } from "react";
+import { MdArrowUpward } from 'react-icons/md';
 
 
 interface Props {
@@ -53,7 +53,7 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
     <>
       {buttonVisible ?
         <Wrapper onClick={goToTop} className={iosPwa ? 'iosPwa' : ''}>
-          <ArrowUpwardRoundedIcon fontSize="small" />
+          <MdArrowUpward />
         </Wrapper> :
         <></>}
     </>

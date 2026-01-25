@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 import { getHabitYearlyStatus } from "@/common/fetchers/habit";
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useQuery } from "@tanstack/react-query";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { addYears, format, subYears } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
@@ -40,9 +39,9 @@ const YearHabitChart = ({ setDisplayDate, displayDate }: Props) => {
   return (
     <Wrapper>
       <YearInfo>
-        <button onClick={preYear}><KeyboardArrowLeftIcon fontSize="small" /></button>
+        <button onClick={preYear}><MdKeyboardArrowLeft /></button>
         <button onClick={currentYear}>{year}</button>
-        <button onClick={nextYear}><KeyboardArrowRightIcon fontSize="small" /></button>
+        <button onClick={nextYear}><MdKeyboardArrowRight /></button>
       </YearInfo>
       <Title>습관 성취 그래프</Title>
       <Chart>
