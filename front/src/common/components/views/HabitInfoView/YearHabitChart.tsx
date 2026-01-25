@@ -70,7 +70,7 @@ const Wrapper = styled.div`
   border-radius: 20px;
   padding: 16px;
   background-color: rgba(255,255,255,0.6);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   >span{
     padding: 8px 0;
   }

@@ -12,8 +12,8 @@ import { ChangeEvent } from "react";
 import { StarRating } from "@/common/components/ui/StarRating";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { useRouter } from "next/navigation";
-import { MdOutlineDeleteForever, MdOutlineEdit, MdOutlineInsertChart } from 'react-icons/md';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { MdOutlineDeleteForever, MdOutlineEdit, MdOutlineInsertChart } from 'react-icons/md';
 import useHabitAction from "./utils/useHabitAction";
 
 
@@ -117,9 +117,9 @@ const Wrapper = styled.div`
   align-items: center;
   
   border-radius: 24px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.9);
   backdrop-filter: blur(12px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 
   width: 100%;
   aspect-ratio: 0.85;

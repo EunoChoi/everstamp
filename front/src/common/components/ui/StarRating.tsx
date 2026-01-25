@@ -17,7 +17,7 @@ export const StarRating = ({ rating, className }: StarRatingProps) => {
 
 const Wrapper = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize ?? '15px'};
   gap: 4px;
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+  color: ${(props) => props.theme.themeColor ?? '#979FC7'};
 `

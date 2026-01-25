@@ -132,7 +132,7 @@ const CalendarWrapper = styled.div`
   border-radius: 20px;
   padding: 12px;
   background-color: rgba(255,255,255,0.6);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 `
 const MobilePortNameWrapper = styled.div`
   width: 100%;

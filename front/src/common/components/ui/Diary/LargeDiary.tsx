@@ -108,9 +108,9 @@ const Wrapper = styled.div`
   box-sizing: border-box;
 
   border-radius: 20px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.9);
   backdrop-filter: blur(12px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 
   @media (max-width: 479px) {
     min-height: 200px;

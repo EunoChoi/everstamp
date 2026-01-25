@@ -90,9 +90,9 @@ const Wrapper = styled.div`
   }
 
   border-radius: 20px;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.9);
   backdrop-filter: blur(12px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 
   /* 슬라이드 */
   overflow-x: scroll;
@@ -146,7 +146,7 @@ const Text = styled.div`
   overflow: hidden;
   white-space: pre-wrap;
   overflow-wrap: break-word;
-  line-height: 1.6;
+  line-height: 1.35;
   font-size: ${(props) => props.theme.fontSize ?? '15px'};
   color: rgb(var(--greyTitle));
 `

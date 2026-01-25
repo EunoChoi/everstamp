@@ -40,7 +40,7 @@ const NavWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 48px;
+  gap: 24px;
   width: 100%;
   height: var(--mobileNav);
 

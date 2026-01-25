@@ -9,7 +9,7 @@ export const THEME_BG_COLORS: Record<string, string> = {
   '#8CADE2': '#f3f7fc',
   '#83c6b6': '#f2faf8',
   '#eda5b1': '#fef9fa',
-  '#f9c74f': '#fdf9eb',
+  '#f9c74f': '#fefcf4',
   '#8f8f8f': '#f7f7f7',
 };
 
