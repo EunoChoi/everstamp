@@ -4,7 +4,7 @@ import "./globals.css";
 
 
 import { getCurrentUser } from "@/common/fetchers/user";
-import { AppProviders } from "@/common/utils/AppProviders";
+import { RootProviders } from "@/common/utils/RootProviders";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { headers } from 'next/headers';
 
@@ -106,9 +106,9 @@ export default async function RootLayout({
       </head>
 
       <body className={pretendard.className}>
-        <AppProviders dehydratedState={dehydratedState}>
+        <RootProviders dehydratedState={dehydratedState}>
           {children}
-        </AppProviders>
+        </RootProviders>
       </body>
     </html>
   );
