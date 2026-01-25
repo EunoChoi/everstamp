@@ -13,7 +13,7 @@ export default function NotFound() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#EFF0F6',
+        backgroundColor: 'var(--theme-bg, #f5f5fa)',
       }}
     >
       <Image priority src={EMOTIONS[1].src} alt={EMOTIONS[1].name} width={128} height={128} />

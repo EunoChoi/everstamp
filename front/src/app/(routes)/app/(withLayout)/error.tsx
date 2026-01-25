@@ -25,7 +25,7 @@ export default function Error({ error, reset }: ErrorProps) {
         justifyContent: 'center',
         alignItems: 'center',
         gap: '16px',
-        backgroundColor: '#EFF0F6',
+        backgroundColor: 'var(--theme-bg, #f5f5fa)',
         color: 'rgb(88, 88, 88)',
       }}
     >

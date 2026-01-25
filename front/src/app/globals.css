@@ -29,6 +29,7 @@ html:not(.hydrated) body {
 :root {
   --font-size-base: 16px;
   --whitesmoke: 245, 245, 245;
+  --theme-bg: #f5f5fa;
 
   --point: 153, 151, 203;
   --point2: 187, 185, 220;

@@ -25,7 +25,7 @@ export default function Loading() {
         justifyContent: 'center',
         alignItems: 'center',
         gap: '24px',
-        backgroundColor: '#EFF0F6',
+        backgroundColor: 'var(--theme-bg, #f5f5fa)',
       }}
     >
       <Image src={EMOTIONS[2].src} alt={EMOTIONS[2].name} width={128} height={128} priority />
