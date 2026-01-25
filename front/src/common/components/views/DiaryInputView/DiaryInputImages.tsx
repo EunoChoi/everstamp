@@ -112,9 +112,9 @@ const Wrapper = styled.div`
   overflow-x: scroll;
   height: 100%;
 
-  background-color: rgba(255,255,255,0.6);
+  background-color: rgba(255,255,255,0.95);
   border-radius: 16px;
-  box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
 `
 const SquareBox = styled.div`
   position: relative;

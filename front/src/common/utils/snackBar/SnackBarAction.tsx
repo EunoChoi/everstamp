@@ -13,16 +13,16 @@ export const SnackBarAction = ({ yesAction, noAction }: SnackBarActionProps) => 
   </>);
 }
 const Button = styled.button`
-  padding: 5px 14px;
+  padding: 6px 16px;
   margin-left: 8px;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border-radius: 14px;
+  font-weight: 500;
   &.yes{
-    background-color: #83c6b6;
+    background-color: rgba(131, 198, 182, 0.9);
     color: white;
   }
   &.no{
-    background-color: #dc7889;
+    background-color: rgba(220, 120, 137, 0.9);
     color: white;
   }
 `
