@@ -1,66 +1,57 @@
 const jwt = require("jsonwebtoken");
 
-const parseJwt = (token) => {
-  return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-}
-
 const tokenCheck = async (req, res, next) => {
+  const accessToken = req.cookies.accessToken;
+  const refreshToken = req.cookies.refreshToken;
+
+  // accessToken 검증 시도
   try {
-    const accessToken = req.cookies.accessToken;
-    console.log('accessToken : ', accessToken);
-
-
-    const user = jwt.verify(accessToken, process.env.ACCESS_KEY);
-
-    console.log('accessToken 검증 완료');
-
-    req.currentUserEmail = user.email;
-    req.currentUserProvider = user.provider;
-
+    const decoded = jwt.verify(accessToken, process.env.ACCESS_KEY);
+    req.currentUserEmail = decoded.email;
+    req.currentUserProvider = decoded.provider;
     return next();
-  } catch (error) {
+  } catch (accessError) {
+    // accessToken 만료 또는 유효하지 않음
+    console.log('accessToken 검증 실패:', accessError.name);
+  }
 
-    console.log(error.name); //accessToken 검증 실패
-    console.log('accessToken 검증 실패')
-    try {
-
-
-      const accessToken = req.cookies.accessToken;
-      const refreshToken = req.cookies.refreshToken;
-
-      console.log('accessToken : ', accessToken);
-
-      const refreshVerify = jwt.verify(refreshToken, process.env.REFRECH_KEY); //refreshToken 검증 진행
-      console.log('refreshToken : ', refreshVerify);
-
-
-      const email = parseJwt(accessToken)?.email;
-      const provider = parseJwt(accessToken)?.provider;
-      console.log(email, provider);
-
-      const newAccessToken = jwt.sign({ //accessToken 재밝브
-        email,
-        provider,
-      }, process.env.ACCESS_KEY, {
-        expiresIn: '5m',
-        issuer: 'everstamp',
-      });
-      res.cookie("accessToken", newAccessToken, {
-        secure: false,
-        httpOnly: true,
-        domain: `${process.env.DOMAIN}`,
-        maxAge: 7 * 24 * 60 * 60 * 1000 //ms
-      });
-
-      req.currentUserEmail = email;
-      req.currentUserProvider = provider;
-
-      return next();
-    } catch (error) {
-      console.log('refreshToken 검증 실패');
-      console.log(error);
-      res.status(400).send('로그인이 필요합니다.'); //refresh token 검증도 실패한 경우
+  // refreshToken으로 재발급 시도
+  try {
+    if (!refreshToken) {
+      return res.status(401).json('로그인이 필요합니다.');
     }
+
+    // refreshToken에서 사용자 정보 추출 (보안 개선)
+    const decoded = jwt.verify(refreshToken, process.env.REFRECH_KEY);
+    const { email, provider } = decoded;
+
+    if (!email || !provider) {
+      return res.status(401).json('유효하지 않은 토큰입니다.');
+    }
+
+    // 새 accessToken 발급
+    const newAccessToken = jwt.sign(
+      { email, provider },
+      process.env.ACCESS_KEY,
+      { expiresIn: '5m', issuer: 'everstamp' }
+    );
+
+    // 쿠키 설정 (프로덕션에서는 secure: true 권장)
+    const isProduction = process.env.NODE_ENV === 'production';
+    res.cookie('accessToken', newAccessToken, {
+      secure: isProduction,
+      httpOnly: true,
+      domain: process.env.DOMAIN,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: isProduction ? 'strict' : 'lax'
+    });
+
+    req.currentUserEmail = email;
+    req.currentUserProvider = provider;
+    return next();
+  } catch (refreshError) {
+    console.log('refreshToken 검증 실패:', refreshError.name);
+    return res.status(401).json('로그인이 필요합니다.');
   }
 };
 
