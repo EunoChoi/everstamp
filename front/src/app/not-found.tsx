@@ -1,5 +1,5 @@
 import Image from "next/image";
-import emotion1 from '/public/img/emotion/emotion1.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 // 404 페이지 (inline style 사용 - 새로고침 시 스타일 깨짐 방지)
 export default function NotFound() {
@@ -16,7 +16,7 @@ export default function NotFound() {
         backgroundColor: '#EFF0F6',
       }}
     >
-      <Image priority src={emotion1} alt="sad" width={128} height={128} />
+      <Image priority src={EMOTIONS[1].src} alt={EMOTIONS[1].name} width={128} height={128} />
       <span
         style={{
           fontSize: '36px',

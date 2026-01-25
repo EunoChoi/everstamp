@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import styled from "styled-components";
-import emotion2 from '/public/img/emotion/emotion2.png';
+import { EMOTIONS } from "@/common/constants/emotions";
 
 interface LoadingScreenProps {
   message?: string;
@@ -12,7 +12,7 @@ interface LoadingScreenProps {
 // 로딩 화면 공통 컴포넌트
 const LoadingScreen = ({ message = "loading...", showImage = true }: LoadingScreenProps) => (
   <Wrapper>
-    {showImage && <Image src={emotion2} alt='loading' width={128} height={128} />}
+    {showImage && <Image src={EMOTIONS[2].src} alt={EMOTIONS[2].name} width={128} height={128} />}
     {message && <span>{message}</span>}
   </Wrapper>
 );
