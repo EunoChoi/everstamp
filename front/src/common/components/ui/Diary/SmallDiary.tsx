@@ -84,7 +84,7 @@ const Wrapper = styled.div`
   flex-shrink: 0;
   overflow: hidden;
   width: 100%;
-  height: 200px;
+  height: 180px;
 
   border-radius: 20px;
   background-color: rgba(255,255,255,0.7);

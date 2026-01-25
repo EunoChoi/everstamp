@@ -38,10 +38,12 @@ const NavWrapper = styled.div`
   right: 0;
   
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 12px 4dvw;
-  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  gap: 48px;
+  width: 100%;
+  height: var(--mobileNav);
+
   
   pointer-events: none;
 

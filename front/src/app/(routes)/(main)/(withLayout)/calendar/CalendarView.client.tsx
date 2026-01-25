@@ -98,14 +98,16 @@ const CalendarPageCalendar = styled(Calendar)`
   @media (min-width:1025px) { //desktop
     flex-grow: 1;
   }
+  min-height: 520px;
 `
 const CalendarContentWrapper = styled(ContentWrapper)`
   max-width: 600px;
   height: 100%;
+  overflow-y: scroll;
 
   @media (max-width: 479px) {
     gap: 12px;
-    padding-bottom: calc(var(--mobileNav) + 8px);
+    padding-bottom: var(--mobileNav);
   }
   @media (min-width:480px) and (max-width:1024px) {
     padding-top: 24px;

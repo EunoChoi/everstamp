@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 
   @media (max-width: 479px) {
-    padding: 8px 4dvw var(--mobileNav) 4dvw;
+    padding: 0px 4dvw var(--mobileNav) 4dvw;
   }
   @media (min-width:480px) and (max-width:1024px) {
     overflow: scroll;
