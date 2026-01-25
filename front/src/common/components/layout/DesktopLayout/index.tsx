@@ -40,4 +40,5 @@ const DesktopContent = styled.div`
   align-items: center;
 
   width: calc(100vw - var(--sidebarWidth));
+  margin-left: var(--sidebarWidth);
 `
