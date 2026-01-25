@@ -5,11 +5,8 @@ import { useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
 
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ViewListIcon from '@mui/icons-material/ViewList';
 import { useRouter } from "next/navigation";
+import { MdCalendarMonth, MdCheckBox, MdSettings, MdViewList } from 'react-icons/md';
 import { ReactNode } from "react";
 
 interface Props {
@@ -28,10 +25,10 @@ const MobileLayout = ({ modal, children }: Props) => {
       {children}
       <Mobile_Nav>
         <Logo><span>everstamp</span></Logo>
-        <NavMenu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}><CalendarMonthIcon className="icon" fontSize="small" /> <span>calendar</span></NavMenu>
-        <NavMenu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><ViewListIcon className="icon" fontSize="small" /> <span>list</span></NavMenu>
-        <NavMenu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><CheckBoxIcon className="icon" fontSize="small" /> <span>habit</span></NavMenu>
-        <NavMenu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><SettingsIcon className="icon" fontSize="small" /> <span>setting</span></NavMenu>
+        <NavMenu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}><MdCalendarMonth className="icon" /> <span>calendar</span></NavMenu>
+        <NavMenu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} ><MdViewList className="icon" /> <span>list</span></NavMenu>
+        <NavMenu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} ><MdCheckBox className="icon" /> <span>habit</span></NavMenu>
+        <NavMenu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}><MdSettings className="icon" /> <span>setting</span></NavMenu>
       </Mobile_Nav>
     </Mobile_Layout>
   );

@@ -1,9 +1,7 @@
 import { format } from "date-fns";
 
 
-//icons
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import styled from "styled-components";
 import { useCalendar } from "./CalendarContext";
 
@@ -30,11 +28,11 @@ const CalendarHeader = ({
     <>
       {headerTitlePosition === 'center' &&
         <CalTitle className={`${headerSize} ${headerTitlePosition}`} >
-          <button onClick={prevMonth}><KeyboardArrowLeftIcon fontSize="small" /></button>
+          <button onClick={prevMonth}><MdKeyboardArrowLeft /></button>
           <button onClick={goToday}>
             {format(displayDate, 'MMMM. yyyy')}
           </button>
-          <button onClick={nextMonth}><KeyboardArrowRightIcon fontSize="small" /></button>
+          <button onClick={nextMonth}><MdKeyboardArrowRight /></button>
         </CalTitle>
       }
       {headerTitlePosition === 'start' &&
@@ -45,8 +43,8 @@ const CalendarHeader = ({
             {format(displayDate, 'MMMM. yyyy')}
           </CalTitleText>
           <ArrowButtonWrapper>
-            <button className={headerSize} onClick={prevMonth}><KeyboardArrowLeftIcon fontSize="small" color='inherit' /></button>
-            <button className={headerSize} onClick={nextMonth}><KeyboardArrowRightIcon fontSize="small" color='inherit' /></button>
+            <button className={headerSize} onClick={prevMonth}><MdKeyboardArrowLeft /></button>
+            <button className={headerSize} onClick={nextMonth}><MdKeyboardArrowRight /></button>
           </ArrowButtonWrapper>
         </CalTitle>}
       <CalWeeks>

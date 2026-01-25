@@ -4,12 +4,10 @@ import { enqueueSnackbar } from "notistack";
 import styled from "styled-components";
 import loading from '/public/img/loading.gif';
 
-import RemoveCircleOutlinedIcon from '@mui/icons-material/RemoveCircleOutlined';
 import { RefObject } from "react";
-
+import { MdOutlineImage, MdOutlineRemoveCircle } from 'react-icons/md';
 
 import Api from "@/api/Api";
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 
 
@@ -82,7 +80,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
       <SquareBox>
         <UploadButton disabled={isLoading} onClick={() => imageUploadRef.current?.click()}>
           <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
-          <ImageOutlinedIcon className="icon" />
+          <MdOutlineImage className="icon" />
           <span>Upload</span>
         </UploadButton>
       </SquareBox>
@@ -96,7 +94,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
                 deletedImageArray.splice(i, 1);
                 setImages(deletedImageArray);
               }}>
-                <RemoveCircleOutlinedIcon fontSize="inherit" />
+                <MdOutlineRemoveCircle />
               </ImageDeleteButton>
             </SquareBox>)}
           {ImageUploadMutation?.isPending ? <SquareBox className="loading"><Image src={loading} alt="loading" width={70} height={70} /></SquareBox> : <></>}

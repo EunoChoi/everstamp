@@ -1,7 +1,7 @@
 'use client';
 
-import LowPriorityRoundedIcon from '@mui/icons-material/LowPriorityRounded';
 import { useRouter } from 'next/navigation';
+import { MdAndroid, MdDeleteForever, MdLogout, MdLowPriority } from 'react-icons/md';
 import styled from "styled-components";
 
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
@@ -9,16 +9,12 @@ import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
-import AndroidRoundedIcon from '@mui/icons-material/AndroidRounded';
 import { FontSizeSelector } from "./_components/FontSizeSelector";
 import { SettingItem } from "./_components/SettingItem";
 import { ThemeColorSelector } from "./_components/ThemeColorSelector";
 import { onDeleteAccount } from "./_functions/onDeleteAccount";
 import { onLogout } from "./_functions/onLogout";
 import { useCurrentUserData } from "./_hooks/useCurrentUserData";
-
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import LogoutIcon from '@mui/icons-material/Logout';
 
 const SettingPage = () => {
   usePrefetchPage();
@@ -32,7 +28,7 @@ const SettingPage = () => {
         <a href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
           target="_blank"
           rel="noopener noreferrer" >
-          <button className="auto"><AndroidRoundedIcon fontSize="small" /></button>
+          <button className="auto"><MdAndroid /></button>
         </a>
         <a href="https://everstamp.site"
           target="_blank"
@@ -71,7 +67,7 @@ const SettingPage = () => {
                 <button onClick={() => {
                   router.push('/app/inter/habitOrder', { scroll: false })
                 }}>
-                  <LowPriorityRoundedIcon fontSize="small" />
+                  <MdLowPriority />
                 </button>} />
           </SubSection>
         </Section>
@@ -83,13 +79,13 @@ const SettingPage = () => {
               settingItemKey="로그아웃"
               settingItemValue={
                 <button onClick={onLogout}>
-                  <LogoutIcon fontSize="small" />
+                  <MdLogout />
                 </button>} />
             <SettingItem
               settingItemKey="회원 탈퇴"
               settingItemValue={
                 <button onClick={onDeleteAccount}>
-                  <DeleteForeverIcon fontSize="small" />
+                  <MdDeleteForever />
                 </button>} />
           </SubSection>
         </Section>

@@ -11,10 +11,8 @@ import { ChangeEvent } from "react";
 
 import { StarRating } from "@/common/components/ui/StarRating";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import { useRouter } from "next/navigation";
+import { MdOutlineDeleteForever, MdOutlineEdit, MdOutlineInsertChart } from 'react-icons/md';
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
 import useHabitAction from "./utils/useHabitAction";
 
@@ -85,13 +83,13 @@ const HabitBox = ({ name, id, priority }: Props) => {
     </Days>
     <ButtonWrapper>
       <button onClick={() => router.push(`/app/inter/habitInfo?id=${id}`, { scroll: false })}>
-        <InsertChartOutlinedIcon fontSize="small" />
+        <MdOutlineInsertChart />
       </button>
       <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
-        <EditOutlinedIcon fontSize="small" />
+        <MdOutlineEdit />
       </button>
       <button onClick={onDeleteHabit}>
-        <DeleteForeverOutlinedIcon fontSize="small" />
+        <MdOutlineDeleteForever />
       </button>
     </ButtonWrapper>
   </Wrapper >);

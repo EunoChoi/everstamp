@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
 
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { MdArrowBackIos } from 'react-icons/md';
 
 interface ModalHeaderProps {
   className?: string;
@@ -19,7 +19,7 @@ export const ModalHeader = ({ className, headerTitleText, headerConfirmText = 'ì
     <Button
       className="left"
       onClick={() => router.back()}>
-      <ArrowBackIosIcon color="inherit" />
+      <MdArrowBackIos />
     </Button>
     {headerTitleText ? <Title>{headerTitleText}</Title> : <></>}
     {onConfirm ? <Button className="right" onClick={onConfirm}>{headerConfirmText}</Button> : <></>}

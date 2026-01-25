@@ -41,12 +41,8 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
-import AndroidIcon from '@mui/icons-material/Android';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import InstallMobileIcon from '@mui/icons-material/InstallMobile';
-import LockIcon from '@mui/icons-material/Lock';
-import PhonelinkIcon from '@mui/icons-material/Phonelink';
 import { useRouter } from "next/navigation";
+import { MdAndroid, MdColorLens, MdInstallMobile, MdLock, MdPhonelink } from 'react-icons/md';
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 
 
@@ -129,9 +125,9 @@ const IntroMobile = () => {
           <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
         </a> */}
         <Button onClick={goToPlayStore}>
-          <AndroidIcon className="icon" fontSize="small" />Android
+          <MdAndroid className="icon" />Android
         </Button>
-        <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+        <Button onClick={installPwa}><MdInstallMobile className="icon" />PWA</Button>
       </DownLoadButtons>
 
       <StartInWeb
@@ -219,15 +215,15 @@ const IntroMobile = () => {
 
       <RowWrapper>
         <ColWrapper className="othersIcons">
-          <LockIcon fontSize="large" />
+          <MdLock size={32} />
           <span>텍스트 암호화</span>
         </ColWrapper>
         <ColWrapper className="othersIcons">
-          <ColorLensIcon fontSize="large" />
+          <MdColorLens size={32} />
           <span>테마 설정</span>
         </ColWrapper>
         <ColWrapper className="othersIcons">
-          <PhonelinkIcon fontSize="large" />
+          <MdPhonelink size={32} />
           <span>멀티 플랫폼</span>
         </ColWrapper>
       </RowWrapper>
@@ -239,9 +235,9 @@ const IntroMobile = () => {
           <Button className="outro"><AndroidIcon className="icon" fontSize="small" />APK</Button>
         </a> */}
         <Button className="outro" onClick={goToPlayStore}>
-          <AndroidIcon className="icon" fontSize="small" />Android
+          <MdAndroid className="icon" />Android
         </Button>
-        <Button className="outro" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+        <Button className="outro" onClick={installPwa}><MdInstallMobile className="icon" />PWA</Button>
         {/* <Button onClick={() => (router.push('/app'))}>실행하기</Button> */}
       </DownLoadButtons>
       <StartInWeb

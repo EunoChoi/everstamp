@@ -39,9 +39,8 @@ import ipad_login from '/public/img/intro/ipad_login.png';
 
 import IntroPageCarousel from "@/common/components/ui/IntroPageCarousel";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
-import AndroidIcon from '@mui/icons-material/Android';
-import InstallMobileIcon from '@mui/icons-material/InstallMobile';
 import { useRouter } from "next/navigation";
+import { MdAndroid, MdInstallMobile } from 'react-icons/md';
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { useEffect, useState } from "react";
 
@@ -125,9 +124,9 @@ const IntroDesktop = () => {
             <Button><AndroidIcon className="icon" fontSize="small" />APK</Button>
           </a> */}
           <Button onClick={goToPlayStore}>
-            <AndroidIcon className="icon" fontSize="small" />Android
+            <MdAndroid className="icon" />Android
           </Button>
-          <Button onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+          <Button onClick={installPwa}><MdInstallMobile className="icon" />PWA</Button>
           <Button className="web" onClick={() => {
             startInWeb();
           }}>웹에서 실행하기</Button>
@@ -233,9 +232,9 @@ const IntroDesktop = () => {
           <Button className="bottom" ><AndroidIcon className="icon" fontSize="small" />APK</Button>
         </a> */}
         <Button className="bottom" onClick={goToPlayStore}>
-          <AndroidIcon className="icon" fontSize="small" />Android
+          <MdAndroid className="icon" />Android
         </Button>
-        <Button className="bottom" onClick={installPwa}><InstallMobileIcon className="icon" fontSize="small" />PWA</Button>
+        <Button className="bottom" onClick={installPwa}><MdInstallMobile className="icon" />PWA</Button>
         <Button className="web bottom" onClick={() => {
           startInWeb();
         }}>웹에서 실행하기</Button>

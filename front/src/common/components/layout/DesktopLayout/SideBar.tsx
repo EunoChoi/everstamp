@@ -2,11 +2,7 @@ import { getTodayString } from "@/common/functions/getTodayString";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ViewListIcon from '@mui/icons-material/ViewList';
+import { MdCalendarMonth, MdCheckBox, MdHome, MdSettings, MdViewList } from 'react-icons/md';
 
 const SideBar = () => {
   const router = useRouter();
@@ -20,23 +16,23 @@ const SideBar = () => {
       <Menu
         onClick={() => router.push(`/app/home`, {})}
         className={current === 'home' ? 'home' : ''}>
-        <HomeIcon className="icon" />
+        <MdHome className="icon" />
         <span>home</span>
       </Menu>
       <Menu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}>
-        <CalendarMonthIcon className="icon" />
+        <MdCalendarMonth className="icon" />
         <span>calendar</span>
       </Menu>
       <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} >
-        <ViewListIcon className="icon" />
+        <MdViewList className="icon" />
         <span>list</span>
       </Menu>
       <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} >
-        <CheckBoxIcon className="icon" />
+        <MdCheckBox className="icon" />
         <span>habit</span>
       </Menu>
       <Menu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}>
-        <SettingsIcon className="icon" />
+        <MdSettings className="icon" />
         <span>setting</span>
       </Menu>
     </Menus>

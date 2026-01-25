@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
 import { getYear } from "date-fns";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { useState } from "react";
 
 interface Props {
@@ -42,9 +40,9 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
   }
   return (<Wrapper>
     <YearArea>
-      <button onClick={goToPreYear}><KeyboardArrowLeftIcon fontSize="small" color="inherit" /></button>
+      <button onClick={goToPreYear}><MdKeyboardArrowLeft /></button>
       <button onClick={goToCurrentDate}>{selectedYear}</button>
-      <button onClick={goToNextYear}><KeyboardArrowRightIcon fontSize="small" color="inherit" /></button>
+      <button onClick={goToNextYear}><MdKeyboardArrowRight /></button>
     </YearArea>
     <MonthsArea
       onTouchStart={(e: any) => {

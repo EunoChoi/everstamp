@@ -1,8 +1,7 @@
 'use client'
 
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import styled from "styled-components";
 
 interface DiaryInputSectorProps {
@@ -17,7 +16,7 @@ export const DiaryInputSection = ({ children, sectorTitle, visibleToggle, setVis
     <DiaryInputTitle>
       <span>{sectorTitle}</span>
       <button onClick={() => { setVisibleToggle(c => !c) }}>
-        {visibleToggle ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        {visibleToggle ? <MdExpandLess /> : <MdExpandMore />}
       </button>
     </DiaryInputTitle>
     {visibleToggle ? children : <></>}

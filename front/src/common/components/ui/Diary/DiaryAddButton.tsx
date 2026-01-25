@@ -1,5 +1,5 @@
-import AddIcon from '@mui/icons-material/Add';
 import { useRouter } from 'next/navigation';
+import { MdAdd } from 'react-icons/md';
 import styled from "styled-components";
 
 interface Props {
@@ -17,7 +17,7 @@ const DiaryAddButton = ({ date }: Props) => {
     <Wrapper>
       <AddButton onClick={onAddDiary}>
         <span>새 일기 작성</span>
-        <AddIcon fontSize="inherit" />
+        <MdAdd />
       </AddButton>
     </Wrapper>
   );

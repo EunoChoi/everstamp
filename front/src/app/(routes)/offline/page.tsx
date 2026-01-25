@@ -1,6 +1,6 @@
 'use client'
-import SignalWifiConnectedNoInternet4RoundedIcon from '@mui/icons-material/SignalWifiConnectedNoInternet4Rounded';
 import { useRouter } from 'next/navigation';
+import { MdSignalWifiConnectedNoInternet4 } from 'react-icons/md';
 import { useEffect } from "react";
 import styled from "styled-components";
 
@@ -23,7 +23,7 @@ export default function OfflinePage() {
 
   return (
     <Wrapper>
-      <SignalWifiConnectedNoInternet4RoundedIcon className="icon" fontSize="inherit" />
+      <MdSignalWifiConnectedNoInternet4 className="icon" />
       <span className="title">오프라인</span>
       <p>인터넷 연결 상태를 확인해주세요.</p>
     </Wrapper>

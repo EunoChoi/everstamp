@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { MdAdd, MdRemove } from 'react-icons/md';
 
 
 export const FontSizeSelector = () => {
@@ -10,11 +9,11 @@ export const FontSizeSelector = () => {
 
   return (<FontSizeWrapper>
     <button onClick={fontSizeDown}>
-      <RemoveIcon fontSize="small" />
+      <MdRemove />
     </button>
     <span className="fontSize">{fontSize}</span>
     <button onClick={fontSizeUp}>
-      <AddIcon fontSize="small" />
+      <MdAdd />
     </button>
   </FontSizeWrapper>);
 }
