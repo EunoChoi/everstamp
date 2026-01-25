@@ -39,11 +39,20 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // 배경색 동기화
+  // 배경색 + 모바일 상태바 색상 동기화
   useEffect(() => {
     const bgColor = THEME_BG_COLORS[themeColor] || '#f5f5fa';
     document.body.style.backgroundColor = bgColor;
     document.documentElement.style.setProperty('--theme-bg', bgColor);
+
+    // 모바일 상태바 색상
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement('meta');
+      metaThemeColor.setAttribute('name', 'theme-color');
+      document.head.appendChild(metaThemeColor);
+    }
+    metaThemeColor.setAttribute('content', bgColor);
   }, [themeColor]);
 
   const theme = useMemo(() => ({
