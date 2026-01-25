@@ -30,7 +30,7 @@ const SmallDiary = ({ diaryData }: Props) => {
 
   const handleNavigateToZoom = () => {
     if (diaryData.id) {
-      router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false });
+      router.push(`/inter/zoom?id=${diaryData.id}`, { scroll: false });
     }
   };
 

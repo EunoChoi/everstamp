@@ -10,10 +10,10 @@ export const useNavItems = () => {
   const current = useSelectedLayoutSegment();
 
   const items = [
-    { key: 'calendar', icon: MdCalendarMonth, label: 'calendar', onClick: () => router.push(`/app/calendar?date=${getTodayString()}`) },
-    { key: 'list', icon: MdViewList, label: 'list', onClick: () => router.push('/app/list') },
-    { key: 'habit', icon: MdCheckBox, label: 'habit', onClick: () => router.push('/app/habit') },
-    { key: 'setting', icon: MdSettings, label: 'setting', onClick: () => router.push('/app/setting') },
+    { key: 'calendar', icon: MdCalendarMonth, label: 'calendar', onClick: () => router.push(`/calendar?date=${getTodayString()}`) },
+    { key: 'list', icon: MdViewList, label: 'list', onClick: () => router.push('/list') },
+    { key: 'habit', icon: MdCheckBox, label: 'habit', onClick: () => router.push('/habit') },
+    { key: 'setting', icon: MdSettings, label: 'setting', onClick: () => router.push('/setting') },
   ];
 
   return { items, current };

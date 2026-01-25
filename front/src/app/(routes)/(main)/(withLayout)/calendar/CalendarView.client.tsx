@@ -55,7 +55,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   });
 
   const onClickMonthTitle = () => {
-    router.push(`/app/calendar?date=${getTodayString()}`);
+    router.push(`/calendar?date=${getTodayString()}`);
   }
   const onClickDate = useCallback((date: Date) => {
     router.push(`calendar?date=${format(date, 'yyyy-MM-dd')}`);

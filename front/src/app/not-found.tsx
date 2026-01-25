@@ -37,7 +37,7 @@ export default function NotFound() {
         요청하신 페이지를 찾을 수 없습니다.
       </p>
       <a
-        href="/app"
+        href="/"
         style={{
           marginTop: '24px',
           padding: '10px 24px',

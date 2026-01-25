@@ -12,7 +12,7 @@ const DiaryHabits = ({ habits }: Props) => {
   const completedCount = habits?.length ?? 0;
 
   const handleHabitClick = (habitId: number) => {
-    router.push(`/app/inter/habitInfo?id=${habitId}`, { scroll: false });
+    router.push(`/inter/habitInfo?id=${habitId}`, { scroll: false });
   };
 
   return (

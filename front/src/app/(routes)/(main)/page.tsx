@@ -22,7 +22,7 @@ import naver from '/public/img/loginIcon/naver.png';
 
 
 /**
- * [Client] login page, url : 'everstamp.site/app/'
+ * [Client] login page, url : 'everstamp.site/'
  */
 const Page = () => {
   const router = useRouter();
@@ -38,7 +38,7 @@ const Page = () => {
   })
 
   const start = () => {
-    router.push(`/app/calendar?date=${getTodayString()}`);
+    router.push(`/calendar?date=${getTodayString()}`);
   }
   const logout = () => {
     Api.get('user/logout').then(() => {
@@ -47,13 +47,13 @@ const Page = () => {
   }
 
   useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
+    router.prefetch('/calendar');
+    router.prefetch('/list');
+    router.prefetch('/habit');
+    router.prefetch('/setting');
   }, [])
 
-  const options = { callbackUrl: '/app' };
+  const options = { callbackUrl: '/' };
   return (
     <Wrapper>
       <Logo>everstamp</Logo>

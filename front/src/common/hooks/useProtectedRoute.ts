@@ -26,7 +26,7 @@ export function useProtectedRoute() {
   useEffect(() => {
     if (!isLoading && isError) {
       console.error("🚨 인증되지 않은 사용자, 로그인 페이지로 리다이렉트합니다.", error);
-      router.replace('/app');
+      router.replace('/');
     }
   }, [isLoading, isError, router, error]);
 

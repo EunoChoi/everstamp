@@ -10,7 +10,7 @@ const DiaryAddButton = ({ date }: Props) => {
   const router = useRouter();
 
   const onAddDiary = () => {
-    router.push(`/app/inter/input/addDiary?date=${date}`, { scroll: false });
+    router.push(`/inter/input/addDiary?date=${date}`, { scroll: false });
   };
 
   return (

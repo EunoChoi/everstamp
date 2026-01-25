@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
-import ListFilter from "@/app/(routes)/app/(withLayout)/list/_components/ListFilter";
+import ListFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
