@@ -41,20 +41,32 @@ const GlobalSnackbarStyle = createGlobalStyle`
 
 const StyledMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-default': {
-    backgroundColor: 'whitesmoke',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backdropFilter: 'blur(20px)',
     color: 'rgb(88, 88, 88)',
     fontWeight: '500',
+    borderRadius: '16px',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
   },
   '&.notistack-MuiContent-info': {
-    backgroundColor: '#8EBCDB',
+    backgroundColor: 'rgba(142, 188, 219, 0.95)',
+    backdropFilter: 'blur(20px)',
     fontWeight: '500',
+    borderRadius: '16px',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
   },
   '&.notistack-MuiContent-success': {
-    backgroundColor: '#83c6b6',
+    backgroundColor: 'rgba(131, 198, 182, 0.95)',
+    backdropFilter: 'blur(20px)',
     fontWeight: '500',
+    borderRadius: '16px',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
   },
   '&.notistack-MuiContent-error': {
-    backgroundColor: '#dc7889',
+    backgroundColor: 'rgba(220, 120, 137, 0.95)',
+    backdropFilter: 'blur(20px)',
     fontWeight: '500',
+    borderRadius: '16px',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
   },
 }));
