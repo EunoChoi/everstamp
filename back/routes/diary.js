@@ -149,43 +149,40 @@ router.delete("/", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    //유저 확인
-    const currentUser = await User.findOne({
-      where: { email },
+    await sequelize.transaction(async (t) => {
+      // 유저 확인
+      const currentUser = await User.findOne({
+        where: { email },
+        transaction: t
+      });
+      if (!currentUser) throw new Error('유저가 존재하지 않습니다.');
+
+      // 다이어리 확인
+      const diary = await Diary.findOne({
+        where: { id: diaryId, UserId: currentUser.id },
+        transaction: t
+      });
+      if (!diary) throw new Error('게시글이 올바르지 않습니다.');
+
+      // 습관 기록 유지를 위해 삭제 대신 visible false 처리
+      await diary.update({
+        text: '',
+        visible: false,
+        emotion: 2,
+      }, { transaction: t });
+
+      // 이미지 삭제
+      await Image.destroy({
+        where: { diaryId },
+        transaction: t
+      });
     });
-    if (!currentUser) return res.status(400).json('유저가 존재하지 않습니다.');
 
-    // //일기 확인
-    // const isDiaryExist = await Diary.findOne({
-    //   where: { id }
-    // });
-    // if (!isDiaryExist) return res.status(400).json('일기가 존재하지 않습니다.');
-
-    // await Diary.destroy({
-    //   where: { id }
-    // });
-
-    const diary = await Diary.findOne({
-      where: { id: diaryId },
-    });
-    if (!diary) return res.status(400).json("게시글이 올바르지 않습니다.");
-
-    //체크된 습관 유지하기 위해 삭제 대신 visible false 처리
-    await Diary.update({
-      text: '',
-      visible: false,
-      emotion: 2,
-    }, {
-      where: { id: diaryId }
-    });
-    await Image.destroy({
-      where: { diaryId }
-    })
-
+    return res.status(200).json('일기 삭제 완료');
   } catch (e) {
     console.error(e);
+    return res.status(400).json(e.message || '삭제 중 오류가 발생했습니다.');
   }
-  return res.status(200).json("일기 삭제 완료");
 })
 
 
@@ -193,38 +190,29 @@ router.delete("/", tokenCheck, async (req, res) => {
 //load diary
 //load diary from diary id
 router.get("/id/:diaryId", tokenCheck, async (req, res) => {
-
   console.log('----- method : get, url : /diary/:id -----');
   const email = req.currentUserEmail;
   const diaryId = req.params.diaryId;
 
   try {
     const diary = await Diary.findOne({
-      where: [{
-        email,
-        id: diaryId,
-        visible: true
-      }],
-      include: [{
-        model: Image//이미지
-      }, {
-        model: Habit
-      }],
-      order: [
-        [Image, 'order', 'ASC'],
+      where: { email, id: diaryId, visible: true },
+      include: [
+        { model: Image },
+        { model: Habit }
       ],
+      order: [[Image, 'order', 'ASC']],
     });
 
-
-    if (diary) {
-      const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
-      diary.text = decryptedText;
-      return res.status(201).json(diary);
+    if (!diary) {
+      return res.status(404).json('다이어리를 찾을 수 없습니다.');
     }
 
-    else return res.status(400).json('no diary found by id');
+    diary.text = decrypt(diary.text, process.env.DATA_SECRET_KEY);
+    return res.status(200).json(diary);
   } catch (e) {
     console.error(e);
+    return res.status(500).json('서버 에러가 발생했습니다.');
   }
 })
 //list
@@ -232,120 +220,88 @@ router.get("/list", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /diary/list -----');
   const { sort, search, pageParam, limit, selectedYear, selectedMonth } = req.query;
   const email = req.currentUserEmail;
-  const offset = Number(pageParam * limit);
-
-
-  const nYear = Number(selectedYear);
-  const nMonth = Number(selectedMonth);
-
-  console.log(nYear, nMonth);
-
-  let rangeStart = new Date(0, 0, 0);
-  let rangeEnd = new Date(3000, 0, 0);
-
-  if (nYear && nMonth && nMonth !== 0) {
-    rangeStart = new Date(nYear, nMonth - 1);
-    rangeEnd = new Date(nYear, nMonth);
-  }
-
-  console.log(rangeStart, rangeEnd);
-
-
-  //초기 pageParam =0 이므로 limit 5 가정하여
-  //pageParam 0일때 offset은 0
-  //pageParam 1일때 offset은 5
-  //pageParam 2일때 offset은 10
-
+  const offset = Number(pageParam) * Number(limit);
 
   try {
-    let where = {};
-    if (Number(search) === 5) {
-      where = {
-        email,
-        visible: true,
-        [Op.and]: [
-          { date: { [Op.gte]: rangeStart } },
-          { date: { [Op.lt]: rangeEnd } }
-        ],
-      }
-    } else {
-      where = {
-        email,
-        visible: true,
-        emotion: search,
-        [Op.and]: [
-          { date: { [Op.gte]: rangeStart } },
-          { date: { [Op.lte]: rangeEnd } }
-        ],
-      }
+    const nYear = Number(selectedYear);
+    const nMonth = Number(selectedMonth);
+
+    // 날짜 범위 설정
+    let rangeStart = new Date(0, 0, 1);
+    let rangeEnd = new Date(3000, 11, 31);
+
+    if (nYear && nMonth && nMonth !== 0) {
+      rangeStart = new Date(nYear, nMonth - 1, 1);
+      rangeEnd = new Date(nYear, nMonth, 0, 23, 59, 59); // 해당 월의 마지막 날
     }
 
+    // 조건 설정
+    const where = {
+      email,
+      visible: true,
+      date: { [Op.between]: [rangeStart, rangeEnd] }
+    };
+
+    // 감정 필터 (5는 전체)
+    if (Number(search) !== 5) {
+      where.emotion = Number(search);
+    }
 
     const diaries = await Diary.findAll({
       where,
-      offset: Number(offset),
+      offset,
       limit: Number(limit),
-      include: [{
-        model: Image,//이미지
-      }, {
-        model: Habit,//습관
-      }],
+      include: [
+        { model: Image },
+        { model: Habit }
+      ],
       order: [
-        ['date', sort], //ASC DESC
+        ['date', sort],
         [Image, 'order', 'ASC'],
         [Habit, 'priority', 'DESC']
       ],
     });
 
+    // 텍스트 복호화
+    diaries.forEach(diary => {
+      diary.text = decrypt(diary.text, process.env.DATA_SECRET_KEY);
+    });
 
-    if (diaries) {
-      diaries.map(diary => {
-        const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
-        diary.text = decryptedText;
-        return diary;
-      });
-      return res.status(201).json(diaries);
-    }
-    else return res.status(400).json('no diary list');
+    return res.status(200).json(diaries);
   } catch (e) {
     console.error(e);
+    return res.status(500).json('서버 에러가 발생했습니다.');
   }
 })
 //load diary - from calendar date
 router.get("/calendar", tokenCheck, async (req, res) => {
-
   console.log('----- method : get, url :  /diary/calendar -----');
-  const { date } = req.query; // 'yyyy-MM-dd' string
+  const { date } = req.query;
   const email = req.currentUserEmail;
 
   try {
     const dateObj = parseDate(date);
     const diary = await Diary.findOne({
-      where: [{
-        email,
-        // visible: true,
-        date: dateObj
-      }],
-      include: [{
-        model: Image,//이미지
-      }, {
-        model: Habit,//습관
-      }],
+      where: { email, date: dateObj },
+      include: [
+        { model: Image },
+        { model: Habit }
+      ],
       order: [
         [Image, 'order', 'ASC'],
         [Habit, 'priority', 'DESC']
       ],
     });
 
-    if (diary) {
-      const decryptedText = decrypt(diary.text, process.env.DATA_SECRET_KEY);
-      diary.text = decryptedText;
-      return res.status(201).json(diary);
+    if (!diary) {
+      return res.status(404).json('다이어리가 존재하지 않습니다.');
     }
 
-    else return res.status(400).json('다이어리가 존재하지 않습니다.');
+    diary.text = decrypt(diary.text, process.env.DATA_SECRET_KEY);
+    return res.status(200).json(diary);
   } catch (e) {
     console.error(e);
+    return res.status(500).json('서버 에러가 발생했습니다.');
   }
 })
 

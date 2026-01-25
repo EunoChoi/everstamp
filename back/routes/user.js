@@ -3,10 +3,11 @@ const db = require("../models/index.js");
 const jwt = require("jsonwebtoken");
 const tokenCheck = require("../middleware/tokenCheck.js");
 
-
+const sequelize = db.sequelize;
 const User = db.User;
 const Diary = db.Diary;
 const Habit = db.Habit;
+const Image = db.Image;
 const router = express.Router();
 
 
@@ -14,82 +15,72 @@ const router = express.Router();
 //회원 가입 확인 및 가입 + 로그인
 router.post("/register", async (req, res) => {
   console.log('----- method : post, url :  /user/register -----');
+  const { email, provider, profilePic } = req.body;
 
   try {
-    const email = req.body.email;
-    const provider = req.body.provider;
-    const themeColor = req.body.themeColor;
-    const profilePic = req.body.profilePic;
+    const foundUser = await User.findOne({ where: { email } });
 
-    const foundUser = await User.findOne({
-      where: { email }
-    });
-
-    //Token 발급
-    const accessToken = jwt.sign({
-      email,
-      provider,
-    }, process.env.ACCESS_KEY, {
-      expiresIn: '5m',
-      issuer: 'everstamp',
-    });
-    const refreshToken = jwt.sign({
-      tokenName: "refreshToken",
-      expiresIn: "7d"
-    }, process.env.REFRECH_KEY, {
-      expiresIn: '7d',
-      issuer: 'everstamp',
-    })
-
+    // 토큰 발급
+    const accessToken = jwt.sign(
+      { email, provider },
+      process.env.ACCESS_KEY,
+      { expiresIn: '5m', issuer: 'everstamp' }
+    );
+    const refreshToken = jwt.sign(
+      { email, provider }, // email, provider 포함 (보안 개선)
+      process.env.REFRECH_KEY,
+      { expiresIn: '7d', issuer: 'everstamp' }
+    );
 
     if (foundUser) {
-      console.log('가입 되어있는 회원 확인');
-
-      //copare provider
+      // provider 일치 확인
       if (foundUser.provider === provider) {
-        console.log('provider 일치, 로그인 진행');
-        return res.status(200).json({ result: true, message: 'provider 일치, 로그인 진행', accessToken, refreshToken });
+        return res.status(200).json({
+          result: true,
+          message: '로그인 성공',
+          accessToken,
+          refreshToken
+        });
       }
-      else {
-        console.log('provider 불일치, 로그인 중단');
-        return res.status(200).json({ result: false, message: '이미 다른 SNS로 가입된 이메일입니다. 가입된 SNS로 로그인해 주세요.' });
-      }
+      return res.status(200).json({
+        result: false,
+        message: '이미 다른 SNS로 가입된 이메일입니다.'
+      });
     }
-    else {
-      console.log('신규 유저, 회원 가입 진행');
-      const newUser = await User.create(
-        {
-          email,
-          provider,
-          themeColor: '#979FC7',
-          profilePic
-        }
-      );
-      if (newUser) {
-        console.log('회원가입 승인')
-        return res.status(200).json({ result: true, message: '회원 가입 후 로그인 진행', accessToken, refreshToken });
-      }
-      else return res.status(400).json({ result: false, message: '회원가입 과정 중 에러 발생' });
-    }
+
+    // 신규 유저 생성
+    await User.create({
+      email,
+      provider,
+      themeColor: '#83c6b6', // 기본 테마색 (녹색)
+      profilePic
+    });
+
+    return res.status(201).json({
+      result: true,
+      message: '회원가입 완료',
+      accessToken,
+      refreshToken
+    });
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({ result: false, message: '서버 에러가 발생했습니다.' });
   }
-  catch (error) {
-    console.error(error);
-  };
 })
 //유저 정보 불러오기
 router.get("/current", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /user/current -----');
-
   const email = req.currentUserEmail;
+
   try {
-    const currentUser = await User.findOne({
-      where: { email: email },
-    });
-    if (currentUser) return res.status(200).json(currentUser);
-    else return res.status(400).json('유저 정보를 불러오지 못하였습니다.');
-  }
-  catch (error) {
-    console.log(error);
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json('유저를 찾을 수 없습니다.');
+    }
+    return res.status(200).json(user);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json('서버 에러가 발생했습니다.');
   }
 })
 
@@ -100,22 +91,16 @@ router.patch("/theme", tokenCheck, async (req, res) => {
   const { themeColor } = req.body;
 
   try {
-    let user = await User.findOne({
-      where: {
-        email
-      }
-    })
-    if (!user) return res.status(404).json('유저 정보가 없습니다.');
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json('유저를 찾을 수 없습니다.');
+    }
 
-    user = await User.update({
-      themeColor,
-    }, {
-      where: { email }
-    });
-    if (user) return res.status(200).json('theme color changed')
-    else return res.status(400).json('theme color update error');
-  } catch (err) {
-    console.error(err);
+    await user.update({ themeColor });
+    return res.status(200).json('테마 색상이 변경되었습니다.');
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json('서버 에러가 발생했습니다.');
   }
 })
 //로그아웃
@@ -138,33 +123,55 @@ router.get("/logout", (req, res) => {
 router.delete("/", tokenCheck, async (req, res) => {
   console.log('----- method : delete, url :  /user -----');
   const email = req.currentUserEmail;
+
   try {
-    const isUserExist = await User.findOne({
-      where: { email }
-    });
-    if (isUserExist) {
-      //유저 일기 삭제
+    await sequelize.transaction(async (t) => {
+      const user = await User.findOne({
+        where: { email },
+        transaction: t
+      });
+      if (!user) throw new Error('존재하지 않는 유저입니다.');
+
+      // 유저의 다이어리 ID 목록 조회
+      const diaries = await Diary.findAll({
+        where: { email },
+        attributes: ['id'],
+        transaction: t
+      });
+      const diaryIds = diaries.map(d => d.id);
+
+      // 이미지 삭제 (다이어리에 연결된)
+      if (diaryIds.length > 0) {
+        await Image.destroy({
+          where: { diaryId: diaryIds },
+          transaction: t
+        });
+      }
+
+      // 다이어리 삭제
       await Diary.destroy({
-        where: { email }
+        where: { email },
+        transaction: t
       });
-      console.log("탈퇴 유저 일기 모두 삭제 완료");
-      //유저 습관 삭제
+
+      // 습관 삭제
       await Habit.destroy({
-        where: { email }
+        where: { email },
+        transaction: t
       });
-      console.log("탈퇴 유저 습관 모두 삭제 완료");
 
-      //유저 삭제 처리
+      // 유저 삭제
       await User.destroy({
-        where: { email }
+        where: { email },
+        transaction: t
       });
-      console.log("탈퇴 처리 완료");
+    });
 
-      return res.status(200).json("탈퇴가 완료되었습니다.");
-    }
-    else return res.status(401).json("존재하지 않은 유저입니다.");
-  } catch (err) {
-    console.error(err);
+    console.log('탈퇴 처리 완료');
+    return res.status(200).json('탈퇴가 완료되었습니다.');
+  } catch (e) {
+    console.error(e);
+    return res.status(400).json(e.message || '탈퇴 처리 중 오류가 발생했습니다.');
   }
 });
 
