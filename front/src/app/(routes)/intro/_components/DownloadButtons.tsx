@@ -28,7 +28,7 @@ const DownloadButtons = ({ variant, inlineWebLink = false }: Props) => {
       <SnackBarAction
         yesAction={() => {
           closeSnackbar('startInWeb');
-          router.push('/app');
+          router.push('/');
         }}
         noAction={() => closeSnackbar('startInWeb')}
       />

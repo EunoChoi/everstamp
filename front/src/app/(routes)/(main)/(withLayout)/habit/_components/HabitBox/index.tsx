@@ -82,10 +82,10 @@ const HabitBox = ({ name, id, priority }: Props) => {
       })}
     </Days>
     <ButtonWrapper>
-      <button onClick={() => router.push(`/app/inter/habitInfo?id=${id}`, { scroll: false })}>
+      <button onClick={() => router.push(`/inter/habitInfo?id=${id}`, { scroll: false })}>
         <MdOutlineInsertChart />
       </button>
-      <button onClick={() => router.push(`/app/inter/input/editHabit?id=${id}`, { scroll: false })}>
+      <button onClick={() => router.push(`/inter/input/editHabit?id=${id}`, { scroll: false })}>
         <MdOutlineEdit />
       </button>
       <button onClick={onDeleteHabit}>

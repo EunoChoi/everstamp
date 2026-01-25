@@ -54,7 +54,7 @@ export default function Error({ error, reset }: ErrorProps) {
           다시 시도
         </button>
         <button
-          onClick={() => window.location.href = '/app'}
+          onClick={() => window.location.href = '/'}
           style={{
             padding: '10px 24px',
             fontSize: '16px',

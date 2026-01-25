@@ -1,6 +1,6 @@
 'use client';
 
-import { diaryData } from "@/app/(routes)/app/(withLayout)/list/_types/diaryData";
+import { diaryData } from "@/app/(routes)/(main)/(withLayout)/list/_types/diaryData";
 import Image from "next/image";
 import styled from "styled-components";
 

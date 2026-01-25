@@ -19,7 +19,7 @@ const LargeDiary = ({ diaryData }: Props) => {
   const hasImages = images.length >= 1;
 
   const handleContentClick = () => {
-    router.push(`/app/inter/zoom?id=${diaryData.id}`, { scroll: false });
+    router.push(`/inter/zoom?id=${diaryData.id}`, { scroll: false });
   };
 
   return (

@@ -89,7 +89,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
     closeMenu();
   }
   const onClickEdit = () => {
-    router.push(`/app/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+    router.push(`/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
     closeMenu();
   };
 

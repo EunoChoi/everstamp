@@ -14,24 +14,24 @@ const SideBar = () => {
     </SideBarLogo>
     <Menus>
       <Menu
-        onClick={() => router.push(`/app/home`, {})}
+        onClick={() => router.push(`/home`, {})}
         className={current === 'home' ? 'home' : ''}>
         <MdHome className="icon" />
         <span>home</span>
       </Menu>
-      <Menu onClick={() => router.push(`/app/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}>
+      <Menu onClick={() => router.push(`/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}>
         <MdCalendarMonth className="icon" />
         <span>calendar</span>
       </Menu>
-      <Menu onClick={() => router.push('/app/list', {})} className={current === 'list' ? 'current' : ''} >
+      <Menu onClick={() => router.push('/list', {})} className={current === 'list' ? 'current' : ''} >
         <MdViewList className="icon" />
         <span>list</span>
       </Menu>
-      <Menu onClick={() => router.push('/app/habit', {})} className={current === 'habit' ? 'current' : ''} >
+      <Menu onClick={() => router.push('/habit', {})} className={current === 'habit' ? 'current' : ''} >
         <MdCheckBox className="icon" />
         <span>habit</span>
       </Menu>
-      <Menu onClick={() => router.push('/app/setting', {})} className={current === 'setting' ? 'current' : ''}>
+      <Menu onClick={() => router.push('/setting', {})} className={current === 'setting' ? 'current' : ''}>
         <MdSettings className="icon" />
         <span>setting</span>
       </Menu>

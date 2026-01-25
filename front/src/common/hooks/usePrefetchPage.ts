@@ -5,9 +5,9 @@ export const usePrefetchPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.prefetch('/app/calendar');
-    router.prefetch('/app/list');
-    router.prefetch('/app/habit');
-    router.prefetch('/app/setting');
+    router.prefetch('/calendar');
+    router.prefetch('/list');
+    router.prefetch('/habit');
+    router.prefetch('/setting');
   }, [])
 }

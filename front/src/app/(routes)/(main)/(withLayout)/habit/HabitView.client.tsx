@@ -49,7 +49,7 @@ const HabitView = () => {
 
   const onAddHabit = () => {
     if (habits && habits.length >= MAX_HABIT_COUNT) enqueueSnackbar(`습관은 최대 ${MAX_HABIT_COUNT}개 생성 가능합니다.`, { variant: 'info' })
-    else router.push('/app/inter/input/addHabit', { scroll: false })
+    else router.push('/inter/input/addHabit', { scroll: false })
   }
 
 

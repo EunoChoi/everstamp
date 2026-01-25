@@ -65,7 +65,7 @@ const SettingPage = () => {
               settingItemKey="습관 순서 커스텀"
               settingItemValue={
                 <button onClick={() => {
-                  router.push('/app/inter/habitOrder', { scroll: false })
+                  router.push('/inter/habitOrder', { scroll: false })
                 }}>
                   <MdLowPriority />
                 </button>} />
