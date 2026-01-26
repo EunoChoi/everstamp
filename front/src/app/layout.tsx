@@ -29,6 +29,7 @@ const pretendard = localFont({
   src: '../common/fonts/PretendardVariable.woff2',
   display: "swap",
   weight: "45 920",
+  variable: '--font-pretendard',
 });
 
 export default async function RootLayout({
@@ -78,7 +79,7 @@ export default async function RootLayout({
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
       </head>
 
-      <body className={pretendard.className}>
+      <body className={pretendard.variable}>
         <RootProviders dehydratedState={dehydratedState}>
           {children}
         </RootProviders>

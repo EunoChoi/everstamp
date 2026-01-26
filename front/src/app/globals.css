@@ -40,7 +40,6 @@ html:not(.hydrated) body {
   --lightGrey1: 251, 251, 251;
   --lightGrey2: 238, 238, 238;
 
-
   --sidebarWidth: 300px;
   --desktopHeader: 72px;
   --optionHeight: 47px;
@@ -111,6 +110,20 @@ div,
 span {
   font-family: 'HakgyoansimGeurimilgiTTF-R';
 }
+
+/* 타입2: 모든 폰트를 배민주아체로 */
+body.font-type2,
+body.font-type2 * {
+  font-family: 'BMJUA', sans-serif !important;
+}
+
+/* 타입3: 모든 폰트를 Pretendard로 */
+body.font-type3,
+body.font-type3 * {
+  font-family: var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+}
+
+
 
 @layer utilities {
   .text-balance {
