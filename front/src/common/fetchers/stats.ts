@@ -30,6 +30,7 @@ export interface HabitStats {
   habitCompletionDays: number;
   avgHabitsPerDiaryWithHabits: number;
   avgHabitsPerCompletionDay: number;
+  totalHabits: number;
 }
 
 export async function getAvailableYears(): Promise<number[]> {

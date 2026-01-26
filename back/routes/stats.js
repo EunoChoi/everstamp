@@ -177,6 +177,9 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
     const yearStart = new Date(year, 0, 1);
     const yearEnd = new Date(year, 11, 31, 23, 59, 59);
 
+    // 사용자의 총 습관 개수 조회
+    const totalHabits = await Habit.count({ where: { email } });
+
     // 해당 연도의 모든 일기와 연결된 습관 조회
     const diaries = await Diary.findAll({
       where: {
@@ -244,7 +247,8 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
       totalDiaries: visibleDiaries,
       habitCompletionDays: habitCompletionDates.size,
       avgHabitsPerDiaryWithHabits: parseFloat(avgHabitsPerDiaryWithHabits),
-      avgHabitsPerCompletionDay: parseFloat(avgHabitsPerCompletionDay)
+      avgHabitsPerCompletionDay: parseFloat(avgHabitsPerCompletionDay),
+      totalHabits
     });
   } catch (e) {
     console.error(e);

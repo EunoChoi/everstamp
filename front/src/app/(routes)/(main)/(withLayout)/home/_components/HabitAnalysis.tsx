@@ -32,7 +32,10 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
 
   return (
     <Wrapper>
-      <SectionTitle>습관 정보</SectionTitle>
+      <TitleWrapper>
+        <SectionTitle>습관 정보</SectionTitle>
+        <TotalCount>생성 습관 {stats?.totalHabits ?? 0}개</TotalCount>
+      </TitleWrapper>
 
       <TabWrapper>
         <Tab
@@ -115,15 +118,30 @@ const Wrapper = styled.section`
   gap: 24px;
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+`;
+
 const SectionTitle = styled.h2`
   color: rgb(var(--greyTitle));
   text-transform: capitalize;
   font-size: 32px;
   font-family: 'BMJUA';
+  flex: 1;
   
   @media (min-width: 1025px) {
     font-size: 36px;
   }
+`;
+
+const TotalCount = styled.span`
+  font-size: 14px;
+  color: rgba(var(--greyTitle), 0.6);
+  white-space: nowrap;
+  flex-shrink: 0;
 `;
 
 const TabWrapper = styled.div`
@@ -141,9 +159,11 @@ const Tab = styled.button<{ $active: boolean }>`
 
 const HabitList = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   padding: 4px 0;
+  width: 100%;
+  overflow: hidden;
 `;
 
 const HabitCard = styled.div`
@@ -153,22 +173,25 @@ const HabitCard = styled.div`
   justify-content: center;
   gap: 8px;
   width: 100%;
-  min-height: 100px;
+  min-width: 0;
+  height: 120px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 16px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  padding: 16px 12px;
+  padding: 12px 8px;
+  overflow: hidden;
   
   .star-rating {
     font-size: 11px;
     color: ${props => props.theme.themeColor ?? '#979FC7'};
     gap: 2px;
     opacity: 0.8;
+    flex-shrink: 0;
   }
   
   @media (min-width: 480px) {
-    min-height: 110px;
-    padding: 20px 16px;
+    height: 130px;
+    padding: 16px 12px;
     
     .star-rating {
       font-size: 12px;
@@ -180,15 +203,21 @@ const HabitName = styled.span`
   font-size: 16px;
   font-weight: 600;
   color: rgb(var(--greyTitle));
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  width: 100%;
+  min-width: 0;
   text-align: center;
-  line-height: 1.3;
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: calc(1.4em * 2);
   
   @media (min-width: 480px) {
     font-size: 18px;
+    max-height: calc(1.4em * 2);
   }
 `;
 
@@ -248,11 +277,11 @@ const StatCard = styled.div`
   border-radius: 16px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   gap: 4px;
-  min-height: 100px;
+  min-height: 120px;
   
   @media (min-width: 480px) {
+    min-height: 130px;
     padding: 20px 16px;
-    min-height: 110px;
   }
 `;
 
