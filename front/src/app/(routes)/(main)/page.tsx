@@ -56,7 +56,7 @@ const Page = () => {
   const options = { callbackUrl: '/' };
   return (
     <Wrapper>
-      <Logo>everstamp</Logo>
+      <Logo>TO:OK</Logo>
       <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
       {isSuccess ?
         <LoggedInButtonWrapper >
@@ -138,13 +138,12 @@ const Img = styled(Image)`
 `;
 
 const Logo = styled.span`
-  text-transform: uppercase;
   line-height: 100%;
   color: rgb(var(--greyTitle));
   font-family: BMJUA;
 
-  &:first-letter{
-    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+  &::first-letter {
+    color: ${(props) => props.theme.themeColor ?? '#979FC7'};
   }
 
   @media (max-width: 479px) { //mobile port

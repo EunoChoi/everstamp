@@ -13,7 +13,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const { storedValue: settings, setValue: setSettings } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
   const fontSize = settings?.fontSize ?? FONT_SIZE_LIST[1];
-  const themeColor = settings?.themeColor ?? THEME_COLORS[0];
+  const themeColor = settings?.themeColor ?? THEME_COLORS[2]; // 기본: 파란색
 
   const setFontSize = (size: string) => {
     if (FONT_SIZE_LIST.includes(size)) {
@@ -29,7 +29,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   // 배경색 + 모바일 상태바 색상 동기화
   useEffect(() => {
-    const bgColor = THEME_BG_COLORS[themeColor] || '#f5f5fa';
+    const bgColor = THEME_BG_COLORS[themeColor] || '#f3f7fc';
     document.body.style.backgroundColor = bgColor;
     document.documentElement.style.setProperty('--theme-bg', bgColor);
 

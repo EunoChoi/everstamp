@@ -26,7 +26,7 @@ const IntroMobile = () => {
       {/* Intro */}
       <MobileSection $bg="white">
         <Logo>
-          <span>everstamp</span>
+          <span>TO:OK</span>
         </Logo>
         <Text>
           <span>내일 더 나은 나로 나아가기 위해</span>
@@ -186,7 +186,7 @@ const IntroMobile = () => {
       <MobileSection $bg="themeDark">
         <DownloadButtons variant="outro" />
         <Logo $variant="outro">
-          <span>everstamp</span>
+          <span>TO:OK</span>
         </Logo>
       </MobileSection>
     </PageWrapper>

@@ -6,7 +6,7 @@ export const PageWrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
   overflow-y: scroll;
-  background-color: #fff;
+  background-color: #f3f7fc;
 `;
 
 // 모바일 섹션
@@ -18,7 +18,7 @@ export const MobileSection = styled.div<{ $bg?: 'white' | 'theme' | 'themeDark' 
   align-items: center;
 
   background-color: ${({ $bg }) => {
-    if ($bg === 'white') return '#fff';
+    if ($bg === 'white') return '#f3f7fc';
     if ($bg === 'themeDark') return '#8CADE255';
     return '#8CADE233';
   }};
@@ -48,7 +48,7 @@ export const DesktopSection = styled.section<{ $bg?: 'white' | 'theme' | 'themeD
   padding: 0 10dvw;
 
   background-color: ${({ $bg }) => {
-    if ($bg === 'white') return '#fff';
+    if ($bg === 'white') return '#f3f7fc';
     if ($bg === 'themeDark') return '#8CADE255';
     return '#8CADE233';
   }};

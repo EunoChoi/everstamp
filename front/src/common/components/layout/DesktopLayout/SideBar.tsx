@@ -10,7 +10,7 @@ const SideBar = () => {
 
   return (<Wrapper>
     <SideBarLogo>
-      <span>everstamp</span>
+      <span>TO:OK</span>
     </SideBarLogo>
     <Menus>
       <Menu
@@ -69,16 +69,14 @@ const SideBarLogo = styled.div`
   flex-direction: column;
   align-items: start;
 
-  span{
+  span {
     font-size: 36px;
-    text-transform: uppercase;
     line-height: 100%;
     font-family: BMJUA;
-
     color: rgb(var(--greyTitle));
   }
-  span::first-letter{
-    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+  span::first-letter {
+    color: ${(props) => props.theme.themeColor ?? '#979FC7'};
   }
 `
 const Menus = styled.div`
