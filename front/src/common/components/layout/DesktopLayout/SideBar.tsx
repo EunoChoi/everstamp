@@ -72,7 +72,7 @@ const SideBarLogo = styled.div`
   span {
     font-size: 36px;
     line-height: 100%;
-    font-family: BMJUA;
+    font-family: 'BMJUA';
     color: rgb(var(--greyTitle));
   }
   span::first-letter {

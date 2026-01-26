@@ -39,7 +39,7 @@ const Nav = styled.nav`
 
 const Logo = styled.span`
   margin-bottom: 24px;
-  font-family: BMJUA;
+  font-family: 'BMJUA';
   font-size: 32px;
   color: rgb(var(--greyTitle));
 
