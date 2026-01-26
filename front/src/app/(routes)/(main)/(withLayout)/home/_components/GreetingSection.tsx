@@ -15,7 +15,7 @@ interface Props {
 
 const GreetingSection = ({ year, totalDiaries }: Props) => {
   const currentMonth = getMonth(new Date()) + 1;
-  const monthlyMessage = MONTHLY_MESSAGES[currentMonth] || '오늘도 소중한 하루를 기록해보세요.';
+  const monthlyMessage = MONTHLY_MESSAGES[currentMonth] || ['오늘도 소중한 하루를', '기록해보세요.'];
 
   const getGreetingEmoji = () => {
     if (totalDiaries === 0) return ':)';
@@ -31,8 +31,13 @@ const GreetingSection = ({ year, totalDiaries }: Props) => {
     <Wrapper>
       <Title>안녕하세요 {getGreetingEmoji()}</Title>
       <Description>
-        <MainMessage>{getMainMessage()}</MainMessage>
-        {totalDiaries > 0 && <MonthlyMessage>{monthlyMessage}</MonthlyMessage>}
+        {getMainMessage() && <MainMessage>{getMainMessage()}</MainMessage>}
+        {totalDiaries > 0 && (
+          <MonthlyMessage>
+            <MonthlyMessageLine>{monthlyMessage[0]}</MonthlyMessageLine>
+            <MonthlyMessageLine>{monthlyMessage[1]}</MonthlyMessageLine>
+          </MonthlyMessage>
+        )}
       </Description>
       <LinkWrapper>
         <StyledLink href="/calendar">
@@ -83,13 +88,20 @@ const MainMessage = styled.span`
   text-align: justify;
 `;
 
-const MonthlyMessage = styled.span`
+const MonthlyMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   font-size: 16px;
   color: rgb(var(--greyTitle));
   line-height: 1.6;
   word-break: keep-all;
   overflow-wrap: break-word;
   text-align: justify;
+`;
+
+const MonthlyMessageLine = styled.span`
+  display: block;
 `;
 
 const LinkWrapper = styled.div`
