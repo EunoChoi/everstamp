@@ -13,7 +13,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const { storedValue: settings, setValue: setSettings } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
   const fontSize = settings?.fontSize ?? FONT_SIZE_LIST[1];
-  const themeColor = settings?.themeColor ?? THEME_COLORS[2]; // 기본: 파란색
+  const themeColor = settings?.themeColor ?? THEME_COLORS[0]; // 기본: 파란색
 
   const setFontSize = (size: string) => {
     if (FONT_SIZE_LIST.includes(size)) {

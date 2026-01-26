@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 export const FONT_SIZE_LIST = ['13px', '14px', '15px', '16px', '17px'];
-export const THEME_COLORS = ['#83c6b6', '#979FC7', '#8CADE2', '#eda5b1', '#f9c74f', '#8f8f8f'];
-export const THEME_COLORS_NAME = ['green', 'purple', 'blue', 'pink', 'yellow', 'grey'];
+export const THEME_COLORS = ['#8CADE2', '#83c6b6', '#979FC7', '#eda5b1', '#f9c74f', '#8f8f8f'];
+export const THEME_COLORS_NAME = ['blue', 'green', 'purple', 'pink', 'yellow', 'grey'];
 // 배경색
 export const THEME_BG_COLORS: Record<string, string> = {
   '#979FC7': '#f5f5fa',
