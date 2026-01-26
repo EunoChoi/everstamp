@@ -25,7 +25,7 @@ const IntroDesktop = () => {
       <DesktopSection $bg="white">
         <section>
           <Logo $desktop>
-            <span>everstamp</span>
+            <span>TO:OK</span>
           </Logo>
           <Text $desktop>
             <span>내일 더 나은 나로 나아가기 위해</span>
@@ -199,7 +199,7 @@ const IntroDesktop = () => {
         <section>
           <DownloadButtons variant="outro" />
           <Logo $variant="outro" $desktop>
-            <span>everstamp</span>
+            <span>TO:OK</span>
           </Logo>
         </section>
       </DesktopSection>

@@ -8,7 +8,7 @@ const SideNav = () => {
 
   return (
     <Nav>
-      <Logo>everstamp</Logo>
+      <Logo>TO:OK</Logo>
       {items.map(({ key, icon: Icon, label, onClick }) => (
         <Menu key={key} onClick={onClick} $active={current === key}>
           <Icon /> {label}
@@ -42,7 +42,6 @@ const Logo = styled.span`
   font-family: BMJUA;
   font-size: 32px;
   color: rgb(var(--greyTitle));
-  text-transform: uppercase;
 
   &::first-letter {
     color: ${({ theme }) => theme.themeColor || '#979FC7'};

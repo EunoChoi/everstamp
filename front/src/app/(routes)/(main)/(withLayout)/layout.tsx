@@ -18,19 +18,14 @@ const AppLayout = ({ children, modal }: Props) => {
   const isMobile = useIsMobile();
   const { user, isLoading } = useProtectedRoute();
 
-  // 첫 방문일 때만 로딩
-  if (isMobile === null && isLoading) {
-    return <LoadingScreen message="loading..." />;
+  // 로딩 중 (유저 확인 또는 모바일 체크)
+  if (isLoading || isMobile === null) {
+    return <LoadingScreen />;
   }
 
   // 비로그인이면 리다이렉트됨 (useProtectedRoute에서 처리)
-  if (!isLoading && !user) {
-    return <LoadingScreen message="" showImage={false} />;
-  }
-
-  // 페이지 전환 중에는 빈 화면 (거의 안보임)
-  if (isMobile === null || isLoading) {
-    return null;
+  if (!user) {
+    return <LoadingScreen showLogo={false} />;
   }
 
   const Layout = isMobile ? MobileLayout : DesktopLayout;
