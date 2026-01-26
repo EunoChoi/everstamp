@@ -25,10 +25,10 @@ const EmotionRadioSelector = ({ emotion, setEmotion }: Props) => {
             }}
           />
           <div className="emotion">
-            <Image priority src={data.src} alt={data.name} width={36} height={36} />
+            <Image priority src={data.src} alt={data.nameKr} width={36} height={36} />
           </div>
           <div className="checkmark">
-            <span>{data.name}</span>
+            <span>{data.nameKr}</span>
           </div>
         </RadioButton>)}
     </RadioWrapper>

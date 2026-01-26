@@ -139,8 +139,8 @@ const Img = styled(Image)`
 
 const Logo = styled.span`
   line-height: 100%;
+  font-family: 'BMJUA';
   color: rgb(var(--greyTitle));
-  font-family: BMJUA;
 
   &::first-letter {
     color: ${(props) => props.theme.themeColor ?? '#979FC7'};
