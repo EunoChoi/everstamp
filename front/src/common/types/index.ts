@@ -6,5 +6,6 @@ export type LocalUserStorage = {
   habitSortType?: HABIT_SORT;
   habitCustomOrder?: number[];
   fontSize?: string;
+  fontType?: 'type1' | 'type2' | 'type3';
   themeColor?: string;
 };

@@ -10,6 +10,7 @@ import TopButtons from "@/common/components/ui/TopButtons";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
 import { FontSizeSelector } from "./_components/FontSizeSelector";
+import { FontTypeSelector } from "./_components/FontTypeSelector";
 import { SettingItem } from "./_components/SettingItem";
 import { ThemeColorSelector } from "./_components/ThemeColorSelector";
 import { onDeleteAccount } from "./_functions/onDeleteAccount";
@@ -53,17 +54,20 @@ const SettingPage = () => {
         <Section>
           <Title>customize</Title>
           <SubSection>
-            <SubTitle>theme color</SubTitle>
+            <SubTitle>테마 색상</SubTitle>
             <ThemeColorSelector />
           </SubSection>
           <SubSection>
-            <SubTitle>font</SubTitle>
+            <SubTitle>폰트</SubTitle>
             <SettingItem
               settingItemKey="다이어리 글씨 크기"
               settingItemValue={<FontSizeSelector />} />
+            <SettingItem
+              settingItemKey="폰트 타입"
+              settingItemValue={<FontTypeSelector />} />
           </SubSection>
           <SubSection>
-            <SubTitle>habit order</SubTitle>
+            <SubTitle>습관</SubTitle>
             <SettingItem
               settingItemKey="습관 순서 커스텀"
               settingItemValue={
