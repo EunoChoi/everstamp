@@ -83,7 +83,7 @@ export const Logo = styled.div<{ $variant?: 'outro'; $desktop?: boolean }>`
   align-items: center;
 
   > span {
-    font-family: BMJUA;
+    font-family: 'BMJUA';
     display: inline-block;
     font-size: ${({ $desktop }) => ($desktop ? '56px' : '32px')};
     text-transform: uppercase;
