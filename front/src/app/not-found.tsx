@@ -16,7 +16,7 @@ export default function NotFound() {
         backgroundColor: 'var(--theme-bg, #f5f5fa)',
       }}
     >
-      <Image priority src={EMOTIONS[1].src} alt={EMOTIONS[1].name} width={128} height={128} />
+      <Image priority src={EMOTIONS[1].src} alt={EMOTIONS[1].nameKr} width={128} height={128} />
       <span
         style={{
           fontSize: '36px',

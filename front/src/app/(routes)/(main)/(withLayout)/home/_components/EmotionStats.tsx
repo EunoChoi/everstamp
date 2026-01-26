@@ -85,7 +85,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
             <EmotionItem key={emotion.id}>
               <EmotionImage
                 src={emotion.src}
-                alt={emotion.name}
+                alt={emotion.nameKr}
                 width={77}
                 height={77}
               />

@@ -35,7 +35,7 @@ export const Diaries = ({ diaries }: DiariesProps) => {
       })
       :
       <NoDiaries>
-        <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].name} width={128} height={128} />
+        <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].nameKr} width={128} height={128} />
         <span>작성된 일기가 존재하지 않습니다. :(</span>
       </NoDiaries>}
   </>);

@@ -23,7 +23,7 @@ export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
     if (hasDiary && emotion) {
       return (
         <Wrapper>
-          <Image src={emotion.src} alt={emotion.name} />
+          <Image src={emotion.src} alt={emotion.nameKr} />
           {habitsCount > 0 && <div className="count">{habitsCount}</div>}
         </Wrapper>
       );

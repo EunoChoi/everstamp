@@ -20,7 +20,7 @@ export const TextSlide = ({ diaryData }: TextSlideProps) => {
         width={64}
         height={64}
         src={emotion?.src}
-        alt={emotion?.name || 'emotion'} />
+        alt={emotion?.nameKr || '감정'} />
     </EmotionImageWrapper>
     {diaryData?.Habits.length > 0 &&
       <HabitWrapper>
