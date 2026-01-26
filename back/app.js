@@ -9,6 +9,7 @@ const userRouter = require('./routes/user');
 const diaryRouter = require('./routes/diary');
 const imageRouter = require('./routes/image');
 const habitRouter = require('./routes/habit');
+const statsRouter = require('./routes/stats');
 
 // const authRouter = require('./routes/auth');
 
@@ -49,6 +50,7 @@ app.use("/user", userRouter);
 app.use("/diary", diaryRouter);
 app.use("/image", imageRouter);
 app.use("/habit", habitRouter);
+app.use("/stats", statsRouter);
 
 // app.use("/auth", authRouter);
 

@@ -1,0 +1,193 @@
+'use client';
+
+import styled from "styled-components";
+
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+  years: number[];
+  selectedYear: number;
+  onSelectYear: (year: number) => void;
+}
+
+const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Props) => {
+  return (
+    <Overlay className={isOpen ? 'open' : ''} onClick={onClose}>
+      <Wrapper onClick={(e) => e.stopPropagation()} className={isOpen ? 'open' : ''}>
+        <Title>연도 선택</Title>
+        <YearGrid>
+          {years.map((year) => (
+            <YearItem
+              key={year}
+              $selected={year === selectedYear}
+              onClick={() => onSelectYear(year)}>
+              {year}년
+            </YearItem>
+          ))}
+        </YearGrid>
+        <CloseButton onClick={onClose}>닫기</CloseButton>
+      </Wrapper>
+    </Overlay>
+  );
+};
+
+export default YearSelector;
+
+const Overlay = styled.div`
+  position: fixed;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  backdrop-filter: blur(4px);
+
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (max-width: 479px) {
+    top: 0;
+    z-index: 98;
+  }
+  @media (min-width: 480px) and (max-width: 1024px) {
+    top: 0;
+    z-index: 105;
+  }
+  @media (min-width: 1025px) {
+    top: 0;
+    z-index: 105;
+  }
+`;
+
+const Wrapper = styled.div`
+  overflow: hidden;
+  position: fixed;
+  top: -3px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 95%, transparent);
+  backdrop-filter: blur(24px);
+
+  @media (max-width: 479px) {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    height: auto;
+    max-height: 70dvh;
+    padding: 36px 24px;
+    padding-top: calc(var(--mobileHeader) + 24px);
+    gap: 20px;
+
+    will-change: transform;
+    transform: scaleY(0);
+    transform-origin: top;
+
+    border-end-start-radius: 28px;
+    border-end-end-radius: 28px;
+
+    transition: transform 0.3s ease-in-out;
+    &.open {
+      transform: scaleY(1);
+    }
+  }
+  @media (min-width: 480px) and (max-width: 1024px) {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    top: 50dvh;
+    left: 50dvw;
+    transform: translate(-50%, -50%);
+
+    gap: 16px;
+    padding: 24px 28px;
+    width: 320px;
+    max-height: 60dvh;
+    border-radius: 28px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s linear, visibility 0.3s linear;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  @media (min-width: 1025px) {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    top: 50dvh;
+    left: 50dvw;
+    transform: translate(-50%, -50%);
+
+    width: 400px;
+    max-height: 60dvh;
+    gap: 24px;
+    padding: 32px 40px;
+    border-radius: 28px;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s linear, visibility 0.3s linear;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`;
+
+const Title = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(var(--greyTitle));
+  flex-shrink: 0;
+`;
+
+const YearGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  overflow-y: auto;
+  padding: 4px;
+
+  @media (max-width: 479px) {
+    max-height: calc(50dvh - 120px);
+  }
+  @media (min-width: 480px) {
+    max-height: 300px;
+  }
+`;
+
+const YearItem = styled.button<{ $selected: boolean }>`
+  padding: 14px 8px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: ${({ $selected }) => ($selected ? '600' : '400')};
+  color: ${({ $selected }) => ($selected ? 'white' : 'rgb(var(--greyTitle))')};
+  background-color: ${({ $selected, theme }) =>
+    $selected ? (theme.themeColor ?? '#979FC7') : 'rgba(255, 255, 255, 0.9)'};
+  box-shadow: ${({ $selected }) => ($selected ? '0 2px 8px rgba(0,0,0,0.1)' : 'none')};
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ $selected, theme }) =>
+      $selected ? (theme.themeColor ?? '#979FC7') : 'rgba(255, 255, 255, 0.8)'};
+  }
+`;
+
+const CloseButton = styled.button`
+  flex-shrink: 0;
+  padding: 10px 28px;
+  border-radius: 14px;
+  font-size: 14px;
+  color: white;
+  background-color: ${(props) => props.theme.themeColor ?? '#979FC7'};
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+`;
