@@ -68,7 +68,7 @@ const LogoWrapper = styled.div`
 `;
 
 const Logo = styled.span`
-  font-family: BMJUA;
+  font-family: 'BMJUA';
   font-size: 48px;
   color: rgb(var(--greyTitle));
   
