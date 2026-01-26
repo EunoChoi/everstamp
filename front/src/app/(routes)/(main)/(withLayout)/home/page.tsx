@@ -1,30 +1,35 @@
-'use client';
+import { getYear } from "date-fns";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import styled from "styled-components";
+import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/fetchers/stats";
+import HomeView from "./HomeView.client";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const queryClient = new QueryClient();
+  const currentYear = getYear(new Date());
+
+  await queryClient.prefetchQuery({
+    queryKey: ['stats', 'years'],
+    queryFn: getAvailableYears,
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['stats', 'diary', currentYear],
+    queryFn: () => getDiaryStats({ year: currentYear }),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ['stats', 'habit', currentYear],
+    queryFn: () => getHabitStats({ year: currentYear }),
+  });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <PageWrapper>
-      <HomeContentWrapper>
-        <Title>Home</Title>
-      </HomeContentWrapper>
-    </PageWrapper>
+    <HydrationBoundary state={dehydratedState}>
+      <HomeView />
+    </HydrationBoundary>
   );
 };
 
 export default HomePage;
-
-const HomeContentWrapper = styled(ContentWrapper)`
-  max-width: 600px;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`
-const Title = styled.h1`
-  font-size: 32px;
-  font-family: BMJUA;
-  color: rgb(var(--greyTitle));
-  text-transform: uppercase;
-`
