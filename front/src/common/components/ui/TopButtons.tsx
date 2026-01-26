@@ -1,6 +1,5 @@
 'use client';
 
-import { useScroll } from "@/common/hooks/useScrollContext";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -10,10 +9,8 @@ interface Props {
 }
 
 const TopButtons = ({ children, classname }: Props) => {
-  const { scrolled } = useScroll();
-
   return (
-    <Wrapper className={`${classname || ''} ${scrolled ? 'scrolled' : ''}`}>
+    <Wrapper className={classname || ''}>
       {children}
     </Wrapper>
   );
@@ -22,7 +19,7 @@ const TopButtons = ({ children, classname }: Props) => {
 export default TopButtons;
 
 const Wrapper = styled.div`
-  z-index: 999;
+  z-index: 91;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -34,36 +31,6 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   right: 0;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    
-    background: linear-gradient(
-      to top,
-      transparent 0%,
-      color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 30%,
-      color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 60%,
-      var(--theme-bg, #f5f5fa) 100%
-    );
-    
-    mask-image: linear-gradient(to top, transparent 0%, black 100%);
-    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 100%);
-    
-    pointer-events: none;
-    z-index: -1;
-    
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &.scrolled::after {
-    opacity: 1;
-  }
 
   @media (max-width: 479px) {
     height: var(--mobileHeader);
