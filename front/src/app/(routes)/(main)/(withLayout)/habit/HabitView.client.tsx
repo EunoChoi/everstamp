@@ -25,7 +25,6 @@ interface Habit {
 }
 
 const MAX_HABIT_COUNT = 20;
-const DUMMY_COUNT = 12;
 
 type SORT = 'ASC' | 'DESC' | 'PRIORITY' | 'CUSTOM';
 const SORT_TEXT: Record<SORT, string> = {
@@ -73,7 +72,6 @@ const HabitView = () => {
         <HabitBoxs>
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
           {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
-          {Array.from({ length: DUMMY_COUNT }).map((_, index) => (<div key={index}></div>))}
         </HabitBoxs>
       </ContentWrapper>
     </PageWrapper >
@@ -141,7 +139,7 @@ const EmptyBox = styled.div`
   aspect-ratio: 0.85;
   
   border-radius: 24px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.9);
   box-shadow: 0 1px 8px rgba(0,0,0,0.04);
   color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   font-size: 48px;

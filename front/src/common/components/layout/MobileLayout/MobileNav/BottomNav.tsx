@@ -36,6 +36,7 @@ const NavWrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 95;
   
   display: flex;
   justify-content: center;
@@ -43,32 +44,8 @@ const NavWrapper = styled.div`
   gap: 24px;
   width: 100%;
   height: var(--mobileNav);
-
   
   pointer-events: none;
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 30%,
-      color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 60%,
-      var(--theme-bg, #f5f5fa) 100%
-    );
-    
-    mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
-    
-    pointer-events: none;
-    z-index: -1;
-  }
 `;
 
 const NavGroup = styled.nav`
