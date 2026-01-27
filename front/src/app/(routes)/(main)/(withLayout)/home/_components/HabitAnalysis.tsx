@@ -5,8 +5,6 @@ import { HabitStats } from "@/common/fetchers/stats";
 import { useState } from "react";
 import styled from "styled-components";
 
-import { getHabitMessage } from "../_messages/habitMessages";
-
 interface Props {
   stats?: HabitStats;
   isLoading: boolean;
@@ -18,7 +16,6 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
   const [habitTab, setHabitTab] = useState<HabitTab>('top');
 
   const habits = habitTab === 'top' ? stats?.topHabits : stats?.bottomHabits;
-  const hasHabits = habits && habits.length > 0;
 
   const formatAvg = (avg: number) => {
     if (avg === 0) return '-';
@@ -27,8 +24,6 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
     if (floor === ceil) return `${floor}개`;
     return `${floor}~${ceil}개`;
   };
-
-  const getMessage = () => getHabitMessage(stats);
 
   return (
     <Wrapper>
@@ -41,17 +36,17 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
         <Tab
           $active={habitTab === 'top'}
           onClick={() => setHabitTab('top')}>
-          상위 습관 3
+          상위 Top 3
         </Tab>
         <Tab
           $active={habitTab === 'bottom'}
           onClick={() => setHabitTab('bottom')}>
-          하위 습관 3
+          하위 Top 3
         </Tab>
       </TabWrapper>
 
       <HabitList>
-        {hasHabits ? (
+        {habits && habits.length > 0 ? (
           habits.slice(0, 3).map((habit, index) => (
             <HabitCard key={habit.id}>
               <StarRating rating={habit.priority + 1} className="star-rating" />
@@ -61,16 +56,10 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
           ))
         ) : (
           <EmptyMessage>
-            {habitTab === 'top' ? '아직 완료한 습관이 없어요' : '데이터가 부족해요'}
+            {habitTab === 'top' ? '아직 완료한 습관이 없어요' : '하위 습관이 없어요'}
           </EmptyMessage>
         )}
       </HabitList>
-
-      {habitTab === 'bottom' && (
-        <HabitInfo>
-          한 번도 실천한 적 없는 습관은 하위 습관에 포함되지 않아요.
-        </HabitInfo>
-      )}
 
       <StatsSection>
         <StatsTitle>습관 완료 통계</StatsTitle>
@@ -99,12 +88,6 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
           </DetailItem>
         </DetailSection>
       </StatsSection>
-
-      <HabitMessageCard>
-        <HabitMessageContent>
-          <span>{getMessage()}</span>
-        </HabitMessageContent>
-      </HabitMessageCard>
     </Wrapper>
   );
 };
@@ -207,7 +190,6 @@ const HabitName = styled.span`
   min-width: 0;
   text-align: center;
   line-height: 1.4;
-  word-break: keep-all;
   overflow-wrap: break-word;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -346,39 +328,3 @@ const DetailValue = styled.span`
   }
 `;
 
-const HabitInfo = styled.p`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.6);
-  line-height: 1.5;
-  margin-top: -8px;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  text-align: justify;
-`;
-
-const HabitMessageCard = styled.div`
-  padding: 20px 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  
-  @media (min-width: 480px) {
-    padding: 24px 20px;
-  }
-`;
-
-const HabitMessageContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  
-  span {
-    font-size: 16px;
-    color: rgb(var(--greyTitle));
-    line-height: 1.5;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-    text-align: justify;
-    flex: 1;
-  }
-`;

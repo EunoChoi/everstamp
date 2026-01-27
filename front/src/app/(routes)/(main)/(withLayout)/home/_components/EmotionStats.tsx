@@ -236,7 +236,6 @@ const EmotionMessageContent = styled.div`
     font-size: 16px;
     color: rgb(var(--greyTitle));
     line-height: 1.5;
-    word-break: keep-all;
     overflow-wrap: break-word;
     text-align: justify;
     flex: 1;

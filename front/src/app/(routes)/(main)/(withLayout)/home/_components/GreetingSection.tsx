@@ -1,11 +1,9 @@
 'use client';
 
 import Link from "next/link";
-import { getMonth } from "date-fns";
 import { MdCalendarMonth, MdCheckBox } from 'react-icons/md';
 import styled from "styled-components";
 
-import { MONTHLY_MESSAGES } from "../_messages/monthlyMessages";
 import { getDiaryMainMessage } from "../_messages/diaryMessages";
 
 interface Props {
@@ -14,30 +12,17 @@ interface Props {
 }
 
 const GreetingSection = ({ year, totalDiaries }: Props) => {
-  const currentMonth = getMonth(new Date()) + 1;
-  const monthlyMessage = MONTHLY_MESSAGES[currentMonth] || ['오늘도 소중한 하루를', '기록해보세요.'];
-
-  const getGreetingEmoji = () => {
-    if (totalDiaries === 0) return ':)';
-    if (totalDiaries < 10) return ':D';
-    if (totalDiaries < 50) return '^_^';
-    if (totalDiaries < 100) return '♥';
-    return '★';
-  };
-
   const getMainMessage = () => getDiaryMainMessage(year, totalDiaries);
 
   return (
     <Wrapper>
-      <Title>안녕하세요 {getGreetingEmoji()}</Title>
+      <Title>툭! 오늘도 하나씩 :)</Title>
+      <SubTitle>
+        <SubTitleLine>완벽한 하루가 아니어도 괜찮아요.</SubTitleLine>
+        <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
+      </SubTitle>
       <Description>
         {getMainMessage() && <MainMessage>{getMainMessage()}</MainMessage>}
-        {totalDiaries > 0 && (
-          <MonthlyMessage>
-            <MonthlyMessageLine>{monthlyMessage[0]}</MonthlyMessageLine>
-            <MonthlyMessageLine>{monthlyMessage[1]}</MonthlyMessageLine>
-          </MonthlyMessage>
-        )}
       </Description>
       <LinkWrapper>
         <StyledLink href="/calendar">
@@ -73,6 +58,26 @@ const Title = styled.h1`
   }
 `;
 
+const SubTitle = styled.p`
+  font-size: 20px;
+  color: rgb(var(--greyTitle));
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  text-align: justify;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  @media (min-width: 480px) {
+    font-size: 21px;
+  }
+`;
+
+const SubTitleLine = styled.span`
+  display: block;
+`;
+
 const Description = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,25 +88,8 @@ const MainMessage = styled.span`
   font-size: 16px;
   color: rgb(var(--greyTitle));
   line-height: 1.6;
-  word-break: keep-all;
   overflow-wrap: break-word;
   text-align: justify;
-`;
-
-const MonthlyMessage = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  font-size: 16px;
-  color: rgb(var(--greyTitle));
-  line-height: 1.6;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  text-align: justify;
-`;
-
-const MonthlyMessageLine = styled.span`
-  display: block;
 `;
 
 const LinkWrapper = styled.div`

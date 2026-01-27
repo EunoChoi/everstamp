@@ -23,6 +23,20 @@ const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
 
   const totalCount = stats?.totalCount ?? 0;
 
+  const getStreakMessage = () => {
+    if (currentStreak === 0) {
+      return '아직 연속 기록이 없어요. 오늘부터 시작해보세요!';
+    } else if (currentStreak === 1) {
+      return '어제 일기를 작성하셨네요. 오늘도 기록해보세요!';
+    } else if (currentStreak < 7) {
+      return `${currentStreak}일 연속 기록 중이에요. 꾸준히 기록하고 계시네요!`;
+    } else if (currentStreak < 30) {
+      return `${currentStreak}일 연속 기록 중이에요. 정말 대단해요!`;
+    } else {
+      return `${currentStreak}일 연속 기록 중이에요. 놀라운 성취예요!`;
+    }
+  };
+
   return (
     <Wrapper>
       <TitleWrapper>
@@ -55,6 +69,15 @@ const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
           </StatValueWrapper>
         </StatCard>
       </StatsGrid>
+
+      <StreakMessageCard>
+        <StreakMessageContent>
+          <span>{getStreakMessage()}</span>
+        </StreakMessageContent>
+        <InfoText>
+          * 연속 기록은 어제 날짜 기준으로 측정됩니다.
+        </InfoText>
+      </StreakMessageCard>
 
       <ChartSection>
         <ChartTitle>{year}년 월간 기록 그래프</ChartTitle>
@@ -228,4 +251,46 @@ const Bar = styled.div<{ $height: number; $hasValue: boolean }>`
 const BarLabel = styled.span`
   font-size: 10px;
   color: rgba(var(--greyTitle), 0.6);
+`;
+
+const StreakMessageCard = styled.div`
+  padding: 20px 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  @media (min-width: 480px) {
+    padding: 24px 20px;
+  }
+`;
+
+const StreakMessageContent = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  
+  span {
+    font-size: 16px;
+    color: rgb(var(--greyTitle));
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    text-align: justify;
+    flex: 1;
+  }
+`;
+
+const InfoText = styled.p`
+  font-size: 13px;
+  color: rgba(var(--greyTitle), 0.5);
+  line-height: 1.4;
+  margin: 0;
+  padding-top: 8px;
+  text-align: left;
+  
+  @media (min-width: 480px) {
+    font-size: 14px;
+  }
 `;
