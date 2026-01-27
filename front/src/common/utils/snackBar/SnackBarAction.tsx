@@ -7,14 +7,20 @@ interface SnackBarActionProps {
 }
 
 export const SnackBarAction = ({ yesAction, noAction }: SnackBarActionProps) => {
-  return (<>
-    <Button className="yes" onClick={yesAction}>yes</Button>
-    <Button className="no" onClick={noAction}>no</Button>
-  </>);
+  return (
+    <ButtonContainer>
+      <Button className="no" onClick={noAction}>no</Button>
+      <Button className="yes" onClick={yesAction}>yes</Button>
+    </ButtonContainer>
+  );
 }
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 8px;
+`
 const Button = styled.button`
   padding: 6px 16px;
-  margin-left: 8px;
   border-radius: 14px;
   font-weight: 500;
   &.yes{

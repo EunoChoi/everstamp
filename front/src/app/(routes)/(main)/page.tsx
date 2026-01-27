@@ -8,22 +8,15 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 
-//function
 import { getCurrentUser } from "@/common/fetchers/user";
 import { getTodayString } from "@/common/functions/getTodayString";
-
-
-//images
 import Api from "@/api/Api";
-import emotions from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
 
 
-/**
- * [Client] login page, url : 'everstamp.site/'
- */
+// 로그인 페이지 컴포넌트
 const Page = () => {
   const router = useRouter();
 
@@ -51,40 +44,63 @@ const Page = () => {
     router.prefetch('/list');
     router.prefetch('/habit');
     router.prefetch('/setting');
-  }, [])
+  }, [router])
 
   const options = { callbackUrl: '/' };
+  
+  const loginProviders = [
+    { id: 'google', name: '구글로 로그인', icon: google, signInOptions: { prompt: 'consent' } },
+    { id: 'kakao', name: '카카오로 로그인', icon: kakao, signInOptions: { prompt: 'select_account' } },
+    { id: 'naver', name: '네이버로 로그인', icon: naver, signInOptions: {} },
+  ];
+
+  const providerIcons: Record<string, typeof google> = {
+    google,
+    kakao,
+    naver,
+  };
+
   return (
     <Wrapper>
-      <Logo>TO:OK</Logo>
-      <Img src={emotions} priority width={400} height={400} alt='emotions'></Img>
-      {isSuccess ?
-        <LoggedInButtonWrapper >
+      <LeftSection>
+        <Logo>TO:OK</Logo>
+        <TextSection>
+          <GreetingTitle>툭! 오늘도 하나씩 :)</GreetingTitle>
+          <GreetingSubTitle>
+            <SubTitleLine>완벽한 하루가 아니어도 괜찮아요.</SubTitleLine>
+            <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
+          </GreetingSubTitle>
+        </TextSection>
+      </LeftSection>
+      {isSuccess ? (
+        <LoggedInButtonWrapper>
           <LoggedInButtonStart className={user?.provider} onClick={start}>
-            {user?.provider === 'google' && <Image src={google} alt='google' width={24} height={24} />}
-            {user?.provider === 'kakao' && <Image src={kakao} alt='kakao' width={24} height={24} />}
-            {user?.provider === 'naver' && <Image src={naver} alt='naver' width={24} height={24} />}
-            <span>{user?.email}</span></LoggedInButtonStart>
+            {user?.provider && (
+              <Image 
+                src={providerIcons[user.provider]} 
+                alt={user.provider} 
+                width={24} 
+                height={24} 
+              />
+            )}
+            <span>{user?.email}</span>
+          </LoggedInButtonStart>
           <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
         </LoggedInButtonWrapper>
-        :
+      ) : (
         <Buttons>
-          <LoginButton
-            className="google"
-            onClick={() => signIn('google', options, { prompt: 'consent' })}>
-            <SnsImage src={google} alt='google' width={50} height={50} />
-          </LoginButton>
-          <LoginButton
-            className="kakao"
-            onClick={() => signIn('kakao', options, { prompt: 'select_account' })}>
-            <SnsImage src={kakao} alt='kakao' width={50} height={50} />
-          </LoginButton>
-          <LoginButton
-            className="naver"
-            onClick={() => signIn('naver', options)}>
-            <SnsImage src={naver} alt='naver' width={50} height={50} />
-          </LoginButton>
-        </Buttons>}
+          {loginProviders.map((provider) => (
+            <LoginButton
+              key={provider.id}
+              className={provider.id}
+              onClick={() => signIn(provider.id as 'google' | 'kakao' | 'naver', options, provider.signInOptions)}
+            >
+              <SnsImage src={provider.icon} alt={provider.id} width={24} height={24} />
+              <ButtonText>{provider.name}</ButtonText>
+            </LoginButton>
+          ))}
+        </Buttons>
+      )}
     </Wrapper>
   );
 }
@@ -109,36 +125,52 @@ const Wrapper = styled.div`
   align-items: center;
 
   background-color: #EFF0F6;
+  padding: 20px;
+  gap: 48px;
 
-  @media (max-width: 479px) { //mobile port
-    gap: 28px;
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    gap: 20px;
-  }
-  @media (min-width:1025px) { //desktop
-    gap: 32px;
+  /* 가로 모드 또는 높이가 짧을 때 가로 배치 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    gap: 48px;
+    
+    @media (min-width: 1025px) {
+      padding: 60px;
+      gap: 48px;
+    }
   }
 `
-const Img = styled(Image)`
-  object-fit: contain;
-  
-  @media (max-width: 479px) { //mobile port
-    margin: 32px 0;
-    width: 70dvw;
+
+const TextSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    align-items: flex-start;
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    width: auto;
-    height: 128px;
+`
+
+const LeftSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+
+  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    align-items: flex-start;
+    flex: 1;
+    max-width: 50%;
   }
-  @media (min-width:1025px) { //desktop
-    width: 300px;
-    margin: 30px 0;
-  }
-`;
+`
 
 const Logo = styled.span`
-  line-height: 100%;
+  line-height: 1.2;
   font-family: 'BMJUA';
   color: rgb(var(--greyTitle));
 
@@ -147,20 +179,81 @@ const Logo = styled.span`
   }
 
   @media (max-width: 479px) { //mobile port
-    font-size: 36px;
+    font-size: 64px;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    font-size: 32px;
+    font-size: 60px;
   }
   @media (min-width:1025px) { //desktop
-    font-size: 48px;
+    font-size: 84px;
   }
+`
+
+const GreetingTitle = styled.h1`
+  color: rgb(var(--greyTitle));
+  text-transform: capitalize;
+  font-size: 30px;
+  font-family: 'BMJUA';
+  margin: 0;
+  text-align: center;
+  line-height: 1.3;
+  
+  @media (min-width: 480px) {
+    font-size: 32px;
+  }
+  
+  @media (min-width: 1025px) {
+    font-size: 42px;
+  }
+
+  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    text-align: left;
+  }
+`
+
+const GreetingSubTitle = styled.p`
+  font-size: 18px;
+  color: rgb(var(--greyTitle));
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0.85;
+  
+  @media (min-width: 480px) {
+    font-size: 19px;
+    gap: 3px;
+  }
+  
+  @media (min-width: 1025px) {
+    font-size: 23px;
+    gap: 4px;
+  }
+
+  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    text-align: left;
+  }
+`
+
+const SubTitleLine = styled.span`
+  display: block;
 `
 const LoggedInButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* 가로 모드 또는 높이가 짧을 때 오른쪽 정렬 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    flex: 0 0 auto;
+    align-items: flex-end;
+  }
 `
 const LoggedInButtonStart = styled.button`
   display: flex;
@@ -181,7 +274,6 @@ const LoggedInButtonStart = styled.button`
   color: rgb(var(--greyTitle));
   text-transform: lowercase;
   font-size: 16px;
-  /* font-weight: 500; */
 
   span{
     margin-left : 8px;
@@ -211,37 +303,87 @@ const LoggedInButtonLogout = styled.button`
 `
 const Buttons = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 256px;
+  
+  @media (min-width: 480px) {
+    max-width: 288px;
+  }
+  
+  @media (min-width: 1025px) {
+    max-width: 320px;
+    gap: 14px;
+  }
+
+  /* 가로 모드 또는 높이가 짧을 때 오른쪽 정렬 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    flex: 0 0 auto;
+    max-width: 256px;
+    align-items: flex-end;
+    
+    @media (min-width: 1025px) {
+      max-width: 288px;
+    }
+  }
 `
+
 const LoginButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 12px;
   
-  width : 42px;
-  height: 42px;
-  border-radius: 42px;
-  border : 2px solid rgba(0,0,0,0.1);
-  margin: 4px;
+  width: 100%;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px solid;
+  padding: 0 24px;
+  
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
 
-  @media (min-width:1025px) { //desktop
-    width : 56px;
+  @media (min-width: 1025px) {
     height: 56px;
-    margin: 6px;
+    font-size: 17px;
+    padding: 0 28px;
   }
 
-  &.kakao{
-    background-color: rgb(250, 225, 0);
+  &.google {
+    background-color: #ffffff;
+    color: #3c4043;
+    border-color: #e0e0e0;
   }
-  &.naver{
-    background-color: rgb(2, 199, 60);
+  
+  &.kakao {
+    background-color: #fee500;
+    color: #000000;
+    border-color: #f9d100;
   }
-  &.google{
-    background-color: white;
+  
+  &.naver {
+    background-color: #03c75a;
+    color: #ffffff;
+    border-color: #02a84a;
   }
 `
 
 const SnsImage = styled(Image)`
-  width: 70%;
-  height: 70%;
-  object-fit: cover;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+  
+  @media (min-width: 1025px) {
+    width: 26px;
+    height: 26px;
+  }
+`
+
+const ButtonText = styled.span`
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
 `

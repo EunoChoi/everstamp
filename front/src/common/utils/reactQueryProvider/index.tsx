@@ -3,7 +3,6 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
-import Devtools from "./Devtools";
 
 type Props = {
   children: React.ReactNode;
@@ -27,7 +26,7 @@ function RQProvider({ children }: Props) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Devtools />
+      {/* <Devtools /> */}
       {children}
     </QueryClientProvider>
   );

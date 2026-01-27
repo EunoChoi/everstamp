@@ -82,47 +82,107 @@ router.get("/diary/:year", tokenCheck, async (req, res) => {
     });
 
     // 연속 기록 계산
-    const dates = diaries.map(d => new Date(d.date).toISOString().split('T')[0]);
+    // 날짜를 로컬 시간 기준 yyyy-MM-dd 형식으로 변환 (UTC 변환 방지)
+    const formatDateToLocal = (date) => {
+      const d = date instanceof Date ? date : new Date(date);
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+    
+    const dates = diaries.map(d => formatDateToLocal(d.date));
     const uniqueDates = [...new Set(dates)].sort();
     
     let longestStreak = 0;
     let currentStreak = 0;
     let tempStreak = 1;
     
+    // 오늘 날짜를 로컬 시간 기준으로 계산
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayStr = today.toISOString().split('T')[0];
-    const yesterdayStr = new Date(today.getTime() - 86400000).toISOString().split('T')[0];
+    const todayStr = formatDateToLocal(today);
+    
+    // 어제 날짜 계산
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = formatDateToLocal(yesterday);
 
-    for (let i = 1; i < uniqueDates.length; i++) {
-      const prevDate = new Date(uniqueDates[i - 1]);
-      const currDate = new Date(uniqueDates[i]);
-      const diffDays = Math.round((currDate - prevDate) / 86400000);
+    // 최장 연속 기록 및 현재 연속 기록 계산 (전체 기간 조회 필요)
+    // 모든 일기 조회 (연도 제한 없음)
+    const allDiaries = await Diary.findAll({
+      where: {
+        email,
+        visible: true
+      },
+      attributes: ['date'],
+      raw: true
+    });
 
-      if (diffDays === 1) {
-        tempStreak++;
-      } else {
-        longestStreak = Math.max(longestStreak, tempStreak);
-        tempStreak = 1;
-      }
-    }
-    longestStreak = Math.max(longestStreak, tempStreak);
+    // 날짜를 로컬 시간 기준 YYYY-MM-DD 형식으로 변환하고 중복 제거
+    const allDatesSet = new Set();
+    allDiaries.forEach(diary => {
+      const dateStr = formatDateToLocal(diary.date);
+      allDatesSet.add(dateStr);
+    });
+    const allDates = Array.from(allDatesSet).sort();
+    
+    // 최장 연속 기록 계산 (전체 기간, 오늘 제외)
+    // 오늘을 제외한 날짜들로만 계산
+    const datesExcludingToday = allDates.filter(date => date !== todayStr);
+    
+    if (datesExcludingToday.length > 0) {
+      tempStreak = 1;
+      for (let i = 1; i < datesExcludingToday.length; i++) {
+        const prevDateStr = datesExcludingToday[i - 1];
+        const currDateStr = datesExcludingToday[i];
+        
+        const prevDate = new Date(prevDateStr + 'T00:00:00');
+        const currDate = new Date(currDateStr + 'T00:00:00');
+        const diffMs = currDate.getTime() - prevDate.getTime();
+        const diffDays = diffMs / 86400000;
 
-    // 현재 연속 기록 (오늘 또는 어제부터 역산)
-    const lastDate = uniqueDates[uniqueDates.length - 1];
-    if (lastDate === todayStr || lastDate === yesterdayStr) {
-      currentStreak = 1;
-      for (let i = uniqueDates.length - 2; i >= 0; i--) {
-        const currDate = new Date(uniqueDates[i + 1]);
-        const prevDate = new Date(uniqueDates[i]);
-        const diffDays = Math.round((currDate - prevDate) / 86400000);
         if (diffDays === 1) {
-          currentStreak++;
+          tempStreak++;
         } else {
-          break;
+          longestStreak = Math.max(longestStreak, tempStreak);
+          tempStreak = 1;
+        }
+      }
+      longestStreak = Math.max(longestStreak, tempStreak);
+    }
+    
+    // 현재 연속 기록 계산 (어제 기준)
+    // 어제 일기가 있는지 확인
+    const hasYesterday = allDates.includes(yesterdayStr);
+    
+    if (hasYesterday) {
+      // 어제부터 역산하여 연속 기록 계산
+      const yesterdayIndex = allDates.indexOf(yesterdayStr);
+      
+      if (yesterdayIndex !== -1) {
+        currentStreak = 1;
+        // 역순으로 연속된 날짜 확인 (어제부터 과거로)
+        for (let i = yesterdayIndex - 1; i >= 0; i--) {
+          const currentDateStr = allDates[i + 1]; // 더 최근 날짜
+          const prevDateStr = allDates[i];        // 더 과거 날짜
+          
+          // 날짜 문자열을 Date 객체로 변환하여 차이 계산
+          const currentDate = new Date(currentDateStr + 'T00:00:00');
+          const prevDate = new Date(prevDateStr + 'T00:00:00');
+          
+          // 하루 차이인지 확인 (86400000ms = 1일)
+          const diffMs = currentDate.getTime() - prevDate.getTime();
+          const diffDays = diffMs / 86400000;
+          
+          if (diffDays === 1) {
+            currentStreak++;
+          } else {
+            break;
+          }
         }
       }
     }
+    // 어제 일기가 없으면 currentStreak는 0으로 유지됨
 
     // 일수를 주/월 단위로 변환
     const daysToUnits = (days) => ({
@@ -180,6 +240,12 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
     // 사용자의 총 습관 개수 조회
     const totalHabits = await Habit.count({ where: { email } });
 
+    // 사용자의 모든 습관 조회 (count가 0인 습관도 포함하기 위해)
+    const allHabits = await Habit.findAll({
+      where: { email },
+      attributes: ['id', 'name', 'priority']
+    });
+
     // 해당 연도의 모든 일기와 연결된 습관 조회
     const diaries = await Diary.findAll({
       where: {
@@ -194,8 +260,12 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
       }]
     });
 
-    // 습관별 완료 횟수 집계
+    // 모든 습관을 count: 0으로 초기화
     const habitCounts = {};
+    allHabits.forEach(habit => {
+      habitCounts[habit.id] = { id: habit.id, name: habit.name, priority: habit.priority, count: 0 };
+    });
+
     let totalHabitCompletions = 0;
     let visibleDiariesWithHabits = 0;
     let totalHabitsInDiariesWithHabits = 0; // 습관이 있는 일기들의 습관 개수 합
@@ -214,10 +284,9 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
         
         diary.Habits.forEach(habit => {
           totalHabitCompletions++;
-          if (!habitCounts[habit.id]) {
-            habitCounts[habit.id] = { id: habit.id, name: habit.name, priority: habit.priority, count: 0 };
+          if (habitCounts[habit.id]) {
+            habitCounts[habit.id].count++;
           }
-          habitCounts[habit.id].count++;
         });
       }
     });

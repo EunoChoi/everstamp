@@ -49,7 +49,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
           closeSnackbar('deleteHabit');
         }} />
     );
-    enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: true, action, autoHideDuration: 6000 });
+    enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: false, action, autoHideDuration: 3000 });
   }
   const habitToggle = (e: ChangeEvent<HTMLInputElement>, dateString: string) => {
     if (e.currentTarget.checked === true) {

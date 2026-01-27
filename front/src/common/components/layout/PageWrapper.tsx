@@ -1,7 +1,7 @@
 'use client'
-import { forwardRef } from "react";
-import styled from "styled-components";
 import { useScroll } from "@/common/hooks/useScrollContext";
+import { forwardRef, useEffect, useState } from "react";
+import styled from "styled-components";
 
 interface PageWrapperProps {
   children: React.ReactNode;
@@ -10,12 +10,43 @@ interface PageWrapperProps {
 
 export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ children, className }, ref) => {
   const { scrolled } = useScroll();
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    const wrapper = typeof ref === 'object' && ref !== null && 'current' in ref ? ref.current : null;
+    if (!wrapper) return;
+
+    const checkScrollable = () => {
+      const hasScroll = wrapper.scrollHeight > wrapper.clientHeight;
+      setIsScrollable(hasScroll);
+    };
+
+    // 렌더링 완료 후 스크롤 가능 여부 체크
+    const timeoutId = setTimeout(checkScrollable, 0);
+
+    // 컨텐츠 크기 변화 감지
+    const resizeObserver = new ResizeObserver(checkScrollable);
+    resizeObserver.observe(wrapper);
+
+    // DOM 변화 감지 (children 변경 시)
+    const mutationObserver = new MutationObserver(checkScrollable);
+    mutationObserver.observe(wrapper, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => {
+      clearTimeout(timeoutId);
+      resizeObserver.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, [ref, children]);
 
   return (
     <Wrapper ref={ref} className={className} data-scroll-container>
-      <TopGradient className={scrolled ? 'visible' : ''} />
+      <TopGradient className={isScrollable && scrolled ? 'visible' : ''} />
       {children}
-      <BottomGradient />
+      <BottomGradient className={isScrollable ? 'visible' : ''} />
     </Wrapper>
   );
 });
@@ -66,7 +97,7 @@ const TopGradient = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 70px;
     
     background: linear-gradient(
       to bottom,
@@ -103,7 +134,7 @@ const BottomGradient = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 70px;
     
     background: linear-gradient(
       to top,
@@ -112,11 +143,18 @@ const BottomGradient = styled.div`
       color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 70%,
       transparent 100%
     );
+    
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &.visible::after {
+    opacity: 1;
   }
 
   @media (max-width: 479px) {
     &::after {
-      height: 120px;
+      height: 70px;
     }
   }
 `;

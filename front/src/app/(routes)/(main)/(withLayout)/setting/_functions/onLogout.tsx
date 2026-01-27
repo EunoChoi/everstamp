@@ -16,5 +16,5 @@ export const onLogout = () => {
         }} />
     </>
   );
-  enqueueSnackbar('로그아웃 하시겠습니까?', { key: 'logout', persist: true, action: logoutAction, autoHideDuration: 6000 });
+  enqueueSnackbar('로그아웃 하시겠습니까?', { key: 'logout', persist: false, action: logoutAction, autoHideDuration: 3000 });
 }

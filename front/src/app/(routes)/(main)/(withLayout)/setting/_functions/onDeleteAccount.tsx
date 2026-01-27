@@ -16,5 +16,5 @@ export const onDeleteAccount = () => {
         }} />
     </>
   );
-  enqueueSnackbar('회원탈퇴 하시겠습니까?', { key: 'userDelete', persist: true, action: userDeleteAction, autoHideDuration: 6000 });
+  enqueueSnackbar('회원탈퇴 하시겠습니까?', { key: 'userDelete', persist: false, action: userDeleteAction, autoHideDuration: 3000 });
 }
