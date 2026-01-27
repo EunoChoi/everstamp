@@ -44,7 +44,7 @@ const DownloadButtons = ({ variant, inlineWebLink = false }: Props) => {
           원할한 이용을 위해 앱을 설치해주세요.
         </p>
       </div>,
-      { key: 'startInWeb', persist: true, action, autoHideDuration: 6000 }
+      { key: 'startInWeb', persist: false, action, autoHideDuration: 3000 }
     );
   };
 

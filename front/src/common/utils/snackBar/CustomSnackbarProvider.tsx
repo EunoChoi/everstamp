@@ -2,7 +2,7 @@
 
 import { MaterialDesignContent, SnackbarProvider } from "notistack";
 import { ReactNode } from "react";
-import styled, { createGlobalStyle } from "styled-components"; // createGlobalStyle 추가
+import styled, { createGlobalStyle } from "styled-components";
 
 interface Props {
   children?: ReactNode;
@@ -22,7 +22,7 @@ const CustomSnackbarProvider = ({ children }: Props) => {
         horizontal: 'right',
       }}
       maxSnack={1}
-      autoHideDuration={2000}
+      autoHideDuration={1500}
       preventDuplicate={true}
     >
       <GlobalSnackbarStyle />
@@ -35,7 +35,7 @@ export default CustomSnackbarProvider;
 
 const GlobalSnackbarStyle = createGlobalStyle`
   .notistack-SnackbarContainer {
-    z-index: 999999 !important; /* 모달보다 확실히 높은 값 */
+    z-index: 999999 !important;
   }
 `;
 
