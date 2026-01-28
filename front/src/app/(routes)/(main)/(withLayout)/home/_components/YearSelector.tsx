@@ -100,6 +100,13 @@ const Wrapper = styled.div`
       transform: scaleY(1);
     }
   }
+  @media (orientation: landscape) and (max-height: 600px) {
+    max-height: calc(100dvh - 20px);
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding: 20px 24px;
+    gap: 16px;
+  }
   @media (min-width: 480px) and (max-width: 1024px) {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     z-index: 999;
@@ -121,6 +128,15 @@ const Wrapper = styled.div`
       opacity: 1;
       visibility: visible;
     }
+  }
+  @media (min-width: 480px) and (max-width: 1024px) and (orientation: landscape) and (max-height: 600px) {
+    max-height: calc(100dvh - 20px);
+    overflow-y: auto;
+    justify-content: flex-start;
+    top: 10px;
+    transform: translate(-50%, 0);
+    padding: 16px 20px;
+    gap: 12px;
   }
   @media (min-width: 1025px) {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
@@ -173,8 +189,14 @@ const YearGrid = styled.div`
   @media (max-width: 479px) {
     max-height: calc(50dvh - 120px);
   }
+  @media (max-width: 479px) and (orientation: landscape) and (max-height: 600px) {
+    max-height: calc(100dvh - 200px);
+  }
   @media (min-width: 480px) {
     max-height: 300px;
+  }
+  @media (min-width: 480px) and (orientation: landscape) and (max-height: 600px) {
+    max-height: calc(100dvh - 180px);
   }
 `;
 
