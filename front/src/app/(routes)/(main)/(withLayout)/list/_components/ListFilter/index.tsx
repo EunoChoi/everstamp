@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 
 import { getYear } from "date-fns";
-import { MdRefresh } from 'react-icons/md';
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MdRefresh } from 'react-icons/md';
 import EmotionSelector from "./EmotionSelector";
 import MonthSelector from "./MonthSelector";
 
@@ -71,12 +71,22 @@ const ListFilter = ({
       <Wrapper
         onClick={(e) => e.stopPropagation()}
         className={isFilterOpen ? 'open' : ''}>
-        <EmotionWrapper>
-          <EmotionSelector setEmotionToggle={setTempEmotion} emotionToggle={tempEmotion} />
-        </EmotionWrapper>
-        <MonthWrapper>
-          <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
-        </MonthWrapper>
+        <EmotionSection>
+          <SectionTitle>감정 선택</SectionTitle>
+          <EmotionCard>
+            <EmotionWrapper>
+              <EmotionSelector setEmotionToggle={setTempEmotion} emotionToggle={tempEmotion} />
+            </EmotionWrapper>
+          </EmotionCard>
+        </EmotionSection>
+        <MonthSection>
+          <SectionTitle>기간 선택</SectionTitle>
+          <MonthCard>
+            <MonthWrapper>
+              <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
+            </MonthWrapper>
+          </MonthCard>
+        </MonthSection>
         <InitButton onClick={onInitialize}><MdRefresh />선택 초기화</InitButton>
         <ButtonWrapper>
           <Button className="cancel" onClick={() => setFilterOpen(false)}>취소</Button>
@@ -196,6 +206,47 @@ const Wrapper = styled.div`
     }
   }
 `
+const SectionTitle = styled.span`
+  line-height: 100%;
+  font-size: 18px;
+  color: grey;
+  margin-bottom: 12px;
+  display: block;
+  text-align: center;
+`
+
+const EmotionSection = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+const MonthSection = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
+const EmotionCard = styled.div`
+  width: 100%;
+  padding: 16px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+`
+
+const MonthCard = styled.div`
+  width: 100%;
+  padding: 16px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+`
+
 const EmotionWrapper = styled.div`
   width: 100%;
 `
