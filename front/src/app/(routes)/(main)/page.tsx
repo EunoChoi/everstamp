@@ -8,13 +8,13 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 
+import Api from "@/api/Api";
 import { getCurrentUser } from "@/common/fetchers/user";
 import { getTodayString } from "@/common/functions/getTodayString";
-import Api from "@/api/Api";
+import emotionsImage from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
-import emotionsImage from '/public/img/emotion/emotions.png';
 
 
 // 로그인 페이지 컴포넌트
@@ -48,7 +48,7 @@ const Page = () => {
   }, [router])
 
   const options = { callbackUrl: '/' };
-  
+
   const loginProviders = [
     { id: 'google', name: '구글로 로그인', icon: google, signInOptions: { prompt: 'consent' } },
     { id: 'kakao', name: '카카오로 로그인', icon: kakao, signInOptions: { prompt: 'select_account' } },
@@ -89,11 +89,11 @@ const Page = () => {
           <LoggedInButtonWrapper>
             <LoggedInButtonStart className={user?.provider} onClick={start}>
               {user?.provider && (
-                <Image 
-                  src={providerIcons[user.provider]} 
-                  alt={user.provider} 
-                  width={24} 
-                  height={24} 
+                <Image
+                  src={providerIcons[user.provider]}
+                  alt={user.provider}
+                  width={24}
+                  height={24}
                 />
               )}
               <span>{user?.email}</span>
@@ -137,7 +137,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: #EFF0F6;
+  background-color: #f3f7fc;
   padding: 20px;
   gap: 48px;
 
