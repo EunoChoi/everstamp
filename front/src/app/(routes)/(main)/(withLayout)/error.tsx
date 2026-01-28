@@ -29,7 +29,7 @@ export default function Error({ error, reset }: ErrorProps) {
         color: 'rgb(88, 88, 88)',
       }}
     >
-      <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].nameKr} width={128} height={128} priority />
+      <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].nameKr} width={128} height={128} priority style={{ filter: 'brightness(1.1)' }} />
       <h2 style={{ fontSize: '24px', margin: '16px 0 8px' }}>
         문제가 발생했습니다
       </h2>

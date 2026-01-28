@@ -91,6 +91,10 @@ const NoDiaries = styled.div`
 
   color: rgb(var(--greyTitle));
 
+  img {
+    filter: brightness(1.1);
+  }
+
   @media (max-width: 479px) { //mobile port
     font-size: 18px;  
     padding-top: 25dvh;

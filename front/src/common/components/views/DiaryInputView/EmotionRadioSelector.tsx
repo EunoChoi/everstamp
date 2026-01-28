@@ -69,6 +69,10 @@ const RadioButton = styled.label`
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    img {
+      filter: brightness(1.1);
+    }
   }
   .checkmark{
     width: 100%;

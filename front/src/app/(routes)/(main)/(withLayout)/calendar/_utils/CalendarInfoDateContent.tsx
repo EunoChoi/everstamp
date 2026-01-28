@@ -48,6 +48,7 @@ const Wrapper = styled.div`
   & > img {
     width: 100%; 
     height: auto;
+    filter: brightness(1.1);
   }
 `;
 
