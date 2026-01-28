@@ -174,7 +174,7 @@ const Check = styled.div`
     font-weight: 500;
     color: rgb(var(--greyTitle)) !important;
     @media ((max-height: 479px) and (min-width:480px) and (max-width:1024px)) { //only mobild land
-      font-size: 13px;
+      font-size: 14px;
     }
   }
 
@@ -186,7 +186,7 @@ const Check = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: grey;
 

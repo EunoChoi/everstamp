@@ -109,7 +109,7 @@ const Menu = styled.span`
   }
 `
 const BottomText = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: grey;
   color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   text-align: center;

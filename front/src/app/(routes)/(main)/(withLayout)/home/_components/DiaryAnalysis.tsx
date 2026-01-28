@@ -129,7 +129,7 @@ const SectionTitle = styled.h2`
 `;
 
 const TotalCount = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(var(--greyTitle), 0.6);
   white-space: nowrap;
   flex-shrink: 0;
@@ -160,12 +160,12 @@ const StatCard = styled.div`
 `;
 
 const StatLabel = styled.span`
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(var(--greyTitle), 0.7);
   text-align: center;
   
   @media (min-width: 480px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
@@ -187,7 +187,7 @@ const StatValue = styled.span`
 `;
 
 const StatUnit = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(var(--greyTitle), 0.6);
   
   @media (min-width: 480px) {
@@ -249,7 +249,7 @@ const Bar = styled.div<{ $height: number; $hasValue: boolean }>`
 `;
 
 const BarLabel = styled.span`
-  font-size: 10px;
+  font-size: 14px;
   color: rgba(var(--greyTitle), 0.6);
 `;
 
@@ -283,7 +283,7 @@ const StreakMessageContent = styled.div`
 `;
 
 const InfoText = styled.p`
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(var(--greyTitle), 0.5);
   line-height: 1.4;
   margin: 0;
@@ -291,6 +291,6 @@ const InfoText = styled.p`
   text-align: left;
   
   @media (min-width: 480px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;

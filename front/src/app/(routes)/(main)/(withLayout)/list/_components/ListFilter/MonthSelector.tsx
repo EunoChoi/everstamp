@@ -127,7 +127,7 @@ const Month = styled.button`
     color: rgb(var(--greyTitle));
   }
   .eng{
-    font-size: 14px;
+    font-size: 16px;
     text-transform: capitalize;
     /* font-weight: 300; */
     color: grey;

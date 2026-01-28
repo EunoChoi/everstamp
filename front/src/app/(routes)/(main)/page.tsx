@@ -301,7 +301,7 @@ const GreetingTitle = styled.h1`
 `
 
 const GreetingSubTitle = styled.p`
-  font-size: 15px;
+  font-size: 16px;
   color: rgb(var(--greyTitle));
   line-height: 1.6;
   overflow-wrap: break-word;
@@ -387,7 +387,7 @@ const LoggedInButtonStart = styled.button`
 `
 const LoggedInButtonLogout = styled.button`
   color: rgb(var(--greyTitle));
-  font-size: 14px;
+  font-size: 16px;
 `
 const Buttons = styled.div`
   display: flex;

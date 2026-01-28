@@ -73,7 +73,7 @@ const Habit = styled.span`
   background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 60) : '#E4E8F2'};
 
   span {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: rgb(var(--greyTitle));
     text-transform: capitalize;

@@ -55,7 +55,7 @@ const Wrapper = styled.div`
     transition: all ease-in-out 200ms;
     text-transform: capitalize;
 
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: white;
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};

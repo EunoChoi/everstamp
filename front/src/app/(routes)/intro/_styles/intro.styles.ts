@@ -164,7 +164,7 @@ export const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
   margin: 0 6px;
   padding: 6px 24px;
   border-radius: 32px;
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(var(--greyTitle));
   border: 2px solid rgba(0, 0, 0, 0.1);
   background-color: #8CADE255;
@@ -191,7 +191,7 @@ export const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
 
 // 웹 실행 링크
 export const WebLink = styled.button<{ $variant?: 'outro' }>`
-  font-size: 15px;
+  font-size: 16px;
   padding: 0 4px;
   border-bottom: solid 2px #8CADE255;
   color: #8CADE2;
@@ -236,7 +236,7 @@ export const IconLabel = styled.div`
   align-items: center;
 
   span {
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 8px;
 
     @media (min-width: 480px) and (max-width: 1024px) {

@@ -60,7 +60,7 @@ const Badge = styled.div`
 
   width: 26px;
   height: 26px;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 50% 45% 55% 50% / 60% 50% 50% 55%;
 
   display: flex;
@@ -75,7 +75,7 @@ const Badge = styled.div`
 const CenterBadge = styled.div`
   width: 26px;
   height: 26px;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 50% 45% 55% 50% / 60% 50% 50% 55%;
 
   display: flex;

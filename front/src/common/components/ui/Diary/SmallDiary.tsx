@@ -154,7 +154,7 @@ const Text = styled.div`
 const MoreImagesText = styled.button`
   align-self: flex-end;
   text-align: right;
-  font-size: 14px;
+  font-size: 16px;
   color: ${(props) => props.theme.themeColor ?? '#979FC7'};
 `
 

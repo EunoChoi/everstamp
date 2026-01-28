@@ -56,7 +56,7 @@ const RadioButton = styled.label`
     align-items: center;
 
     color: rgb(var(--greyTitle));
-    font-size: 14px;
+    font-size: 16px;
   }
   input:checked ~ .checkmark{
     background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 40) : '#B8C4E8'};

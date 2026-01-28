@@ -141,7 +141,7 @@ const Wrapper = styled.div<{ $position: number | undefined }>`
     }
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(var(--greyTitle));
 
     &:last-child{
