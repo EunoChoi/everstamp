@@ -14,6 +14,7 @@ import Api from "@/api/Api";
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
+import emotionsImage from '/public/img/emotion/emotions.png';
 
 
 // 로그인 페이지 컴포넌트
@@ -63,7 +64,20 @@ const Page = () => {
   return (
     <Wrapper>
       <LeftSection>
+        <EmotionImageWrapper>
+          <Image
+            src={emotionsImage}
+            alt="emotions"
+            width={1200}
+            height={900}
+            priority
+            quality={100}
+            unoptimized={false}
+          />
+        </EmotionImageWrapper>
         <Logo>TO:OK</Logo>
+      </LeftSection>
+      <RightSection>
         <TextSection>
           <GreetingTitle>툭! 오늘도 하나씩 :)</GreetingTitle>
           <GreetingSubTitle>
@@ -71,36 +85,35 @@ const Page = () => {
             <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
           </GreetingSubTitle>
         </TextSection>
-      </LeftSection>
-      {isSuccess ? (
-        <LoggedInButtonWrapper>
-          <LoggedInButtonStart className={user?.provider} onClick={start}>
-            {user?.provider && (
-              <Image 
-                src={providerIcons[user.provider]} 
-                alt={user.provider} 
-                width={24} 
-                height={24} 
-              />
-            )}
-            <span>{user?.email}</span>
-          </LoggedInButtonStart>
-          <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
-        </LoggedInButtonWrapper>
-      ) : (
-        <Buttons>
-          {loginProviders.map((provider) => (
-            <LoginButton
-              key={provider.id}
-              className={provider.id}
-              onClick={() => signIn(provider.id as 'google' | 'kakao' | 'naver', options, provider.signInOptions)}
-            >
-              <SnsImage src={provider.icon} alt={provider.id} width={24} height={24} />
-              <ButtonText>{provider.name}</ButtonText>
-            </LoginButton>
-          ))}
-        </Buttons>
-      )}
+        {isSuccess ? (
+          <LoggedInButtonWrapper>
+            <LoggedInButtonStart className={user?.provider} onClick={start}>
+              {user?.provider && (
+                <Image 
+                  src={providerIcons[user.provider]} 
+                  alt={user.provider} 
+                  width={24} 
+                  height={24} 
+                />
+              )}
+              <span>{user?.email}</span>
+            </LoggedInButtonStart>
+            <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
+          </LoggedInButtonWrapper>
+        ) : (
+          <Buttons>
+            {loginProviders.map((provider) => (
+              <LoginButton
+                key={provider.id}
+                className={provider.id}
+                onClick={() => signIn(provider.id as 'google' | 'kakao' | 'naver', options, provider.signInOptions)}
+              >
+                <SnsImage src={provider.icon} alt={provider.id} width={24} height={24} />
+              </LoginButton>
+            ))}
+          </Buttons>
+        )}
+      </RightSection>
     </Wrapper>
   );
 }
@@ -131,7 +144,7 @@ const Wrapper = styled.div`
   /* 가로 모드 또는 높이가 짧을 때 가로 배치 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 40px;
     gap: 48px;
@@ -147,11 +160,17 @@ const TextSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 
-  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    align-items: flex-start;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  @media (min-width: 1025px) {
+    gap: 20px;
   }
 `
 
@@ -159,13 +178,76 @@ const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 48px;
+  gap: 32px;
 
-  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    align-items: flex-start;
-    flex: 1;
-    max-width: 50%;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    gap: 16px;
+  }
+
+  @media (min-width: 1025px) {
+    gap: 40px;
+  }
+`
+
+const RightSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+
+  /* 가로 모드 또는 높이가 짧을 때 오른쪽 섹션 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  @media (min-width: 1025px) {
+    gap: 40px;
+  }
+`
+
+const EmotionImageWrapper = styled.div`
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+
+  @media (max-width: 479px) {
+    width: 70%;
+    max-width: 280px;
+  }
+
+  @media (min-width: 480px) and (max-width: 1024px) {
+    width: 75%;
+    max-width: 350px;
+  }
+
+  @media (min-width: 1025px) {
+    width: 85%;
+    max-width: 450px;
+  }
+
+  /* 가로 모드 또는 높이가 짧을 때 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    width: 100%;
+    max-width: 200px;
+    margin: 0;
   }
 `
 
@@ -179,41 +261,46 @@ const Logo = styled.span`
   }
 
   @media (max-width: 479px) { //mobile port
-    font-size: 64px;
+    font-size: 48px;
   }
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    font-size: 60px;
+    font-size: 44px;
   }
   @media (min-width:1025px) { //desktop
-    font-size: 84px;
+    font-size: 56px;
+  }
+
+  /* 가로 모드 또는 높이가 짧을 때 */
+  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
+    font-size: 36px;
   }
 `
 
 const GreetingTitle = styled.h1`
   color: rgb(var(--greyTitle));
   text-transform: capitalize;
-  font-size: 30px;
+  font-size: 24px;
   font-family: 'BMJUA';
   margin: 0;
   text-align: center;
   line-height: 1.3;
   
   @media (min-width: 480px) {
-    font-size: 32px;
+    font-size: 26px;
   }
   
   @media (min-width: 1025px) {
-    font-size: 42px;
+    font-size: 32px;
   }
 
-  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    text-align: left;
+    text-align: center;
   }
 `
 
 const GreetingSubTitle = styled.p`
-  font-size: 18px;
+  font-size: 15px;
   color: rgb(var(--greyTitle));
   line-height: 1.6;
   overflow-wrap: break-word;
@@ -225,18 +312,18 @@ const GreetingSubTitle = styled.p`
   opacity: 0.85;
   
   @media (min-width: 480px) {
-    font-size: 19px;
+    font-size: 16px;
     gap: 3px;
   }
   
   @media (min-width: 1025px) {
-    font-size: 23px;
+    font-size: 18px;
     gap: 4px;
   }
 
-  /* 가로 모드 또는 높이가 짧을 때 왼쪽 정렬 */
+  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    text-align: left;
+    text-align: center;
   }
 `
 
@@ -249,10 +336,10 @@ const LoggedInButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* 가로 모드 또는 높이가 짧을 때 오른쪽 정렬 */
+  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    flex: 0 0 auto;
-    align-items: flex-end;
+    width: 100%;
+    align-items: center;
   }
 `
 const LoggedInButtonStart = styled.button`
@@ -303,29 +390,19 @@ const LoggedInButtonLogout = styled.button`
 `
 const Buttons = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  max-width: 256px;
-  
-  @media (min-width: 480px) {
-    max-width: 288px;
-  }
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
   
   @media (min-width: 1025px) {
-    max-width: 320px;
-    gap: 14px;
+    gap: 20px;
   }
 
-  /* 가로 모드 또는 높이가 짧을 때 오른쪽 정렬 */
+  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
   @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    flex: 0 0 auto;
-    max-width: 256px;
-    align-items: flex-end;
-    
-    @media (min-width: 1025px) {
-      max-width: 288px;
-    }
+    width: 100%;
+    justify-content: center;
   }
 `
 
@@ -333,57 +410,54 @@ const LoginButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
   
-  width: 100%;
-  height: 50px;
-  border-radius: 50px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   border: 1px solid;
-  padding: 0 24px;
+  padding: 0;
   
-  font-size: 16px;
-  font-weight: 500;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   @media (min-width: 1025px) {
+    width: 56px;
     height: 56px;
-    font-size: 17px;
-    padding: 0 28px;
   }
 
   &.google {
     background-color: #ffffff;
-    color: #3c4043;
     border-color: #e0e0e0;
   }
   
   &.kakao {
     background-color: #fee500;
-    color: #000000;
     border-color: #f9d100;
   }
   
   &.naver {
     background-color: #03c75a;
-    color: #ffffff;
     border-color: #02a84a;
   }
 `
 
 const SnsImage = styled(Image)`
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   flex-shrink: 0;
   
   @media (min-width: 1025px) {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
   }
-`
-
-const ButtonText = styled.span`
-  flex: 1;
-  text-align: center;
-  font-weight: 500;
 `
