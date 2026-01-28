@@ -1,0 +1,4 @@
+public/service_worker.js
+public/sw.js
+*.mjs
+next.config.mjs
