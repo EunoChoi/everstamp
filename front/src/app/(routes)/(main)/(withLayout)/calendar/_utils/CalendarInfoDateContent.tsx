@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { useCalendar } from "@/common/components/ui/Calendar/CalendarContext";
 import { EMOTIONS } from "@/common/constants/emotions";
-import emptyIcon from '/public/img/emotion/empty.png';
+import { lightenColor } from "@/common/utils/lightenColor";
 
 export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
   const { monthlyData } = useCalendar<{ [key: string]: any }>();
@@ -24,16 +24,13 @@ export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
       return (
         <Wrapper>
           <Image src={emotion.src} alt={emotion.nameKr} />
-          {habitsCount > 0 && <div className="count">{habitsCount}</div>}
+          {habitsCount > 0 && <Badge>{habitsCount}</Badge>}
         </Wrapper>
       );
     }
     if (!hasDiary && hasHabit) {
       return (
-        <Wrapper>
-          <Image src={emptyIcon} alt="no emotion" />
-          <div className="count">{habitsCount}</div>
-        </Wrapper>
+        <CenterBadge>{habitsCount}</CenterBadge>
       );
     }
     return (<span className="date">{date}</span>);
@@ -45,27 +42,48 @@ export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
 
 const Wrapper = styled.div`
   position: relative; 
-  width: 80%;
+  width: 100%;
+  z-index: 2;
 
   & > img {
     width: 100%; 
     height: auto;
   }
+`;
 
-  .count {
-    position: absolute;
-    top: -10px; 
-    right: -2px;
+const Badge = styled.div`
+  position: absolute;
+  z-index: 10;
+  top: -10px; 
+  right: -10px;
 
-    width: 22px;
-    height: 22px;
-    border-radius: 100%;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50% 45% 55% 50% / 60% 50% 50% 55%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    background-color: ${(props) => props.theme.themeColor || '#979FC7'};
-    color: white;
-  }
+  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 30) : '#B8C4E8'};
+  color: white;
+  font-weight: 600;
+`;
+
+const CenterBadge = styled.div`
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  border-radius: 50% 45% 55% 50% / 60% 50% 50% 55%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 30) : '#B8C4E8'};
+  color: white;
+  font-weight: 600;
+  
+  transform: scale(1.3);
 `;

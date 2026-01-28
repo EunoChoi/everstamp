@@ -1,3 +1,4 @@
+import { lightenColor } from "@/common/utils/lightenColor";
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
 import { useRouter } from "next/navigation";
 import { memo } from "react";
@@ -68,10 +69,11 @@ const CellWrapper = styled.div`
   border-radius: 8px;
   &.currentMonth{}
   &.today{
-    border: 2px solid ${(props) => props.theme.themeColor ? props.theme.themeColor + 50 : '#979FC7'}; 
+    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 70) : '#B0B8D4'}; 
   }
   &.selected{
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 80) : '#B0B8D4'}; 
+    z-index: 1;
   }
   &.notCurrentMonth{
     opacity: 0.3;

@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "Took",
   description: "감정 일기를 적고 목표 습관을 실천하세요! 당신의 변화와 성장을 응원합니다. :)",
   manifest: "/manifest.json",
+  icons: {
+    icon: '/favicon.png', // 32x32 PNG
+  },
 };
 
 export const viewport: Viewport = {

@@ -6,3 +6,5 @@ node_modules
 
 everstamp.pem
 .pem
+
+.DS_Store

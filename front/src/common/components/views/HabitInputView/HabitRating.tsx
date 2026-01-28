@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { StarRating } from '../../ui/StarRating';
+import { lightenColor } from "@/common/utils/lightenColor";
 
 interface Props {
   priority: number;
@@ -58,7 +59,7 @@ const RadioButton = styled.label`
     font-size: 14px;
   }
   input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
+    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 40) : '#B8C4E8'};
   }
 `;
 const Wrapper = styled.div`

@@ -1,6 +1,7 @@
 import type { DiaryHabit } from '@/common/types/diary';
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
+import { lightenColor } from "@/common/utils/lightenColor";
 
 interface Props {
   habits: DiaryHabit[];
@@ -69,7 +70,7 @@ const Habit = styled.span`
   line-height: 1.4;
   white-space: nowrap;
   
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '50' : '#979FC750'};
+  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 60) : '#E4E8F2'};
 
   span {
     font-size: 13px;

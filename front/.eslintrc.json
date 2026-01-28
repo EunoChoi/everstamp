@@ -5,6 +5,8 @@
   ],
   "ignorePatterns": [
     "*.mjs",
-    "next.config.mjs"
+    "next.config.mjs",
+    "public/service_worker.js",
+    "public/sw.js"
   ]
 }
