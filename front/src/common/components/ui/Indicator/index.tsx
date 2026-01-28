@@ -1,5 +1,6 @@
 import { RefObject } from "react";
 import styled from "styled-components";
+import { lightenColor } from "@/common/utils/lightenColor";
 
 interface IndicatorProps {
   slideWrapperRef: RefObject<HTMLDivElement>;
@@ -38,7 +39,7 @@ const IndicatorWrapper = styled.div`
   }
 `
 const Dot = styled.div`
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '30' : '#979FC730'};
+  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 15) : '#B0B8D4'};
 
   margin: 3px;
   width: 8px;

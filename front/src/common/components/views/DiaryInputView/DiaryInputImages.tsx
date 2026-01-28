@@ -8,6 +8,7 @@ import { RefObject } from "react";
 import { MdOutlineImage, MdOutlineRemoveCircle } from 'react-icons/md';
 
 import Api from "@/api/Api";
+import { lightenColor } from "@/common/utils/lightenColor";
 
 
 
@@ -147,7 +148,7 @@ const ImageDeleteButton = styled.button`
   border-radius: 18px;
   font-size: 26px;
   background-color: rgb(var(--greyTitle));
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '90' : '#979FC7'};
+  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 40) : '#B8C4E8'};
 `
 
 const UploadButton = styled.button`
@@ -159,7 +160,7 @@ const UploadButton = styled.button`
   height: 85%;
   width: 85%;
   border-radius: 14px;
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '80' : '#979FC780'};
+  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 35) : '#C4CBE0'};
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   span{
     margin-top: 4px;

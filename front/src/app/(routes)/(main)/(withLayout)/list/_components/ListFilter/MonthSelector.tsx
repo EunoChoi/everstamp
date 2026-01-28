@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getYear } from "date-fns";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { useState } from "react";
+import { lightenColor } from "@/common/utils/lightenColor";
 
 interface Props {
   selectedYear: number;
@@ -132,7 +133,7 @@ const Month = styled.button`
     color: grey;
   }
   &.selectedMonth{
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor + '80' : '#979FC780'};
+    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 35) : '#C4CBE0'};
     border-radius: 14px;
     .num, .eng {
       color: white;
