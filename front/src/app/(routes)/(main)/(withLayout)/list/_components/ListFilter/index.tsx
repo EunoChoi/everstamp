@@ -209,7 +209,8 @@ const Wrapper = styled.div`
 const SectionTitle = styled.span`
   line-height: 100%;
   font-size: 18px;
-  color: grey;
+  font-weight: 600;
+  color: rgb(var(--greyTitle));
   margin-bottom: 12px;
   display: block;
   text-align: center;

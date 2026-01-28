@@ -1,5 +1,6 @@
 'use client';
 
+import { lightenColor } from "@/common/utils/lightenColor";
 import styled from "styled-components";
 
 interface Props {
@@ -15,16 +16,18 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
     <Overlay className={isOpen ? 'open' : ''} onClick={onClose}>
       <Wrapper onClick={(e) => e.stopPropagation()} className={isOpen ? 'open' : ''}>
         <Title>연도 선택</Title>
-        <YearGrid>
-          {years.map((year) => (
-            <YearItem
-              key={year}
-              $selected={year === selectedYear}
-              onClick={() => onSelectYear(year)}>
-              {year}년
-            </YearItem>
-          ))}
-        </YearGrid>
+        <YearCard>
+          <YearGrid>
+            {years.map((year) => (
+              <YearItem
+                key={year}
+                $selected={year === selectedYear}
+                onClick={() => onSelectYear(year)}>
+                {year}년
+              </YearItem>
+            ))}
+          </YearGrid>
+        </YearCard>
         <CloseButton onClick={onClose}>닫기</CloseButton>
       </Wrapper>
     </Overlay>
@@ -143,10 +146,20 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h3`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: rgb(var(--greyTitle));
   flex-shrink: 0;
+`;
+
+const YearCard = styled.div`
+  width: 100%;
+  padding: 16px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 `;
 
 const YearGrid = styled.div`
@@ -172,22 +185,31 @@ const YearItem = styled.button<{ $selected: boolean }>`
   font-weight: ${({ $selected }) => ($selected ? '600' : '400')};
   color: ${({ $selected }) => ($selected ? 'white' : 'rgb(var(--greyTitle))')};
   background-color: ${({ $selected, theme }) =>
-    $selected ? (theme.themeColor ?? '#979FC7') : 'rgba(255, 255, 255, 0.9)'};
+    $selected
+      ? (theme.themeColor ?? '#979FC7')
+      : (theme.themeColor ? lightenColor(theme.themeColor, 60) : '#B8C4E8')};
   box-shadow: ${({ $selected }) => ($selected ? '0 2px 8px rgba(0,0,0,0.1)' : 'none')};
   transition: all 0.2s ease;
 
   &:hover {
     background-color: ${({ $selected, theme }) =>
-      $selected ? (theme.themeColor ?? '#979FC7') : 'rgba(255, 255, 255, 0.8)'};
+    $selected
+      ? (theme.themeColor ?? '#979FC7')
+      : (theme.themeColor ? lightenColor(theme.themeColor, 35) : '#C4CBE0')};
   }
 `;
 
 const CloseButton = styled.button`
   flex-shrink: 0;
-  padding: 10px 28px;
-  border-radius: 14px;
   font-size: 14px;
+  padding: 6px 20px;
+  border-radius: 14px;
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   color: white;
-  background-color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+
+  @media (min-width:480px) and (max-width:1024px) {
+    font-size: 12px;
+    padding: 4px 16px;
+  }
 `;
