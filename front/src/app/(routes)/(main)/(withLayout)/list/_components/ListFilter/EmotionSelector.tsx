@@ -46,6 +46,7 @@ const EmotionImage = styled(Image)`
   height: 60px;
   flex-shrink: 0;
   object-fit: contain;
+  filter: brightness(1.1);
 
   @media (max-width: 479px) {
     width: 50px;
@@ -83,7 +84,7 @@ const EmotionItem = styled.div`
   flex: 1;
 
   &.selected ${EmotionImage} {
-    filter: saturate(115%);
+    filter: brightness(1.1) saturate(115%);
     opacity: 1;
   }
   
