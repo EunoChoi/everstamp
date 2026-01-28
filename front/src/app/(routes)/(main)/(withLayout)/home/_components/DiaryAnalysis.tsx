@@ -41,7 +41,7 @@ const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
     <Wrapper>
       <TitleWrapper>
         <SectionTitle>일기 정보</SectionTitle>
-        <TotalCount>총 {totalCount}개의 일기</TotalCount>
+        <TotalCount>{totalCount}개의 일기</TotalCount>
       </TitleWrapper>
 
       <StatsGrid>

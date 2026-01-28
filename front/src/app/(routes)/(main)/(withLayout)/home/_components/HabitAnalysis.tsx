@@ -29,7 +29,7 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
     <Wrapper>
       <TitleWrapper>
         <SectionTitle>습관 정보</SectionTitle>
-        <TotalCount>생성 습관 {stats?.totalHabits ?? 0}개</TotalCount>
+        <TotalCount>{stats?.totalHabits ?? 0}개의 목표 습관</TotalCount>
       </TitleWrapper>
 
       <TabWrapper>
