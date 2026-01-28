@@ -65,7 +65,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
     <Wrapper>
       <TitleWrapper>
         <SectionTitle>감정 정보</SectionTitle>
-        <TotalCount>총 {totalCount}개의 감정 기록</TotalCount>
+        <TotalCount>{totalCount}개의 감정 기록</TotalCount>
       </TitleWrapper>
 
       <TabWrapper>
