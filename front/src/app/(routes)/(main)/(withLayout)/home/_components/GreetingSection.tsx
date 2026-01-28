@@ -1,10 +1,12 @@
 'use client';
 
+import Image from "next/image";
 import Link from "next/link";
 import { MdCalendarMonth, MdCheckBox } from 'react-icons/md';
 import styled from "styled-components";
 
 import { getDiaryMainMessage } from "../_messages/diaryMessages";
+import emotionsImage from '/public/img/emotion/emotions.png';
 
 interface Props {
   year: number;
@@ -16,6 +18,17 @@ const GreetingSection = ({ year, totalDiaries }: Props) => {
 
   return (
     <Wrapper>
+      <EmotionImageWrapper>
+        <Image
+          src={emotionsImage}
+          alt="emotions"
+          width={1200}
+          height={900}
+          priority
+          quality={100}
+          unoptimized={false}
+        />
+      </EmotionImageWrapper>
       <Title>툭! 오늘도 하나씩 :)</Title>
       <SubTitle>
         <SubTitleLine>완벽한 하루가 아니어도 괜찮아요.</SubTitleLine>
@@ -45,6 +58,19 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 24px;
+`;
+
+const EmotionImageWrapper = styled.div`
+  width: 80%;
+  margin: 24px auto;
+  
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 `;
 
 const Title = styled.h1`
