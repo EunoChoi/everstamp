@@ -121,7 +121,7 @@ const SectionTitle = styled.h2`
 `;
 
 const TotalCount = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(var(--greyTitle), 0.6);
   white-space: nowrap;
   flex-shrink: 0;
@@ -165,7 +165,7 @@ const HabitCard = styled.div`
   overflow: hidden;
   
   .star-rating {
-    font-size: 11px;
+    font-size: 14px;
     color: ${props => props.theme.themeColor ?? '#979FC7'};
     gap: 2px;
     opacity: 0.8;
@@ -204,12 +204,12 @@ const HabitName = styled.span`
 `;
 
 const HabitCount = styled.span`
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: rgba(var(--greyTitle), 0.6);
   
   @media (min-width: 480px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
@@ -220,7 +220,7 @@ const EmptyMessage = styled.div`
   grid-column: 1 / -1;
   width: 100%;
   min-height: 80px;
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(var(--greyTitle), 0.5);
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 12px;
@@ -268,12 +268,12 @@ const StatCard = styled.div`
 `;
 
 const StatLabel = styled.span`
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(var(--greyTitle), 0.7);
   text-align: center;
   
   @media (min-width: 480px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 
@@ -309,11 +309,11 @@ const DetailItem = styled.div`
 `;
 
 const DetailLabel = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(var(--greyTitle), 0.7);
   
   @media (min-width: 480px) {
-    font-size: 15px;
+    font-size: 16px;
   }
 `;
 

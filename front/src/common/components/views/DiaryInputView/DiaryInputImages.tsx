@@ -164,7 +164,7 @@ const UploadButton = styled.button`
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   span{
     margin-top: 4px;
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(var(--greyTitle));
   }
   &:disabled{

@@ -37,10 +37,10 @@ const DownloadButtons = ({ variant, inlineWebLink = false }: Props) => {
     enqueueSnackbar(
       <div>
         <p>웹에서 계속 진행하시겠습니까?</p>
-        <p style={{ fontSize: '15px', marginTop: '8px', color: '#DC7889' }}>
+        <p style={{ fontSize: '16px', marginTop: '8px', color: '#DC7889' }}>
           🚨 실행 환경에 따라 레이아웃이 어긋날 수 있습니다.
         </p>
-        <p style={{ fontSize: '15px', color: '#DC7889' }}>
+        <p style={{ fontSize: '16px', color: '#DC7889' }}>
           원할한 이용을 위해 앱을 설치해주세요.
         </p>
       </div>,

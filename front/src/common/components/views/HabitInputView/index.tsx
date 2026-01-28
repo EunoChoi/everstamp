@@ -68,6 +68,6 @@ const SubText = styled.span`
   justify-content: center;
   color: salmon;
 
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 32px;
 `

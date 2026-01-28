@@ -60,18 +60,18 @@ const EmotionImage = styled(Image)`
 `
 
 const EmotionName = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(var(--greyTitle));
   text-align: center;
   opacity: 0.7;
   transition: opacity ease-in-out 200ms;
 
   @media (max-width: 479px) {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   @media (min-width: 1025px) {
-    font-size: 15px;
+    font-size: 16px;
   }
 `
 

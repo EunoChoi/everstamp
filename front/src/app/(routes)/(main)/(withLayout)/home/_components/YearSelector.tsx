@@ -203,7 +203,7 @@ const YearGrid = styled.div`
 const YearItem = styled.button<{ $selected: boolean }>`
   padding: 14px 8px;
   border-radius: 14px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: ${({ $selected }) => ($selected ? '600' : '400')};
   color: ${({ $selected }) => ($selected ? 'white' : 'rgb(var(--greyTitle))')};
   background-color: ${({ $selected, theme }) =>
@@ -223,7 +223,7 @@ const YearItem = styled.button<{ $selected: boolean }>`
 
 const CloseButton = styled.button`
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 16px;
   padding: 6px 20px;
   border-radius: 14px;
   background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
@@ -231,7 +231,7 @@ const CloseButton = styled.button`
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 
   @media (min-width:480px) and (max-width:1024px) {
-    font-size: 12px;
+    font-size: 14px;
     padding: 4px 16px;
   }
 `;

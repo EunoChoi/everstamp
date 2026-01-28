@@ -137,7 +137,7 @@ const Dot = styled.div<{ $delay: number }>`
 `;
 
 const Message = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(150, 150, 150);
   animation: ${fadeIn} 0.6s ease-out 0.3s both;
 `;

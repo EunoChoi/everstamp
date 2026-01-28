@@ -138,7 +138,7 @@ const SectionTitle = styled.h2`
 `;
 
 const TotalCount = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   color: rgba(var(--greyTitle), 0.6);
   white-space: nowrap;
   flex-shrink: 0;
@@ -194,7 +194,7 @@ const EmotionImage = styled(Image)`
 `;
 
 const EmotionCount = styled.span`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: rgb(var(--greyTitle));
   
@@ -245,13 +245,13 @@ const EmotionMessageContent = styled.div`
 `;
 
 const LowDataWarning = styled.p`
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(var(--greyTitle), 0.5);
   line-height: 1.4;
   margin: 0;
   padding-top: 8px;
   
   @media (min-width: 480px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;

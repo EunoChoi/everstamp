@@ -289,7 +289,7 @@ const ButtonWrapper = styled.div`
   gap: 12px;
 `
 const Button = styled.button`
-  font-size: 14px;
+  font-size: 16px;
 
   padding: 6px 20px;
   border-radius: 14px;
@@ -303,7 +303,7 @@ const Button = styled.button`
     color: rgb(var(--greyTitle));
   }
   @media (min-width:480px) and (max-width:1024px) {
-    font-size: 12px;
+    font-size: 14px;
     padding: 4px 16px;
   }
 `

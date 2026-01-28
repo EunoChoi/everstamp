@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  font-size: 14px;
+  font-size: 16px;
   color: #525252;
 
   width: 26px;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
     color: white;
   }
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 12px;
+    font-size: 14px;
     width: 18px;
     height: 18px;
     border-radius: 18px;
