@@ -1,6 +1,6 @@
 'use client'
 import { useScroll } from "@/common/hooks/useScrollContext";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 interface PageWrapperProps {
@@ -11,9 +11,11 @@ interface PageWrapperProps {
 export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ children, className }, ref) => {
   const { scrolled } = useScroll();
   const [isScrollable, setIsScrollable] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const wrapper = typeof ref === 'object' && ref !== null && 'current' in ref ? ref.current : null;
+    // ref가 전달되었으면 그것을 사용하고, 없으면 내부 ref 사용
+    const wrapper = (ref && typeof ref === 'object' && 'current' in ref ? ref.current : null) || wrapperRef.current;
     if (!wrapper) return;
 
     const checkScrollable = () => {
@@ -42,8 +44,11 @@ export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ child
     };
   }, [ref, children]);
 
+  // ref가 전달되었으면 그것을 사용하고, 없으면 내부 ref 사용
+  const finalRef = (ref && typeof ref === 'object' && 'current' in ref) ? ref : wrapperRef;
+
   return (
-    <Wrapper ref={ref} className={className} data-scroll-container>
+    <Wrapper ref={finalRef} className={className} data-scroll-container>
       <TopGradient className={isScrollable && scrolled ? 'visible' : ''} />
       {children}
       <BottomGradient className={isScrollable ? 'visible' : ''} />
