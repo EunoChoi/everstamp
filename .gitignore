@@ -8,3 +8,6 @@ everstamp.pem
 .pem
 
 .DS_Store
+
+# Documentation files
+front/docs/
