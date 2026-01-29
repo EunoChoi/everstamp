@@ -102,8 +102,6 @@ const CalendarPageCalendar = styled(Calendar)`
 `
 const CalendarContentWrapper = styled(ContentWrapper)`
   max-width: 600px;
-  height: 100%;
-  overflow-y: scroll;
 
   @media (max-width: 479px) {
     gap: 12px;

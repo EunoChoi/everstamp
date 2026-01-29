@@ -22,7 +22,6 @@ const Wrapper = styled.div`
     padding: 0px 4dvw var(--mobileNav) 4dvw;
   }
   @media (min-width:480px) and (max-width:1024px) {
-    overflow: scroll;
     padding: 36px;
   }
   @media (min-width:1025px) {
