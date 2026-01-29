@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { MdColorLens, MdLock, MdPhonelink } from 'react-icons/md';
 
 import IntroPageCarousel from '@/common/components/ui/IntroPageCarousel';
+import Logo from '@/common/components/ui/Logo';
 import { INTRO_IMAGES, SECTION_IMAGES } from '../_constants/images';
 import {
   FeatureImage,
@@ -11,7 +12,7 @@ import {
   FlexRow,
   IconLabel,
   ImageScroll,
-  Logo,
+  LogoWrapper,
   MobileSection,
   PageWrapper,
   SubText,
@@ -25,9 +26,9 @@ const IntroMobile = () => {
     <PageWrapper>
       {/* Intro */}
       <MobileSection $bg="white">
-        <Logo>
-          <span>TO:OK</span>
-        </Logo>
+        <LogoWrapper>
+          <Logo size={64} />
+        </LogoWrapper>
         <Text>
           <span>내일 더 나은 나로 나아가기 위해</span>
           <span>감정 일기와 습관 만들기를 시작하세요.</span>
@@ -185,9 +186,9 @@ const IntroMobile = () => {
       {/* Outro */}
       <MobileSection $bg="themeDark">
         <DownloadButtons variant="outro" />
-        <Logo $variant="outro">
-          <span>TO:OK</span>
-        </Logo>
+        <LogoWrapper>
+          <Logo size={64} />
+        </LogoWrapper>
       </MobileSection>
     </PageWrapper>
   );

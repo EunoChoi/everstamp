@@ -75,32 +75,12 @@ export const DesktopSection = styled.section<{ $bg?: 'white' | 'theme' | 'themeD
   }
 `;
 
-// 로고
-export const Logo = styled.div<{ $variant?: 'outro'; $desktop?: boolean }>`
+// 로고 래퍼
+export const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  > span {
-    font-family: 'BMJUA';
-    display: inline-block;
-    font-size: ${({ $desktop }) => ($desktop ? '56px' : '32px')};
-    text-transform: uppercase;
-    margin: 0 4px;
-    color: rgb(var(--greyTitle));
-    line-height: 120%;
-
-    &::first-letter {
-      color: ${({ $variant }) => $variant === 'outro' ? 'white' : '#8CADE2'};
-    }
-  }
-
-  @media (min-width: 480px) and (max-width: 1024px) {
-    > span {
-      font-size: 46px;
-    }
-  }
 `;
 
 // 제목
