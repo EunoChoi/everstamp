@@ -12,7 +12,6 @@ import { createEmptyDiary } from "@/common/types/diary";
 //styledComponent
 
 //component
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
@@ -78,7 +77,9 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           onClickMonthTitle={onClickMonthTitle}
           onClickDate={onClickDate}
         />
-        <Diary type="small" diaryData={diaryData ?? createEmptyDiary(date)} />
+        <DiaryWrapper>
+          <Diary type="small" diaryData={diaryData ?? createEmptyDiary(date)} />
+        </DiaryWrapper>
       </CalendarContentWrapper>
     </PageWrapper>
   );
@@ -87,31 +88,40 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 export default CalendarView;
 
 const CalendarPageCalendar = styled(Calendar)`
-  @media (max-width: 479px) { //mobile port
-    flex-grow: 1;
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    min-height: 500px;
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-  @media (min-width:1025px) { //desktop
-    flex-grow: 1;
-  }
+  flex: 1 1 0;
   min-height: 520px;
+  overflow: visible;
+  
+  @media (max-width: 479px) {
+    min-height: 400px;
+  }
 `
-const CalendarContentWrapper = styled(ContentWrapper)`
+
+const DiaryWrapper = styled.div`
+  flex-shrink: 0;
+`
+
+const CalendarContentWrapper = styled.div`
+  width: 100%;
   max-width: 600px;
+  flex: 1 1 0;
+  height: auto;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 
   @media (max-width: 479px) {
+    padding: 0px 4dvw var(--mobileNav) 4dvw;
     gap: 12px;
-    padding-bottom: var(--mobileNav);
   }
   @media (min-width:480px) and (max-width:1024px) {
+    padding: 36px;
     padding-top: 24px;
     gap: 24px;
   }
-  @media (min-width:1024px) {
+  @media (min-width:1025px) {
+    padding: 36px;
     padding-top: 24px;
     gap: 24px;
   }

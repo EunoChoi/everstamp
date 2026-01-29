@@ -6,7 +6,6 @@ import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
 import ListFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter";
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButtons from "@/common/components/ui/TopButtons";
@@ -100,8 +99,23 @@ const ListView = () => {
 export default ListView;
 
 
-const ListContentWrapper = styled(ContentWrapper)`
+const ListContentWrapper = styled.div`
+  width: 100%;
+  height: auto;
   max-width: 600px;
+  
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 479px) {
+    padding: 0px 4dvw var(--mobileNav) 4dvw;
+  }
+  @media (min-width:480px) and (max-width:1024px) {
+    padding: 36px;
+  }
+  @media (min-width:1025px) {
+    padding: 36px;
+  }
 `
 const Observer = styled.div`
   flex-shrink: 0;
