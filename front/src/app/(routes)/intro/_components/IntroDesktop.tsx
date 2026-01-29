@@ -3,6 +3,7 @@
 import Image from 'next/image';
 
 import IntroPageCarousel from '@/common/components/ui/IntroPageCarousel';
+import Logo from '@/common/components/ui/Logo';
 import { INTRO_IMAGES, SECTION_IMAGES } from '../_constants/images';
 import {
   DesktopSection,
@@ -10,7 +11,7 @@ import {
   FlexCol,
   FlexRow,
   ImageScroll,
-  Logo,
+  LogoWrapper,
   PageWrapper,
   SubText,
   Text,
@@ -24,9 +25,9 @@ const IntroDesktop = () => {
       {/* Intro */}
       <DesktopSection $bg="white">
         <section>
-          <Logo $desktop>
-            <span>TO:OK</span>
-          </Logo>
+          <LogoWrapper>
+            <Logo size={80} />
+          </LogoWrapper>
           <Text $desktop>
             <span>내일 더 나은 나로 나아가기 위해</span>
             <span>감정 일기와 습관 만들기를 시작하세요.</span>
@@ -198,9 +199,9 @@ const IntroDesktop = () => {
       <DesktopSection $bg="themeDark" $height="50dvh">
         <section>
           <DownloadButtons variant="outro" />
-          <Logo $variant="outro" $desktop>
-            <span>TO:OK</span>
-          </Logo>
+          <LogoWrapper>
+            <Logo size={80} />
+          </LogoWrapper>
         </section>
       </DesktopSection>
     </PageWrapper>
