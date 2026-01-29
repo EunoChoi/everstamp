@@ -13,8 +13,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const { storedValue: settings, setValue: setSettings } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
   const fontSize = settings?.fontSize ?? FONT_SIZE_LIST[1];
-  const fontType = settings?.fontType ?? FONT_TYPE_LIST[0]; // 기본: type1
-  const themeColor = settings?.themeColor ?? THEME_COLORS[0]; // 기본: 파란색
+  const fontType = settings?.fontType ?? FONT_TYPE_LIST[0];
+  const themeColor = settings?.themeColor ?? THEME_COLORS[0];
 
   const setFontSize = (size: string) => {
     if (FONT_SIZE_LIST.includes(size)) {
@@ -34,13 +34,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  // 배경색 + 모바일 상태바 색상 동기화
   useEffect(() => {
     const bgColor = THEME_BG_COLORS[themeColor] || '#f3f7fc';
     document.body.style.backgroundColor = bgColor;
     document.documentElement.style.setProperty('--theme-bg', bgColor);
 
-    // 모바일 상태바 색상
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (!metaThemeColor) {
       metaThemeColor = document.createElement('meta');
@@ -48,22 +46,25 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       document.head.appendChild(metaThemeColor);
     }
     metaThemeColor.setAttribute('content', bgColor);
+
+    if (typeof window !== 'undefined' && (window as any).ReactNativeWebView) {
+      (window as any).ReactNativeWebView.postMessage(JSON.stringify({
+        type: 'THEME_CHANGE',
+        color: bgColor,
+        style: 'dark'
+      }));
+    }
   }, [themeColor]);
 
-  // 폰트 타입에 따라 전역 폰트 적용
   useEffect(() => {
     const currentFontType = settings?.fontType ?? FONT_TYPE_LIST[0];
-    // 모든 폰트 타입 클래스 제거
     document.body.classList.remove('font-type2', 'font-type3');
     
     if (currentFontType === 'type2') {
-      // 타입2: 모든 폰트를 배민주아체로
       document.body.classList.add('font-type2');
     } else if (currentFontType === 'type3') {
-      // 타입3: 모든 폰트를 Pretendard로
       document.body.classList.add('font-type3');
     }
-    // 타입1: 기본 (타이틀은 배민주아체, 나머지는 학교 안심체) - 클래스 없음
   }, [settings?.fontType]);
 
   const theme = useMemo(() => ({
