@@ -65,8 +65,8 @@ const HabitView = () => {
 
       <ContentWrapper>
         <HabitPageTextWrapper>
-          <HabitPageText className='title'>{todayDoneHabitRate}% Completed</HabitPageText>
-          <HabitPageText className='sub'>오늘의 목표 습관 {createdHabitCount}개중 {todayDoneHabitCount}개를 실천하셨습니다 :)</HabitPageText>
+          <HabitPageText className='title'>목표 습관 {todayDoneHabitRate}% 완료</HabitPageText>
+          <HabitPageText className='sub'>오늘의 목표 습관 {todayDoneHabitCount}개를 실천하셨습니다 :)</HabitPageText>
         </HabitPageTextWrapper>
 
         <HabitBoxs>
