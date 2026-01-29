@@ -26,6 +26,11 @@ router.post("/", tokenCheck, async (req, res) => {
   let { date, text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
+  // 감정 값 검증 (0-9: 10개 감정)
+  if (emotion === undefined || emotion === null || emotion < 0 || emotion > 9) {
+    return res.status(400).json({ error: '감정 값이 올바르지 않습니다. (0-9)' });
+  }
+
   // date: 'yyyy-MM-dd' string → Date 객체로 변환
   const dateObj = parseDate(date);
 
@@ -94,6 +99,11 @@ router.patch("/", tokenCheck, async (req, res) => {
   const diaryId = req.query.diaryId;
   let { text, images, emotion } = req.body;
   const email = req.currentUserEmail;
+
+  // 감정 값 검증 (0-9: 10개 감정)
+  if (emotion === undefined || emotion === null || emotion < 0 || emotion > 9) {
+    return res.status(400).json({ error: '감정 값이 올바르지 않습니다. (0-9)' });
+  }
 
   // Encrypt text
   text = encrypt(text, process.env.DATA_SECRET_KEY);
@@ -242,9 +252,10 @@ router.get("/list", tokenCheck, async (req, res) => {
       date: { [Op.between]: [rangeStart, rangeEnd] }
     };
 
-    // 감정 필터 (5는 전체)
-    if (Number(search) !== 5) {
-      where.emotion = Number(search);
+    // 감정 필터 (10은 전체, 0-9는 해당 감정)
+    const emotionFilter = Number(search);
+    if (emotionFilter !== 10 && emotionFilter >= 0 && emotionFilter <= 9) {
+      where.emotion = emotionFilter;
     }
 
     const diaries = await Diary.findAll({

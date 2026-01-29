@@ -7,7 +7,7 @@ export const useFilter = () => {
 
   const [selectedYear, setSelectedYear] = useState<number>(getYear(new Date()));
   const [selectedMonth, setSelectedMonth] = useState<number>(0);
-  const [emotionToggle, setEmotionToggle] = useState<number>(5);
+  const [emotionToggle, setEmotionToggle] = useState<number>(10);
 
   const queryParamsYear = searchParams.get('year');
   const queryParamsMonth = searchParams.get('month');

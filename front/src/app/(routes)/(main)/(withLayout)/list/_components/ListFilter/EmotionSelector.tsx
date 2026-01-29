@@ -18,9 +18,9 @@ const EmotionSelector = ({ setEmotionToggle, emotionToggle }: Props) => {
         {firstRow.map((e) =>
           <EmotionItem
             key={e.name}
-            className={`${emotionToggle === e.id || emotionToggle === 5 ? 'selected' : ''}`}
+            className={`${emotionToggle === e.id || emotionToggle === 10 ? 'selected' : ''}`}
             onClick={() => {
-              if (emotionToggle === e.id) setEmotionToggle(5);
+              if (emotionToggle === e.id) setEmotionToggle(10);
               else setEmotionToggle(e.id);
             }}
           >
@@ -35,9 +35,9 @@ const EmotionSelector = ({ setEmotionToggle, emotionToggle }: Props) => {
         {secondRow.map((e) =>
           <EmotionItem
             key={e.name}
-            className={`${emotionToggle === e.id || emotionToggle === 5 ? 'selected' : ''}`}
+            className={`${emotionToggle === e.id || emotionToggle === 10 ? 'selected' : ''}`}
             onClick={() => {
-              if (emotionToggle === e.id) setEmotionToggle(5);
+              if (emotionToggle === e.id) setEmotionToggle(10);
               else setEmotionToggle(e.id);
             }}
           >

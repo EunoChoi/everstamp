@@ -20,7 +20,7 @@ const EmotionFilter = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const [tempEmotion, setTempEmotion] = useState<number>(5);
+  const [tempEmotion, setTempEmotion] = useState<number>(10);
   const emotion = searchParams.get('emotion');
   const year = searchParams.get('year');
   const month = searchParams.get('month');
@@ -28,13 +28,13 @@ const EmotionFilter = ({
   useEffect(() => {
     if (isOpen) {
       if (emotion) setTempEmotion(Number(emotion));
-      else setTempEmotion(5);
+      else setTempEmotion(10);
     }
   }, [isOpen, emotion]);
 
   const onSubmit = () => {
     const params = new URLSearchParams();
-    if (tempEmotion !== 5) params.set('emotion', tempEmotion.toString());
+    if (tempEmotion !== 10) params.set('emotion', tempEmotion.toString());
     if (year) params.set('year', year);
     if (month) params.set('month', month);
 
@@ -48,7 +48,7 @@ const EmotionFilter = ({
   };
 
   const onInitialize = () => {
-    setTempEmotion(5);
+    setTempEmotion(10);
   };
 
   return (

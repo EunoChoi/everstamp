@@ -74,8 +74,8 @@ const HomeView = () => {
         />
 
         <EmotionStats
-          emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0]}
-          monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0])}
+          emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+          monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
           isLoading={isLoading}
         />
 
