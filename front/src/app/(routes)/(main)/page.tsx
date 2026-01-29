@@ -11,10 +11,10 @@ import styled from "styled-components";
 import Api from "@/api/Api";
 import { getCurrentUser } from "@/common/fetchers/user";
 import { getTodayString } from "@/common/functions/getTodayString";
-import emotionsImage from '/public/img/emotion/emotions.png';
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
+import Logo from '@/common/components/ui/Logo';
 
 
 // 로그인 페이지 컴포넌트
@@ -64,18 +64,7 @@ const Page = () => {
   return (
     <Wrapper>
       <LeftSection>
-        <EmotionImageWrapper>
-          <Image
-            src={emotionsImage}
-            alt="emotions"
-            width={1200}
-            height={900}
-            priority
-            quality={100}
-            unoptimized={false}
-          />
-        </EmotionImageWrapper>
-        <Logo>TO:OK</Logo>
+        <Logo size={48} />
       </LeftSection>
       <RightSection>
         <TextSection>
@@ -212,70 +201,7 @@ const RightSection = styled.div`
   }
 `
 
-const EmotionImageWrapper = styled.div`
-  width: 80%;
-  max-width: 400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    filter: brightness(1.1);
-  }
-
-  @media (max-width: 479px) {
-    width: 70%;
-    max-width: 280px;
-  }
-
-  @media (min-width: 480px) and (max-width: 1024px) {
-    width: 75%;
-    max-width: 350px;
-  }
-
-  @media (min-width: 1025px) {
-    width: 85%;
-    max-width: 450px;
-  }
-
-  /* 가로 모드 또는 높이가 짧을 때 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    width: 100%;
-    max-width: 200px;
-    margin: 0;
-  }
-`
-
-const Logo = styled.span`
-  line-height: 1.2;
-  font-family: 'BMJUA';
-  color: rgb(var(--greyTitle));
-
-  &::first-letter {
-    color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-  }
-
-  @media (max-width: 479px) { //mobile port
-    font-size: 48px;
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-    font-size: 44px;
-  }
-  @media (min-width:1025px) { //desktop
-    font-size: 56px;
-  }
-
-  /* 가로 모드 또는 높이가 짧을 때 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    font-size: 36px;
-  }
-`
 
 const GreetingTitle = styled.h1`
   color: rgb(var(--greyTitle));

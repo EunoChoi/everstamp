@@ -35,6 +35,13 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
+const jotiOne = localFont({
+  src: '../common/fonts/JotiOne.woff2',
+  display: "swap",
+  weight: "400",
+  variable: '--font-joti-one',
+});
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -82,7 +89,7 @@ export default async function RootLayout({
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
       </head>
 
-      <body className={pretendard.variable}>
+      <body className={`${pretendard.variable} ${jotiOne.variable}`}>
         <RootProviders dehydratedState={dehydratedState}>
           {children}
         </RootProviders>

@@ -61,8 +61,10 @@ const Wrapper = styled.section`
 `;
 
 const EmotionImageWrapper = styled.div`
-  width: 80%;
-  margin: 24px auto;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 48px;
+  margin-bottom: 24px;
   
   img {
     width: 100%;
