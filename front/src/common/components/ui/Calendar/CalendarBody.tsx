@@ -37,10 +37,12 @@ const CalBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  overflow: visible;
 `
 const CalRow = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 100%;
+  overflow: visible;
 `

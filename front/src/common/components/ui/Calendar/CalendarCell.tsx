@@ -63,7 +63,7 @@ const CellWrapper = styled.div`
   align-items: center;
 
   color: #666565;
-  
+  overflow: visible;
 
   border : solid transparent 3px;
   border-radius: 8px;
