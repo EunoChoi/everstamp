@@ -43,58 +43,68 @@ const SettingPage = () => {
 
       <SettingContentWrapper>
         <Section>
-          <Title>user info</Title>
-          <SubSection>
-            <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
-            <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
-            <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
-          </SubSection>
+          <Title>계정 정보</Title>
+          <Card>
+            <SubSection>
+              <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
+              <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
+              <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
+            </SubSection>
+          </Card>
         </Section>
 
         <Section>
-          <Title>customize</Title>
-          <SubSection>
-            <SubTitle>테마 색상</SubTitle>
-            <ThemeColorSelector />
-          </SubSection>
-          <SubSection>
-            <SubTitle>폰트</SubTitle>
-            <SettingItem
-              settingItemKey="다이어리 글씨 크기"
-              settingItemValue={<FontSizeSelector />} />
-            <SettingItem
-              settingItemKey="폰트 타입"
-              settingItemValue={<FontTypeSelector />} />
-          </SubSection>
-          <SubSection>
-            <SubTitle>습관</SubTitle>
-            <SettingItem
-              settingItemKey="습관 순서 커스텀"
-              settingItemValue={
-                <button onClick={() => {
-                  router.push('/inter/habitOrder', { scroll: false })
-                }}>
-                  <MdLowPriority />
-                </button>} />
-          </SubSection>
+          <Title>앱 설정</Title>
+          <Card>
+            <SubSection>
+              <SubTitle>테마 색상</SubTitle>
+              <ThemeColorSelector />
+            </SubSection>
+          </Card>
+          <Card>
+            <SubSection>
+              <SubTitle>폰트</SubTitle>
+              <SettingItem
+                settingItemKey="다이어리 글씨 크기"
+                settingItemValue={<FontSizeSelector />} />
+              <SettingItem
+                settingItemKey="폰트 타입"
+                settingItemValue={<FontTypeSelector />} />
+            </SubSection>
+          </Card>
+          <Card>
+            <SubSection>
+              <SubTitle>습관</SubTitle>
+              <SettingItem
+                settingItemKey="습관 순서 커스텀"
+                settingItemValue={
+                  <button onClick={() => {
+                    router.push('/inter/habitOrder', { scroll: false })
+                  }}>
+                    <MdLowPriority />
+                  </button>} />
+            </SubSection>
+          </Card>
         </Section>
 
         <Section>
-          <Title>Account</Title>
-          <SubSection>
-            <SettingItem
-              settingItemKey="로그아웃"
-              settingItemValue={
-                <button onClick={onLogout}>
-                  <MdLogout />
-                </button>} />
-            <SettingItem
-              settingItemKey="회원 탈퇴"
-              settingItemValue={
-                <button onClick={onDeleteAccount}>
-                  <MdDeleteForever />
-                </button>} />
-          </SubSection>
+          <Title>계정 관리</Title>
+          <Card>
+            <SubSection>
+              <SettingItem
+                settingItemKey="로그아웃"
+                settingItemValue={
+                  <button onClick={onLogout}>
+                    <MdLogout />
+                  </button>} />
+              <SettingItem
+                settingItemKey="회원 탈퇴"
+                settingItemValue={
+                  <button onClick={onDeleteAccount}>
+                    <MdDeleteForever />
+                  </button>} />
+            </SubSection>
+          </Card>
         </Section>
       </SettingContentWrapper>
     </PageWrapper >
@@ -110,13 +120,20 @@ const Section = styled.section`
   margin: 16px 0;
   display: flex;
   flex-direction: column;
-
   gap: 24px;
 `
+
+const Card = styled.div`
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+`
+
 const SubSection = styled.section`
-  padding: 0 12px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 `
 const Title = styled.span`
   color: rgb(var(--greyTitle));
