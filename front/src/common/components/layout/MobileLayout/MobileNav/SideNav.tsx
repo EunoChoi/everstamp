@@ -10,7 +10,7 @@ const SideNav = () => {
   return (
     <Nav>
       <LogoWrapper>
-        <Logo size={32} />
+        <Logo size={24} />
       </LogoWrapper>
       {items.map(({ key, icon: Icon, label, onClick }) => (
         <Menu key={key} onClick={onClick} $active={current === key}>
@@ -41,7 +41,7 @@ const Nav = styled.nav`
 `;
 
 const LogoWrapper = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
 
 const Menu = styled.button<{ $active: boolean }>`
@@ -50,7 +50,7 @@ const Menu = styled.button<{ $active: boolean }>`
   gap: 12px;
   width: 80%;
   padding: 8px 12px;
-  font-size: 18px;
+  font-size: 14px;
   text-transform: capitalize;
   color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : '#c3c3c3'};
 `;

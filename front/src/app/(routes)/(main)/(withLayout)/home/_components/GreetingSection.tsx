@@ -66,6 +66,10 @@ const EmotionImageWrapper = styled.div`
   margin-top: 48px;
   margin-bottom: 24px;
   
+  @media (min-width: 480px) {
+    display: none;
+  }
+  
   img {
     width: 100%;
     height: auto;
