@@ -2,6 +2,7 @@
 
 import Diary from "@/common/components/ui/Diary";
 import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 import React from "react";
 import styled from "styled-components";
 import { diaryData } from "../_types/diaryData";
@@ -18,8 +19,8 @@ export const Diaries = ({ diaries }: DiariesProps) => {
   return (<>
     {diaries?.length > 0 ?
       diaries?.map((data: diaryData, i: number) => {
-        const currentDiaryDate = format(data.date, 'MMMM. yyyy');
-        const previousDiaryDate = i > 0 ? format(diaries[i - 1].date, 'MMMM. yyyy') : '';
+        const currentDiaryDate = format(data.date, 'yyyy년 M월', { locale: ko });
+        const previousDiaryDate = i > 0 ? format(diaries[i - 1].date, 'yyyy년 M월', { locale: ko }) : '';
 
         if (currentDiaryDate !== previousDiaryDate) {
           return <React.Fragment key={'listNote' + i}>

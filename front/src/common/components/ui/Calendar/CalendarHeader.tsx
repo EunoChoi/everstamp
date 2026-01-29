@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-
+import { ko } from "date-fns/locale";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import styled from "styled-components";
@@ -30,7 +30,7 @@ const CalendarHeader = ({
         <CalTitle className={`${headerSize} ${headerTitlePosition}`} >
           <button onClick={prevMonth}><MdKeyboardArrowLeft /></button>
           <button onClick={goToday}>
-            {format(displayDate, 'MMMM. yyyy')}
+            {format(displayDate, 'yyyy년 M월', { locale: ko })}
           </button>
           <button onClick={nextMonth}><MdKeyboardArrowRight /></button>
         </CalTitle>
@@ -40,7 +40,7 @@ const CalendarHeader = ({
           <CalTitleText
             className={headerSize}
             onClick={goToday}>
-            {format(displayDate, 'MMMM. yyyy')}
+            {format(displayDate, 'yyyy년 M월', { locale: ko })}
           </CalTitleText>
           <ArrowButtonWrapper>
             <button className={headerSize} onClick={prevMonth}><MdKeyboardArrowLeft /></button>
