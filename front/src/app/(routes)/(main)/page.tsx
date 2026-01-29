@@ -9,12 +9,12 @@ import styled from "styled-components";
 
 
 import Api from "@/api/Api";
+import Logo from '@/common/components/ui/Logo';
 import { getCurrentUser } from "@/common/fetchers/user";
 import { getTodayString } from "@/common/functions/getTodayString";
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
-import Logo from '@/common/components/ui/Logo';
 
 
 // 로그인 페이지 컴포넌트
@@ -229,7 +229,7 @@ const GreetingTitle = styled.h1`
 const GreetingSubTitle = styled.p`
   font-size: 16px;
   color: rgb(var(--greyTitle));
-  line-height: 1.6;
+  line-height: 1.3;
   overflow-wrap: break-word;
   text-align: center;
   margin: 0;
@@ -280,7 +280,7 @@ const LoggedInButtonStart = styled.button`
 
   height: 42px;
   border-radius: 42px;
-  border : 2px solid rgba(0,0,0,0.1);
+  border: none;
   padding: 0 28px;
   margin-bottom: 24px;
 
@@ -288,6 +288,7 @@ const LoggedInButtonStart = styled.button`
   color: rgb(var(--greyTitle));
   text-transform: lowercase;
   font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   span{
     margin-left : 8px;
@@ -341,15 +342,16 @@ const LoginButton = styled.button`
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 1px solid;
+  border: none;
   padding: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   }
 
   &:active {
@@ -363,17 +365,14 @@ const LoginButton = styled.button`
 
   &.google {
     background-color: #ffffff;
-    border-color: #e0e0e0;
   }
   
   &.kakao {
     background-color: #fee500;
-    border-color: #f9d100;
   }
   
   &.naver {
     background-color: #03c75a;
-    border-color: #02a84a;
   }
 `
 
