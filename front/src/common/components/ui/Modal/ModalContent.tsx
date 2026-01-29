@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 import styled from "styled-components";
 
 interface ModalContentProps {
@@ -8,13 +8,17 @@ interface ModalContentProps {
   children: ReactNode;
 }
 
-export const ModalContent = ({ className, children }: ModalContentProps) => {
-  return (<Wrapper className={className}>
-    <div className='empty' />
-    {children}
-    <div className='empty' />
-  </Wrapper>);
-}
+export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
+  ({ className, children }, ref) => {
+    return (
+      <Wrapper ref={ref} className={className}>
+        {children}
+      </Wrapper>
+    );
+  }
+);
+
+ModalContent.displayName = 'ModalContent';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -25,10 +29,6 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-
-  .empty{
-    flex-grow: 1;
-  }
 
   @media (max-width: 479px) {
     padding: 12px 4dvw;
