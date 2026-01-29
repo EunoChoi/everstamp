@@ -1,8 +1,7 @@
 'use client';
 
-import Image from "next/image";
 import styled, { keyframes } from "styled-components";
-import emotionsImage from '/public/img/emotion/emotions.png';
+import Logo from '@/common/components/ui/Logo';
 
 interface LoadingScreenProps {
   message?: string;
@@ -13,18 +12,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => (
   <Wrapper>
     {showLogo && (
       <LogoWrapper>
-        <EmotionImageWrapper>
-          <Image
-            src={emotionsImage}
-            alt="emotions"
-            width={1200}
-            height={900}
-            priority
-            quality={100}
-            unoptimized={false}
-          />
-        </EmotionImageWrapper>
-        <Logo>TO:OK</Logo>
+        <Logo size={48} />
         <Dots>
           <Dot $delay={0} />
           <Dot $delay={0.2} />
@@ -80,47 +68,7 @@ const LogoWrapper = styled.div`
   animation: ${fadeIn} 0.6s ease-out;
 `;
 
-const EmotionImageWrapper = styled.div`
-  width: 60%;
-  max-width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    filter: brightness(1.1);
-  }
-
-  @media (max-width: 479px) {
-    width: 50%;
-    max-width: 200px;
-  }
-
-  @media (min-width: 480px) and (max-width: 1024px) {
-    width: 55%;
-    max-width: 250px;
-  }
-
-  @media (min-width: 1025px) {
-    width: 65%;
-    max-width: 350px;
-  }
-`;
-
-const Logo = styled.span`
-  font-family: 'BMJUA';
-  font-size: 48px;
-  color: rgb(var(--greyTitle));
-  
-  &::first-letter {
-    color: #8CADE2;
-  }
-`;
 
 const Dots = styled.div`
   display: flex;
