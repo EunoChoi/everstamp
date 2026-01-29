@@ -28,7 +28,14 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
   const [selectedQuarter, setSelectedQuarter] = useState<number>(0);
 
   const displayEmotionCounts = useMemo(() => {
-    if (selectedQuarter === 0) return emotionCounts;
+    if (selectedQuarter === 0) {
+      // 전체 탭: emotionCounts를 10개로 확장 (부족한 부분은 0으로 채움)
+      const expandedCounts = [...emotionCounts];
+      while (expandedCounts.length < 10) {
+        expandedCounts.push(0);
+      }
+      return expandedCounts.slice(0, 10);
+    }
     const quarterMonths = QUARTER_MONTHS[selectedQuarter];
     const quarterCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
