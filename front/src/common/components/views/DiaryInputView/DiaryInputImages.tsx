@@ -5,7 +5,7 @@ import styled from "styled-components";
 import loading from '/public/img/loading.gif';
 
 import { RefObject } from "react";
-import { MdOutlineImage, MdOutlineRemoveCircle } from 'react-icons/md';
+import { MdOutlineImage, MdRemove } from 'react-icons/md';
 
 import Api from "@/api/Api";
 import { lightenColor } from "@/common/utils/lightenColor";
@@ -35,7 +35,6 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
       setImages([...images, ...res.data]);
     },
     onError: (e: Err) => {
-      // alert(e?.response?.statusText);
       enqueueSnackbar(e?.response?.data, { variant: 'error' });
       console.log(e);
       console.log('image upload error');
@@ -46,28 +45,21 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     if (e.target.files) {
       const ArrayImages = Array.from(e.target.files);
 
-      //게시글 최대 이미지 개수 제한
       if (images.length + ArrayImages.length > 5) {
-        // alert('이미지 파일은 최대 5개까지 삽입 가능합니다.')
         enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'error' });
         return null;
       }
 
-      //용량 초과 이미지 체크
       const isOverSize = ArrayImages.find((file) => {
         if (file.size > 10 * 1024 * 1024) return true;
       });
       if (isOverSize) {
-        // alert("선택된 이미지 중 10MB를 초과하는 이미지가 존재합니다.");
         enqueueSnackbar("선택된 이미지 중 10MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
         return null;
       }
 
-      //용량 초과 이미지가 없는 경우 imageFormData에 이미지들 추가
-      //e.target.files => formData 변환 과정 필요
       const imageFormData = new FormData();
       Array.from(e.target.files).forEach(file => {
-        // console.log(file);
         imageFormData.append("image", file);
       });
 
@@ -95,7 +87,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
                 deletedImageArray.splice(i, 1);
                 setImages(deletedImageArray);
               }}>
-                <MdOutlineRemoveCircle />
+                <MdRemove />
               </ImageDeleteButton>
             </SquareBox>)}
           {ImageUploadMutation?.isPending ? <SquareBox className="loading"><Image src={loading} alt="loading" width={70} height={70} /></SquareBox> : <></>}
@@ -109,46 +101,84 @@ export default DiaryInputImages;
 
 
 const Wrapper = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  height: 100%;
-
-  background-color: rgba(255,255,255,0.95);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 16px;
-  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  flex-shrink: 0;
+
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  height: auto;
+  align-items: stretch;
+
+  padding: 16px 0;
+
+  > *:first-child {
+    margin-left: 16px;
+  }
+
+  > *:last-child {
+    margin-right: 16px;
+  }
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
 `
 const SquareBox = styled.div`
   position: relative;
-  height: 100%;
-  width: auto;
-  aspect-ratio: 1;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.02);
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  &.loading {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 `
 const UploadedImage = styled(Image)`
-  width: 85%;
-  height: 85%;
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 `
 const ImageDeleteButton = styled.button`
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 6px;
+  right: 6px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 18px;
-  height: 18px;
-  border-radius: 18px;
-  font-size: 26px;
-  background-color: rgb(var(--greyTitle));
-  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 40) : '#B8C4E8'};
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  background-color: ${(props) => props.theme.themeColor ?? '#979FC7'};
+  color: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
 `
 
 const UploadButton = styled.button`
@@ -156,20 +186,31 @@ const UploadButton = styled.button`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 8px;
 
-  height: 85%;
-  width: 85%;
-  border-radius: 14px;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
   background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 35) : '#C4CBE0'};
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  span{
-    margin-top: 4px;
-    font-size: 16px;
-    color: rgb(var(--greyTitle));
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
+
   &:disabled{
     opacity: 0.4;
+    cursor: not-allowed;
   }
+
+  span{
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(var(--greyTitle));
+  }
+
   .icon{
     font-size: 32px;
     color: rgb(var(--greyTitle));

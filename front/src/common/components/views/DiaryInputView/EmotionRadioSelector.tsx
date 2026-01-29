@@ -75,15 +75,23 @@ const Wrapper = styled.div`
 const RadioWrapper = styled.div`
   width: 100%;
   margin: 0;
-  overflow: hidden;
   display: flex;
-  height: 56px;
+  min-height: 70px;
+  flex-shrink: 0;
+  gap: 4px;
 `;
 const RadioButton = styled.label`
   cursor: pointer;
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 4px;
+  box-sizing: border-box;
+  
   &:last-child{
     border: none;
   }
@@ -98,27 +106,34 @@ const RadioButton = styled.label`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 4px;
     
     img {
       filter: brightness(1.1);
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
     }
   }
   .checkmark{
     width: 100%;
-    margin-top: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 
-    font-size: 14px;
-    /* font-weight: 600; */
+    font-size: 13px;
     text-transform: capitalize;
+    white-space: nowrap;
 
     span{
       transition: all 200ms ease-in-out;
       border-radius: 12px;
-      padding: 2px 10px;
+      padding: 4px 8px;
       color: rgb(var(--greyTitle));
+      text-align: center;
+      line-height: 1.2;
     }
   }
   input:checked ~ .checkmark{
