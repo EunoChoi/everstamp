@@ -131,7 +131,7 @@ const Name = styled.div`
   height: auto;
   
   font-weight: 500;
-  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
   color: rgb(var(--greyTitle));
   text-align: center;
 

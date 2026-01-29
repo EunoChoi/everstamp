@@ -46,7 +46,7 @@ const Wrapper = styled.div`
 const SizeDisplay = styled.span`
   min-width: 48px;
   text-align: center;
-  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
   color: rgb(var(--greyTitle));
 `;
 

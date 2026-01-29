@@ -67,7 +67,7 @@ const HabitWrapper = styled.div`
   flex-flow: wrap;
   span{
     color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-    font-size: ${(props) => props.theme.fontSize ?? '15px'};
+    font-size: ${(props) => props.theme.fontSize ?? '15pt'};
     flex-shrink: 0;
     margin-right: 8px;
     white-space: nowrap;
@@ -78,7 +78,7 @@ const Text = styled.div`
   width: 100%;
   height: 100%;
 
-  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
   line-height: 1.8;
   white-space: pre-wrap;
   overflow-wrap: break-word;
