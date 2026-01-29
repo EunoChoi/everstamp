@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 
 interface DiaryProps {
-  date?: string; // 'yyyy-MM-dd'
+  date?: string;
   text: string;
   images: string[];
   emotion: number;
