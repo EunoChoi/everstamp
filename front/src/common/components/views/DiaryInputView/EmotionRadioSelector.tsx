@@ -11,28 +11,55 @@ interface Props {
 }
 
 const EmotionRadioSelector = ({ emotion, setEmotion }: Props) => {
-  return (<Wrapper>
-    <RadioWrapper>
-      {EMOTIONS.map((data) =>
-        <RadioButton key={`emotion-radio-${data.id}`}>
-          <input
-            type="radio"
-            checked={data.id === emotion}
-            name="diaryEmotion"
-            value={data.id}
-            onChange={(e) => {
-              if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
-            }}
-          />
-          <div className="emotion">
-            <Image priority src={data.src} alt={data.nameKr} width={36} height={36} />
-          </div>
-          <div className="checkmark">
-            <span>{data.nameKr}</span>
-          </div>
-        </RadioButton>)}
-    </RadioWrapper>
-  </Wrapper>);
+  const firstRow = EMOTIONS.slice(0, 5);
+  const secondRow = EMOTIONS.slice(5, 10);
+
+  return (
+    <Wrapper>
+      <RadioWrapper>
+        {firstRow.map((data) =>
+          <RadioButton key={`emotion-radio-${data.id}`}>
+            <input
+              type="radio"
+              checked={data.id === emotion}
+              name="diaryEmotion"
+              value={data.id}
+              onChange={(e) => {
+                if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
+              }}
+            />
+            <div className="emotion">
+              <Image priority src={data.src} alt={data.nameKr} width={36} height={36} />
+            </div>
+            <div className="checkmark">
+              <span>{data.nameKr}</span>
+            </div>
+          </RadioButton>
+        )}
+      </RadioWrapper>
+      <RadioWrapper>
+        {secondRow.map((data) =>
+          <RadioButton key={`emotion-radio-${data.id}`}>
+            <input
+              type="radio"
+              checked={data.id === emotion}
+              name="diaryEmotion"
+              value={data.id}
+              onChange={(e) => {
+                if (e.currentTarget.checked) setEmotion(Number(e.currentTarget.value));
+              }}
+            />
+            <div className="emotion">
+              <Image priority src={data.src} alt={data.nameKr} width={36} height={36} />
+            </div>
+            <div className="checkmark">
+              <span>{data.nameKr}</span>
+            </div>
+          </RadioButton>
+        )}
+      </RadioWrapper>
+    </Wrapper>
+  );
 }
 
 export default EmotionRadioSelector;
@@ -40,16 +67,18 @@ export default EmotionRadioSelector;
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 56px;
   display: flex;
-  align-items: center;
-`
+  flex-direction: column;
+  gap: 12px;
+`;
+
 const RadioWrapper = styled.div`
   width: 100%;
-  margin : 0;
+  margin: 0;
   overflow: hidden;
   display: flex;
-`
+  height: 56px;
+`;
 const RadioButton = styled.label`
   cursor: pointer;
   position: relative;
