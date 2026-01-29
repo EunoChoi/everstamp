@@ -14,10 +14,16 @@ export interface Emotion {
 }
 
 // 감정 데이터 (인덱스 = id)
+// 순서: 긍정적 감정 → 중립 → 부정적 감정 → 혼란 → ?
 export const EMOTIONS: Emotion[] = [
-  { id: 0, name: 'angry', nameKr: '화남', src: emotion0 },
-  { id: 1, name: 'sad', nameKr: '슬픔', src: emotion1 },
-  { id: 2, name: 'common', nameKr: '보통', src: emotion2 },
-  { id: 3, name: 'happy', nameKr: '행복', src: emotion3 },
-  { id: 4, name: 'joyful', nameKr: '기쁨', src: emotion4 },
+  { id: 0, name: 'happy', nameKr: '행복', src: emotion0 },
+  { id: 1, name: 'joyful', nameKr: '기쁨', src: emotion1 },
+  { id: 2, name: 'love', nameKr: '사랑', src: emotion2 },
+  { id: 3, name: 'calm', nameKr: '평온', src: emotion3 },
+  { id: 4, name: 'surprised', nameKr: '놀람', src: emotion4 },
+  { id: 5, name: 'anxious', nameKr: '불안', src: emotion0 },
+  { id: 6, name: 'sad', nameKr: '슬픔', src: emotion1 },
+  { id: 7, name: 'angry', nameKr: '화남', src: emotion2 },
+  { id: 8, name: 'confused', nameKr: '혼란', src: emotion3 },
+  { id: 9, name: 'unknown', nameKr: '?', src: emotion4 },
 ];

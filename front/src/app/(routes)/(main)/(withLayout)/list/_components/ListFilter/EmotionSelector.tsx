@@ -9,34 +9,64 @@ interface Props {
 }
 
 const EmotionSelector = ({ setEmotionToggle, emotionToggle }: Props) => {
-  return (<EmotionWrapper>
-    {EMOTIONS.map((e) =>
-      <EmotionItem
-        key={e.name}
-        className={`${emotionToggle === e.id || emotionToggle === 5 ? 'selected' : ''}`}
-        onClick={() => {
-          if (emotionToggle === e.id) setEmotionToggle(5);
-          else setEmotionToggle(e.id);
-        }}
-      >
-        <EmotionImage
-          className={`icon ${e.name}`}
-          src={e.src} alt={e.name} width={128} height={128} />
-        <EmotionName>{e.nameKr}</EmotionName>
-      </EmotionItem>
-    )}
-  </EmotionWrapper>);
+  const firstRow = EMOTIONS.slice(0, 5);
+  const secondRow = EMOTIONS.slice(5, 10);
+
+  return (
+    <EmotionWrapper>
+      <EmotionRow>
+        {firstRow.map((e) =>
+          <EmotionItem
+            key={e.name}
+            className={`${emotionToggle === e.id || emotionToggle === 5 ? 'selected' : ''}`}
+            onClick={() => {
+              if (emotionToggle === e.id) setEmotionToggle(5);
+              else setEmotionToggle(e.id);
+            }}
+          >
+            <EmotionImage
+              className={`icon ${e.name}`}
+              src={e.src} alt={e.name} width={128} height={128} />
+            <EmotionName>{e.nameKr}</EmotionName>
+          </EmotionItem>
+        )}
+      </EmotionRow>
+      <EmotionRow>
+        {secondRow.map((e) =>
+          <EmotionItem
+            key={e.name}
+            className={`${emotionToggle === e.id || emotionToggle === 5 ? 'selected' : ''}`}
+            onClick={() => {
+              if (emotionToggle === e.id) setEmotionToggle(5);
+              else setEmotionToggle(e.id);
+            }}
+          >
+            <EmotionImage
+              className={`icon ${e.name}`}
+              src={e.src} alt={e.name} width={128} height={128} />
+            <EmotionName>{e.nameKr}</EmotionName>
+          </EmotionItem>
+        )}
+      </EmotionRow>
+    </EmotionWrapper>
+  );
 }
 
 export default EmotionSelector;
 
 const EmotionWrapper = styled.div`
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: inherit;
+`;
+
+const EmotionRow = styled.div`
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
-  width: inherit;
-`
+  width: 100%;
+`;
 
 const EmotionImage = styled(Image)`
   box-sizing: border-box;

@@ -1,108 +1,86 @@
-import styled from "styled-components";
-
-
-import { getYear } from "date-fns";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MdRefresh } from 'react-icons/md';
+import styled from "styled-components";
 import EmotionSelector from "./EmotionSelector";
-import MonthSelector from "./MonthSelector";
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
-  isFilterOpen: boolean;
-  setFilterOpen: (n: boolean) => void;
-
-  setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
-  setSelectedMonth: (d: number) => void;
+  isOpen: boolean;
+  onClose: () => void;
   setEmotionToggle: (d: number) => void;
 }
 
-const ListFilter = ({
+const EmotionFilter = ({
   contentRef,
-  isFilterOpen,
-  setFilterOpen,
-
-  setSelectedYear,
-  setSelectedMonth,
-  setEmotionToggle
+  isOpen,
+  onClose,
+  setEmotionToggle,
 }: Props) => {
-
   const router = useRouter();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const [tempEmotion, setTempEmotion] = useState<number>(5);
-  const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
-  const [tempMonth, setTempMonth] = useState<number>(0);
-
+  const emotion = searchParams.get('emotion');
   const year = searchParams.get('year');
   const month = searchParams.get('month');
-  const emotion = searchParams.get('emotion');
+
   useEffect(() => {
-    if (isFilterOpen) {
-      console.log(year, month, emotion);
-      if (year) setTempYear(Number(year));
-      if (month) setTempMonth(Number(month));
+    if (isOpen) {
       if (emotion) setTempEmotion(Number(emotion));
+      else setTempEmotion(5);
     }
-  }, [isFilterOpen, year, month, emotion])
+  }, [isOpen, emotion]);
+
+  const onSubmit = () => {
+    const params = new URLSearchParams();
+    if (tempEmotion !== 5) params.set('emotion', tempEmotion.toString());
+    if (year) params.set('year', year);
+    if (month) params.set('month', month);
+
+    router.push(`${pathname}${params.toString() ? `?${params.toString()}` : ''}`);
+    setEmotionToggle(tempEmotion);
+    onClose();
+
+    setTimeout(() => {
+      contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 200);
+  };
 
   const onInitialize = () => {
     setTempEmotion(5);
-    setTempYear(getYear(new Date()));
-    setTempMonth(0);
-  }
-  const onSubmit = () => {
-    router.push(`${pathname}?emotion=${tempEmotion}&year=${tempYear}&month=${tempMonth}`);
-
-    setEmotionToggle(tempEmotion);
-    setSelectedYear(tempYear);
-    setSelectedMonth(tempMonth);
-
-    setFilterOpen(false);
-    setTimeout(() => {
-      contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' })
-    }, 200);
-  }
+  };
 
   return (
-    <Overlay className={isFilterOpen ? 'open' : ''} onClick={() => setFilterOpen(false)} >
+    <Overlay className={isOpen ? 'open' : ''} onClick={onClose}>
       <Wrapper
         onClick={(e) => e.stopPropagation()}
-        className={isFilterOpen ? 'open' : ''}>
-        <EmotionSection>
-          <SectionTitle>감정 선택</SectionTitle>
-          <EmotionCard>
-            <EmotionWrapper>
-              <EmotionSelector setEmotionToggle={setTempEmotion} emotionToggle={tempEmotion} />
-            </EmotionWrapper>
-          </EmotionCard>
-        </EmotionSection>
-        <MonthSection>
-          <SectionTitle>기간 선택</SectionTitle>
-          <MonthCard>
-            <MonthWrapper>
-              <MonthSelector selectedYear={tempYear} setSelectedYear={setTempYear} selectedMonth={tempMonth} setSelectedMonth={setTempMonth} />
-            </MonthWrapper>
-          </MonthCard>
-        </MonthSection>
-        <InitButton onClick={onInitialize}><MdRefresh />선택 초기화</InitButton>
+        className={isOpen ? 'open' : ''}
+      >
+        <SectionTitle>감정 선택</SectionTitle>
+        <EmotionCard>
+          <EmotionWrapper>
+            <EmotionSelector
+              setEmotionToggle={setTempEmotion}
+              emotionToggle={tempEmotion}
+            />
+          </EmotionWrapper>
+        </EmotionCard>
+        <InitButton onClick={onInitialize}>초기화</InitButton>
         <ButtonWrapper>
-          <Button className="cancel" onClick={() => setFilterOpen(false)}>취소</Button>
+          <Button className="cancel" onClick={onClose}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
     </Overlay>
   );
-}
+};
 
-export default ListFilter;
+export default EmotionFilter;
 
 const Overlay = styled.div`
-  position: fixed; 
+  position: fixed;
   left: 0px;
-  
   width: 100dvw;
   height: 100dvh;
   backdrop-filter: blur(4px);
@@ -110,24 +88,25 @@ const Overlay = styled.div`
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   opacity: 0;
   visibility: hidden;
-  &.open{
+
+  &.open {
     opacity: 1;
     visibility: visible;
   }
 
-  @media (max-width: 479px) { //mobile port
+  @media (max-width: 479px) {
     top: 0px;
     z-index: 98;
   }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
+  @media (min-width: 480px) and (max-width: 1024px) {
     top: 0px;
     z-index: 105;
   }
-  @media (min-width:1025px) { //desktop
+  @media (min-width: 1025px) {
     top: 0px;
     z-index: 105;
   }
-`
+`;
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -137,24 +116,23 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-shrink: 0;
   background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 95%, transparent);
   backdrop-filter: blur(24px);
 
   @media (max-width: 479px) {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     width: 100%;
     max-height: calc(100dvh - var(--mobileHeader));
-    min-height: 400px;
+    min-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 24px;
     padding-top: calc(var(--mobileHeader) + 24px);
     padding-bottom: 24px;
     gap: 20px;
-    justify-content: flex-start;
 
     will-change: height;
     transform: scaleY(0);
@@ -163,8 +141,8 @@ const Wrapper = styled.div`
     border-end-start-radius: 28px;
     border-end-end-radius: 28px;
 
-    transition: transform 0.3s ease-in-out;    
-    &.open{
+    transition: transform 0.3s ease-in-out;
+    &.open {
       transform: scaleY(1);
     }
   }
@@ -176,16 +154,16 @@ const Wrapper = styled.div`
     padding-top: calc(var(--mobileHeader) + 20px);
     gap: 16px;
   }
-  @media (min-width:480px) and (max-width:1024px) {
-    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  @media (min-width: 480px) and (max-width: 1024px) {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     z-index: 999;
     top: 50dvh;
     left: 50dvw;
     transform: translate(-50%, -50%);
 
     gap: 16px;
-    padding: 20px 28px;
-    width: 350px;
+    padding: 24px 28px;
+    width: 400px;
     max-height: 80dvh;
     border-radius: 28px;
 
@@ -193,12 +171,12 @@ const Wrapper = styled.div`
     visibility: hidden;
     transition: opacity 0.3s linear, visibility 0.3s linear;
 
-    &.open{
+    &.open {
       opacity: 1;
       visibility: visible;
     }
   }
-  @media (min-width:480px) and (max-width:1024px) and (orientation: landscape) and (max-height: 600px) {
+  @media (min-width: 480px) and (max-width: 1024px) and (orientation: landscape) and (max-height: 600px) {
     max-height: calc(100dvh - 20px);
     overflow-y: auto;
     justify-content: flex-start;
@@ -207,29 +185,28 @@ const Wrapper = styled.div`
     padding: 16px 20px;
     gap: 12px;
   }
-  @media (min-width:1025px) {
-    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-
+  @media (min-width: 1025px) {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     top: 50dvh;
     left: 50dvw;
     transform: translate(-50%, -50%);
 
-    width: 500px;
+    width: 450px;
     max-height: 80dvh;
-    gap: 32px;
-    padding: 48px 40px;
+    gap: 24px;
+    padding: 32px 40px;
     border-radius: 28px;
 
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s linear, visibility 0.3s linear;
 
-    &.open{
+    &.open {
       opacity: 1;
       visibility: visible;
     }
   }
-  @media (min-width:1025px) and (orientation: landscape) and (max-height: 600px) {
+  @media (min-width: 1025px) and (orientation: landscape) and (max-height: 600px) {
     max-height: calc(100dvh - 20px);
     overflow-y: auto;
     justify-content: flex-start;
@@ -238,7 +215,8 @@ const Wrapper = styled.div`
     padding: 32px 28px;
     gap: 20px;
   }
-`
+`;
+
 const SectionTitle = styled.span`
   line-height: 100%;
   font-size: 18px;
@@ -247,77 +225,55 @@ const SectionTitle = styled.span`
   margin-bottom: 12px;
   display: block;
   text-align: center;
-`
-
-const EmotionSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-const MonthSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`
+`;
 
 const EmotionCard = styled.div`
   width: 100%;
   padding: 16px;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-`
-
-const MonthCard = styled.div`
-  width: 100%;
-  padding: 16px;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-`
+`;
 
 const EmotionWrapper = styled.div`
   width: 100%;
-`
-const MonthWrapper = styled.div`
-  width: 100%;
-`
+`;
+
 const ButtonWrapper = styled.div`
-  display : flex;
+  display: flex;
   align-items: center;
   gap: 12px;
-`
-const Button = styled.button`
-  font-size: 16px;
+`;
 
+const Button = styled.button`
+  flex-shrink: 0;
+  font-size: 16px;
   padding: 6px 20px;
   border-radius: 14px;
-
-  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+  background-color: ${(props) =>
+    props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   color: white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 
-  &.cancel{
-    background-color: rgba(255,255,255,0.9);
+  &.cancel {
+    background-color: rgba(255, 255, 255, 0.9);
     color: rgb(var(--greyTitle));
   }
-  @media (min-width:480px) and (max-width:1024px) {
+
+  @media (min-width: 480px) and (max-width: 1024px) {
     font-size: 14px;
     padding: 4px 16px;
   }
-`
+`;
 
 const InitButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-
   font-size: 16px;
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-`
+  color: ${(props) =>
+    props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+`;

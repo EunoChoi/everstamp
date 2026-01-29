@@ -13,7 +13,7 @@ interface Props {
   isLoading: boolean;
 }
 
-const EMOTION_NAMES_KR = ['화남', '슬픔', '보통', '행복', '기쁨'];
+const EMOTION_NAMES_KR = ['행복', '기쁨', '사랑', '평온', '놀람', '불안', '슬픔', '화남', '혼란', '?'];
 const QUARTER_OPTIONS = ['전체', '1분기', '2분기', '3분기', '4분기'];
 
 const QUARTER_MONTHS = [
@@ -30,10 +30,10 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
   const displayEmotionCounts = useMemo(() => {
     if (selectedQuarter === 0) return emotionCounts;
     const quarterMonths = QUARTER_MONTHS[selectedQuarter];
-    const quarterCounts = [0, 0, 0, 0, 0];
+    const quarterCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     quarterMonths.forEach(monthIndex => {
-      const monthCounts = monthlyEmotionCounts[monthIndex] || [0, 0, 0, 0, 0];
+      const monthCounts = monthlyEmotionCounts[monthIndex] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       monthCounts.forEach((count, emotionIndex) => {
         quarterCounts[emotionIndex] += count;
       });
@@ -81,7 +81,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
 
       <EmotionCard>
         <EmotionList>
-          {EMOTIONS.map((emotion, index) => (
+          {EMOTIONS.slice(0, 5).map((emotion, index) => (
             <EmotionItem key={emotion.id}>
               <EmotionImage
                 src={emotion.src}
@@ -90,6 +90,19 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
                 height={77}
               />
               <EmotionCount>{displayEmotionCounts[index]}</EmotionCount>
+            </EmotionItem>
+          ))}
+        </EmotionList>
+        <EmotionList>
+          {EMOTIONS.slice(5, 10).map((emotion, index) => (
+            <EmotionItem key={emotion.id}>
+              <EmotionImage
+                src={emotion.src}
+                alt={emotion.nameKr}
+                width={77}
+                height={77}
+              />
+              <EmotionCount>{displayEmotionCounts[index + 5]}</EmotionCount>
             </EmotionItem>
           ))}
         </EmotionList>
@@ -172,6 +185,10 @@ const EmotionList = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 8px;
+  
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
 `;
 
 const EmotionItem = styled.div`

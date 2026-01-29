@@ -5,22 +5,21 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
-import ListFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter";
+import DateFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter/DateFilter";
+import EmotionFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter/EmotionFilter";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getDiaryList } from "@/common/fetchers/diary";
 import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { MdFilterList } from 'react-icons/md';
+import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { Diaries } from "./_components/Diaries";
 import { useFilter } from "./_hooks/useFilter";
 import { useListToggle } from "./_hooks/useListToggle";
 import { diaryData } from "./_types/diaryData";
 
-
-const EMOTION_NAME_ENG = ['angry', 'sad', 'common', 'happy', 'joyful'];
-const DIDARY_FETCH_LIMIT = 10; //get diary limit
+const DIDARY_FETCH_LIMIT = 10;
 
 const ListView = () => {
   usePrefetchPage();
@@ -30,12 +29,10 @@ const ListView = () => {
   const { currentUserEmail } = useCurrentUserEmail();
   const { ref: inViewRef, inView } = useInView({ threshold: 0, delay: 0 });
 
-
-  const [isFilterOpen, setFilterOpen] = useState<boolean>(false);
+  const [isEmotionFilterOpen, setEmotionFilterOpen] = useState<boolean>(false);
+  const [isDateFilterOpen, setDateFilterOpen] = useState<boolean>(false);
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
-  const diplayYearMonth = selectedYear % 100 + '.' + selectedMonth.toString().padStart(2, '0');
   const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
-  const hasFilter = (selectedMonth !== 0 || emotionToggle !== 5);
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'momth', selectedMonth],
@@ -54,39 +51,44 @@ const ListView = () => {
 
   useEffect(() => {
     if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
-  }, [inView, hasNextPage, isFetching])
+  }, [inView, hasNextPage, isFetching, currentUserEmail, fetchNextPage])
 
   return (
     <PageWrapper ref={wrapperRef}>
       <TopButtons>
         <button
-          className='auto'
-          onClick={() => { setFilterOpen(c => !c); }} >
-          {hasFilter ? (
-            <span>
-              {selectedMonth !== 0 && diplayYearMonth}
-              {selectedMonth !== 0 && emotionToggle !== 5 && ' , '}
-              {emotionToggle !== 5 && EMOTION_NAME_ENG[emotionToggle]}
-            </span>
-          ) : (
-            <MdFilterList />
-          )}
+          className='small'
+          onClick={() => { setEmotionFilterOpen(c => !c); }}
+        >
+          <MdEmojiEmotions />
+        </button>
+        <button
+          className='small'
+          onClick={() => { setDateFilterOpen(c => !c); }}
+        >
+          <MdCalendarMonth />
         </button>
         <button
           className='normal'
-          onClick={sortOrderChange} >
+          onClick={sortOrderChange}
+        >
           <span>{toggleValue === 'DESC' ? 'New' : 'Old'}</span>
         </button>
       </TopButtons>
 
       <ListContentWrapper>
-        <ListFilter
+        <EmotionFilter
           contentRef={wrapperRef}
-          isFilterOpen={isFilterOpen}
-          setFilterOpen={setFilterOpen}
+          isOpen={isEmotionFilterOpen}
+          onClose={() => setEmotionFilterOpen(false)}
+          setEmotionToggle={setEmotionToggle}
+        />
+        <DateFilter
+          contentRef={wrapperRef}
+          isOpen={isDateFilterOpen}
+          onClose={() => setDateFilterOpen(false)}
           setSelectedYear={setSelectedYear}
           setSelectedMonth={setSelectedMonth}
-          setEmotionToggle={setEmotionToggle}
         />
         {flatDiaries && <Diaries diaries={flatDiaries} />}
         <Observer ref={inViewRef} />
@@ -121,4 +123,4 @@ const Observer = styled.div`
   flex-shrink: 0;
   width: 100%;
   height: 50px;
-`
+`;
