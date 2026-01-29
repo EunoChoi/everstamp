@@ -7,6 +7,7 @@ import { getHabitRecentStatus } from "@/common/fetchers/habit";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { useQuery } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
+import { ko } from "date-fns/locale";
 import { ChangeEvent } from "react";
 
 import { StarRating } from "@/common/components/ui/StarRating";
@@ -67,7 +68,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
       {recentDateArray.map((date, i: number) => {
         return <Check key={`${date}-${name}`}>
           <label htmlFor={`${date}-${name}`}>
-            <span className="week">{format(date, 'eee')}</span>
+            <span className="week">{format(date, 'eee', { locale: ko })}</span>
             <span className="date">{format(date, 'd')}</span>
             <input
               id={`${date}-${name}`}
