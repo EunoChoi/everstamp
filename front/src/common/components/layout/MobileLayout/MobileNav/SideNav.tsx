@@ -2,13 +2,16 @@
 
 import styled from "styled-components";
 import { useNavItems } from "./useNavItems";
+import Logo from '@/common/components/ui/Logo';
 
 const SideNav = () => {
   const { items, current } = useNavItems();
 
   return (
     <Nav>
-      <Logo>TO:OK</Logo>
+      <LogoWrapper>
+        <Logo size={32} />
+      </LogoWrapper>
       {items.map(({ key, icon: Icon, label, onClick }) => (
         <Menu key={key} onClick={onClick} $active={current === key}>
           <Icon /> {label}
@@ -37,15 +40,8 @@ const Nav = styled.nav`
   box-shadow: 2px 0 20px rgba(0,0,0,0.04);
 `;
 
-const Logo = styled.span`
+const LogoWrapper = styled.div`
   margin-bottom: 24px;
-  font-family: 'BMJUA';
-  font-size: 32px;
-  color: rgb(var(--greyTitle));
-
-  &::first-letter {
-    color: ${({ theme }) => theme.themeColor || '#979FC7'};
-  }
 `;
 
 const Menu = styled.button<{ $active: boolean }>`

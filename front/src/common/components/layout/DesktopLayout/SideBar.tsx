@@ -3,6 +3,7 @@ import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
 import { MdCalendarMonth, MdCheckBox, MdHome, MdSettings, MdViewList } from 'react-icons/md';
+import Logo from '@/common/components/ui/Logo';
 
 const SideBar = () => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const SideBar = () => {
 
   return (<Wrapper>
     <SideBarLogo>
-      <span>TO:OK</span>
+      <Logo size={36} />
     </SideBarLogo>
     <Menus>
       <Menu
@@ -68,16 +69,6 @@ const SideBarLogo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-
-  span {
-    font-size: 36px;
-    line-height: 100%;
-    font-family: 'BMJUA';
-    color: rgb(var(--greyTitle));
-  }
-  span::first-letter {
-    color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-  }
 `
 const Menus = styled.div`
   height: auto;
