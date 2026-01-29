@@ -113,7 +113,7 @@ const CalendarContentWrapper = styled.div`
 
   @media (max-width: 479px) {
     padding: 0px 4dvw var(--mobileNav) 4dvw;
-    gap: 12px;
+    gap: 20px;
   }
   @media (min-width:480px) and (max-width:1024px) {
     padding: 36px;
