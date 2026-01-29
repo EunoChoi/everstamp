@@ -147,7 +147,7 @@ const Text = styled.div`
   white-space: pre-wrap;
   overflow-wrap: break-word;
   line-height: 1.35;
-  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
   color: rgb(var(--greyTitle));
 `
 

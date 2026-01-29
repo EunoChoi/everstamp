@@ -40,6 +40,6 @@ const AddButton = styled.button`
   align-items: center;
   gap: 8px;
   
-  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
   color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
 `

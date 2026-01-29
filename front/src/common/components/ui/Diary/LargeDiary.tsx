@@ -73,7 +73,7 @@ const Text = styled.div`
 
   padding: 0 16px;
   
-  font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
   line-height: 1.8;
   color: rgb(var(--greyTitle));
 

@@ -36,33 +36,21 @@ const DiaryInputTextArea = ({ text, setText, contentsRef }: Props) => {
 export default DiaryInputTextArea;
 
 const InputWrapper = styled.div`
-  width : 100%;
+  width: 100%;
   height: 100%;
 
-  background-color: rgba(255,255,255,0.95);
-  border-radius: 16px;
-  border: 1px solid rgba(0,0,0,0.08);
-
-  textarea{
-    background-color: transparent;
-    font-size: ${(props) => props.theme.fontSize ?? '15px'};
+  textarea {
+    font-size: ${(props) => props.theme.fontSize ?? '15pt'};
     width: 100%;
     height: 100%;
     resize: none;
-    &::placeholder{
+    border: none;
+    outline: none;
+
+    &::placeholder {
       padding-top: 70px;
       text-align: center;
       color: grey;
-      font-size: 1.0em;
     }
-  }
-  @media (max-width: 479px) {
-    padding: 14px;
-  }
-  @media (min-width:480px) and (max-width:1024px) {
-    padding: 14px;
-  }
-  @media (min-width:1025px) {
-    padding: 20px;
   }
 `
