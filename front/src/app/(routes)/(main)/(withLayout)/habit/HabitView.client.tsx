@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 
 
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getHabitList } from "@/common/fetchers/habit";
@@ -63,7 +62,7 @@ const HabitView = () => {
         </button>
       </TopButtons>
 
-      <ContentWrapper>
+      <HabitContentWrapper>
         <HabitPageTextWrapper>
           <HabitPageText className='title'>목표 습관 {todayDoneHabitRate}% 완료</HabitPageText>
           <HabitPageText className='sub'>오늘의 목표 습관 {todayDoneHabitCount}개를 실천하셨습니다 :)</HabitPageText>
@@ -73,12 +72,30 @@ const HabitView = () => {
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
           {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
         </HabitBoxs>
-      </ContentWrapper>
+      </HabitContentWrapper>
     </PageWrapper >
   );
 }
 
 export default HabitView;
+
+const HabitContentWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 479px) {
+    padding: 0px 4dvw var(--mobileNav) 4dvw;
+  }
+  @media (min-width:480px) and (max-width:1024px) {
+    padding: 36px;
+  }
+  @media (min-width:1025px) {
+    padding: 36px;
+  }
+`
 
 const HabitPageTextWrapper = styled.div`
   display: flex;
