@@ -64,7 +64,8 @@ const ModalWrapper = styled.div`
   overflow: hidden;
   @media (min-width:1025px) {
     width: 600px;
-    height: 90%;
+    height: auto;
+    max-height: 85%;
     border-radius: 28px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
   }
