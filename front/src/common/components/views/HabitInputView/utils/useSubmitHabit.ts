@@ -25,15 +25,12 @@ const useSubmitHabit = () => {
       queryClient.invalidateQueries({ queryKey: cache.queryKey });
     });
     router.back();
-    console.log(message);
-    setTimeout(() => {
-      enqueueSnackbar(message, { variant: 'success' });
-    }, 300);
-  }
+    setTimeout(() => enqueueSnackbar(message, { variant: 'success' }), 300);
+  };
+
   const handleError = (e: Err, message: string) => {
     enqueueSnackbar(message, { variant: 'error' });
-    console.log(e?.response);
-  }
+  };
 
   const addHabit = useMutation({
     mutationFn: ({ habitName, priority }: HabitProps) => Api.post('/habit', { habitName, priority }),
