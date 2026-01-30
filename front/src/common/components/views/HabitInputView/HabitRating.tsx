@@ -1,6 +1,8 @@
+import { lightenColor } from "@/common/utils/lightenColor";
 import styled from "styled-components";
 import { StarRating } from '../../ui/StarRating';
-import { lightenColor } from "@/common/utils/lightenColor";
+
+const PRIORITY_LABELS = ['낮음', '보통', '높음'] as const;
 
 interface Props {
   priority: number;
@@ -10,88 +12,68 @@ interface Props {
 export const HabitRating = ({ priority, setPriority }: Props) => {
   return (
     <Wrapper>
-      <span>중요도</span>
-      <RadioWrapper>
-        {[...Array(3)].map((_, i: number) =>
-          <RadioButton key={'radio' + i}>
-            <input type="radio" checked={i === priority} name="priority" value={i} onChange={(e) => {
-              if (e.currentTarget.checked) setPriority(Number(e.currentTarget.value));
-            }} />
-            <div className="checkmark">
-              <StarRating rating={i + 1} />
-            </div>
-          </RadioButton>)}
-      </RadioWrapper>
+      {[0, 1, 2].map((i) => (
+        <Option
+          key={i}
+          $selected={i === priority}
+          onClick={() => setPriority(i)}
+        >
+          <input
+            type="radio"
+            checked={i === priority}
+            name="priority"
+            value={i}
+            onChange={() => setPriority(i)}
+          />
+          <StarsWrap>
+            <StarRating rating={i + 1} color={i === priority ? '#fff' : undefined} />
+          </StarsWrap>
+          <Label $selected={i === priority}>{PRIORITY_LABELS[i]}</Label>
+        </Option>
+      ))}
     </Wrapper>
   );
-}
+};
 
-const RadioWrapper = styled.div`
-  width: 100%;
-  margin: 8px 0;
-  height: 44px;
-  border-radius: 14px;
-  overflow: hidden;
-  background-color: rgba(255,255,255,0.95);
-  border: 1px solid rgba(0,0,0,0.08);
-`
-const RadioButton = styled.label`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  input{
-    position: absolute;
-    opacity: 0;
-    height: 0;
-    width: 0;
-  }
-  .checkmark{
-    box-sizing: border-box;
-    cursor: pointer;
-
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: rgb(var(--greyTitle));
-    font-size: 16px;
-  }
-  input:checked ~ .checkmark{
-    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 40) : '#B8C4E8'};
-  }
-`;
 const Wrapper = styled.div`
+  display: flex;
+  gap: 12px;
   width: 100%;
-  height: auto;
+`;
 
+const Option = styled.label<{ $selected: boolean }>`
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: start;
+  gap: 6px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  background-color: ${(props) =>
+    props.$selected
+      ? (props.theme?.themeColor ?? '#979FC7')
+      : (props.theme?.themeColor ? lightenColor(props.theme.themeColor, 70) : '#E8ECF5')};
+  cursor: pointer;
+  transition: background-color 0.2s;
 
-  >div{
-    width: 100%;
-    display:flex;
-    justify-content: space-evenly;
-    align-items: center;
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
   }
-  span{
-    text-transform: capitalize;
-    font-size: 18px;
-    color: rgba(var(--greyTitle), 0.8);
-  }
-  input{
-    font-size: 16px;
-    width: 100%;
-    height: 44px;
-    margin: 8px 0;
-    padding: 4px 14px;
-    flex-grow: 1;
+`;
 
-    border-radius: 14px;
-    background-color: rgba(255,255,255,0.95);
-    border: 1px solid rgba(0,0,0,0.08);
-  }
-`
+const StarsWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: ${(props) => props.theme?.fontSize ?? '15pt'};
+`;
+
+const Label = styled.span<{ $selected: boolean }>`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${(props) => (props.$selected ? '#fff' : 'rgb(var(--greyTitle))')};
+`;
