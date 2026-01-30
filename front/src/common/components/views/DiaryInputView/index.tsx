@@ -8,12 +8,12 @@ import { enqueueSnackbar } from "notistack";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MdOutlineEditNote, MdOutlineEmojiEmotions, MdOutlineImage } from "react-icons/md";
 import styled from "styled-components";
+import { EmotionSelector } from "../../ui/EmotionSelector";
 import { Modal } from "../../ui/Modal";
 import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { DiaryInputCard } from "./DiaryInputCard";
 import DiaryInputImages from "./DiaryInputImages";
 import DiaryInputTextArea from "./DiaryInputTextarea";
-import EmotionRadioSelector from "./EmotionRadioSelector";
 import useSubmitDiary from './hooks/useSubmitDiary';
 
 interface DiaryInputProps {
@@ -91,10 +91,21 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
 
   const [text, setText] = useState<string>(diaryData?.text ?? "");
   const [images, setImages] = useState<Array<string>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);
-  const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 2);
+  const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 10);
 
+  useEffect(() => {
+    if (diaryData) {
+      setText(diaryData.text ?? "");
+      setImages(diaryData.Images?.map((e: ServerImageProps) => e.src) ?? []);
+      setEmotion(diaryData.emotion ?? 10);
+    }
+  }, [diaryData]);
 
   const onSubmit = () => {
+    if (emotion < 0 || emotion > 9) {
+      enqueueSnackbar('감정을 선택해주세요', { variant: 'info' });
+      return;
+    }
     if (text.length !== 0) {
       if (isEdit && diaryId) submitAction.mutate({ text, images, diaryId, emotion })
       else submitAction.mutate({ date, text, images, emotion });
@@ -117,7 +128,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
             <SectionTitle><SectionTitleIcon><MdOutlineEmojiEmotions /></SectionTitleIcon>하루의 감정</SectionTitle>
             <DiaryInputCard>
               <EmotionRadioSelectors>
-                <EmotionRadioSelector emotion={emotion} setEmotion={setEmotion} />
+                <EmotionSelector value={emotion} onChange={setEmotion} />
               </EmotionRadioSelectors>
             </DiaryInputCard>
           </Section>
