@@ -1,7 +1,7 @@
+import { EmotionSelector } from "@/common/components/ui/EmotionSelector";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import EmotionSelector from "./EmotionSelector";
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -60,10 +60,7 @@ const EmotionFilter = ({
         <SectionTitle>감정 선택</SectionTitle>
         <EmotionCard>
           <EmotionWrapper>
-            <EmotionSelector
-              setEmotionToggle={setTempEmotion}
-              emotionToggle={tempEmotion}
-            />
+            <EmotionSelector value={tempEmotion} onChange={setTempEmotion} />
           </EmotionWrapper>
         </EmotionCard>
         <InitButton onClick={onInitialize}>초기화</InitButton>
