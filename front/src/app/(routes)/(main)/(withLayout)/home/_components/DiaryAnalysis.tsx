@@ -3,6 +3,21 @@
 import { DiaryStats } from "@/common/fetchers/stats";
 import styled from "styled-components";
 
+import { getStreakMessage } from "../_messages/streakMessages";
+import {
+  HomeCard,
+  HomeCardGrid,
+  HomeCardLabel,
+  HomeCardUnit,
+  HomeCardValue,
+  HomeCardValueWrapper,
+  HomeSectionHeader,
+  HomeSectionTitle,
+  HomeSectionWrapper,
+  HomeSubsectionTitle,
+  HomeTotalCount,
+} from "./HomeSection";
+
 interface Props {
   stats?: DiaryStats;
   year: number;
@@ -23,56 +38,42 @@ const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
 
   const totalCount = stats?.totalCount ?? 0;
 
-  const getStreakMessage = () => {
-    if (currentStreak === 0) {
-      return '아직 연속 기록이 없어요. 오늘부터 시작해보세요!';
-    } else if (currentStreak === 1) {
-      return '어제 일기를 작성하셨네요. 오늘도 기록해보세요!';
-    } else if (currentStreak < 7) {
-      return `${currentStreak}일 연속 기록 중이에요. 꾸준히 기록하고 계시네요!`;
-    } else if (currentStreak < 30) {
-      return `${currentStreak}일 연속 기록 중이에요. 정말 대단해요!`;
-    } else {
-      return `${currentStreak}일 연속 기록 중이에요. 놀라운 성취예요!`;
-    }
-  };
-
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <SectionTitle>일기 정보</SectionTitle>
-        <TotalCount>{totalCount}개의 일기</TotalCount>
-      </TitleWrapper>
+    <HomeSectionWrapper>
+      <HomeSectionHeader>
+        <HomeSectionTitle>일기 정보</HomeSectionTitle>
+        <HomeTotalCount>{totalCount}개의 일기</HomeTotalCount>
+      </HomeSectionHeader>
 
-      <StatsGrid>
-        <StatCard>
-          <StatLabel>현재 연속 기록</StatLabel>
-          <StatValueWrapper>
-            <StatValue>{currentStreak}</StatValue>
-            <StatUnit>일</StatUnit>
-          </StatValueWrapper>
-        </StatCard>
+      <HomeCardGrid>
+        <HomeCard>
+          <HomeCardLabel>현재 연속 기록</HomeCardLabel>
+          <HomeCardValueWrapper>
+            <HomeCardValue>{currentStreak}</HomeCardValue>
+            <HomeCardUnit>일</HomeCardUnit>
+          </HomeCardValueWrapper>
+        </HomeCard>
 
-        <StatCard>
-          <StatLabel>최장 연속 기록</StatLabel>
-          <StatValueWrapper>
-            <StatValue>{longestStreak}</StatValue>
-            <StatUnit>일</StatUnit>
-          </StatValueWrapper>
-        </StatCard>
+        <HomeCard>
+          <HomeCardLabel>최장 연속 기록</HomeCardLabel>
+          <HomeCardValueWrapper>
+            <HomeCardValue>{longestStreak}</HomeCardValue>
+            <HomeCardUnit>일</HomeCardUnit>
+          </HomeCardValueWrapper>
+        </HomeCard>
 
-        <StatCard>
-          <StatLabel>총 텍스트량</StatLabel>
-          <StatValueWrapper>
-            <StatValue>{textLengthFormatted.value}</StatValue>
-            <StatUnit>{textLengthFormatted.unit}</StatUnit>
-          </StatValueWrapper>
-        </StatCard>
-      </StatsGrid>
+        <HomeCard>
+          <HomeCardLabel>총 텍스트량</HomeCardLabel>
+          <HomeCardValueWrapper>
+            <HomeCardValue>{textLengthFormatted.value}</HomeCardValue>
+            <HomeCardUnit>{textLengthFormatted.unit}</HomeCardUnit>
+          </HomeCardValueWrapper>
+        </HomeCard>
+      </HomeCardGrid>
 
       <StreakMessageCard>
         <StreakMessageContent>
-          <span>{getStreakMessage()}</span>
+          <span>{getStreakMessage(currentStreak)}</span>
         </StreakMessageContent>
         <InfoText>
           * 연속 기록은 어제 날짜 기준으로 측정됩니다.
@@ -80,7 +81,7 @@ const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
       </StreakMessageCard>
 
       <ChartSection>
-        <ChartTitle>{year}년 월간 기록 그래프</ChartTitle>
+        <HomeSubsectionTitle>{year}년 월간 기록 그래프</HomeSubsectionTitle>
         <ChartWrapper>
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
@@ -96,119 +97,16 @@ const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
           })}
         </ChartWrapper>
       </ChartSection>
-    </Wrapper>
+    </HomeSectionWrapper>
   );
 };
 
 export default DiaryAnalysis;
 
-const Wrapper = styled.section`
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-`;
-
-const SectionTitle = styled.h2`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 32px;
-  font-family: 'BMJUA';
-  flex: 1;
-  
-  @media (min-width: 1025px) {
-    font-size: 36px;
-  }
-`;
-
-const TotalCount = styled.span`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.6);
-  white-space: nowrap;
-  flex-shrink: 0;
-`;
-
-const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-`;
-
-const StatCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 12px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  gap: 4px;
-  min-height: 100px;
-  
-  @media (min-width: 480px) {
-    padding: 24px 16px;
-    min-height: 110px;
-  }
-`;
-
-const StatLabel = styled.span`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.7);
-  text-align: center;
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;
-
-const StatValueWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
-  line-height: 1.2;
-`;
-
-const StatValue = styled.span`
-  font-size: 28px;
-  font-weight: 700;
-  color: ${props => props.theme.themeColor ?? '#979FC7'};
-  
-  @media (min-width: 480px) {
-    font-size: 32px;
-  }
-`;
-
-const StatUnit = styled.span`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.6);
-  
-  @media (min-width: 480px) {
-    font-size: 15px;
-  }
-`;
-
 const ChartSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-`;
-
-const ChartTitle = styled.h3`
-  display: block;
-  font-size: 22px;
-  font-weight: 500;
-  text-transform: capitalize;
-  color: grey;
-  word-break: break-word;
-  overflow-wrap: break-word;
 `;
 
 const ChartWrapper = styled.div`
