@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { MdOutlineEditNote, MdOutlineEmojiEmotions, MdOutlineImage } from "react-icons/md";
 import styled from "styled-components";
 import { Modal } from "../../ui/Modal";
+import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { DiaryInputCard } from "./DiaryInputCard";
 import DiaryInputImages from "./DiaryInputImages";
 import DiaryInputTextArea from "./DiaryInputTextarea";
@@ -154,13 +155,13 @@ const ContentWithPadding = styled.div`
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  padding: 12px 4dvw 12px;
+  padding: 36px 4dvw 36px;
 
   @media (min-width: 480px) and (max-width: 1023px) {
-    padding: 12px 24px;
+    padding: 24px 24px;
   }
   @media (min-width: 1024px) {
-    padding: 16px 24px;
+    padding: 36px 24px;
   }
 `;
 
@@ -169,33 +170,6 @@ const Section = styled.section`
   flex-direction: column;
   gap: 12px;
   width: 100%;
-`;
-
-const SectionTitle = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-`;
-
-const SectionTitleIcon = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
-  line-height: 0;
-  color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-  flex-shrink: 0;
-
-  svg {
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
-  }
 `;
 
 const GRADIENT_HEIGHT = 48;
