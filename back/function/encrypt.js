@@ -1,3 +1,4 @@
+// 외부 패키지
 const CryptoJS = require('crypto-js');
 
 //암호화 처리

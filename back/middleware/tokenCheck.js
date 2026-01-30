@@ -1,24 +1,29 @@
+// 외부 패키지
 const jwt = require("jsonwebtoken");
+
+// 프로젝트 내부
+const { sendError } = require('../utils/errorResponse.js');
 
 const tokenCheck = async (req, res, next) => {
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
 
-  // accessToken 검증 시도
-  try {
-    const decoded = jwt.verify(accessToken, process.env.ACCESS_KEY);
-    req.currentUserEmail = decoded.email;
-    req.currentUserProvider = decoded.provider;
-    return next();
-  } catch (accessError) {
-    // accessToken 만료 또는 유효하지 않음
-    console.log('accessToken 검증 실패:', accessError.name);
+  // accessToken 있으면 검증 시도
+  if (accessToken) {
+    try {
+      const decoded = jwt.verify(accessToken, process.env.ACCESS_KEY);
+      req.currentUserEmail = decoded.email;
+      req.currentUserProvider = decoded.provider;
+      return next();
+    } catch (accessError) {
+      console.log('accessToken 검증 실패:', accessError.name);
+    }
   }
 
-  // refreshToken으로 재발급 시도
+  // accessToken 없거나 만료 → refreshToken으로 재발급 시도
   try {
     if (!refreshToken) {
-      return res.status(401).json('로그인이 필요합니다.');
+      return sendError(res, 401, '로그인이 필요합니다.');
     }
 
     // refreshToken에서 사용자 정보 추출 (보안 개선)
@@ -26,7 +31,7 @@ const tokenCheck = async (req, res, next) => {
     const { email, provider } = decoded;
 
     if (!email || !provider) {
-      return res.status(401).json('유효하지 않은 토큰입니다.');
+      return sendError(res, 401, '유효하지 않은 토큰입니다.');
     }
 
     // 새 accessToken 발급
@@ -51,7 +56,7 @@ const tokenCheck = async (req, res, next) => {
     return next();
   } catch (refreshError) {
     console.log('refreshToken 검증 실패:', refreshError.name);
-    return res.status(401).json('로그인이 필요합니다.');
+    return sendError(res, 401, '로그인이 필요합니다.');
   }
 };
 

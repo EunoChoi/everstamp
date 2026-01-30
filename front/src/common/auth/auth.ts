@@ -17,15 +17,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account, profile }) {
       const provider = account?.provider;
-      const email = user.email
-      const profilePic = user.image;
+      const email = user.email;
 
       try {
         const res = await Api.post(`/user/register`,
           {
-            email, //primary key
-            provider,
-            profilePic
+            email,
+            provider
           }
         );
         if (res) {
