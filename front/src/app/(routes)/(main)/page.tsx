@@ -11,7 +11,6 @@ import styled from "styled-components";
 import Api from "@/api/Api";
 import Logo from '@/common/components/ui/Logo';
 import { getCurrentUser } from "@/common/fetchers/user";
-import { getTodayString } from "@/common/functions/getTodayString";
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
@@ -32,7 +31,7 @@ const Page = () => {
   })
 
   const start = () => {
-    router.push(`/calendar?date=${getTodayString()}`);
+    router.push('/home');
   }
   const logout = () => {
     Api.get('user/logout').then(() => {
@@ -41,6 +40,7 @@ const Page = () => {
   }
 
   useEffect(() => {
+    router.prefetch('/home');
     router.prefetch('/calendar');
     router.prefetch('/list');
     router.prefetch('/habit');
