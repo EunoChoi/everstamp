@@ -5,17 +5,9 @@ import Link from "next/link";
 import { MdCalendarMonth, MdCheckBox } from 'react-icons/md';
 import styled from "styled-components";
 
-import { getDiaryMainMessage } from "../_messages/diaryMessages";
 import emotionsImage from '/public/img/emotion/emotions.png';
 
-interface Props {
-  year: number;
-  totalDiaries: number;
-}
-
-const GreetingSection = ({ year, totalDiaries }: Props) => {
-  const getMainMessage = () => getDiaryMainMessage(year, totalDiaries);
-
+const GreetingSection = () => {
   return (
     <Wrapper>
       <EmotionImageWrapper>
@@ -34,9 +26,6 @@ const GreetingSection = ({ year, totalDiaries }: Props) => {
         <SubTitleLine>완벽한 하루가 아니어도 좋습니다.</SubTitleLine>
         <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
       </SubTitle>
-      <Description>
-        {getMainMessage() && <MainMessage>{getMainMessage()}</MainMessage>}
-      </Description>
       <LinkWrapper>
         <StyledLink href="/calendar">
           <LinkIcon><MdCalendarMonth /></LinkIcon>
@@ -109,20 +98,6 @@ const SubTitle = styled.p`
 
 const SubTitleLine = styled.span`
   display: block;
-`;
-
-const Description = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const MainMessage = styled.span`
-  font-size: 16px;
-  color: rgb(var(--greyTitle));
-  line-height: 1.6;
-  overflow-wrap: break-word;
-  text-align: justify;
 `;
 
 const LinkWrapper = styled.div`

@@ -62,10 +62,7 @@ const HomeView = () => {
       </TopButtons>
 
       <HomeContentWrapper>
-        <GreetingSection
-          year={selectedYear}
-          totalDiaries={diaryStats?.totalCount ?? 0}
-        />
+        <GreetingSection />
 
         <DiaryAnalysis
           stats={diaryStats}

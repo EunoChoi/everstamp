@@ -4,6 +4,18 @@ import { StarRating } from "@/common/components/ui/StarRating";
 import { HabitStats } from "@/common/fetchers/stats";
 import { useState } from "react";
 import styled from "styled-components";
+import {
+  HomeCard,
+  HomeCardGrid,
+  HomeCardLabel,
+  HomeCardValue,
+  HomeSectionHeader,
+  HomeSectionTitle,
+  HomeSectionWrapper,
+  HomeSubsection,
+  HomeSubsectionTitle,
+  HomeTotalCount,
+} from "./HomeSection";
 
 interface Props {
   stats?: HabitStats;
@@ -26,11 +38,11 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
   };
 
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <SectionTitle>습관 정보</SectionTitle>
-        <TotalCount>{stats?.totalHabits ?? 0}개의 목표 습관</TotalCount>
-      </TitleWrapper>
+    <HomeSectionWrapper>
+      <HomeSectionHeader>
+        <HomeSectionTitle>습관 정보</HomeSectionTitle>
+        <HomeTotalCount>{stats?.totalHabits ?? 0}개의 목표 습관</HomeTotalCount>
+      </HomeSectionHeader>
 
       <TabWrapper>
         <Tab
@@ -61,22 +73,22 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
         )}
       </HabitList>
 
-      <StatsSection>
-        <StatsTitle>습관 완료 통계</StatsTitle>
-        <StatsGrid>
-          <StatCard>
-            <StatLabel>총 습관 완료</StatLabel>
-            <StatValue>{stats?.totalCompletions ?? 0}회</StatValue>
-          </StatCard>
-          <StatCard>
-            <StatLabel>습관 완료한 일기</StatLabel>
-            <StatValue>{stats?.diariesWithHabits ?? 0}개</StatValue>
-          </StatCard>
-          <StatCard>
-            <StatLabel>습관 완료한 날</StatLabel>
-            <StatValue>{stats?.habitCompletionDays ?? 0}일</StatValue>
-          </StatCard>
-        </StatsGrid>
+      <HomeSubsection>
+        <HomeSubsectionTitle>습관 완료 통계</HomeSubsectionTitle>
+        <HomeCardGrid>
+          <HomeCard>
+            <HomeCardLabel>총 습관 완료</HomeCardLabel>
+            <HomeCardValue>{stats?.totalCompletions ?? 0}회</HomeCardValue>
+          </HomeCard>
+          <HomeCard>
+            <HomeCardLabel>습관 완료한 일기</HomeCardLabel>
+            <HomeCardValue>{stats?.diariesWithHabits ?? 0}개</HomeCardValue>
+          </HomeCard>
+          <HomeCard>
+            <HomeCardLabel>습관 완료한 날</HomeCardLabel>
+            <HomeCardValue>{stats?.habitCompletionDays ?? 0}일</HomeCardValue>
+          </HomeCard>
+        </HomeCardGrid>
         <DetailSection>
           <DetailItem>
             <DetailLabel>습관이 있는 일기 기준 평균</DetailLabel>
@@ -87,45 +99,12 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
             <DetailValue>{formatAvg(stats?.avgHabitsPerCompletionDay ?? 0)}</DetailValue>
           </DetailItem>
         </DetailSection>
-      </StatsSection>
-    </Wrapper>
+      </HomeSubsection>
+    </HomeSectionWrapper>
   );
 };
 
 export default HabitAnalysis;
-
-const Wrapper = styled.section`
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-`;
-
-const SectionTitle = styled.h2`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 32px;
-  font-family: 'BMJUA';
-  flex: 1;
-  
-  @media (min-width: 1025px) {
-    font-size: 36px;
-  }
-`;
-
-const TotalCount = styled.span`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.6);
-  white-space: nowrap;
-  flex-shrink: 0;
-`;
 
 const TabWrapper = styled.div`
   display: flex;
@@ -227,63 +206,6 @@ const EmptyMessage = styled.div`
   
   @media (min-width: 480px) {
     min-height: 90px;
-  }
-`;
-
-const StatsSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const StatsTitle = styled.h3`
-  font-size: 22px;
-  font-weight: 500;
-  text-transform: capitalize;
-  color: grey;
-`;
-
-const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-`;
-
-const StatCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 12px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  gap: 4px;
-  min-height: 120px;
-  
-  @media (min-width: 480px) {
-    min-height: 130px;
-    padding: 20px 16px;
-  }
-`;
-
-const StatLabel = styled.span`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.7);
-  text-align: center;
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;
-
-const StatValue = styled.span`
-  font-size: 24px;
-  font-weight: 700;
-  color: ${props => props.theme.themeColor ?? '#979FC7'};
-  
-  @media (min-width: 480px) {
-    font-size: 28px;
   }
 `;
 
