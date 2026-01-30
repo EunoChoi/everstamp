@@ -1,8 +1,16 @@
-/**
- * yyyy-MM-dd 형식의 문자열을 Date 객체로 변환
- * @param {string} dateString - 'yyyy-MM-dd' 형식의 날짜 문자열
- * @returns {Date} 로컬 자정 기준 Date 객체
- */
+// 외부 패키지
+const { endOfYear, startOfYear } = require("date-fns");
+
+// year 숫자 -> 해당 연도 시작/끝 Date. 반환: { yearStart, yearEnd }
+function getYearRange(year) {
+  const d = new Date(year, 0, 1);
+  return {
+    yearStart: startOfYear(d),
+    yearEnd: endOfYear(d)
+  };
+}
+
+// dateString 'yyyy-MM-dd' -> Date. 반환: Date
 function parseDate(dateString) {
   if (!dateString || typeof dateString !== 'string') {
     throw new Error('Invalid date string');
@@ -17,11 +25,7 @@ function parseDate(dateString) {
   return new Date(year, month - 1, day);
 }
 
-/**
- * yyyy-MM 형식의 문자열을 Date 객체로 변환 (해당 월의 1일)
- * @param {string} monthString - 'yyyy-MM' 형식의 월 문자열
- * @returns {Date} 해당 월 1일의 Date 객체
- */
+// monthString 'yyyy-MM' -> 해당 월 1일 Date. 반환: Date
 function parseMonth(monthString) {
   if (!monthString || typeof monthString !== 'string') {
     throw new Error('Invalid month string');
@@ -36,11 +40,7 @@ function parseMonth(monthString) {
   return new Date(year, month - 1, 1);
 }
 
-/**
- * yyyy 형식의 문자열에서 연도 추출
- * @param {string} yearString - 'yyyy' 형식의 연도 문자열
- * @returns {number} 연도
- */
+// yearString 'yyyy' -> 연도 숫자. 반환: number
 function parseYear(yearString) {
   if (!yearString || typeof yearString !== 'string') {
     throw new Error('Invalid year string');
@@ -55,4 +55,13 @@ function parseYear(yearString) {
   return year;
 }
 
-module.exports = { parseDate, parseMonth, parseYear };
+// date (Date 또는 파싱 가능한 값) -> 'yyyy-MM-dd' 문자열. 서버 타임존 기준
+function dateToYMD(date) {
+  const d = date instanceof Date ? date : new Date(date);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+module.exports = { getYearRange, parseDate, parseMonth, parseYear, dateToYMD };

@@ -1,4 +1,6 @@
+// 외부 패키지
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 module.exports = {

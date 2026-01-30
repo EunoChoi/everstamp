@@ -1,4 +1,7 @@
+// 외부 패키지
 const Sequelize = require('sequelize');
+
+// 프로젝트 내부
 const env = process.env.NODE_ENV || 'development';
 const config = require("../config/config")[env];
 
