@@ -10,5 +10,6 @@ everstamp.pem
 .DS_Store
 
 # Documentation files
+.cursorignore
 front/docs/
 docs/
