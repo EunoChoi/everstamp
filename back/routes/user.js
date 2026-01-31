@@ -19,8 +19,8 @@ const Image = db.Image;
  * 요청: body { email, provider }
  * 반환: 200/201 { result, message, accessToken, refreshToken } 또는 409 { result: false, message } (다른 SNS 가입)
  */
-router.post("/register", async (req, res) => {
-  console.log('----- method : post, url :  /user/register -----');
+router.post("/auth", async (req, res) => {
+  console.log('----- method : post, url :  /user/auth -----');
   const { email, provider } = req.body;
 
   // [입력 검증]

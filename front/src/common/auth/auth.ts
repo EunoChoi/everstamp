@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const email = user.email;
 
       try {
-        const res = await Api.post(`/user/register`,
+        const res = await Api.post(`/user/auth`,
           {
             email,
             provider
