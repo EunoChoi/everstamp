@@ -23,28 +23,23 @@ router.post("/auth", async (req, res) => {
   console.log('----- method : post, url :  /user/auth -----');
   const { email, provider } = req.body;
 
-  // [입력 검증]
   if (!email || typeof email !== 'string' || !provider || typeof provider !== 'string') {
     return sendError(res, 400, 'email과 provider는 필수입니다.');
   }
 
   try {
-    // [비동기 처리] DB 조회
     const foundUser = await User.findOne({ where: { email } });
-
-    // [데이터 가공] JWT 토큰 생성
     const accessToken = jwt.sign(
       { email, provider },
       process.env.ACCESS_KEY,
-      { expiresIn: '5m', issuer: 'everstamp' }
+      { expiresIn: '5m', issuer: 'took' }
     );
     const refreshToken = jwt.sign(
       { email, provider },
       process.env.REFRECH_KEY,
-      { expiresIn: '7d', issuer: 'everstamp' }
+      { expiresIn: '7d', issuer: 'took' }
     );
 
-    // [비즈니스 로직] 로그인 vs 회원가입 분기
     if (foundUser) {
       if (foundUser.provider === provider) {
         return res.status(200).json({
@@ -60,7 +55,6 @@ router.post("/auth", async (req, res) => {
       });
     }
 
-    // [비동기 처리] DB 저장 (회원가입)
     await User.create({
       email,
       provider
@@ -79,8 +73,36 @@ router.post("/auth", async (req, res) => {
 });
 
 /**
+ * 용도: refresh 토큰으로 새 access 토큰 발급.
+ * 요청: Cookie refreshToken 또는 body { refreshToken }
+ * 반환: 200 { accessToken } / 401
+ */
+router.post("/refresh", async (req, res) => {
+  const refreshToken = req.cookies?.refreshToken ?? req.body?.refreshToken;
+  if (!refreshToken) {
+    return sendError(res, 401, '로그인이 필요합니다.');
+  }
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRECH_KEY);
+    const { email, provider } = decoded;
+    if (!email || !provider) {
+      return sendError(res, 401, '유효하지 않은 토큰입니다.');
+    }
+    const accessToken = jwt.sign(
+      { email, provider },
+      process.env.ACCESS_KEY,
+      { expiresIn: '5m', issuer: 'took' }
+    );
+    return res.status(200).json({ accessToken });
+  } catch (e) {
+    console.log('refreshToken 검증 실패:', e.name);
+    return sendError(res, 401, '로그인이 필요합니다.');
+  }
+});
+
+/**
  * 용도: 로그인한 유저 정보 조회.
- * 요청: 쿠키 accessToken (tokenCheck), email은 토큰에서 추출
+ * 요청: 쿠키 accessToken (tokenCheck)
  * 반환: 200 User 객체 / 404 유저 없음
  */
 router.get("/current", tokenCheck, async (req, res) => {
@@ -88,7 +110,6 @@ router.get("/current", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [비동기 처리] DB 조회
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return sendError(res, 404, '유저를 찾을 수 없습니다.');
@@ -107,10 +128,21 @@ router.get("/current", tokenCheck, async (req, res) => {
  */
 router.get("/logout", (req, res) => {
   console.log('----- method : get, url :  /user/logout -----');
-  // [데이터 가공] 쿠키 옵션 설정 후 응답
-  const opts = { httpOnly: true, domain: process.env.DOMAIN, maxAge: 0 };
-  res.cookie("accessToken", "", { ...opts, secure: false });
-  res.cookie("refreshToken", "", { ...opts, secure: false });
+  const baseDomain = `.${process.env.DOMAIN}`;
+  res.cookie("accessToken", "", {
+    httpOnly: true,
+    domain: baseDomain,
+    maxAge: 0,
+    path: '/',
+    secure: false
+  });
+  res.cookie("refreshToken", "", {
+    httpOnly: true,
+    domain: baseDomain,
+    maxAge: 0,
+    path: '/api/auth/refresh',
+    secure: false
+  });
   res.status(200).json("로그아웃 완료");
 })
 
@@ -124,7 +156,6 @@ router.delete("/", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [비동기 처리] 트랜잭션 (유저·일기·이미지·습관 전부 삭제)
     await sequelize.transaction(async (t) => {
       const user = await User.findOne({
         where: { email },
