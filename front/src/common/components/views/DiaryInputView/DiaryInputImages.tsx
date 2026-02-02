@@ -51,10 +51,10 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
       }
 
       const isOverSize = ArrayImages.find((file) => {
-        if (file.size > 10 * 1024 * 1024) return true;
+        if (file.size > 5 * 1024 * 1024) return true;
       });
       if (isOverSize) {
-        enqueueSnackbar("선택된 이미지 중 10MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
+        enqueueSnackbar("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
         return null;
       }
 

@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 app.use((err, req, res, next) => {
   console.error(err);
   if (err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(413).json({ error: '파일 크기 초과 (최대 10MB)' });
+    return res.status(413).json({ error: '파일 크기 초과 (최대 5MB)' });
   }
   const status = err.status ?? err.statusCode ?? 500;
   const message = err.message ?? '서버 에러가 발생했습니다.';
