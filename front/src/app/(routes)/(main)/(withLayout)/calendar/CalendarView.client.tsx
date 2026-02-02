@@ -93,7 +93,7 @@ const CalendarPageCalendar = styled(Calendar)`
   overflow: visible;
   
   @media (max-width: 479px) {
-    min-height: 400px;
+    min-height: 480px;
   }
 `
 
