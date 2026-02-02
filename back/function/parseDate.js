@@ -15,13 +15,13 @@ function parseDate(dateString) {
   if (!dateString || typeof dateString !== 'string') {
     throw new Error('Invalid date string');
   }
-  
+
   const [year, month, day] = dateString.split('-').map(Number);
-  
+
   if (isNaN(year) || isNaN(month) || isNaN(day)) {
     throw new Error('Invalid date format. Expected yyyy-MM-dd');
   }
-  
+
   return new Date(year, month - 1, day);
 }
 
@@ -30,13 +30,13 @@ function parseMonth(monthString) {
   if (!monthString || typeof monthString !== 'string') {
     throw new Error('Invalid month string');
   }
-  
+
   const [year, month] = monthString.split('-').map(Number);
-  
+
   if (isNaN(year) || isNaN(month)) {
     throw new Error('Invalid month format. Expected yyyy-MM');
   }
-  
+
   return new Date(year, month - 1, 1);
 }
 
@@ -45,13 +45,13 @@ function parseYear(yearString) {
   if (!yearString || typeof yearString !== 'string') {
     throw new Error('Invalid year string');
   }
-  
+
   const year = Number(yearString);
-  
+
   if (isNaN(year)) {
     throw new Error('Invalid year format. Expected yyyy');
   }
-  
+
   return year;
 }
 
