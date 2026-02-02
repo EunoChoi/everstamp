@@ -73,34 +73,6 @@ router.post("/auth", async (req, res) => {
 });
 
 /**
- * 용도: refresh 토큰으로 새 access 토큰 발급.
- * 요청: Cookie refreshToken 또는 body { refreshToken }
- * 반환: 200 { accessToken } / 401
- */
-router.post("/refresh", async (req, res) => {
-  const refreshToken = req.cookies?.refreshToken ?? req.body?.refreshToken;
-  if (!refreshToken) {
-    return sendError(res, 401, '로그인이 필요합니다.');
-  }
-  try {
-    const decoded = jwt.verify(refreshToken, process.env.REFRECH_KEY);
-    const { email, provider } = decoded;
-    if (!email || !provider) {
-      return sendError(res, 401, '유효하지 않은 토큰입니다.');
-    }
-    const accessToken = jwt.sign(
-      { email, provider },
-      process.env.ACCESS_KEY,
-      { expiresIn: '5m', issuer: 'took' }
-    );
-    return res.status(200).json({ accessToken });
-  } catch (e) {
-    console.log('refreshToken 검증 실패:', e.name);
-    return sendError(res, 401, '로그인이 필요합니다.');
-  }
-});
-
-/**
  * 용도: 로그인한 유저 정보 조회.
  * 요청: 쿠키 accessToken (tokenCheck)
  * 반환: 200 User 객체 / 404 유저 없음
