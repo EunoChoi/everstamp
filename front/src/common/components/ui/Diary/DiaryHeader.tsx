@@ -1,8 +1,8 @@
 import type { DiaryHeaderData } from '@/common/types/diary';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { MdMoreVert } from 'react-icons/md';
 import { useEffect, useRef, useState } from 'react';
+import { MdMoreVert } from 'react-icons/md';
 import styled from 'styled-components';
 import DiaryMenus from './DiaryMenus';
 
@@ -14,7 +14,7 @@ interface Props {
 const EMOTIONS = ['#화남', '#슬픔', '#보통', '#행복', '#기쁨'] as const;
 
 const DiaryHeader = ({ diaryData, type }: Props) => {
-  const date = format(diaryData.date, 'yy.MM.dd');
+  const date = format(diaryData.date, 'yy년 M월 d일');
   const day = format(diaryData.date, 'eeee', { locale: ko });
 
   const [isMenuOpen, setMenuOpen] = useState(false);
