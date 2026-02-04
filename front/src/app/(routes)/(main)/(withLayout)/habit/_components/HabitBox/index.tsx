@@ -99,7 +99,6 @@ const HabitBox = ({ name, id, priority }: Props) => {
 export default HabitBox;
 const ButtonWrapper = styled.div`
   width: 100%;
-  height: 30%;
   height: auto;
 
   display: flex;
@@ -108,13 +107,14 @@ const ButtonWrapper = styled.div`
 
   color: #b9b9b9;
   button{
-    margin : 0 6px;
+    font-size: 20px;
+    margin : 0 8px;
   }
 `
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   
   border-radius: 24px;
@@ -123,8 +123,7 @@ const Wrapper = styled.div`
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 
   width: 100%;
-  aspect-ratio: 0.85;
-  gap: 12px;
+  aspect-ratio: 0.8;
 `
 const Name = styled.div`
   width: 100%;
@@ -152,6 +151,8 @@ const Days = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  margin: 6px 0;
 `
 const Check = styled.div`
   display: flex;
