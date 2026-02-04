@@ -15,7 +15,7 @@ const IntroView = () => {
       {/* 메인 소개 */}
       <Section $bg="white">
         <CenterBox>
-          <Logo size={80} />
+          <Logo size={64} />
         </CenterBox>
         <Heading>
           <span>내일 더 나은 나로 나아가기 위해</span>
@@ -24,15 +24,15 @@ const IntroView = () => {
         <MediaCarousel>
           <Carousel objectFit="contain">
             {SECTION_IMAGES.intro.map((src, i) => (
-              <RoundedImage key={`intro-${i}`} src={src} alt="intro" width={600} height={600} priority />
+              <Image key={`intro-${i}`} src={src} alt="intro" width={600} height={600} priority />
             ))}
           </Carousel>
         </MediaCarousel>
         <DownloadButtons />
-        <InfoGroup>
+        <CaptionGroup>
           <Caption>iOS 사용자의 경우 PWA를 설치하여 이용 가능합니다.</Caption>
           <Caption>*로그인 화면이 나타나지 않는 경우, 앱을 재실행 해주세요.</Caption>
-        </InfoGroup>
+        </CaptionGroup>
       </Section>
 
       {/* 감정 기능 */}
@@ -91,7 +91,7 @@ const IntroView = () => {
       <Section $bg="blue">
         <DownloadButtons variant="outro" />
         <CenterBox>
-          <Logo size={80} />
+          <Logo size={64} />
         </CenterBox>
       </Section>
     </Container >
@@ -119,7 +119,7 @@ const Section = styled.section<{ $bg?: 'white' | 'blue' | 'lightBlue' }>`
   background-color: ${({ $bg }) => {
     if ($bg === 'white') return 'white';
     if ($bg === 'lightBlue') return '#f3f7fc';
-    if ($bg === 'blue') return '#bad0ea';
+    if ($bg === 'blue') return '#cbd9ea';
     return 'white';
   }};
 
@@ -186,7 +186,7 @@ const Heading = styled.div`
   }
 `;
 
-const InfoGroup = styled.div`
+const CaptionGroup = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -195,36 +195,22 @@ const InfoGroup = styled.div`
 
 const Caption = styled.span`
   color: grey;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
 
   @media (min-width: 480px) and (max-width: 1024px) {
-    font-size: 16px;
-  }
-
-  @media (min-width: 1025px) {
     font-size: 18px;
   }
-`;
-
-const MediaCarousel = styled.div`
-  width: 80dvw;
-  height: 70dvh;
-  min-height: 350px;
 
   @media (min-width: 1025px) {
-    width: 500px;
-    height: 60dvh;
+    font-size: 20px;
   }
 `;
 
-const RoundedImage = styled(Image)`
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 28px;
-  object-fit: contain;
+
+const MediaCarousel = styled.div`
+  height: 65dvh;
+  width: 100%;
 `;
 
 const HorizontalScroll = styled.div`
