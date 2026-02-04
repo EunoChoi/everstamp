@@ -4,9 +4,9 @@
 import { useCurrentUserEmail } from '@/common/hooks/useCurrentUserEmail';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
 import { LocalUserStorage } from '@/common/types';
-import { ReactNode, useEffect, useMemo } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { FONT_SIZE_LIST, FONT_TYPE_LIST, SettingsContext, THEME_BG_COLORS, THEME_COLORS, FontType } from './SettingsContext';
+import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontType, SettingsContext, THEME_BG_COLORS, THEME_COLORS } from './SettingsContext';
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const { currentUserEmail } = useCurrentUserEmail();
@@ -16,23 +16,23 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const fontType = settings?.fontType ?? FONT_TYPE_LIST[0];
   const themeColor = settings?.themeColor ?? THEME_COLORS[0];
 
-  const setFontSize = (size: string) => {
+  const setFontSize = useCallback((size: string) => {
     if (FONT_SIZE_LIST.includes(size)) {
       setSettings((prev) => ({ ...prev, fontSize: size }));
     }
-  };
+  }, [setSettings]);
 
-  const setFontType = (type: FontType) => {
+  const setFontType = useCallback((type: FontType) => {
     if (FONT_TYPE_LIST.includes(type)) {
       setSettings((prev) => ({ ...prev, fontType: type }));
     }
-  };
+  }, [setSettings]);
 
-  const setThemeColor = (color: string) => {
+  const setThemeColor = useCallback((color: string) => {
     if (THEME_COLORS.includes(color)) {
       setSettings((prev) => ({ ...prev, themeColor: color }));
     }
-  };
+  }, [setSettings]);
 
   useEffect(() => {
     const bgColor = THEME_BG_COLORS[themeColor] || '#f3f7fc';
@@ -59,7 +59,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const currentFontType = settings?.fontType ?? FONT_TYPE_LIST[0];
     document.body.classList.remove('font-type2', 'font-type3');
-    
+
     if (currentFontType === 'type2') {
       document.body.classList.add('font-type2');
     } else if (currentFontType === 'type3') {

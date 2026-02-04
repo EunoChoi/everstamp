@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import Image from 'next/image';
-import styled from 'styled-components';
 import { EMOTIONS } from '@/common/constants/emotions';
+import Image from 'next/image';
+import { ReactNode } from 'react';
+import styled from 'styled-components';
 
 interface Button {
   label: string;
@@ -21,12 +21,12 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
   return (
     <Wrapper>
       <IconWrapper>
-        <Image 
-          src={EMOTIONS[1].src} 
-          alt={EMOTIONS[1].nameKr} 
-          width={128} 
-          height={128} 
-          priority 
+        <Image
+          src={EMOTIONS[1].src}
+          alt={EMOTIONS[1].nameKr}
+          width={128}
+          height={128}
+          priority
         />
       </IconWrapper>
       <Title>{title}</Title>

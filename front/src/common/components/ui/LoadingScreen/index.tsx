@@ -1,7 +1,7 @@
 'use client';
 
-import styled, { keyframes } from "styled-components";
 import Logo from '@/common/components/ui/Logo';
+import styled, { keyframes } from "styled-components";
 
 interface LoadingScreenProps {
   message?: string;
@@ -79,7 +79,7 @@ const Dot = styled.div<{ $delay: number }>`
   width: 16px;
   height: 16px;
   border-radius: 100%;
-  background-color: #8CADE2;
+  background-color: ${(props) => props.theme.themeColor ?? '#8CADE2'};
   animation: ${pulse} 1.2s ease-in-out infinite;
   animation-delay: ${({ $delay }) => $delay}s;
 `;
