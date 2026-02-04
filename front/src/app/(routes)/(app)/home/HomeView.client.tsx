@@ -8,6 +8,7 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/fetchers/stats";
+import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
 import DiaryAnalysis from "./_components/DiaryAnalysis";
@@ -21,7 +22,7 @@ const HomeView = () => {
 
   const currentYear = getYear(new Date());
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [isYearSelectorOpen, setYearSelectorOpen] = useState(false);
+  const { isOpen: isYearSelectorOpen, open: openYearSelector, close: closeYearSelector } = useModalParam('year-filter');
 
   const { data: availableYears } = useQuery({
     queryKey: ['stats', 'years'],
@@ -56,7 +57,7 @@ const HomeView = () => {
       <TopButtons>
         <button
           className='auto'
-          onClick={() => setYearSelectorOpen(true)}>
+          onClick={openYearSelector}>
           <span>{selectedYear}년</span>
         </button>
       </TopButtons>
@@ -84,12 +85,12 @@ const HomeView = () => {
 
       <YearSelector
         isOpen={isYearSelectorOpen}
-        onClose={() => setYearSelectorOpen(false)}
+        onClose={closeYearSelector}
         years={years}
         selectedYear={selectedYear}
         onSelectYear={(year) => {
           setSelectedYear(year);
-          setYearSelectorOpen(false);
+          closeYearSelector();
         }}
       />
     </PageWrapper>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
@@ -13,6 +13,7 @@ import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getDiaryList } from "@/common/fetchers/diary";
 import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
+import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { Diaries } from "./_components/Diaries";
@@ -30,8 +31,8 @@ const ListView = () => {
   const { currentUserEmail } = useCurrentUserEmail();
   const { ref: inViewRef, inView } = useInView({ threshold: 0, delay: 0 });
 
-  const [isEmotionFilterOpen, setEmotionFilterOpen] = useState<boolean>(false);
-  const [isDateFilterOpen, setDateFilterOpen] = useState<boolean>(false);
+  const { isOpen: isEmotionFilterOpen, open: openEmotionFilter, close: closeEmotionFilter } = useModalParam('emotion-filter');
+  const { isOpen: isMonthFilterOpen, open: openMonthFilter, close: closeMonthFilter } = useModalParam('month-filter');
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
   const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
 
@@ -59,13 +60,13 @@ const ListView = () => {
       <TopButtons>
         <button
           className='small'
-          onClick={() => { setEmotionFilterOpen(c => !c); }}
+          onClick={() => { openEmotionFilter(); }}
         >
           <MdEmojiEmotions />
         </button>
         <button
           className='small'
-          onClick={() => { setDateFilterOpen(c => !c); }}
+          onClick={openMonthFilter}
         >
           <MdCalendarMonth />
         </button>
@@ -81,13 +82,13 @@ const ListView = () => {
         <EmotionFilter
           contentRef={wrapperRef}
           isOpen={isEmotionFilterOpen}
-          onClose={() => setEmotionFilterOpen(false)}
+          onClose={closeEmotionFilter}
           setEmotionToggle={setEmotionToggle}
         />
         <MonthFilter
           contentRef={wrapperRef}
-          isOpen={isDateFilterOpen}
-          onClose={() => setDateFilterOpen(false)}
+          isOpen={isMonthFilterOpen}
+          onClose={closeMonthFilter}
           setSelectedYear={setSelectedYear}
           setSelectedMonth={setSelectedMonth}
         />
