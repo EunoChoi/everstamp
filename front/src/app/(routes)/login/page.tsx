@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -30,9 +31,6 @@ const Page = () => {
     retry: 1,
   })
 
-  const start = () => {
-    router.push('/home');
-  }
   const logout = () => {
     Api.get('user/logout').then(() => {
       signOut();
@@ -76,7 +74,7 @@ const Page = () => {
         </TextSection>
         {isSuccess ? (
           <LoggedInButtonWrapper>
-            <LoggedInButtonStart className={user?.provider} onClick={start}>
+            <LoggedInButtonStart href="/home" className={user?.provider}>
               {user?.provider && (
                 <Image
                   src={providerIcons[user.provider]}
@@ -269,7 +267,7 @@ const LoggedInButtonWrapper = styled.div`
     align-items: center;
   }
 `
-const LoggedInButtonStart = styled.button`
+const LoggedInButtonStart = styled(Link)`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -289,6 +287,8 @@ const LoggedInButtonStart = styled.button`
   text-transform: lowercase;
   font-size: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  text-decoration: none;
 
   span{
     margin-left : 8px;

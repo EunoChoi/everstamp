@@ -1,8 +1,9 @@
 'use client'
 
+import Logo from '@/common/components/ui/Logo';
+import Link from "next/link";
 import styled from "styled-components";
 import { useNavItems } from "./useNavItems";
-import Logo from '@/common/components/ui/Logo';
 
 const SideNav = () => {
   const { items, current } = useNavItems();
@@ -12,8 +13,8 @@ const SideNav = () => {
       <LogoWrapper>
         <Logo size={24} />
       </LogoWrapper>
-      {items.map(({ key, icon: Icon, label, onClick }) => (
-        <Menu key={key} onClick={onClick} $active={current === key}>
+      {items.map(({ key, icon: Icon, label, href }) => (
+        <Menu key={key} href={href} $active={current === key}>
           <Icon /> {label}
         </Menu>
       ))}
@@ -44,7 +45,7 @@ const LogoWrapper = styled.div`
   margin-bottom: 16px;
 `;
 
-const Menu = styled.button<{ $active: boolean }>`
+const Menu = styled(Link) <{ $active: boolean }>`
   display: flex;
   align-items: center;
   gap: 12px;
@@ -53,4 +54,5 @@ const Menu = styled.button<{ $active: boolean }>`
   font-size: 14px;
   text-transform: capitalize;
   color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : '#c3c3c3'};
+  cursor: pointer;
 `;

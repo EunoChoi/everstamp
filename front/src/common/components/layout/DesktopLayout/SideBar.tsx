@@ -1,12 +1,12 @@
 import { getTodayString } from "@/common/functions/getTodayString";
-import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 import styled from "styled-components";
 
-import { MdCalendarMonth, MdCheckBox, MdHome, MdSettings, MdViewList } from 'react-icons/md';
 import Logo from '@/common/components/ui/Logo';
+import { MdCalendarMonth, MdCheckBox, MdHome, MdSettings, MdViewList } from 'react-icons/md';
 
 const SideBar = () => {
-  const router = useRouter();
   const current = useSelectedLayoutSegment();
 
   return (<Wrapper>
@@ -14,25 +14,23 @@ const SideBar = () => {
       <Logo size={36} />
     </SideBarLogo>
     <Menus>
-      <Menu
-        onClick={() => router.push(`/home`, {})}
-        className={current === 'home' ? 'current' : ''}>
+      <Menu href="/home" className={current === 'home' ? 'current' : ''}>
         <MdHome className="icon" />
         <span>home</span>
       </Menu>
-      <Menu onClick={() => router.push(`/calendar?date=${getTodayString()}`, {})} className={current === 'calendar' ? 'current' : ''}>
+      <Menu href={`/calendar?date=${getTodayString()}`} className={current === 'calendar' ? 'current' : ''}>
         <MdCalendarMonth className="icon" />
         <span>calendar</span>
       </Menu>
-      <Menu onClick={() => router.push('/list', {})} className={current === 'list' ? 'current' : ''} >
+      <Menu href="/list" className={current === 'list' ? 'current' : ''}>
         <MdViewList className="icon" />
         <span>list</span>
       </Menu>
-      <Menu onClick={() => router.push('/habit', {})} className={current === 'habit' ? 'current' : ''} >
+      <Menu href="/habit" className={current === 'habit' ? 'current' : ''}>
         <MdCheckBox className="icon" />
         <span>habit</span>
       </Menu>
-      <Menu onClick={() => router.push('/setting', {})} className={current === 'setting' ? 'current' : ''}>
+      <Menu href="/setting" className={current === 'setting' ? 'current' : ''}>
         <MdSettings className="icon" />
         <span>setting</span>
       </Menu>
@@ -80,7 +78,7 @@ const Menus = styled.div`
   gap: 24px;
   width: 70%;
 `
-const Menu = styled.span`
+const Menu = styled(Link)`
   transition: all ease-in-out 0.3s;
 
   width: 100%;
