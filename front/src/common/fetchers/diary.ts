@@ -34,7 +34,7 @@ export async function getDiaryById({ id }: IdProps) {
 
 export async function getDiaryByDate({ date }: DateProps) {
   try {
-    const { data } = await Api.get(`/diary/calendar?date=${date}`);
+    const { data } = await Api.get(`/diary/date?date=${date}`);
     return data;
   } catch (e: any) {
     console.error(e.response.data);

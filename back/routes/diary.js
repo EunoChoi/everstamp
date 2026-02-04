@@ -332,12 +332,12 @@ router.get("/list", tokenCheck, async (req, res) => {
 })
 
 /**
- * 용도: 캘린더용 특정 날짜 일기 한 건 조회. 삭제된 일기도 조회 가능.
+ * 용도: 특정 날짜 일기 한 건 조회. 삭제된 일기도 조회 가능.
  * 요청: query date(string 'yyyy-MM-dd'), tokenCheck
  * 반환: 200 Diary(date: Date, Images, Habits 포함) / 404
  */
-router.get("/calendar", tokenCheck, async (req, res) => {
-  console.log('----- method : get, url :  /diary/calendar -----');
+router.get("/date", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /diary/date -----');
   const { date } = req.query;
   const email = req.currentUserEmail;
 
