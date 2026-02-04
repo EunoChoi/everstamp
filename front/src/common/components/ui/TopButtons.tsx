@@ -79,6 +79,7 @@ const Wrapper = styled.div`
     @media (min-width:1025px) {
       padding: 4px 14px;
       height: 36px;
+      border-radius: 18px;
     }
   }
 `
