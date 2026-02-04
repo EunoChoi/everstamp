@@ -5,6 +5,7 @@ import { getYear } from "date-fns";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
+import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/fetchers/stats";
@@ -61,7 +62,7 @@ const HomeView = () => {
         </button>
       </TopButtons>
 
-      <HomeContentWrapper>
+      <ContentWrapper gap={28} paddingTop={8} paddingBottom={48}>
         <GreetingSection />
 
         <DiaryAnalysis
@@ -80,7 +81,7 @@ const HomeView = () => {
           stats={habitStats}
           isLoading={isLoading}
         />
-      </HomeContentWrapper>
+      </ContentWrapper>
 
       <YearSelector
         isOpen={isYearSelectorOpen}
@@ -97,30 +98,3 @@ const HomeView = () => {
 };
 
 export default HomeView;
-
-const HomeContentWrapper = styled.div`
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  padding-top: 8px;
-  padding-bottom: 48px;
-
-  @media (max-width: 479px) {
-    padding: 0px 4dvw calc(var(--mobileNav) + 24px) 4dvw;
-    padding-top: 8px;
-  }
-  @media (min-width:480px) and (max-width:1024px) {
-    padding: 36px;
-    padding-top: 8px;
-    padding-bottom: 48px;
-  }
-  @media (min-width:1025px) {
-    padding: 36px;
-    padding-top: 8px;
-    padding-bottom: 48px;
-  }
-`;

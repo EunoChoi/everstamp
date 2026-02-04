@@ -12,6 +12,7 @@ import { createEmptyDiary } from "@/common/types/diary";
 //styledComponent
 
 //component
+import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
@@ -58,11 +59,11 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   }
   const onClickDate = useCallback((date: Date) => {
     router.push(`calendar?date=${format(date, 'yyyy-MM-dd')}`);
-  }, []);
+  }, [router]);
 
   return (
     <PageWrapper>
-      <CalendarContentWrapper>
+      <ContentWrapper gap={12} mobileGap={20} tabletGap={24} flex="1 1 0" paddingTop={24}>
         <CalendarPageCalendar
           isTouchGestureEnabled={true}
           isDateSelectionEnabled={true}
@@ -80,7 +81,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
         <DiaryWrapper>
           <Diary type="small" diaryData={diaryData ?? createEmptyDiary(date)} />
         </DiaryWrapper>
-      </CalendarContentWrapper>
+      </ContentWrapper>
     </PageWrapper>
   );
 }
@@ -99,30 +100,4 @@ const CalendarPageCalendar = styled(Calendar)`
 
 const DiaryWrapper = styled.div`
   flex-shrink: 0;
-`
-
-const CalendarContentWrapper = styled.div`
-  width: 100%;
-  max-width: 600px;
-  flex: 1 1 0;
-  height: auto;
-  
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  @media (max-width: 479px) {
-    padding: 0px 4dvw var(--mobileNav) 4dvw;
-    gap: 20px;
-  }
-  @media (min-width:480px) and (max-width:1024px) {
-    padding: 36px;
-    padding-top: 24px;
-    gap: 24px;
-  }
-  @media (min-width:1025px) {
-    padding: 36px;
-    padding-top: 24px;
-    gap: 24px;
-  }
 `

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { MdAndroid, MdDeleteForever, MdLogout, MdLowPriority } from 'react-icons/md';
 import styled from "styled-components";
 
+import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -40,7 +41,7 @@ const SettingPage = () => {
         </a>
       </TopButtons>
 
-      <SettingContentWrapper>
+      <ContentWrapper>
         <Section>
           <Title>계정 정보</Title>
           <Card>
@@ -105,31 +106,13 @@ const SettingPage = () => {
             </SubSection>
           </Card>
         </Section>
-      </SettingContentWrapper>
+      </ContentWrapper>
     </PageWrapper >
   );
 }
 
 export default SettingPage;
 
-const SettingContentWrapper = styled.div`
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 479px) {
-    padding: 0px 4dvw var(--mobileNav) 4dvw;
-  }
-  @media (min-width:480px) and (max-width:1024px) {
-    padding: 36px;
-  }
-  @media (min-width:1025px) {
-    padding: 36px;
-  }
-`
 const Section = styled.section`
   margin: 16px 0;
   display: flex;
