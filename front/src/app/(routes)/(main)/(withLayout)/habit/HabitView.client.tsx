@@ -113,25 +113,10 @@ const HabitBoxs = styled.div`
 
   display: grid;
   grid-template-rows: auto;
+  grid-template-columns: repeat(2, 1fr);
   
   gap: 12px;
   padding-bottom: 8px;
-
-  @media (max-width: 720px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width:721px) and (max-width:1023px) {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
-  @media (min-width:1024px) and (max-width: 1399px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (min-width:1400px) and (max-width: 1799px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (min-width:1800px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
 `
 const EmptyBox = styled.div`
   display: flex;
@@ -140,7 +125,7 @@ const EmptyBox = styled.div`
 
   flex-shrink: 0;
   width: 100%;
-  aspect-ratio: 0.85;
+  aspect-ratio: 0.8;
   
   border-radius: 24px;
   background-color: rgba(255,255,255,0.9);
