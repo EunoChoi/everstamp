@@ -43,7 +43,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
     <Modal.Header headerTitleText={headerTitle} />
     <ZoomViewContent>
       <CarouselWrapper>
-        <Carousel gap={16} objectFit="contain">
+        <Carousel objectFit="contain">
           <TextSlide diaryData={diaryData} />
           {images?.map((e: ZoomViewImage) => (
             <InteractiveImage
