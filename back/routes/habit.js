@@ -178,41 +178,6 @@ router.get("/recent", tokenCheck, async (req, res) => {
   }
 })
 
-/**
- * 용도: 한 달 치 일기·습관 연동 데이터. 해당 월의 Diary(날짜, visible, emotion, Habits) 목록.
- * 요청: query month(string 'yyyy-MM'), tokenCheck
- * 반환: 200 Diary[] (date: Date, visible, emotion, Habits 포함)
- */
-router.get("/month", tokenCheck, async (req, res) => {
-  console.log('----- method : get, url :  /habit/month -----');
-  const { month } = req.query;
-  const email = req.currentUserEmail;
-
-  try {
-    // [데이터 가공] 월 시작/끝 날짜
-    const current = parseMonth(month);
-    const monthStart = startOfMonth(current);
-    const monthEnd = endOfMonth(current);
-
-    // [비동기 처리] DB 조회
-    const diaries = await Diary.findAll({
-      where: {
-        email,
-        date: { [Op.between]: [monthStart, monthEnd] }
-      },
-      attributes: ['date', 'visible', 'emotion'],
-      include: [{
-        model: Habit,
-        attributes: ['name']
-      }]
-    });
-
-    return res.status(200).json(diaries);
-  } catch (e) {
-    console.error(e);
-    return sendError(res, 500, '서버 에러가 발생했습니다.');
-  }
-})
 
 /**
  * 용도: 한 습관의 한 달 치 기록. 해당 월에 해당 습관이 체크된 일기 목록.

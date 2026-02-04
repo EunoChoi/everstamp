@@ -52,10 +52,8 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
       await Api.delete(`diary?id=${id}`)
     },
     onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll().forEach(cache => {
-        queryClient.invalidateQueries({ queryKey: cache.queryKey });
-      });
+      queryClient.invalidateQueries({ queryKey: ['diary'] });
+      queryClient.invalidateQueries({ queryKey: ['stats'] });
       console.log('success delete diary');
       closeSnackbar('diaryDelete');
       enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
