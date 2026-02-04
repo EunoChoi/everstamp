@@ -7,8 +7,8 @@ import React from "react";
 import styled from "styled-components";
 import { diaryData } from "../_types/diaryData";
 
-import Image from "next/image";
 import { EMOTIONS } from "@/common/constants/emotions";
+import Image from "next/image";
 
 
 interface DiariesProps {
@@ -91,10 +91,6 @@ const NoDiaries = styled.div`
 
 
   color: rgb(var(--greyTitle));
-
-  img {
-    filter: brightness(1.1);
-  }
 
   @media (max-width: 479px) { //mobile port
     font-size: 18px;  

@@ -209,7 +209,6 @@ const EmotionItem = styled.div`
 const EmotionImage = styled(Image)`
   width: 56px;
   height: 56px;
-  filter: brightness(1.1);
   
   @media (min-width: 480px) {
     width: 64px;
@@ -231,7 +230,6 @@ const DominantEmotionImage = styled(Image)`
   width: 40px;
   height: 40px;
   flex-shrink: 0;
-  filter: brightness(1.1);
   
   @media (min-width: 480px) {
     width: 44px;

@@ -12,10 +12,9 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.everst
 
 interface Props {
   variant?: 'outro';
-  inlineWebLink?: boolean; // 버튼에 웹링크 포함 여부
 }
 
-const DownloadButtons = ({ variant, inlineWebLink = false }: Props) => {
+const DownloadButtons = ({ variant }: Props) => {
   const router = useRouter();
   const { installPwa } = usePwaInstall();
 
@@ -57,17 +56,10 @@ const DownloadButtons = ({ variant, inlineWebLink = false }: Props) => {
         <DownloadButton $variant={variant} onClick={installPwa}>
           <MdInstallMobile className="icon" />PWA
         </DownloadButton>
-        {inlineWebLink && (
-          <DownloadButton $variant="outline" onClick={startInWeb}>
-            웹에서 실행하기
-          </DownloadButton>
-        )}
       </ButtonGroup>
-      {!inlineWebLink && (
-        <WebLink $variant={variant} onClick={startInWeb}>
-          웹에서 실행하기
-        </WebLink>
-      )}
+      <WebLink $variant={variant} onClick={startInWeb}>
+        웹에서 실행하기
+      </WebLink>
     </>
   );
 };
@@ -87,7 +79,7 @@ const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
   margin: 0 6px;
   padding: 6px 24px;
   border-radius: 32px;
-  font-size: 16px;
+  font-size: 18px;
   color: rgb(var(--greyTitle));
   border: 2px solid rgba(0, 0, 0, 0.1);
   background-color: #8CADE255;
@@ -113,7 +105,7 @@ const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
 `;
 
 const WebLink = styled.button<{ $variant?: 'outro' }>`
-  font-size: 16px;
+  font-size: 18px;
   padding: 0 4px;
   border-bottom: solid 2px #8CADE255;
   color: #8CADE2;

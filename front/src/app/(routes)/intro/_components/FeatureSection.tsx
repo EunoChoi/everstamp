@@ -60,7 +60,7 @@ const Section = styled.section<{ $bg?: 'white' | 'blue' | 'lightBlue' }>`
   background-color: ${({ $bg }) => {
     if ($bg === 'white') return 'white';
     if ($bg === 'lightBlue') return '#f3f7fc';
-    if ($bg === 'blue') return '#bad0ea';
+    if ($bg === 'blue') return '#cbd9ea';
     return 'white';
   }};
 
@@ -130,23 +130,19 @@ const CaptionGroup = styled.div`
 
 const Caption = styled.span`
   color: grey;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
 
   @media (min-width: 480px) and (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   @media (min-width: 1025px) {
-    font-size: 18px;
+    font-size: 20px;
   }
 `;
 
 const MediaContainer = styled.div`
   height: 65dvh;
   width: 100%;
-
-  @media (min-width: 1025px) {
-    height: 55dvh;
-  }
 `;
