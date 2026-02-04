@@ -35,10 +35,6 @@ const EmotionImageWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  img {
-    filter: brightness(1.1);
-  }
-
   @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
     img{
       width: 48px;

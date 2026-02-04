@@ -65,7 +65,6 @@ const EmotionImageWrapper = styled.div`
     object-fit: contain;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
-    filter: brightness(1.1);
   }
 `;
 

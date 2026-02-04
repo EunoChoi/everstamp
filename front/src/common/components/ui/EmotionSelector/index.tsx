@@ -73,7 +73,6 @@ const EmotionImage = styled(Image)`
   height: 60px;
   flex-shrink: 0;
   object-fit: contain;
-  filter: brightness(1.1);
 
   @media (max-width: 479px) {
     width: 50px;

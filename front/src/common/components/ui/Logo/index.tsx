@@ -36,10 +36,6 @@ const LogoImageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  img {
-    filter: brightness(1.1);
-  }
 `;
 
 const LogoText = styled.span<{ $fontSize: string }>`
