@@ -1,5 +1,6 @@
 'use client';
 
+import { Overlay } from "@/common/components/ui/Overlay";
 import { lightenColor } from "@/common/utils/lightenColor";
 import styled from "styled-components";
 
@@ -13,7 +14,7 @@ interface Props {
 
 const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Props) => {
   return (
-    <Overlay className={isOpen ? 'open' : ''} onClick={onClose}>
+    <Overlay isOpen={isOpen} onClose={onClose}>
       <Wrapper onClick={(e) => e.stopPropagation()} className={isOpen ? 'open' : ''}>
         <Title>연도 선택</Title>
         <YearCard>
@@ -35,36 +36,6 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
 };
 
 export default YearSelector;
-
-const Overlay = styled.div`
-  position: fixed;
-  left: 0;
-  width: 100dvw;
-  height: 100dvh;
-  backdrop-filter: blur(4px);
-
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-
-  &.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  @media (max-width: 479px) {
-    top: 0;
-    z-index: 98;
-  }
-  @media (min-width: 480px) and (max-width: 1024px) {
-    top: 0;
-    z-index: 105;
-  }
-  @media (min-width: 1025px) {
-    top: 0;
-    z-index: 105;
-  }
-`;
 
 const Wrapper = styled.div`
   overflow: hidden;

@@ -1,3 +1,4 @@
+import { Overlay } from "@/common/components/ui/Overlay";
 import { getYear } from "date-fns";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -62,7 +63,7 @@ const DateFilter = ({
   };
 
   return (
-    <Overlay className={isOpen ? 'open' : ''} onClick={onClose}>
+    <Overlay isOpen={isOpen} onClose={onClose}>
       <Wrapper
         onClick={(e) => e.stopPropagation()}
         className={isOpen ? 'open' : ''}
@@ -91,36 +92,6 @@ const DateFilter = ({
 };
 
 export default DateFilter;
-
-const Overlay = styled.div`
-  position: fixed;
-  left: 0px;
-  width: 100dvw;
-  height: 100dvh;
-  backdrop-filter: blur(4px);
-
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-
-  &.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  @media (max-width: 479px) {
-    top: 0px;
-    z-index: 98;
-  }
-  @media (min-width: 480px) and (max-width: 1024px) {
-    top: 0px;
-    z-index: 105;
-  }
-  @media (min-width: 1025px) {
-    top: 0px;
-    z-index: 105;
-  }
-`;
 
 const Wrapper = styled.div`
   overflow: hidden;
