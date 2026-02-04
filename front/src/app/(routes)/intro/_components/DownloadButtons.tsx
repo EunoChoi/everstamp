@@ -3,10 +3,10 @@
 import { useRouter } from 'next/navigation';
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from 'notistack';
 import { MdAndroid, MdInstallMobile } from 'react-icons/md';
+import styled from 'styled-components';
 
 import { SnackBarAction } from '@/common/utils/snackBar/SnackBarAction';
 import { usePwaInstall } from '../_hooks/usePwaInstall';
-import { ButtonGroup, DownloadButton, WebLink } from '../_styles/intro.styles';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share';
 
@@ -73,3 +73,55 @@ const DownloadButtons = ({ variant, inlineWebLink = false }: Props) => {
 };
 
 export default DownloadButtons;
+
+
+const ButtonGroup = styled.div`
+  display: flex;
+`;
+
+const DownloadButton = styled.button<{ $variant?: 'outline' | 'outro' }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 6px;
+  padding: 6px 24px;
+  border-radius: 32px;
+  font-size: 16px;
+  color: rgb(var(--greyTitle));
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  background-color: #8CADE255;
+
+  .icon {
+    margin-right: 8px;
+  }
+
+  ${({ $variant }) =>
+    $variant === 'outline' &&
+    `
+    background-color: transparent;
+    border-color: #8CADE255;
+    padding: 6px 32px;
+  `}
+
+  ${({ $variant }) =>
+    $variant === 'outro' &&
+    `
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: #8CADE255;
+  `}
+`;
+
+const WebLink = styled.button<{ $variant?: 'outro' }>`
+  font-size: 16px;
+  padding: 0 4px;
+  border-bottom: solid 2px #8CADE255;
+  color: #8CADE2;
+
+  ${({ $variant }) =>
+    $variant === 'outro' &&
+    `
+    color: rgb(var(--greyTitle));
+    border-color: rgb(var(--greyTitle));
+  `}
+`;
