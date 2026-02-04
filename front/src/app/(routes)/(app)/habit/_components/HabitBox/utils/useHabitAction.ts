@@ -18,12 +18,7 @@ const useHabitAction = () => {
   const checkHabit = useMutation({
     mutationFn: ({ habitId, date }: CheckHabitProps) => Api.post('/habit/check', { habitId, date }),
     onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll()
-        .filter(cache => Array.isArray(cache.queryKey) && cache.queryKey[0] === 'habit')
-        .forEach(cache => {
-          queryClient.invalidateQueries({ queryKey: cache.queryKey });
-        });
+      queryClient.invalidateQueries({ queryKey: ['habit'] });
       console.log('chack habit success');
     },
     onError: (e: Err) => {
@@ -34,12 +29,7 @@ const useHabitAction = () => {
   const uncheckHabit = useMutation({
     mutationFn: ({ habitId, date }: CheckHabitProps) => Api.delete('/habit/check', { data: { habitId, date } }), //delete method data
     onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll()
-        .filter(cache => Array.isArray(cache.queryKey) && cache.queryKey[0] === 'habit')
-        .forEach(cache => {
-          queryClient.invalidateQueries({ queryKey: cache.queryKey });
-        });
+      queryClient.invalidateQueries({ queryKey: ['habit'] });
       console.log('unchack habit success');
     },
     onError: (e: Err) => {
@@ -50,10 +40,7 @@ const useHabitAction = () => {
   const deleteHabit = useMutation({
     mutationFn: async ({ habitId }: { habitId: number }) => await Api.delete(`habit?habitId=${habitId}`),
     onSuccess: () => {
-      const queryCache = queryClient.getQueryCache();
-      queryCache.getAll().forEach(cache => {
-        queryClient.invalidateQueries({ queryKey: cache.queryKey });
-      });
+      queryClient.invalidateQueries({ queryKey: ['habit'] });
       console.log('delete habit success');
       enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
     },
