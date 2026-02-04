@@ -13,7 +13,7 @@ interface ContentWrapperProps {
 
 export const ContentWrapper = styled.div<ContentWrapperProps>`
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   height: auto;
   
   display: flex;
