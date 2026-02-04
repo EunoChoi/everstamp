@@ -4,7 +4,7 @@ import type { DiaryData } from '@/common/types/diary';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import CommonCarousel from "../CommonCarousel";
+import Carousel from "../Carousel";
 import DiaryHabits from "./DiaryHabits";
 import DiaryHeader from "./DiaryHeader";
 
@@ -27,17 +27,19 @@ const LargeDiary = ({ diaryData }: Props) => {
       <DiaryHeader diaryData={diaryData} type="large" />
       <Content onClick={handleContentClick}>
         {hasImages && (
-          <CommonCarousel height="300px">
-            {images.map((img) => (
-              <CarouselImage
-                key={img.id}
-                src={img.src}
-                width={400}
-                height={400}
-                alt="diary image"
-              />
-            ))}
-          </CommonCarousel>
+          <CarouselContainer>
+            <Carousel>
+              {images.map((img) => (
+                <CarouselImage
+                  key={img.id}
+                  src={img.src}
+                  width={400}
+                  height={400}
+                  alt="diary image"
+                />
+              ))}
+            </Carousel>
+          </CarouselContainer>
         )}
         <Text className={hasImages ? 'hasImages' : ''}>
           {diaryData.text}
@@ -87,6 +89,15 @@ const Text = styled.div`
     }
   }
 `
+const CarouselContainer = styled.div`
+  width: 100%;
+  height: 300px;
+  
+  @media (min-width: 1024px) {
+    height: 400px;
+  }
+`
+
 const CarouselImage = styled(Image)`
   width: 100%;
   height: 100%;

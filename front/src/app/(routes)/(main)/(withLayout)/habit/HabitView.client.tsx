@@ -81,6 +81,8 @@ export default HabitView;
 
 const HabitContentWrapper = styled.div`
   width: 100%;
+  max-width: 600px;
+
   height: auto;
   
   display: flex;
