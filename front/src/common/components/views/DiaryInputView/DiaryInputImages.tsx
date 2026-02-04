@@ -1,72 +1,104 @@
-import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
 import styled from "styled-components";
-import loading from '/public/img/loading.gif';
 
-import { RefObject } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import { MdOutlineImage, MdRemove } from 'react-icons/md';
 
-import Api from "@/api/Api";
 import { lightenColor } from "@/common/utils/lightenColor";
 
 
 
 interface Props {
   imageUploadRef: RefObject<HTMLInputElement>;
-  images: Array<string>;
-  setImages: (images: string[]) => void;
+  images: Array<string | File>;
+  setImages: (images: Array<string | File>) => void;
   isLoading: boolean;
 }
 
-interface Err {
-  response: {
-    data?: string;
-    statusText?: string;
-  }
-}
-
 const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Props) => {
+  const blobUrlCacheRef = useRef<Map<string, string>>(new Map());
 
-  const ImageUploadMutation = useMutation({
-    mutationFn: (imageFormData: FormData) => Api.post('/image', imageFormData),
-    onSuccess: (res) => {
-      console.log(res);
-      setImages([...images, ...res.data]);
-    },
-    onError: (e: Err) => {
-      enqueueSnackbar(e?.response?.data, { variant: 'error' });
-      console.log(e);
-      console.log('image upload error');
-    },
-  });
+  // File 객체를 위한 고유 키 생성
+  const getFileKey = (file: File) => `${file.name}-${file.size}-${file.lastModified}`;
+
+  // 컴포넌트 언마운트 시 모든 Blob URL 해제
+  useEffect(() => {
+    const cache = blobUrlCacheRef.current;
+    return () => {
+      cache.forEach((url) => {
+        URL.revokeObjectURL(url);
+      });
+      cache.clear();
+    };
+  }, []);
 
   const onChangeImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const ArrayImages = Array.from(e.target.files);
 
+      // 개수 체크
       if (images.length + ArrayImages.length > 5) {
         enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'error' });
-        return null;
+        e.target.value = '';
+        return;
       }
 
-      const isOverSize = ArrayImages.find((file) => {
-        if (file.size > 5 * 1024 * 1024) return true;
-      });
+      // 용량 체크 (10MB)
+      const isOverSize = ArrayImages.find((file) => file.size > 10 * 1024 * 1024);
       if (isOverSize) {
-        enqueueSnackbar("선택된 이미지 중 5MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
-        return null;
+        enqueueSnackbar("선택된 이미지 중 10MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
+        e.target.value = '';
+        return;
       }
 
-      const imageFormData = new FormData();
-      Array.from(e.target.files).forEach(file => {
-        imageFormData.append("image", file);
-      });
+      // File 객체를 상태에 추가 (서버 업로드 안 함)
+      setImages([...images, ...ArrayImages]);
 
-      ImageUploadMutation.mutate(imageFormData);
+      // input value 초기화 - 같은 파일 재선택 가능하게
+      e.target.value = '';
     }
   };
 
+  // 이미지 URL 가져오기 (string이면 그대로, File이면 Blob URL)
+  const getImageUrl = (img: string | File): string => {
+    if (typeof img === 'string') {
+      return img;
+    }
+    // File 객체인 경우 캐시된 Blob URL 반환 (없으면 새로 생성)
+    if (img instanceof File) {
+      const key = getFileKey(img);
+      let blobUrl = blobUrlCacheRef.current.get(key);
+
+      if (!blobUrl) {
+        blobUrl = URL.createObjectURL(img);
+        blobUrlCacheRef.current.set(key, blobUrl);
+      }
+
+      return blobUrl;
+    }
+
+    return '';
+  };
+
+  // 이미지 제거 핸들러
+  const handleRemoveImage = (index: number) => {
+    const img = images[index];
+
+    // File 객체인 경우 Blob URL 해제
+    if (img instanceof File) {
+      const key = getFileKey(img);
+      const blobUrl = blobUrlCacheRef.current.get(key);
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+        blobUrlCacheRef.current.delete(key);
+      }
+    }
+
+    const deletedImageArray = [...images];
+    deletedImageArray.splice(index, 1);
+    setImages(deletedImageArray);
+  };
 
   return (
     <Wrapper>
@@ -74,23 +106,33 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
         <UploadButton disabled={isLoading} onClick={() => imageUploadRef.current?.click()}>
           <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
           <MdOutlineImage className="icon" />
-          <span>Upload</span>
+          <span>이미지</span>
         </UploadButton>
       </SquareBox>
-      {(images?.length > 0 || ImageUploadMutation?.isPending) &&
+      {images?.length > 0 &&
         <>
-          {images.map((e, i: number) =>
-            <SquareBox key={`image-${e}`}>
-              <UploadedImage src={e} alt='diary image' width={100} height={100} />
-              <ImageDeleteButton onClick={() => {
-                const deletedImageArray = [...images];
-                deletedImageArray.splice(i, 1);
-                setImages(deletedImageArray);
-              }}>
-                <MdRemove />
-              </ImageDeleteButton>
-            </SquareBox>)}
-          {ImageUploadMutation?.isPending ? <SquareBox className="loading"><Image src={loading} alt="loading" width={70} height={70} /></SquareBox> : <></>}
+          {images.map((img, i: number) => {
+            const imageUrl = getImageUrl(img);
+            const key = typeof img === 'string' ? `image-${img}` : `image-${img.name}-${i}`;
+
+            // imageUrl이 없으면 렌더링하지 않음
+            if (!imageUrl) return null;
+
+            return (
+              <SquareBox key={key}>
+                <UploadedImage
+                  src={imageUrl}
+                  alt='diary image'
+                  width={100}
+                  height={100}
+                  unoptimized
+                />
+                <ImageDeleteButton onClick={() => handleRemoveImage(i)}>
+                  <MdRemove />
+                </ImageDeleteButton>
+              </SquareBox>
+            );
+          })}
         </>
       }
     </Wrapper>

@@ -1,5 +1,6 @@
 "use client";
 
+import Api from "@/api/Api";
 import { getDiaryById } from "@/common/fetchers/diary";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
@@ -20,12 +21,18 @@ interface DiaryInputProps {
   isEdit: boolean;
   diaryId?: string | null;
 }
+
+interface ServerImageProps {
+  id: string;
+  src: string;
+}
+
 interface DiaryProps {
   id: string;
   date: Date;
   text: string;
   emotion: number;
-  Images: Array<any>;
+  Images: ServerImageProps[];
   diaryId: string | null;
   visible?: boolean;
 }
@@ -33,10 +40,6 @@ interface DiaryProps {
 function parseLocalDate(dateString: string): Date {
   const [year, month, day] = dateString.split('-').map(Number);
   return new Date(year, month - 1, day);
-}
-interface ServerImageProps {
-  id: string;
-  src: string;
 }
 
 const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
@@ -90,7 +93,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   const headerTitle = format(dateForDisplay, 'yyyy.M.dd (eee)');
 
   const [text, setText] = useState<string>(diaryData?.text ?? "");
-  const [images, setImages] = useState<Array<string>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);
+  const [images, setImages] = useState<Array<string | File>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);
   const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 10);
 
   useEffect(() => {
@@ -101,16 +104,46 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     }
   }, [diaryData]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (emotion < 0 || emotion > 9) {
       enqueueSnackbar('감정을 선택해주세요', { variant: 'info' });
       return;
     }
-    if (text.length !== 0) {
-      if (isEdit && diaryId) submitAction.mutate({ text, images, diaryId, emotion })
-      else submitAction.mutate({ date, text, images, emotion });
+    if (text.length === 0) {
+      enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
+      return;
     }
-    else enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
+
+    try {
+      // File 객체와 기존 URL 분리
+      const fileImages = images.filter((img): img is File => img instanceof File);
+      const stringImages = images.filter((img): img is string => typeof img === 'string');
+
+      let uploadedImageUrls: string[] = [];
+
+      // File이 있으면 서버에 업로드
+      if (fileImages.length > 0) {
+        const imageFormData = new FormData();
+        fileImages.forEach(file => {
+          imageFormData.append("image", file);
+        });
+
+        const uploadRes = await Api.post('/image', imageFormData);
+        uploadedImageUrls = uploadRes.data;
+      }
+
+      // 기존 URL + 새로 업로드된 URL 합치기
+      const finalImages = [...stringImages, ...uploadedImageUrls];
+
+      if (isEdit && diaryId) {
+        submitAction.mutate({ text, images: finalImages, diaryId, emotion });
+      } else {
+        submitAction.mutate({ date, text, images: finalImages, emotion });
+      }
+    } catch (error) {
+      console.error('이미지 업로드 실패:', error);
+      enqueueSnackbar('이미지 업로드 중 오류가 발생했습니다.', { variant: 'error' });
+    }
   };
 
   useEffect(() => {
