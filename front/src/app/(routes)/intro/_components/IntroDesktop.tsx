@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
+import styled from 'styled-components';
 
-import IntroPageCarousel from '@/common/components/ui/IntroPageCarousel';
+import Carousel from '@/common/components/ui/Carousel';
 import Logo from '@/common/components/ui/Logo';
 import { INTRO_IMAGES, SECTION_IMAGES } from '../_constants/images';
 import {
@@ -39,14 +40,21 @@ const IntroDesktop = () => {
           </FlexCol>
         </section>
         <section>
-          <IntroPageCarousel
-            images={SECTION_IMAGES.intro}
-            keyValue="intro"
-            type="fullWidth"
-            width="100%"
-            height="85%"
-            borderRadius="28px"
-          />
+          <CarouselContainer style={{ height: '85%' }}>
+            <Carousel objectFit="contain">
+              {SECTION_IMAGES.intro.map((src, i) => (
+                <IntroImage
+                  key={`intro-${i}`}
+                  src={src}
+                  alt="intro"
+                  width={600}
+                  height={600}
+                  priority
+                  $borderRadius="28px"
+                />
+              ))}
+            </Carousel>
+          </CarouselContainer>
         </section>
       </DesktopSection>
 
@@ -90,14 +98,21 @@ const IntroDesktop = () => {
           </FlexCol>
         </section>
         <section>
-          <IntroPageCarousel
-            images={SECTION_IMAGES.view}
-            keyValue="view"
-            type="fullWidth"
-            width="100%"
-            height="85%"
-            borderRadius="28px"
-          />
+          <CarouselContainer style={{ height: '85%' }}>
+            <Carousel objectFit="contain">
+              {SECTION_IMAGES.view.map((src, i) => (
+                <IntroImage
+                  key={`view-${i}`}
+                  src={src}
+                  alt="view"
+                  width={600}
+                  height={600}
+                  priority
+                  $borderRadius="28px"
+                />
+              ))}
+            </Carousel>
+          </CarouselContainer>
         </section>
       </DesktopSection>
 
@@ -129,14 +144,21 @@ const IntroDesktop = () => {
       {/* Habit - view */}
       <DesktopSection $bg="theme">
         <section>
-          <IntroPageCarousel
-            images={SECTION_IMAGES.habit}
-            keyValue="habit"
-            type="fullWidth"
-            width="100%"
-            height="85%"
-            borderRadius="28px"
-          />
+          <CarouselContainer style={{ height: '85%' }}>
+            <Carousel objectFit="contain">
+              {SECTION_IMAGES.habit.map((src, i) => (
+                <IntroImage
+                  key={`habit-${i}`}
+                  src={src}
+                  alt="habit"
+                  width={600}
+                  height={600}
+                  priority
+                  $borderRadius="28px"
+                />
+              ))}
+            </Carousel>
+          </CarouselContainer>
         </section>
         <section>
           <Title $desktop>#habit view feature</Title>
@@ -196,11 +218,11 @@ const IntroDesktop = () => {
       </DesktopSection>
 
       {/* Outro */}
-      <DesktopSection $bg="themeDark" $height="50dvh">
+      <DesktopSection $bg="themeDark">
         <section>
           <DownloadButtons variant="outro" />
           <LogoWrapper>
-            <Logo size={80} />
+            <Logo size={50} />
           </LogoWrapper>
         </section>
       </DesktopSection>
@@ -209,3 +231,18 @@ const IntroDesktop = () => {
 };
 
 export default IntroDesktop;
+
+const CarouselContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+`;
+
+const IntroImage = styled(Image) <{ $borderRadius?: string }>`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: ${props => props.$borderRadius || '0'};
+  object-fit: contain;
+`;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { getHabitById, getHabitMonthlyStatus } from "@/common/fetchers/habit";
@@ -9,7 +9,7 @@ import { getHabitById, getHabitMonthlyStatus } from "@/common/fetchers/habit";
 import { format } from 'date-fns';
 import { notFound, useRouter } from "next/navigation";
 import Calendar from "../../ui/Calendar";
-import Indicator from "../../ui/Indicator";
+import Carousel from "../../ui/Carousel";
 import { Modal } from "../../ui/Modal";
 import { StarRating } from "../../ui/StarRating";
 import MonthHabitCount from "./MonthHabitCount";
@@ -25,9 +25,6 @@ interface Props {
 
 const HabitInfoView = ({ habitId }: Props) => {
   const router = useRouter();
-
-  const slideWrapperRef = useRef<HTMLDivElement>(null);
-  const [page, setPage] = useState<number>(0);
 
   const [calendarDate, setCalendarDate] = useState<Date>(new Date());
   const [chartDate, setChartDate] = useState<Date>(new Date());
@@ -60,10 +57,6 @@ const HabitInfoView = ({ habitId }: Props) => {
     if (isError) notFound();
   }, [isError])
 
-  useEffect(() => {
-    slideWrapperRef.current?.scrollTo({ left: 0 });
-  }, [])
-
   return (
     <Modal>
       <Modal.Header headerTitleText='습관 정보' />
@@ -74,13 +67,8 @@ const HabitInfoView = ({ habitId }: Props) => {
         </MobilePortNameWrapper>
 
         <CarouselWrapper>
-          <CarouselSlideWrapper
-            ref={slideWrapperRef}
-            onScroll={(e) => {
-              setPage(Math.round((e.currentTarget?.scrollLeft - 1) / e.currentTarget?.clientWidth));
-            }}
-          >
-            <CarouselPage className="slideChild">
+          <Carousel gap={16}>
+            <CarouselPage>
               <MonthHabitCount
                 displayDate={calendarDate}
                 habitId={habitId}
@@ -103,7 +91,7 @@ const HabitInfoView = ({ habitId }: Props) => {
                 />
               </CalendarWrapper>
             </CarouselPage>
-            <CarouselPage className="slideChild">
+            <CarouselPage>
               <YearHabitCount
                 displayDate={chartDate}
                 habitName={habitDataById?.name ?? '-'}
@@ -112,8 +100,7 @@ const HabitInfoView = ({ habitId }: Props) => {
                 displayDate={chartDate}
                 setDisplayDate={setChartDate} />
             </CarouselPage>
-          </CarouselSlideWrapper>
-          <Indicator slideWrapperRef={slideWrapperRef} page={page} indicatorLength={2} />
+          </Carousel>
         </CarouselWrapper>
       </HabitInfoContent>
     </Modal>
@@ -165,36 +152,12 @@ const PriorityStar = styled(StarRating)`
 `
 
 const CarouselWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
-
-  @media (max-width: 479px) { //mobile port
-    padding: 16px 0;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-  }
-  @media (min-width:1024px) { //desktop
-  }
-`
-const CarouselSlideWrapper = styled.div`
-  scroll-snap-type: x mandatory;
-
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-grow: 1;
-  overflow-x: scroll;
-
   padding: 8px 12px;
 
-  .slideChild{
-    scroll-snap-align: center;
-    scroll-snap-stop: always !important;
-    &:not(:last-child) {
-      margin-right: 16px;
-    }
+  @media (max-width: 479px) { //mobile port
+    padding: 16px 12px;
   }
 `
 const CarouselPage = styled.div`

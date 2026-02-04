@@ -1,9 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import styled from 'styled-components';
 import { MdColorLens, MdLock, MdPhonelink } from 'react-icons/md';
 
-import IntroPageCarousel from '@/common/components/ui/IntroPageCarousel';
+import Carousel from '@/common/components/ui/Carousel';
 import Logo from '@/common/components/ui/Logo';
 import { INTRO_IMAGES, SECTION_IMAGES } from '../_constants/images';
 import {
@@ -33,14 +34,21 @@ const IntroMobile = () => {
           <span>내일 더 나은 나로 나아가기 위해</span>
           <span>감정 일기와 습관 만들기를 시작하세요.</span>
         </Text>
-        <IntroPageCarousel
-          images={SECTION_IMAGES.intro}
-          keyValue="mobileIntro"
-          type="fullWidth"
-          width="100dvw"
-          height="80dvh"
-          borderRadius="28px"
-        />
+        <CarouselContainer style={{ width: '100dvw', height: '80dvh' }}>
+          <Carousel objectFit="contain">
+            {SECTION_IMAGES.intro.map((src, i) => (
+              <IntroImage
+                key={`mobileIntro-${i}`}
+                src={src}
+                alt="intro"
+                width={600}
+                height={600}
+                priority
+                $borderRadius="28px"
+              />
+            ))}
+          </Carousel>
+        </CarouselContainer>
         <DownloadButtons />
         <FlexCol>
           <SubText>iOS 사용자의 경우 PWA를 설치하여 이용 가능합니다.</SubText>
@@ -75,14 +83,21 @@ const IntroMobile = () => {
           <span>일기, 감정, 습관 목록을 한눈에!</span>
           <span>달력 뷰와 리스트 뷰를 이용하세요.</span>
         </Text>
-        <IntroPageCarousel
-          images={SECTION_IMAGES.view}
-          keyValue="mobileView"
-          type="fullWidth"
-          width="100%"
-          height="80dvh"
-          borderRadius="28px"
-        />
+        <CarouselContainer style={{ height: '80dvh' }}>
+          <Carousel objectFit="contain">
+            {SECTION_IMAGES.view.map((src, i) => (
+              <IntroImage
+                key={`mobileView-${i}`}
+                src={src}
+                alt="view"
+                width={600}
+                height={600}
+                priority
+                $borderRadius="28px"
+              />
+            ))}
+          </Carousel>
+        </CarouselContainer>
         <FlexCol>
           <SubText>리스트 뷰에서 감정별 모아보기와</SubText>
           <SubText>날짜별 오름/내림 차순 정렬을 지원합니다.</SubText>
@@ -115,14 +130,21 @@ const IntroMobile = () => {
           <span>습관이 형성되는 시간 21일!</span>
           <span>실천 결과를 확인하고 점검하세요.</span>
         </Text>
-        <IntroPageCarousel
-          images={SECTION_IMAGES.habit}
-          keyValue="mobileHabit"
-          type="fullWidth"
-          width="100%"
-          height="80dvh"
-          borderRadius="28px"
-        />
+        <CarouselContainer style={{ height: '80dvh' }}>
+          <Carousel objectFit="contain">
+            {SECTION_IMAGES.habit.map((src, i) => (
+              <IntroImage
+                key={`mobileHabit-${i}`}
+                src={src}
+                alt="habit"
+                width={600}
+                height={600}
+                priority
+                $borderRadius="28px"
+              />
+            ))}
+          </Carousel>
+        </CarouselContainer>
         <FlexCol>
           <SubText>월간 습관 실천 여부는 달력 형태로</SubText>
           <SubText>연간 실천 여부는 그래프로 확인 가능합니다.</SubText>
@@ -172,15 +194,20 @@ const IntroMobile = () => {
             <span>멀티 플랫폼</span>
           </IconLabel>
         </FlexRow>
-        <IntroPageCarousel
-          images={SECTION_IMAGES.otherInfo}
-          keyValue="otherInfo"
-          type="fullWidth"
-          width="100%"
-          height="50dvh"
-          borderRadius="16px"
-          className="otherinfo"
-        />
+        <CarouselContainer style={{ height: '50dvh' }}>
+          <Carousel objectFit="contain">
+            {SECTION_IMAGES.otherInfo.map((src, i) => (
+              <OtherInfoImage
+                key={`otherInfo-${i}`}
+                src={src}
+                alt="otherinfo"
+                width={600}
+                height={600}
+                priority
+              />
+            ))}
+          </Carousel>
+        </CarouselContainer>
       </MobileSection>
 
       {/* Outro */}
@@ -195,3 +222,29 @@ const IntroMobile = () => {
 };
 
 export default IntroMobile;
+
+const CarouselContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+`;
+
+const IntroImage = styled(Image)<{ $borderRadius?: string }>`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: ${props => props.$borderRadius || '0'};
+  object-fit: contain;
+`;
+
+const OtherInfoImage = styled(Image)`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0px 0px 12px rgba(0,0,0,0.2);
+  object-fit: contain;
+`;

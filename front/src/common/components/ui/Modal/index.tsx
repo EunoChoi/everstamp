@@ -65,6 +65,7 @@ const ModalWrapper = styled.div`
   @media (min-width:1025px) {
     width: 600px;
     height: auto;
+    height: 85dvh;
     max-height: 85%;
     border-radius: 28px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
