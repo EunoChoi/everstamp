@@ -114,6 +114,14 @@ const HabitBoxs = styled.div`
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: repeat(2, 1fr);
+
+  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (min-width:1024px) { //desktop
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   
   gap: 12px;
   padding-bottom: 8px;
