@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link";
 import styled from "styled-components";
 import { useNavItems } from "./useNavItems";
 
@@ -13,15 +14,15 @@ const BottomNav = () => {
   return (
     <NavWrapper>
       <NavGroup>
-        {mainItems.map(({ key, icon: Icon, onClick }) => (
-          <NavMenu key={key} onClick={onClick} $active={current === key}>
+        {mainItems.map(({ key, icon: Icon, href }) => (
+          <NavMenu key={key} href={href} $active={current === key}>
             <Icon />
           </NavMenu>
         ))}
       </NavGroup>
 
       {settingItem && (
-        <SettingButton onClick={settingItem.onClick} $active={current === 'setting'}>
+        <SettingButton href={settingItem.href} $active={current === 'setting'}>
           <settingItem.icon />
         </SettingButton>
       )}
@@ -64,7 +65,7 @@ const NavGroup = styled.nav`
   pointer-events: auto;
 `;
 
-const NavMenu = styled.button<{ $active: boolean }>`
+const NavMenu = styled(Link) <{ $active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,10 +78,11 @@ const NavMenu = styled.button<{ $active: boolean }>`
   color: ${({ $active, theme }) => $active ? '#fff' : '#999'};
   background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'transparent'};
   
+  cursor: pointer;
   transition: all 0.2s ease;
 `;
 
-const SettingButton = styled.button<{ $active: boolean }>`
+const SettingButton = styled(Link) <{ $active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,5 +99,6 @@ const SettingButton = styled.button<{ $active: boolean }>`
   box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   
   pointer-events: auto;
+  cursor: pointer;
   transition: all 0.2s ease;
 `;
