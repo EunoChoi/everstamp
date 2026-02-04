@@ -69,15 +69,6 @@ export async function getHabitRecentStatus({ id, date }: HabitDateParams) {
   }
 }
 
-export async function getMonthlyHabitsStatus({ month }: MonthParams) {
-  try {
-    const { data } = await Api.get(`/habit/month?month=${month}`);
-    return data;
-  } catch (e: any) {
-    console.error(e.response.data);
-    throw new Error('Failed to get monthly habits status!!');
-  }
-}
 
 export async function getHabitMonthlyStatus({ id, month }: HabitMonthParams) {
   try {
