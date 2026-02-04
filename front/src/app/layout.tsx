@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-
 import { getCurrentUser } from "@/common/fetchers/user";
 import { RootProviders } from "@/common/utils/RootProviders";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
