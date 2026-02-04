@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { useCustomHabitOrder } from '@/app/(routes)/(main)/(withLayout)/habit/_hooks/useCustomHabitOrder';
+import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
 import { Modal } from '@/common/components/ui/Modal';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';

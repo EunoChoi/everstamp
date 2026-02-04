@@ -47,7 +47,7 @@ const Page = () => {
     router.prefetch('/setting');
   }, [router])
 
-  const options = { callbackUrl: '/' };
+  const options = { callbackUrl: '/login' };
 
   const loginProviders = [
     { id: 'google', name: '구글로 로그인', icon: google, signInOptions: { prompt: 'consent' } },
@@ -70,7 +70,7 @@ const Page = () => {
         <TextSection>
           <GreetingTitle>툭! 오늘도 하나씩 :)</GreetingTitle>
           <GreetingSubTitle>
-            <SubTitleLine>완벽한 하루가 아니어도 괜찮아요.</SubTitleLine>
+            <SubTitleLine>완벽한 하루가 아니어도 좋습니다.</SubTitleLine>
             <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
           </GreetingSubTitle>
         </TextSection>

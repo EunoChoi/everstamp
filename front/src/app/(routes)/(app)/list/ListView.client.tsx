@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
-import DateFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter/DateFilter";
-import EmotionFilter from "@/app/(routes)/(main)/(withLayout)/list/_components/ListFilter/EmotionFilter";
+import DateFilter from "@/app/(routes)/(app)/list/_components/ListFilter/DateFilter";
+import EmotionFilter from "@/app/(routes)/(app)/list/_components/ListFilter/EmotionFilter";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
