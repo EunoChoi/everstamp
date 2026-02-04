@@ -1,5 +1,6 @@
 // 외부 패키지
 const express = require("express");
+const { endOfMonth, startOfMonth } = require("date-fns");
 
 // 프로젝트 내부
 const db = require("../models/index.js");
@@ -7,7 +8,7 @@ const tokenCheck = require("../middleware/tokenCheck.js");
 const { getOrComputeStreak } = require('../function/computeStreaks.js');
 const decrypt = require('../function/decrypt.js');
 const encrypt = require('../function/encrypt.js');
-const { parseDate } = require('../function/parseDate.js');
+const { parseDate, parseMonth } = require('../function/parseDate.js');
 const { sendError } = require('../utils/errorResponse.js');
 
 const Op = db.Sequelize.Op;
@@ -369,6 +370,42 @@ router.get("/calendar", tokenCheck, async (req, res) => {
     if (e.message && (e.message.includes('Invalid') || e.message.includes('format'))) {
       return sendError(res, 400, e.message);
     }
+    return sendError(res, 500, '서버 에러가 발생했습니다.');
+  }
+})
+
+/**
+ * 용도: 월별 일기 데이터 조회. 날짜별 일기 존재 여부, 감정, 완료한 습관 정보.
+ * 요청: query month ('yyyy-MM'), tokenCheck
+ * 반환: 200 [ { date, visible, emotion, Habits: [ { name } ] } ]
+ */
+router.get("/month", tokenCheck, async (req, res) => {
+  console.log('----- method : get, url :  /diary/month -----');
+  const { month } = req.query;
+  const email = req.currentUserEmail;
+
+  try {
+    // [데이터 가공] 월 시작/끝 날짜
+    const current = parseMonth(month);
+    const monthStart = startOfMonth(current);
+    const monthEnd = endOfMonth(current);
+
+    // [비동기 처리] DB 조회
+    const diaries = await Diary.findAll({
+      where: {
+        email,
+        date: { [Op.between]: [monthStart, monthEnd] }
+      },
+      attributes: ['date', 'visible', 'emotion'],
+      include: [{
+        model: Habit,
+        attributes: ['name']
+      }]
+    });
+
+    return res.status(200).json(diaries);
+  } catch (e) {
+    console.error(e);
     return sendError(res, 500, '서버 에러가 발생했습니다.');
   }
 })

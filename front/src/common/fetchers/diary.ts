@@ -8,6 +8,10 @@ interface DateProps {
   date: string; // 'yyyy-MM-dd'
 }
 
+interface MonthParams {
+  month: string; // 'yyyy-MM'
+}
+
 interface ListProps {
   sort: string;
   search: number;
@@ -35,6 +39,16 @@ export async function getDiaryByDate({ date }: DateProps) {
   } catch (e: any) {
     console.error(e.response.data);
     throw new Error('Failed to fetch diary(date) data!!');
+  }
+}
+
+export async function getMonthlyDiaryData({ month }: MonthParams) {
+  try {
+    const { data } = await Api.get(`/diary/month?month=${month}`);
+    return data;
+  } catch (e: any) {
+    console.error(e.response.data);
+    throw new Error('Failed to get monthly diary data!!');
   }
 }
 

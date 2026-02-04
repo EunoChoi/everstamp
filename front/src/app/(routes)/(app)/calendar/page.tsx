@@ -1,8 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 //function
-import { getDiaryByDate } from "@/common/fetchers/diary";
-import { getMonthlyHabitsStatus } from "@/common/fetchers/habit";
+import { getDiaryByDate, getMonthlyDiaryData } from "@/common/fetchers/diary";
 import { getTodayString } from "@/common/functions/getTodayString";
 import CalendarView from "./CalendarView.client";
 
@@ -21,12 +20,12 @@ const CalendarPage = async ({ searchParams }: Props) => {
   //server prefetch
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['diary', 'calendar', date],
+    queryKey: ['diary', 'date', date],
     queryFn: () => getDiaryByDate({ date }),
   })
   await queryClient.prefetchQuery({
-    queryKey: ['habit', 'month', date.slice(0, 7)], // 'yyyy-MM-dd'에서 'yyyy-MM' 추출
-    queryFn: () => getMonthlyHabitsStatus({ month: date.slice(0, 7) }),
+    queryKey: ['diary', 'month', date.slice(0, 7)], // 'yyyy-MM-dd'에서 'yyyy-MM' 추출
+    queryFn: () => getMonthlyDiaryData({ month: date.slice(0, 7) }),
   })
 
 

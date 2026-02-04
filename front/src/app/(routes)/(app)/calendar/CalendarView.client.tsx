@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import styled from "styled-components";
 
 //function
-import { getDiaryByDate } from "@/common/fetchers/diary";
+import { getDiaryByDate, getMonthlyDiaryData } from "@/common/fetchers/diary";
 import { createEmptyDiary } from "@/common/types/diary";
 
 //styledComponent
@@ -16,7 +16,6 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
-import { getMonthlyHabitsStatus } from "@/common/fetchers/habit";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useRouter } from "next/navigation";
@@ -26,7 +25,7 @@ import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
 interface CalendarViewProps {
   date: string; // 'yyyy-MM-dd'
 }
-interface MonthHabitsType {
+interface MonthCalendarDataType {
   [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
 }
 
@@ -38,19 +37,19 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
   //get date diary data
   const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'calendar', date], // date는 이미 'yyyy-MM-dd' string
+    queryKey: ['diary', 'date', date],
     queryFn: () => getDiaryByDate({ date }),
   });
 
-  const { data: monthHabits } = useQuery({
-    queryKey: ['habit', 'month', format(displayDate, 'yyyy-MM')],
-    queryFn: () => getMonthlyHabitsStatus({ month: format(displayDate, 'yyyy-MM') }),
+  const { data: monthCalendarData } = useQuery({
+    queryKey: ['diary', 'month', format(displayDate, 'yyyy-MM')],
+    queryFn: () => getMonthlyDiaryData({ month: format(displayDate, 'yyyy-MM') }),
     select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
-      const monthHabits: MonthHabitsType = {};
+      const monthCalendarData: MonthCalendarDataType = {};
       data.forEach((e: any) => {
-        monthHabits[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
+        monthCalendarData[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
       });
-      return monthHabits;
+      return monthCalendarData;
     }
   });
 
@@ -72,7 +71,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
           displayDate={displayDate}
           setDisplayDate={setDisplayDate}
-          monthlyData={monthHabits}
+          monthlyData={monthCalendarData}
           RenderDateContent={RenderDateContent}
 
           onClickMonthTitle={onClickMonthTitle}
