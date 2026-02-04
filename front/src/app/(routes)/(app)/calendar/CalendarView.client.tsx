@@ -63,7 +63,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
   return (
     <PageWrapper>
-      <ContentWrapper gap={12} mobileGap={20} tabletGap={24} flex="1 1 0" paddingTop={24}>
+      <ContentWrapper $gap={12} $mobileGap={20} $tabletGap={24} $flex="1 1 0" $paddingTop={24}>
         <CalendarPageCalendar
           isTouchGestureEnabled={true}
           isDateSelectionEnabled={true}

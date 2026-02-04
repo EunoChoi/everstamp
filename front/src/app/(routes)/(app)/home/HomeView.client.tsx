@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useMemo, useState } from "react";
-import styled from "styled-components";
 
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
@@ -62,7 +61,7 @@ const HomeView = () => {
         </button>
       </TopButtons>
 
-      <ContentWrapper gap={28} paddingTop={8} paddingBottom={48}>
+      <ContentWrapper $gap={28} $paddingTop={8} $paddingBottom={48}>
         <GreetingSection />
 
         <DiaryAnalysis
