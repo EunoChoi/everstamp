@@ -20,10 +20,7 @@ const useSubmitHabit = () => {
   const queryClient = useQueryClient();
 
   const handleSuccess = (message: string) => {
-    const queryCache = queryClient.getQueryCache();
-    queryCache.getAll().forEach(cache => {
-      queryClient.invalidateQueries({ queryKey: cache.queryKey });
-    });
+    queryClient.invalidateQueries({ queryKey: ['habit'] });
     router.back();
     setTimeout(() => enqueueSnackbar(message, { variant: 'success' }), 300);
   };
