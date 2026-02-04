@@ -23,8 +23,8 @@ const useSubmitDiary = () => {
 
   const addDiary = useMutation({
     mutationFn: ({ date, text, images, emotion }: DiaryProps) => Api.post('/diary', { date, text, images, emotion }),
-    onSuccess: () => {
-      handleSuccess('일기 작성 완료');
+    onSuccess: async () => {
+      await handleSuccess('일기 작성 완료');
     },
     onError: (e: Err) => {
       handleError(e, '일기 작성 실패');
@@ -32,8 +32,8 @@ const useSubmitDiary = () => {
   });
   const editDiary = useMutation({
     mutationFn: ({ text, images, diaryId, emotion }: DiaryProps) => Api.patch(`/diary?diaryId=${diaryId}`, { text, images, emotion }),
-    onSuccess: () => {
-      handleSuccess('일기 수정 완료');
+    onSuccess: async () => {
+      await handleSuccess('일기 수정 완료');
     },
     onError: (e: Err) => {
       handleError(e, '일기 수정 실패');
@@ -46,10 +46,8 @@ const useSubmitDiary = () => {
     console.log(message);
   }
   const handleSuccess = (message: string) => {
-    const queryCache = queryClient.getQueryCache();
-    queryCache.getAll().forEach(cache => {
-      queryClient.invalidateQueries({ queryKey: cache.queryKey });
-    });
+    queryClient.invalidateQueries({ queryKey: ['diary'] });
+    queryClient.invalidateQueries({ queryKey: ['stats'] });
     router.back();
     console.log(message);
     setTimeout(() => {
