@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import styled from "styled-components";
 
-import DateFilter from "@/app/(routes)/(app)/list/_components/DateFilter";
 import EmotionFilter from "@/app/(routes)/(app)/list/_components/EmotionFilter";
+import MonthFilter from "@/app/(routes)/(app)/list/_components/MonthFilter";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
@@ -84,7 +84,7 @@ const ListView = () => {
           onClose={() => setEmotionFilterOpen(false)}
           setEmotionToggle={setEmotionToggle}
         />
-        <DateFilter
+        <MonthFilter
           contentRef={wrapperRef}
           isOpen={isDateFilterOpen}
           onClose={() => setDateFilterOpen(false)}
