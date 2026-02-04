@@ -9,6 +9,22 @@ const withPWA = nextPWA({
   register: true,
   skipWaiting: true,
   disable: dev ? true : false,
+  // 에러 페이지 이미지 precache (오프라인 대응)
+  additionalManifestEntries: [
+    { url: '/img/emotion/emotion1.png', revision: null }
+  ],
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'offlineCache',
+        expiration: {
+          maxEntries: 200,
+        },
+      },
+    },
+  ],
 });
 
 const nextConfig = {
