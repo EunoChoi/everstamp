@@ -4,7 +4,8 @@ import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import StyledComponentsRegistry from "../../../lib/registry";
-import { GlobalEffectInjection } from "./GlobalEffectInjection";
+import TopLoader from "../components/ui/TopLoader";
+import { useAutoCloseSnackbar } from "../hooks/useAutoCloseSnackbar";
 import RQProvider from "./reactQueryProvider";
 import ServiceWorkerRegister from "./ServiceWorkerRegister";
 import { SettingsProvider } from "./settingsContext/SettingsProvider";
@@ -23,8 +24,11 @@ interface Props {
  * - CustomSnackbarProvider: 토스트 알림
  * - HydrationBoundary: 서버 데이터 hydration
  * - SettingsProvider: 테마/폰트 설정
+ * - TopLoader: 페이지 전환 시 상단 로딩바 (테마색 적용)
  */
 export const RootProviders = ({ children, dehydratedState }: Props) => {
+  useAutoCloseSnackbar();
+
   return (
     <SessionProvider>
       <StyledComponentsRegistry>
@@ -32,8 +36,8 @@ export const RootProviders = ({ children, dehydratedState }: Props) => {
           <CustomSnackbarProvider>
             <HydrationBoundary state={dehydratedState}>
               <SettingsProvider>
+                <TopLoader />
                 <ServiceWorkerRegister />
-                <GlobalEffectInjection />
                 {children}
               </SettingsProvider>
             </HydrationBoundary>
