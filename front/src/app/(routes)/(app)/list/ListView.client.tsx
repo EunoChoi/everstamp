@@ -37,7 +37,7 @@ const ListView = () => {
   const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
-    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'momth', selectedMonth],
+    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'month', selectedMonth],
     queryFn: ({ pageParam }) => getDiaryList({
       sort: toggleValue,
       search: emotionToggle,
