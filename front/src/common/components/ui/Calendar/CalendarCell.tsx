@@ -1,4 +1,3 @@
-import { lightenColor } from "@/common/utils/lightenColor";
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
 import { useRouter } from "next/navigation";
 import { memo } from "react";
@@ -38,11 +37,15 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
     <CellWrapper
       onClick={handleClick}
       className={`
-        ${(isCurrentMonth && isToday) ? 'today' : ''}
         ${isCurrentMonth ? 'currentMonth' : 'notCurrentMonth'}
         ${(isCurrentMonth && isSelectedDate) ? 'selected' : ''}
       `}
     >
+      <TodayDot
+        className={`
+          ${(isCurrentMonth && isToday) ? 'today' : ''}
+      `}
+      />
       {RenderDateContent ?
         <RenderDateContent cellDate={cellDate} />
         : format(cellDate, 'd')
@@ -53,12 +56,14 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
 
 CalendarCell.displayName = 'CalendarCell';
 
-const CellWrapper = styled.div`
-  transition: background-color 300ms ease-in-out;
 
+const CellWrapper = styled.div`
   width: 14%;
   height: 98%;
+  position: relative;
+
   display: flex;
+  flex-direction:column;
   justify-content: center;
   align-items: center;
 
@@ -67,13 +72,15 @@ const CellWrapper = styled.div`
 
   border : solid transparent 3px;
   border-radius: 8px;
-  &.currentMonth{}
-  &.today{
-    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 70) : '#B0B8D4'}; 
+
+
+  img{
+    transition: all ease-in-out 200ms;
   }
   &.selected{
-    background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 80) : '#B0B8D4'}; 
-    z-index: 1;
+    img{
+      transform :scale(1.2);
+    }
   }
   &.notCurrentMonth{
     opacity: 0.3;
@@ -82,4 +89,19 @@ const CellWrapper = styled.div`
   span{
     font-size: 16px;
   }
+`
+const TodayDot = styled.div`
+  z-index: 99;
+  position: absolute;
+  top: 0;
+
+  display: none;
+  &.today{
+    display: block;
+  }
+
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#B0B8D4'};
 `
