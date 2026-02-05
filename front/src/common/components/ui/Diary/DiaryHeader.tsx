@@ -14,7 +14,7 @@ interface Props {
 const EMOTIONS = ['#화남', '#슬픔', '#보통', '#행복', '#기쁨'] as const;
 
 const DiaryHeader = ({ diaryData, type }: Props) => {
-  const date = format(diaryData.date, 'yy년 M월 d일');
+  const date = format(diaryData.date, 'yyyy년 M월 d일');
   const day = format(diaryData.date, 'eeee', { locale: ko });
 
   const [isMenuOpen, setMenuOpen] = useState(false);
