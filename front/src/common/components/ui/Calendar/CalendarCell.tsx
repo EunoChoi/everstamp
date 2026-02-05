@@ -1,7 +1,7 @@
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
 import { useRouter } from "next/navigation";
 import { memo } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useCalendar } from "./CalendarContext";
 import { useGetSelectedDate } from "./hooks/useGetSelectedDate";
 
@@ -56,6 +56,13 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
 
 CalendarCell.displayName = 'CalendarCell';
 
+// selected 될 때 한 번만 통통 튀는 느낌
+const selectedPop = keyframes`
+  0% { transform: scale(1); }
+  40% { transform: scale(1.2); }
+  70% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+`;
 
 const CellWrapper = styled.div`
   width: 14%;
@@ -73,15 +80,13 @@ const CellWrapper = styled.div`
   border : solid transparent 3px;
   border-radius: 8px;
 
+  transition: opacity 200ms ease-in-out;
+  &:not(.selected) {
+  }
+  &.selected {
+    animation: ${selectedPop} 0.35s ease-out;
+  }
 
-  img{
-    transition: all ease-in-out 200ms;
-  }
-  &.selected{
-    img{
-      transform :scale(1.2);
-    }
-  }
   &.notCurrentMonth{
     opacity: 0.3;
   }
