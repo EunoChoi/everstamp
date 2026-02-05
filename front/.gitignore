@@ -17,6 +17,7 @@ workbox
 .env
 .env.local
 
+/scripts
 
 # testing
 /coverage
