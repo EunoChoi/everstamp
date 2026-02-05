@@ -1,4 +1,5 @@
 import { getDiaryList } from "@/common/fetchers/diary";
+import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import ListView from "./ListView.client";
 
@@ -11,26 +12,26 @@ const ListPage = async () => {
   //prefetch list data - all emotion and all sort
   for (let i = 0; i <= 5; i++) {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'momth', 0],
+      queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'momth', MONTH_UNSELECTED],
       queryFn: ({ pageParam }) => getDiaryList({
         sort: 'ASC',
         search: i,
         pageParam,
         limit,
         selectedYear: selectedYear,
-        selectedMonth: 0
+        selectedMonth: MONTH_UNSELECTED
       }),
       initialPageParam: 0,
     })
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'list', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'momth', 0],
+      queryKey: ['diary', 'list', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'momth', MONTH_UNSELECTED],
       queryFn: ({ pageParam }) => getDiaryList({
         sort: 'DESC',
         search: i,
         pageParam,
         limit,
         selectedYear: selectedYear,
-        selectedMonth: 0
+        selectedMonth: MONTH_UNSELECTED
       }),
       initialPageParam: 0,
     })

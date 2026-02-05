@@ -1,13 +1,14 @@
 import { EmotionSelector } from "@/common/components/ui/EmotionSelector";
 import { Overlay } from "@/common/components/ui/Overlay";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (params?: URLSearchParams) => void;
   setEmotionToggle: (d: number) => void;
 }
 
@@ -17,31 +18,27 @@ const EmotionFilter = ({
   onClose,
   setEmotionToggle,
 }: Props) => {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
 
-  const [tempEmotion, setTempEmotion] = useState<number>(10);
+  const [tempEmotion, setTempEmotion] = useState<number>(EMOTION_UNSELECTED);
   const emotion = searchParams.get('emotion');
-  const year = searchParams.get('year');
-  const month = searchParams.get('month');
 
   useEffect(() => {
     if (isOpen) {
       if (emotion) setTempEmotion(Number(emotion));
-      else setTempEmotion(10);
+      else setTempEmotion(EMOTION_UNSELECTED);
     }
   }, [isOpen, emotion]);
 
   const onSubmit = () => {
-    const params = new URLSearchParams();
-    if (tempEmotion !== 10) params.set('emotion', tempEmotion.toString());
-    if (year) params.set('year', year);
-    if (month) params.set('month', month);
+    const params = new URLSearchParams(searchParams);
+    params.delete('modal');
 
-    router.push(`${pathname}${params.toString() ? `?${params.toString()}` : ''}`);
+    if (tempEmotion !== EMOTION_UNSELECTED) params.set('emotion', tempEmotion.toString());
+    else params.delete('emotion');
+
     setEmotionToggle(tempEmotion);
-    onClose();
+    onClose(params);
 
     setTimeout(() => {
       contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -49,11 +46,11 @@ const EmotionFilter = ({
   };
 
   const onInitialize = () => {
-    setTempEmotion(10);
+    setTempEmotion(EMOTION_UNSELECTED);
   };
 
   return (
-    <Overlay isOpen={isOpen} onClose={onClose}>
+    <Overlay isOpen={isOpen} onClose={() => onClose()}>
       <Wrapper
         onClick={(e) => e.stopPropagation()}
         className={isOpen ? 'open' : ''}
@@ -66,7 +63,7 @@ const EmotionFilter = ({
         </EmotionCard>
         <InitButton onClick={onInitialize}>초기화</InitButton>
         <ButtonWrapper>
-          <Button className="cancel" onClick={onClose}>취소</Button>
+          <Button className="cancel" onClick={() => onClose()}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>

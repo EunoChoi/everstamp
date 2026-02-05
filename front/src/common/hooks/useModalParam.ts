@@ -19,7 +19,13 @@ export function useModalParam(modalKey: ModalFilterKey) {
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  const close = () => {
+  // 인자 있으면 그 쿼리로 replace (확인 시). 없으면 현재 URL에서 modal만 빼고 replace
+  const close = (queryParams?: URLSearchParams) => {
+    if (queryParams !== undefined) {
+      const query = queryParams.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname);
+      return;
+    }
     const params = new URLSearchParams(searchParams);
     params.delete(MODAL_PARAM);
     const query = params.toString();

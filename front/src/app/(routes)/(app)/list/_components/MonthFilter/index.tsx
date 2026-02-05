@@ -1,6 +1,6 @@
 import { Overlay } from "@/common/components/ui/Overlay";
-import { getYear } from "date-fns";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MdRefresh } from 'react-icons/md';
 import styled from "styled-components";
@@ -9,48 +9,47 @@ import MonthSelector from "./MonthSelector";
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (params?: URLSearchParams) => void;
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
   setSelectedMonth: (d: number) => void;
 }
 
-const DateFilter = ({
+const MonthFilter = ({
   contentRef,
   isOpen,
   onClose,
   setSelectedYear,
   setSelectedMonth,
 }: Props) => {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
 
-  const [tempYear, setTempYear] = useState<number>(getYear(new Date()));
-  const [tempMonth, setTempMonth] = useState<number>(0);
+  const [tempYear, setTempYear] = useState<number>(getDefaultYear());
+  const [tempMonth, setTempMonth] = useState<number>(MONTH_UNSELECTED);
 
   const year = searchParams.get('year');
   const month = searchParams.get('month');
-  const emotion = searchParams.get('emotion');
 
   useEffect(() => {
     if (isOpen) {
       if (year) setTempYear(Number(year));
-      else setTempYear(getYear(new Date()));
+      else setTempYear(getDefaultYear());
       if (month) setTempMonth(Number(month));
-      else setTempMonth(0);
+      else setTempMonth(MONTH_UNSELECTED);
     }
   }, [isOpen, year, month]);
 
   const onSubmit = () => {
-    const params = new URLSearchParams();
-    if (emotion) params.set('emotion', emotion);
-    if (tempYear !== getYear(new Date())) params.set('year', tempYear.toString());
-    if (tempMonth !== 0) params.set('month', tempMonth.toString());
+    const params = new URLSearchParams(searchParams);
+    params.delete('modal');
 
-    router.push(`${pathname}${params.toString() ? `?${params.toString()}` : ''}`);
+    if (tempYear !== getDefaultYear()) params.set('year', tempYear.toString());
+    else params.delete('year');
+    if (tempMonth !== MONTH_UNSELECTED) params.set('month', tempMonth.toString());
+    else params.delete('month');
+
     setSelectedYear(tempYear);
     setSelectedMonth(tempMonth);
-    onClose();
+    onClose(params);
 
     setTimeout(() => {
       contentRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -58,12 +57,12 @@ const DateFilter = ({
   };
 
   const onInitialize = () => {
-    setTempYear(getYear(new Date()));
-    setTempMonth(0);
+    setTempYear(getDefaultYear());
+    setTempMonth(MONTH_UNSELECTED);
   };
 
   return (
-    <Overlay isOpen={isOpen} onClose={onClose}>
+    <Overlay isOpen={isOpen} onClose={() => onClose()}>
       <Wrapper
         onClick={(e) => e.stopPropagation()}
         className={isOpen ? 'open' : ''}
@@ -83,7 +82,7 @@ const DateFilter = ({
           <MdRefresh />초기화
         </InitButton>
         <ButtonWrapper>
-          <Button className="cancel" onClick={onClose}>취소</Button>
+          <Button className="cancel" onClick={() => onClose()}>취소</Button>
           <Button onClick={onSubmit}>확인</Button>
         </ButtonWrapper>
       </Wrapper>
@@ -91,7 +90,7 @@ const DateFilter = ({
   );
 };
 
-export default DateFilter;
+export default MonthFilter;
 
 const Wrapper = styled.div`
   overflow: hidden;

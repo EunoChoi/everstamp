@@ -4,21 +4,21 @@ import Image from "next/image";
 import styled from "styled-components";
 
 import { EMOTIONS } from "@/common/constants/emotions";
+import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
 
 export interface EmotionSelectorProps {
   value: number;
   onChange: (value: number) => void;
 }
 
-/** value 0~9: 감정 선택. value 10: 전체(아무것도 선택 안 함). 클릭 시 같은 거 다시 누르면 10(전체). */
 export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
   const firstRow = EMOTIONS.slice(0, 5);
-  const secondRow = EMOTIONS.slice(5, 10);
+  const secondRow = EMOTIONS.slice(5, EMOTIONS.length);
 
-  const isSelected = (id: number) => value === id || value === 10;
+  const isSelected = (id: number) => value === id || value === EMOTION_UNSELECTED;
 
   const handleClick = (id: number) => {
-    if (value === id) onChange(10);
+    if (value === id) onChange(EMOTION_UNSELECTED);
     else onChange(id);
   };
 
