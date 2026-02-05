@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-import { getYear } from "date-fns";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+
+import { getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useState } from "react";
 import { lightenColor } from "@/common/utils/lightenColor";
 
@@ -24,18 +25,18 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
 
   const goToNextYear = () => {
     setSelectedYear(c => c + 1);
-    setSelectedMonth(0);
+    setSelectedMonth(MONTH_UNSELECTED);
   }
   const goToPreYear = () => {
     setSelectedYear(c => c - 1);
-    setSelectedMonth(0);
+    setSelectedMonth(MONTH_UNSELECTED);
   }
   const goToCurrentDate = () => {
-    setSelectedYear(getYear(new Date()));
+    setSelectedYear(getDefaultYear());
   };
   const selectMonth = (n: number) => {
     if (selectedMonth === n) {
-      setSelectedMonth(0)
+      setSelectedMonth(MONTH_UNSELECTED)
     }
     else setSelectedMonth(n)
   }

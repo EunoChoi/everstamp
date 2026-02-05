@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 
 import { EMOTIONS } from "@/common/constants/emotions";
+import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { getEmotionMessage } from "../_messages/emotionMessages";
 
 interface Props {
@@ -62,7 +63,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props)
   const getMessage = () => {
     return getEmotionMessage({
       totalCount,
-      selectedMonth: selectedQuarter === 0 ? 0 : selectedQuarter,
+      selectedMonth: selectedQuarter === 0 ? MONTH_UNSELECTED : selectedQuarter,
       selectedMonthName: QUARTER_OPTIONS[selectedQuarter],
       dominantEmotion,
     });
