@@ -5,6 +5,7 @@ import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import PageTitle from "@/common/components/ui/PageTitle";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
+import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -22,8 +23,6 @@ interface Habit {
   name: string;
   priority: number;
 }
-
-const MAX_HABIT_COUNT = 18;
 
 const HABIT_SORT_LABELS: Record<HabitSort, string> = {
   ASC: '과거순',

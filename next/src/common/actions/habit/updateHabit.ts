@@ -2,19 +2,37 @@
 
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
+import {
+  HABIT_NAME_MAX_LENGTH,
+  HABIT_NAME_MIN_LENGTH,
+} from '../../constants/habit';
 import type { ActionResult } from '../types';
-import type { HabitData, HabitInputParams } from './types';
-import { createAuthErrorResult, createServerErrorResult, formatHabitData, parseHabitId } from './utils';
+import type { HabitData, HabitFormParams } from './types';
+import {
+  createAuthErrorResult,
+  createServerErrorResult,
+  formatHabitData,
+  isValidHabitName,
+  isValidHabitPriority,
+  parseHabitId,
+} from './utils';
 
-export const updateHabit = async ({ habitId, habitName, priority }: HabitInputParams): Promise<ActionResult<HabitData>> => {
+export const updateHabit = async ({ habitId, habitName, priority }: HabitFormParams): Promise<ActionResult<HabitData>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
     const parsedHabitId = parseHabitId(habitId);
-    if (!parsedHabitId || habitName == null || typeof habitName !== 'string' || !habitName.trim()) {
-      return { ok: false, code: 'INVALID_HABIT_INPUT', message: 'habitId와 habitName은 필수이며 habitName은 비어있을 수 없습니다.' };
+    if (!parsedHabitId) {
+      return { ok: false, code: 'INVALID_HABIT_ID', message: 'habitId는 필수입니다.' };
     }
+    if (!isValidHabitName(habitName)) {
+      return { ok: false, code: 'INVALID_HABIT_NAME', message: `습관 이름은 ${HABIT_NAME_MIN_LENGTH}~${HABIT_NAME_MAX_LENGTH}자로 입력해주세요.` };
+    }
+    if (!isValidHabitPriority(priority)) {
+      return { ok: false, code: 'INVALID_HABIT_PRIORITY', message: '습관 우선순위가 올바르지 않습니다.' };
+    }
+    const normalizedHabitName = habitName.trim();
 
     const habit = await prisma.habit.findFirst({
       where: { id: parsedHabitId, email: auth.email },
@@ -27,7 +45,7 @@ export const updateHabit = async ({ habitId, habitName, priority }: HabitInputPa
     const duplicateName = await prisma.habit.findFirst({
       where: {
         email: auth.email,
-        name: habitName,
+        name: normalizedHabitName,
         id: { not: parsedHabitId },
       },
     });
@@ -38,7 +56,7 @@ export const updateHabit = async ({ habitId, habitName, priority }: HabitInputPa
 
     const updatedHabit = await prisma.habit.update({
       where: { id: habit.id },
-      data: { name: habitName, priority },
+      data: { name: normalizedHabitName, priority },
     });
 
     return { ok: true, data: formatHabitData(updatedHabit) };

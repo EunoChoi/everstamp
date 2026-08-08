@@ -15,7 +15,7 @@ const HabitInfoPage = async ({ searchParams }: Props) => {
   let habitId = params.id;
 
   await queryClient.prefetchQuery({
-    queryKey: ['habits', 'id', habitId],
+    queryKey: ['habit', 'id', habitId],
     queryFn: async () => {
       const result = await getHabitById({ id: habitId });
       if (!result.ok) throw new Error(result.message);

@@ -1,6 +1,12 @@
 import type { Habit } from '@prisma/client';
 
 import type { AuthResult } from '../../../auth/getAuth';
+import {
+  HABIT_NAME_MAX_LENGTH,
+  HABIT_NAME_MIN_LENGTH,
+  HABIT_PRIORITY_MAX,
+  HABIT_PRIORITY_MIN,
+} from '../../../constants/habit';
 import type { ActionResult } from '../../types';
 import type { HabitData } from '../types';
 
@@ -69,6 +75,19 @@ export const parseHabitId = (id: string | number | null | undefined) => {
   }
 
   return habitId;
+};
+
+export const isValidHabitName = (name: unknown): name is string => {
+  return typeof name === 'string'
+    && name.trim().length >= HABIT_NAME_MIN_LENGTH
+    && name.trim().length <= HABIT_NAME_MAX_LENGTH;
+};
+
+export const isValidHabitPriority = (priority: unknown): priority is number => {
+  return typeof priority === 'number'
+    && Number.isInteger(priority)
+    && priority >= HABIT_PRIORITY_MIN
+    && priority <= HABIT_PRIORITY_MAX;
 };
 
 export const formatHabitData = (habit: Habit): HabitData => {

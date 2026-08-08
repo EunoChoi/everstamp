@@ -2,19 +2,33 @@
 
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
+import {
+  HABIT_NAME_MAX_LENGTH,
+  HABIT_NAME_MIN_LENGTH,
+  MAX_HABIT_COUNT,
+} from '../../constants/habit';
 import type { ActionResult } from '../types';
-import { MAX_HABIT_COUNT } from './constants';
-import type { HabitData, HabitInputParams } from './types';
-import { createAuthErrorResult, createServerErrorResult, formatHabitData } from './utils';
+import type { HabitData, HabitFormParams } from './types';
+import {
+  createAuthErrorResult,
+  createServerErrorResult,
+  formatHabitData,
+  isValidHabitName,
+  isValidHabitPriority,
+} from './utils';
 
-export const createHabit = async ({ habitName, priority }: HabitInputParams): Promise<ActionResult<HabitData>> => {
+export const createHabit = async ({ habitName, priority }: HabitFormParams): Promise<ActionResult<HabitData>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
-    if (habitName == null || typeof habitName !== 'string' || !habitName.trim()) {
-      return { ok: false, code: 'INVALID_HABIT_NAME', message: 'habitName은 필수이며 비어있을 수 없습니다.' };
+    if (!isValidHabitName(habitName)) {
+      return { ok: false, code: 'INVALID_HABIT_NAME', message: `습관 이름은 ${HABIT_NAME_MIN_LENGTH}~${HABIT_NAME_MAX_LENGTH}자로 입력해주세요.` };
     }
+    if (!isValidHabitPriority(priority)) {
+      return { ok: false, code: 'INVALID_HABIT_PRIORITY', message: '습관 우선순위가 올바르지 않습니다.' };
+    }
+    const normalizedHabitName = habitName.trim();
 
     const user = await prisma.user.findUnique({
       where: { email: auth.email },
@@ -26,7 +40,7 @@ export const createHabit = async ({ habitName, priority }: HabitInputParams): Pr
     }
 
     const existingHabit = await prisma.habit.findFirst({
-      where: { userId: user.id, name: habitName },
+      where: { userId: user.id, name: normalizedHabitName },
     });
 
     if (existingHabit) {
@@ -38,14 +52,14 @@ export const createHabit = async ({ habitName, priority }: HabitInputParams): Pr
     });
 
     if (habitCount >= MAX_HABIT_COUNT) {
-      return { ok: false, code: 'HABIT_LIMIT_EXCEEDED', message: '습관은 최대 18개까지 생성 가능합니다.' };
+      return { ok: false, code: 'HABIT_LIMIT_EXCEEDED', message: `습관은 최대 ${MAX_HABIT_COUNT}개까지 생성 가능합니다.` };
     }
 
     const habit = await prisma.habit.create({
       data: {
         userId: user.id,
         email: auth.email,
-        name: habitName,
+        name: normalizedHabitName,
         priority,
       },
     });

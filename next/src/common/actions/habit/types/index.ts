@@ -25,7 +25,7 @@ export type HabitYearParams = {
   year: string;
 };
 
-export type HabitInputParams = {
+export type HabitFormParams = {
   habitId?: string | number | null;
   habitName: string;
   priority: number;

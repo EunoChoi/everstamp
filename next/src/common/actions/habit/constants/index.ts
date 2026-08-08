@@ -1,1 +1,1 @@
-export const MAX_HABIT_COUNT = 18;
+export { MAX_HABIT_COUNT } from '../../../constants/habit';
