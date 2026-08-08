@@ -24,12 +24,8 @@ export const getMonthlyDiaryData = async ({ month }: MonthParams): Promise<Actio
         date: true,
         visible: true,
         emotion: true,
-        diaryHabits: {
-          select: {
-            habit: {
-              select: { name: true },
-            },
-          },
+        habits: {
+          select: { name: true },
         },
       },
     });
@@ -40,7 +36,7 @@ export const getMonthlyDiaryData = async ({ month }: MonthParams): Promise<Actio
         date: diary.date,
         visible: diary.visible,
         emotion: diary.emotion,
-        Habits: diary.diaryHabits.map(({ habit }) => ({ name: habit.name })),
+        Habits: diary.habits.map(({ name }) => ({ name })),
       })),
     };
   } catch (error) {

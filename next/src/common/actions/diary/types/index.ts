@@ -9,6 +9,7 @@ export type DiaryData = {
   emotion: number;
   Images: {
     id: string;
+    imageContentId: string;
     src: string;
     order: number | null;
   }[];
@@ -32,14 +33,14 @@ export type MonthlyDiaryData = {
 export type CreateDiaryParams = {
   date?: string;
   text: string;
-  images: string[];
+  imageContentIds: string[];
   emotion: number;
 };
 
 export type UpdateDiaryParams = {
   diaryId?: string | null;
   text: string;
-  images: string[];
+  imageContentIds: string[];
   emotion: number;
 };
 
@@ -70,11 +71,11 @@ export type DiaryListParams = {
 
 export type DiaryWithRelations = Prisma.DiaryGetPayload<{
   include: {
-    images: true;
-    diaryHabits: {
+    images: {
       include: {
-        habit: true;
+        imageContent: true;
       };
     };
+    habits: true;
   };
 }>;

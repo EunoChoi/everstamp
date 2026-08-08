@@ -37,10 +37,13 @@ export const uncheckHabit = async ({ habitId, date }: CheckHabitParams): Promise
       });
       if (!diary) throw new Error('DIARY_NOT_FOUND');
 
-      await tx.diaryHabit.deleteMany({
-        where: {
-          habitId: habit.id,
-          diaryId: diary.id,
+      // Diary와 Habit의 암시적 N:M 연결에서 해당 habit만 해제한다.
+      await tx.diary.update({
+        where: { id: diary.id },
+        data: {
+          habits: {
+            disconnect: { id: habit.id },
+          },
         },
       });
     });

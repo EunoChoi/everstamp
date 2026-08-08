@@ -31,9 +31,6 @@ export const deleteCurrentUser = async (): Promise<ActionResult<string>> => {
         await tx.image.deleteMany({
           where: { diaryId: { in: diaryIds } },
         });
-        await tx.diaryHabit.deleteMany({
-          where: { diaryId: { in: diaryIds } },
-        });
       }
 
       await tx.diary.deleteMany({

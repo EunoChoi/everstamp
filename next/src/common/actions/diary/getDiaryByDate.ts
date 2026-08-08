@@ -21,17 +21,21 @@ export const getDiaryByDate = async ({ date }: DateParams): Promise<ActionResult
         date,
       },
       include: {
-        images: { orderBy: { order: 'asc' } },
-        diaryHabits: {
-          include: { habit: true },
-          orderBy: { habit: { priority: 'desc' } },
+        images: {
+          include: {
+            imageContent: true,
+          },
+          orderBy: { order: 'asc' },
+        },
+        habits: {
+          orderBy: { priority: 'desc' },
         },
       },
     });
 
     if (!diary) return { ok: true, data: null };
 
-    return { ok: true, data: formatDiaryData(diary) };
+    return { ok: true, data: await formatDiaryData(diary) };
   } catch (error) {
     console.error(error);
     return createServerErrorResult();

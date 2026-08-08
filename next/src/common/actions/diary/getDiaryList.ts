@@ -50,10 +50,14 @@ export const getDiaryList = async ({
       skip: offset,
       take: limitNum,
       include: {
-        images: { orderBy: { order: 'asc' } },
-        diaryHabits: {
-          include: { habit: true },
-          orderBy: { habit: { priority: 'desc' } },
+        images: {
+          include: {
+            imageContent: true,
+          },
+          orderBy: { order: 'asc' },
+        },
+        habits: {
+          orderBy: { priority: 'desc' },
         },
       },
       orderBy: [
@@ -61,7 +65,7 @@ export const getDiaryList = async ({
       ],
     });
 
-    return { ok: true, data: diaries.map(formatDiaryData) };
+    return { ok: true, data: await Promise.all(diaries.map(formatDiaryData)) };
   } catch (error) {
     console.error(error);
     return createServerErrorResult();

@@ -24,8 +24,8 @@ export const getHabitYearlyStatus = async ({ id, year }: HabitYearParams): Promi
           gte: startDate,
           lte: endDate,
         },
-        diaryHabits: {
-          some: { habitId },
+        habits: {
+          some: { id: habitId },
         },
       },
       select: { date: true },

@@ -50,17 +50,14 @@ export const checkHabit = async ({ habitId, date }: CheckHabitParams): Promise<A
         select: { id: true },
       });
 
-      await tx.diaryHabit.upsert({
-        where: {
-          habitId_diaryId: {
-            habitId: habit.id,
-            diaryId: diary.id,
+      // Diary와 Habit의 암시적 N:M 연결에 habit을 추가한다.
+      // 이미 연결되어 있으면 Prisma가 같은 연결을 중복으로 만들지 않는다.
+      await tx.diary.update({
+        where: { id: diary.id },
+        data: {
+          habits: {
+            connect: { id: habit.id },
           },
-        },
-        update: {},
-        create: {
-          habitId: habit.id,
-          diaryId: diary.id,
         },
       });
     });

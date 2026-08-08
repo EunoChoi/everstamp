@@ -24,19 +24,15 @@ export const getHabitMonthlyStatus = async ({ id, month }: HabitMonthParams): Pr
           gte: startDate,
           lte: endDate,
         },
-        diaryHabits: {
-          some: { habitId },
+        habits: {
+          some: { id: habitId },
         },
       },
       select: {
         date: true,
-        diaryHabits: {
-          where: { habitId },
-          select: {
-            habit: {
-              select: { name: true },
-            },
-          },
+        habits: {
+          where: { id: habitId },
+          select: { name: true },
         },
       },
     });
@@ -45,7 +41,7 @@ export const getHabitMonthlyStatus = async ({ id, month }: HabitMonthParams): Pr
       ok: true,
       data: diaries.map((diary) => ({
         date: diary.date,
-        Habits: diary.diaryHabits.map(({ habit }) => ({ name: habit.name })),
+        Habits: diary.habits.map(({ name }) => ({ name })),
       })),
     };
   } catch (error) {
