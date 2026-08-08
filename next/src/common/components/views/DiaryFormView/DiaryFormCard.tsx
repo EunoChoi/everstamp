@@ -1,13 +1,11 @@
-'use client';
-
-import { ReactNode } from "react";
+import type { ReactNode } from 'react';
 import { inputCardClass } from "../constants";
 
-interface DiaryInputCardProps {
+interface DiaryFormCardProps {
   children: ReactNode;
 }
 
-export const DiaryInputCard = ({ children }: DiaryInputCardProps) => {
+export const DiaryFormCard = ({ children }: DiaryFormCardProps) => {
   return (
     <div className={inputCardClass}>
       {children}
