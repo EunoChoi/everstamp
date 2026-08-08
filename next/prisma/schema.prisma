@@ -7,6 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Diary와 Habit의 N:M 관계는 Prisma의 직접 관계로 선언하고
+// PostgreSQL 내부 연결 테이블은 Prisma가 _DiaryHabit 형태로 관리한다.
+// onDelete: Cascade는 부모 삭제 시 자식도 삭제하고, Restrict는 자식이 있으면 부모 삭제 제한
+
 model User {
   id                Int      @id @default(autoincrement())
   email             String   @unique @db.VarChar(30)
@@ -16,22 +20,28 @@ model User {
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
-  diaries Diary[]
-  habits  Habit[]
+  // User 1 : N Diary
+  diaries         Diary[]
+  // User 1 : N Habit
+  habits          Habit[]
+  // User 1 : N RefreshSession
   refreshSessions RefreshSession[]
+  // User N : M ImageContent — 사용자가 사용할 수 있는 이미지 콘텐츠 목록
+  imageContents   ImageContent[]   @relation("UserImageContent")
 
   @@map("User")
 }
 
 model RefreshSession {
-  id                Int      @id @default(autoincrement())
-  userId            Int
-  sessionId         String   @unique @db.VarChar(64)
-  currentTokenHash  String   @db.VarChar(128)
+  id                       Int       @id @default(autoincrement())
+  userId                   Int
+  sessionId                String    @unique @db.VarChar(64)
+  currentTokenHash         String    @db.VarChar(128)
   absoluteSessionExpiresAt DateTime
-  revokedAt         DateTime?
-  createdAt         DateTime @default(now())
+  revokedAt                DateTime?
+  createdAt                DateTime  @default(now())
 
+  // RefreshSession N : 1 User
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
@@ -50,9 +60,12 @@ model Diary {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user        User         @relation(fields: [userId], references: [id], onDelete: Restrict)
-  images      Image[]
-  diaryHabits DiaryHabit[]
+  // Diary N : 1 User
+  user   User    @relation(fields: [userId], references: [id], onDelete: Restrict)
+  // Diary 1 : N Image
+  images Image[]
+  // Diary N : M Habit — 연결 row는 Prisma가 관리하는 암시적 관계 테이블에 저장된다.
+  habits Habit[] @relation("DiaryHabit")
 
   @@unique([userId, date])
   @@index([userId, date])
@@ -68,8 +81,10 @@ model Habit {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user        User         @relation(fields: [userId], references: [id], onDelete: Restrict)
-  diaryHabits DiaryHabit[]
+  // Habit N : 1 User
+  user    User    @relation(fields: [userId], references: [id], onDelete: Restrict)
+  // Habit N : M Diary — 연결 row는 Prisma가 관리하는 암시적 관계 테이블에 저장된다.
+  diaries Diary[] @relation("DiaryHabit")
 
   @@unique([userId, name])
   @@index([userId])
@@ -77,27 +92,39 @@ model Habit {
 }
 
 model Image {
-  id        Int      @id @default(autoincrement())
-  src       String   @db.VarChar(500)
-  order     Int?
-  diaryId   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  imageContentId String
+  order          Int?
+  diaryId        Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  diary Diary @relation(fields: [diaryId], references: [id], onDelete: Restrict)
+  // Image N : 1 Diary
+  diary        Diary        @relation(fields: [diaryId], references: [id], onDelete: Restrict)
+  // Image N : 1 ImageContent — 여러 Diary의 Image row가 같은 이미지 콘텐츠를 참조할 수 있다.
+  imageContent ImageContent @relation(fields: [imageContentId], references: [id], onDelete: Restrict)
 
   @@index([diaryId])
+  @@index([imageContentId])
   @@map("Image")
 }
 
-model DiaryHabit {
-  habitId Int @map("HabitId")
-  diaryId Int @map("diaryId")
+model ImageContent {
+  id          String   @id @default(uuid())
+  // 최적화된 이미지가 동일한지 판단하기 위한 전역 SHA-256 콘텐츠 해시다.
+  contentHash String?  @unique @db.Char(64)
+  // OCI 내부 객체 경로다. 브라우저에 전달하는 signed URL(src)과 다르다.
+  storagePath String   @db.VarChar(500)
+  contentType String   @db.VarChar(100)
+  size        Int
+  status      String   @default("PENDING") @db.VarChar(20)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  diary Diary @relation(fields: [diaryId], references: [id], onDelete: Cascade)
-  habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  // ImageContent N : M User — 사용자별로 사용할 수 있는 콘텐츠를 연결한다.
+  users  User[]  @relation("UserImageContent")
+  // ImageContent 1 : N Image — 여러 Diary에서 같은 물리 콘텐츠를 사용할 수 있다.
+  images Image[]
 
-  @@id([habitId, diaryId])
-  @@index([diaryId])
-  @@map("DiaryHabit")
+  @@map("ImageContent")
 }
