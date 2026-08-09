@@ -1,6 +1,6 @@
 
 
-import HabitInputView from "@/common/components/views/HabitInputView";
+import HabitFormView from "@/common/components/views/HabitFormView";
 import { getHabitById } from "@/common/actions/habit";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -17,7 +17,7 @@ const EditHabitPage = async ({ searchParams }: Props) => {
   let habitId = params.id;
 
   await queryClient.prefetchQuery({
-    queryKey: ['habits', 'id', habitId],
+    queryKey: ['habit', 'id', habitId],
     queryFn: async () => {
       const result = await getHabitById({ id: habitId });
       if (!result.ok) throw new Error(result.message);
@@ -28,7 +28,7 @@ const EditHabitPage = async ({ searchParams }: Props) => {
   const dehydratedState = dehydrate(queryClient)
   return (
     <HydrationBoundary state={dehydratedState}>
-      <HabitInputView isEdit={true} habitId={habitId} />
+      <HabitFormView isEdit={true} habitId={habitId} />
     </HydrationBoundary>
   );
 }

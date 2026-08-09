@@ -1,9 +1,9 @@
-import HabitInputView from "@/common/components/views/HabitInputView";
+import HabitFormView from "@/common/components/views/HabitFormView";
 
 const AddHabitPage = () => {
   return (
     <>
-      <HabitInputView isEdit={false} />
+      <HabitFormView isEdit={false} />
     </>
   );
 }

@@ -1,10 +1,10 @@
-import DiaryInputView from "@/common/components/views/DiaryInputView";
+import DiaryFormView from "@/common/components/views/DiaryFormView";
 
 
 const AddDiaryPage = () => {
   return (
     <>
-      <DiaryInputView isEdit={false} />
+      <DiaryFormView isEdit={false} />
     </>
   );
 }

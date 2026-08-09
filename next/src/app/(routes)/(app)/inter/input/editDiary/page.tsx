@@ -1,4 +1,4 @@
-import DiaryInputView from "@/common/components/views/DiaryInputView";
+import DiaryFormView from "@/common/components/views/DiaryFormView";
 import { getDiaryById } from "@/common/actions/diary";
 
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
@@ -29,7 +29,7 @@ const EditDiaryPage = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <DiaryInputView isEdit={true} diaryId={diaryId} />
+      <DiaryFormView isEdit={true} diaryId={diaryId} />
     </HydrationBoundary>
   );
 }

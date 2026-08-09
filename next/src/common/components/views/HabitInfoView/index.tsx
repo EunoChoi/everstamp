@@ -22,7 +22,7 @@ const HabitInfoView = ({ habitId }: Props) => {
   const [chartDate, setChartDate] = useState<Date>(new Date());
 
   const { data: habitDataById, isError } = useQuery({
-    queryKey: ['habits', 'id', habitId],
+    queryKey: ['habit', 'id', habitId],
     queryFn: () => authAction(() => getHabitById({ id: habitId })),
     enabled: habitId !== null,
   });

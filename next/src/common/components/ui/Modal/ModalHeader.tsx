@@ -9,13 +9,22 @@ interface ModalHeaderProps {
   title?: string;
   confirmText?: string;
   onConfirm?: () => void;
+  onBack?: () => void;
+  isDisabled?: boolean;
 }
 
 const modalHeaderClass = "relative flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-between px-[4dvw] tablet:px-6";
 const modalHeaderButtonClass = "flex items-center justify-center text-theme-accent";
 const modalHeaderTitleClass = "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-base text-theme-text-primary";
 
-export const ModalHeader = ({ className, title, confirmText = '완료', onConfirm }: ModalHeaderProps) => {
+export const ModalHeader = ({
+  className,
+  title,
+  confirmText = '완료',
+  onConfirm,
+  onBack,
+  isDisabled = false,
+}: ModalHeaderProps) => {
   const router = useRouter();
 
   return (
@@ -27,7 +36,7 @@ export const ModalHeader = ({ className, title, confirmText = '완료', onConfir
     >
       <button
         className={modalHeaderButtonClass}
-        onClick={() => router.back()}
+        onClick={onBack ?? (() => router.back())}
         type="button"
       >
         <MdArrowBackIos />
@@ -40,6 +49,7 @@ export const ModalHeader = ({ className, title, confirmText = '완료', onConfir
       {onConfirm ? (
         <button
           className={modalHeaderButtonClass}
+          disabled={isDisabled}
           onClick={onConfirm}
           type="button"
         >
