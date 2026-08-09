@@ -34,15 +34,11 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
           id: true,
           visible: true,
           date: true,
-          diaryHabits: {
+          habits: {
             select: {
-              habit: {
-                select: {
-                  id: true,
-                  name: true,
-                  priority: true,
-                },
-              },
+              id: true,
+              name: true,
+              priority: true,
             },
           },
         },
@@ -60,7 +56,7 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
     });
 
     diaries.forEach((diary) => {
-      const habits = diary.diaryHabits.map(({ habit }) => habit);
+      const habits = diary.habits;
       if (habits.length > 0) {
         habits.forEach((habit) => {
           if (habitCounts[habit.id]) {

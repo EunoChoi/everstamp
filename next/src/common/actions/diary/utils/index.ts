@@ -1,9 +1,14 @@
 import CryptoJS from 'crypto-js';
+import type { Prisma } from '@prisma/client';
 
 import type { AuthResult } from '../../../auth/getAuth';
+import { DIARY_TEXT_MAX_LENGTH } from '../../../constants/diary';
 import { getEnvValue } from '../../../utils/getEnvValue';
+import { isValidLocalDateString } from '../../../utils/date/isValidLocalDateString';
 import { recomputeUserDiaryStreak } from '../../streak';
 import type { ActionResult } from '../../types';
+import { DIARY_IMAGE_MAX_COUNT } from '../../../constants/image';
+import { createImageSignedUrl } from '../../image/utils';
 import type { DiaryData, DiaryWithRelations } from '../types';
 
 export const createAuthErrorResult = (error: Extract<AuthResult, { ok: false }>): ActionResult<never> => {
@@ -23,17 +28,13 @@ export const createServerErrorResult = (): ActionResult<never> => {
 };
 
 export const validateDateFormat = (dateString: string | undefined) => {
-  if (!dateString || typeof dateString !== 'string') return false;
+  return isValidLocalDateString(dateString);
+};
 
-  const regex = /^\d{4}-\d{2}-\d{2}$/;
-  if (!regex.test(dateString)) return false;
-
-  const [year, month, day] = dateString.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-
-  return date.getFullYear() === year &&
-    date.getMonth() === month - 1 &&
-    date.getDate() === day;
+export const isValidDiaryText = (text: unknown): text is string => {
+  return typeof text === 'string'
+    && text.trim().length > 0
+    && text.length <= DIARY_TEXT_MAX_LENGTH;
 };
 
 export const getMonthRange = (monthString: string) => {
@@ -68,7 +69,50 @@ export const parseDiaryId = (id: string | number | null | undefined) => {
   return diaryId;
 };
 
-export const formatDiaryData = (diary: DiaryWithRelations): DiaryData => {
+export const validateAccessibleImageContents = async (
+  tx: Prisma.TransactionClient,
+  imageContentIds: unknown,
+  userId: number,
+) => {
+  if (!Array.isArray(imageContentIds) || imageContentIds.length > DIARY_IMAGE_MAX_COUNT) {
+    throw new Error('INVALID_IMAGE_LIST');
+  }
+
+  if (imageContentIds.some((imageContentId) => typeof imageContentId !== 'string' || imageContentId.length === 0)) {
+    throw new Error('INVALID_IMAGE_LIST');
+  }
+
+  const uniqueImageContentIds = new Set(imageContentIds);
+  if (uniqueImageContentIds.size !== imageContentIds.length) {
+    throw new Error('INVALID_IMAGE_LIST');
+  }
+
+  const imageContents = await tx.imageContent.findMany({
+    where: {
+      id: { in: imageContentIds },
+      status: 'READY',
+      users: {
+        some: {
+          id: userId,
+        },
+      },
+    },
+    select: { id: true },
+  });
+
+  if (imageContents.length !== imageContentIds.length) {
+    throw new Error('IMAGE_NOT_OWNED');
+  }
+};
+
+export const formatDiaryData = async (diary: DiaryWithRelations): Promise<DiaryData> => {
+  const images = await Promise.all(diary.images.map(async (image) => ({
+    id: String(image.id),
+    imageContentId: image.imageContentId,
+    src: await createImageSignedUrl(image.imageContent.storagePath),
+    order: image.order,
+  })));
+
   return {
     email: diary.email,
     id: diary.id,
@@ -76,12 +120,8 @@ export const formatDiaryData = (diary: DiaryWithRelations): DiaryData => {
     text: decryptDiaryText(diary.text),
     emotion: diary.emotion,
     visible: diary.visible,
-    Images: diary.images.map((image) => ({
-      id: String(image.id),
-      src: image.src,
-      order: image.order,
-    })),
-    Habits: diary.diaryHabits.map(({ habit }) => ({
+    Images: images,
+    Habits: diary.habits.map((habit) => ({
       UserId: habit.userId,
       id: habit.id,
       email: habit.email,

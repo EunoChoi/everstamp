@@ -1,4 +1,5 @@
-import { S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 import type { AuthResult } from '../../../auth/getAuth';
 import { getEnvValue } from '../../../utils/getEnvValue';
@@ -26,4 +27,20 @@ export const createS3Client = () => {
     },
     forcePathStyle: true,
   });
+};
+
+export const createImageSignedUrl = async (storagePath: string, expiresInSeconds = 300) => {
+  const s3 = createS3Client();
+
+  return getSignedUrl(
+    // The AWS packages currently resolve two compatible but separately typed
+    // @smithy/types versions. The presigner and S3 client use the same runtime
+    // client; this cast only bridges that dependency typing mismatch.
+    s3 as unknown as Parameters<typeof getSignedUrl>[0],
+    new GetObjectCommand({
+      Bucket: getEnvValue('OCI_BUCKET_NAME'),
+      Key: storagePath,
+    }) as unknown as Parameters<typeof getSignedUrl>[1],
+    { expiresIn: expiresInSeconds },
+  );
 };

@@ -16,15 +16,19 @@ export const getDiaryById = async ({ id }: IdParams): Promise<ActionResult<Diary
 
     const diary = await prisma.diary.findFirst({
       where: {
-        email: auth.email,
+        userId: auth.userId,
         id: diaryId,
         visible: true,
       },
       include: {
-        images: { orderBy: { order: 'asc' } },
-        diaryHabits: {
-          include: { habit: true },
-          orderBy: { habit: { priority: 'desc' } },
+        images: {
+          include: {
+            imageContent: true,
+          },
+          orderBy: { order: 'asc' },
+        },
+        habits: {
+          orderBy: { priority: 'desc' },
         },
       },
     });
@@ -33,7 +37,7 @@ export const getDiaryById = async ({ id }: IdParams): Promise<ActionResult<Diary
       return { ok: false, code: 'DIARY_NOT_FOUND', message: '다이어리를 찾을 수 없습니다.' };
     }
 
-    return { ok: true, data: formatDiaryData(diary) };
+    return { ok: true, data: await formatDiaryData(diary) };
   } catch (error) {
     console.error(error);
     return createServerErrorResult();
