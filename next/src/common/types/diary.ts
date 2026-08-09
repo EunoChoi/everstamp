@@ -1,7 +1,9 @@
 
 export interface DiaryImage {
   id: string;
+  imageContentId: string;
   src: string;
+  order: number | null;
 }
 
 export interface DiaryHabit {

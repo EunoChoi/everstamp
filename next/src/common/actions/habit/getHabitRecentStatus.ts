@@ -28,8 +28,8 @@ export const getHabitRecentStatus = async ({ id, date }: HabitDateParams): Promi
           gte: startDateStr,
           lte: date,
         },
-        diaryHabits: {
-          some: { habitId },
+        habits: {
+          some: { id: habitId },
         },
       },
       select: { date: true },

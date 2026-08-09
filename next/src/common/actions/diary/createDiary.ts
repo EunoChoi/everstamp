@@ -4,12 +4,12 @@ import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { CreateDiaryParams, DiaryData } from './types';
-import { createAuthErrorResult, createServerErrorResult, encryptDiaryText, formatDiaryData, recomputeStreak, validateDateFormat } from './utils';
+import { createAuthErrorResult, createServerErrorResult, encryptDiaryText, formatDiaryData, isValidDiaryText, recomputeStreak, validateDateFormat, validateAccessibleImageContents } from './utils';
 
 export const createDiary = async ({
   date,
   text,
-  images,
+  imageContentIds,
   emotion,
 }: CreateDiaryParams): Promise<ActionResult<DiaryData>> => {
   try {
@@ -19,14 +19,14 @@ export const createDiary = async ({
     if (emotion === undefined || emotion === null || emotion < 0 || emotion > 9) {
       return { ok: false, code: 'INVALID_EMOTION', message: '감정 값이 올바르지 않습니다. (0-9)' };
     }
-    if (!validateDateFormat(date) || typeof text !== 'string') {
-      return { ok: false, code: 'INVALID_DIARY_INPUT', message: 'date와 text는 필수이며 text는 문자열이어야 합니다.' };
+    if (!validateDateFormat(date) || !isValidDiaryText(text)) {
+      return { ok: false, code: 'INVALID_DIARY_INPUT', message: '날짜와 일기 내용을 확인해주세요.' };
     }
     const diaryDate = date as string;
 
     const diary = await prisma.$transaction(async (tx) => {
       const user = await tx.user.findUnique({
-        where: { email: auth.email },
+        where: { id: auth.userId },
         select: { id: true },
       });
 
@@ -44,6 +44,10 @@ export const createDiary = async ({
       if (existingDiary?.visible) {
         throw new Error('DIARY_ALREADY_EXISTS');
       }
+
+      // Diary를 변경하기 전에 요청한 모든 이미지 콘텐츠가 현재 사용자에게 연결되어 있고 READY인지 확인한다.
+      // 이 검증이 끝나기 전에는 기존 Image 연결을 삭제하지 않는다.
+      await validateAccessibleImageContents(tx, imageContentIds, auth.userId);
 
       const diaryData = existingDiary
         ? await tx.diary.update({
@@ -69,10 +73,10 @@ export const createDiary = async ({
         where: { diaryId: diaryData.id },
       });
 
-      if (images.length > 0) {
+      if (imageContentIds.length > 0) {
         await tx.image.createMany({
-          data: images.map((src, index) => ({
-            src,
+          data: imageContentIds.map((imageContentId, index) => ({
+            imageContentId,
             order: index,
             diaryId: diaryData.id,
           })),
@@ -82,23 +86,33 @@ export const createDiary = async ({
       return tx.diary.findUniqueOrThrow({
         where: { id: diaryData.id },
         include: {
-          images: { orderBy: { order: 'asc' } },
-          diaryHabits: {
-            include: { habit: true },
-            orderBy: { habit: { priority: 'desc' } },
+          images: {
+            include: {
+              imageContent: true,
+            },
+            orderBy: { order: 'asc' },
+          },
+          habits: {
+            orderBy: { priority: 'desc' },
           },
         },
       });
     });
 
     await recomputeStreak(auth.email);
-    return { ok: true, data: formatDiaryData(diary) };
+    return { ok: true, data: await formatDiaryData(diary) };
   } catch (error) {
     if (error instanceof Error && error.message === 'USER_NOT_FOUND') {
       return { ok: false, code: 'USER_NOT_FOUND', message: '유저가 존재하지 않습니다.' };
     }
     if (error instanceof Error && error.message === 'DIARY_ALREADY_EXISTS') {
       return { ok: false, code: 'DIARY_ALREADY_EXISTS', message: '해당 날짜에 일기가 이미 존재합니다.' };
+    }
+    if (error instanceof Error && error.message === 'INVALID_IMAGE_LIST') {
+      return { ok: false, code: 'INVALID_IMAGE_LIST', message: '이미지 목록이 올바르지 않습니다.' };
+    }
+    if (error instanceof Error && error.message === 'IMAGE_NOT_OWNED') {
+      return { ok: false, code: 'IMAGE_NOT_OWNED', message: '사용할 수 없는 이미지가 포함되어 있습니다.' };
     }
 
     console.error(error);

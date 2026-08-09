@@ -18,8 +18,8 @@ export const getTodayHabitStat = async (): Promise<ActionResult<TodayHabitStat>>
       prisma.diary.findFirst({
         where: { email: auth.email, date: todayDate },
         select: {
-          diaryHabits: {
-            select: { habitId: true },
+          habits: {
+            select: { id: true },
           },
         },
       }),
@@ -29,7 +29,7 @@ export const getTodayHabitStat = async (): Promise<ActionResult<TodayHabitStat>>
       ok: true,
       data: {
         createdHabits: habitCount,
-        todayDoneHabits: todayDiary?.diaryHabits.length || 0,
+        todayDoneHabits: todayDiary?.habits.length || 0,
       },
     };
   } catch (error) {
