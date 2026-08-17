@@ -1,0 +1,41 @@
+model Diary {
+  id        Int      @id @default(autoincrement())
+  email     String   @db.VarChar(30)
+  visible   Boolean
+  emotion   Int
+  text      String
+  date      String   @db.VarChar(10)
+  userId    Int      @map("UserId")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Diary N : 1 User, onDelete: Cascade - 사용자를 삭제하면 일기도 함께 삭제
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Diary 1 : N Image
+  images Image[]
+  // Diary N : M Habit — 암시적 관계 테이블
+  habits Habit[] @relation("DiaryHabit")
+
+  @@unique([userId, date])
+  @@index([userId, date])
+  @@map("Diary")
+}
+
+model Habit {
+  id        Int      @id @default(autoincrement())
+  email     String   @db.VarChar(30)
+  name      String   @db.VarChar(50)
+  priority  Int
+  userId    Int      @map("UserId")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Habit N : 1 User, onDelete: Cascade - 사용자를 삭제하면 습관도 함께 삭제
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // Habit N : M Diary — 암시적 관계 테이블
+  diaries Diary[] @relation("DiaryHabit")
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("Habit")
+}

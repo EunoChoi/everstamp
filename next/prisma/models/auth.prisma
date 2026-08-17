@@ -1,0 +1,16 @@
+model RefreshSession {
+  id                       Int       @id @default(autoincrement())
+  userId                   Int
+  sessionId                String    @unique @db.VarChar(64)
+  currentTokenHash         String    @db.VarChar(128)
+  absoluteSessionExpiresAt DateTime
+  revokedAt                DateTime?
+  createdAt                DateTime  @default(now())
+
+  // RefreshSession N : 1 User, onDelete : Cascade - 부모 삭제 시 자식도 삭제
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([absoluteSessionExpiresAt])
+  @@map("RefreshSession")
+}

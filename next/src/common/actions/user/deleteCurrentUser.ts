@@ -1,5 +1,7 @@
 'use server';
 
+import { Prisma } from '@prisma/client';
+
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import { clearAccessRefreshToken } from '../../auth/token';
@@ -11,46 +13,14 @@ export const deleteCurrentUser = async (): Promise<ActionResult<string>> => {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
-    await prisma.$transaction(async (tx) => {
-      const user = await tx.user.findUnique({
-        where: { email: auth.email },
-        select: { id: true },
-      });
-
-      if (!user) {
-        throw new Error('USER_NOT_FOUND');
-      }
-
-      const diaries = await tx.diary.findMany({
-        where: { userId: user.id },
-        select: { id: true },
-      });
-      const diaryIds = diaries.map((diary) => diary.id);
-
-      if (diaryIds.length > 0) {
-        await tx.image.deleteMany({
-          where: { diaryId: { in: diaryIds } },
-        });
-      }
-
-      await tx.diary.deleteMany({
-        where: { userId: user.id },
-      });
-      await tx.habit.deleteMany({
-        where: { userId: user.id },
-      });
-
-      // User 삭제 시 RefreshSession의 userId 외래키 onDelete: Cascade가
-      // 해당 계정의 모든 서버 세션을 함께 삭제한다.
-      await tx.user.delete({
-        where: { id: user.id },
-      });
+    await prisma.user.delete({
+      where: { id: auth.userId },
     });
 
     await clearAccessRefreshToken();
     return { ok: true, data: '탈퇴가 완료되었습니다.' };
   } catch (error) {
-    if (error instanceof Error && error.message === 'USER_NOT_FOUND') {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
       return {
         ok: false,
         code: 'USER_NOT_FOUND',

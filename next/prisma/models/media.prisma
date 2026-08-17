@@ -1,0 +1,37 @@
+model Image {
+  id             Int      @id @default(autoincrement())
+  imageContentId String
+  order          Int?
+  diaryId        Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Image N : 1 Diary, onDelete: Cascade - 일기를 삭제하면 이미지 행도 함께 삭제
+  diary        Diary        @relation(fields: [diaryId], references: [id], onDelete: Cascade)
+  // Image N : 1 ImageContent
+  imageContent ImageContent @relation(fields: [imageContentId], references: [id], onDelete: Restrict)
+
+  @@index([diaryId])
+  @@index([imageContentId])
+  @@map("Image")
+}
+
+model ImageContent {
+  id          String   @id @default(uuid())
+  // 최적화된 이미지가 동일한지 판단하기 위한 전역 SHA-256 콘텐츠 해시
+  contentHash String?  @unique @db.Char(64)
+  // OCI 내부 객체 경로 !== 브라우저에 전달하는 signed URL(src)
+  storagePath String   @db.VarChar(500)
+  contentType String   @db.VarChar(100)
+  size        Int
+  status      String   @default("PENDING") @db.VarChar(20)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // ImageContent N : M User — 사용자별로 사용할 수 있는 콘텐츠를 연결
+  users  User[]  @relation("UserImageContent")
+  // ImageContent 1 : N Image
+  images Image[]
+
+  @@map("ImageContent")
+}

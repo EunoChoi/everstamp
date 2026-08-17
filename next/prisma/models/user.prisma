@@ -1,0 +1,20 @@
+model User {
+  id                Int      @id @default(autoincrement())
+  email             String   @unique @db.VarChar(30)
+  provider          String   @db.VarChar(30)
+  currentStreakDays Int?
+  longestStreakDays Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // User 1 : N Diary
+  diaries         Diary[]
+  // User 1 : N Habit
+  habits          Habit[]
+  // User 1 : N RefreshSession
+  refreshSessions RefreshSession[]
+  // User N : M ImageContent — 사용자가 사용할 수 있는 이미지 콘텐츠 목록
+  imageContents   ImageContent[] @relation("UserImageContent")
+
+  @@map("User")
+}

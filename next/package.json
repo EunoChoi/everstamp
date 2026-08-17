@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:generate": "prisma generate",
-    "prisma:db:push": "prisma db push",
-    "prisma:validate": "prisma validate"
+    "prisma:generate": "prisma generate --schema ./prisma",
+    "prisma:db:push": "prisma db push --schema ./prisma",
+    "prisma:validate": "prisma validate --schema ./prisma"
   },
   "dependencies": {
     "@auth/core": "^0.32.0",
