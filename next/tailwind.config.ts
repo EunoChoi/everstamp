@@ -32,6 +32,10 @@ const config: Config = {
         "brand-kakao": "#fae100",
         "brand-kakao-text": "#39181d",
       },
+      backgroundImage: {
+        "scroll-fade-top": "linear-gradient(in oklch to bottom, rgb(var(--theme-bg)) 0%,  rgb(var(--theme-bg) / 0) 100%)",
+        "scroll-fade-bottom": "linear-gradient(in oklch to top, rgb(var(--theme-bg)) 0%,  rgb(var(--theme-bg) / 0) 100%)",
+      },
       fontFamily: {
         title: ["Paperozi", "sans-serif"],
       },
