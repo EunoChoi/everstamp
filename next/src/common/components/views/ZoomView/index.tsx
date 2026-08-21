@@ -48,7 +48,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   if (!diaryData) return null;
 
-  return <RouteModal>
+  return <RouteModal ariaLabel={headerTitle}>
     <ModalHeader title={headerTitle} />
     <ModalBody>
       <div className="h-full w-full">

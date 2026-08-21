@@ -1,8 +1,8 @@
 'use client';
 
 import { cn } from "@/common/utils/cn";
-import { useRouter } from "next/navigation";
 import { MdArrowBackIos } from 'react-icons/md';
+import { useModalClose } from "./ModalShell";
 
 interface ModalHeaderProps {
   className?: string;
@@ -25,7 +25,8 @@ export const ModalHeader = ({
   onBack,
   isDisabled = false,
 }: ModalHeaderProps) => {
-  const router = useRouter();
+  const modalClose = useModalClose();
+  const handleBack = onBack ?? modalClose;
 
   return (
     <div
@@ -34,13 +35,16 @@ export const ModalHeader = ({
         className,
       )}
     >
-      <button
-        className={modalHeaderButtonClass}
-        onClick={onBack ?? (() => router.back())}
-        type="button"
-      >
-        <MdArrowBackIos />
-      </button>
+      {handleBack ? (
+        <button
+          aria-label="모달 닫기"
+          className={modalHeaderButtonClass}
+          onClick={handleBack}
+          type="button"
+        >
+          <MdArrowBackIos />
+        </button>
+      ) : <span />}
       {title ? (
         <span className={modalHeaderTitleClass}>
           {title}

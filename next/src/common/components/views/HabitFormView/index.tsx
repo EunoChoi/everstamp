@@ -102,7 +102,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
   }
 
   return (
-    <RouteModal>
+    <RouteModal ariaLabel={`목표 습관 ${confirmText}`}>
       <ModalHeader
         title={`목표 습관 ${confirmText}`}
         confirmText={confirmText}

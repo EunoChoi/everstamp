@@ -1,6 +1,6 @@
 'use client';
 
-import { Overlay } from "@/common/components/ui/Overlay";
+import { QueryModal } from "@/common/components/ui/Modal/QueryModal";
 import { cn } from "@/common/utils/cn";
 import { ReactNode } from "react";
 
@@ -38,38 +38,35 @@ export const SelectionPanel = ({
   onSubmit,
 }: Props) => {
   return (
-    <Overlay
+    <QueryModal
+      ariaLabel={title}
       isOpen={isOpen}
       onClose={onClose}
-      className="max-tablet:z-[98] tablet:z-[105]"
+      overlayClassName="max-tablet:z-[98] tablet:z-[105]"
+      className={cn(
+        "bg-theme-bg",
+        panelBaseClass,
+        panelMobileClass,
+        panelFloatingClass,
+        panelLandscapeClass,
+        isOpen
+          ? "max-tablet:scale-y-100 tablet:visible tablet:opacity-100"
+          : "max-tablet:scale-y-0 tablet:invisible tablet:opacity-0",
+      )}
     >
-      <div
-        className={cn(
-          "bg-theme-bg",
-          panelBaseClass,
-          panelMobileClass,
-          panelFloatingClass,
-          panelLandscapeClass,
-          isOpen
-            ? "max-tablet:scale-y-100 tablet:visible tablet:opacity-100"
-            : "max-tablet:scale-y-0 tablet:invisible tablet:opacity-0",
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <span className="mb-3 block text-center text-lg font-semibold leading-none text-theme-text-primary">{title}</span>
-        <div className="flex w-full flex-col rounded-theme bg-theme-surface p-4 shadow-theme-floating">
-          {children}
-        </div>
-        {resetLabel && onReset && (
-          <button className="flex items-center justify-center gap-2 text-base text-theme-accent" onClick={onReset} type="button">
-            {resetLabel}
-          </button>
-        )}
-        <div className="flex items-center gap-3">
-          <button className={cn(panelActionButtonClass, "bg-theme-surface text-theme-text-primary")} onClick={onClose} type="button">취소</button>
-          <button className={cn(panelActionButtonClass, "bg-theme-accent text-theme-text-on-accent")} onClick={onSubmit} type="button">확인</button>
-        </div>
+      <span className="mb-3 block text-center text-lg font-semibold leading-none text-theme-text-primary">{title}</span>
+      <div className="flex w-full flex-col rounded-theme bg-theme-surface p-4 shadow-theme-floating">
+        {children}
       </div>
-    </Overlay>
+      {resetLabel && onReset && (
+        <button className="flex items-center justify-center gap-2 text-base text-theme-accent" onClick={onReset} type="button">
+          {resetLabel}
+        </button>
+      )}
+      <div className="flex items-center gap-3">
+        <button className={cn(panelActionButtonClass, "bg-theme-surface text-theme-text-primary")} onClick={onClose} type="button">취소</button>
+        <button className={cn(panelActionButtonClass, "bg-theme-accent text-theme-text-on-accent")} onClick={onSubmit} type="button">확인</button>
+      </div>
+    </QueryModal>
   );
 };

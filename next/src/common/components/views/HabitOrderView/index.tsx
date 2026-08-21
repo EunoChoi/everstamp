@@ -53,7 +53,7 @@ export const HabitOrderView = () => {
   };
 
   return (
-    <RouteModal>
+    <RouteModal ariaLabel="습관 순서 설정">
       <ModalHeader title='습관 순서 설정' onConfirm={onSubmit} />
       <ModalBody withScrollFade={true}>
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />

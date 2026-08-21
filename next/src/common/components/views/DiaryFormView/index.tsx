@@ -117,7 +117,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
   }
 
   return (
-    <RouteModal>
+    <RouteModal ariaLabel={headerTitle}>
       <ModalHeader
         title={headerTitle}
         confirmText={isEdit ? '수정' : '추가'}

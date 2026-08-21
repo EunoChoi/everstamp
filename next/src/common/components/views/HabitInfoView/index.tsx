@@ -32,7 +32,7 @@ const HabitInfoView = ({ habitId }: Props) => {
   }, [isError]);
 
   return (
-    <RouteModal>
+    <RouteModal ariaLabel="습관 정보">
       <ModalHeader title='습관 정보' />
       <ModalBody withScrollFade>
         <div className="flex w-full flex-col gap-12 px-4 py-4 pb-6 tablet:px-6 tablet:py-5 tablet:pb-7">
