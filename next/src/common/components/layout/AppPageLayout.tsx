@@ -1,10 +1,10 @@
 'use client';
 
-import { RefObject, ReactNode } from "react";
+import { ReactNode, RefObject } from "react";
 
-import { PageContent, PageContentProps } from "./PageContent";
-import TopButtons from "../ui/TopButtons/TopButtons";
 import { ScrollContainer } from "../ui/ScrollContainer";
+import TopButtons from "../ui/TopButtons/TopButtons";
+import { PageContent, PageContentProps } from "./PageContent";
 
 interface Props {
   afterContent?: ReactNode;

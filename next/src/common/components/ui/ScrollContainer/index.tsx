@@ -2,9 +2,10 @@
 
 import { cn } from "@/common/utils/cn";
 import { HTMLAttributes, ReactNode, forwardRef, useImperativeHandle, useState } from "react";
-import { MdArrowUpward } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
+import { ScrollBoundary } from "./ScrollBoundary";
 import { ScrollEdgeFade } from "./ScrollEdgeFade";
+import { ScrollToTopButton } from "./ScrollToTopButton";
 
 interface ScrollContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'className'> {
   children: ReactNode;
@@ -15,9 +16,6 @@ interface ScrollContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   showScrollFade?: boolean;
   showScrollToTop?: boolean;
 }
-
-const scrollToTopButtonClass =
-  "absolute right-[4dvw] z-[91] flex h-10 w-10 items-center justify-center rounded-full bg-theme-surface/80 text-xl text-theme-accent shadow-[0_1px_6px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl max-tablet:bottom-[calc(var(--mobileNav)+20px)] tablet:max-desktop:bottom-8 desktop:bottom-12";
 
 export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
   ({
@@ -31,17 +29,18 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
     ...props
   }, ref) => {
     const [scrollArea, setScrollArea] = useState<HTMLDivElement | null>(null);
-    const shouldObserve = showScrollFade || showScrollToTop;
     const { ref: topBoundaryRef, inView: isTopBoundaryVisible } = useInView({
       initialInView: true,
       root: scrollArea,
-      skip: !shouldObserve,
+      skip: !showScrollFade && !showScrollToTop,
     });
     const { ref: bottomBoundaryRef, inView: isBottomBoundaryVisible } = useInView({
       initialInView: true,
       root: scrollArea,
-      skip: !shouldObserve,
+      skip: !showScrollFade,
     });
+    const isVisibleTopFade = !isTopBoundaryVisible;
+    const isVisibleBottomFade = !isBottomBoundaryVisible;
 
     useImperativeHandle(ref, () => scrollArea!, [scrollArea]);
 
@@ -57,42 +56,27 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
           {...props}
         >
           <div className={cn("relative min-h-full w-full shrink-0", contentClassName)}>
-            <div
-              ref={topBoundaryRef}
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 h-px"
-            />
+            <ScrollBoundary ref={topBoundaryRef} edge="top" />
             {children}
-            <div
-              ref={bottomBoundaryRef}
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-px"
-            />
+            <ScrollBoundary ref={bottomBoundaryRef} edge="bottom" />
           </div>
         </div>
         {showScrollFade && (
           <>
             <ScrollEdgeFade
               edge="top"
-              visible={isTopBoundaryVisible}
+              visible={isVisibleTopFade}
               className={cn("absolute inset-x-0 top-0 z-[90]", fadeSizeClassName)}
             />
             <ScrollEdgeFade
               edge="bottom"
-              visible={isBottomBoundaryVisible}
+              visible={isVisibleBottomFade}
               className={cn("absolute inset-x-0 bottom-0 z-[90]", fadeSizeClassName)}
             />
           </>
         )}
-        {showScrollToTop && !isTopBoundaryVisible && (
-          <button
-            aria-label="맨 위로 이동"
-            className={scrollToTopButtonClass}
-            onClick={scrollToTop}
-            type="button"
-          >
-            <MdArrowUpward />
-          </button>
+        {showScrollToTop && isVisibleTopFade && (
+          <ScrollToTopButton onClick={scrollToTop} />
         )}
       </div>
     );
