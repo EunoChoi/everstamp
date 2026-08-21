@@ -62,6 +62,7 @@ const HabitView = () => {
   return (
     <AppPageLayout
       pageRef={pageRef}
+      showScrollToTop
       topButtons={
         <TopButton onClick={onToggle} size='default' >
           <span>{HABIT_SORT_LABELS[sortValue]}</span>

@@ -55,6 +55,7 @@ const HomeView = () => {
 
   return (
     <AppPageLayout
+      showScrollToTop
       topButtons={
         <TopButton size="auto" onClick={openYearFilter}>
           <span>{selectedYear}년</span>

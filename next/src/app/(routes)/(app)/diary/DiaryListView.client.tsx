@@ -9,7 +9,6 @@ import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
@@ -30,7 +29,7 @@ const DiaryListView = () => {
 
   const { data: user } = useCurrentUser();
   const currentUserEmail = user?.email ?? '';
-  const { ref: inViewRef, inView } = useInView({ threshold: 0, delay: 0 });
+  const { ref: inViewRef, inView } = useInView({ root: wrapperRef.current, threshold: 0, delay: 0 });
 
   const { isOpen: isEmotionFilterOpen, open: openEmotionFilter, close: closeEmotionFilter } = useModalParam('emotion-filter');
   const { isOpen: isMonthFilterOpen, open: openMonthFilter, close: closeMonthFilter } = useModalParam('month-filter');
@@ -69,6 +68,7 @@ const DiaryListView = () => {
   return (
     <AppPageLayout
       pageRef={wrapperRef}
+      showScrollToTop
       topButtons={<>
         <TopButton
           size="auto"
@@ -89,7 +89,7 @@ const DiaryListView = () => {
           <span>{sortValue === 'DESC' ? '최신순' : '과거순'}</span>
         </TopButton>
       </>}
-      afterContent={<ScrollToTopButton contentRef={wrapperRef} />}>
+    >
       <EmotionFilter
         contentRef={wrapperRef}
         isOpen={isEmotionFilterOpen}
