@@ -6,22 +6,25 @@ import Image from "next/image";
 
 interface TextSlideProps {
   diaryData: DiaryData;
+  showEmotion?: boolean;
 }
 
-export const TextSlide = ({ diaryData }: TextSlideProps) => {
+export const TextSlide = ({ diaryData, showEmotion = true }: TextSlideProps) => {
   const text = diaryData?.text;
   const emotion = EMOTIONS[diaryData?.emotion];
 
   return (
     <div className="slideChild flex h-full w-full shrink-0 flex-col justify-center gap-8 p-6">
-      <div className="flex justify-center">
-        <Image
-          className="h-16 w-16"
-          width={64}
-          height={64}
-          src={emotion?.src}
-          alt={emotion?.nameKr || '감정'} />
-      </div>
+      {showEmotion && (
+        <div className="flex justify-center">
+          <Image
+            className="h-16 w-16"
+            width={64}
+            height={64}
+            src={emotion?.src}
+            alt={emotion?.nameKr || '감정'} />
+        </div>
+      )}
       {diaryData?.Habits.length > 0 &&
         <div className="flex flex-wrap gap-x-2">
           {diaryData?.Habits?.map((e: { name: string }) => (

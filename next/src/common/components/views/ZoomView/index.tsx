@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { EMOTIONS } from "@/common/constants/emotions";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -35,6 +36,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
   const formattedDay = dateForDisplay ? format(dateForDisplay, 'eeee', { locale: ko }) : '';
   const headerTitle = date ? `${formattedDate} ${formattedDay}` : '';
   const images = diaryData?.Images;
+  const hasImages = (images?.length ?? 0) > 0;
 
   const [zoomState, setZoomState] = useState<'zoom' | ''>('');
 
@@ -49,6 +51,21 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   if (!diaryData) return null;
 
+  const emotion = EMOTIONS[diaryData.emotion];
+  const imageSlides = images?.map((image: ZoomViewImage) => (
+    <Image
+      key={image.id}
+      onClick={zoomToggle}
+      className={zoomState === 'zoom' ? "h-full w-full cursor-pointer object-cover" : "h-full w-full cursor-pointer object-contain"}
+      src={image.src}
+      alt="zoomImage"
+      width={400}
+      height={400}
+      placeholder="blur"
+      blurDataURL={image.src}
+    />
+  ));
+
   return <Modal
     ariaLabel={headerTitle}
     isOpen
@@ -56,27 +73,38 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
     overlayClassName="z-[99999]"
     variant={{ base: 'full', tablet: 'center-base', desktop: 'center-zoom' }}
   >
-    <ModalHeader title={headerTitle} onBack={() => router.back()} />
-    <ModalBody>
-      <div className="h-full w-full">
+    <div className="flex min-h-0 flex-1 flex-col desktop:hidden">
+      <ModalHeader title={headerTitle} onBack={() => router.back()} />
+      <ModalBody className="overflow-hidden">
+        <div className="h-full w-full">
+          <Carousel>
+            <TextSlide diaryData={diaryData} />
+            {imageSlides}
+          </Carousel>
+        </div>
+      </ModalBody>
+    </div>
+    <div className="hidden h-full min-h-0 w-full desktop:flex">
+      <aside className="flex h-full w-[450px] shrink-0 flex-col bg-white border-r border-theme-border-muted">
+        <ModalHeader title={headerTitle} onBack={() => router.back()} />
+        <div className="min-h-0 flex-1">
+          <TextSlide diaryData={diaryData} showEmotion={hasImages} />
+        </div>
+      </aside>
+      <section className="h-full min-w-0 flex-1 overflow-hidden">
         <Carousel>
-          <TextSlide diaryData={diaryData} />
-          {images?.map((e: ZoomViewImage) => (
+          {hasImages ? imageSlides : (
             <Image
-              key={e.id}
-              onClick={zoomToggle}
-              className={zoomState === 'zoom' ? "h-full w-full cursor-pointer object-cover" : "h-full w-full cursor-pointer object-contain"}
-              src={e.src}
-              alt="zoomImage"
-              width={400}
-              height={400}
-              placeholder="blur"
-              blurDataURL={e.src}
+              className="h-80 w-80 object-contain"
+              src={emotion?.src}
+              alt={emotion?.nameKr || '감정'}
+              width={160}
+              height={160}
             />
-          ))}
+          )}
         </Carousel>
-      </div>
-    </ModalBody>
+      </section>
+    </div>
   </Modal>;
 }
 
