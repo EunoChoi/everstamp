@@ -1,8 +1,8 @@
 'use client';
 
+import { useNavItems } from "@/common/hooks/useNavItems";
 import { cn } from "@/common/utils/cn";
 import Link from "next/link";
-import { useNavItems } from "./useNavItems";
 
 const BottomNav = () => {
   const { items, current } = useNavItems();

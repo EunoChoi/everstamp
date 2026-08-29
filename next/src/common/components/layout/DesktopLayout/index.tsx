@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode } from "react";
-import SideBar from "./SideBar";
+import SideBar from "@/common/components/ui/SideBar";
 
 interface Props {
   children: ReactNode;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const desktopLayoutClass = "flex w-screen justify-center";
-const desktopContentClass = "ml-[var(--sidebarWidth)] flex w-[calc(100vw_-_var(--sidebarWidth))] flex-col items-center justify-start";
+const desktopContentClass = "ml-[25dvw] flex w-[75dvw] flex-col items-center justify-start desktop:ml-[var(--sidebarWidth)] desktop:w-[calc(100vw_-_var(--sidebarWidth))]";
 
 const DesktopLayout = ({ modal, children }: Props) => {
   return (

@@ -1,0 +1,53 @@
+'use client';
+
+import Logo from '@/common/components/ui/Logo';
+import { useNavItems } from '@/common/hooks/useNavItems';
+import { cn } from '@/common/utils/cn';
+import Link from 'next/link';
+
+const sideBarBaseClass = "fixed left-0 top-0 z-[100] flex h-[100dvh] flex-col items-center justify-evenly overflow-y-auto bg-theme-surface/80 shadow-theme-sidebar backdrop-blur-xl";
+const sideBarTabletClass = "w-[25dvw] gap-2 px-2";
+const sideBarDesktopClass = "desktop:w-[var(--sidebarWidth)] desktop:gap-16 desktop:px-4";
+
+const logoTabletClass = "scale-100";
+const logoDesktopClass = "desktop:scale-100";
+
+const navBaseClass = "flex h-auto flex-col items-start justify-center";
+const navTabletClass = "w-[80%] gap-4";
+const navDesktopClass = "desktop:w-[70%] desktop:gap-6";
+
+const linkBaseClass = "flex w-full cursor-pointer justify-between whitespace-nowrap font-medium capitalize text-theme-text-secondary transition-colors duration-200";
+const linkTabletClass = "gap-2 text-base";
+const linkDesktopClass = "desktop:justify-between desktop:gap-4 desktop:text-xl";
+
+const contactBaseClass = "w-full text-center text-base text-theme-accent";
+
+const SideBar = () => {
+  const { items, current } = useNavItems();
+
+  return (
+    <aside className={cn(sideBarBaseClass, sideBarTabletClass, sideBarDesktopClass)}>
+      <Logo className={cn(logoTabletClass, logoDesktopClass)} size={32} />
+      <nav className={cn(navBaseClass, navTabletClass, navDesktopClass)}>
+        {items.map(({ key, segment, icon: Icon, label, href }) => (
+          <Link
+            key={key}
+            href={href}
+            className={cn(
+              linkBaseClass,
+              linkTabletClass,
+              linkDesktopClass,
+              current === segment && "text-theme-accent",
+            )}
+          >
+            <Icon className="shrink-0" />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
+      <span className={cn(contactBaseClass)}>eooooostudio@gmail.com</span>
+    </aside>
+  );
+};
+
+export default SideBar;

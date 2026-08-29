@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { getTodayString } from "@/common/functions/getTodayString";
 import { useSelectedLayoutSegment } from "next/navigation";
