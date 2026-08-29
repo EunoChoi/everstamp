@@ -3,12 +3,12 @@
 import { getHabitById } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { Modal } from "../../ui/Modal";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { RouteModal } from "../../ui/Modal/RouteModal";
 import { StarRating } from "../../ui/StarRating";
 import MonthInfo from "./MonthInfo";
 import YearInfo from "./YearInfo";
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const HabitInfoView = ({ habitId }: Props) => {
+  const router = useRouter();
   const [calendarDate, setCalendarDate] = useState<Date>(new Date());
   const [chartDate, setChartDate] = useState<Date>(new Date());
 
@@ -32,8 +33,15 @@ const HabitInfoView = ({ habitId }: Props) => {
   }, [isError]);
 
   return (
-    <RouteModal ariaLabel="습관 정보">
-      <ModalHeader title='습관 정보' />
+    <Modal
+      ariaLabel="습관 정보"
+      contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
+      isOpen
+      onClose={() => router.back()}
+      overlayClassName="z-[99999]"
+      variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+    >
+      <ModalHeader title='습관 정보' onBack={() => router.back()} />
       <ModalBody withScrollFade>
         <div className="flex w-full flex-col gap-12 px-4 py-4 pb-6 tablet:px-6 tablet:py-5 tablet:pb-7">
           <section className="flex w-full flex-col items-center gap-2">
@@ -55,7 +63,7 @@ const HabitInfoView = ({ habitId }: Props) => {
             setDisplayDate={setChartDate} />
         </div>
       </ModalBody>
-    </RouteModal>
+    </Modal>
   );
 };
 

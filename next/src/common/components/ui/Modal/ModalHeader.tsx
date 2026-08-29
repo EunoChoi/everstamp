@@ -2,7 +2,6 @@
 
 import { cn } from "@/common/utils/cn";
 import { MdArrowBackIos } from 'react-icons/md';
-import { useModalClose } from "./ModalShell";
 
 interface ModalHeaderProps {
   className?: string;
@@ -25,9 +24,6 @@ export const ModalHeader = ({
   onBack,
   isDisabled = false,
 }: ModalHeaderProps) => {
-  const modalClose = useModalClose();
-  const handleBack = onBack ?? modalClose;
-
   return (
     <div
       className={cn(
@@ -35,11 +31,11 @@ export const ModalHeader = ({
         className,
       )}
     >
-      {handleBack ? (
+      {onBack ? (
         <button
           aria-label="모달 닫기"
           className={modalHeaderButtonClass}
-          onClick={handleBack}
+          onClick={onBack}
           type="button"
         >
           <MdArrowBackIos />

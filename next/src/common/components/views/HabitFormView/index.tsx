@@ -10,9 +10,9 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
+import { Modal } from '../../ui/Modal';
 import { ModalBody } from '../../ui/Modal/ModalBody';
 import { ModalHeader } from '../../ui/Modal/ModalHeader';
-import { RouteModal } from '../../ui/Modal/RouteModal';
 import { inputViewContentClass } from '../constants';
 import { createHabitRequest } from './functions/createHabitRequest';
 import { updateHabitRequest } from './functions/updateHabitRequest';
@@ -102,7 +102,15 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
   }
 
   return (
-    <RouteModal ariaLabel={`목표 습관 ${confirmText}`}>
+    <Modal
+      ariaLabel={`목표 습관 ${confirmText}`}
+      contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
+      dismissible={!isSubmitting}
+      isOpen
+      onClose={handleBack}
+      overlayClassName="z-[99999]"
+      variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+    >
       <ModalHeader
         title={`목표 습관 ${confirmText}`}
         confirmText={confirmText}
@@ -122,7 +130,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
           </span>
         </div>
       </ModalBody>
-    </RouteModal>
+    </Modal>
   );
 };
 

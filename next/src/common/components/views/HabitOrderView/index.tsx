@@ -6,10 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
+import { Modal } from '@/common/components/ui/Modal';
 import { ModalBody } from '@/common/components/ui/Modal/ModalBody';
 import { ModalFooter } from '@/common/components/ui/Modal/ModalFooter';
 import { ModalHeader } from '@/common/components/ui/Modal/ModalHeader';
-import { RouteModal } from '@/common/components/ui/Modal/RouteModal';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { Habit } from './_types';
@@ -24,7 +24,7 @@ export const HabitOrderView = () => {
   //custom habits data load
   const { data: customHabits } = useQuery({
     queryKey: ['habits', 'list', 'CUSTOM'],
-      queryFn: () => authAction(() => getHabitList({ sortType: 'CUSTOM', customHabitOrder })),
+    queryFn: () => authAction(() => getHabitList({ sortType: 'CUSTOM', customHabitOrder })),
   });
 
   const [tempHabits, setTempHabits] = useState<Habit[]>([]);
@@ -53,13 +53,20 @@ export const HabitOrderView = () => {
   };
 
   return (
-    <RouteModal ariaLabel="습관 순서 설정">
-      <ModalHeader title='습관 순서 설정' onConfirm={onSubmit} />
+    <Modal
+      ariaLabel="습관 순서 설정"
+      contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
+      isOpen
+      onClose={() => router.back()}
+      overlayClassName="z-[99999]"
+      variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+    >
+      <ModalHeader title='습관 순서 설정' onBack={() => router.back()} onConfirm={onSubmit} />
       <ModalBody withScrollFade={true}>
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
       </ModalBody>
       <ModalFooter>
         <button className="text-base capitalize text-theme-accent" onClick={onInitialize} type="button">변경사항 취소</button>
       </ModalFooter>
-    </RouteModal>);
+    </Modal>);
 }

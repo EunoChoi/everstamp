@@ -9,9 +9,9 @@ import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
+import { Modal } from '../../ui/Modal';
 import { ModalBody } from '../../ui/Modal/ModalBody';
 import { ModalHeader } from '../../ui/Modal/ModalHeader';
-import { RouteModal } from '../../ui/Modal/RouteModal';
 import { inputViewContentClass } from '../constants';
 import DiaryFormEmotionSection from './DiaryFormEmotionSection';
 import DiaryFormImagesSection from './DiaryFormImagesSection';
@@ -117,7 +117,15 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
   }
 
   return (
-    <RouteModal ariaLabel={headerTitle}>
+    <Modal
+      ariaLabel={headerTitle}
+      contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
+      dismissible={!isSubmitting}
+      isOpen
+      onClose={handleBack}
+      overlayClassName="z-[99999]"
+      variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+    >
       <ModalHeader
         title={headerTitle}
         confirmText={isEdit ? '수정' : '추가'}
@@ -144,7 +152,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
           />
         </div>
       </ModalBody>
-    </RouteModal>
+    </Modal>
   );
 };
 

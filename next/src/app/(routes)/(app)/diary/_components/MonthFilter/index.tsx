@@ -1,5 +1,6 @@
 'use client';
 
+import { Modal } from "@/common/components/ui/Modal";
 import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useSearchParams } from "next/navigation";
@@ -63,21 +64,29 @@ const MonthFilter = ({
   };
 
   return (
-    <SelectionPanel
+    <Modal
+      ariaLabel="기간 선택"
+      contentClassName="tablet:w-[400px] desktop:w-[450px]"
       isOpen={isOpen}
-      title="기간 선택"
-      resetLabel={<><MdRefresh />초기화</>}
       onClose={() => onClose()}
-      onReset={onInitialize}
-      onSubmit={onSubmit}
+      overlayClassName="z-[98] tablet:z-[105]"
+      variant={{ base: 'top', tablet: 'center', desktop: 'center' }}
     >
-      <MonthSelector
-        selectedYear={tempYear}
-        setSelectedYear={setTempYear}
-        selectedMonth={tempMonth}
-        setSelectedMonth={setTempMonth}
-      />
-    </SelectionPanel>
+      <SelectionPanel
+        title="기간 선택"
+        resetLabel={<><MdRefresh />초기화</>}
+        onCancel={() => onClose()}
+        onReset={onInitialize}
+        onSubmit={onSubmit}
+      >
+        <MonthSelector
+          selectedYear={tempYear}
+          setSelectedYear={setTempYear}
+          selectedMonth={tempMonth}
+          setSelectedMonth={setTempMonth}
+        />
+      </SelectionPanel>
+    </Modal>
   );
 };
 

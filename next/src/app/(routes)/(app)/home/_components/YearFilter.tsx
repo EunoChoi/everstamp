@@ -1,5 +1,6 @@
 'use client';
 
+import { Modal } from "@/common/components/ui/Modal";
 import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { cn } from "@/common/utils/cn";
 import { useEffect, useState } from "react";
@@ -27,32 +28,40 @@ const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props
   };
 
   return (
-    <SelectionPanel
+    <Modal
+      ariaLabel="연도 선택"
+      contentClassName="tablet:w-[400px] desktop:w-[450px]"
       isOpen={isOpen}
-      title="연도 선택"
       onClose={() => onClose()}
-      onSubmit={onSubmit}
+      overlayClassName="z-[98] tablet:z-[105]"
+      variant={{ base: 'top', tablet: 'center', desktop: 'center' }}
     >
-      <div className={yearGridClass}>
-        {years.map((year) => {
-          const selected = year === tempYear;
+      <SelectionPanel
+        title="연도 선택"
+        onCancel={() => onClose()}
+        onSubmit={onSubmit}
+      >
+        <div className={yearGridClass}>
+          {years.map((year) => {
+            const selected = year === tempYear;
 
-          return (
-            <button
-              key={year}
-              className={cn(
-                "rounded-theme px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-theme-action",
-                selected ? "bg-theme-accent font-semibold text-theme-text-on-accent " : "bg-theme-accent/40 font-normal text-theme-text-primary",
-              )}
-              onClick={() => setTempYear(year)}
-              type="button"
-            >
-              {year}년
-            </button>
-          );
-        })}
-      </div>
-    </SelectionPanel>
+            return (
+              <button
+                key={year}
+                className={cn(
+                  "rounded-theme px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-theme-action",
+                  selected ? "bg-theme-accent font-semibold text-theme-text-on-accent " : "bg-theme-accent/40 font-normal text-theme-text-primary",
+                )}
+                onClick={() => setTempYear(year)}
+                type="button"
+              >
+                {year}년
+              </button>
+            );
+          })}
+        </div>
+      </SelectionPanel>
+    </Modal>
   );
 };
 

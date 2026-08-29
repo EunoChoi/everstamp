@@ -2,7 +2,7 @@
 import { getDiaryById } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
@@ -10,9 +10,9 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Image from "next/image";
 import Carousel from "../../ui/Carousel";
+import { Modal } from "../../ui/Modal";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { RouteModal } from "../../ui/Modal/RouteModal";
 
 import { TextSlide } from "./TextSlide";
 import { ZoomViewImage } from "./types";
@@ -22,6 +22,7 @@ interface ZoomViewProps {
 }
 
 const ZoomView = ({ diaryId }: ZoomViewProps) => {
+  const router = useRouter();
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
@@ -48,8 +49,15 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   if (!diaryData) return null;
 
-  return <RouteModal ariaLabel={headerTitle}>
-    <ModalHeader title={headerTitle} />
+  return <Modal
+    ariaLabel={headerTitle}
+    contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
+    isOpen
+    onClose={() => router.back()}
+    overlayClassName="z-[99999]"
+    variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+  >
+    <ModalHeader title={headerTitle} onBack={() => router.back()} />
     <ModalBody>
       <div className="h-full w-full">
         <Carousel>
@@ -70,7 +78,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
         </Carousel>
       </div>
     </ModalBody>
-  </RouteModal>;
+  </Modal>;
 }
 
 export default ZoomView;

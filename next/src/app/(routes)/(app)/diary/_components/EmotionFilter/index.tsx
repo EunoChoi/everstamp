@@ -1,6 +1,7 @@
 'use client';
 
 import { EmotionSelector } from "@/common/components/ui/EmotionSelector";
+import { Modal } from "@/common/components/ui/Modal";
 import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useSearchParams } from "next/navigation";
@@ -52,16 +53,24 @@ const EmotionFilter = ({
   };
 
   return (
-    <SelectionPanel
+    <Modal
+      ariaLabel="감정 선택"
+      contentClassName="tablet:w-[400px] desktop:w-[450px]"
       isOpen={isOpen}
-      title="감정 선택"
-      resetLabel={<><MdRefresh />초기화</>}
       onClose={() => onClose()}
-      onReset={onInitialize}
-      onSubmit={onSubmit}
+      overlayClassName="z-[98] tablet:z-[105]"
+      variant={{ base: 'top', tablet: 'center', desktop: 'center' }}
     >
-      <EmotionSelector value={tempEmotion} onChange={setTempEmotion} />
-    </SelectionPanel>
+      <SelectionPanel
+        title="감정 선택"
+        resetLabel={<><MdRefresh />초기화</>}
+        onCancel={() => onClose()}
+        onReset={onInitialize}
+        onSubmit={onSubmit}
+      >
+        <EmotionSelector value={tempEmotion} onChange={setTempEmotion} />
+      </SelectionPanel>
+    </Modal>
   );
 };
 
