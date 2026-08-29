@@ -51,11 +51,10 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   return <Modal
     ariaLabel={headerTitle}
-    contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
     isOpen
     onClose={() => router.back()}
     overlayClassName="z-[99999]"
-    variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+    variant={{ base: 'full', tablet: 'center-base', desktop: 'center-zoom' }}
   >
     <ModalHeader title={headerTitle} onBack={() => router.back()} />
     <ModalBody>

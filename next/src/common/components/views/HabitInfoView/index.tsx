@@ -35,11 +35,10 @@ const HabitInfoView = ({ habitId }: Props) => {
   return (
     <Modal
       ariaLabel="습관 정보"
-      contentClassName="flex min-h-0 flex-col desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px]"
       isOpen
       onClose={() => router.back()}
       overlayClassName="z-[99999]"
-      variant={{ base: 'full', tablet: 'full', desktop: 'center' }}
+      variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
     >
       <ModalHeader title='습관 정보' onBack={() => router.back()} />
       <ModalBody withScrollFade>

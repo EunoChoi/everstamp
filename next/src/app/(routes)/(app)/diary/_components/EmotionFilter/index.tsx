@@ -55,11 +55,10 @@ const EmotionFilter = ({
   return (
     <Modal
       ariaLabel="감정 선택"
-      contentClassName="tablet:w-[400px] desktop:w-[450px]"
       isOpen={isOpen}
       onClose={() => onClose()}
       overlayClassName="z-[98] tablet:z-[105]"
-      variant={{ base: 'top', tablet: 'center', desktop: 'center' }}
+      variant={{ base: 'top', tablet: 'center-base', desktop: 'center-base' }}
     >
       <SelectionPanel
         title="감정 선택"
