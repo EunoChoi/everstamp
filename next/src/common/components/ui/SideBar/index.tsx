@@ -5,9 +5,9 @@ import { useNavItems } from '@/common/hooks/useNavItems';
 import { cn } from '@/common/utils/cn';
 import Link from 'next/link';
 
-const sideBarBaseClass = "fixed left-0 top-0 z-[100] flex h-[100dvh] flex-col items-center justify-evenly overflow-y-auto bg-theme-surface/80 shadow-theme-sidebar backdrop-blur-xl";
-const sideBarTabletClass = "w-[25dvw] gap-2 px-2";
-const sideBarDesktopClass = "desktop:w-[var(--sidebarWidth)] desktop:gap-16 desktop:px-4";
+const sideBarBaseClass = "flex h-full w-full flex-col items-center justify-evenly overflow-y-auto bg-theme-surface/80 shadow-theme-sidebar backdrop-blur-xl";
+const sideBarTabletClass = "gap-2 px-2";
+const sideBarDesktopClass = "desktop:gap-16 desktop:px-4";
 
 const logoTabletClass = "scale-100";
 const logoDesktopClass = "desktop:scale-100";

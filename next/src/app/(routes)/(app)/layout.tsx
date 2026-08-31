@@ -2,10 +2,8 @@
 
 import { ReactNode, useEffect, useState } from "react";
 
-import DesktopLayout from '@/common/components/layout/DesktopLayout';
-import MobileLayout from '@/common/components/layout/MobileLayout';
+import ResponsiveAppLayout from "@/common/components/layout/ResponsiveAppLayout";
 import LoadingScreen from '@/common/components/ui/LoadingScreen';
-import useIsMobile from "@/common/functions/useIsMobile";
 import { useAuthRoute } from "@/common/hooks/useAuthRoute";
 import { AppProviders } from "@/common/providers/AppProviders";
 
@@ -15,7 +13,6 @@ interface Props {
 }
 
 const AppLayout = ({ children, modal }: Props) => {
-  const isMobile = useIsMobile();
   const { user, isLoading } = useAuthRoute();
 
   const [isMinimumLoading, setIsMinimumLoading] = useState(true);
@@ -27,8 +24,8 @@ const AppLayout = ({ children, modal }: Props) => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 실제 로딩 중이거나 모바일 체크 전이면 로딩 화면, 최소 로딩 시간 1200ms
-  if (isLoading || isMobile === null || isMinimumLoading) {
+  // 실제 로딩 중이면 로딩 화면, 최소 로딩 시간 1200ms
+  if (isLoading || isMinimumLoading) {
     return <LoadingScreen />;
   }
   // 비로그인이면 리다이렉트됨 (useAuthRoute에서 처리)
@@ -36,14 +33,12 @@ const AppLayout = ({ children, modal }: Props) => {
     return <LoadingScreen showLogo={false} />;
   }
 
-  const Layout = isMobile ? MobileLayout : DesktopLayout;
-
   return (
     <AppProviders>
-      <Layout>
+      <ResponsiveAppLayout>
         {modal}
         {children}
-      </Layout>
+      </ResponsiveAppLayout>
     </AppProviders>
   );
 }
