@@ -2,8 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
-import { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
@@ -62,7 +62,7 @@ const HomeView = () => {
         </TopButton>
       }
       contentProps={{
-        className: "gap-14 max-tablet:pb-[calc(var(--mobileNav)+48px)] max-tablet:pt-2 tablet:pb-12 tablet:pt-2",
+        className: "gap-14 max-tablet:pt-2 tablet:pt-2",
       }}
       afterContent={
         <YearFilter

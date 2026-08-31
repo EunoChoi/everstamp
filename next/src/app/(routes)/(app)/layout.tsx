@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useState } from "react";
 
 import ResponsiveAppLayout from "@/common/components/layout/ResponsiveAppLayout";
-import LoadingScreen from '@/common/components/ui/LoadingScreen';
+import LoadingScreen from "@/common/components/ui/LoadingScreen";
 import { useAuthRoute } from "@/common/hooks/useAuthRoute";
 import { AppProviders } from "@/common/providers/AppProviders";
 
@@ -20,7 +20,7 @@ const AppLayout = ({ children, modal }: Props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsMinimumLoading(false);
-    }, 1200);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
