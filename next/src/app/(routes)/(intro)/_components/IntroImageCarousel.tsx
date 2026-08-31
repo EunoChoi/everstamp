@@ -1,23 +1,24 @@
 import Image from 'next/image';
 
 import Carousel from '@/common/components/ui/Carousel';
+import { cn } from '@/common/utils/cn';
 import { IMAGE_ALT_TEXT } from '../_constants/images';
 
 interface IntroImageCarouselProps {
+  className?: string;
   images: string[];
-  height?: number;
   priorityFirst?: boolean;
   sizes: string;
 }
 
 const IntroImageCarousel = ({
+  className,
   images,
-  height = 420,
   priorityFirst = false,
   sizes,
 }: IntroImageCarouselProps) => {
   return (
-    <div className="w-full overflow-hidden bg-transparent pt-3" style={{ height }}>
+    <div className={cn("h-[600px] w-full overflow-hidden bg-transparent pt-3", className)}>
       <Carousel>
         {images.map((src, index) => (
           <Image

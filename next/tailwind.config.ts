@@ -37,6 +37,7 @@ const config: Config = {
         "scroll-fade-bottom": "linear-gradient(in oklch to top, rgb(var(--theme-bg)) 0%,  rgb(var(--theme-bg) / 0) 100%)",
       },
       fontFamily: {
+        paperozi: ["Paperozi", "sans-serif"],
         title: ["Paperozi", "sans-serif"],
       },
       fontSize: {
