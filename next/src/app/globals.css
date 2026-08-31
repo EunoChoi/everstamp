@@ -108,11 +108,11 @@ html[data-theme-mode='어둡게'] {
 
 /* app font type */
 html[data-font-type='타입1'] {
-  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
+  --app-font-family: 'Paperozi';
 }
 
 html[data-font-type='타입2'] {
-  --app-font-family: 'Paperozi';
+  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 }
 
 html[data-font-type='타입3'] {
