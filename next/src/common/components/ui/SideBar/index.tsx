@@ -16,11 +16,11 @@ const navBaseClass = "flex h-auto flex-col items-start justify-center";
 const navTabletClass = "w-[80%] gap-4";
 const navDesktopClass = "desktop:w-[70%] desktop:gap-6";
 
-const linkBaseClass = "flex w-full cursor-pointer justify-between whitespace-nowrap font-medium capitalize text-theme-text-secondary transition-colors duration-200";
+const linkBaseClass = "flex w-full cursor-pointer justify-between whitespace-nowrap font-medium capitalize transition-colors duration-200";
 const linkTabletClass = "gap-2 text-base";
 const linkDesktopClass = "desktop:justify-between desktop:gap-4 desktop:text-xl";
 
-const contactBaseClass = "w-full text-center text-base text-theme-accent";
+const contactBaseClass = "w-full text-center text-sm text-theme-accent";
 
 const SideBar = () => {
   const { items, current } = useNavItems();
@@ -37,7 +37,7 @@ const SideBar = () => {
               linkBaseClass,
               linkTabletClass,
               linkDesktopClass,
-              current === segment && "text-theme-accent",
+              current === segment ? "text-theme-accent" : "text-theme-text-secondary",
             )}
           >
             <Icon className="shrink-0" />
