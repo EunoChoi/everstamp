@@ -2,8 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+import { MdSettings } from "react-icons/md";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
@@ -22,6 +23,7 @@ const HomeView = () => {
   usePrefetchPage();
 
   const currentYear = getYear(new Date());
+  const router = useRouter();
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
   const selectedYear = Number.isInteger(queryYear) && queryYear > 0 ? queryYear : currentYear;
@@ -57,9 +59,17 @@ const HomeView = () => {
     <AppPageLayout
       showScrollToTop
       topButtons={
-        <TopButton size="auto" onClick={openYearFilter}>
-          <span>{selectedYear}년</span>
-        </TopButton>
+        <>
+          <TopButton size="auto" onClick={openYearFilter}>
+            <span>{selectedYear}년</span>
+          </TopButton>
+          <TopButton
+            size="auto"
+            aria-label="설정"
+            onClick={() => router.push('/setting')}>
+            <MdSettings />
+          </TopButton>
+        </>
       }
       contentProps={{
         className: "gap-14 max-tablet:pt-2 tablet:pt-2",
