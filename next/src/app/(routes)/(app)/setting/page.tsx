@@ -30,7 +30,7 @@ const SettingPage = () => {
   return (
     <AppPageLayout
       contentProps={{ className: "gap-6" }}
-      showScrollToTop
+      showScrollToTop={false}
       topButtons={<>
         <TopButton
           size="auto"
