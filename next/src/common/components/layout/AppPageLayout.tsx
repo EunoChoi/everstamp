@@ -3,7 +3,6 @@
 import { ReactNode, RefObject } from "react";
 
 import { ScrollContainer } from "../ui/ScrollContainer";
-import TopButtons from "../ui/TopButtons/TopButtons";
 import { PageContent, PageContentProps } from "./PageContent";
 
 interface Props {
@@ -12,10 +11,10 @@ interface Props {
   contentProps?: PageContentProps;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
-  topButtons?: ReactNode;
+  topButton?: ReactNode;
 }
 
-const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScrollToTop = false, topButtons }: Props) => {
+const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScrollToTop = false, topButton }: Props) => {
   return (
     <ScrollContainer
       ref={pageRef}
@@ -26,10 +25,10 @@ const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScro
       showScrollFade
       showScrollToTop={showScrollToTop}
     >
-      {topButtons && (
-        <TopButtons>
-          {topButtons}
-        </TopButtons>
+      {topButton && (
+        <div className="sticky top-0 z-[91] flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-end gap-1.5 px-[4dvw] tablet:px-5 desktop:px-12">
+          {topButton}
+        </div>
       )}
 
       <PageContent {...contentProps}>

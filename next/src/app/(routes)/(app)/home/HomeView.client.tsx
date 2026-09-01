@@ -9,7 +9,7 @@ import { MdSettings } from "react-icons/md";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import TopButton from "@/common/components/ui/TopButtons/TopButton";
+import TopButton from "@/common/components/ui/TopButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
@@ -58,16 +58,17 @@ const HomeView = () => {
   return (
     <AppPageLayout
       showScrollToTop
-      topButtons={
+      topButton={
         <>
           <TopButton size="auto" onClick={openYearFilter}>
-            <span>{selectedYear}년</span>
+            {selectedYear}년
           </TopButton>
           <TopButton
             size="auto"
             aria-label="설정"
-            onClick={() => router.push('/setting')}>
-            <MdSettings />
+            onClick={() => router.push('/setting')}
+          >
+            <MdSettings size={18} />
           </TopButton>
         </>
       }

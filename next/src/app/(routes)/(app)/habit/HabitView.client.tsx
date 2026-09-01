@@ -4,7 +4,7 @@ import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import PageTitle from "@/common/components/ui/PageTitle";
-import TopButton from "@/common/components/ui/TopButtons/TopButton";
+import TopButton from "@/common/components/ui/TopButton";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
@@ -63,9 +63,9 @@ const HabitView = () => {
     <AppPageLayout
       pageRef={pageRef}
       showScrollToTop
-      topButtons={
-        <TopButton onClick={onToggle} size='default' >
-          <span>{HABIT_SORT_LABELS[sortValue]}</span>
+      topButton={
+        <TopButton onClick={onToggle}>
+          {HABIT_SORT_LABELS[sortValue]}
         </TopButton>
       }>
       <PageTitle

@@ -9,18 +9,18 @@ import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import TopButton from "@/common/components/ui/TopButtons/TopButton";
-import { EMOTIONS } from "@/common/constants/emotions";
+import TopButton from "@/common/components/ui/TopButton";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
+import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useModalParam } from "@/common/hooks/useModalParam";
-import { useSortToggle } from "@/common/hooks/useSortToggle";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { useSortToggle } from "@/common/hooks/useSortToggle";
+import type { DiaryData } from "@/common/types/diary";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { DiaryList } from "./_components/DiaryList";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
-import type { DiaryData } from "@/common/types/diary";
 
 const DiaryListView = () => {
   usePrefetchPage();
@@ -69,24 +69,25 @@ const DiaryListView = () => {
     <AppPageLayout
       pageRef={wrapperRef}
       showScrollToTop
-      topButtons={<>
+      topButton={<>
         <TopButton
-          size="auto"
-          onClick={() => { openEmotionFilter(); }}
-        >
-          {isEmotionSelected ? <span>{selectedEmotionLabel}</span> : <MdEmojiEmotions />}
-        </TopButton>
-        <TopButton
-          size="auto"
-          onClick={openMonthFilter}
-        >
-          {isPeriodSelected ? <span>{selectedPeriodLabel}</span> : <MdCalendarMonth />}
-        </TopButton>
-        <TopButton
-          size="default"
           onClick={onToggle}
         >
-          <span>{sortValue === 'DESC' ? '최신순' : '과거순'}</span>
+          {sortValue === 'DESC' ? '최신순' : '과거순'}
+        </TopButton>
+        <TopButton
+          size="auto"
+          aria-label="감정 필터"
+          onClick={openEmotionFilter}
+        >
+          {isEmotionSelected ? selectedEmotionLabel : <MdEmojiEmotions size={18} />}
+        </TopButton>
+        <TopButton
+          size="auto"
+          aria-label="기간 필터"
+          onClick={openMonthFilter}
+        >
+          {isPeriodSelected ? selectedPeriodLabel : <MdCalendarMonth size={18} />}
         </TopButton>
       </>}
     >

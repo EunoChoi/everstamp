@@ -3,12 +3,11 @@
 
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import PageTitle from "@/common/components/ui/PageTitle";
-import TopButtonLink from "@/common/components/ui/TopButtons/TopButtonLink";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
 
-import TopButton from '@/common/components/ui/TopButtons/TopButton';
+import TopButton from '@/common/components/ui/TopButton';
 import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
@@ -31,20 +30,19 @@ const SettingPage = () => {
     <AppPageLayout
       contentProps={{ className: "gap-6" }}
       showScrollToTop={false}
-      topButtons={<>
+      topButton={<>
         <TopButton
           size="auto"
+          onClick={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}>
+          PlayStore
+        </TopButton>
+        <TopButton
+          size="auto"
+          aria-label="개인정보 처리방침"
           onClick={() => router.push('/privacy')}
         >
-          <MdPrivacyTip />
+          <MdPrivacyTip size={18} />
         </TopButton>
-        <TopButtonLink
-          size="auto"
-          href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
-          target="_blank"
-          rel="noopener noreferrer">
-          PlayStore
-        </TopButtonLink>
       </>}>
 
       <PageTitle title="앱 설정" />
