@@ -51,7 +51,7 @@ const SettingPage = () => {
 
       <ThemeSettingsSection />
       <AccountInfoSection email={email} provider={provider} createAt={createAt} />
-      <AccountActionSection />
+      <AccountActionSection onDeleteAccount={() => router.push('/account-deletion')} />
     </AppPageLayout >
   );
 };

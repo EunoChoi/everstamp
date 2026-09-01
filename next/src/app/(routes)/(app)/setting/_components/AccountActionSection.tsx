@@ -1,11 +1,14 @@
 import { MdDeleteForever, MdLogout } from "react-icons/md";
-import { onDeleteAccount } from "../_functions/onDeleteAccount";
 import { onLogout } from "../_functions/onLogout";
 import { SettingItem } from "./SettingItem";
 import { SettingSectionCard } from "./SettingSectionCard";
 import { SettingSubsection } from "./SettingSubsection";
 
-export const AccountActionSection = () => {
+interface Props {
+  onDeleteAccount: () => void;
+}
+
+export const AccountActionSection = ({ onDeleteAccount }: Props) => {
   return (
     <SettingSectionCard>
       <SettingSubsection title="계정 관리">

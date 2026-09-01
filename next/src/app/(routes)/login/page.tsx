@@ -45,7 +45,7 @@ const Page = () => {
         {isSuccess ? (
           <>
             <StartButton provider={user.provider as 'google' | 'naver' | 'kakao'} email={user.email} />
-          <button className="text-base text-theme-text-primary" onClick={logout} type="button">로그아웃</button>
+            <button className="text-base text-theme-text-primary" onClick={logout} type="button">로그아웃</button>
           </>
         ) : (
           <LoginButton provider='google' />

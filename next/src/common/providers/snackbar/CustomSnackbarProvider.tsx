@@ -3,8 +3,6 @@
 import { MaterialDesignContent, SnackbarProvider } from "notistack";
 import { ReactNode } from "react";
 
-import DeleteAccountSnackbarContent from "./DeleteAccountSnackbarContent";
-
 interface Props {
   children?: ReactNode;
 }
@@ -14,7 +12,6 @@ const CustomSnackbarProvider = ({ children }: Props) => {
     <SnackbarProvider
       Components={{
         default: MaterialDesignContent,
-        deleteAccount: DeleteAccountSnackbarContent,
       }}
       classes={{
         containerRoot: "app-snackbar-container",
