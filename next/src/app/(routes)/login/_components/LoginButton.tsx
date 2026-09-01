@@ -1,37 +1,25 @@
-import { cn } from '@/common/utils/cn';
+import SocialLoginButton from '@/common/components/ui/SocialLoginButton';
+import { LOGIN_PROVIDERS, type LoginProviderId } from '@/common/constants/loginProviders';
 import { signIn } from 'next-auth/react';
-import Image from 'next/image';
-
-import { LOGIN_PROVIDERS } from '../_constants';
-
 
 interface LoginButtonProps {
-  provider: 'google' | 'naver' | 'kakao',
+  provider: LoginProviderId;
 }
 
 const LoginButton = ({ provider }: LoginButtonProps) => {
+  const providerConfig = LOGIN_PROVIDERS[provider];
   const options = { callbackUrl: '/login' };
 
-  return <button
-    key={LOGIN_PROVIDERS[provider].id + 'login'}
-    className={cn("flex h-12 w-60 items-center justify-between gap-4 rounded-full border-2 border-theme-border px-4",
-      LOGIN_PROVIDERS[provider].bgColor
-    )}
-    onClick={() => signIn(LOGIN_PROVIDERS[provider].id,
-      options,
-      LOGIN_PROVIDERS[provider].signInOptions)}
-  >
-    <Image
-      src={LOGIN_PROVIDERS[provider].icon}
-      width={24}
-      height={24}
-      alt={LOGIN_PROVIDERS[provider].id}
+  return (
+    <SocialLoginButton
+      onClick={() => signIn(
+        providerConfig.id,
+        options,
+        providerConfig.signInOptions,
+      )}
+      provider={provider}
     />
-    <span className={cn('text-base mr-1', LOGIN_PROVIDERS[provider].textColor)}>
-      {LOGIN_PROVIDERS[provider].content}
-    </span>
-    <span></span>
-  </button>
-}
+  );
+};
 
 export default LoginButton;

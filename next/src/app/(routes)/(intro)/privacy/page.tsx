@@ -1,19 +1,17 @@
-import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
-import PrivacyBody from './_components/PrivacyBody';
-import PrivacyHeader from './_components/PrivacyHeader';
+import DocContent from '@/common/components/ui/Doc/DocContent';
+import DocHeader from '@/common/components/ui/Doc/DocHeader';
+import DocLayout from '@/common/components/ui/Doc/DocLayout';
+
+import { PRIVACY_CONTENTS } from './_constants';
 
 const PrivacyPage = () => {
   return (
-    <ScrollContainer
-      className="h-[100dvh] w-[100dvw] bg-theme-bg"
-      showScrollFade
-      showScrollToTop
-    >
-      <main className="mx-auto flex w-full max-w-[720px] flex-col px-5 py-10 tablet:px-8 tablet:py-14">
-        <PrivacyHeader />
-        <PrivacyBody />
-      </main>
-    </ScrollContainer>
+    <DocLayout>
+      <DocHeader title="개인정보처리방침" subtitle="Privacy Policy" />
+      {PRIVACY_CONTENTS.map((content) => (
+        <DocContent key={content.title} {...content} />
+      ))}
+    </DocLayout>
   );
 };
 

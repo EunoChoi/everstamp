@@ -1,8 +1,8 @@
 import { cn } from '@/common/utils/cn';
+import { LOGIN_PROVIDERS } from '@/common/constants/loginProviders';
 import Image from 'next/image';
 
 import { useRouter } from 'next/navigation';
-import { LOGIN_PROVIDERS } from '../_constants';
 
 
 interface StartButtonProps {
